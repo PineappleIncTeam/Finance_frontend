@@ -1,7 +1,15 @@
+// Компонент "Доходы"
 import MainFieldString from './MainFieldString';
+import { useEffect, useState } from 'react';
 
 function MainField() {
-  const oneTime = ['Временные', 'Подработка', 'Наследство', 'Добавить категорию'];
+  
+  const oneTime = [
+    'Временные',
+    'Подработка',
+    'Наследство',
+    'Добавить категорию',
+  ];
   const permanent = [
     'Постоянные',
     'Зарплата',

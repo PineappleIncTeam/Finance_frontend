@@ -1,11 +1,12 @@
+// Первый компонент, главная страница. Будет появляться после странички авторизации. Сейчас сразу отображается на экране.
+
 import './Rectangle.css';
 import Navigation from './Navigation';
 import MainField from './MainField';
-// import MainFieldCosts from './MainFieldCosts';
 import { useState } from 'react';
-// import MainFieldStorage from './MainFieldStorage';
 
 function Rectangle() {
+  // Хук для смены компонента по нажатию кнопок
   const [mainFieldBlock, setMainFieldBlock] = useState(MainField)
   function changeMainField(field) {
     setMainFieldBlock(field);

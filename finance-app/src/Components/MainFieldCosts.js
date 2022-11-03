@@ -1,3 +1,4 @@
+// Компонент "Расходы"
 import MainFieldString from './MainFieldString';
 
 function MainFieldCosts() {

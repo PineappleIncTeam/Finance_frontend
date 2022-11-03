@@ -1,3 +1,4 @@
+// Компонент "Строка", пока выглядит как Список категорий, Инпут, Кнопка. Переиспользуемый
 import SelectElement from './SelectElement';
 
 function MainFieldString(props) {

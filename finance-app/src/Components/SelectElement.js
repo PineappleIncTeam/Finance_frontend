@@ -1,3 +1,4 @@
+// Выпадающий список категорий. будет меняться, т.к. данные о категориях должны приниматься с сервера, с привязкой к конкретному пользователю
 function SelectElement(props) {
   //   const oneTime = [
   //     'Временные',
@@ -13,6 +14,7 @@ function SelectElement(props) {
   //     'Добавить категорию',
   //   ];
   return (
+    
     <select className="select_element">
       {props.type.map((text, index) => {
         return (

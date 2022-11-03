@@ -1,3 +1,4 @@
+// Компонент "Аналитика"
 // import MainFieldString from './MainFieldString';
 
 function MainFieldAnalitic() {

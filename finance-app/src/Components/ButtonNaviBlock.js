@@ -1,3 +1,4 @@
+// Компонент навигации по приложению. Переключает компоненты, соответствующие названию кнопок.
 // import Button from './Button';
 import MainField from './MainField';
 import MainFieldCosts from './MainFieldCosts';

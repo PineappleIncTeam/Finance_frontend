@@ -1,3 +1,4 @@
+// Компонент "Накопления"
 import MainFieldString from "./MainFieldString";
 function MainFieldStorage() {
     const categories = ['Категория','Добавить категорию'];

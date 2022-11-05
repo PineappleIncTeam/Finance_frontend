@@ -1,4 +1,5 @@
 // Форма регистрации, в разработке, будет прикрепляться к приложению
+<<<<<<< HEAD
 import { useState } from 'react';
 import getCookie from './getCookie';
 // import CSRFToken from './CSRFToken'
@@ -16,14 +17,27 @@ async function loginUser(credentials) {
   }).then((loginData) => loginData.json());
   console.log(credentials);
 }
+=======
+import { useEffect, useState } from "react";
+>>>>>>> frank
 
 function Form() {
   // const [username, setUsername] = useState('');
   // const [password, setPassword] = useState('');
 
+<<<<<<< HEAD
   const [data, setData] = useState({ username: '', password: '' });
 
   async function handleFormSubmit(event) {
+=======
+  const [data, setData] = useState({ username: "", password: "" });
+  useEffect(() => {
+    fetch("http://127.0.0.1:8000/api/registration/").then((result) =>
+      console.log(result)
+    );
+  }, []);
+  function handleFormSubmit(event) {
+>>>>>>> frank
     event.preventDefault();
     loginUser(data);
 
@@ -44,7 +58,7 @@ function Form() {
           <input
             type="text"
             value={data.username}
-            onChange={(event) => handleInputChange(event, 'username')}
+            onChange={(event) => handleInputChange(event, "username")}
           ></input>
         </label>
         <label>
@@ -52,7 +66,7 @@ function Form() {
           <input
             type="password"
             value={data.password}
-            onChange={(event) => handleInputChange(event, 'password')}
+            onChange={(event) => handleInputChange(event, "password")}
           ></input>
           <button type="submit">Login</button>
         </label>

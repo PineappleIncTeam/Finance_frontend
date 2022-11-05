@@ -1,32 +1,33 @@
 .App {
   text-align: center;
+  width: 1920px;
+  height: 1080px;
 }
 .rectangle {
   display: flex;
   width: 1920px;
   height: 1080px;
-  background-color: #FAF5E433;
+  background-color: #faf5e433;
   margin-left: 120px;
 }
 
 .navigation {
   width: 405px;
   height: 1080px;
-  background-image: url('../Images/navBlockBack.png');
+  background-image: url("../Images/navBlockBack.png");
 }
 
 .logo_block {
   padding-top: 50px;
-
 }
 .logo {
-  font-family: 'PlayfairDisplay-ExtraBold';
+  font-family: "PlayfairDisplay-ExtraBold";
   font-size: 28px;
   font-weight: 800;
-  color: #125B50;
+  color: #125b50;
 }
 .logo_text {
-  font-family: 'PlayfairDisplay-Medium';
+  font-family: "PlayfairDisplay-Medium";
   font-size: 14px;
   font-weight: 500;
   color: #000000;
@@ -42,7 +43,7 @@
   color: #000000;
   margin-bottom: 6px;
   border: 0;
-  font-family: 'Monserrat-Medium';
+  font-family: "Monserrat-Medium";
   font-size: 24px;
 }
 .button:hover {
@@ -56,26 +57,24 @@
 }
 
 .main_field_title {
-  font-family: 'Monserrat-Medium';
+  font-family: "Monserrat-Medium";
   font-size: 40px;
   font-weight: 400;
-
 }
 .input_rub {
   width: 546px;
   height: 60px;
   margin-top: 70px;
   margin-bottom: 18px;
-  border: 1px solid #B7B7B7;
+  border: 1px solid #b7b7b7;
   border-radius: 8px;
-  
 }
 .select_element {
   width: 264px;
   height: 60px;
-  border: 1px solid #B7B7B7;
+  border: 1px solid #b7b7b7;
   border-radius: 8px;
-  font-family: 'Monserrat-Regular';
+  font-family: "Monserrat-Regular";
   font-weight: 400;
   font-size: 24px;
   margin: 40px 19px 0px;
@@ -84,41 +83,39 @@
 .main_field_string_input {
   width: 254px;
   height: 60px;
-  border: 1px solid #B7B7B7;
+  border: 1px solid #b7b7b7;
   border-radius: 8px;
-  font-family: 'Monserrat-Regular';
+  font-family: "Monserrat-Regular";
   font-weight: 400;
   font-size: 24px;
   margin-top: 40px;
   padding-left: 10px;
-  
 }
 .main_field_string_button {
   cursor: pointer;
   width: 264px;
   height: 60px;
-  border: 1px solid #125B50;
+  border: 1px solid #125b50;
   color: white;
-  font-family: 'Monserrat-Regular';
+  font-family: "Monserrat-Regular";
   font-weight: 600;
   font-size: 24px;
   margin: 40px 19px 0px;
-  background: #125B50;
+  background: #125b50;
   border-radius: 24px;
 }
 .option_list {
-  
-  font-family: 'Monserrat-Regular';
+  font-family: "Monserrat-Regular";
   font-weight: 400;
   font-size: 24px;
 }
-.main_field_analitic{
+.main_field_analitic {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 .label_analitic {
-  font-family: 'Monserrat-Medium';
+  font-family: "Monserrat-Medium";
   font-size: 24px;
   font-weight: 400;
   width: 547px;

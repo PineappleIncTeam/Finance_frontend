@@ -1,14 +1,26 @@
 // Форма регистрации, в разработке, будет прикрепляться к приложению
 import { useState } from 'react';
 
+async function loginUser(credentials) {
+  fetch('http://127.0.0.1:8000/api/drf-auth/login/', {
+    method: 'POST',
+    // headers: {
+    //   'Content-Type': 'application/json',
+    // },
+    body: JSON.stringify(credentials),
+  }).then((loginData) => loginData.json());
+  console.log(credentials);
+}
+
 function Form() {
   // const [username, setUsername] = useState('');
   // const [password, setPassword] = useState('');
 
   const [data, setData] = useState({ username: '', password: '' });
 
-  function handleFormSubmit(event) {
+  async function handleFormSubmit(event) {
     event.preventDefault();
+    loginUser(data);
 
     console.log(data);
     alert(JSON.stringify(data));

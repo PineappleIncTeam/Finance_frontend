@@ -17,7 +17,8 @@ function App() {
   console.log(categories);
   return (
     <div className="App">
-      <Rectangle />
+      <Form />
+      <Rectangle categories={categories}/>
     </div>
   );
 }

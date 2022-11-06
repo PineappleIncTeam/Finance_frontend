@@ -9,6 +9,7 @@
   height: 1080px;
   background-color: #faf5e433;
   margin-left: 120px;
+  background-color: #FAF5E433;
 }
 
 .navigation {
@@ -54,6 +55,7 @@
   padding-top: 171px;
   width: 870px;
   height: 726px;
+  background-color: #FAF5E433;
 }
 
 .main_field_title {
@@ -68,6 +70,7 @@
   margin-bottom: 18px;
   border: 1px solid #b7b7b7;
   border-radius: 8px;
+  background-color: #FAF5E433;
 }
 .select_element {
   width: 264px;
@@ -79,6 +82,7 @@
   font-size: 24px;
   margin: 40px 19px 0px;
   padding-left: 10px;
+  background-color: #FAF5E433;
 }
 .main_field_string_input {
   width: 254px;
@@ -90,6 +94,7 @@
   font-size: 24px;
   margin-top: 40px;
   padding-left: 10px;
+  background-color: #FAF5E433;
 }
 .main_field_string_button {
   cursor: pointer;
@@ -99,10 +104,17 @@
   color: white;
   font-family: "Monserrat-Regular";
   font-weight: 600;
-  font-size: 24px;
+  font-size: 20px;
   margin: 40px 19px 0px;
-  background: #125b50;
+  background: #54782B;
   border-radius: 24px;
+}
+
+.main_field_analitic_h3 {
+  font-family: "Monserrat-Medium";
+  font-size: 28px;
+  font-weight: 400;
+  margin-top: 60px;
 }
 .option_list {
   font-family: "Monserrat-Regular";
@@ -131,3 +143,11 @@
 .analitic_string {
   margin: 30px;
 }
+.analitic_string_down {
+  margin: 40px 9px;
+  width: 264px;
+}
+.analitic_button {
+  margin: 40px 9px;
+}
+

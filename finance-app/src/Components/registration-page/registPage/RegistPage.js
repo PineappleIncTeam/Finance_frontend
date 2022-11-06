@@ -1,11 +1,12 @@
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import Logo from "../Logo";
-import style from "./FormFormik.module.css";
-import * as yup from "yup";
 
-function FormFormik() {
+import style from "./RegistPage.module.css";
+import * as yup from "yup";
+import Logo from "../../Logo";
+
+function RegistPage() {
   const validationSchema = yup.object().shape({
-    email: yup.string().email("Введите верный email").required("Обязательно"),
+    email: yup.string().email("Введите верный email").required("Введите email"),
     password: yup
       .string()
       .typeError("Неверный пароль")
@@ -68,4 +69,4 @@ function FormFormik() {
   );
 }
 
-export default FormFormik;
+export default RegistPage;

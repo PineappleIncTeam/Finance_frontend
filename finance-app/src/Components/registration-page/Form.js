@@ -1,43 +1,29 @@
 // Форма регистрации, в разработке, будет прикрепляться к приложению
-<<<<<<< HEAD
-import { useState } from 'react';
-import getCookie from './getCookie';
-// import CSRFToken from './CSRFToken'
 
-let csrftoken = getCookie('csrftoken')
+import React from "react";
+import { useState } from "react";
+import CSRFToken from "./CSRFToken";
+import Cookies from "js-cookie";
 
 async function loginUser(credentials) {
-  fetch('http://127.0.0.1:8000/api/drf-auth/login/', {
-    method: 'POST',
+  fetch("http://127.0.0.1:8000/api/drf-auth/login/", {
+    method: "POST",
     headers: {
-      'Content-Type': 'application/json',
-      'X-CSRFToken': csrftoken
+      "Content-Type": "application/json",
+      "X-CSRFToken": Cookies.get("csrftoken"),
     },
     body: JSON.stringify(credentials),
   }).then((loginData) => loginData.json());
   console.log(credentials);
 }
-=======
-import { useEffect, useState } from "react";
->>>>>>> frank
 
 function Form() {
   // const [username, setUsername] = useState('');
   // const [password, setPassword] = useState('');
 
-<<<<<<< HEAD
-  const [data, setData] = useState({ username: '', password: '' });
+  const [data, setData] = useState({ username: "", password: "" });
 
   async function handleFormSubmit(event) {
-=======
-  const [data, setData] = useState({ username: "", password: "" });
-  useEffect(() => {
-    fetch("http://127.0.0.1:8000/api/registration/").then((result) =>
-      console.log(result)
-    );
-  }, []);
-  function handleFormSubmit(event) {
->>>>>>> frank
     event.preventDefault();
     loginUser(data);
 
@@ -52,7 +38,7 @@ function Form() {
     <>
       <h1>Login Form</h1>
       <form onSubmit={handleFormSubmit}>
-        
+        <CSRFToken />
         <label>
           Username:
           <input

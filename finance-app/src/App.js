@@ -4,7 +4,8 @@ import "./App.css";
 import Rectangle from "./Components/Rectangle";
 import Form from "./Components/registration-page/Form";
 import { useState, useEffect } from "react";
-import FormFormik from "./Components/registration-page/FormFormik";
+import RegistPage from "./Components/registration-page/registPage/RegistPage";
+
 function App() {
   const [categories, setCategories] = useState("");
 
@@ -19,7 +20,7 @@ function App() {
   return (
     <div className="App">
       <Form />
-      <Rectangle categories={categories}/>
+      <Rectangle categories={categories} />
     </div>
   );
 }

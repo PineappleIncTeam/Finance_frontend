@@ -1,17 +1,33 @@
 import { Formik, Form, Field, ErrorMessage } from "formik";
 
 import style from "./RegistPage.module.css";
-import * as yup from "yup";
+import * as Yup from "yup";
 import Logo from "../../Logo";
+import { useEffect, useState } from "react";
 
-function RegistPage() {
-  const validationSchema = yup.object().shape({
-    email: yup.string().email("Введите верный email").required("Введите email"),
-    password: yup
-      .string()
-      .typeError("Неверный пароль")
-      .required("Введите пароль"),
+const RegistPage = () => {
+  const [inputValue, setInputValue] = useState({
+    email: "",
+    username: "",
+    password: "",
   });
+
+  const validationSchema = Yup.object({
+    email: Yup.string()
+      .email("Введите верный email")
+      .required("Обязательное поле"),
+    username: Yup.string()
+      .min(2, "Слишком короткое имя")
+      .max(10, "Слишком длинное имя")
+      .required("Обязательное поле"),
+    password: Yup.string().required("Обязательное поле"),
+  });
+
+  const onSubmit = (values) => {
+    setInputValue({ values });
+    console.log(inputValue);
+  };
+
   return (
     <div className={style.root}>
       <div className={style.formRegist}>
@@ -21,36 +37,48 @@ function RegistPage() {
         <div className={style.regist}>
           <h1>Регистрация</h1>
           <Formik
-            initialValues={{ email: "", password: "" }}
+            initialValues={inputValue}
             validateOnBlur
             validationSchema={validationSchema}
-            onSubmit={(values, { setSubmitting }) => {
-              setTimeout(() => {
-                alert(JSON.stringify(values, null, 2));
-                setSubmitting(false);
-              }, 400);
-            }}
+            onSubmit={onSubmit}
           >
-            {({ errors, touched, isValid, dirty }) => (
+            {({ isValid, dirty, isSubmiting }) => (
               <Form className={style.form}>
                 <label>Логин</label>
                 <Field type="email" name="email" className={style.input} />
-                {touched.email && errors.email && (
-                  <div className={style.error}>{errors.email}</div>
-                )}
+                <ErrorMessage
+                  name="email"
+                  component="div"
+                  className={style.error}
+                />
+                <br />
+                <label>Имя</label>
+                <Field
+                  type="username"
+                  name="username"
+                  className={style.input}
+                />
+                <ErrorMessage
+                  name="username"
+                  component="div"
+                  className={style.error}
+                />
+                <br />
                 <label>Пароль</label>
                 <Field
                   type="password"
                   name="password"
                   className={style.input}
                 />
-                {touched.password && errors.password && (
-                  <div className={style.error}>{errors.password}</div>
-                )}
+                <ErrorMessage
+                  name="password"
+                  component="div"
+                  className={style.error}
+                />
                 <button
                   className={style.btn}
-                  type="submit"
-                  disabled={!isValid && !dirty}
+                  type={"submit"}
+                  disabled={(!dirty && !isValid) || isSubmiting}
                 >
                   Submit
                 </button>
@@ -67,6 +95,6 @@ function RegistPage() {
       </div>
     </div>
   );
-}
+};
 
 export default RegistPage;

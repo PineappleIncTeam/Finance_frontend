@@ -35,9 +35,11 @@
 .form {
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
 }
 
 .form label {
+  box-sizing: border-box;
   font-family: "Montserrat";
   font-style: normal;
   font-weight: 400;
@@ -64,7 +66,7 @@
 }
 
 .btn {
-  margin-top: 160px;
+  margin-top: 100px;
   background: #54782b;
   border-radius: 60px;
   padding: 12px 20px;
@@ -77,6 +79,12 @@
   text-transform: capitalize;
   color: #faf5e4;
   cursor: pointer;
+}
+
+.btn:disabled {
+  background-color: dimgrey;
+  color: linen;
+  opacity: 1;
 }
 
 .registFon {

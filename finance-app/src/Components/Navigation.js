@@ -2,7 +2,7 @@
 import "./Navigation.css";
 import Logo from "./Logo";
 import ButtonNaviBlock from "./ButtonNaviBlock";
-import Form from "./registration-page/Form";
+import Form from "./registration-page/auth/Form";
 
 function Navigation({ func }) {
   return (

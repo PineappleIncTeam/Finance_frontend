@@ -2,15 +2,14 @@
 
 import React from "react";
 import { useState } from "react";
-import CSRFToken from "./CSRFToken";
+import CSRFToken from "../CSRFToken";
 import Cookies from "js-cookie";
 
 async function loginUser(credentials) {
-  fetch("http://127.0.0.1:8000/api/drf-auth/login/", {
+  fetch(`http://127.0.0.1:8000/auth/token/login/`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      "X-CSRFToken": Cookies.get("csrftoken"),
     },
     body: JSON.stringify(credentials),
   }).then((loginData) => loginData.json());
@@ -38,7 +37,6 @@ function Form() {
     <>
       <h1>Login Form</h1>
       <form onSubmit={handleFormSubmit}>
-        <CSRFToken />
         <label>
           Username:
           <input

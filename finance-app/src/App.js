@@ -2,7 +2,7 @@
 
 import "./App.css";
 import Rectangle from "./Components/Rectangle";
-import Form from "./Components/registration-page/Form";
+import Form from "./Components/registration-page/auth/Form";
 import { useState, useEffect } from "react";
 import RegistPage from "./Components/registration-page/registPage/RegistPage";
 

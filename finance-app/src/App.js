@@ -19,7 +19,7 @@ function App() {
   console.log(categories);
   return (
     <div className="App">
-      <RegistPage />
+      <Form />
       <Rectangle categories={categories} />
     </div>
   );

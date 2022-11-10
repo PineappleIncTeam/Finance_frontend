@@ -81,10 +81,16 @@
   cursor: pointer;
 }
 
+.btn:hover {
+  background-color: #49642a;
+  box-shadow: 4px 1px 3px #49642a;
+}
+
+.btn[disabled="disabled"],
 .btn:disabled {
-  background-color: dimgrey;
+  opacity: 0.7;
   color: linen;
-  opacity: 1;
+  background-color: aqua;
 }
 
 .registFon {

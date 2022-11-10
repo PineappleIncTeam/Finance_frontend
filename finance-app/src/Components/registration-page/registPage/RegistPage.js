@@ -1,16 +1,31 @@
 import { Formik, Form, Field, ErrorMessage } from "formik";
-
 import style from "./RegistPage.module.css";
 import * as Yup from "yup";
 import Logo from "../../Logo";
 import { useEffect, useState } from "react";
+import axios from "axios";
 
 const RegistPage = () => {
-  const [inputValue, setInputValue] = useState({
-    email: "",
-    username: "",
-    password: "",
-  });
+  const registerHandler = async (values, { setSubmitting }) => {
+    const payload = {
+      email: values.email,
+      username: values.username,
+      password: values.password,
+    };
+    try {
+      const response = await axios.post(
+        "http://127.0.0.1:8000/api/auth/users/",
+        payload
+      );
+      {
+        response.data && console.log("yeees");
+      }
+    } catch (e) {
+      console.log(e);
+    } finally {
+      setSubmitting(false);
+    }
+  };
 
   const validationSchema = Yup.object({
     email: Yup.string()
@@ -23,11 +38,6 @@ const RegistPage = () => {
     password: Yup.string().required("Обязательное поле"),
   });
 
-  const onSubmit = (values) => {
-    setInputValue({ values });
-    console.log(inputValue);
-  };
-
   return (
     <div className={style.root}>
       <div className={style.formRegist}>
@@ -37,10 +47,14 @@ const RegistPage = () => {
         <div className={style.regist}>
           <h1>Регистрация</h1>
           <Formik
-            initialValues={inputValue}
+            initialValues={{
+              email: "",
+              username: "",
+              password: "",
+            }}
             validateOnBlur
             validationSchema={validationSchema}
-            onSubmit={onSubmit}
+            onSubmit={registerHandler}
           >
             {({ isValid, dirty, isSubmiting }) => (
               <Form className={style.form}>
@@ -78,7 +92,7 @@ const RegistPage = () => {
                 <button
                   className={style.btn}
                   type={"submit"}
-                  disabled={(!dirty && !isValid) || isSubmiting}
+                  disabled={isSubmiting}
                 >
                   Submit
                 </button>

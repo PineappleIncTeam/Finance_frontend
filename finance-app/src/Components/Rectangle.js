@@ -5,7 +5,7 @@ import Navigation from './Navigation';
 import MainField from './MainField';
 import { useState } from 'react';
 
-function Rectangle(props) {
+function Rectangle() {
   // Хук для смены компонента по нажатию кнопок
   const [mainFieldBlock, setMainFieldBlock] = useState(MainField)
   function changeMainField(field) {
@@ -16,7 +16,7 @@ function Rectangle(props) {
   return (
     <div className="rectangle">
       <Navigation func={changeMainField} />
-      {mainFieldBlock} 
+      {mainFieldBlock}
     </div>
   );
 }

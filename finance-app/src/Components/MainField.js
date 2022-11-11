@@ -1,9 +1,7 @@
 // Компонент "Доходы"
 import MainFieldString from './MainFieldString';
-// import { useEffect, useState } from 'react';
 
 function MainField() {
-  
   const oneTime = [
     'Временные',
     'Подработка',

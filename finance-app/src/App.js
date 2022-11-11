@@ -5,6 +5,7 @@ import Rectangle from './Components/Rectangle';
 import Form from './Components/registration-page/auth/Form';
 import { useState, useEffect } from 'react';
 import RegistPage from './Components/registration-page/registPage/RegistPage';
+import jsonToArray from './Utils/jsonToArray';
 
 function App() {
   const [categories, setCategories] = useState('');
@@ -20,14 +21,17 @@ function App() {
     };
     fetch('http://127.0.0.1:8000/api/categories/', options)
       .then((result) => result.json())
-      .then((categories) => setCategories(categories));
+      .then((categories) => {
+        jsonToArray(categories);
+        setCategories(categories);
+      })
   }, []);
 
   console.log(categories);
   return (
     <div className="App">
       <RegistPage />
-      <Rectangle categories={categories} />
+      <Rectangle />
     </div>
   );
 }

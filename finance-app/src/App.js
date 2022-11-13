@@ -6,7 +6,7 @@ import Rectangle from "./Components/Rectangle";
 import { useState, useEffect } from "react";
 import RegistPage from "./Components/registration-page/registPage/RegistPage";
 import jsonToArray from "./Utils/jsonToArray";
-import RoutePage from "./Components/RoutePage/RoutePage";
+import RegistRoutePage from "./Components/RoutePage/RegistRoutePage";
 
 function App() {
   const [categories, setCategories] = useState("");
@@ -31,7 +31,7 @@ function App() {
   console.log(categories);
   return (
     <div className="App">
-      <RoutePage />
+      <RegistRoutePage />
     </div>
   );
 }

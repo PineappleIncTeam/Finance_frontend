@@ -17,11 +17,9 @@ const RegistPage = () => {
     try {
       const response = await axios.post(URL, payload);
 
-      console.log(response.data.email.length);
+      console.log(response.data.email);
 
-      if (response.data.email.length > 0) {
-        return navigate("/");
-      }
+      response.data.email && navigate("/");
     } catch (e) {
       console.log(e);
     } finally {

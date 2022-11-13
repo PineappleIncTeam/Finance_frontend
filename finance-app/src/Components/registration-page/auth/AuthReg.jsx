@@ -19,6 +19,7 @@ const AuthReg = () => {
         payload
       );
       {
+        console.log(response.data);
         response.data.auth_token && navigate("/rectangle");
       }
     } catch (e) {

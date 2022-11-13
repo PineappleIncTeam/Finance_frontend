@@ -1,27 +1,38 @@
 // Компонент навигации по приложению. Переключает компоненты, соответствующие названию кнопок.
 // import Button from './Button';
-import MainField from './MainField';
-import MainFieldCosts from './MainFieldCosts';
-import MainFieldStorage from './MainFieldStorage';
-import MainFieldAnalitic from './MainFieldAnalitic';
+import MainField from "./MainField";
+import MainFieldCosts from "./MainFieldCosts";
+import MainFieldStorage from "./MainFieldStorage";
+import MainFieldAnalitic from "./MainFieldAnalitic";
+import { Link } from "react-router-dom";
 
-function ButtonNaviBlock({ func }) {
+function ButtonNaviBlock() {
   // const buttonName = ['Доходы', 'Расходы', 'Накопления', 'Аналитика'];
   // const buttonFrame = ['MainField', 'MainFieldCosts', 'MainFieldStorage'];
   return (
     <div className="button_navi_block">
-      <button className="button" onClick={() => func(MainField)}>
+      <Link to="/rectangle/mainfield" className="button">
         Доходы
-      </button>
-      <button className="button" onClick={() => func(MainFieldCosts)}>
+      </Link>
+      <Link to="/rectangle/mainfieldcosts" className="button">
         Расходы
-      </button>
+      </Link>
+      <Link to="/rectangle/mainfieldstorage" className="button">
+        Накопления
+      </Link>
+      <Link to="/rectangle/mainfieldanalitic" className="button">
+        Аналитика
+      </Link>
+
+      {/* <Link className="button" onClick={() => func(MainFieldCosts)}>
+        Расходы
+      </Link>
       <button className="button" onClick={() => func(MainFieldStorage)}>
         Накопления
       </button>
       <button className="button" onClick={() => func(MainFieldAnalitic)}>
         Аналитика
-      </button>
+      </button> */}
     </div>
   );
 }

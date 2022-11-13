@@ -1,0 +1,21 @@
+.exit {
+  font-family: "Montserrat";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 24px;
+  /* identical to box height, or 133% */
+
+  display: flex;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+
+  color: #000000;
+  margin-top: 200px;
+  cursor: pointer;
+}
+
+.textExit {
+  margin-right: 10px;
+}

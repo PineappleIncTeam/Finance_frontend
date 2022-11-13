@@ -1,24 +1,25 @@
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import style from "./RegistPage.module.css";
+import style from "./AuthReg.module.css";
 import * as Yup from "yup";
 import Logo from "../../Logo";
-import { useEffect, useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router";
+import { Link } from "react-router-dom";
 
-const RegistPage = () => {
+const AuthReg = () => {
+  const navigate = useNavigate();
   const registerHandler = async (values, { setSubmitting }) => {
     const payload = {
-      email: values.email,
       username: values.username,
       password: values.password,
     };
     try {
       const response = await axios.post(
-        "http://127.0.0.1:8000/api/auth/users/",
+        "http://127.0.0.1:8000/auth/token/login/",
         payload
       );
       {
-        response.data && console.log("yeees");
+        response.data.auth_token && navigate("/rectangle");
       }
     } catch (e) {
       console.log(e);
@@ -28,9 +29,6 @@ const RegistPage = () => {
   };
 
   const validationSchema = Yup.object({
-    email: Yup.string()
-      .email("Введите верный email")
-      .required("Обязательное поле"),
     username: Yup.string()
       .min(2, "Слишком короткое имя")
       .max(10, "Слишком длинное имя")
@@ -45,10 +43,9 @@ const RegistPage = () => {
           <Logo />
         </div>
         <div className={style.regist}>
-          <h1>Регистрация</h1>
+          <h1>Вход</h1>
           <Formik
             initialValues={{
-              email: "",
               username: "",
               password: "",
             }}
@@ -58,14 +55,6 @@ const RegistPage = () => {
           >
             {({ isValid, dirty, isSubmiting }) => (
               <Form className={style.form}>
-                <label>Логин</label>
-                <Field type="email" name="email" className={style.input} />
-                <ErrorMessage
-                  name="email"
-                  component="div"
-                  className={style.error}
-                />
-                <br />
                 <label>Имя</label>
                 <Field
                   type="username"
@@ -89,6 +78,14 @@ const RegistPage = () => {
                   component="div"
                   className={style.error}
                 />
+                <br />
+                <p className={style.textReg}>
+                  Если у вас нет учетной записи,
+                  <Link to="/login" className={style.reg}>
+                    {" "}
+                    ЗАРЕГИСТРИРУЙТЕСЬ
+                  </Link>
+                </p>
                 <button
                   className={style.btn}
                   type={"submit"}
@@ -111,4 +108,4 @@ const RegistPage = () => {
   );
 };
 
-export default RegistPage;
+export default AuthReg;

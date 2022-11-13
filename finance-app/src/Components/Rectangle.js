@@ -1,9 +1,11 @@
 // Первый компонент, главная страница. Будет появляться после странички авторизации. Сейчас сразу отображается на экране.
 
-import './Rectangle.css';
-import Navigation from './Navigation';
-import MainField from './MainField';
-import { useState } from 'react';
+import "./Rectangle.css";
+import Navigation from "./Navigation";
+import MainField from "./MainField";
+import { useState } from "react";
+import Aside from "./Aside/Aside";
+import Transactions from "./Transactions/Transactions";
 
 function Rectangle() {
   // Хук для смены компонента по нажатию кнопок
@@ -15,7 +17,18 @@ function Rectangle() {
   return (
     <div className="rectangle">
       <Navigation func={changeMainField} />
-      {mainFieldBlock}
+      <div className="main">
+        <div className="mainField">
+          <div className="mainFieldBlock">{mainFieldBlock}</div>
+          <div className="aside">
+            <Aside />
+          </div>
+        </div>
+
+        <div className="transactions">
+          <Transactions />
+        </div>
+      </div>
     </div>
   );
 }

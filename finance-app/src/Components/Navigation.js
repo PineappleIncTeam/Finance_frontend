@@ -2,13 +2,22 @@
 import "./Navigation.css";
 import Logo from "./Logo";
 import ButtonNaviBlock from "./ButtonNaviBlock";
-import Form from "./registration-page/auth/Form";
+import exitUser from "./../../src/Images/exit.png";
+import { useNavigate } from "react-router";
 
 function Navigation({ func }) {
+  const navigate = useNavigate();
+  const exitClick = () => {
+    navigate("/");
+  };
   return (
     <div className="navigation">
       <Logo />
       <ButtonNaviBlock func={func} />
+      <div className="exit" onClick={() => exitClick()}>
+        <div className="textExit">Выход</div>
+        <img src={exitUser} />
+      </div>
     </div>
   );
 }

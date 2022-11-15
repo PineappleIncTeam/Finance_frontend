@@ -2,7 +2,6 @@
 import SelectElement from "./SelectElement";
 
 function MainFieldString(props) {
-  console.log(props);
   return (
     <form action="" method="post" className="main_field_string">
       <SelectElement type={props.type} />

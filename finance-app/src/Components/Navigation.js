@@ -4,8 +4,9 @@ import Logo from "./Logo";
 import ButtonNaviBlock from "./ButtonNaviBlock";
 import exitUser from "./../../src/Images/exit.png";
 import { useNavigate } from "react-router";
+import MainFieldRouter from "./RoutePage/MainFieldRouter";
 
-function Navigation({ func }) {
+function Navigation() {
   const navigate = useNavigate();
   const exitClick = () => {
     navigate("/");
@@ -13,7 +14,7 @@ function Navigation({ func }) {
   return (
     <div className="navigation">
       <Logo />
-      <ButtonNaviBlock func={func} />
+      <ButtonNaviBlock />
       <div className="exit" onClick={() => exitClick()}>
         <div className="textExit">Выход</div>
         <img src={exitUser} />

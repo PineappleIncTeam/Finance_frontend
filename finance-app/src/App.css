@@ -15,7 +15,7 @@
 .navigation {
   width: 405px;
   height: 1080px;
-  background-image: url("../Images/navBlockBack.png");
+  background-image: url("./Images/navBlockBack.png");
 }
 
 .logo_block {

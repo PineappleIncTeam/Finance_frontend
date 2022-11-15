@@ -17,7 +17,7 @@ function App() {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        Authorization: "Token 1309510b4c507cfc84065785800dcf315312eb24",
+        Authorization: "Token b2d409251374f0252dbfc1b097089f9cc5954e1e",
       },
     };
     fetch("http://127.0.0.1:8000/api/categories/", options)

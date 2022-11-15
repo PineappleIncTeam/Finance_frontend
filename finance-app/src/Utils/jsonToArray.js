@@ -2,9 +2,9 @@
 
 
 function jsonToArray(array) {
-    let result = array.map((jsonObject, index) => {
-      return jsonObject.categoryName;
-    });
-    console.log(result);
-  }
-  export default jsonToArray
+  return array.map((jsonObject, index) => {
+    return jsonObject.categoryName;
+  });
+  
+}
+export default jsonToArray

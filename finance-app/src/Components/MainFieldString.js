@@ -1,7 +1,7 @@
 // Компонент "Строка", пока выглядит как Список категорий, Инпут, Кнопка. Переиспользуемый
 import { useState, useEffect } from 'react';
-import SelectElement from "./SelectElement";
-import jsonToArray from '../Utils/jsonToArray';
+import SelectElement from './SelectElement';
+// import jsonToArray from '../Utils/jsonToArray';
 
 function MainFieldString(props) {
   const [categories, setCategories] = useState('');
@@ -16,17 +16,19 @@ function MainFieldString(props) {
     };
     fetch('http://127.0.0.1:8000/api/categories/', options)
       .then((result) => result.json())
-      .then((userCategories) => {
-        jsonToArray(userCategories);
-        console.log(userCategories)
-      setCategories(userCategories)
-    });
-      console.log(options)
+      .then((userCategories) => setCategories(userCategories));
+    console.log(options);
   }, []);
   console.log(categories);
   return (
     <form action="" method="post" className="main_field_string">
-      {categories && <SelectElement categories={categories} category_type={props.type} title={props.title} />}
+      {categories && (
+        <SelectElement
+          categories={categories}
+          category_type={props.type}
+          title={props.title}
+        />
+      )}
       <input type="text" className="main_field_string_input"></input>
       <button type="submit" className="main_field_string_button">
         Добавить

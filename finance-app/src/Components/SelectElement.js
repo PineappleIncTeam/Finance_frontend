@@ -1,6 +1,6 @@
 // Выпадающий список категорий. будет меняться, т.к. данные о категориях должны приниматься с сервера, с привязкой к конкретному пользователю
 import { useState } from 'react';
-function SelectElement(props) {
+function SelectElement({ category_type, categories, title }) {
   const [newCategory, setNewCategory] = useState('');
   //Функция добавления категории работает, сервер понимает запрос. Нужно еще обработать промис и выдать категории id. Расшифровка для меня. Виталий)
   function addCategory(e) {
@@ -8,15 +8,16 @@ function SelectElement(props) {
     let selectedValue = e.target.value;
     if (selectedValue === 'Добавить категорию') {
       let newCategory = prompt('Введите название категории');
-      setNewCategory(newCategory)
+      setNewCategory(newCategory);
       let data = {
-        categoryName: newCategory
-      }
+        categoryName: newCategory,
+        category_type,
+      };
       const options = {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: 'Token b2d409251374f0252dbfc1b097089f9cc5954e1e',
+          Authorization: 'Token 0a50859f519f0fe5284cdd678ae4094c51e06c6d',
         },
         body: JSON.stringify(data),
       };
@@ -28,12 +29,19 @@ function SelectElement(props) {
 
   return (
     <select className="select_element" onChange={(e) => addCategory(e)}>
-      {props.type.map((text, index) => {
-        return (
-          <option className="option_list" value={text} key={index}>
-            {text}
-          </option>
-        );
+      <option className="option_list" value={title}>{title}</option>
+      {categories.map((jsonObject, index) => {
+        if (jsonObject.category_type === category_type) {
+          return (
+            <option
+              className="option_list"
+              value={jsonObject.categoryName}
+              key={jsonObject.category_id}
+            >
+              {jsonObject.categoryName}
+            </option>
+          );
+        }
       })}
       <option value="Добавить категорию">Добавить категорию</option>
     </select>

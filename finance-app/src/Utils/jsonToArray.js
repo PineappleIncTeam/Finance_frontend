@@ -1,10 +1,10 @@
-
-
-
-function jsonToArray(array) {
-  return array.map((jsonObject, index) => {
-    return jsonObject.categoryName;
-  });
+function jsonToArray(array, type) {
   
+  return array.map((jsonObject, index) => {
+    
+    return jsonObject.categoryName;
+  
+})
 }
-export default jsonToArray
+
+export default jsonToArray;

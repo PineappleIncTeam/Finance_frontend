@@ -15,11 +15,13 @@ const AuthReg = () => {
     };
     try {
       const response = await axios.post(
-        "http://127.0.0.1:8000/auth/token/login/",
+        "http://127.0.0.1:8000/api/auth/token/login/",
         payload
       );
       {
         console.log(response.data);
+        const authToken = response.data.auth_token;
+        console.log(authToken);
         response.data.auth_token && navigate("/rectangle");
       }
     } catch (e) {

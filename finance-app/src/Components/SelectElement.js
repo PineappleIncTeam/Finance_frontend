@@ -1,14 +1,16 @@
 // Выпадающий список категорий. будет меняться, т.к. данные о категориях должны приниматься с сервера, с привязкой к конкретному пользователю
 
 import { useState } from "react";
+
 function SelectElement({
   category_type,
   categories,
   title,
   changeSelectElement,
+  token,
 }) {
   const [newCategory, setNewCategory] = useState("");
-
+  console.log(token);
   //Функция добавления категории работает, сервер понимает запрос. Нужно еще обработать промис и выдать категории id. Расшифровка для меня. Виталий)
   function addCategory(e) {
     e.preventDefault();
@@ -25,7 +27,7 @@ function SelectElement({
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: "Token b24a5bb7cb1108f0c81d7133325e8565dbf655c1",
+          Authorization: `Token ${token}`,
         },
         body: JSON.stringify(data),
       };

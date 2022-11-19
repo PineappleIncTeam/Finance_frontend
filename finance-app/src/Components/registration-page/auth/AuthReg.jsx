@@ -6,11 +6,14 @@ import axios from "axios";
 import { useNavigate } from "react-router";
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import { useContext } from "react";
+import { Context } from "../../context";
 
 const URL = "http://127.0.0.1:8000/api/auth/token/login/";
 
 const AuthReg = () => {
   const [reply, setReply] = useState("");
+  const { setToken } = useContext(Context);
   const navigate = useNavigate();
   const registerHandler = async (values, { setSubmitting }) => {
     const payload = {
@@ -19,7 +22,7 @@ const AuthReg = () => {
     };
     try {
       const response = await axios.post(URL, payload);
-
+      response.data.auth_token && setToken(response.data.auth_token);
       response.data.auth_token &&
         setReply(
           `Пользователь ${payload.username} вошел в свою учетную запись`

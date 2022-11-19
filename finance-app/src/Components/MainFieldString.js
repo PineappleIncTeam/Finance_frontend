@@ -1,9 +1,12 @@
 // Компонент "Строка", пока выглядит как Список категорий, Инпут, Кнопка. Переиспользуемый
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import { Context } from "./context";
 import SelectElement from "./SelectElement";
 // import jsonToArray from '../Utils/jsonToArray';
 
 function MainFieldString(props) {
+  const { token } = useContext(Context);
+  console.log(token);
   const [categories, setCategories] = useState("");
   const [enterSum, setEnterSum] = useState("");
   const [selectElement, setSelectElement] = useState({});
@@ -14,7 +17,7 @@ function MainFieldString(props) {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        Authorization: "Token b24a5bb7cb1108f0c81d7133325e8565dbf655c1",
+        Authorization: `Token ${token}`,
       },
     };
     fetch("http://127.0.0.1:8000/api/categories/", options)
@@ -22,7 +25,6 @@ function MainFieldString(props) {
       .then((userCategories) => setCategories(userCategories));
     console.log(options);
   }, [SelectElement]);
-  console.log(categories);
 
   function changeSelectElement(object) {
     setSelectElement(JSON.parse(object));
@@ -35,12 +37,12 @@ function MainFieldString(props) {
       var_sum: 0,
       category_id: selectElement.category_id,
     };
-    console.log(data);
+
     const options = {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: "Token 09caf5891310daafa7646b40430defb180e2adfc",
+        Authorization: `Token ${token}`,
       },
       body: JSON.stringify(data),
     };
@@ -58,6 +60,7 @@ function MainFieldString(props) {
           category_type={props.type}
           title={props.title}
           changeSelectElement={changeSelectElement}
+          token={token}
         />
       )}
       <input

@@ -1,6 +1,11 @@
 // Выпадающий список категорий. будет меняться, т.к. данные о категориях должны приниматься с сервера, с привязкой к конкретному пользователю
 import { useState } from 'react';
-function SelectElement({ category_type, categories, title }) {
+function SelectElement({
+  category_type,
+  categories,
+  title,
+  changeSelectElement,
+}) {
   const [newCategory, setNewCategory] = useState('');
   //Функция добавления категории работает, сервер понимает запрос. Нужно еще обработать промис и выдать категории id. Расшифровка для меня. Виталий)
   function addCategory(e) {
@@ -9,6 +14,7 @@ function SelectElement({ category_type, categories, title }) {
     if (selectedValue === 'Добавить категорию') {
       let newCategory = prompt('Введите название категории');
       setNewCategory(newCategory);
+
       let data = {
         categoryName: newCategory,
         category_type,
@@ -17,26 +23,33 @@ function SelectElement({ category_type, categories, title }) {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: 'Token 0a50859f519f0fe5284cdd678ae4094c51e06c6d',
+          Authorization: 'Token 09caf5891310daafa7646b40430defb180e2adfc',
         },
         body: JSON.stringify(data),
       };
 
       fetch('http://127.0.0.1:8000/api/categories/', options);
       console.log(options);
+    } else {
+      changeSelectElement(e.target.value);
+      console.log(e.target.value);
     }
   }
 
   return (
     <select className="select_element" onChange={(e) => addCategory(e)}>
-      <option className="option_list" value={title}>{title}</option>
+      <option className="option_list" value={title}>
+        {title}
+      </option>
       {categories.map((jsonObject, index) => {
         if (jsonObject.category_type === category_type) {
           return (
             <option
               className="option_list"
-              value={jsonObject.categoryName}
+              value={JSON.stringify(jsonObject)}
               key={jsonObject.category_id}
+              index={index}
+              object={JSON.stringify(jsonObject)}
             >
               {jsonObject.categoryName}
             </option>

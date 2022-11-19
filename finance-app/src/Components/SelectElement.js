@@ -1,35 +1,37 @@
 // Выпадающий список категорий. будет меняться, т.к. данные о категориях должны приниматься с сервера, с привязкой к конкретному пользователю
-import { useState } from 'react';
+import { useState } from "react";
 function SelectElement({ category_type, categories, title }) {
-  const [newCategory, setNewCategory] = useState('');
+  const [newCategory, setNewCategory] = useState("");
   //Функция добавления категории работает, сервер понимает запрос. Нужно еще обработать промис и выдать категории id. Расшифровка для меня. Виталий)
   function addCategory(e) {
     e.preventDefault();
     let selectedValue = e.target.value;
-    if (selectedValue === 'Добавить категорию') {
-      let newCategory = prompt('Введите название категории');
+    if (selectedValue === "Добавить категорию") {
+      let newCategory = prompt("Введите название категории");
       setNewCategory(newCategory);
       let data = {
         categoryName: newCategory,
         category_type,
       };
       const options = {
-        method: 'POST',
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
-          Authorization: 'Token 0a50859f519f0fe5284cdd678ae4094c51e06c6d',
+          "Content-Type": "application/json",
+          Authorization: "Token 594ca34107d6a49c395b7af277df4e405f374b80",
         },
         body: JSON.stringify(data),
       };
 
-      fetch('http://127.0.0.1:8000/api/categories/', options);
+      fetch("http://127.0.0.1:8000/api/categories/", options);
       console.log(options);
     }
   }
 
   return (
     <select className="select_element" onChange={(e) => addCategory(e)}>
-      <option className="option_list" value={title}>{title}</option>
+      <option className="option_list" value={title}>
+        {title}
+      </option>
       {categories.map((jsonObject, index) => {
         if (jsonObject.category_type === category_type) {
           return (

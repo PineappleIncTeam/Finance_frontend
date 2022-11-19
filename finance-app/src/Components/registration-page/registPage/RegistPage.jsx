@@ -4,9 +4,12 @@ import * as Yup from "yup";
 import Logo from "../../Logo";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 const URL = "http://127.0.0.1:8000/api/auth/users/";
 
 const RegistPage = () => {
+  const [reply, setReply] = useState("");
+
   const navigate = useNavigate();
   const registerHandler = async (values, { setSubmitting }) => {
     const payload = {
@@ -17,11 +20,12 @@ const RegistPage = () => {
     try {
       const response = await axios.post(URL, payload);
 
-      console.log(response.data.email);
-
-      response.data.email && navigate("/");
+      console.log(response.data);
+      response.data.email && setReply("Регистрация прошла успешно");
+      navigate("/");
     } catch (e) {
       console.log(e);
+      setReply(`Пользователь с логином ${payload.username} существует`);
     } finally {
       setSubmitting(false);
     }
@@ -58,7 +62,7 @@ const RegistPage = () => {
           >
             {({ isValid, dirty, isSubmiting }) => (
               <Form className={style.form}>
-                <label>Логин</label>
+                <label>Адрес эл. почты</label>
                 <Field type="email" name="email" className={style.input} />
                 <ErrorMessage
                   name="email"
@@ -66,7 +70,7 @@ const RegistPage = () => {
                   className={style.error}
                 />
                 <br />
-                <label>Имя</label>
+                <label>Логин</label>
                 <Field
                   type="username"
                   name="username"
@@ -89,6 +93,8 @@ const RegistPage = () => {
                   component="div"
                   className={style.error}
                 />
+                <br />
+                <div className={style.reply}>{reply}</div>
                 <button
                   className={style.btn}
                   type={"submit"}

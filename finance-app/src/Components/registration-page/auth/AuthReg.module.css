@@ -47,7 +47,7 @@
   line-height: 29px;
   letter-spacing: -0.01em;
   text-align: left;
-  color: #b7b7b7;
+  color: #969494;
 }
 
 .input {
@@ -61,12 +61,17 @@
   border-radius: 10px;
 }
 
+.input::placeholder {
+  opacity: 0.5;
+  color: #b7b7b7;
+}
+
 .error {
   color: red;
 }
 
 .btn {
-  margin-top: 100px;
+  margin-top: 60px;
   background: #54782b;
   border-radius: 60px;
   padding: 12px 20px;
@@ -131,14 +136,27 @@
 }
 
 .textReg {
-  opacity: 0.7;
-  font: 14px/24px Arial;
+  font-family: "Montserrat";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 24px;
+  letter-spacing: 0.09em;
+  opacity: 0.8;
+  color: #000000;
 }
 
 .reg {
   text-decoration: none;
+  color: teal;
 }
 
 .reg:hover {
   font-weight: bold;
+  color: teal;
+}
+
+.reply {
+  font: italic 20px/25px Arial;
+  color: teal;
 }

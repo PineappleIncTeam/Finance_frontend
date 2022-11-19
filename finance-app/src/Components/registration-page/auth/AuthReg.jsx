@@ -5,8 +5,12 @@ import Logo from "../../Logo";
 import axios from "axios";
 import { useNavigate } from "react-router";
 import { Link } from "react-router-dom";
+import { useState } from "react";
+
+const URL = "http://127.0.0.1:8000/api/auth/token/login/";
 
 const AuthReg = () => {
+  const [reply, setReply] = useState("");
   const navigate = useNavigate();
   const registerHandler = async (values, { setSubmitting }) => {
     const payload = {
@@ -14,17 +18,20 @@ const AuthReg = () => {
       password: values.password,
     };
     try {
-      const response = await axios.post(
-        "http://127.0.0.1:8000/api/auth/token/login/",
-        payload
-      );
+      const response = await axios.post(URL, payload);
+
+      response.data.auth_token &&
+        setReply(
+          `Пользователь ${payload.username} вошел в свою учетную запись`
+        );
+      navigate("/rectangle");
       {
-        console.log(response.data);
         const authToken = response.data.auth_token;
         console.log(authToken);
         response.data.auth_token && navigate("/rectangle");
       }
     } catch (e) {
+      setReply("Логин или пароль неверны");
       console.log(e);
     } finally {
       setSubmitting(false);
@@ -37,6 +44,9 @@ const AuthReg = () => {
       .max(10, "Слишком длинное имя")
       .required("Обязательное поле"),
     password: Yup.string().required("Обязательное поле"),
+    confirmPassword: Yup.string()
+      .oneOf([Yup.ref("password")], "Пароли не совпадают")
+      .required("Обязательно"),
   });
 
   return (
@@ -51,6 +61,7 @@ const AuthReg = () => {
             initialValues={{
               username: "",
               password: "",
+              confirmPassword: "",
             }}
             validateOnBlur
             validationSchema={validationSchema}
@@ -58,11 +69,12 @@ const AuthReg = () => {
           >
             {({ isValid, dirty, isSubmiting }) => (
               <Form className={style.form}>
-                <label>Имя</label>
+                <label>Логин</label>
                 <Field
                   type="username"
                   name="username"
                   className={style.input}
+                  placeholder={"Введите логин..."}
                 />
                 <ErrorMessage
                   name="username"
@@ -75,6 +87,7 @@ const AuthReg = () => {
                   type="password"
                   name="password"
                   className={style.input}
+                  placeholder={"Введите пароль..."}
                 />
                 <ErrorMessage
                   name="password"
@@ -82,13 +95,28 @@ const AuthReg = () => {
                   className={style.error}
                 />
                 <br />
+                <label>Подтвердите пароль</label>
+                <Field
+                  type="password"
+                  name="confirmPassword"
+                  className={style.input}
+                  placeholder={"Введите пароль повторно..."}
+                />
+                <ErrorMessage
+                  name="confirmPassword"
+                  component="div"
+                  className={style.error}
+                />
+                <br />
                 <p className={style.textReg}>
-                  Если у вас нет учетной записи,
+                  Если у вас нет учетной записи, <br />
                   <Link to="/login" className={style.reg}>
                     {" "}
                     ЗАРЕГИСТРИРУЙТЕСЬ
                   </Link>
                 </p>
+                <br />
+                <div className={style.reply}>{reply}</div>
                 <button
                   className={style.btn}
                   type={"submit"}

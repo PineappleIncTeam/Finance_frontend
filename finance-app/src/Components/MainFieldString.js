@@ -1,12 +1,12 @@
 // Компонент "Строка", пока выглядит как Список категорий, Инпут, Кнопка. Переиспользуемый
 import { useState, useEffect, useContext } from "react";
-import { Context } from "./context";
+import { useSelector } from "react-redux";
 import SelectElement from "./SelectElement";
 // import jsonToArray from '../Utils/jsonToArray';
 
 function MainFieldString(props) {
-  const { token } = useContext(Context);
-  console.log(token);
+  const token = useSelector((state) => state.user.token);
+
   const [categories, setCategories] = useState("");
   const [enterSum, setEnterSum] = useState("");
   const [selectElement, setSelectElement] = useState({});
@@ -29,7 +29,7 @@ function MainFieldString(props) {
   function changeSelectElement(object) {
     setSelectElement(JSON.parse(object));
   }
-  console.log(selectElement.category_id);
+
   function sumSubmit(event) {
     event.preventDefault();
     let data = {

@@ -40,6 +40,9 @@ const RegistPage = () => {
       .max(10, "Слишком длинное имя")
       .required("Обязательное поле"),
     password: Yup.string().required("Обязательное поле"),
+    confirmPassword: Yup.string()
+      .oneOf([Yup.ref("password")], "Пароли не совпадают")
+      .required("Обязательно"),
   });
 
   return (
@@ -63,7 +66,12 @@ const RegistPage = () => {
             {({ isValid, dirty, isSubmiting }) => (
               <Form className={style.form}>
                 <label>Адрес эл. почты</label>
-                <Field type="email" name="email" className={style.input} />
+                <Field
+                  type="email"
+                  name="email"
+                  className={style.input}
+                  placeholder={"Введите адрес эл. почты..."}
+                />
                 <ErrorMessage
                   name="email"
                   component="div"
@@ -75,6 +83,7 @@ const RegistPage = () => {
                   type="username"
                   name="username"
                   className={style.input}
+                  placeholder={"Введите логин..."}
                 />
                 <ErrorMessage
                   name="username"
@@ -87,9 +96,23 @@ const RegistPage = () => {
                   type="password"
                   name="password"
                   className={style.input}
+                  placeholder={"Введите пароль..."}
                 />
                 <ErrorMessage
                   name="password"
+                  component="div"
+                  className={style.error}
+                />
+                <br />
+                <label>Подтвердите пароль</label>
+                <Field
+                  type="password"
+                  name="confirmPassword"
+                  className={style.input}
+                  placeholder={"Введите пароль повторно..."}
+                />
+                <ErrorMessage
+                  name="confirmPassword"
                   component="div"
                   className={style.error}
                 />

@@ -8,6 +8,11 @@
   background: rgba(250, 245, 228, 0.2);
 }
 
+.input::placeholder {
+  opacity: 0.5;
+  color: #b7b7b7;
+}
+
 .logo {
   text-align: left;
   padding-left: 120px;

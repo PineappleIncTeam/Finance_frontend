@@ -1,6 +1,5 @@
-import { Formik, Form, Field, ErrorMessage } from "formik";
 import style from "./AuthReg.module.css";
-import * as Yup from "yup";
+
 import Logo from "../../Logo";
 import axios from "axios";
 import { useNavigate } from "react-router";
@@ -41,7 +40,7 @@ const AuthReg = () => {
 
         navigate("/rectangle");
       })
-      .catch((e) => console.log(e));
+      .catch(() => setReply(`Логин или пароль введены неверно`));
   };
 
   return (
@@ -56,6 +55,7 @@ const AuthReg = () => {
             <br />
             <label className={style.label}>Логин</label>
             <input
+              placeholder={"Введите логин..."}
               className={style.input}
               type="login"
               value={login}
@@ -64,6 +64,7 @@ const AuthReg = () => {
             <br />
             <label className={style.label}>Пароль</label>
             <input
+              placeholder={"Введите пароль..."}
               className={style.input}
               type="password"
               value={pass}
@@ -79,6 +80,7 @@ const AuthReg = () => {
             </p>
             <br />
             <div className={style.reply}>{reply}</div>
+            <br />
             <button
               className={style.btn}
               type={"submit"}

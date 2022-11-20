@@ -6,6 +6,7 @@ import SelectElement from "./SelectElement";
 
 function MainFieldString(props) {
   const token = useSelector((state) => state.user.token);
+  console.log(token);
 
   const [categories, setCategories] = useState("");
   const [enterSum, setEnterSum] = useState("");

@@ -11,11 +11,15 @@ const slice = createSlice({
   initialState,
   reducers: {
     setUser(state, action) {
+      localStorage.setItem("token", action.payload.token);
       state.token = action.payload.token;
+    },
+    removeUser(state) {
+      state.token = null;
     },
   },
 });
 
-export const { setUser } = slice.actions;
+export const { setUser, removeUser } = slice.actions;
 
 export default slice.reducer;

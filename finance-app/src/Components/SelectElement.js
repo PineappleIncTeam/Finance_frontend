@@ -8,6 +8,7 @@ function SelectElement({
   title,
   changeSelectElement,
   token,
+  setSelectElement,
 }) {
   const [newCategory, setNewCategory] = useState("");
   console.log(token);
@@ -42,7 +43,7 @@ function SelectElement({
 
   return (
     <select className="select_element" onChange={(e) => addCategory(e)}>
-      <option className="option_list" value={title}>
+      <option className="option_list" value={title} disabled>
         {title}
       </option>
       {categories.map((jsonObject, index) => {

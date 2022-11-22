@@ -9,10 +9,11 @@ function SelectElement({
   changeSelectElement,
   token,
   setSelectElement,
+  getInputData
 }) {
   const [newCategory, setNewCategory] = useState('');
   console.log(token);
-  //Функция добавления категории работает, сервер понимает запрос. Нужно еще обработать промис и выдать категории id. Расшифровка для меня. Виталий)
+  // Функция добавления категории работает, сервер понимает запрос. Нужно еще обработать промис и выдать категории id. Расшифровка для меня. Виталий)
   function addCategory(e) {
     e.preventDefault();
     let selectedValue = e.target.value;
@@ -39,6 +40,8 @@ function SelectElement({
       if (selectedValue !== title) {
         changeSelectElement(e.target.value);
         console.log(e.target.value);
+      } else if(selectedValue === title) {
+        getInputData()
       }
     }
   }
@@ -61,7 +64,7 @@ function SelectElement({
               {jsonObject.categoryName}
             </option>
           );
-        }
+        } 
       })}
       <option value="Добавить категорию">Добавить категорию</option>
     </select>

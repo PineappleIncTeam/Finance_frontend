@@ -1,14 +1,14 @@
-import { useState, useEffect, useContext } from "react";
-import { Context } from '../context';
+import { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 import React from "react";
 import style from "./Transactions.module.css";
 import TransactionList from "./TransactionList";
 import SelectElement from "../SelectElement";
-const Transactions = () => {
-  const { token } = useContext(Context);
+function Transactions()  {
+  const token = useSelector((state) => state.user.token);
   const [operationList, setOperationList] = useState('');
 
-  useEffect(function getOperationList() {
+  function getOperationList() {
     const options = {
       method: 'GET',
       headers: {
@@ -23,7 +23,10 @@ const Transactions = () => {
       setOperationList(responseServer)
     });
     
-  }, [setOperationList])
+  }
+  useEffect(() => {
+    getOperationList()
+  }, [])
   console.log(operationList)
   return (
     <div className={style.root}>

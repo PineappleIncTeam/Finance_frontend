@@ -153,3 +153,20 @@
 .analitic_button {
   margin: 40px 9px;
 }
+
+.last_operation_list {
+  display: flex;
+  justify-content: space-between;
+  font-family: "Monserrat-Medium";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 24px;
+  color: rgba(0, 0, 0, 0.5);
+  padding-left: 20px;
+}
+
+.operation_list_item {
+  text-align: center;
+  
+}

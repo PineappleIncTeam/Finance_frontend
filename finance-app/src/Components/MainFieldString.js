@@ -2,6 +2,7 @@
 import { useState, useEffect, useContext } from 'react';
 import { Context } from './context';
 import SelectElement from './SelectElement';
+
 // import jsonToArray from '../Utils/jsonToArray';
 
 function MainFieldString(props) {
@@ -10,8 +11,8 @@ function MainFieldString(props) {
   const [categories, setCategories] = useState('');
   const [enterSum, setEnterSum] = useState('');
   const [selectElement, setSelectElement] = useState({});
-  const [newCategory, setNewCategory] = useState('');
-
+  // const [newCategory, setNewCategory] = useState('');
+  
   // запрос к серверу на получение категорий "Постоянные доходы". Работает. Надо получаемый JSON перевести в массив категорий. И вообще этот запрос нужен наверное в другом компоненте.
   useEffect(() => {
     const options = {
@@ -52,12 +53,15 @@ function MainFieldString(props) {
     fetch('http://127.0.0.1:8000/api/incomecash/', options)
       .then((result) => result.json())
       .then((serverResponse) => props.getInputData(serverResponse.reg_sum));
+      
   }
 
   function handleInputChange(event) {
     setEnterSum(event.target.value);
   }
+  
 
+ 
 
   return (
     <form className="main_field_string" onSubmit={sumSubmit}>

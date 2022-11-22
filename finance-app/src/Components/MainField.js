@@ -6,7 +6,9 @@ function MainField() {
   const [inputData, setInputData] = useState('');
   function getInputData(data) {
     setInputData(data);
+    
   }
+  console.log('MainField rendered')
   return (
     <div className="main_field" key="">
       <h2 className="main_field_title">Доходы</h2>

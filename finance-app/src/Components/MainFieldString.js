@@ -26,7 +26,7 @@ function MainFieldString(props) {
     fetch('http://127.0.0.1:8000/api/categories/', options)
       .then((result) => result.json())
       .then((userCategories) => setCategories(userCategories));
-    console.log(options);
+    
   }, [selectElement]);
 
   function changeSelectElement(object) {
@@ -36,7 +36,7 @@ function MainFieldString(props) {
   async function sumSubmit(event) {
     event.preventDefault();
     let data = {
-      constant_sum: enterSum,
+      sum: enterSum,
       category_id: selectElement.category_id,
     };
 
@@ -51,7 +51,9 @@ function MainFieldString(props) {
 
     fetch('http://127.0.0.1:8000/api/incomecash/', options)
       .then((result) => result.json())
-      .then((serverResponse) => props.getInputData());
+      .then((serverResponse) => props.getInputData(props.typeForSum));
+      
+      
   }
 
   function handleInputChange(event) {
@@ -68,6 +70,7 @@ function MainFieldString(props) {
           changeSelectElement={changeSelectElement}
           token={token}
           getInputData={props.getInputData}
+          typeForSum={props.typeForSum}
         />
       )}
       <input

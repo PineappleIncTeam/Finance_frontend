@@ -9,7 +9,8 @@ function SelectElement({
   changeSelectElement,
   token,
   setSelectElement,
-  getInputData
+  getInputData,
+  typeForSum
 }) {
   const [newCategory, setNewCategory] = useState('');
   console.log(token);
@@ -41,7 +42,7 @@ function SelectElement({
         changeSelectElement(e.target.value);
         console.log(e.target.value);
       } else if(selectedValue === title) {
-        getInputData()
+        getInputData(typeForSum)
       }
     }
   }

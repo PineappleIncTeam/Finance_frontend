@@ -21,7 +21,7 @@ function MainField() {
         .then((responseServer) =>
           setInputData(
             responseServer.map(
-              (responseServer) => responseServer.sum_constant_sum
+              (responseServer) => `Постоянные: ${responseServer.constant_sum}; Временные: ${responseServer.once_sum}`
             )
           )
         );
@@ -38,12 +38,14 @@ function MainField() {
       <MainFieldString
         title="Постоянные"
         type="constant"
-        getInputData={getInputData}
+        getInputData={getInputData} 
+        typeForSum="constant_sum"
       />
       <MainFieldString
         title="Временные"
         type="once"
-        getInputData={getInputData}
+        getInputData={getInputData} 
+        typeForSum="onse_sum"
       />
     </div>
   );

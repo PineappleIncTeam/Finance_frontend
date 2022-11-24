@@ -8,7 +8,7 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { setUser } from "../../../store/slice";
 
-const URL = "http://127.0.0.1:8000/api/auth/token/login/";
+const URL = "http://92.255.79.239:3000/api/auth/token/login/";
 
 const AuthReg = () => {
   const dispatch = useDispatch();

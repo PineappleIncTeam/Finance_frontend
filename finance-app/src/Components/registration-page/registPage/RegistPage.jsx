@@ -5,7 +5,7 @@ import Logo from "../../Logo";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-const URL = "http://127.0.0.1:8000/api/auth/users/";
+const URL = "http://92.255.79.239:3000/api/auth/users/";
 
 const RegistPage = () => {
   const [reply, setReply] = useState("");

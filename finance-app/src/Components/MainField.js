@@ -16,7 +16,7 @@ function MainField() {
         Authorization: `Token ${token}`,
       },
     };
-    fetch("http://127.0.0.1:8000/api/sum-incomecash/", options)
+    fetch("http://92.255.79.239:3000/api/sum-incomecash/", options)
       .then((result) => result.json())
       .then((responseServer) =>
         setInputData(

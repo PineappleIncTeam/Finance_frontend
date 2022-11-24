@@ -6,7 +6,7 @@ import CSRFToken from "../CSRFToken";
 import Cookies from "js-cookie";
 
 async function loginUser(credentials) {
-  fetch(`http://127.0.0.1:8000/auth/token/login/`, {
+  fetch(`http://92.255.79.239:3000/auth/token/login/`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

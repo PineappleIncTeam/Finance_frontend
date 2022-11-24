@@ -16,7 +16,7 @@ function Transactions() {
         Authorization: `Token ${token}`,
       },
     };
-    fetch("http://127.0.0.1:8000/api/last-5-incomecash/", options)
+    fetch("http://92.255.79.239:3000/api/last-5-incomecash/", options)
       .then((result) => result.json())
       .then((responseServer) => {
         setOperationList("");

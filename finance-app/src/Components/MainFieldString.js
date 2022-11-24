@@ -52,10 +52,10 @@ function MainFieldString(props) {
     };
 
     fetch("http://92.255.79.239:8000/api/incomecash/", options)
-      .then((result) => result.json())
+      .then((result) => props.getInputData())
       .then((serverResponse) => props.getOperationList());
       setEnterSum('');
-      props.getInputData()
+      
   }
 
   function handleInputChange(event) {

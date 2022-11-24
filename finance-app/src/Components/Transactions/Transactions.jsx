@@ -16,7 +16,7 @@ function Transactions() {
         Authorization: `Token ${token}`,
       },
     };
-    fetch("http://92.255.79.239:3000/api/last-5-incomecash/", options)
+    fetch("http://92.255.79.239:8000/api/last-5-incomecash/", options)
       .then((result) => result.json())
       .then((responseServer) => {
         setOperationList("");
@@ -25,7 +25,7 @@ function Transactions() {
   }
   useEffect(() => {
     getOperationList();
-  }, [operationList]);
+  }, []);
 
   return (
     <div className={style.root}>

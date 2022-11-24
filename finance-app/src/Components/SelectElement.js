@@ -36,7 +36,7 @@ function SelectElement({
         body: JSON.stringify(data),
       };
 
-      fetch("http://92.255.79.239:3000/api/categories/", options);
+      fetch("http://92.255.79.239:8000/api/categories/", options);
     } else {
       if (selectedValue !== title) {
         changeSelectElement(e.target.value);

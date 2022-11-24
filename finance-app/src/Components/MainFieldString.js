@@ -22,10 +22,10 @@ function MainFieldString(props) {
         Authorization: `Token ${token}`,
       },
     };
-    fetch("http://92.255.79.239:3000/api/categories/", options)
+    fetch("http://92.255.79.239:8000/api/categories/", options)
       .then((result) => result.json())
       .then((userCategories) => setCategories(userCategories));
-  }, [changeSelectElement]);
+  }, []);
 
   function changeSelectElement(object) {
     setSelectElement(JSON.parse(object));
@@ -48,9 +48,10 @@ function MainFieldString(props) {
       body: JSON.stringify(data),
     };
 
-    fetch("http://92.255.79.239:3000/api/incomecash/", options)
+    fetch("http://92.255.79.239:8000/api/incomecash/", options)
       .then((result) => result.json())
       .then((serverResponse) => props.getInputData(props.typeForSum));
+      setEnterSum('')
   }
 
   function handleInputChange(event) {

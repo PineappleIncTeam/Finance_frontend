@@ -10,7 +10,7 @@ function SelectElement({
   token,
   setSelectElement,
   getInputData,
-  typeForSum,
+  getCategories,
 }) {
   let [newCategory, setNewCategory] = useState("");
 
@@ -37,12 +37,13 @@ function SelectElement({
       };
 
       fetch("http://92.255.79.239:8000/api/categories/", options);
+      getCategories()
     } else {
       if (selectedValue !== title) {
         changeSelectElement(e.target.value);
         console.log(e.target.value);
       } else if (selectedValue === title) {
-        getInputData(typeForSum);
+        getInputData();
       }
     }
   }

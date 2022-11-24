@@ -4,28 +4,28 @@ import React from "react";
 import style from "./Transactions.module.css";
 import TransactionList from "./TransactionList";
 import SelectElement from "../SelectElement";
-function Transactions() {
-  const token = useSelector((state) => state.user.token);
-  const [operationList, setOperationList] = useState("");
+function Transactions({ operationList }) {
+  // const token = useSelector((state) => state.user.token);
+  // const [operationList, setOperationList] = useState("");
 
-  function getOperationList() {
-    const options = {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Token ${token}`,
-      },
-    };
-    fetch("http://92.255.79.239:8000/api/last-5-incomecash/", options)
-      .then((result) => result.json())
-      .then((responseServer) => {
-        setOperationList("");
-        setOperationList(responseServer);
-      });
-  }
-  useEffect(() => {
-    getOperationList();
-  }, []);
+  // function getOperationList() {
+  //   const options = {
+  //     method: "GET",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //       Authorization: `Token ${token}`,
+  //     },
+  //   };
+  //   fetch("http://92.255.79.239:8000/api/last-5-incomecash/", options)
+  //     .then((result) => result.json())
+  //     .then((responseServer) => {
+  //       setOperationList("");
+  //       setOperationList(responseServer);
+  //     });
+  // }
+  // useEffect(() => {
+  //   getOperationList();
+  // }, []);
 
   return (
     <div className={style.root}>

@@ -14,7 +14,7 @@ function MainFieldString(props) {
   const [selectElement, setSelectElement] = useState({});
 
   // запрос к серверу на получение категорий "Постоянные доходы". Работает. Надо получаемый JSON перевести в массив категорий. И вообще этот запрос нужен наверное в другом компоненте.
-  useEffect(() => {
+  function getCategories() {
     const options = {
       method: "GET",
       headers: {
@@ -25,14 +25,17 @@ function MainFieldString(props) {
     fetch("http://92.255.79.239:8000/api/categories/", options)
       .then((result) => result.json())
       .then((userCategories) => setCategories(userCategories));
-  }, []);
+  };
 
+  useEffect(() => {
+    getCategories()
+  }, [])
   function changeSelectElement(object) {
     setSelectElement(JSON.parse(object));
     console.log(JSON.parse(object));
   }
 
-  async function sumSubmit(event) {
+  function sumSubmit(event) {
     event.preventDefault();
     let data = {
       sum: enterSum,
@@ -50,8 +53,9 @@ function MainFieldString(props) {
 
     fetch("http://92.255.79.239:8000/api/incomecash/", options)
       .then((result) => result.json())
-      .then((serverResponse) => props.getInputData(props.typeForSum));
-      setEnterSum('')
+      .then((serverResponse) => props.getOperationList());
+      setEnterSum('');
+      props.getInputData()
   }
 
   function handleInputChange(event) {
@@ -69,6 +73,7 @@ function MainFieldString(props) {
           token={token}
           getInputData={props.getInputData}
           typeForSum={props.typeForSum}
+          getCategories={getCategories}
         />
       )}
       <input

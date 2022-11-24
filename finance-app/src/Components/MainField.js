@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import MainFieldString from "./MainFieldString";
 
-function MainField() {
+function MainField({ getOperationList }) {
   const token = useSelector((state) => state.user.token);
   const [inputData, setInputData] = useState("");
 
@@ -42,12 +42,14 @@ function MainField() {
         type="constant"
         getInputData={getInputData}
         typeForSum="constant_sum"
+        getOperationList={getOperationList}
       />
       <MainFieldString
         title="Временные"
         type="once"
         getInputData={getInputData}
-        typeForSum="onse_sum"
+        typeForSum="onse_sum" 
+        getOperationList={getOperationList}
       />
     </div>
   );

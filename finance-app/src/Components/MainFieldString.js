@@ -1,36 +1,35 @@
 // Компонент "Строка", пока выглядит как Список категорий, Инпут, Кнопка. Переиспользуемый
 
-import { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
-import SelectElement from './SelectElement';
+import { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
+import SelectElement from "./SelectElement";
 
 // import jsonToArray from '../Utils/jsonToArray';
 
 function MainFieldString(props) {
   const token = useSelector((state) => state.user.token);
-  console.log(token);
 
-  const [categories, setCategories] = useState('');
-  const [enterSum, setEnterSum] = useState('');
+  const [categories, setCategories] = useState("");
+  const [enterSum, setEnterSum] = useState("");
   const [selectElement, setSelectElement] = useState({});
 
   // запрос к серверу на получение категорий "Постоянные доходы". Работает. Надо получаемый JSON перевести в массив категорий. И вообще этот запрос нужен наверное в другом компоненте.
   useEffect(() => {
     const options = {
-      method: 'GET',
+      method: "GET",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
         Authorization: `Token ${token}`,
       },
     };
-    fetch('http://127.0.0.1:8000/api/categories/', options)
+    fetch("http://127.0.0.1:8000/api/categories/", options)
       .then((result) => result.json())
       .then((userCategories) => setCategories(userCategories));
-    
-  }, [selectElement]);
+  }, [changeSelectElement]);
 
   function changeSelectElement(object) {
     setSelectElement(JSON.parse(object));
+    console.log(JSON.parse(object));
   }
 
   async function sumSubmit(event) {
@@ -41,19 +40,17 @@ function MainFieldString(props) {
     };
 
     const options = {
-      method: 'POST',
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
         Authorization: `Token ${token}`,
       },
       body: JSON.stringify(data),
     };
 
-    fetch('http://127.0.0.1:8000/api/incomecash/', options)
+    fetch("http://127.0.0.1:8000/api/incomecash/", options)
       .then((result) => result.json())
       .then((serverResponse) => props.getInputData(props.typeForSum));
-      
-      
   }
 
   function handleInputChange(event) {

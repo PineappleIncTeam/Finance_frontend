@@ -3,7 +3,7 @@
 import "./Rectangle.css";
 import Navigation from "./Navigation";
 import MainField from "./MainField";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Aside from "./Aside/Aside";
 import Transactions from "./Transactions/Transactions";
 import MainFieldRouter from "./RoutePage/MainFieldRouter";

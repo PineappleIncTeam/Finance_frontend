@@ -1,6 +1,4 @@
 function TransactionList({ operationList }) {
-    
-
   return (
     <div className="">
       {operationList &&
@@ -17,4 +15,4 @@ function TransactionList({ operationList }) {
     </div>
   );
 }
-export default TransactionList
+export default TransactionList;

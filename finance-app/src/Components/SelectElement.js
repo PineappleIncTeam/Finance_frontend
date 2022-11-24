@@ -1,6 +1,6 @@
 // Выпадающий список категорий. будет меняться, т.к. данные о категориях должны приниматься с сервера, с привязкой к конкретному пользователю
 
-import { useState } from 'react';
+import { useState } from "react";
 
 function SelectElement({
   category_type,
@@ -10,16 +10,17 @@ function SelectElement({
   token,
   setSelectElement,
   getInputData,
-  typeForSum
+  typeForSum,
 }) {
-  const [newCategory, setNewCategory] = useState('');
-  console.log(token);
+  let [newCategory, setNewCategory] = useState("");
+
   // Функция добавления категории работает, сервер понимает запрос. Нужно еще обработать промис и выдать категории id. Расшифровка для меня. Виталий)
   function addCategory(e) {
     e.preventDefault();
+    console.log(e.target.value);
     let selectedValue = e.target.value;
-    if (selectedValue === 'Добавить категорию') {
-      let newCategory = prompt('Введите название категории');
+    if (selectedValue === "Добавить категорию") {
+      newCategory = prompt("Введите название категории");
       setNewCategory(newCategory);
 
       let data = {
@@ -27,26 +28,25 @@ function SelectElement({
         category_type,
       };
       const options = {
-        method: 'POST',
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
           Authorization: `Token ${token}`,
         },
         body: JSON.stringify(data),
       };
 
-      fetch('http://127.0.0.1:8000/api/categories/', options);
-      console.log(options);
+      fetch("http://127.0.0.1:8000/api/categories/", options);
     } else {
       if (selectedValue !== title) {
         changeSelectElement(e.target.value);
         console.log(e.target.value);
-      } else if(selectedValue === title) {
-        getInputData(typeForSum)
+      } else if (selectedValue === title) {
+        getInputData(typeForSum);
       }
     }
   }
-  console.log('rendered')
+
   return (
     <select className="select_element" onChange={(e) => addCategory(e)}>
       <option className="option_list" value={title}>
@@ -65,7 +65,7 @@ function SelectElement({
               {jsonObject.categoryName}
             </option>
           );
-        } 
+        }
       })}
       <option value="Добавить категорию">Добавить категорию</option>
     </select>

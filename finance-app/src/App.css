@@ -9,7 +9,7 @@
   height: 1080px;
 
   margin-left: 120px;
-  background-color: #faf5e433;
+  /* background-color: #faf5e433; */
 }
 
 .navigation {
@@ -109,8 +109,14 @@
   font-weight: 600;
   font-size: 20px;
   margin: 40px 19px 0px;
-  background: #54782b;
+  background: #125b50;
   border-radius: 24px;
+}
+.main_field_string_button:hover {
+  background-color: #155249;
+  cursor: pointer;
+  box-shadow: 0px 2px 5px 1px #0c4139;
+  transform: translateY(-1px);
 }
 
 .main_field_analitic_h3 {
@@ -168,5 +174,4 @@
 
 .operation_list_item {
   text-align: center;
-  
 }

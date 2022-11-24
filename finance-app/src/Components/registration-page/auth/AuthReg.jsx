@@ -86,7 +86,7 @@ const AuthReg = () => {
               type={"submit"}
               onClick={() => handleClick(login, pass)}
             >
-              Submit
+              Вперед
             </button>
           </div>
 
@@ -152,10 +152,10 @@ const AuthReg = () => {
         </div>
       </div>
       <div className={style.registFon}>
-        <div className={style.textFon}>
+        {/* <div className={style.textFon}>
           <div className={style.welcome}>Добро пожаловать в FREENANCE</div>
           <div className={style.textConcept}>Помогаем cчитать быстро!</div>
-        </div>
+        </div> */}
       </div>
     </div>
   );

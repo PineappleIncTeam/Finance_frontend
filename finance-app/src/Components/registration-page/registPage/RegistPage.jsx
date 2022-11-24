@@ -131,10 +131,10 @@ const RegistPage = () => {
         </div>
       </div>
       <div className={style.registFon}>
-        <div className={style.textFon}>
+        {/* <div className={style.textFon}>
           <div className={style.welcome}>Добро пожаловать в FREENANCE</div>
           <div className={style.textConcept}>Помогаем cчитать быстро!</div>
-        </div>
+        </div> */}
       </div>
     </div>
   );

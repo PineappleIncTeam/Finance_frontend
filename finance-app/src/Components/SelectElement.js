@@ -17,7 +17,7 @@ function SelectElement({
   // Функция добавления категории работает, сервер понимает запрос. Нужно еще обработать промис и выдать категории id. Расшифровка для меня. Виталий)
   function addCategory(e) {
     e.preventDefault();
-    console.log(e.target.value);
+
     let selectedValue = e.target.value;
     if (selectedValue === "Добавить категорию") {
       newCategory = prompt("Введите название категории");
@@ -36,16 +36,15 @@ function SelectElement({
         body: JSON.stringify(data),
       };
 
-      fetch("http://92.255.79.239:8000/api/categories/", options)
-      .then((result) => {
-        result.json();
-        getCategories()
-      })
-      
+      fetch("http://92.255.79.239:8000/api/categories/", options).then(
+        (result) => {
+          result.json();
+          getCategories();
+        }
+      );
     } else {
       if (selectedValue !== title) {
         changeSelectElement(e.target.value);
-        console.log(e.target.value);
       } else if (selectedValue === title) {
         getInputData();
       }

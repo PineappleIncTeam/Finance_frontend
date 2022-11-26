@@ -18,20 +18,27 @@ function MainField({ getOperationList }) {
     };
     fetch("http://92.255.79.239:8000/api/sum-incomecash/", options)
       .then((result) => result.json())
-      .then((responseServer) =>
-        setInputData(
-          responseServer.map(
-            (responseServer) =>
-              `Постоянные: ${responseServer.constant_sum}; Временные: ${responseServer.once_sum}`
-          )
-        )
+      .then(
+        (responseServer) => {
+          responseServer.map((responseNumber) => {
+            let constSum = Number(responseNumber.constant_sum);
+            let onceSum = Number(responseNumber.once_sum);
+
+            setInputData(constSum + onceSum);
+          });
+        }
+        // setInputData(
+        //   responseServer.map(
+        //     (responseServer) =>
+        //       `Постоянные: ${responseServer.constant_sum}; Временные: ${responseServer.once_sum}`
+        //   )
+        // )
       );
   }
   useEffect(() => {
     getInputData();
   }, []);
 
- 
   return (
     <div className="main_field" key="">
       <h2 className="main_field_title">Доходы</h2>
@@ -48,7 +55,7 @@ function MainField({ getOperationList }) {
         title="Временные"
         type="once"
         getInputData={getInputData}
-        typeForSum="onse_sum" 
+        typeForSum="onse_sum"
         getOperationList={getOperationList}
       />
     </div>

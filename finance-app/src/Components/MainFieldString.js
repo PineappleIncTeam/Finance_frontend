@@ -1,28 +1,28 @@
 // Компонент "Строка", пока выглядит как Список категорий, Инпут, Кнопка. Переиспользуемый
 
-import { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
-import SelectElement from "./SelectElement";
+import { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
+import SelectElement from './SelectElement';
 
 // import jsonToArray from '../Utils/jsonToArray';
 
 function MainFieldString(props) {
   const token = useSelector((state) => state.user.token);
 
-  const [categories, setCategories] = useState("");
-  const [enterSum, setEnterSum] = useState("");
+  const [categories, setCategories] = useState('');
+  const [enterSum, setEnterSum] = useState('');
   const [selectElement, setSelectElement] = useState({});
 
   // запрос к серверу на получение категорий "Постоянные доходы". Работает. Надо получаемый JSON перевести в массив категорий. И вообще этот запрос нужен наверное в другом компоненте.
   function getCategories() {
     const options = {
-      method: "GET",
+      method: 'GET',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
         Authorization: `Token ${token}`,
       },
     };
-    fetch("http://92.255.79.239:8000/api/categories/", options)
+    fetch('http://92.255.79.239:8000/api/categories/', options)
       .then((result) => result.json())
       .then((userCategories) => setCategories(userCategories));
   }
@@ -43,18 +43,18 @@ function MainFieldString(props) {
     };
 
     const options = {
-      method: "POST",
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
         Authorization: `Token ${token}`,
       },
       body: JSON.stringify(data),
     };
 
-    fetch("http://92.255.79.239:8000/api/incomecash/", options)
+    fetch('http://92.255.79.239:8000/api/incomecash/', options)
       .then((result) => props.getInputData())
       .then((serverResponse) => props.getOperationList());
-    setEnterSum("");
+    setEnterSum('');
   }
 
   function handleInputChange(event) {
@@ -75,12 +75,15 @@ function MainFieldString(props) {
           getCategories={getCategories}
         />
       )}
+
       <input
         type="text"
         className="main_field_string_input"
         value={enterSum}
         onChange={(event) => handleInputChange(event)}
       ></input>
+      <span className="ruble_icon">₽</span>
+
       <button type="submit" className="main_field_string_button">
         Добавить
       </button>

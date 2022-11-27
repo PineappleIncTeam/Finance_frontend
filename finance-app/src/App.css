@@ -78,6 +78,15 @@
 
   color: #999999;
 }
+.ruble_icon {
+  font-family: "Inter";
+  font-weight: 400;
+  font-size: 20px;
+  color: #999999;
+  position: relative;
+  right: 25px;
+
+}
 .input_rub {
   width: 546px;
   height: 60px;

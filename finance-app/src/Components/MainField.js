@@ -43,7 +43,10 @@ function MainField({ getOperationList }) {
     <div className="main_field" key="">
       <h2 className="main_field_title">Доходы</h2>
       <div className="main_field_title_label">Общий доход</div>
-      <input className="input_rub" value={inputData} readOnly></input>
+      <div className="main_field_input">
+        <input className="input_rub" value={inputData} readOnly></input>
+        <span className="ruble_icon">₽</span>
+      </div>
       <MainFieldString
         title="Постоянные"
         type="constant"

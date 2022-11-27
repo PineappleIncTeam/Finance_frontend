@@ -11,6 +11,18 @@
   opacity: 0.8;
 }
 
+.transactions {
+  display: flex;
+  flex-direction: column;
+  margin-top: 10px;
+  height: 150px;
+  justify-content: space-between;
+}
+
+.root {
+  width: 100%;
+}
+
 .root hr {
   border: 1px solid rgba(84, 120, 43, 0.15);
   box-shadow: 0px -3px 24px rgba(84, 120, 43, 0.5);

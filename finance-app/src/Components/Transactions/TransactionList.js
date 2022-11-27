@@ -2,7 +2,7 @@ import s from "./Transactions.module.css";
 
 function TransactionList({ operationList }) {
   return (
-    <div className="">
+    <div className={s.transactions}>
       {operationList &&
         operationList.map((operation, index) => {
           return (

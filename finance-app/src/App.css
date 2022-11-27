@@ -1,21 +1,14 @@
 .App {
   text-align: center;
-  width: 1920px;
+  max-width: 1920px;
   height: 1080px;
-}
-.rectangle {
-  display: flex;
-  width: 1920px;
-  height: 1080px;
-
-  margin-left: 120px;
-  /* background-color: #faf5e433; */
 }
 
 .navigation {
   max-width: 405px;
   height: 1080px;
   background-image: url("../src/Images/navBlockBack.png");
+  margin-left: 120px;
 }
 
 .logo_block {
@@ -74,7 +67,7 @@
   display: flex;
   align-items: center;
   text-align: center;
-  margin-left: 180px;
+  margin-left: 210px;
 
   color: #999999;
 }
@@ -85,7 +78,6 @@
   color: #999999;
   position: relative;
   right: 25px;
-
 }
 .input_rub {
   width: 546px;

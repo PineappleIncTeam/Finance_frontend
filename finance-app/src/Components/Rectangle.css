@@ -1,19 +1,16 @@
 .rectangle {
-  /* width: 1920px;
-  height: 1080px;
-  background-color: #faf5e433;
-  margin-left: 120px; */
+  display: flex;
 }
 
 .main {
   display: grid;
   width: 100%;
-  grid-template-rows: 1fr 160px;
+  grid-template-rows: 1fr 200px;
 }
 
 .mainField {
   display: grid;
-  grid-template-columns: 1fr minmax(150px, 600px);
+  grid-template-columns: 1fr minmax(150px, 400px);
 }
 
 .mainFieldBlock {

@@ -19,7 +19,7 @@
 
 .operation {
   display: grid;
-  grid-template-columns: 30% 30% 40%;
+  grid-template-columns: 25% 25% 20% 30%;
   font-family: "Monserrat-Medium";
   font-style: normal;
   font-weight: 400;
@@ -31,4 +31,18 @@
 }
 
 .operation_list_item {
+}
+.icons {
+  display: flex;
+}
+.operation_list_icon1 {
+  background-image: url("../../Images/Icon1.svg");
+  width: 22px;
+  height: 22px;
+  margin-right: 40px;
+}
+.operation_list_icon2 {
+  background-image: url("../../Images/Icon2.svg");
+  width: 19px;
+  height: 20px;
 }

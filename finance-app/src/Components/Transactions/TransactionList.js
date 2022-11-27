@@ -10,7 +10,10 @@ function TransactionList({ operationList }) {
               <div className={s.operation_list_item}>{operation.date}</div>
               <div className="">{operation.categoryName}</div>
               <div className="">+{operation.sum}</div>
-              <div className=""></div>
+              <div className={s.icons}>
+                <div className={s.operation_list_icon1}></div>
+                <div className={s.operation_list_icon2}></div>
+              </div>
             </div>
           );
         })}

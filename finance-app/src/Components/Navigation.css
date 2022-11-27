@@ -1,5 +1,4 @@
 .exit {
-  font-family: "Montserrat";
   font-style: normal;
   font-weight: 400;
   font-size: 18px;
@@ -18,4 +17,5 @@
 
 .textExit {
   margin-right: 10px;
+  font-family: "Monserrat-Medium";
 }

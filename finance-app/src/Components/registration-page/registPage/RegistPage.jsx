@@ -37,7 +37,7 @@ const RegistPage = () => {
       .required("Обязательное поле"),
     username: Yup.string()
       .min(2, "Слишком короткое имя")
-      .max(10, "Слишком длинное имя")
+      .max(50, "Слишком длинное имя")
       .required("Обязательное поле"),
     password: Yup.string().required("Обязательное поле"),
     confirmPassword: Yup.string()
@@ -123,7 +123,7 @@ const RegistPage = () => {
                   type={"submit"}
                   disabled={isSubmiting}
                 >
-                  Submit
+                  Вперед
                 </button>
               </Form>
             )}

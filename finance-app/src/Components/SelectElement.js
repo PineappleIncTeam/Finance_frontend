@@ -4,6 +4,7 @@ import { useState } from 'react';
 
 function SelectElement({
   category_type,
+  income_outcome,
   categories,
   title,
   changeSelectElement,
@@ -11,6 +12,7 @@ function SelectElement({
   setSelectElement,
   getInputData,
   getCategories,
+  typeOfCategories
 }) {
   let [newCategory, setNewCategory] = useState('');
 
@@ -26,7 +28,9 @@ function SelectElement({
       let data = {
         categoryName: newCategory,
         category_type,
+        income_outcome
       };
+      console.log(typeOfCategories)
       const options = {
         method: 'POST',
         headers: {
@@ -39,7 +43,7 @@ function SelectElement({
       fetch('http://92.255.79.239:8000/api/categories/', options).then(
         (result) => {
           result.json();
-          getCategories();
+          getCategories(typeOfCategories);
         }
       );
     } else {

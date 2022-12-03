@@ -2,7 +2,7 @@
 
 import "./Rectangle.css";
 import Navigation from "./Navigation";
-import MainField from "./MainField";
+// import MainField from "./MainField";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import Aside from "./Aside/Aside";
@@ -12,8 +12,10 @@ import MainFieldRouter from "./RoutePage/MainFieldRouter";
 function Rectangle() {
   const token = useSelector((state) => state.user.token);
   const [operationList, setOperationList] = useState("");
-
-  function getOperationList() {
+  const [symbol, setSymbol] = useState('+')
+  // let typeOfOperation = "http://92.255.79.239:8000/api/last-5-incomecash/";
+  
+  function getOperationList(endpoint, symbol) {
     const options = {
       method: "GET",
       headers: {
@@ -21,16 +23,17 @@ function Rectangle() {
         Authorization: `Token ${token}`,
       },
     };
-    fetch("http://92.255.79.239:8000/api/last-5-incomecash/", options)
+    fetch(endpoint, options)
       .then((result) => result.json())
       .then((responseServer) => {
         setOperationList("");
         setOperationList(responseServer);
+        setSymbol(symbol)
       });
   }
-  useEffect(() => {
-    getOperationList();
-  }, []);
+  // useEffect(() => {
+  //   getOperationList(typeOfOperation);
+  // }, []);
 
   return (
     <div className="rectangle">
@@ -46,7 +49,7 @@ function Rectangle() {
         </div>
 
         <div className="transactions">
-          <Transactions operationList={operationList} />
+          <Transactions operationList={operationList} symbol={symbol} />
         </div>
       </div>
     </div>

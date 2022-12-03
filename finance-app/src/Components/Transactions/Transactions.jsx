@@ -4,7 +4,7 @@ import React from "react";
 import style from "./Transactions.module.css";
 import TransactionList from "./TransactionList";
 import SelectElement from "../SelectElement";
-function Transactions({ operationList }) {
+function Transactions({ operationList, symbol }) {
   // const token = useSelector((state) => state.user.token);
   // const [operationList, setOperationList] = useState("");
 
@@ -32,7 +32,7 @@ function Transactions({ operationList }) {
       <div className={style.text}>Последние операции</div>
 
       <hr />
-      <TransactionList operationList={operationList} />
+      <TransactionList operationList={operationList} symbol={symbol} />
       {/* <div className="">
         {operationList && (
           operationList.map((operation, index) => {

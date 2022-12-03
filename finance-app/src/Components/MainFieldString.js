@@ -1,35 +1,30 @@
 // Компонент "Строка", пока выглядит как Список категорий, Инпут, Кнопка. Переиспользуемый
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import SelectElement from './SelectElement';
 
 // import jsonToArray from '../Utils/jsonToArray';
 
-function MainFieldString(props) {
+function MainFieldString({
+  title,
+  type,
+  income_outcome,
+  endpoint,
+  typeOfSum,
+  getInputData,
+  typeForSum,
+  getOperationList,
+  getCategories,
+  typeOfCategories,
+  categories,
+  symbol
+}) {
   const token = useSelector((state) => state.user.token);
 
-  const [categories, setCategories] = useState('');
   const [enterSum, setEnterSum] = useState('');
   const [selectElement, setSelectElement] = useState({});
 
-  // запрос к серверу на получение категорий "Постоянные доходы". Работает. Надо получаемый JSON перевести в массив категорий. И вообще этот запрос нужен наверное в другом компоненте.
-  function getCategories() {
-    const options = {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Token ${token}`,
-      },
-    };
-    fetch('http://92.255.79.239:8000/api/categories/', options)
-      .then((result) => result.json())
-      .then((userCategories) => setCategories(userCategories));
-  }
-
-  useEffect(() => {
-    getCategories();
-  }, []);
   function changeSelectElement(object) {
     setSelectElement(JSON.parse(object));
     console.log(JSON.parse(object));
@@ -51,9 +46,9 @@ function MainFieldString(props) {
       body: JSON.stringify(data),
     };
 
-    fetch('http://92.255.79.239:8000/api/incomecash/', options)
-      .then((result) => props.getInputData())
-      .then((serverResponse) => props.getOperationList());
+    fetch(typeOfSum, options)
+      .then((result) => getInputData())
+      .then((serverResponse) => getOperationList(endpoint, symbol));
     setEnterSum('');
   }
 
@@ -66,13 +61,15 @@ function MainFieldString(props) {
       {categories && (
         <SelectElement
           categories={categories}
-          category_type={props.type}
-          title={props.title}
+          category_type={type}
+          income_outcome={income_outcome}
+          title={title}
           changeSelectElement={changeSelectElement}
           token={token}
-          getInputData={props.getInputData}
-          typeForSum={props.typeForSum}
+          getInputData={getInputData}
+          typeForSum={typeForSum}
           getCategories={getCategories}
+          typeOfCategories={typeOfCategories}
         />
       )}
 

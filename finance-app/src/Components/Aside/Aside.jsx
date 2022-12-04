@@ -1,6 +1,7 @@
 import React from "react";
 import style from "./Aside.module.css";
 import userAva from "./../../../src/Images/userAva.png";
+import CalendarDate from "./../calendar/CalendarDate";
 
 const Aside = () => {
   return (
@@ -16,7 +17,7 @@ const Aside = () => {
           </div>
         </div>
       </div>
-      <div className={style.calendar}></div>
+      {/* <CalendarDate /> */}
     </div>
   );
 };

@@ -80,6 +80,7 @@
   text-transform: capitalize;
   color: #faf5e4;
   cursor: pointer;
+  appearance: "primary";
 }
 
 .btn:hover {

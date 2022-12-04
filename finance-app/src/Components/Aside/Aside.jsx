@@ -1,7 +1,7 @@
 import React from "react";
 import style from "./Aside.module.css";
 import userAva from "./../../../src/Images/userAva.png";
-import CalendarDate from "./../calendar/CalendarDate";
+import AirCalendar from "../calendar/AirCalendar";
 
 const Aside = () => {
   return (
@@ -17,7 +17,7 @@ const Aside = () => {
           </div>
         </div>
       </div>
-      {/* <CalendarDate /> */}
+      <AirCalendar />
     </div>
   );
 };

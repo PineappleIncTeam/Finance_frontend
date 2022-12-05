@@ -26,8 +26,6 @@ const AuthReg = () => {
     axios
       .post(URL, payload)
       .then((response) => {
-        console.log(response.data.auth_token);
-
         dispatch(
           setUser({
             token: response.data.auth_token,

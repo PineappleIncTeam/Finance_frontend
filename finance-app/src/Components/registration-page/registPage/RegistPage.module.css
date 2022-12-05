@@ -18,7 +18,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-top: 126px;
+  margin-top: 96px;
 }
 .regist h1 {
   font-family: "Playfair Display";
@@ -40,10 +40,10 @@
 
 .form label {
   box-sizing: border-box;
-  font-family: "Montserrat";
+  font-family: "Monserrat-Medium";
   font-style: normal;
   font-weight: 400;
-  font-size: 24px;
+  font-size: 21px;
   line-height: 29px;
   letter-spacing: -0.01em;
   text-align: left;
@@ -132,7 +132,29 @@
   color: #faf5e4;
 }
 
+.textReg {
+  font-family: "Montserrat";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 24px;
+  letter-spacing: 0.09em;
+  opacity: 0.8;
+  color: #000000;
+}
+
+.reg {
+  text-decoration: none;
+  color: teal;
+}
+
+.reg:hover {
+  font-weight: bold;
+  color: teal;
+}
+
 .reply {
   font: italic 20px/25px Arial;
-  color: red;
+  color: teal;
+  margin-top: 10px;
 }

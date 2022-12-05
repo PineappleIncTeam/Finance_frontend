@@ -1,23 +1,25 @@
 // Компонент "Расходы"
-import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
-import MainFieldString from './MainFieldString';
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { costsBalans } from "../store/slice";
+import MainFieldString from "./MainFieldString";
 
 function MainFieldCosts({ getOperationList }) {
   const token = useSelector((state) => state.user.token);
-  const [inputData, setInputData] = useState('');
-  const [categories, setCategories] = useState('');
-  const planned = ['Планируемые', 'Добавить категорию'];
+  const [inputData, setInputData] = useState("");
+  const [categories, setCategories] = useState("");
+  const planned = ["Планируемые", "Добавить категорию"];
+  const dispatch = useDispatch();
 
-  let outcomeOperations = 'http://92.255.79.239:8000/api/last-5-outcomecash/';
-  let typeOfSum = 'http://92.255.79.239:8000/api/outcomecash/';
-  let typeOfCategories = 'http://92.255.79.239:8000/api/outcome-categories/';
+  let outcomeOperations = "http://92.255.79.239:8000/api/last-5-outcomecash/";
+  let typeOfSum = "http://92.255.79.239:8000/api/outcomecash/";
+  let typeOfCategories = "http://92.255.79.239:8000/api/outcome-categories/";
 
   function getCategories(typeOfCategories) {
     const options = {
-      method: 'GET',
+      method: "GET",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
         Authorization: `Token ${token}`,
       },
     };
@@ -32,29 +34,31 @@ function MainFieldCosts({ getOperationList }) {
 
   function getInputData() {
     const options = {
-      method: 'GET',
+      method: "GET",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
         Authorization: `Token ${token}`,
       },
     };
-    fetch('http://92.255.79.239:8000/api/sum-outcomecash/', options)
+    fetch("http://92.255.79.239:8000/api/sum-outcomecash/", options)
       .then((result) => result.json())
       .then((responseServer) => {
         responseServer.map((responseNumber) => {
           let constSum = Number(responseNumber.constant_sum);
           let onceSum = Number(responseNumber.once_sum);
-
-          setInputData(constSum + onceSum);
+          let sumField = constSum + onceSum;
+          setInputData(sumField);
+          dispatch(costsBalans({ balansCosts: sumField }));
         });
       });
   }
+
   useEffect(() => {
     getInputData();
   }, []);
 
   useEffect(() => {
-    getOperationList(outcomeOperations, '-');
+    getOperationList(outcomeOperations, "-");
   }, []);
 
   return (

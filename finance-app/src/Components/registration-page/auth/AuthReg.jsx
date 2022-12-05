@@ -1,5 +1,6 @@
 import style from "./AuthReg.module.css";
-
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import * as Yup from "yup";
 import Logo from "../../Logo";
 import axios from "axios";
 import { useNavigate } from "react-router";
@@ -11,35 +12,43 @@ import { setUser } from "../../../store/slice";
 const URL = "http://92.255.79.239:8000/api/auth/token/login/";
 
 const AuthReg = () => {
-  const dispatch = useDispatch();
   const [reply, setReply] = useState("");
-  const [login, setLogin] = useState("");
-  const [pass, setPass] = useState("");
-
+  const dispatch = useDispatch();
   const navigate = useNavigate();
-  const handleClick = (login, pass) => {
+  const registerHandler = async (values, { setSubmitting }) => {
     const payload = {
-      username: login,
-      password: pass,
+      username: values.username,
+      password: values.password,
     };
+    try {
+      const response = await axios.post(URL, payload);
+      dispatch(
+        setUser({
+          token: response.data.auth_token,
+        })
+      );
 
-    axios
-      .post(URL, payload)
-      .then((response) => {
-        dispatch(
-          setUser({
-            token: response.data.auth_token,
-          })
+      response.data.auth_token &&
+        setReply(
+          `Пользователь ${payload.username} вошел в свою учетную запись`
         );
-        response.data.auth_token &&
-          setReply(
-            `Пользователь ${payload.username} вошел в свою учетную запись`
-          );
 
-        navigate("/rectangle");
-      })
-      .catch(() => setReply(`Логин или пароль введены неверно`));
+      navigate("/rectangle");
+    } catch (e) {
+      console.log(e);
+      setReply(`Неверно введен логин или пароль`);
+    } finally {
+      setSubmitting(false);
+    }
   };
+
+  const validationSchema = Yup.object({
+    username: Yup.string()
+      .min(2, "Слишком короткое имя")
+      .max(50, "Слишком длинное имя")
+      .required("Обязательное поле"),
+    password: Yup.string().required("Обязательное поле"),
+  });
 
   return (
     <div className={style.root}>
@@ -49,50 +58,11 @@ const AuthReg = () => {
         </div>
         <div className={style.regist}>
           <h1>Вход</h1>
-          <div className={style.form}>
-            <br />
-            <label className={style.label}>Логин</label>
-            <input
-              placeholder={"Введите логин..."}
-              className={style.input}
-              type="login"
-              value={login}
-              onChange={(e) => setLogin(e.target.value)}
-            />
-            <br />
-            <label className={style.label}>Пароль</label>
-            <input
-              placeholder={"Введите пароль..."}
-              className={style.input}
-              type="password"
-              value={pass}
-              onChange={(e) => setPass(e.target.value)}
-            />
-            <br />
-            <p className={style.textReg}>
-              Если у вас нет учетной записи, <br />
-              <Link to="/login" className={style.reg}>
-                {" "}
-                ЗАРЕГИСТРИРУЙТЕСЬ
-              </Link>
-            </p>
-            <br />
-            <div className={style.reply}>{reply}</div>
-            <br />
-            <button
-              className={style.btn}
-              type={"submit"}
-              onClick={() => handleClick(login, pass)}
-            >
-              Вперед
-            </button>
-          </div>
-
-          {/* <Formik
+          <Formik
             initialValues={{
+              email: "",
               username: "",
               password: "",
-              confirmPassword: "",
             }}
             validateOnBlur
             validationSchema={validationSchema}
@@ -100,6 +70,7 @@ const AuthReg = () => {
           >
             {({ isValid, dirty, isSubmiting }) => (
               <Form className={style.form}>
+                <br />
                 <label>Логин</label>
                 <Field
                   type="username"
@@ -126,8 +97,6 @@ const AuthReg = () => {
                   className={style.error}
                 />
                 <br />
-
-                <br />
                 <p className={style.textReg}>
                   Если у вас нет учетной записи, <br />
                   <Link to="/login" className={style.reg}>
@@ -142,11 +111,11 @@ const AuthReg = () => {
                   type={"submit"}
                   disabled={isSubmiting}
                 >
-                  Submit
+                  Вперед
                 </button>
               </Form>
             )}
-          </Formik> */}
+          </Formik>
         </div>
       </div>
       <div className={style.registFon}>

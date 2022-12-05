@@ -34,7 +34,7 @@
   justify-content: space-between;
 }
 
-.label {
+.form label {
   box-sizing: border-box;
   font-family: "Monserrat-Medium";
   font-style: normal;
@@ -43,7 +43,7 @@
   line-height: 29px;
   letter-spacing: -0.01em;
   text-align: left;
-  color: #969494;
+  color: #b7b7b7;
 }
 
 .input {

@@ -12,7 +12,8 @@ import MainFieldRouter from "./RoutePage/MainFieldRouter";
 function Rectangle() {
   const token = useSelector((state) => state.user.token);
   const [operationList, setOperationList] = useState("");
-  const [symbol, setSymbol] = useState('+')
+  const [symbol, setSymbol] = useState('+');
+  const [balanceData, setBalanceData] = useState("");
   // let typeOfOperation = "http://92.255.79.239:8000/api/last-5-incomecash/";
   
   function getOperationList(endpoint, symbol) {
@@ -34,6 +35,23 @@ function Rectangle() {
   // useEffect(() => {
   //   getOperationList(typeOfOperation);
   // }, []);
+  function getBalanceData() {
+    const options = {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Token ${token}`,
+      },
+    };
+    fetch("http://92.255.79.239:8000/api/balance/", options)
+      .then((result) => result.json())
+      .then((responseServer) => setBalanceData(responseServer.sum_balance))
+    };
+  
+
+  useEffect(() => {
+    getBalanceData();
+  }, []);
 
   return (
     <div className="rectangle">
@@ -41,10 +59,10 @@ function Rectangle() {
       <div className="main">
         <div className="mainField">
           <div className="mainFieldBlock">
-            <MainFieldRouter getOperationList={getOperationList} />
+            <MainFieldRouter getOperationList={getOperationList} getBalanceData={getBalanceData} />
           </div>
           <div className="aside">
-            <Aside />
+            <Aside balanceData={balanceData} />
           </div>
         </div>
 

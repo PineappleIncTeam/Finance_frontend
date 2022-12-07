@@ -1,8 +1,8 @@
 // Компонент "Строка", пока выглядит как Список категорий, Инпут, Кнопка. Переиспользуемый
 
-import { useState } from "react";
-import { useSelector } from "react-redux";
-import SelectElement from "./SelectElement";
+import { useState } from 'react';
+import { useSelector } from 'react-redux';
+import SelectElement from './SelectElement';
 
 // import jsonToArray from '../Utils/jsonToArray';
 
@@ -19,10 +19,11 @@ function MainFieldString({
   typeOfCategories,
   categories,
   symbol,
+  getBalanceData,
 }) {
   const token = useSelector((state) => state.user.token);
 
-  const [enterSum, setEnterSum] = useState("");
+  const [enterSum, setEnterSum] = useState('');
   const [selectElement, setSelectElement] = useState({});
 
   function changeSelectElement(object) {
@@ -37,9 +38,9 @@ function MainFieldString({
     };
 
     const options = {
-      method: "POST",
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
         Authorization: `Token ${token}`,
       },
       body: JSON.stringify(data),
@@ -47,8 +48,11 @@ function MainFieldString({
 
     fetch(typeOfSum, options)
       .then((result) => getInputData())
-      .then((serverResponse) => getOperationList(endpoint, symbol));
-    setEnterSum("");
+      .then((serverResponse) => {
+        getBalanceData();
+        getOperationList(endpoint, symbol);
+      });
+    setEnterSum('');
   }
 
   function handleInputChange(event) {

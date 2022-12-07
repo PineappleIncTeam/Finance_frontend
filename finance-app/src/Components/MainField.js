@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { stringBalans } from "../store/slice";
 import MainFieldString from "./MainFieldString";
 
-function MainField({ getOperationList }) {
+function MainField({ getOperationList, getBalanceData }) {
   const token = useSelector((state) => state.user.token);
   const [inputData, setInputData] = useState("");
   const [categories, setCategories] = useState("");
@@ -83,6 +83,7 @@ function MainField({ getOperationList }) {
         typeOfCategories={typeOfCategories}
         categories={categories}
         symbol="+"
+        getBalanceData={getBalanceData}
       />
       <MainFieldString
         title="Временные"
@@ -97,6 +98,7 @@ function MainField({ getOperationList }) {
         typeOfCategories={typeOfCategories}
         categories={categories}
         symbol="+"
+        getBalanceData={getBalanceData}
       />
     </div>
   );

@@ -5,11 +5,11 @@ import MainFieldAnalitic from "../MainFieldAnalitic";
 import MainFieldCosts from "../MainFieldCosts";
 import MainFieldStorage from "../MainFieldStorage";
 
-const MainFieldRouter = ({ getOperationList, setSymbol }) => {
+const MainFieldRouter = ({ getOperationList, setSymbol, getBalanceData }) => {
   return (
     <Routes>
-      <Route path="/mainfield" element={<MainField getOperationList={getOperationList} />} />
-      <Route path="/mainfieldcosts" element={<MainFieldCosts getOperationList={getOperationList} setSymbol={setSymbol}/>} />
+      <Route path="/mainfield" element={<MainField getOperationList={getOperationList} getBalanceData={getBalanceData} />} />
+      <Route path="/mainfieldcosts" element={<MainFieldCosts getOperationList={getOperationList} setSymbol={setSymbol} getBalanceData={getBalanceData} />} />
       <Route path="/mainfieldstorage" element={<MainFieldStorage />} />
       <Route path="/mainfieldanalitic" element={<MainFieldAnalitic />} />
     </Routes>

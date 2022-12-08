@@ -7,21 +7,26 @@ import { useEffect } from "react";
 import { useSelector } from "react-redux";
 
 const Aside = () => {
-  const [stringSum, setStringSum] = useState("");
-  //Доходы
-  const valueString = useSelector((state) => state.user.balansString);
-  //Расходы
-  const valueCosts = useSelector((state) => state.user.balansCosts);
+  const [balance, setBalance] = useState("");
+  const token = useSelector((state) => state.user.token);
 
-  const valueBalans = +valueString - +valueCosts;
-
+  const options = {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Token ${token}`,
+    },
+  };
+  fetch("http://127.0.0.1:8000/api/balance/", options)
+    .then((result) => result.json())
+    .then((dataBalans) => console.log(dataBalans));
   return (
     <div>
       <div className={style.root}>
         <div className={style.userDate}>
           <div className={style.balance}>
             <div className={style.textBalance}>Ваш баланс</div>
-            <input type="text" value={valueBalans} readOnly />
+            <input type="text" value={balance} readOnly />
           </div>
           <div className={style.userAva}>
             <img src={userAva} alt="" />

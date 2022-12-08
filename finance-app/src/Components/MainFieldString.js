@@ -31,6 +31,7 @@ function MainFieldString({
 
   function sumSubmit(event) {
     event.preventDefault();
+
     let data = {
       sum: enterSum,
       category_id: selectElement.category_id,
@@ -47,7 +48,7 @@ function MainFieldString({
 
     fetch(typeOfSum, options)
       .then((result) => getInputData())
-      .then((serverResponse) => getOperationList(endpoint, symbol));
+      .then((sumString) => getOperationList(endpoint, symbol));
     setEnterSum("");
   }
 
@@ -73,7 +74,7 @@ function MainFieldString({
       )}
 
       <input
-        type="text"
+        type="number"
         className="main_field_string_input"
         value={enterSum}
         onChange={(event) => handleInputChange(event)}

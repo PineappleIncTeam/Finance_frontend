@@ -67,7 +67,7 @@ function Rectangle() {
         </div>
 
         <div className="transactions">
-          <Transactions operationList={operationList} symbol={symbol} />
+          <Transactions getBalanceData={getBalanceData} getOperationList={getOperationList} operationList={operationList} symbol={symbol} />
         </div>
       </div>
     </div>

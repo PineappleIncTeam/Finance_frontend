@@ -52,9 +52,16 @@
   width: 22px;
   height: 22px;
   margin-right: 40px;
+  cursor: pointer;
 }
 .operation_list_icon2 {
   background-image: url("../../Images/Icon2.svg");
   width: 19px;
   height: 20px;
+  cursor: pointer;
+}
+.icon_button {
+  border: none;
+  background-color: white;
+  
 }

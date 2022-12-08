@@ -29,3 +29,8 @@
   align-items: center;
   color: #999999;
 }
+
+.datePicker {
+  margin-top: 180px;
+  text-align: left;
+}

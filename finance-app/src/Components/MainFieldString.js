@@ -1,5 +1,3 @@
-// Компонент "Строка", пока выглядит как Список категорий, Инпут, Кнопка. Переиспользуемый
-
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import SelectElement from "./SelectElement";
@@ -19,6 +17,7 @@ function MainFieldString({
   typeOfCategories,
   categories,
   symbol,
+  getBalanceData,
 }) {
   const token = useSelector((state) => state.user.token);
 
@@ -31,7 +30,6 @@ function MainFieldString({
 
   function sumSubmit(event) {
     event.preventDefault();
-
     let data = {
       sum: enterSum,
       category_id: selectElement.category_id,
@@ -48,7 +46,10 @@ function MainFieldString({
 
     fetch(typeOfSum, options)
       .then((result) => getInputData())
-      .then((sumString) => getOperationList(endpoint, symbol));
+      .then((serverResponse) => {
+        getBalanceData();
+        getOperationList(endpoint, symbol);
+      });
     setEnterSum("");
   }
 

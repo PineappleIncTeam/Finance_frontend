@@ -1,0 +1,79 @@
+.-weekend- {
+  color: rgb(94, 89, 89);
+  font-weight: bold;
+}
+
+.input {
+  padding: 10px;
+  padding-right: 20px;
+  border-radius: 8px;
+  z-index: 1;
+  border: 2px solid #999999;
+  width: 210px;
+  font-family: "Monserrat";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 24px;
+}
+
+.input::placeholder {
+  font-family: "Monserrat-Medium";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 19px;
+  line-height: 24px;
+}
+
+.rootInput {
+  position: relative;
+  color: #000000;
+  display: inline-block;
+}
+
+.vect {
+  position: absolute;
+  top: 12px;
+  right: 10px;
+  z-index: 2;
+  color: #000000;
+}
+
+.air-datepicker-body--day-name {
+  font-family: "Monserrat-Medium";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 10px;
+  line-height: 12px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+
+  color: #000000;
+}
+
+.-day- {
+  font-family: "Monserrat-Medium";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 20px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+
+  color: #000000;
+}
+
+.air-datepicker-nav--title {
+  font-family: "Monserrat-Medium";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 24px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+
+  color: #000000;
+}

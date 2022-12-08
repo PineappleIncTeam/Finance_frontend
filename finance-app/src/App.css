@@ -120,9 +120,7 @@
   padding-left: 10px;
   background-color: #faf5e433;
 }
-.raz {
-  -moz-appearance: textfield;
-}
+
 .main_field_string_input::-webkit-inner-spin-button {
   display: none;
 }

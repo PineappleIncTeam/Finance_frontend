@@ -57,6 +57,11 @@ function MainFieldString({
     setEnterSum(event.target.value);
   }
 
+  const changeHandler = (e) => {
+    const value = e.target.value;
+    e.target.value = value.replace(/\D/g, "");
+  };
+
   return (
     <form className="main_field_string" onSubmit={sumSubmit}>
       {categories && (
@@ -78,6 +83,8 @@ function MainFieldString({
         type="number"
         className="main_field_string_input"
         value={enterSum}
+        onInput={(event) => changeHandler(event)}
+        min="1"
         onChange={(event) => handleInputChange(event)}
       ></input>
       <span className="ruble_icon">₽</span>

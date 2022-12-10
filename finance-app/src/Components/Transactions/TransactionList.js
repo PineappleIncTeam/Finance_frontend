@@ -8,18 +8,18 @@ function TransactionList({
   symbol,
   getInputData,
   sumIncomeCash,
-  sumOutcomeCash
+  sumOutcomeCash,
 }) {
   const token = useSelector((state) => state.user.token);
-  // const deleteIncomeCash = 'http://92.255.79.239:8000/api/delete-incomecash/';
-  // const deleteOutcomeCash = 'http://92.255.79.239:8000/api/delete-outcomecash/';
-  const options = {
+
+  const deleteOptions = {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',
       Authorization: `Token ${token}`,
     },
   };
+
   return (
     <div className={s.transactions}>
       {operationList &&
@@ -29,25 +29,78 @@ function TransactionList({
             const deleteOutcomeCash =
               'http://92.255.79.239:8000/api/delete-outcomecash/';
             if (symbol === '+') {
-              fetch(`${deleteIncomeCash}${id}`, options);
+              fetch(`${deleteIncomeCash}${id}`, deleteOptions);
               setTimeout(() => {
                 getOperationList(
                   'http://92.255.79.239:8000/api/last-5-incomecash/',
                   symbol
                 );
-                getInputData(sumIncomeCash)
+                getInputData(sumIncomeCash);
                 getBalanceData();
               }, 500);
             } else if (symbol === '-') {
-              fetch(`${deleteOutcomeCash}${id}`, options);
+              fetch(`${deleteOutcomeCash}${id}`, deleteOptions);
               setTimeout(() => {
                 getOperationList(
                   'http://92.255.79.239:8000/api/last-5-outcomecash/',
                   symbol
                 );
-                getInputData(sumOutcomeCash)
+                getInputData(sumOutcomeCash);
                 getBalanceData();
               }, 500);
+            }
+          }
+
+          function updateCash(id, category, sum, symbol) {
+            const updateIncomeCash = `http://92.255.79.239:8000/api/update-incomecash/`;
+            const updateOutcomeCash =
+              'http://92.255.79.239:8000/api/update-outcomecash/';
+            if (symbol === '+') {
+              let newSum = prompt('Введите новое числовое значение', sum);
+              let data = {
+                category_id: category,
+                sum: newSum,
+              };
+              const updateOptions = {
+                method: 'PUT',
+                headers: {
+                  'Content-Type': 'application/json',
+                  Authorization: `Token ${token}`,
+                },
+                body: JSON.stringify(data),
+              };
+              fetch(`${updateIncomeCash}${id}`, updateOptions);
+              setTimeout(() => {
+                getOperationList(
+                  'http://92.255.79.239:8000/api/last-5-incomecash/',
+                  symbol
+                );
+                getInputData(sumIncomeCash);
+                getBalanceData();
+              }, 400);
+            } else if (symbol === '-') {
+              let newSum = prompt('Введите новое числовое значение', sum);
+              let data = {
+                category_id: category,
+                sum: newSum,
+              };
+              const updateOptions = {
+                method: 'PUT',
+                headers: {
+                  'Content-Type': 'application/json',
+                  Authorization: `Token ${token}`,
+                },
+                body: JSON.stringify(data),
+              };
+              fetch(`${updateOutcomeCash}${id}`, updateOptions);
+              setTimeout(() => {
+                getOperationList(
+                  'http://92.255.79.239:8000/api/last-5-outcomecash/',
+                  symbol
+                );
+                getInputData(sumOutcomeCash);
+                getBalanceData();
+              }, 400);
             }
           }
 
@@ -71,7 +124,18 @@ function TransactionList({
                 >
                   <div className={s.operation_list_icon1}></div>
                 </button>
-                <button className={s.icon_button}>
+                <button
+                  className={s.icon_button}
+                  type="submit"
+                  onClick={() => {
+                    updateCash(
+                      operation.id,
+                      operation.category_id,
+                      operation.sum,
+                      symbol
+                    );
+                  }}
+                >
                   <div className={s.operation_list_icon2}></div>
                 </button>
               </div>

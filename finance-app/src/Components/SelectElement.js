@@ -9,7 +9,6 @@ function SelectElement({
   title,
   changeSelectElement,
   token,
-  setSelectElement,
   getInputData,
   getCategories,
   typeOfCategories
@@ -46,6 +45,7 @@ function SelectElement({
           getCategories(typeOfCategories);
         }
       );
+      
     } else {
       if (selectedValue !== title) {
         changeSelectElement(e.target.value);
@@ -53,6 +53,7 @@ function SelectElement({
         getInputData();
       }
     }
+    
   }
 
   return (

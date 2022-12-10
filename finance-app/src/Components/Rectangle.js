@@ -71,7 +71,6 @@ function Rectangle() {
             let onceSum = Number(responseNumber.once_sum);
             let sumField = constSum + onceSum;
             setInputData(sumField);
-            console.log(inputData);
           });
         } else {
           setInputData('0')

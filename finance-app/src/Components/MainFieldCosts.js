@@ -1,15 +1,13 @@
 // Компонент "Расходы"
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { costsBalans } from "../store/slice";
+import { render } from "react-dom";
+import { useSelector } from "react-redux";
 import MainFieldString from "./MainFieldString";
 
-function MainFieldCosts({ getOperationList, getBalanceData }) {
+function MainFieldCosts({ getOperationList, getBalanceData, getInputData, inputData, sumOutcomeCash }) {
   const token = useSelector((state) => state.user.token);
-  const [inputData, setInputData] = useState("");
   const [categories, setCategories] = useState("");
   const planned = ["Планируемые", "Добавить категорию"];
-  const dispatch = useDispatch();
 
   let outcomeOperations = "http://92.255.79.239:8000/api/last-5-outcomecash/";
   let typeOfSum = "http://92.255.79.239:8000/api/outcomecash/";
@@ -32,29 +30,8 @@ function MainFieldCosts({ getOperationList, getBalanceData }) {
     getCategories(typeOfCategories);
   }, []);
 
-  function getInputData() {
-    const options = {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Token ${token}`,
-      },
-    };
-    fetch("http://92.255.79.239:8000/api/sum-outcomecash/", options)
-      .then((result) => result.json())
-      .then((responseServer) => {
-        responseServer.map((responseNumber) => {
-          let constSum = Number(responseNumber.constant_sum);
-          let onceSum = Number(responseNumber.once_sum);
-          let sumField = constSum + onceSum;
-          setInputData(sumField);
-          dispatch(costsBalans({ balansCosts: sumField }));
-        });
-      });
-  }
-
   useEffect(() => {
-    getInputData();
+    getInputData(sumOutcomeCash)
   }, []);
 
   useEffect(() => {
@@ -76,6 +53,7 @@ function MainFieldCosts({ getOperationList, getBalanceData }) {
         endpoint={outcomeOperations}
         typeOfSum={typeOfSum}
         getInputData={getInputData}
+        sumCash={sumOutcomeCash}
         typeForSum="constant_sum"
         getOperationList={getOperationList}
         getCategories={getCategories}
@@ -91,6 +69,7 @@ function MainFieldCosts({ getOperationList, getBalanceData }) {
         endpoint={outcomeOperations}
         typeOfSum={typeOfSum}
         getInputData={getInputData}
+        sumCash={sumOutcomeCash}
         typeForSum="once_sum"
         getOperationList={getOperationList}
         getCategories={getCategories}

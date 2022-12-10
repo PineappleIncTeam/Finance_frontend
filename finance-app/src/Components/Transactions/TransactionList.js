@@ -6,6 +6,9 @@ function TransactionList({
   getOperationList,
   operationList,
   symbol,
+  getInputData,
+  sumIncomeCash,
+  sumOutcomeCash
 }) {
   const token = useSelector((state) => state.user.token);
   // const deleteIncomeCash = 'http://92.255.79.239:8000/api/delete-incomecash/';
@@ -32,6 +35,7 @@ function TransactionList({
                   'http://92.255.79.239:8000/api/last-5-incomecash/',
                   symbol
                 );
+                getInputData(sumIncomeCash)
                 getBalanceData();
               }, 500);
             } else if (symbol === '-') {
@@ -41,6 +45,7 @@ function TransactionList({
                   'http://92.255.79.239:8000/api/last-5-outcomecash/',
                   symbol
                 );
+                getInputData(sumOutcomeCash)
                 getBalanceData();
               }, 500);
             }

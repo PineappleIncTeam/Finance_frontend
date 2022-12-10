@@ -1,19 +1,18 @@
 // Компонент "Доходы"
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { stringBalans } from "../store/slice";
 import MainFieldString from "./MainFieldString";
 
-function MainField({ getOperationList, getBalanceData }) {
+function MainField({ getOperationList, getBalanceData, getInputData, inputData, sumIncomeCash }) {
   const token = useSelector((state) => state.user.token);
-  const [inputData, setInputData] = useState("");
   const [categories, setCategories] = useState("");
 
   const dispatch = useDispatch();
 
-  let incomeOperations = "http://92.255.79.239:8000/api/last-5-incomecash/";
-  let typeOfSum = "http://92.255.79.239:8000/api/incomecash/";
-  let typeOfCategories = "http://92.255.79.239:8000/api/income-categories/";
+  const incomeOperations = "http://92.255.79.239:8000/api/last-5-incomecash/";
+  const typeOfSum = "http://92.255.79.239:8000/api/incomecash/";
+  const typeOfCategories = "http://92.255.79.239:8000/api/income-categories/";
+  
 
   function getCategories(typeOfCategories) {
     const options = {
@@ -32,30 +31,8 @@ function MainField({ getOperationList, getBalanceData }) {
     getCategories(typeOfCategories);
   }, []);
 
-  //функция получения суммы внесенных данных по категории "Постоянные".
-  function getInputData() {
-    const options = {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Token ${token}`,
-      },
-    };
-    fetch("http://92.255.79.239:8000/api/sum-incomecash/", options)
-      .then((result) => result.json())
-      .then((responseServer) => {
-        responseServer.map((responseNumber) => {
-          let constSum = Number(responseNumber.constant_sum);
-          let onceSum = Number(responseNumber.once_sum);
-          let sumField = constSum + onceSum;
-          setInputData(sumField);
-          dispatch(stringBalans({ balansString: sumField }));
-        });
-      });
-  }
-
   useEffect(() => {
-    getInputData();
+    getInputData(sumIncomeCash);
   }, []);
 
   useEffect(() => {
@@ -77,6 +54,7 @@ function MainField({ getOperationList, getBalanceData }) {
         endpoint={incomeOperations}
         typeOfSum={typeOfSum}
         getInputData={getInputData}
+        sumCash={sumIncomeCash}
         typeForSum="constant_sum"
         getOperationList={getOperationList}
         getCategories={getCategories}
@@ -92,6 +70,7 @@ function MainField({ getOperationList, getBalanceData }) {
         endpoint={incomeOperations}
         typeOfSum={typeOfSum}
         getInputData={getInputData}
+        sumCash={sumIncomeCash}
         typeForSum="onse_sum"
         getOperationList={getOperationList}
         getCategories={getCategories}

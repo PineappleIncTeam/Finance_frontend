@@ -1,38 +1,23 @@
-import { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
 import React from "react";
 import style from "./Transactions.module.css";
 import TransactionList from "./TransactionList";
-import SelectElement from "../SelectElement";
-function Transactions({ getBalanceData, getOperationList, operationList, symbol }) {
-  // const token = useSelector((state) => state.user.token);
-  // const [operationList, setOperationList] = useState("");
 
-  // function getOperationList() {
-  //   const options = {
-  //     method: "GET",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //       Authorization: `Token ${token}`,
-  //     },
-  //   };
-  //   fetch("http://92.255.79.239:8000/api/last-5-incomecash/", options)
-  //     .then((result) => result.json())
-  //     .then((responseServer) => {
-  //       setOperationList("");
-  //       setOperationList(responseServer);
-  //     });
-  // }
-  // useEffect(() => {
-  //   getOperationList();
-  // }, []);
+function Transactions({ getBalanceData, getOperationList, operationList, symbol, getInputData, sumIncomeCash, sumOutcomeCash }) {
+  
 
   return (
     <div className={style.root}>
       <div className={style.text}>Последние операции</div>
 
       <hr />
-      <TransactionList getBalanceData={getBalanceData} getOperationList={getOperationList} operationList={operationList} symbol={symbol} />
+      <TransactionList 
+        getBalanceData={getBalanceData} 
+        getOperationList={getOperationList} 
+        operationList={operationList} 
+        symbol={symbol} 
+        getInputData={getInputData} 
+        sumIncomeCash={sumIncomeCash}
+        sumOutcomeCash={sumOutcomeCash} />
       {/* <div className="">
         {operationList && (
           operationList.map((operation, index) => {

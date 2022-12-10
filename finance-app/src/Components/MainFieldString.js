@@ -2,7 +2,6 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 import SelectElement from "./SelectElement";
 
-// import jsonToArray from '../Utils/jsonToArray';
 
 function MainFieldString({
   title,
@@ -11,6 +10,7 @@ function MainFieldString({
   endpoint,
   typeOfSum,
   getInputData,
+  sumCash,
   typeForSum,
   getOperationList,
   getCategories,
@@ -45,7 +45,7 @@ function MainFieldString({
     };
 
     fetch(typeOfSum, options)
-      .then((result) => getInputData())
+      .then((result) => getInputData(sumCash))
       .then((serverResponse) => {
         getBalanceData();
         getOperationList(endpoint, symbol);

@@ -121,6 +121,12 @@
   background-color: #faf5e433;
 }
 
+.main_field_string_input[disabled] {
+  cursor: auto;
+  border: 1px solid #dfdddd;
+  background-color: #bbbbbb25;
+}
+
 .main_field_string_input::-webkit-inner-spin-button {
   display: none;
 }
@@ -142,6 +148,16 @@
   cursor: pointer;
   box-shadow: 0px 2px 5px 1px #0c4139;
   transform: translateY(-1px);
+}
+
+.main_field_string_button[disabled] {
+  background: #125b50;
+}
+.main_field_string_button[disabled]:hover {
+  box-shadow: none;
+  transform: none;
+
+  cursor: auto;
 }
 
 .main_field_analitic_h3 {

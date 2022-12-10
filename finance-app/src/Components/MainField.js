@@ -3,16 +3,19 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import MainFieldString from "./MainFieldString";
 
-function MainField({ getOperationList, getBalanceData, getInputData, inputData, sumIncomeCash }) {
+function MainField({
+  getOperationList,
+  getBalanceData,
+  getInputData,
+  inputData,
+  sumIncomeCash,
+}) {
   const token = useSelector((state) => state.user.token);
   const [categories, setCategories] = useState("");
-
-  const dispatch = useDispatch();
 
   const incomeOperations = "http://92.255.79.239:8000/api/last-5-incomecash/";
   const typeOfSum = "http://92.255.79.239:8000/api/incomecash/";
   const typeOfCategories = "http://92.255.79.239:8000/api/income-categories/";
-  
 
   function getCategories(typeOfCategories) {
     const options = {

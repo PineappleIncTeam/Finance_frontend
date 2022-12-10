@@ -2,7 +2,6 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 import SelectElement from "./SelectElement";
 
-
 function MainFieldString({
   title,
   type,
@@ -20,13 +19,17 @@ function MainFieldString({
   getBalanceData,
 }) {
   const token = useSelector((state) => state.user.token);
-
+  const [inputDis, setInputDis] = useState(false);
   const [enterSum, setEnterSum] = useState("");
   const [selectElement, setSelectElement] = useState({});
 
   function changeSelectElement(object) {
     setSelectElement(JSON.parse(object));
   }
+
+  const disInput = (selectIndex) => {
+    selectIndex > 0 ? setInputDis(true) : setInputDis(false);
+  };
 
   function sumSubmit(event) {
     event.preventDefault();
@@ -76,6 +79,7 @@ function MainFieldString({
           typeForSum={typeForSum}
           getCategories={getCategories}
           typeOfCategories={typeOfCategories}
+          disInput={disInput}
         />
       )}
 
@@ -86,10 +90,15 @@ function MainFieldString({
         onInput={(event) => changeHandler(event)}
         min="1"
         onChange={(event) => handleInputChange(event)}
+        disabled={Boolean(!inputDis)}
       ></input>
       <span className="ruble_icon">₽</span>
 
-      <button type="submit" className="main_field_string_button">
+      <button
+        type="submit"
+        className="main_field_string_button"
+        disabled={Boolean(!inputDis)}
+      >
         Добавить
       </button>
     </form>

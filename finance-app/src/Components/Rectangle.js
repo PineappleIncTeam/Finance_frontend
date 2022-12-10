@@ -1,35 +1,35 @@
 // Первый компонент, главная страница. Будет появляться после странички авторизации. Сейчас сразу отображается на экране.
 
-import './Rectangle.css';
-import Navigation from './Navigation';
-import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
-import Aside from './Aside/Aside';
-import Transactions from './Transactions/Transactions';
-import MainFieldRouter from './RoutePage/MainFieldRouter';
+import "./Rectangle.css";
+import Navigation from "./Navigation";
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import Aside from "./Aside/Aside";
+import Transactions from "./Transactions/Transactions";
+import MainFieldRouter from "./RoutePage/MainFieldRouter";
 
 function Rectangle() {
   const token = useSelector((state) => state.user.token);
-  const [operationList, setOperationList] = useState('');
-  const [symbol, setSymbol] = useState('+');
-  const [balanceData, setBalanceData] = useState('');
-  const [inputData, setInputData] = useState('');
+  const [operationList, setOperationList] = useState("");
+  const [symbol, setSymbol] = useState("+");
+  const [balanceData, setBalanceData] = useState("");
+  const [inputData, setInputData] = useState("");
   // let typeOfOperation = "http://92.255.79.239:8000/api/last-5-incomecash/";
-  const sumIncomeCash = 'http://92.255.79.239:8000/api/sum-incomecash/';
-  const sumOutcomeCash = 'http://92.255.79.239:8000/api/sum-outcomecash/';
+  const sumIncomeCash = "http://92.255.79.239:8000/api/sum-incomecash/";
+  const sumOutcomeCash = "http://92.255.79.239:8000/api/sum-outcomecash/";
 
   function getOperationList(endpoint, symbol) {
     const options = {
-      method: 'GET',
+      method: "GET",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
         Authorization: `Token ${token}`,
       },
     };
     fetch(endpoint, options)
       .then((result) => result.json())
       .then((responseServer) => {
-        setOperationList('');
+        setOperationList("");
         setOperationList(responseServer);
         setSymbol(symbol);
       });
@@ -39,13 +39,13 @@ function Rectangle() {
   // }, []);
   function getBalanceData() {
     const options = {
-      method: 'GET',
+      method: "GET",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
         Authorization: `Token ${token}`,
       },
     };
-    fetch('http://92.255.79.239:8000/api/balance/', options)
+    fetch("http://92.255.79.239:8000/api/balance/", options)
       .then((result) => result.json())
       .then((responseServer) => setBalanceData(responseServer.sum_balance));
   }
@@ -56,9 +56,9 @@ function Rectangle() {
 
   function getInputData(endpoint) {
     const options = {
-      method: 'GET',
+      method: "GET",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
         Authorization: `Token ${token}`,
       },
     };
@@ -71,10 +71,9 @@ function Rectangle() {
             let onceSum = Number(responseNumber.once_sum);
             let sumField = constSum + onceSum;
             setInputData(sumField);
-            console.log(inputData);
           });
         } else {
-          setInputData('0')
+          setInputData("0");
         }
       });
   }

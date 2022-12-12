@@ -1,20 +1,52 @@
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import style from "./RegistPage.module.css";
 import * as Yup from "yup";
+import YupPassword from "yup-password";
 import Logo from "../../Logo";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { setUser } from "../../../store/slice";
+import passNo from "./../../../Images/passNo.png";
+import passYes from "./../../../Images/passYes.png";
+import { useRef } from "react";
+
 const URL = "http://92.255.79.239:8000/api/auth/users/";
 const URL2 = "http://92.255.79.239:8000/api/auth/token/login/";
+YupPassword(Yup);
 
 const RegistPage = () => {
   const [reply, setReply] = useState("");
+  const [passwordType, setPasswordType] = useState(passNo);
+  const [confirmType, setConfirmType] = useState(passNo);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const passRef = useRef(null);
+  const confirmRef = useRef(null);
+  const togglePassInput = () => {
+    if (passwordType === passNo) {
+      passRef.current.type = "text";
+      setPasswordType(passYes);
+    } else if (passwordType === passYes) {
+      passRef.current.type = "password";
+      setPasswordType(passNo);
+    }
+  };
+
+  const toggleConfirmInput = () => {
+    if (confirmType === passNo) {
+      confirmRef.current.type = "text";
+      setConfirmType(passYes);
+    } else if (confirmType === passYes) {
+      confirmRef.current.type = "password";
+      setConfirmType(passNo);
+    }
+  };
+
   const registerHandler = async (values, { setSubmitting }) => {
+    setPasswordType(passNo);
+    setConfirmType(passNo);
     const payload = {
       email: values.email,
       username: values.username,
@@ -54,10 +86,35 @@ const RegistPage = () => {
       .email("Введите верный email")
       .required("Обязательное поле"),
     username: Yup.string()
-      .min(2, "Слишком короткое имя")
-      .max(50, "Слишком длинное имя")
+      .matches(/^[A-Za-z0-9А-Яа-я]+$/, "Пароль введен некорректно")
+      .min(6, "Слишком короткое имя")
+      .max(32, "Слишком длинное имя")
+      // .minLowercase(1, "ЛОГИН должен содержать символ с маленькой буквой")
+      // .minUppercase(1, "password must contain at least 1 upper case letter")
+      .minNumbers(
+        1,
+        "Логин должен содержать от 6 до 32 символов, включать хотя бы одну букву и одну цифру"
+      )
+
       .required("Обязательное поле"),
-    password: Yup.string().required("Обязательное поле"),
+    password: Yup.string()
+      .matches(/^[A-Za-z0-9А-Яа-я]+$/, "Пароль введен некорректно")
+      .min(6, "Слишком короткий пароль")
+      .max(32, "Слишком длинный пароль")
+      // .minLowercase(
+      //   1,
+      //   "Пароль должен содержать от 6 до 32 символов, включать хотя бы одну заглавную букву, одну строчную и одну цифру"
+      // )
+      // .minUppercase(
+      //   1,
+      //   "Пароль должен содержать от 6 до 32 символов, включать хотя бы одну заглавную букву, одну строчную и одну цифру"
+      // )
+      .minNumbers(
+        1,
+        "Пароль должен содержать от 6 до 32 символов, включать хотя бы одну букву и одну цифру"
+      )
+
+      .required("Обязательное поле"),
     confirmPassword: Yup.string()
       .oneOf([Yup.ref("password")], "Пароли не совпадают")
       .required("Обязательно"),
@@ -110,30 +167,48 @@ const RegistPage = () => {
                 />
                 <br />
                 <label>Пароль</label>
-                <Field
-                  type="password"
-                  name="password"
-                  className={style.input}
-                  placeholder={"Введите пароль..."}
-                />
-                <ErrorMessage
-                  name="password"
-                  component="div"
-                  className={style.error}
-                />
+                <span className={style.pass}>
+                  <Field
+                    type="password"
+                    name="password"
+                    className={style.input}
+                    placeholder={"Введите пароль..."}
+                    innerRef={passRef}
+                  />
+                  <img
+                    className={style.icon}
+                    src={passwordType}
+                    onClick={() => togglePassInput()}
+                  ></img>
+                  <ErrorMessage
+                    name="password"
+                    component="div"
+                    className={style.error}
+                  />
+                </span>
+
                 <br />
                 <label>Подтвердите пароль</label>
-                <Field
-                  type="password"
-                  name="confirmPassword"
-                  className={style.input}
-                  placeholder={"Введите пароль повторно..."}
-                />
-                <ErrorMessage
-                  name="confirmPassword"
-                  component="div"
-                  className={style.error}
-                />
+                <div className={style.pass}>
+                  <Field
+                    type="password"
+                    name="confirmPassword"
+                    className={style.input}
+                    placeholder={"Введите пароль повторно..."}
+                    innerRef={confirmRef}
+                  />
+                  <img
+                    className={style.icon}
+                    src={confirmType}
+                    onClick={() => toggleConfirmInput()}
+                  ></img>
+                  <ErrorMessage
+                    name="confirmPassword"
+                    component="div"
+                    className={style.error}
+                  />
+                </div>
+
                 <br />
                 <p className={style.textReg}>
                   <br />

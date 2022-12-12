@@ -28,7 +28,8 @@ function MainFieldString({
   }
 
   const disInput = (selectIndex) => {
-    selectIndex > 0 ? setInputDis(true) : setInputDis(false);
+    console.log(selectIndex);
+    selectIndex > 1 ? setInputDis(true) : setInputDis(false);
   };
 
   function sumSubmit(event) {

@@ -48,7 +48,6 @@ function SelectElement({
           getCategories(typeOfCategories);
         }
       );
-      
     } else {
       if (selectedValue !== title) {
         changeSelectElement(e.target.value);
@@ -56,7 +55,6 @@ function SelectElement({
         getInputData();
       }
     }
-    
   }
 
   return (
@@ -64,6 +62,7 @@ function SelectElement({
       <option className="option_list" value={title}>
         {title}
       </option>
+      <option value="Добавить категорию">Добавить категорию</option>
       {categories.map((jsonObject, index) => {
         if (jsonObject.category_type === category_type) {
           return (
@@ -79,7 +78,6 @@ function SelectElement({
           );
         }
       })}
-      <option value="Добавить категорию">Добавить категорию</option>
     </select>
   );
 }

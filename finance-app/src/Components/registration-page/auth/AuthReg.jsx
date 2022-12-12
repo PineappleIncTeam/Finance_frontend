@@ -5,16 +5,30 @@ import Logo from "../../Logo";
 import axios from "axios";
 import { useNavigate } from "react-router";
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import { setUser } from "../../../store/slice";
+import passNo from "./../../../Images/passNo.png";
+import passYes from "./../../../Images/passYes.png";
 
 const URL = "http://92.255.79.239:8000/api/auth/token/login/";
 
 const AuthReg = () => {
   const [reply, setReply] = useState("");
+  const [passwordType, setPasswordType] = useState(passNo);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const passRef = useRef(null);
+
+  const togglePassInput = () => {
+    if (passwordType === passNo) {
+      passRef.current.type = "text";
+      setPasswordType(passYes);
+    } else if (passwordType === passYes) {
+      passRef.current.type = "password";
+      setPasswordType(passNo);
+    }
+  };
   const registerHandler = async (values, { setSubmitting }) => {
     const payload = {
       username: values.username,
@@ -85,17 +99,26 @@ const AuthReg = () => {
                 />
                 <br />
                 <label>Пароль</label>
-                <Field
-                  type="password"
-                  name="password"
-                  className={style.input}
-                  placeholder={"Введите пароль..."}
-                />
-                <ErrorMessage
-                  name="password"
-                  component="div"
-                  className={style.error}
-                />
+                <div className={style.pass}>
+                  <Field
+                    type="password"
+                    name="password"
+                    className={style.input}
+                    placeholder={"Введите пароль..."}
+                    innerRef={passRef}
+                  />
+                  <img
+                    className={style.icon}
+                    src={passwordType}
+                    onClick={() => togglePassInput()}
+                  ></img>
+                  <ErrorMessage
+                    name="password"
+                    component="div"
+                    className={style.error}
+                  />
+                </div>
+
                 <br />
                 <p className={style.textReg}>
                   Если у вас нет учетной записи, <br />

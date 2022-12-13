@@ -1,0 +1,19 @@
+.diagrams {
+  justify-content: space-around;
+  display: flex;
+  margin: 30px;
+}
+
+.title {
+  font-family: "Monserrat-Medium";
+  font-size: 24px;
+  font-weight: 400;
+  margin-bottom: 20px;
+  opacity: 0.7;
+  font-style: italic;
+}
+
+.pie {
+  display: flex;
+  flex-direction: column;
+}

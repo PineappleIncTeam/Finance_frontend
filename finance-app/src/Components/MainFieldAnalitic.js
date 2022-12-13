@@ -1,11 +1,17 @@
 // Компонент "Аналитика"
 // import MainFieldString from './MainFieldString';
+import React from "react";
+
+import ChartGistograms from "./analiticGistograms/ChartGistograms";
 
 function MainFieldAnalitic() {
   return (
     <div className="main_field main_field_analitic">
       <h2 className="main_field_title">Аналитика</h2>
-      <label className="label_analitic label_analitic1">
+
+      <ChartGistograms />
+
+      {/* <label className="label_analitic label_analitic1">
         Доходы
         <input
           className="main_field_string_input analitic_string"
@@ -37,7 +43,7 @@ function MainFieldAnalitic() {
           type="text"
         ></input>
         <button type="submit" className="main_field_string_button analitic_button">Добавить</button>
-      </div>
+      </div> */}
     </div>
   );
 }

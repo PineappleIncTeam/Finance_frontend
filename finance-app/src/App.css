@@ -59,7 +59,7 @@
   font-family: "Monserrat-Medium";
   font-size: 40px;
   font-weight: 400;
-  margin-bottom: 70px;
+  margin-bottom: 40px;
 }
 
 .main_field_title_label {
@@ -174,7 +174,7 @@
 .main_field_analitic {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  box-sizing: border-box;
 }
 .label_analitic {
   font-family: "Monserrat-Medium";
@@ -199,4 +199,8 @@
 }
 .analitic_button {
   margin: 40px 9px;
+}
+
+.gistograms-analitic {
+  width: 1300px;
 }

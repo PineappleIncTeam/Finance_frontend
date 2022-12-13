@@ -8,7 +8,7 @@ function AirDatePicker(props) {
   let $input = useRef();
   let dp = useRef();
   const [value, setValue] = useState([]);
-
+  console.log(value);
   useEffect(() => {
     dp.current = new AirDatepicker($input.current, {
       ...props,

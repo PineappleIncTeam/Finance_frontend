@@ -3,21 +3,43 @@ import React, { useEffect, useRef } from "react";
 import { useState } from "react";
 import "./AirCalendar.css";
 import vect from "./../../Images/calendar.png";
+import { useDispatch } from "react-redux";
+
+import { setDateCalendar } from "../../store/dataSlice";
 
 function AirDatePicker(props) {
+  const dispatch = useDispatch();
+
   let $input = useRef();
   let dp = useRef();
-  const [value, setValue] = useState([]);
-  console.log(value);
+
   useEffect(() => {
+    let button1 = {
+      content: "Очистить",
+      className: "custom-button-classname",
+      onClick: (dp) => {
+        dp.$el.value = "";
+        dp.selectedDates = [];
+        console.log(dp.selectedDates);
+        dispatch(
+          setDateCalendar({
+            data: "",
+          })
+        );
+      },
+    };
     dp.current = new AirDatepicker($input.current, {
       ...props,
-      multipleDates: true,
+      buttons: ["today", button1],
       classes: "CLASSGREEN",
       onSelect({ date, formattedDate, datepicker }) {
-        if (formattedDate.length == 2) {
-          setValue(formattedDate);
-        }
+        console.log(formattedDate);
+
+        dispatch(
+          setDateCalendar({
+            data: formattedDate,
+          })
+        );
       },
     });
   }, []);

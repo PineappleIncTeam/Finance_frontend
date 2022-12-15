@@ -48,6 +48,7 @@ function MainFieldString({
       date: dataCalendar ? dataCalendar : dataOnline,
     };
     console.log(data);
+    console.log(dataCalendar);
 
     const options = {
       method: "POST",

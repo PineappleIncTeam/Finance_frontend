@@ -15,8 +15,10 @@ function Rectangle() {
   const [balanceData, setBalanceData] = useState("");
   const [inputData, setInputData] = useState("");
   // let typeOfOperation = "http://92.255.79.239:8000/api/last-5-incomecash/";
-  const sumIncomeCash = "http://92.255.79.239:8000/api/sum-incomecash/";
-  const sumOutcomeCash = "http://92.255.79.239:8000/api/sum-outcomecash/";
+  const sumIncomeCash =
+    "http://92.255.79.239:8000/api/sum-incomecash/?date_start=2022-08-10&date_end=2022-12-31";
+  const sumOutcomeCash =
+    "http://92.255.79.239:8000/api/sum-outcomecash/?date_start=2022-08-10&date_end=2022-12-31";
 
   function getOperationList(endpoint, symbol) {
     const options = {
@@ -45,7 +47,10 @@ function Rectangle() {
         Authorization: `Token ${token}`,
       },
     };
-    fetch("http://92.255.79.239:8000/api/balance/", options)
+    fetch(
+      "http://92.255.79.239:8000/api/balance/?date_start=2022-08-10&date_end=2022-12-31",
+      options
+    )
       .then((result) => result.json())
       .then((responseServer) => setBalanceData(responseServer.sum_balance));
   }

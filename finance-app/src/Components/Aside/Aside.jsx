@@ -22,12 +22,7 @@ const Aside = ({ balanceData }) => {
           </div>
         </div>
         <div className={style.datePicker}>
-          <AirDatePicker
-            range={false}
-            inline={false}
-            multipleDatesSeparator={"  -  "}
-            autoClose={true}
-          />
+          <AirDatePicker range={false} inline={false} autoClose={true} />
         </div>
       </div>
     </div>

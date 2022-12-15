@@ -12,7 +12,10 @@ function AirDatePicker(props) {
 
   let $input = useRef();
   let dp = useRef();
-
+  const handleImage = () => {
+    console.log($input);
+    $input.showEvent = "focus";
+  };
   useEffect(() => {
     let button1 = {
       content: "Очистить",
@@ -33,8 +36,6 @@ function AirDatePicker(props) {
       buttons: ["today", button1],
       classes: "CLASSGREEN",
       onSelect({ date, formattedDate, datepicker }) {
-        console.log(formattedDate);
-
         dispatch(
           setDateCalendar({
             data: formattedDate,
@@ -56,7 +57,7 @@ function AirDatePicker(props) {
         placeholder={"Выбор даты"}
         readOnly
       />
-      <img src={vect} alt="" className="vect" />
+      <img src={vect} alt="" className="vect" onClick={() => handleImage()} />
     </div>
   );
 }

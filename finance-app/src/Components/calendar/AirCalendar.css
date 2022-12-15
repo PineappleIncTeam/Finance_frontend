@@ -4,6 +4,8 @@
 }
 
 .input {
+  cursor: pointer;
+  position: inherit;
   padding: 10px;
   padding-right: 20px;
   border-radius: 8px;
@@ -15,6 +17,7 @@
   font-weight: 400;
   font-size: 18px;
   line-height: 24px;
+  background: none;
 }
 
 .input::placeholder {
@@ -35,7 +38,6 @@
   position: absolute;
   top: 12px;
   right: 10px;
-  z-index: 2;
   color: #000000;
 }
 

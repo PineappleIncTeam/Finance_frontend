@@ -21,6 +21,7 @@ function MainFieldString({
 }) {
   const token = useSelector((state) => state.user.token);
   const dataCal = useSelector((state) => state.data.data);
+  console.log(dataCal)
   const [inputDis, setInputDis] = useState(false);
   const [enterSum, setEnterSum] = useState("");
   const [selectElement, setSelectElement] = useState({});
@@ -32,7 +33,7 @@ function MainFieldString({
   const disInput = (selectIndex) => {
     selectIndex > 1 ? setInputDis(true) : setInputDis(false);
   };
-  let dataCalendar = dataCal && dataCal.split(".").reverse().join("-");
+  let dataCalendar = dataCal && dataCal[0].split(".").reverse().join("-");
 
   let Data = new Date();
   let Year = Data.getFullYear();

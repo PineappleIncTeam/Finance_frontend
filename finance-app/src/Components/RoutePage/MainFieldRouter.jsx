@@ -15,7 +15,7 @@ const MainFieldRouter = ({
   sumOutcomeCash,
   operationList,
   changeRangeCalendar,
-  range
+  range,
 }) => {
   return (
     <Routes>
@@ -51,7 +51,13 @@ const MainFieldRouter = ({
       <Route path="/mainfieldstorage" element={<MainFieldStorage />} />
       <Route
         path="/mainfieldanalitic"
-        element={<MainFieldAnalitic operationList={operationList} changeRangeCalendar={changeRangeCalendar} />}
+        element={
+          <MainFieldAnalitic
+            operationList={operationList}
+            changeRangeCalendar={changeRangeCalendar}
+            range={range}
+          />
+        }
       />
     </Routes>
   );

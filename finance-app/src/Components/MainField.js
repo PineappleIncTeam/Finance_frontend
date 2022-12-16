@@ -10,7 +10,7 @@ function MainField({
   inputData,
   sumIncomeCash,
   changeRangeCalendar,
-  range
+  range,
 }) {
   const token = useSelector((state) => state.user.token);
   const [categories, setCategories] = useState("");
@@ -33,9 +33,9 @@ function MainField({
   }
 
   useEffect(() => {
-    getCategories(typeOfCategories)
-    changeRangeCalendar(false)
-    console.log('srabotal');
+    getCategories(typeOfCategories);
+    changeRangeCalendar(false);
+    console.log("srabotal");
   }, []);
 
   useEffect(() => {
@@ -69,6 +69,7 @@ function MainField({
         categories={categories}
         symbol="+"
         getBalanceData={getBalanceData}
+        range={range}
       />
       <MainFieldString
         title="Временные"

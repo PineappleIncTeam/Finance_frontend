@@ -5,14 +5,16 @@ import { useSelector } from "react-redux";
 import ChartGistograms from "./analiticGistograms/ChartGistograms";
 import TransactionList from "./Transactions/TransactionList";
 
-function MainFieldAnalitic({ operationList, changeRangeCalendar }) {
+function MainFieldAnalitic({ operationList, changeRangeCalendar, range }) {
   const token = useSelector((state) => state.user.token);
-  const [sumGroupIncome, setSumGroupIncome] = useState("");
-  const [sumGroupOutcome, setSumGroupOutcome] = useState("");
-  const sumIncomeGroup =
-    "http://92.255.79.239:8000/api/sum-incomecash-group/?date_start=2022-08-10&date_end=2022-12-31";
-  const sumOutomeGroup =
-    "http://92.255.79.239:8000/api/sum-outcomecash-group/?date_start=2022-08-10&date_end=2022-12-31";
+  const [sumGroupIncome, setSumGroupIncome] = useState([]);
+  const [sumGroupOutcome, setSumGroupOutcome] = useState([]);
+  const dataCalRange = useSelector((state) => state.data.dataRange);
+
+  const dataStart =
+    dataCalRange.length > 1 && dataCalRange[0].split(".").reverse().join("-");
+  const dataEnd =
+    dataCalRange.length > 1 && dataCalRange[1].split(".").reverse().join("-");
 
   function getAnaliticSum() {
     const optionsIncome = {
@@ -22,7 +24,10 @@ function MainFieldAnalitic({ operationList, changeRangeCalendar }) {
         Authorization: `Token ${token}`,
       },
     };
-    fetch(sumIncomeGroup, optionsIncome)
+    fetch(
+      `http://92.255.79.239:8000/api/sum-incomecash-group/?date_start=${dataStart}&date_end=${dataEnd}`,
+      optionsIncome
+    )
       .then((result) => result.json())
       .then((dataSum) => setSumGroupIncome(dataSum));
 
@@ -33,27 +38,32 @@ function MainFieldAnalitic({ operationList, changeRangeCalendar }) {
         Authorization: `Token ${token}`,
       },
     };
-    fetch(sumOutomeGroup, optionsOutcome)
+    fetch(
+      `http://92.255.79.239:8000/api/sum-outcomecash-group/?date_start=${dataStart}&date_end=${dataEnd}`,
+      optionsOutcome
+    )
       .then((result) => result.json())
       .then((dataSum) => setSumGroupOutcome(dataSum));
   }
 
   useEffect(() => {
     getAnaliticSum();
-    changeRangeCalendar(true)
-  }, [operationList]);
+    changeRangeCalendar(true);
+  }, [operationList, dataCalRange]);
 
   const categoryNameIncome =
-    sumGroupIncome &&
+    sumGroupIncome.length > 0 &&
     sumGroupIncome[0].sum.map((item) => item.categories__categoryName);
   const resultSumIncome =
-    sumGroupIncome && sumGroupIncome[0].sum.map((item) => item.result_sum);
+    sumGroupIncome.length > 0 &&
+    sumGroupIncome[0].sum.map((item) => item.result_sum);
 
   const categoryNameOutcome =
-    sumGroupOutcome &&
+    sumGroupOutcome.length > 0 &&
     sumGroupOutcome[0].sum.map((item) => item.categories__categoryName);
   const resultSumOutcome =
-    sumGroupOutcome && sumGroupOutcome[0].sum.map((item) => item.result_sum);
+    sumGroupOutcome.length > 0 &&
+    sumGroupOutcome[0].sum.map((item) => item.result_sum);
 
   return (
     <div className="main_field main_field_analitic">

@@ -18,14 +18,17 @@ function MainFieldString({
   categories,
   symbol,
   getBalanceData,
+  range,
 }) {
   const token = useSelector((state) => state.user.token);
   const dataCal = useSelector((state) => state.data.data);
-  console.log(dataCal)
+
+  console.log(dataCal);
+
   const [inputDis, setInputDis] = useState(false);
   const [enterSum, setEnterSum] = useState("");
   const [selectElement, setSelectElement] = useState({});
-  const dispatch = useDispatch();
+
   function changeSelectElement(object) {
     setSelectElement(JSON.parse(object));
   }
@@ -33,8 +36,8 @@ function MainFieldString({
   const disInput = (selectIndex) => {
     selectIndex > 1 ? setInputDis(true) : setInputDis(false);
   };
-  let dataCalendar = dataCal && dataCal[0].split(".").reverse().join("-");
-
+  let dataCalendar = dataCal && dataCal.split(".").reverse().join("-");
+  console.log(dataCalendar);
   let Data = new Date();
   let Year = Data.getFullYear();
   let Month = Data.getMonth() + 1;
@@ -67,11 +70,6 @@ function MainFieldString({
         getOperationList(endpoint, symbol);
       });
     setEnterSum("");
-    dispatch(
-      setDateCalendar({
-        data: "",
-      })
-    );
   }
 
   function handleInputChange(event) {

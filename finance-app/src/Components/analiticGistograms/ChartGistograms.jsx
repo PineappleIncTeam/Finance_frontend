@@ -10,7 +10,10 @@ function ChartGistograms({
   resultSumOutcome,
 }) {
   ChartJS.register(ArcElement, Tooltip, Legend);
-
+  const checkName = categoryNameIncome ? categoryNameIncome : [];
+  const checkSum = resultSumIncome ? resultSumIncome : [];
+  const checkNameOut = categoryNameOutcome ? categoryNameOutcome : [];
+  const checkSumOut = resultSumOutcome ? resultSumOutcome : [];
   let options = {
     plugins: {
       legend: {
@@ -30,11 +33,11 @@ function ChartGistograms({
   };
 
   const dataIncome = {
-    labels: [...categoryNameIncome],
+    labels: [...checkName],
 
     datasets: [
       {
-        data: [...resultSumIncome],
+        data: [...checkSum],
         backgroundColor: [
           "rgb(50,205,50)",
           "rgb(0,255,0)",
@@ -66,11 +69,11 @@ function ChartGistograms({
   };
 
   const dataCosts = {
-    labels: [...categoryNameOutcome],
+    labels: [...checkNameOut],
 
     datasets: [
       {
-        data: [...resultSumOutcome],
+        data: [...checkSumOut],
         backgroundColor: [
           "rgb(255,0,255)",
           "rgb(138,43,226)",

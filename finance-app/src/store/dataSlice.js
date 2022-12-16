@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   data: "",
+  dataRange: "",
 };
 
 const dataReducer = createSlice({
@@ -11,9 +12,12 @@ const dataReducer = createSlice({
     setDateCalendar(state, action) {
       state.data = action.payload.data;
     },
+    setDateCalendarRange(state, action) {
+      state.dataRange = action.payload.dataRange;
+    },
   },
 });
 
-export const { setDateCalendar, removeDateCalendar } = dataReducer.actions;
+export const { setDateCalendar, setDateCalendarRange } = dataReducer.actions;
 
 export default dataReducer.reducer;

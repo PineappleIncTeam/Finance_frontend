@@ -5,7 +5,7 @@ import "./AirCalendar.css";
 import vect from "./../../Images/calendar.png";
 import { useDispatch } from "react-redux";
 
-import { setDateCalendar } from "../../store/dataSlice";
+import { setDateCalendar, setDateCalendarRange } from "../../store/dataSlice";
 
 function AirDatePicker(props) {
   const dispatch = useDispatch();
@@ -33,11 +33,19 @@ function AirDatePicker(props) {
       buttons: ["today", button1],
       classes: "CLASSGREEN",
       onSelect({ date, formattedDate, datepicker }) {
-        dispatch(
-          setDateCalendar({
-            data: formattedDate,
-          })
-        );
+        if (Array.isArray(formattedDate)) {
+          dispatch(
+            setDateCalendarRange({
+              dataRange: formattedDate,
+            })
+          );
+        } else if (String(formattedDate)) {
+          dispatch(
+            setDateCalendar({
+              data: formattedDate,
+            })
+          );
+        }
       },
     });
   }, []);

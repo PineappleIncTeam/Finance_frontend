@@ -15,10 +15,9 @@ function Rectangle() {
   const [balanceData, setBalanceData] = useState("");
   const [inputData, setInputData] = useState("");
   //
-  const [range, setRange] = useState(true)
+  const [range, setRange] = useState(true);
   function changeRangeCalendar(range) {
     setRange(range);
-    console.log(range)
   }
   //
   // let typeOfOperation = "http://92.255.79.239:8000/api/last-5-incomecash/";
@@ -109,9 +108,7 @@ function Rectangle() {
             />
           </div>
           <div className="aside">
-            <Aside 
-            balanceData={balanceData}
-            range={range} />
+            <Aside balanceData={balanceData} range={range} />
           </div>
         </div>
 

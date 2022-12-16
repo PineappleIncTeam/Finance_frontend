@@ -166,10 +166,13 @@
   font-weight: 400;
   margin-top: 60px;
 }
-.option_list {
+.option_list, .option_list_add {
   font-family: "Monserrat-Regular";
   font-weight: 400;
   font-size: 24px;
+}
+.option_list_add {
+  font-weight: 600;
 }
 .main_field_analitic {
   display: flex;

@@ -62,7 +62,7 @@ function SelectElement({
       <option className="option_list" value={title}>
         {title}
       </option>
-      <option value="Добавить категорию">Добавить категорию</option>
+      <option className="option_list_add" value="Добавить категорию">Добавить категорию</option>
       {categories.map((jsonObject, index) => {
         if (jsonObject.category_type === category_type) {
           return (

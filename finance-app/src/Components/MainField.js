@@ -49,11 +49,11 @@ function MainField({
   return (
     <div className="main_field" key="">
       <h2 className="main_field_title">Доходы</h2>
-      <div className="main_field_title_label">Общий доход</div>
       <div className="main_field_input">
         <input className="input_rub" value={inputData} readOnly></input>
         <span className="ruble_icon">₽</span>
       </div>
+      <div className="main_field_title_label">Общий доход</div>
       <MainFieldString
         title="Постоянные"
         type="constant"

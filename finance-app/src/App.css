@@ -66,33 +66,33 @@
   font-family: "Monserrat-Medium";
   font-style: normal;
   font-weight: 400;
-  font-size: 20px;
+  font-size: 16px;
   line-height: 24px;
-
-  display: flex;
   align-items: center;
   text-align: center;
-  margin-left: 210px;
-
   color: #999999;
+  margin-bottom: 42px;
 }
-.ruble_icon {
-  font-family: "Inter";
+.ruble_icon, .ruble_icon_small {
+  font-family: "Monserrat-Regular";
+  text-align: center;
   font-weight: 400;
-  font-size: 20px;
-  color: #999999;
+  font-size: 24px;
+  color: #000000;
   position: relative;
   right: 25px;
 }
+
 .input_rub {
-  width: 546px;
-  height: 60px;
-  margin-bottom: 18px;
+  width: 265px;
+  height: 27px;
+  margin-bottom: 0px;
   padding-left: 10px;
-  border: 1px solid #b7b7b7;
-  border-radius: 8px;
-  background-color: #faf5e433;
+  padding-bottom: 5px;
+  border: none;
+  border-bottom: 1px solid #999999;
   font-family: "Monserrat-Regular";
+  text-align: center;
   font-weight: 400;
   font-size: 24px;
 }
@@ -104,7 +104,7 @@
   font-family: "Monserrat-Regular";
   font-weight: 400;
   font-size: 24px;
-  margin: 40px 19px 0px;
+  margin: 28px 19px 0px;
   padding-left: 10px;
   background-color: #faf5e433;
 }
@@ -116,7 +116,7 @@
   font-family: "Monserrat-Regular";
   font-weight: 400;
   font-size: 24px;
-  margin-top: 40px;
+  margin-top: 28px;
   padding-left: 10px;
   background-color: #faf5e433;
 }
@@ -134,13 +134,13 @@
   cursor: pointer;
   width: 264px;
   height: 60px;
-  border: 1px solid #125b50;
+  border: 1px solid #54782B;
   color: white;
   font-family: "Monserrat-Regular";
   font-weight: 600;
   font-size: 20px;
-  margin: 40px 19px 0px;
-  background: #125b50;
+  margin: 28px 19px 0px;
+  background-color: #54782B;
   border-radius: 24px;
 }
 .main_field_string_button:hover {
@@ -151,7 +151,7 @@
 }
 
 .main_field_string_button[disabled] {
-  background: #125b50;
+  background: #54782B;
 }
 .main_field_string_button[disabled]:hover {
   box-shadow: none;

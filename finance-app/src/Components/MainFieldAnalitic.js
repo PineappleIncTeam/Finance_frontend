@@ -3,8 +3,9 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import ChartGistograms from "./analiticGistograms/ChartGistograms";
+import TransactionList from "./Transactions/TransactionList";
 
-function MainFieldAnalitic() {
+function MainFieldAnalitic({ operationList }) {
   const token = useSelector((state) => state.user.token);
   const [sumGroupIncome, setSumGroupIncome] = useState("");
   const [sumGroupOutcome, setSumGroupOutcome] = useState("");
@@ -39,7 +40,7 @@ function MainFieldAnalitic() {
 
   useEffect(() => {
     getAnaliticSum();
-  }, []);
+  }, [operationList]);
 
   const categoryNameIncome =
     sumGroupIncome &&
@@ -52,9 +53,6 @@ function MainFieldAnalitic() {
     sumGroupOutcome[0].sum.map((item) => item.categories__categoryName);
   const resultSumOutcome =
     sumGroupOutcome && sumGroupOutcome[0].sum.map((item) => item.result_sum);
-
-  console.log(sumGroupIncome);
-  console.log(sumGroupOutcome);
 
   return (
     <div className="main_field main_field_analitic">

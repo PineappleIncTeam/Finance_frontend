@@ -96,6 +96,7 @@ function Rectangle() {
               sumIncomeCash={sumIncomeCash}
               sumOutcomeCash={sumOutcomeCash}
               inputData={inputData}
+              operationList={operationList}
             />
           </div>
           <div className="aside">

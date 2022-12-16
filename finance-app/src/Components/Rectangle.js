@@ -19,12 +19,20 @@ function Rectangle() {
   function changeRangeCalendar(range) {
     setRange(range);
   }
+  let date = new Date();
+  let year = date.getFullYear();
+  let month = date.getMonth() + 1;
+  let lastDayDate = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+  let lastDay = (lastDayDate.toLocaleString().substring(0, 2))
+  let firstDayOfMonth = `${year}-${month}-01`;
+  let lastDayOfMonth = `${year}-${month}-${lastDay}`
+  console.log(lastDay) 
   //
   // let typeOfOperation = "http://92.255.79.239:8000/api/last-5-incomecash/";
   const sumIncomeCash =
-    "http://92.255.79.239:8000/api/sum-incomecash/?date_start=2022-08-10&date_end=2022-12-31";
+    `http://92.255.79.239:8000/api/sum-incomecash/?date_start=${firstDayOfMonth}&date_end=${lastDayOfMonth}`;
   const sumOutcomeCash =
-    "http://92.255.79.239:8000/api/sum-outcomecash/?date_start=2022-08-10&date_end=2022-12-31";
+    `http://92.255.79.239:8000/api/sum-outcomecash/?date_start=${firstDayOfMonth}&date_end=${lastDayOfMonth}`;
 
   function getOperationList(endpoint, symbol) {
     const options = {

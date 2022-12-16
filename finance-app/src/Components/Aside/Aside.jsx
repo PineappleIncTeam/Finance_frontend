@@ -8,7 +8,7 @@ import AirDatePicker from "../calendar/AirCalendar";
 // import { useEffect } from "react";
 // import { useSelector } from "react-redux";
 
-const Aside = ({ balanceData }) => {
+const Aside = ({ balanceData, range }) => {
   return (
     <div>
       <div className={style.root}>
@@ -22,7 +22,7 @@ const Aside = ({ balanceData }) => {
           </div>
         </div>
         <div className={style.datePicker}>
-          <AirDatePicker range={false} inline={false} autoClose={true} />
+          <AirDatePicker range={range} inline={false} autoClose={true} />
         </div>
       </div>
     </div>

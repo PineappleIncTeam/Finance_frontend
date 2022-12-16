@@ -9,6 +9,8 @@ function MainField({
   getInputData,
   inputData,
   sumIncomeCash,
+  changeRangeCalendar,
+  range
 }) {
   const token = useSelector((state) => state.user.token);
   const [categories, setCategories] = useState("");
@@ -31,7 +33,9 @@ function MainField({
   }
 
   useEffect(() => {
-    getCategories(typeOfCategories);
+    getCategories(typeOfCategories)
+    changeRangeCalendar(false)
+    console.log('srabotal');
   }, []);
 
   useEffect(() => {

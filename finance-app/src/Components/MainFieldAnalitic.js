@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 import ChartGistograms from "./analiticGistograms/ChartGistograms";
 import TransactionList from "./Transactions/TransactionList";
 
-function MainFieldAnalitic({ operationList }) {
+function MainFieldAnalitic({ operationList, changeRangeCalendar }) {
   const token = useSelector((state) => state.user.token);
   const [sumGroupIncome, setSumGroupIncome] = useState("");
   const [sumGroupOutcome, setSumGroupOutcome] = useState("");
@@ -40,6 +40,7 @@ function MainFieldAnalitic({ operationList }) {
 
   useEffect(() => {
     getAnaliticSum();
+    changeRangeCalendar(true)
   }, [operationList]);
 
   const categoryNameIncome =

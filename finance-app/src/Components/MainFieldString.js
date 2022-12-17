@@ -108,7 +108,7 @@ function MainFieldString({
         onChange={(event) => handleInputChange(event)}
         disabled={Boolean(!inputDis)}
       ></input>
-      <span className="ruble_icon">₽</span>
+      <span className="ruble_icon ruble_icon_small">₽</span>
 
       <button
         type="submit"

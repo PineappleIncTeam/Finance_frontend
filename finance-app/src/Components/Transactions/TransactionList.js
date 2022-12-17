@@ -113,6 +113,7 @@ function TransactionList({
               <div className={s.operation_list_item}>
                 {symbol}
                 {operation.sum}
+                <span className="ruble_icon ruble_icon_transactions">₽</span>
               </div>
               <div className={s.icons}>
                 <button

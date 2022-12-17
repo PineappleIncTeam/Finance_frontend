@@ -13,8 +13,9 @@ const Aside = ({ balanceData, range }) => {
       <div className={style.root}>
         <div className={style.userDate}>
           <div className={style.balance}>
-            <div className={style.textBalance}>Ваш баланс</div>
             <input type="text" value={balanceData} readOnly />
+            <span className="ruble_icon">₽</span>
+            <div className={style.textBalance}>Ваш баланс</div>
           </div>
           <div className={style.userAva}>
             <img src={userAva} alt="" />

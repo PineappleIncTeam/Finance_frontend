@@ -82,6 +82,15 @@
   position: relative;
   right: 25px;
 }
+.ruble_icon_small {
+  font-size: 20px;
+}
+.ruble_icon_transactions {
+  position: relative;
+  right: 0px;
+  left: 10px;
+  color: rgba(0, 0, 0, 0.5);
+}
 
 .input_rub {
   width: 265px;
@@ -106,7 +115,7 @@
   font-size: 24px;
   margin: 28px 19px 0px;
   padding-left: 10px;
-  background-color: #faf5e433;
+  background-color: white;
 }
 .main_field_string_input {
   width: 254px;
@@ -144,7 +153,7 @@
   border-radius: 24px;
 }
 .main_field_string_button:hover {
-  background-color: #155249;
+  background-color: #54782B;
   cursor: pointer;
   box-shadow: 0px 2px 5px 1px #0c4139;
   transform: translateY(-1px);

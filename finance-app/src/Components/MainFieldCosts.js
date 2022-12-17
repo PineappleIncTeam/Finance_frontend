@@ -42,11 +42,11 @@ function MainFieldCosts({ getOperationList, getBalanceData, getInputData, inputD
   return (
     <div className="main_field">
       <h2 className="main_field_title">Расходы</h2>
-      <div className="main_field_title_label">Общий расход</div>
       <div className="main_field_input">
         <input className="input_rub" value={inputData} readOnly></input>
         <span className="ruble_icon">₽</span>
       </div>
+      <div className="main_field_title_label">Общий расход</div>
       <MainFieldString
         title="Постоянные"
         type="constant"

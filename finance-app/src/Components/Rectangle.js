@@ -62,7 +62,7 @@ function Rectangle() {
       },
     };
     fetch(
-      "http://92.255.79.239:8000/api/balance/?date_start=2022-08-10&date_end=2022-12-31",
+      `http://92.255.79.239:8000/api/balance/?date_start=${firstDayOfMonth}&date_end=${lastDayOfMonth}`,
       options
     )
       .then((result) => result.json())

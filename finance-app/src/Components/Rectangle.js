@@ -14,8 +14,10 @@ function Rectangle() {
   const [symbol, setSymbol] = useState("+");
   const [balanceData, setBalanceData] = useState("");
   const [inputData, setInputData] = useState("");
+  const [checkMainField, setCheckMainField] = useState(true);
   //
   const [range, setRange] = useState(true);
+
   function changeRangeCalendar(range) {
     setRange(range);
   }
@@ -23,16 +25,14 @@ function Rectangle() {
   let year = date.getFullYear();
   let month = date.getMonth() + 1;
   let lastDayDate = new Date(date.getFullYear(), date.getMonth() + 1, 0);
-  let lastDay = (lastDayDate.toLocaleString().substring(0, 2))
+  let lastDay = lastDayDate.toLocaleString().substring(0, 2);
   let firstDayOfMonth = `${year}-${month}-01`;
-  let lastDayOfMonth = `${year}-${month}-${lastDay}`
-  console.log(lastDay) 
+  let lastDayOfMonth = `${year}-${month}-${lastDay}`;
+
   //
   // let typeOfOperation = "http://92.255.79.239:8000/api/last-5-incomecash/";
-  const sumIncomeCash =
-    `http://92.255.79.239:8000/api/sum-incomecash/?date_start=${firstDayOfMonth}&date_end=${lastDayOfMonth}`;
-  const sumOutcomeCash =
-    `http://92.255.79.239:8000/api/sum-outcomecash/?date_start=${firstDayOfMonth}&date_end=${lastDayOfMonth}`;
+  const sumIncomeCash = `http://92.255.79.239:8000/api/sum-incomecash/?date_start=${firstDayOfMonth}&date_end=${lastDayOfMonth}`;
+  const sumOutcomeCash = `http://92.255.79.239:8000/api/sum-outcomecash/?date_start=${firstDayOfMonth}&date_end=${lastDayOfMonth}`;
 
   function getOperationList(endpoint, symbol) {
     const options = {
@@ -113,24 +113,26 @@ function Rectangle() {
               operationList={operationList}
               changeRangeCalendar={changeRangeCalendar}
               range={range}
+              setCheckMainField={setCheckMainField}
             />
           </div>
           <div className="aside">
             <Aside balanceData={balanceData} range={range} />
           </div>
         </div>
-
-        <div className="transactions">
-          <Transactions
-            getBalanceData={getBalanceData}
-            getOperationList={getOperationList}
-            operationList={operationList}
-            symbol={symbol}
-            getInputData={getInputData}
-            sumIncomeCash={sumIncomeCash}
-            sumOutcomeCash={sumOutcomeCash}
-          />
-        </div>
+        {checkMainField && (
+          <div className="transactions">
+            <Transactions
+              getBalanceData={getBalanceData}
+              getOperationList={getOperationList}
+              operationList={operationList}
+              symbol={symbol}
+              getInputData={getInputData}
+              sumIncomeCash={sumIncomeCash}
+              sumOutcomeCash={sumOutcomeCash}
+            />
+          </div>
+        )}
       </div>
     </div>
   );

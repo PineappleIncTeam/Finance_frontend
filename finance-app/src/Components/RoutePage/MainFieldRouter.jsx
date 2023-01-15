@@ -16,6 +16,7 @@ const MainFieldRouter = ({
   operationList,
   changeRangeCalendar,
   range,
+  setCheckMainField,
 }) => {
   return (
     <Routes>
@@ -30,6 +31,7 @@ const MainFieldRouter = ({
             sumIncomeCash={sumIncomeCash}
             changeRangeCalendar={changeRangeCalendar}
             range={range}
+            setCheckMainField={setCheckMainField}
           />
         }
       />
@@ -45,6 +47,7 @@ const MainFieldRouter = ({
             sumOutcomeCash={sumOutcomeCash}
             changeRangeCalendar={changeRangeCalendar}
             range={range}
+            setCheckMainField={setCheckMainField}
           />
         }
       />
@@ -56,6 +59,7 @@ const MainFieldRouter = ({
             operationList={operationList}
             changeRangeCalendar={changeRangeCalendar}
             range={range}
+            setCheckMainField={setCheckMainField}
           />
         }
       />

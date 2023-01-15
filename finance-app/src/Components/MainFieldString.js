@@ -23,8 +23,6 @@ function MainFieldString({
   const token = useSelector((state) => state.user.token);
   const dataCal = useSelector((state) => state.data.data);
 
-  console.log(dataCal);
-
   const [inputDis, setInputDis] = useState(false);
   const [enterSum, setEnterSum] = useState("");
   const [selectElement, setSelectElement] = useState({});
@@ -37,7 +35,7 @@ function MainFieldString({
     selectIndex > 1 ? setInputDis(true) : setInputDis(false);
   };
   let dataCalendar = dataCal && dataCal.split(".").reverse().join("-");
-  console.log(dataCalendar);
+
   let Data = new Date();
   let Year = Data.getFullYear();
   let Month = Data.getMonth() + 1;
@@ -51,8 +49,6 @@ function MainFieldString({
       category_id: selectElement.category_id,
       date: dataCalendar ? dataCalendar : dataOnline,
     };
-    console.log(data);
-    console.log(dataCalendar);
 
     const options = {
       method: "POST",

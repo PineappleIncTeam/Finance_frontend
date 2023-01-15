@@ -86,7 +86,7 @@ const RegistPage = () => {
       .email("Введите верный email")
       .required("Обязательное поле"),
     username: Yup.string()
-      .matches(/^[A-Za-z0-9А-Яа-я]+$/, "Пароль введен некорректно")
+      .matches(/^[A-Za-z0-9А-Яа-я]+$/, "Логин введен некорректно")
       .min(6, "Слишком короткое имя")
       .max(32, "Слишком длинное имя")
       // .minLowercase(1, "ЛОГИН должен содержать символ с маленькой буквой")
@@ -218,6 +218,7 @@ const RegistPage = () => {
                   </Link>
                 </p>
                 <div className={style.reply}>{reply}</div>
+
                 <button
                   className={style.btn}
                   type={"submit"}

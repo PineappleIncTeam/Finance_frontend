@@ -64,6 +64,8 @@
 
 .error {
   color: red;
+  max-width: 400px;
+  font-family: "Monserrat-Medium";
 }
 
 .btn {
@@ -158,6 +160,7 @@
 .reply {
   font: italic 20px/25px Arial;
   color: red;
+  max-width: 400px;
 }
 
 .icon {

@@ -84,6 +84,7 @@
 }
 .ruble_icon_small {
   font-size: 20px;
+  top: 45px;
 }
 .ruble_icon_transactions {
   position: relative;
@@ -104,6 +105,9 @@
   text-align: center;
   font-weight: 400;
   font-size: 24px;
+}
+.main_field_string {
+  display: flex;
 }
 .select_element {
   width: 264px;
@@ -181,7 +185,13 @@
   font-size: 24px;
 }
 .option_list_add {
+  padding-left: 5px;
   font-weight: 600;
+  cursor: pointer;
+}
+.option_list_add:hover {
+  background-color: #9fc3f870;
+
 }
 .main_field_analitic {
   display: flex;

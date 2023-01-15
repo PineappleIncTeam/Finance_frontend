@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setDateCalendar } from "../store/dataSlice";
 import SelectElement from "./SelectElement";
+import Dropdown from "./Dropdown/Dropdown";
 
 function MainFieldString({
   title,
@@ -28,11 +29,11 @@ function MainFieldString({
   const [selectElement, setSelectElement] = useState({});
 
   function changeSelectElement(object) {
-    setSelectElement(JSON.parse(object));
+    setSelectElement(object);
   }
 
-  const disInput = (selectIndex) => {
-    selectIndex > 1 ? setInputDis(true) : setInputDis(false);
+  const disInput = () => {
+    setInputDis(true)
   };
   let dataCalendar = dataCal && dataCal.split(".").reverse().join("-");
 
@@ -80,7 +81,7 @@ function MainFieldString({
   return (
     <form className="main_field_string" onSubmit={sumSubmit}>
       {categories && (
-        <SelectElement
+        <Dropdown
           categories={categories}
           category_type={type}
           income_outcome={income_outcome}

@@ -133,6 +133,23 @@ function Dropdown({
     }
   }
 
+  function deleteCategory(category) {
+    if (window.confirm('Удалить категорию и все данные?')) {
+      const options = {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Token ${token}`,
+      }
+    }
+
+    fetch(`http://92.255.79.239:8000/api/del-category/${category}`, options)
+    .then((result) => getCategories(typeOfCategories))
+    }
+    
+    
+  }
+
   return (
     <div className="dropdown-container">
       <div className="dropdown-input" ref={inputRef} onClick={handleInputClick}>
@@ -176,7 +193,10 @@ function Dropdown({
                   onClick={() => onItemClick(jsonObject)}
                 >
                   {jsonObject.categoryName}
-                  <span className="delete-icon"><CloseIcon /></span>
+                  <span 
+                  className="delete-icon" 
+                  title="Удаление категории"
+                  onClick={() => deleteCategory(jsonObject.category_id)} ><CloseIcon /></span>
                 </div>
               )
             }

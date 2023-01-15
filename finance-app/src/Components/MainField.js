@@ -36,14 +36,8 @@ function MainField({
   useEffect(() => {
     getCategories(typeOfCategories);
     changeRangeCalendar(false);
-  }, []);
-
-  useEffect(() => {
     getInputData(sumIncomeCash);
     setCheckMainField(true);
-  }, []);
-
-  useEffect(() => {
     getOperationList(incomeOperations, "+");
   }, []);
 

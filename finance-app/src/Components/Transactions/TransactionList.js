@@ -1,5 +1,5 @@
-import { useSelector } from 'react-redux';
-import s from './Transactions.module.css';
+import { useSelector } from "react-redux"
+import s from "./Transactions.module.css"
 
 function TransactionList({
   getBalanceData,
@@ -10,97 +10,103 @@ function TransactionList({
   sumIncomeCash,
   sumOutcomeCash,
 }) {
-  const token = useSelector((state) => state.user.token);
+  const token = useSelector((state) => state.user.token)
 
   const deleteOptions = {
-    method: 'DELETE',
+    method: "DELETE",
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
       Authorization: `Token ${token}`,
     },
-  };
+  }
 
   return (
     <div className={s.transactions}>
       {operationList &&
         operationList.map((operation, index) => {
           function deleteCash(id, symbol) {
-            const deleteIncomeCash = `http://92.255.79.239:8000/api/delete-incomecash/`;
-            const deleteOutcomeCash =
-              'http://92.255.79.239:8000/api/delete-outcomecash/';
-            if (symbol === '+') {
-              fetch(`${deleteIncomeCash}${id}`, deleteOptions);
-              setTimeout(() => {
-                getOperationList(
-                  'http://92.255.79.239:8000/api/last-5-incomecash/',
-                  symbol
-                );
-                getInputData(sumIncomeCash);
-                getBalanceData();
-              }, 500);
-            } else if (symbol === '-') {
-              fetch(`${deleteOutcomeCash}${id}`, deleteOptions);
-              setTimeout(() => {
-                getOperationList(
-                  'http://92.255.79.239:8000/api/last-5-outcomecash/',
-                  symbol
-                );
-                getInputData(sumOutcomeCash);
-                getBalanceData();
-              }, 500);
+            if (
+              window.confirm(
+                "Вы действительно хотите удалить эту запись? Действие не может быть отменено"
+              )
+            ) {
+              const deleteIncomeCash = `http://92.255.79.239:8000/api/delete-incomecash/`
+              const deleteOutcomeCash =
+                "http://92.255.79.239:8000/api/delete-outcomecash/"
+              if (symbol === "+") {
+                fetch(`${deleteIncomeCash}${id}`, deleteOptions)
+                setTimeout(() => {
+                  getOperationList(
+                    "http://92.255.79.239:8000/api/last-5-incomecash/",
+                    symbol
+                  )
+                  getInputData(sumIncomeCash)
+                  getBalanceData()
+                }, 500)
+              } else if (symbol === "-") {
+                fetch(`${deleteOutcomeCash}${id}`, deleteOptions)
+                setTimeout(() => {
+                  getOperationList(
+                    "http://92.255.79.239:8000/api/last-5-outcomecash/",
+                    symbol
+                  )
+                  getInputData(sumOutcomeCash)
+                  getBalanceData()
+                }, 500)
+              }
             }
           }
 
           function updateCash(id, category, sum, symbol) {
-            const updateIncomeCash = `http://92.255.79.239:8000/api/update-incomecash/`;
+            const updateIncomeCash = `http://92.255.79.239:8000/api/update-incomecash/`
             const updateOutcomeCash =
-              'http://92.255.79.239:8000/api/update-outcomecash/';
-            if (symbol === '+') {
-              let newSum = prompt('Введите новое числовое значение', sum);
+              "http://92.255.79.239:8000/api/update-outcomecash/"
+            if (symbol === "+") {
+              let newSum = prompt("Введите новое числовое значение", sum)
               let data = {
                 category_id: category,
                 sum: newSum,
-              };
+              }
               const updateOptions = {
-                method: 'PUT',
+                method: "PUT",
                 headers: {
-                  'Content-Type': 'application/json',
+                  "Content-Type": "application/json",
                   Authorization: `Token ${token}`,
                 },
                 body: JSON.stringify(data),
-              };
-              fetch(`${updateIncomeCash}${id}`, updateOptions);
+              }
+              fetch(`${updateIncomeCash}${id}`, updateOptions)
               setTimeout(() => {
                 getOperationList(
-                  'http://92.255.79.239:8000/api/last-5-incomecash/',
+                  "http://92.255.79.239:8000/api/last-5-incomecash/",
                   symbol
-                );
-                getInputData(sumIncomeCash);
-                getBalanceData();
-              }, 400);
-            } else if (symbol === '-') {
-              let newSum = prompt('Введите новое числовое значение', sum);
+                )
+                getInputData(sumIncomeCash)
+                getBalanceData()
+              }, 400)
+            } else if (symbol === "-") {
+              let newSum = prompt("Введите новое числовое значение", sum)
               let data = {
                 category_id: category,
                 sum: newSum,
-              };
+              }
               const updateOptions = {
-                method: 'PUT',
+                method: "PUT",
                 headers: {
-                  'Content-Type': 'application/json',
+                  "Content-Type": "application/json",
                   Authorization: `Token ${token}`,
                 },
                 body: JSON.stringify(data),
-              };
-              fetch(`${updateOutcomeCash}${id}`, updateOptions);
+              }
+              fetch(`${updateOutcomeCash}${id}`, updateOptions)
               setTimeout(() => {
                 getOperationList(
-                  'http://92.255.79.239:8000/api/last-5-outcomecash/',
+                  "http://92.255.79.239:8000/api/last-5-outcomecash/",
                   symbol
-                );
-                getInputData(sumOutcomeCash);
-                getBalanceData();
-              }, 400);
+                )
+                getInputData(sumOutcomeCash)
+                getBalanceData()
+              }, 400)
             }
           }
 
@@ -120,7 +126,7 @@ function TransactionList({
                   className={s.icon_button}
                   type="submit"
                   onClick={() => {
-                    deleteCash(operation.id, symbol);
+                    deleteCash(operation.id, symbol)
                   }}
                 >
                   <div className={s.operation_list_icon1}></div>
@@ -134,16 +140,16 @@ function TransactionList({
                       operation.category_id,
                       operation.sum,
                       symbol
-                    );
+                    )
                   }}
                 >
                   <div className={s.operation_list_icon2}></div>
                 </button>
               </div>
             </div>
-          );
+          )
         })}
     </div>
-  );
+  )
 }
-export default TransactionList;
+export default TransactionList

@@ -4,7 +4,15 @@ import { render } from "react-dom";
 import { useSelector } from "react-redux";
 import MainFieldString from "./MainFieldString";
 
-function MainFieldCosts({ getOperationList, getBalanceData, getInputData, inputData, sumOutcomeCash, changeRangeCalendar }) {
+function MainFieldCosts({
+  getOperationList,
+  getBalanceData,
+  getInputData,
+  inputData,
+  sumOutcomeCash,
+  changeRangeCalendar,
+  setCheckMainField,
+}) {
   const token = useSelector((state) => state.user.token);
   const [categories, setCategories] = useState("");
   const planned = ["Планируемые", "Добавить категорию"];
@@ -27,16 +35,11 @@ function MainFieldCosts({ getOperationList, getBalanceData, getInputData, inputD
   }
 
   useEffect(() => {
-    getCategories(typeOfCategories)
-    changeRangeCalendar(false);
-  }, []);
-
-  useEffect(() => {
-    getInputData(sumOutcomeCash)
-  }, []);
-
-  useEffect(() => {
+    getInputData(sumOutcomeCash);
+    setCheckMainField(true);
     getOperationList(outcomeOperations, "-");
+    getCategories(typeOfCategories);
+    changeRangeCalendar(false);
   }, []);
 
   return (

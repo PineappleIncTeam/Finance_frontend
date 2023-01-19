@@ -5,7 +5,12 @@ import { useSelector } from "react-redux";
 import ChartGistograms from "./analiticGistograms/ChartGistograms";
 import TransactionList from "./Transactions/TransactionList";
 
-function MainFieldAnalitic({ operationList, changeRangeCalendar, range }) {
+function MainFieldAnalitic({
+  operationList,
+  changeRangeCalendar,
+  range,
+  setCheckMainField,
+}) {
   const token = useSelector((state) => state.user.token);
   const [sumGroupIncome, setSumGroupIncome] = useState([]);
   const [sumGroupOutcome, setSumGroupOutcome] = useState([]);
@@ -15,7 +20,7 @@ function MainFieldAnalitic({ operationList, changeRangeCalendar, range }) {
     dataCalRange.length > 1 && dataCalRange[0].split(".").reverse().join("-");
   const dataEnd =
     dataCalRange.length > 1 && dataCalRange[1].split(".").reverse().join("-");
-
+  useState(() => setCheckMainField(false), []);
   function getAnaliticSum() {
     const optionsIncome = {
       method: "GET",

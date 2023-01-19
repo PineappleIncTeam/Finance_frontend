@@ -64,7 +64,7 @@ function MainFieldString({
       .then((result) => getInputData(sumCash))
       .then((serverResponse) => {
         getBalanceData();
-        getOperationList(endpoint, symbol);
+        setTimeout(() => getOperationList(endpoint, symbol), 200);
       });
     setEnterSum("");
   }

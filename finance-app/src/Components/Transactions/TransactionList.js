@@ -125,6 +125,7 @@ function TransactionList({
                 <button
                   className={s.icon_button}
                   type="submit"
+                  title="Удалить запись"
                   onClick={() => {
                     deleteCash(operation.id, symbol)
                   }}
@@ -134,6 +135,7 @@ function TransactionList({
                 <button
                   className={s.icon_button}
                   type="submit"
+                  title="Редактировать"
                   onClick={() => {
                     updateCash(
                       operation.id,

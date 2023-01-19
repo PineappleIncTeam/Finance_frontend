@@ -103,8 +103,12 @@ function Dropdown({
 
     let selected = e.target.innerHTML
     if (selected === "Добавить категорию") {
-      newCategory = prompt("Введите название категории")
+      newCategory = prompt("Введите название категории (не более 14 символов)")
       setNewCategory(newCategory)
+      if (newCategory.length > 14) {
+        alert('Название превышает допустимый размер')
+        return
+      }
       for (let i = 0; i < userCategoriesName.length; i++) {
         if (userCategoriesName[i] === newCategory) {
           alert("Категория с таким именем уже существует")

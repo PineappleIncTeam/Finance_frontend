@@ -26,12 +26,18 @@ function Dropdown({
   typeOfCategories,
   disInput,
 }) {
-  let [newCategory, setNewCategory] = useState("");
+  let [newCategory, setNewCategory] = useState("")
   const [showMenu, setShowMenu] = useState(false)
   const [selectedValue, setSelectedValue] = useState(null)
   const [searchValue, setSearchValue] = useState("")
   const searchRef = useRef()
   const inputRef = useRef()
+
+  const userCategoriesName = categories.map((item) => {
+    if (item.category_type === category_type) {
+      return item.categoryName
+    }
+  })
 
   useEffect(() => {
     setSearchValue("")
@@ -79,7 +85,7 @@ function Dropdown({
 
   const onItemClick = (option) => {
     setSelectedValue(option)
-    console.log('onItemClick',option)
+    console.log("onItemClick", option)
     changeSelectElement(option)
     disInput()
   }
@@ -93,21 +99,26 @@ function Dropdown({
   }
 
   function chooseAndAddCategory(e) {
-    e.preventDefault();
+    e.preventDefault()
     console.log(e)
     // disInput(e.target.selectedIndex);
 
     let selected = e.target.innerHTML
     console.log(selected)
     if (selected === "Добавить категорию") {
-      newCategory = prompt("Введите название категории");
+      newCategory = prompt("Введите название категории")
       setNewCategory(newCategory)
-
+      for (let i = 0; i < userCategoriesName.length; i++) {
+        if (userCategoriesName[i] === newCategory) {
+          alert("Категория с таким именем уже существует")
+          return
+        }
+      }
       let data = {
         categoryName: newCategory,
         category_type,
         income_outcome,
-      };
+      }
 
       const options = {
         method: "POST",
@@ -116,14 +127,14 @@ function Dropdown({
           Authorization: `Token ${token}`,
         },
         body: JSON.stringify(data),
-      };
+      }
 
       fetch("http://92.255.79.239:8000/api/categories/", options).then(
         (result) => {
-          result.json();
-          getCategories(typeOfCategories);
+          result.json()
+          getCategories(typeOfCategories)
         }
-      );
+      )
     } else {
       // if (selectedValue !== title) {
       //   changeSelectElement(e.target.value);
@@ -134,20 +145,20 @@ function Dropdown({
   }
 
   function deleteCategory(category) {
-    if (window.confirm('Удалить категорию и все данные?')) {
+    if (window.confirm("Удалить категорию и все данные?")) {
       const options = {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Token ${token}`,
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Token ${token}`,
+        },
       }
-    }
 
-    fetch(`http://92.255.79.239:8000/api/del-category/${category}`, options)
-    .then((result) => getCategories(typeOfCategories))
+      fetch(
+        `http://92.255.79.239:8000/api/del-category/${category}`,
+        options
+      ).then((result) => getCategories(typeOfCategories))
     }
-    
-    
   }
 
   return (
@@ -193,10 +204,13 @@ function Dropdown({
                   onClick={() => onItemClick(jsonObject)}
                 >
                   {jsonObject.categoryName}
-                  <span 
-                  className="delete-icon" 
-                  title="Удаление категории"
-                  onClick={() => deleteCategory(jsonObject.category_id)} ><CloseIcon /></span>
+                  <span
+                    className="delete-icon"
+                    title="Удаление категории"
+                    onClick={() => deleteCategory(jsonObject.category_id)}
+                  >
+                    <CloseIcon />
+                  </span>
                 </div>
               )
             }

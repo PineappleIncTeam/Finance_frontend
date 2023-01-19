@@ -32,7 +32,7 @@ function Dropdown({
   const [searchValue, setSearchValue] = useState("")
   const searchRef = useRef()
   const inputRef = useRef()
-  
+
   const userCategoriesName = categories.map((item) => {
     if (item.category_type === category_type) {
       return item.categoryName
@@ -129,7 +129,7 @@ function Dropdown({
       fetch("http://92.255.79.239:8000/api/categories/", options).then(
         (result) => {
           result.json()
-          setSelectedValue('')
+          setSelectedValue("")
           getCategories(typeOfCategories)
           getDisplay()
         }
@@ -157,7 +157,7 @@ function Dropdown({
         `http://92.255.79.239:8000/api/del-category/${category}`,
         options
       ).then((result) => {
-        setSelectedValue('')
+        setSelectedValue("")
         getDisplay()
         getCategories(typeOfCategories)
       })

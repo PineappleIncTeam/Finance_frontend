@@ -49,11 +49,11 @@
 }
 
 .dropdown-item:hover {
-  background-color: #9fc3f870;
+  background-color: rgba(209, 241, 172, 0.5);
 }
 
 .dropdown-item.selected {
-  background-color: #0d62fd;
+  background-color: rgba(134, 171, 91, 1);
   color: #fff;
 }
 .search-box {

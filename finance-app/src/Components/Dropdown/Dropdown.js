@@ -32,7 +32,7 @@ function Dropdown({
   const [searchValue, setSearchValue] = useState("")
   const searchRef = useRef()
   const inputRef = useRef()
-
+  
   const userCategoriesName = categories.map((item) => {
     if (item.category_type === category_type) {
       return item.categoryName
@@ -94,17 +94,14 @@ function Dropdown({
     if (!selectedValue) {
       return false
     }
-
     return selectedValue.categoryName === option.categoryName
   }
 
   function chooseAndAddCategory(e) {
     e.preventDefault()
-    console.log(e)
     // disInput(e.target.selectedIndex);
 
     let selected = e.target.innerHTML
-    console.log(selected)
     if (selected === "Добавить категорию") {
       newCategory = prompt("Введите название категории")
       setNewCategory(newCategory)
@@ -132,7 +129,9 @@ function Dropdown({
       fetch("http://92.255.79.239:8000/api/categories/", options).then(
         (result) => {
           result.json()
+          setSelectedValue('')
           getCategories(typeOfCategories)
+          getDisplay()
         }
       )
     } else {
@@ -157,7 +156,11 @@ function Dropdown({
       fetch(
         `http://92.255.79.239:8000/api/del-category/${category}`,
         options
-      ).then((result) => getCategories(typeOfCategories))
+      ).then((result) => {
+        setSelectedValue('')
+        getDisplay()
+        getCategories(typeOfCategories)
+      })
     }
   }
 
@@ -197,10 +200,8 @@ function Dropdown({
                   className={`dropdown-item ${
                     isSelected(jsonObject) && "selected"
                   }`}
-                  // value={JSON.stringify(jsonObject)}
                   key={jsonObject.category_id}
                   index={index}
-                  // object={JSON.stringify(jsonObject)}
                   onClick={() => onItemClick(jsonObject)}
                 >
                   {jsonObject.categoryName}

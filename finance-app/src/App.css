@@ -190,7 +190,7 @@
   cursor: pointer;
 }
 .option_list_add:hover {
-  background-color: #9fc3f870;
+  background-color: rgba(209, 241, 172, 0.5);
 
 }
 .main_field_analitic {

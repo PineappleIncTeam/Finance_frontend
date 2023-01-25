@@ -151,7 +151,7 @@ const AuthReg = () => {
                   Если у вас нет учетной записи, <br />
                   <Link to="/login" className={style.reg}>
                     {" "}
-                    ЗАРЕГИСТРИРУЙТЕСЬ
+                    зарегистрируйтесь
                   </Link>
                 </p>
                 <br />

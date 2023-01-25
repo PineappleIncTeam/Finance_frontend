@@ -120,8 +120,9 @@ function ChartGistograms({
           Доходы
         </label>
         <Doughnut
-          width={400}
-          height={400}
+          className={style.doughnut}
+          width={style.doughnut}
+          height={style.doughnut}
           data={dataIncome}
           options={options}
         />
@@ -130,7 +131,13 @@ function ChartGistograms({
         <label htmlFor="" className={style.title}>
           Расходы
         </label>
-        <Doughnut width={400} height={400} data={dataCosts} options={options} />
+        <Doughnut
+          className={style.doughnut}
+          width={style.doughnut}
+          height={style.doughnut}
+          data={dataCosts}
+          options={options}
+        />
       </div>
     </div>
   )

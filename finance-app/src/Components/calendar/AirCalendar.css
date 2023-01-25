@@ -76,3 +76,34 @@
   color: #000000;
   background: none;
 }
+@media screen and (max-width: 1919px) {
+  .rootInput {
+    width: 190px;
+    height: 40px;
+  }
+  .input {
+    width: 174px;
+    font-size: 16px;
+    padding: 8px;
+  }
+  .input::placeholder {
+    font-size: 16px;
+  }
+  .air-datepicker-nav--title {
+    font-size: 16px;
+  }
+  .vect {
+    width: 18px;
+    height: 18px;
+    top: 12px;
+    right: 8px;
+  }
+  .-day- {
+    font-size: 12px;
+    line-height: 16px;
+  }
+  .air-datepicker-nav--title {
+    font-size: 16px;
+  }
+  
+}

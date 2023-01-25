@@ -19,3 +19,13 @@
   margin-right: 10px;
   font-family: "Monserrat-Medium";
 }
+@media screen and (max-width: 1919px) {
+  .exit {
+    margin-top: 85px;
+    font-size: 15px;
+  }
+  .exit img {
+    width: 18px;
+    height: 18px;
+  }
+}

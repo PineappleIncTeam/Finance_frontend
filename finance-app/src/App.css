@@ -1,4 +1,5 @@
 .App {
+  margin: auto;
   text-align: center;
   max-width: 1920px;
   height: 1080px;
@@ -74,7 +75,8 @@
   color: #999999;
   margin-bottom: 42px;
 }
-.ruble_icon, .ruble_icon_small {
+.ruble_icon,
+.ruble_icon_small {
   font-family: "Monserrat-Regular";
   text-align: center;
   font-weight: 400;
@@ -148,24 +150,24 @@
   cursor: pointer;
   width: 264px;
   height: 60px;
-  border: 1px solid #54782B;
+  border: 1px solid #54782b;
   color: white;
   font-family: "Monserrat-Regular";
   font-weight: 600;
   font-size: 20px;
   margin: 28px 19px 0px;
-  background-color: #54782B;
+  background-color: #54782b;
   border-radius: 24px;
 }
 .main_field_string_button:hover {
-  background-color: #54782B;
+  background-color: #54782b;
   cursor: pointer;
   box-shadow: 0px 2px 5px 1px #0c4139;
   transform: translateY(-1px);
 }
 
 .main_field_string_button[disabled] {
-  background: #54782B;
+  background: #54782b;
 }
 .main_field_string_button[disabled]:hover {
   box-shadow: none;
@@ -180,7 +182,8 @@
   font-weight: 400;
   margin-top: 60px;
 }
-.option_list, .option_list_add {
+.option_list,
+.option_list_add {
   font-family: "Monserrat-Regular";
   font-weight: 400;
   font-size: 24px;
@@ -192,7 +195,6 @@
 }
 .option_list_add:hover {
   background-color: rgba(209, 241, 172, 0.5);
-
 }
 .main_field_analitic {
   display: flex;
@@ -226,4 +228,60 @@
 
 .gistograms-analitic {
   width: 1300px;
+}
+@media screen and (max-width: 1919px) {
+  .App {
+    max-width: 1280px;
+    height: 768px;
+  }
+  .navigation {
+    width: 295px;
+    height: 768px;
+    margin-left: 20px;
+  }
+  .button_navi_block {
+    padding-top: 125px;
+  }
+  .button {
+    width: 295px;
+    height: 65px;
+    font-size: 20px;
+  }
+  .main_field_title {
+    font-size: 32px;
+    margin-bottom: 32px;
+  }
+  .main_field_title_label {
+    font-size: 12px;
+    margin-bottom: 0px;
+  }
+  .ruble_icon {
+    font-size: 16px;
+    right: 18px;
+  }
+  .ruble_icon_small {
+    font-size: 16px;
+    top: 40px;
+    right: 20px;
+  }
+  .input_rub {
+    width: 190px;
+    height: 19px;
+    margin-left: 10px;
+    font-size: 16px;
+  }
+  .main_field_string_input {
+    width: 190px;
+    height: 40px;
+    font-size: 16px;
+  }
+  .main_field_string_button {
+    width: 190px;
+    height: 40px;
+    font-size: 16px;
+  }
+  .option_list_add {
+    font-size: 16px;
+    padding: 4px;
+  }
 }

@@ -5,7 +5,10 @@
 .main {
   display: grid;
   width: 100%;
-  grid-template-rows: 1fr 200px;
+  /* grid-template-rows: 1fr 200px; */
+}
+.transactions {
+    align-self: flex-end;
 }
 
 .mainField {
@@ -15,4 +18,11 @@
 
 .mainFieldBlock {
   padding-top: 171px;
+}
+
+@media screen and (max-width: 1919px) {
+  .mainFieldBlock {
+    padding-top: 167px;
+  }
+  
 }

@@ -21,7 +21,7 @@
   margin-top: 70px;
 }
 .regist h1 {
-  font-family: "Playfair Display";
+  font-family: "Monserrat-medium";
   font-style: normal;
   font-weight: 800;
   font-size: 36px;
@@ -29,7 +29,7 @@
   letter-spacing: 0.06em;
   text-transform: capitalize;
   margin-bottom: 20px;
-  color: #125b50;
+  color: #54782b;
 }
 
 .form {
@@ -52,7 +52,7 @@
 
 .input {
   box-sizing: border-box;
-  font: 24px/16px "Arial";
+  font: 24px/16px "Monserrat-Medium";
   width: 408px;
   height: 67px;
   padding-left: 10px;
@@ -69,10 +69,10 @@
 
 .btn {
   margin-top: 60px;
-  background: #125b50;
+  background: #54782b;
   border-radius: 60px;
   padding: 12px 20px;
-  font-family: "Montserrat";
+  font-family: "Monserrat-Regular";
   font-style: normal;
   font-weight: 700;
   font-size: 32px;
@@ -84,7 +84,7 @@
 }
 
 .btn:hover {
-  background-color: #155249;
+  background-color: #405c20;
   cursor: pointer;
   box-shadow: 0px 2px 5px 1px #0c4139;
   transform: translateY(-1px);
@@ -114,7 +114,7 @@
 }
 
 .welcome {
-  font-family: "Playfair Display";
+  font-family: "Monserrat-medium";
   font-style: normal;
   font-weight: 700;
   font-size: 58px;
@@ -124,7 +124,7 @@
   color: #faf5e4;
 }
 .textConcept {
-  font-family: "Playfair Display";
+  font-family: "Monserrat-medium";
   font-style: normal;
   font-weight: 600;
   font-size: 24px;
@@ -135,7 +135,7 @@
 }
 
 .textReg {
-  font-family: "Montserrat";
+  font-family: "Monserrat-medium";
   font-style: normal;
   font-weight: 400;
   font-size: 20px;
@@ -189,10 +189,10 @@
     padding-left: 0px;
   }
   .regist {
-    margin-top: 110px;
+    margin-top: 35px;
   }
   .regist h1 {
-    font-size: 26px;
+    font-size: 24px;
   }
   .form label {
     font-size: 12px;
@@ -205,6 +205,7 @@
   }
   .error {
     max-width: 290px;
+    font-size: 12px;
   }
   .pass {
     position: relative;
@@ -218,11 +219,14 @@
   }
   .textReg {
     font-size: 12px;
+    display: flex;
+    flex-flow: column-reverse;
   }
   .btn {
     align-self: center;
-    font-size: 24px;
+    font-size: 20px;
     padding: 2px 10px;
     width: 190px;
+    margin-top: 0px;
   }
 }

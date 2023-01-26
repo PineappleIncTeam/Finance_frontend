@@ -208,7 +208,7 @@ const RegistPage = () => {
                   <br />
                   <Link to="/" className={style.reg}>
                     {" "}
-                    Я уже ЗАРЕГИСТРИРОВАН
+                    Я уже зарегистрирован
                   </Link>
                 </p>
                 <div className={style.reply}>{reply}</div>

@@ -77,16 +77,24 @@
   border-radius: 5px;
 }
 
-@media screen and (max-width: 1919px) {
+@media (max-width: 1919px) {
   .dropdown-container {
     width: 190px;
     height: 40px;
-    font-size: 16px
+    font-size: 16px;
   }
   .dropdown-menu {
     top: 40px;
   }
   .dropdown-item {
     padding: 4px;
+  }
+}
+
+@media (max-width: 1130px) {
+  .dropdown-container {
+    width: calc(120px + (190 - 120) * ((100vw - 850px) / (1130 - 850)));
+    min-width: 120px;
+    font-size: 13px;
   }
 }

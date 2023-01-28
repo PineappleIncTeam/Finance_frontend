@@ -5,10 +5,11 @@
 .main {
   display: grid;
   width: 100%;
+  min-height: 768px;
   /* grid-template-rows: 1fr 200px; */
 }
 .transactions {
-    align-self: flex-end;
+  align-self: flex-end;
 }
 
 .mainField {
@@ -19,10 +20,49 @@
 .mainFieldBlock {
   padding-top: 171px;
 }
+.mobile_burg {
+  display: none;
+}
 
 @media screen and (max-width: 1919px) {
   .mainFieldBlock {
     padding-top: 167px;
   }
-  
+}
+
+@media (max-width: 840px) {
+  .mainField {
+    grid-template-columns: 1fr minmax(150px, 220px);
+  }
+
+  .main.active {
+    filter: blur(2px);
+  }
+}
+
+@media (max-width: 840px) {
+  .mobile_burg {
+    display: block;
+    position: absolute;
+    top: 50px;
+    left: 20px;
+    cursor: pointer;
+    z-index: 10;
+  }
+}
+
+@media (max-width: 625px) {
+  .mainField {
+    position: relative;
+  }
+  .aside {
+    position: absolute;
+    right: 10px;
+  }
+}
+
+@media (max-width: 515px) {
+  .aside {
+    position: fixed;
+  }
 }

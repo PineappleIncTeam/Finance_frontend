@@ -19,7 +19,7 @@
   font-family: "PlayfairDisplay-ExtraBold";
   font-size: 28px;
   font-weight: 800;
-  color: #54782B;
+  color: #54782b;
 }
 .logo_text {
   height: 19px;
@@ -109,8 +109,19 @@
   font-weight: 400;
   font-size: 24px;
 }
+
+.ruble_iconMobile {
+  font-family: "Monserrat-Regular";
+  text-align: center;
+  font-weight: 400;
+  font-size: 24px;
+  color: #000000;
+  position: relative;
+  right: 25px;
+}
 .main_field_string {
   display: flex;
+  justify-content: center;
 }
 .select_element {
   width: 264px;
@@ -176,6 +187,26 @@
   cursor: auto;
 }
 
+.main_field_string_button_plus {
+  display: none;
+  cursor: pointer;
+  width: 45px;
+  border: 1px solid #54782b;
+  color: white;
+  font-family: "Monserrat-Regular";
+  font-weight: 600;
+  font-size: 30px;
+  margin: 28px 19px 0px;
+  background-color: #54782b;
+  border-radius: 50%;
+}
+
+.main_field_string_button_plus:hover {
+  background: rgba(0, 0, 0, 0);
+  color: teal;
+  box-shadow: inset 0 0 0 3px teal;
+}
+
 .main_field_analitic_h3 {
   font-family: "Monserrat-Medium";
   font-size: 28px;
@@ -229,13 +260,49 @@
 .gistograms-analitic {
   width: 1300px;
 }
+
+.arrowVector {
+  display: none;
+}
+
+.vectorBtn {
+  display: none;
+}
+
+.mobileSum {
+  margin-top: 80px;
+}
+
+.mainTextSumm {
+  font-family: "Monserrat-Medium";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 22px;
+
+  color: #000000;
+}
+
+.input_rubMobile {
+  width: 165px;
+  height: 27px;
+  margin-bottom: 0px;
+  padding-left: 10px;
+  padding-bottom: 5px;
+  border: none;
+
+  font-family: "Monserrat-Regular";
+  text-align: center;
+  font-weight: 400;
+  font-size: 24px;
+  margin-top: 10px;
+}
 @media screen and (max-width: 1919px) {
   .App {
     max-width: 1280px;
     height: 768px;
   }
   .navigation {
-    width: 295px;
     height: 768px;
     margin-left: 20px;
   }
@@ -283,5 +350,75 @@
   .option_list_add {
     font-size: 16px;
     padding: 4px;
+  }
+}
+
+@media (max-width: 1275px) {
+  .main_field_string_button {
+    display: none;
+  }
+
+  .main_field_string_button_plus {
+    display: block;
+  }
+}
+
+@media (max-width: 1130px) {
+  .main_field_string_input {
+    width: calc(110px + (190 - 110) * ((100vw - 850px) / (1130 - 850)));
+    min-width: 110px;
+    font-size: 13px;
+  }
+
+  .button {
+    width: calc(200px + (295 - 200) * ((100vw - 850px) / (1130 - 850)));
+    min-width: 190px;
+  }
+}
+
+@media (max-width: 840px) {
+  .mainField {
+    grid-template-columns: 1fr minmax(150px, 220px);
+  }
+
+  .button {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .vectorBtn,
+  .arrowVector {
+    display: flex;
+    height: 15px;
+    align-self: center;
+  }
+
+  .btnStek {
+    display: flex;
+  }
+
+  .vectorBtn {
+    margin: 0px 10px 0px 15px;
+  }
+  .arrowVector {
+    margin-right: 10px;
+  }
+}
+
+@media (max-width: 565px) {
+  .main_field_input,
+  .main_field_title_label {
+    display: none;
+  }
+
+  .main_field_title {
+    margin: 60px 0px 0px 20px;
+    text-align: start;
+    font-size: 24px;
+  }
+
+  .mobileSumm {
+    display: block;
   }
 }

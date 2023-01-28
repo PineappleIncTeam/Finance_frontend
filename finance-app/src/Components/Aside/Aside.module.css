@@ -60,3 +60,27 @@
     text-align: left;
   }
 }
+
+@media (max-width: 1130px) {
+  .userDate {
+    flex-direction: column-reverse;
+  }
+
+  .balance input {
+    max-width: 120px;
+  }
+}
+
+@media (max-width: 625px) {
+  .datePicker {
+    margin-top: 120px;
+  }
+}
+
+@media (max-width: 840px) {
+  .userDate {
+    display: flex;
+    align-items: flex-end;
+    flex-direction: row;
+  }
+}

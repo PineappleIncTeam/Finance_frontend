@@ -82,6 +82,13 @@ function MainField({
         symbol="+"
         getBalanceData={getBalanceData}
       />
+      <div className="mobileSum">
+        <div className="mobileSum_input">
+          <div className="mainTextSumm">Ваш общий доход</div>
+          <input className="input_rubMobile" value={inputData} readOnly></input>
+          <span className="ruble_iconMobile">₽</span>
+        </div>
+      </div>
     </div>
   );
 }

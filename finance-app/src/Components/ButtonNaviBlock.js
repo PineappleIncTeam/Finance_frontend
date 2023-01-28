@@ -5,6 +5,12 @@ import MainFieldCosts from "./MainFieldCosts";
 import MainFieldStorage from "./MainFieldStorage";
 import MainFieldAnalitic from "./MainFieldAnalitic";
 import { Link, NavLink } from "react-router-dom";
+import arrow from "./../Images/Arrow.png";
+import AnaliticVector from "./../Images/AnaliticVector.png";
+import CalcVector from "./../Images/CalcVector.png";
+import CostsVector from "./../Images/CostsVector.png";
+import FieldVector from "./../Images/FieldVector.png";
+import StorVector from "./../Images/StorVector.png";
 
 function ButtonNaviBlock() {
   // const buttonName = ['Доходы', 'Расходы', 'Накопления', 'Аналитика'];
@@ -12,16 +18,32 @@ function ButtonNaviBlock() {
   return (
     <div className="button_navi_block">
       <NavLink to="/rectangle/mainfield" className="button">
-        Доходы
+        <div className="btnStek">
+          <img className="vectorBtn" src={FieldVector}></img>Доходы
+        </div>
+
+        <img className="arrowVector" src={arrow}></img>
       </NavLink>
       <NavLink to="/rectangle/mainfieldcosts" className="button">
-        Расходы
+        <div className="btnStek">
+          <img className="vectorBtn" src={CostsVector}></img> Расходы{" "}
+        </div>
+
+        <img className="arrowVector" src={arrow}></img>
       </NavLink>
       <NavLink to="/rectangle/mainfieldstorage" className="button">
-        Накопления
+        <div className="btnStek">
+          <img className="vectorBtn" src={StorVector}></img> Накопления{" "}
+        </div>
+
+        <img className="arrowVector" src={arrow}></img>
       </NavLink>
       <NavLink to="/rectangle/mainfieldanalitic" className="button">
-        Аналитика
+        <div className="btnStek">
+          <img className="vectorBtn" src={AnaliticVector}></img> Аналитика{" "}
+        </div>
+
+        <img className="arrowVector" src={arrow}></img>
       </NavLink>
 
       {/* <Link className="button" onClick={() => func(MainFieldCosts)}>

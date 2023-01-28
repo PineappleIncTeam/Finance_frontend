@@ -33,7 +33,7 @@ function MainFieldString({
   }
 
   const disInput = () => {
-    setInputDis(true)
+    setInputDis(true);
   };
   let dataCalendar = dataCal && dataCal.split(".").reverse().join("-");
 
@@ -113,6 +113,13 @@ function MainFieldString({
         disabled={Boolean(!inputDis)}
       >
         Добавить
+      </button>
+      <button
+        type="submit"
+        className="main_field_string_button_plus"
+        disabled={Boolean(!inputDis)}
+      >
+        +
       </button>
     </form>
   );

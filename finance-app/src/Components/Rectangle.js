@@ -7,6 +7,7 @@ import { useSelector } from "react-redux";
 import Aside from "./Aside/Aside";
 import Transactions from "./Transactions/Transactions";
 import MainFieldRouter from "./RoutePage/MainFieldRouter";
+import { AiOutlineMenu, AiOutlineClose } from "react-icons/ai";
 
 function Rectangle() {
   const token = useSelector((state) => state.user.token);
@@ -17,6 +18,7 @@ function Rectangle() {
   const [checkMainField, setCheckMainField] = useState(true);
   //
   const [range, setRange] = useState(true);
+  const [menuActive, setMenuActive] = useState(false);
 
   function changeRangeCalendar(range) {
     setRange(range);
@@ -98,9 +100,20 @@ function Rectangle() {
   }
 
   return (
-    <div className="rectangle">
-      <Navigation />
-      <div className="main">
+    <div
+      className="rectangle"
+      onClick={() => menuActive && setMenuActive(!menuActive)}
+    >
+      <div className="mobile_burg" onClick={() => setMenuActive(!menuActive)}>
+        {menuActive ? (
+          <AiOutlineClose color="teal" size={40} />
+        ) : (
+          <AiOutlineMenu color="teal" size={40} />
+        )}
+      </div>
+
+      <Navigation menuActive={menuActive} setMenuActive={setMenuActive} />
+      <div className={menuActive ? "main active" : "main"} active={menuActive}>
         <div className="mainField">
           <div className="mainFieldBlock">
             <MainFieldRouter

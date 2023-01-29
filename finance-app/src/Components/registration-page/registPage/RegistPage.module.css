@@ -182,7 +182,9 @@
 @media screen and (max-width: 1919px) {
   .registFon {
     height: 768px;
-    background-size: contain;
+    background-size: cover;
+
+    background-repeat: no-repeat; /* Do not repeat the image */
   }
   .logo {
     text-align: center;
@@ -228,5 +230,32 @@
     padding: 2px 10px;
     width: 190px;
     margin-top: 0px;
+  }
+}
+
+@media screen and (max-width: 1180px) {
+  .registFon {
+    background-size: cover;
+    text-align: center;
+    margin-top: 100px;
+    height: calc(400px + (650 - 400) * ((100vw - 550px) / (1130 - 550)));
+    background-repeat: no-repeat; /* Do not repeat the image */
+  }
+}
+
+@media screen and (max-width: 720px) {
+  .root {
+    display: flex;
+    flex-direction: column-reverse;
+  }
+
+  .registFon {
+    max-width: 200px;
+    max-height: 200px;
+    margin: 0px auto;
+  }
+
+  .regist {
+    margin: 0px auto;
   }
 }

@@ -16,11 +16,12 @@
   padding-top: 50px;
 }
 .logo {
-  font-family: "PlayfairDisplay-ExtraBold";
+  font-family: "Solitreo", cursive;
   font-size: 28px;
   font-weight: 800;
   color: #54782b;
 }
+
 .logo_text {
   height: 19px;
   font-family: "PlayfairDisplay-Medium";
@@ -404,6 +405,24 @@
   }
   .arrowVector {
     margin-right: 10px;
+  }
+}
+
+@media screen and (max-width: 720px) {
+  .logo {
+    font-family: "Russo One", sans-serif;
+    font-style: normal;
+    font-weight: 800;
+    font-size: 16px;
+
+    letter-spacing: 2px;
+    line-height: 32px;
+
+    color: #54782b;
+  }
+
+  .logo_block {
+    padding-top: 0px;
   }
 }
 

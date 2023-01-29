@@ -156,6 +156,17 @@
 .reg:hover {
   font-weight: bold;
   color: teal;
+  text-shadow: 0 1px 0 teal, 0 2px 0 teal, 0 3px 0 #bbb, 0 4px 0 #b9b9b9,
+    0 5px 0 teal, 0 6px 1px rgba(0, 0, 0, 0.1), 0 0 5px rgba(0, 0, 0, 0.1),
+    0 1px 3px rgba(0, 0, 0, 0.3), 0 3px 5px rgba(0, 0, 0, 0.2),
+    0 5px 10px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.2),
+    0 20px 20px rgba(0, 0, 0, 0.15);
+  font-size: 18px;
+  line-height: 18px;
+  letter-spacing: 1px;
+  display: inline-block;
+  color: rgb(58, 112, 112);
+  font-family: "Russo One", sans-serif;
 }
 
 .reply {
@@ -184,7 +195,7 @@
 @media screen and (max-width: 1919px) {
   .registFon {
     height: 768px;
-    background-size: contain;
+    background-size: cover;
   }
   .logo {
     text-align: center;
@@ -230,5 +241,32 @@
   }
   .reg {
     font-size: 14px;
+  }
+}
+
+@media screen and (max-width: 1180px) {
+  .registFon {
+    background-size: cover;
+    text-align: center;
+    margin-top: 100px;
+    height: calc(400px + (650 - 400) * ((100vw - 550px) / (1130 - 550)));
+    background-repeat: no-repeat; /* Do not repeat the image */
+  }
+}
+
+@media screen and (max-width: 720px) {
+  .root {
+    display: flex;
+    flex-direction: column-reverse;
+  }
+
+  .registFon {
+    max-width: 200px;
+    max-height: 200px;
+    margin: 0px auto;
+  }
+
+  .regist {
+    margin: 0px auto;
   }
 }

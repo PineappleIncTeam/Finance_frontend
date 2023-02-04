@@ -60,8 +60,22 @@
     text-align: left;
   }
 }
+@media (max-width: 1280px) {
+  .balance input {
+    width: 120px;
+  }
+}
+@media (max-width: 1200px) {
+  .balance input {
+    max-width: 90px;
+    font-size: 14px;
+  }
 
+}
 @media (max-width: 1130px) {
+  .datePicker {
+    margin-top: 90px;
+  }
   .userDate {
     flex-direction: column-reverse;
   }
@@ -69,18 +83,43 @@
   .balance input {
     max-width: 120px;
   }
+  
 }
-
-@media (max-width: 625px) {
+@media (max-width: 840px) {
+  .datePicker {
+    margin-top: 140px;
+  }
+  .userDate {
+    display: flex;
+    align-items: flex-end;
+    flex-direction: row;
+  }
+}
+@media (max-width: 564px) {
   .datePicker {
     margin-top: 120px;
   }
 }
 
-@media (max-width: 840px) {
-  .userDate {
-    display: flex;
-    align-items: flex-end;
-    flex-direction: row;
+
+@media screen and (max-width: 376px) {
+  .userAva img {
+    width: 32px;
+    height: 32px;
+  }
+  .textBalance {
+    font-size: 8px;
+  }
+  .balance input {
+    font-size: 10px;
+    width: 86px;
+  }
+  .root {
+    margin-top: 25px;
+  }
+  .datePicker {
+    margin-top: 50px;
+    
+    width: 110px;
   }
 }

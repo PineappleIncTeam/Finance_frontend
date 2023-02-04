@@ -107,3 +107,55 @@
   }
   
 }
+
+@media screen and (max-width: 376px) {
+  .air-datepicker-nav {
+    width: 130px;
+  }
+  .air-datepicker-nav--action {
+    width: 110px;
+  }
+  
+  .air-datepicker-timepicker {
+    width: 110px;
+  }
+  .air-datepicker-buttons {
+    width: 110px;
+  }
+  .air-datepicker-body {
+    width: 120px;
+  }
+  .air-datepicker {
+    width: 130px;
+  }
+  .air-datepicker-nav--title {
+    width: 110px;
+    font-size: 10px;
+    line-height: 14px;
+  }
+  .-month- {
+    width: 110px;
+  }
+  .-day- {
+    font-size: 10px;
+    line-height: 14px;
+  }
+  .rootInput {
+    width: 110px;
+    height: 28px;
+  }
+  .input {
+    width: 100px;
+    height: 18px;
+    padding: 5px;
+  }
+  .input::placeholder {
+    font-size: 10px;
+  }
+  .vect {
+    width: 15px;
+    height: 15px;
+    top: 10px;
+    right: 2px;
+  }
+}

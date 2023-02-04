@@ -1,5 +1,5 @@
 .text {
-  font-family: "Arial";
+  font-family: "Monserrat-Regular";
   font-style: normal;
   font-weight: 400;
   font-size: 24px;
@@ -93,6 +93,9 @@
     box-shadow: 0px 2px 5px 1px #0c4139;
     transform: translateY(-2px);
   }
+  .icons {
+    align-items: flex-start;
+  }
 }
 
 @media (max-width: 600px) {
@@ -101,7 +104,21 @@
     line-height: 15px;
     margin-bottom: 3px;
     display: grid;
-    grid-template-columns: 25% 20% 25% 15%;
+    grid-template-columns: 35% 20% 30% 15%;
+    padding-left: 0px;
+  }
+  .operation_list_item1 {
+    padding-left: 10px;
+  }
+  .operation_list_item {
+    padding-left: 10px;
+  }
+  .operation_list_icon1,
+  .operation_list_icon2 {
+    margin-right: 12px;
+  }
+  .icons {
+    align-items: flex-start;
   }
 }
 @media (max-width: 460px) {
@@ -110,7 +127,21 @@
     line-height: 15px;
     margin-bottom: 3px;
     display: grid;
-    grid-template-columns: 25% 17% 20% 1%;
+    grid-template-columns: 35% 20% 30% 15%;
+    padding-left: 0px;
+  }
+  .operation_list_item1 {
+    padding-left: 10px;
+  }
+  .operation_list_item {
+    padding-left: 10px;
+  }
+  .operation_list_icon1,
+  .operation_list_icon2 {
+    margin-right: 12px;
+  }
+  .icons {
+    align-items: flex-start;
   }
 }
 
@@ -120,6 +151,42 @@
     line-height: 12px;
     margin-bottom: 2px;
     display: grid;
-    grid-template-columns: 22% 14% 18% 1%;
+    grid-template-columns: 35% 20% 30% 15%;
+    padding-left: 0px;
+  }
+  .operation_list_item1 {
+    padding-left: 10px;
+  }
+  .operation_list_item {
+    padding-left: 10px;
+  }
+  .operation_list_icon1,
+  .operation_list_icon2 {
+    margin-right: 12px;
+  }
+  .icons {
+    align-items: flex-start;
+  }
+}
+@media (max-width: 376px) {
+  .text {
+    font-size: 14px;
+  }
+  .operation {
+    grid-template-columns: 35% 20% 30% 15%;
+    padding-left: 0px;
+  }
+  .operation_list_item1 {
+    padding-left: 10px;
+  }
+  .operation_list_item {
+    padding-left: 10px;
+  }
+  .operation_list_icon1,
+  .operation_list_icon2 {
+    margin-right: 12px;
+  }
+  .icons {
+    align-items: flex-start;
   }
 }

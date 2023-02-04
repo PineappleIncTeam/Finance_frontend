@@ -66,3 +66,18 @@
     position: fixed;
   }
 }
+@media screen and (max-width: 376px) {
+  .mobile_burg svg {
+    width: 20px;
+    height: 14px;
+  }
+  .mainField {
+    display: flex;
+  }
+  .aside {
+    position: absolute;
+  }
+  .mainFieldBlock {
+    padding-top: 67px;
+  }
+}

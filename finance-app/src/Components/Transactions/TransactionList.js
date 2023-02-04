@@ -112,7 +112,7 @@ function TransactionList({
 
           return (
             <div className={s.operation} key={index} id={operation.id}>
-              <div className={s.operation_list_item}>{operation.date}</div>
+              <div className={s.operation_list_item1}>{operation.date}</div>
               <div className={s.operation_list_item}>
                 {operation.categoryName}
               </div>

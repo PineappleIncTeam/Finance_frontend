@@ -309,7 +309,7 @@
     margin-left: 20px;
   }
   .button_navi_block {
-    padding-top: 125px;
+    padding-top: 105px;
   }
   .button {
     width: 295px;
@@ -411,14 +411,15 @@
 
 @media screen and (max-width: 720px) {
   .logo {
-    font-family: "Russo One", sans-serif;
+    font-family: "Solitreo", cursive;
     font-style: normal;
     font-weight: 800;
-    font-size: 16px;
-
+    font-size: 20px;
+    margin-top: 30px;
     letter-spacing: 2px;
     line-height: 32px;
-
+    font-size: 28px;
+    font-weight: 800;
     color: #54782b;
   }
 

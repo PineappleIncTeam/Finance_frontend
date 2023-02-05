@@ -110,7 +110,7 @@ function Dropdown({
         return
       }
       for (let i = 0; i < userCategoriesName.length; i++) {
-        if (userCategoriesName[i] === newCategory) {
+        if (userCategoriesName[i].toLowerCase() === newCategory.toLowerCase()) {
           alert("Категория с таким именем уже существует")
           return
         }

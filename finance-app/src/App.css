@@ -377,6 +377,9 @@
     width: calc(200px + (295 - 200) * ((100vw - 850px) / (1130 - 850)));
     min-width: 190px;
   }
+  .option_list_add {
+    font-size: 13px;
+  }
 }
 
 @media (max-width: 840px) {
@@ -466,6 +469,9 @@
   }
   .mobileSum {
     margin-top: 125px;
+  }
+  .option_list_add {
+    font-size: 10px;
   }
   
 }

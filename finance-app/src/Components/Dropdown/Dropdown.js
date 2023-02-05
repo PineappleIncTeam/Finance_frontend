@@ -35,7 +35,7 @@ function Dropdown({
 
   const userCategoriesName = categories.map((item) => {
     if (item.category_type === category_type) {
-      return item.categoryName
+      return item.categoryName.toLowerCase()
     }
   })
 
@@ -110,7 +110,7 @@ function Dropdown({
         return
       }
       for (let i = 0; i < userCategoriesName.length; i++) {
-        if (userCategoriesName[i].toLowerCase() === newCategory.toLowerCase()) {
+        if (userCategoriesName[i] === newCategory.toLowerCase()) {
           alert("Категория с таким именем уже существует")
           return
         }

@@ -98,6 +98,13 @@
     font-size: 13px;
   }
 }
+@media screen and (max-width: 565px) {
+  .dropdown-container {
+    width: 30vw;
+    min-width: 120px;
+    font-size: 13px;
+  }
+}
 @media screen and (max-width: 376px){
   .dropdown-container {
     width: 110px;

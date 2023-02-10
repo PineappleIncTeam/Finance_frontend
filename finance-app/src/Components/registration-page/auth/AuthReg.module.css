@@ -152,8 +152,12 @@
   text-decoration: none;
   color: teal;
 }
-
 .reg:hover {
+  font-weight: bold;
+  color: teal;
+}
+
+/* .reg:hover {
   font-weight: bold;
   color: teal;
   text-shadow: 0 1px 0 teal, 0 2px 0 teal, 0 3px 0 #bbb, 0 4px 0 #b9b9b9,
@@ -167,7 +171,7 @@
   display: inline-block;
   color: rgb(58, 112, 112);
   font-family: "Russo One", sans-serif;
-}
+} */
 
 .reply {
   font: italic 20px/25px Arial;

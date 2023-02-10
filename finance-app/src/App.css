@@ -96,7 +96,9 @@
   left: 10px;
   color: rgba(0, 0, 0, 0.5);
 }
-
+.input_container {
+  display: flex;
+}
 .input_rub {
   width: 265px;
   height: 27px;
@@ -435,6 +437,12 @@
   .main_field_input,
   .main_field_title_label {
     display: none;
+  }
+  .main_field_string {
+    justify-content: space-between;
+  }
+  .main_field_string_input {
+    width: 30vw;
   }
 
   .main_field_title {

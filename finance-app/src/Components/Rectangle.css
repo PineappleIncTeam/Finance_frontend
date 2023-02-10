@@ -57,13 +57,19 @@
   }
   .aside {
     position: absolute;
-    right: 10px;
+    right: 15px;
   }
 }
 
-@media (max-width: 515px) {
+@media (max-width: 565px) {
+  .mainFieldBlock {
+    width: 100%;
+  }
+  .mainField {
+    display: flex;
+  }
   .aside {
-    position: fixed;
+    position: absolute;
   }
 }
 @media screen and (max-width: 376px) {

@@ -97,6 +97,11 @@
     align-items: flex-start;
   }
 }
+@media screen and (max-width: 1040px) {
+  .operation {
+    font-size: 12px;
+  }
+}
 
 @media (max-width: 600px) {
   .operation {

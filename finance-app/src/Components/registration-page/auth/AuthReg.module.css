@@ -246,6 +246,9 @@
   .reg {
     font-size: 14px;
   }
+  .reply {
+    font-size: 12px;
+  }
 }
 
 @media screen and (max-width: 1180px) {

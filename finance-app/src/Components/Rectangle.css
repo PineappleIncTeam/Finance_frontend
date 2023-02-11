@@ -52,7 +52,11 @@
 }
 
 @media (max-width: 625px) {
+  .mainFieldBlock {
+    width: 100%;
+  }
   .mainField {
+    display: flex;
     position: relative;
   }
   .aside {
@@ -61,17 +65,6 @@
   }
 }
 
-@media (max-width: 565px) {
-  .mainFieldBlock {
-    width: 100%;
-  }
-  .mainField {
-    display: flex;
-  }
-  .aside {
-    position: absolute;
-  }
-}
 @media screen and (max-width: 376px) {
   .mobile_burg svg {
     width: 20px;

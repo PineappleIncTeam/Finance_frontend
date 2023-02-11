@@ -433,7 +433,8 @@
   }
 }
 
-@media (max-width: 565px) {
+
+@media (max-width: 625px) {
   .main_field_input,
   .main_field_title_label {
     display: none;
@@ -443,6 +444,13 @@
   }
   .main_field_string_input {
     width: 30vw;
+    height: 50px;
+  }
+  .main_field_string_button_plus {
+    width: 50px;
+  }
+  .ruble_icon_small {
+    top: 45px;
   }
 
   .main_field_title {

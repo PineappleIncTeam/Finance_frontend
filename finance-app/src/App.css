@@ -364,6 +364,7 @@
 
   .main_field_string_button_plus {
     display: block;
+    margin: 28px 10px 0px;
   }
 }
 
@@ -383,7 +384,11 @@
     font-size: 13px;
   }
 }
-
+@media screen and (max-width: 1040px) {
+  .ruble_icon_transactions {
+    font-size: 12px;
+  }
+}
 @media (max-width: 840px) {
   .mainField {
     grid-template-columns: 1fr minmax(150px, 220px);
@@ -462,6 +467,9 @@
   .mobileSum {
     display: block;
   }
+  .ruble_icon_transactions {
+    font-size: 11px;
+  }
 }
 @media screen and (max-width: 376px) {
   .main_field_string_input {
@@ -489,5 +497,4 @@
   .option_list_add {
     font-size: 10px;
   }
-  
 }

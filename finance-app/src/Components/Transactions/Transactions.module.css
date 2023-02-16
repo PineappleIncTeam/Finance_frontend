@@ -59,6 +59,8 @@
   width: 19px;
   height: 20px;
   cursor: pointer;
+  position: relative;
+  bottom: 0.7px;
 }
 .icon_button {
   border: none;

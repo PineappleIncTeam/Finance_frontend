@@ -1,6 +1,6 @@
 import React from "react"
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js"
-import { Doughnut } from "react-chartjs-2"
+import { Pie } from "react-chartjs-2"
 import style from "./ChartGistograms.module.css"
 
 function ChartGistograms({
@@ -119,7 +119,7 @@ function ChartGistograms({
         <label htmlFor="" className={style.title}>
           Доходы
         </label>
-        <Doughnut
+        <Pie
           className={style.doughnut}
           width={style.doughnut}
           height={style.doughnut}
@@ -131,7 +131,7 @@ function ChartGistograms({
         <label htmlFor="" className={style.title}>
           Расходы
         </label>
-        <Doughnut
+        <Pie
           className={style.doughnut}
           width={style.doughnut}
           height={style.doughnut}

@@ -8,7 +8,7 @@
 .navigation {
   max-width: 405px;
   height: 1080px;
-  background-image: url("../src/Images/navBlockBack.png");
+  background-image: url("../src/Images/navBlockBack2.png");
   margin-left: 120px;
 }
 
@@ -38,7 +38,6 @@
 .button {
   width: 405px;
   height: 80px;
-  background: rgba(248, 180, 0, 0.02);
   color: #000000;
   margin-bottom: 6px;
   border: 0;
@@ -397,6 +396,9 @@
     font-size: 32px;
     margin-bottom: 32px;
   }
+  .main_field_title_analitic {
+    font-size: 24px;
+  }
   .main_field_title_label {
     font-size: 12px;
     margin-bottom: 0px;
@@ -430,6 +432,36 @@
     font-size: 16px;
     padding: 4px;
   }
+  .analitic_select {
+    width: 190px;
+    height: 40px;
+    font-size: 16px;
+    padding-left: 10px;
+  }
+  .analitic_select_option {
+    font-size: 16px;
+  }
+  .analitic_select_form div {
+    display: flex;
+  }
+  .analitic_select_form {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    line-height: 14px;
+  }
+  .analitic_radio_input {
+    width: 14px;
+    height: 14px;
+  }
+  .analitic_radio_input::before {
+    width: 10px;
+    height: 10px;
+  }
+  .analitic_radio_input:checked::after {
+    width: 6px;
+    height: 6px;
+  }
 }
 
 @media (max-width: 1275px) {
@@ -440,6 +472,12 @@
   .main_field_string_button_plus {
     display: block;
     margin: 28px 10px 0px;
+  }
+  .analitic_select_form {
+    font-size: 12px;
+  }
+  .analitic_select {
+    margin-right: 120px;
   }
 }
 
@@ -467,6 +505,12 @@
 @media (max-width: 840px) {
   .mainField {
     grid-template-columns: 1fr minmax(150px, 220px);
+  }
+  .main_field_title_analitic {
+    margin-left: 80px;
+  }
+  .analitic_select_zone {
+    margin-left: 80px;
   }
 
   .button {

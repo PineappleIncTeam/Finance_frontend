@@ -39,3 +39,12 @@
     flex-wrap: wrap;
   }
 }
+@media (max-width: 840px) {
+  .diagrams {
+    margin: 80px;
+  }
+  .doughnut {
+    width: 300px;
+    height: 300px;
+  }
+}

@@ -52,15 +52,24 @@
   width: 22px;
   height: 22px;
   margin-right: 40px;
+  background-size: 22px;
+  border-radius: 50%;
   cursor: pointer;
 }
 .operation_list_icon2 {
   background-image: url("../../Images/Icon2.svg");
   width: 19px;
   height: 20px;
+  background-size: 19px;
+  border-radius: 4px;
   cursor: pointer;
   position: relative;
   bottom: 0.7px;
+}
+.operation_list_icon1:hover,
+.operation_list_icon2:hover {
+  box-shadow: 0px 2px 5px 1px #0c4139;
+  transform: translateY(-2px);
 }
 .icon_button {
   border: none;

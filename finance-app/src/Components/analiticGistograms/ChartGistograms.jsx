@@ -8,6 +8,7 @@ function ChartGistograms({
   resultSumIncome,
   categoryNameOutcome,
   resultSumOutcome,
+  isActive,
 }) {
   ChartJS.register(ArcElement, Tooltip, Legend)
   const checkName = categoryNameIncome ? categoryNameIncome : []
@@ -115,10 +116,10 @@ function ChartGistograms({
   //   }, [data, sum]);
   return (
     <div className={style.diagrams}>
-      <div className={style.pie}>
-        <label htmlFor="" className={style.title}>
+      <div className={isActive === "income" ? style.pie : style.inactive}>
+        {/* <label htmlFor="" className={style.title}>
           Доходы
-        </label>
+        </label> */}
         <Pie
           className={style.doughnut}
           width={style.doughnut}
@@ -126,11 +127,14 @@ function ChartGistograms({
           data={dataIncome}
           options={options}
         />
+        <div className="categories">
+          {}
+        </div>
       </div>
-      <div className={style.pie}>
-        <label htmlFor="" className={style.title}>
+      <div className={isActive === "costs" ? style.pie : style.inactive}>
+        {/* <label htmlFor="" className={style.title}>
           Расходы
-        </label>
+        </label> */}
         <Pie
           className={style.doughnut}
           width={style.doughnut}

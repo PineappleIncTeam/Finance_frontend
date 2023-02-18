@@ -1,11 +1,17 @@
 .diagrams {
   justify-content: space-around;
   display: flex;
-  margin: 30px;
+  margin: 152px 142px 152px 40px;
 }
 .doughnut {
-  width: 400px;
-  height: 400px;
+  width: 420px;
+  height: 420px;
+  z-index: 1;
+}
+.inactive {
+  /* display: none; */
+  position: absolute;
+  opacity: 1;
 }
 
 .title {

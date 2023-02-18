@@ -233,7 +233,82 @@
 .main_field_analitic {
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
   box-sizing: border-box;
+  position: relative;
+  bottom: 105px;
+}
+.analitic_select_zone {
+  display: flex;
+  margin-left: 40px;
+}
+
+.analitic_select {
+  width: 264px;
+  height: 50px;
+  border: 1px solid #B7B7B7;
+  border-radius: 8px;
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 19px;
+  padding-left: 18px;
+  padding-right: 18px;
+  margin-right: 166px;
+}
+.analitic_select_option {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 19px;
+  height: 25px;
+}
+.analitic_radio_input {
+  position: relative;
+  width: 16px;
+  height: 16px;
+  outline: none;
+  margin-right: 24px;
+}
+.analitic_radio_input::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  border: 2px solid #54782b;
+  background-color: rgb(230, 246, 237);
+}
+.analitic_radio_input:checked::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: #54782b;
+  transform: translate(-50%, -50%);
+  visibility: visible;
+}
+.analitic_select_form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 24px;
+}
+.main_field_title_analitic {
+  font-size: 32px;
+  margin-left: 40px;
 }
 .label_analitic {
   font-family: "Monserrat-Medium";

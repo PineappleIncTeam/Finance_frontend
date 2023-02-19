@@ -1,7 +1,7 @@
-import React from "react"
-import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js"
-import { Pie } from "react-chartjs-2"
-import style from "./ChartGistograms.module.css"
+import React from "react";
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
+import { Pie } from "react-chartjs-2";
+import style from "./ChartGistograms.module.css";
 
 function ChartGistograms({
   categoryNameIncome,
@@ -10,28 +10,37 @@ function ChartGistograms({
   resultSumOutcome,
   isActive,
 }) {
-  ChartJS.register(ArcElement, Tooltip, Legend)
-  const checkName = categoryNameIncome ? categoryNameIncome : []
-  const checkSum = resultSumIncome ? resultSumIncome : []
-  const checkNameOut = categoryNameOutcome ? categoryNameOutcome : []
-  const checkSumOut = resultSumOutcome ? resultSumOutcome : []
+  ChartJS.register(ArcElement, Tooltip, Legend);
+  const checkName = categoryNameIncome ? categoryNameIncome : [];
+  const checkSum = resultSumIncome ? resultSumIncome : [];
+  const checkNameOut = categoryNameOutcome ? categoryNameOutcome : [];
+  const checkSumOut = resultSumOutcome ? resultSumOutcome : [];
   let options = {
     plugins: {
       legend: {
-        display: false,
+        display: true,
+
         position: "right",
-        align: "end",
+        align: "center",
 
         labels: {
+          boxWidth: 150,
+          pointStyleWidth: 40,
+          usePointStyle: true,
+          pointStyle: "rectRounded",
+
           font: {
             family: "Monserrat-Medium",
             size: 12,
+
+            useBorderRadius: true,
           },
+
           padding: 20,
         },
       },
     },
-  }
+  };
 
   const dataIncome = {
     labels: [...checkName],
@@ -67,7 +76,7 @@ function ChartGistograms({
         hoverOffset: 4,
       },
     ],
-  }
+  };
 
   const dataCosts = {
     labels: [...checkNameOut],
@@ -103,7 +112,7 @@ function ChartGistograms({
         hoverOffset: 4,
       },
     ],
-  }
+  };
 
   // useEffect(() => {
   //     if (data) {
@@ -116,35 +125,32 @@ function ChartGistograms({
   //   }, [data, sum]);
   return (
     <div className={style.diagrams}>
-      <div className={isActive === "income" ? style.pie : style.inactive}>
+      <div className={style.pie}>
         {/* <label htmlFor="" className={style.title}>
           Доходы
         </label> */}
-        <Pie
-          className={style.doughnut}
-          width={style.doughnut}
-          height={style.doughnut}
-          data={dataIncome}
-          options={options}
-        />
-        <div className="categories">
-          {}
-        </div>
-      </div>
-      <div className={isActive === "costs" ? style.pie : style.inactive}>
-        {/* <label htmlFor="" className={style.title}>
-          Расходы
-        </label> */}
-        <Pie
-          className={style.doughnut}
-          width={style.doughnut}
-          height={style.doughnut}
-          data={dataCosts}
-          options={options}
-        />
+        {isActive === "income" ? (
+          <Pie
+            className={style.doughnut}
+            width={style.doughnut}
+            height={style.doughnut}
+            data={dataIncome}
+            options={options}
+          />
+        ) : (
+          <Pie
+            className={style.doughnut}
+            width={style.doughnut}
+            height={style.doughnut}
+            data={dataCosts}
+            options={options}
+          />
+        )}
+
+        <div className="categories">{}</div>
       </div>
     </div>
-  )
+  );
 }
 
-export default ChartGistograms
+export default ChartGistograms;

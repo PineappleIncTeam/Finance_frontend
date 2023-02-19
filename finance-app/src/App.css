@@ -245,9 +245,9 @@
 .analitic_select {
   width: 264px;
   height: 50px;
-  border: 1px solid #B7B7B7;
+  border: 1px solid #b7b7b7;
   border-radius: 8px;
-  font-family: 'Montserrat';
+  font-family: "Montserrat";
   font-style: normal;
   font-weight: 500;
   font-size: 20px;
@@ -257,7 +257,7 @@
   margin-right: 166px;
 }
 .analitic_select_option {
-  font-family: 'Montserrat';
+  font-family: "Montserrat";
   font-style: normal;
   font-weight: 500;
   font-size: 20px;
@@ -272,7 +272,7 @@
   margin-right: 24px;
 }
 .analitic_radio_input::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 50%;
   left: 50%;
@@ -284,7 +284,7 @@
   background-color: rgb(230, 246, 237);
 }
 .analitic_radio_input:checked::after {
-  content: '';
+  content: "";
   position: absolute;
   top: 50%;
   left: 50%;
@@ -299,7 +299,7 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  font-family: 'Montserrat';
+  font-family: "Montserrat";
   font-style: normal;
   font-weight: 500;
   font-size: 20px;
@@ -482,7 +482,6 @@
 }
 
 @media (max-width: 1130px) {
-  
   .main_field_string_input {
     width: calc(110px + (190 - 110) * ((100vw - 850px) / (1130 - 850)));
     min-width: 110px;
@@ -556,7 +555,6 @@
     padding-top: 0px;
   }
 }
-
 
 @media (max-width: 625px) {
   .main_field_input,

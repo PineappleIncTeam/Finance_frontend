@@ -4,7 +4,7 @@ import { current } from "@reduxjs/toolkit"
 import React, { useEffect, useState } from "react"
 import { useSelector } from "react-redux"
 import ChartGistograms from "./analiticGistograms/ChartGistograms"
-import TransactionList from "./Transactions/TransactionList"
+
 
 function MainFieldAnalitic({
   operationList,

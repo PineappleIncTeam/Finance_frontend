@@ -1,0 +1,19 @@
+.gistogram {
+    display: flex;
+    margin: 52px auto;
+  }
+  .bar {
+    width: 600px;
+    height: 500px;
+    z-index: 1;
+  }
+  
+  .title {
+    font-family: "Monserrat-Medium";
+    font-size: 24px;
+    font-weight: 400;
+    margin-bottom: 20px;
+    opacity: 0.7;
+    font-style: italic;
+    border-radius: 50%;
+  }

@@ -4,6 +4,7 @@ import { current } from "@reduxjs/toolkit"
 import React, { useEffect, useState } from "react"
 import { useSelector } from "react-redux"
 import ChartGistograms from "./analiticGistograms/ChartGistograms"
+import Gistogram from "./analiticGistograms/Gistogram"
 
 
 function MainFieldAnalitic({
@@ -15,14 +16,28 @@ function MainFieldAnalitic({
   const token = useSelector((state) => state.user.token)
   const [sumGroupIncome, setSumGroupIncome] = useState([])
   const [sumGroupOutcome, setSumGroupOutcome] = useState([])
+  const [gistogramType, setGistogramType] = useState('pie')
   const dataCalRange = useSelector((state) => state.data.dataRange)
-  //
   const [isActive, setIsActive] = useState("income")
 
   const dataStart =
     dataCalRange.length > 1 && dataCalRange[0].split(".").reverse().join("-")
   const dataEnd =
     dataCalRange.length > 1 && dataCalRange[1].split(".").reverse().join("-")
+  //
+  let dateStartObject = new Date(dataStart)
+  let dateEndObject = new Date(dataEnd)
+  let result = dateEndObject.getMonth() - dateStartObject.getMonth()
+  useEffect(() => {
+    if (result !== 0) {
+      setGistogramType('bar')
+      console.log(gistogramType)
+    } else {
+      setGistogramType('pie')
+      console.log(gistogramType)
+    }
+  }, [dataCalRange])
+  //
   useState(() => setCheckMainField(false), [])
   function getAnaliticSum() {
     const optionsIncome = {
@@ -119,6 +134,7 @@ function MainFieldAnalitic({
           </div>
         </form>
       </div>
+      {gistogramType === 'pie' ? (
       <ChartGistograms
         categoryNameIncome={categoryNameIncome}
         resultSumIncome={resultSumIncome}
@@ -126,6 +142,10 @@ function MainFieldAnalitic({
         resultSumOutcome={resultSumOutcome}
         isActive={isActive}
       />
+      ) : (
+      <Gistogram />
+      ) }
+      
 
       {/* <label className="label_analitic label_analitic1">
         Доходы

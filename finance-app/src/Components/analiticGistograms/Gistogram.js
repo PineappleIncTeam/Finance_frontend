@@ -20,11 +20,33 @@ function Gistogram() {
     Legend
   )
 
+
   const labels = ["Январь", "Февраль", "Март", "Апрель", "Январь", "Февраль", "Март", "Апрель", "Май", "Январь", "Февраль", "Март", "Апрель", "Май"]
   const options = {
+    barThickness: 10,
     plugins: {
+      
+      legend: {
+        position: 'bottom',
+        align: 'start',
+        labels: {
+          boxWidth: 150,
+          pointStyleWidth: 40,
+          usePointStyle: true,
+          pointStyle: "rectRounded",
+
+          font: {
+            family: "Monserrat-Medium",
+            size: 12,
+
+            useBorderRadius: true,
+          },
+
+          padding: 20,
+        },
+      },
       title: {
-        display: true,
+        display: false,
         text: "Chart.js Bar Chart - Stacked",
       },
     },
@@ -37,10 +59,16 @@ function Gistogram() {
         stacked: true,
       },
     },
+    elements: {
+      bar: {
+        backgroundColor: 'rgba(0, 0, 0, 1)',
+        borderRadius: 10,
+      }
+    }
   }
 
   //   const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
-
+  
   const data = {
     labels,
     datasets: [
@@ -68,7 +96,8 @@ function Gistogram() {
         <Bar
         className={style.bar} 
         options={options} 
-        data={data} />
+        data={data}
+        />
       </div>
       
     </div>

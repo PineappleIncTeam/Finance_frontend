@@ -5,6 +5,7 @@ import React, { useEffect, useState } from "react"
 import { useSelector } from "react-redux"
 import ChartGistograms from "./analiticGistograms/ChartGistograms"
 import Gistogram from "./analiticGistograms/Gistogram"
+import style from '../Components/analiticGistograms/Gistogram.module.css'
 
 
 function MainFieldAnalitic({
@@ -143,7 +144,12 @@ function MainFieldAnalitic({
         isActive={isActive}
       />
       ) : (
-      <Gistogram />
+      <Gistogram 
+      sumGroupIncome={sumGroupIncome[0].sum}
+        resultSumIncome={resultSumIncome}
+        categoryNameOutcome={categoryNameOutcome}
+        resultSumOutcome={resultSumOutcome}
+      />
       ) }
       
 

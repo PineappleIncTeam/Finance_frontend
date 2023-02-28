@@ -4,6 +4,9 @@
   border: 4px solid rgb(174, 172, 172);
   border-radius: 20px;
 }
+.gistogram_bar {
+  width: 20px;
+}
 .bar {
   width: 600px;
   height: 500px;

@@ -10,7 +10,12 @@ import {
 } from "chart.js"
 import { Bar } from "react-chartjs-2"
 import style from "./Gistogram.module.css"
-function Gistogram() {
+function Gistogram({
+  sumGroupIncome,
+  resultSumIncome,
+  categoryNameOutcome,
+  resultSumOutcome,
+}) {
   ChartJS.register(
     CategoryScale,
     LinearScale,
@@ -19,16 +24,13 @@ function Gistogram() {
     Tooltip,
     Legend
   )
-
-
-  const labels = ["Январь", "Февраль", "Март", "Апрель", "Январь", "Февраль", "Март", "Апрель", "Май", "Январь", "Февраль", "Март", "Апрель", "Май"]
+  console.log(sumGroupIncome)
   const options = {
     barThickness: 10,
     plugins: {
-      
       legend: {
-        position: 'bottom',
-        align: 'start',
+        position: "bottom",
+        align: "start",
         labels: {
           boxWidth: 150,
           pointStyleWidth: 40,
@@ -61,45 +63,62 @@ function Gistogram() {
     },
     elements: {
       bar: {
-        backgroundColor: 'rgba(0, 0, 0, 1)',
+        backgroundColor: "rgba(0, 0, 0, 1)",
         borderRadius: 10,
-      }
-    }
+      },
+    },
   }
 
-  //   const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
-  
+  const labels = [
+    "Январь",
+    "Февраль",
+    "Март",
+    "Апрель",
+    "Май",
+    "Июнь",
+    "Июль",
+    "Август",
+    "Сентябрь",
+    "Октябрь",
+    "Ноябрь",
+    "Декабрь",
+  ]
   const data = {
     labels,
-    datasets: [
-      {
-        label: "Dataset 1",
-        data: [65, 59, 80, 81, 56, 55, 40, 65, 59, 80, 81, 56, 55, 40],
-        backgroundColor: "rgb(255, 99, 132)",
-      },
-      {
-        label: "Dataset 2",
-        data: [65, 59, 80, 81, 56, 55, 40, 65, 59, 80, 81, 56, 55, 40],
-        backgroundColor: "rgb(75, 192, 192)",
-      },
-      {
-        label: "Dataset 3",
-        data: [65, 59, 80, 81, 56, 55, 40, 65, 59, 80, 81, 56, 55, 40],
-        backgroundColor: "rgb(53, 162, 235)",
-      },
+    datasets: 
+    // sumGroupIncome.map((item) => {
+    //   let result = {}
+    //   result = {
+    //     label: item.categories__categoryName,
+    //     data: [item.result_sum],
+    //     backgroundColor: "rgb(84, 125, 42)",
+    //   }
+    //   return result
+    // }),
+    [
+    {
+      label: "Dataset 1",
+      data: [65, 59, 80, 81, 56, 55, 40, 65, 59, 80, 81, 56, 55, 40],
+      backgroundColor: "rgb(84, 125, 42)",
+    },
+    {
+      label: "Dataset 2",
+      data: [65, 59, 80, 81, 56, 55, 40, 65, 59, 80, 81, 56, 55, 40],
+      backgroundColor: "rgb(134, 171, 91)",
+    },
+    {
+      label: "Dataset 3",
+      data: [65, 59, 80, 81, 56, 55, 40, 65, 59, 80, 81, 56, 55, 40],
+      backgroundColor: "rgb(209, 241, 172)",
+    },
     ],
   }
-
+  console.log(data.datasets)
   return (
     <div className={style.gistogram}>
       <div className={style.bar_gistogram}>
-        <Bar
-        className={style.bar} 
-        options={options} 
-        data={data}
-        />
+        <Bar className={style.bar} options={options} data={data} />
       </div>
-      
     </div>
   )
 }

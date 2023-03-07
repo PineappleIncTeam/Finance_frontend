@@ -13,8 +13,9 @@ import style from "./Gistogram.module.css"
 function Gistogram({
   sumGroupIncome,
   resultSumIncome,
-  categoryNameOutcome,
+  sumGroupOutcome,
   resultSumOutcome,
+  isActive,
 }) {
   ChartJS.register(
     CategoryScale,
@@ -29,6 +30,7 @@ function Gistogram({
     barThickness: 10,
     plugins: {
       legend: {
+        display: false,
         position: "bottom",
         align: "start",
         labels: {
@@ -63,12 +65,35 @@ function Gistogram({
     },
     elements: {
       bar: {
-        backgroundColor: "rgba(0, 0, 0, 1)",
         borderRadius: 10,
       },
     },
   }
-
+  
+  const colorsIncome = [
+    "rgb(84  125   42)",
+    "rgb(134  171   91)",
+    "rgb(209  241  172)",
+    "rgb(164  240   76)",
+    "rgb(115  191   26)",
+    "rgb(55   93   10)",
+    "rgb(34   51   14)",
+    "rgb(74   85   60)",
+    "rgb(119  129  107)",
+    "rgb(129  240    2)",
+  ]
+  const colorsOutcome = [
+    "rgb(248  180    0)",
+    "rgb(238  212  143)",
+    "rgb(185  156   78)",
+    "rgb(112   92   41)",
+    "rgb(183  135    9)",
+    "rgb(75   60   20)",
+    "rgb(248  238  210)",
+    "rgb(177  167  140)",
+    "rgb(26   20    2)",
+    "rgb(255  185    0)",
+  ]
   const labels = [
     "Январь",
     "Февраль",
@@ -83,43 +108,73 @@ function Gistogram({
     "Ноябрь",
     "Декабрь",
   ]
-  const data = {
+  const dataIncome = {
     labels,
-    datasets: 
-    // sumGroupIncome.map((item) => {
-    //   let result = {}
-    //   result = {
-    //     label: item.categories__categoryName,
-    //     data: [item.result_sum],
-    //     backgroundColor: "rgb(84, 125, 42)",
-    //   }
-    //   return result
-    // }),
-    [
-    {
-      label: "Dataset 1",
-      data: [65, 59, 80, 81, 56, 55, 40, 65, 59, 80, 81, 56, 55, 40],
-      backgroundColor: "rgb(84, 125, 42)",
-    },
-    {
-      label: "Dataset 2",
-      data: [65, 59, 80, 81, 56, 55, 40, 65, 59, 80, 81, 56, 55, 40],
-      backgroundColor: "rgb(134, 171, 91)",
-    },
-    {
-      label: "Dataset 3",
-      data: [65, 59, 80, 81, 56, 55, 40, 65, 59, 80, 81, 56, 55, 40],
-      backgroundColor: "rgb(209, 241, 172)",
-    },
-    ],
+    datasets: sumGroupIncome.map((item, index) => {
+      let result = {}
+      result = {
+        label: item.categories__categoryName,
+        data: [item.result_sum],
+        backgroundColor: colorsIncome[index],
+      }
+      return result
+    }),
+    // [
+    // {
+    //   label: "Dataset 1",
+    //   data: [65, 59, 80, 81, 56, 55, 40, 65, 59, 80, 81, 56, 55, 40],
+    //   backgroundColor: "rgb(84, 125, 42)",
+    // },
+    // {
+    //   label: "Dataset 2",
+    //   data: [65, 59, 80, 81, 56, 55, 40, 65, 59, 80, 81, 56, 55, 40],
+    //   backgroundColor: "rgb(134, 171, 91)",
+    // },
+    // {
+    //   label: "Dataset 3",
+    //   data: [65, 59, 80, 81, 56, 55, 40, 65, 59, 80, 81, 56, 55, 40],
+    //   backgroundColor: "rgb(209, 241, 172)",
+    // },
+    // ],
   }
-  console.log(data.datasets)
+  const dataOutcome = {
+    labels,
+    datasets: sumGroupOutcome.map((item, index) => {
+      let result = {}
+      result = {
+        label: item.categories__categoryName,
+        data: [item.result_sum],
+        backgroundColor: colorsOutcome[index],
+      }
+      return result
+    }),
+  }
+  console.log(isActive)
   return (
-    <div className={style.gistogram}>
-      <div className={style.bar_gistogram}>
-        <Bar className={style.bar} options={options} data={data} />
+    <>
+      <div className={style.gistogram}>
+        <div className={style.bar_gistogram}>
+          {isActive === "income" ? (
+            <Bar className={style.bar} options={options} data={dataIncome} />
+          ) : (
+            <Bar className={style.bar} options={options} data={dataOutcome} />
+          )}
+        </div>
       </div>
-    </div>
+      <div className={style.categories_name}>
+        {sumGroupIncome.map((item, index) => {
+          // let result = `<div className="category_color" style="background-color: ${colorsIncome[index]}">${item.categories__categoryName}</div>`
+          return (
+            <div className={style.label_element}>
+              <div className={style.category_color} style={{ backgroundColor: colorsIncome[index]}}></div>
+              <div className={style.category_name}>
+                {item.categories__categoryName}
+              </div>
+            </div>
+          )
+        })}
+      </div>
+    </>
   )
 }
 export default Gistogram

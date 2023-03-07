@@ -5,8 +5,7 @@ import React, { useEffect, useState } from "react"
 import { useSelector } from "react-redux"
 import ChartGistograms from "./analiticGistograms/ChartGistograms"
 import Gistogram from "./analiticGistograms/Gistogram"
-import style from '../Components/analiticGistograms/Gistogram.module.css'
-
+import style from "../Components/analiticGistograms/Gistogram.module.css"
 
 function MainFieldAnalitic({
   operationList,
@@ -17,7 +16,7 @@ function MainFieldAnalitic({
   const token = useSelector((state) => state.user.token)
   const [sumGroupIncome, setSumGroupIncome] = useState([])
   const [sumGroupOutcome, setSumGroupOutcome] = useState([])
-  const [gistogramType, setGistogramType] = useState('pie')
+  const [gistogramType, setGistogramType] = useState("pie")
   const dataCalRange = useSelector((state) => state.data.dataRange)
   const [isActive, setIsActive] = useState("income")
 
@@ -31,10 +30,10 @@ function MainFieldAnalitic({
   let result = dateEndObject.getMonth() - dateStartObject.getMonth()
   useEffect(() => {
     if (result !== 0) {
-      setGistogramType('bar')
+      setGistogramType("bar")
       console.log(gistogramType)
     } else {
-      setGistogramType('pie')
+      setGistogramType("pie")
       console.log(gistogramType)
     }
   }, [dataCalRange])
@@ -92,7 +91,11 @@ function MainFieldAnalitic({
   function handleChange(e) {
     setIsActive(e.target.value)
   }
-
+  //
+  const gistogramSumIncome = sumGroupIncome.length > 0 ? sumGroupIncome[0].sum : []
+  const gistogramSumOutcome = sumGroupOutcome.length > 0 ? sumGroupOutcome[0].sum : []
+  console.log(gistogramSumIncome)
+  //
   return (
     <div className="main_field main_field_analitic">
       <h2 className="main_field_title main_field_title_analitic">Аналитика</h2>
@@ -135,23 +138,23 @@ function MainFieldAnalitic({
           </div>
         </form>
       </div>
-      {gistogramType === 'pie' ? (
-      <ChartGistograms
-        categoryNameIncome={categoryNameIncome}
-        resultSumIncome={resultSumIncome}
-        categoryNameOutcome={categoryNameOutcome}
-        resultSumOutcome={resultSumOutcome}
-        isActive={isActive}
-      />
+      {gistogramType === "pie" ? (
+        <ChartGistograms
+          categoryNameIncome={categoryNameIncome}
+          resultSumIncome={resultSumIncome}
+          categoryNameOutcome={categoryNameOutcome}
+          resultSumOutcome={resultSumOutcome}
+          isActive={isActive}
+        />
       ) : (
-      <Gistogram 
-      sumGroupIncome={sumGroupIncome[0].sum}
-        resultSumIncome={resultSumIncome}
-        categoryNameOutcome={categoryNameOutcome}
-        resultSumOutcome={resultSumOutcome}
-      />
-      ) }
-      
+        <Gistogram
+          sumGroupIncome={gistogramSumIncome}
+          resultSumIncome={resultSumIncome}
+          sumGroupOutcome={gistogramSumOutcome}
+          resultSumOutcome={resultSumOutcome}
+          isActive={isActive}
+        />
+      )}
 
       {/* <label className="label_analitic label_analitic1">
         Доходы

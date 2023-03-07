@@ -18,10 +18,10 @@
   max-height: 60px;
   padding-right: 5px;
   display: flex;
-
   align-items: center;
   justify-content: space-between;
   user-select: none;
+  background: rgba(250, 245, 228, 0.2);
 }
 .dropdown-menu {
   position: absolute;
@@ -32,7 +32,7 @@
   border: 1px solid #ccc;
   border-radius: 5px;
   overflow: auto;
-  background-color: #fff;
+  background-color: #fffefa;
   z-index: 1;
 }
 .dropdown-selected-value {

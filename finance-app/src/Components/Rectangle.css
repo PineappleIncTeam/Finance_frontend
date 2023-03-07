@@ -1,5 +1,6 @@
 .rectangle {
   display: flex;
+  background: rgba(250, 245, 228, 0.2);
 }
 
 .main {

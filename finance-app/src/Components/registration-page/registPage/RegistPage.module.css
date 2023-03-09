@@ -61,6 +61,17 @@
   border-radius: 10px;
 }
 
+.inputError {
+  box-sizing: border-box;
+  font: 24px/16px "Monserrat-Medium";
+  width: 408px;
+  height: 67px;
+  padding-left: 10px;
+  border: 1px solid red;
+  border-radius: 10px;
+  outline: none;
+}
+
 .error {
   color: red;
   max-width: 400px;
@@ -94,7 +105,13 @@
 .btn:disabled {
   opacity: 0.7;
   color: linen;
-  background-color: aqua;
+  background-color: gray;
+  cursor: default;
+}
+
+.btn:disabled:hover {
+  box-shadow: none;
+  transform: translateY(0px);
 }
 
 .registFon {
@@ -201,6 +218,12 @@
     line-height: 18px;
   }
   .input {
+    width: 290px;
+    height: 40px;
+    font: 16px/16px "Monserrat-Medium";
+  }
+
+  .inputError {
     width: 290px;
     height: 40px;
     font: 16px/16px "Monserrat-Medium";

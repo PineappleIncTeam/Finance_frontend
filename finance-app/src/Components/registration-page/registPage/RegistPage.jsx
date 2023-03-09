@@ -20,6 +20,7 @@ const RegistPage = () => {
   const [reply, setReply] = useState("");
   const [passwordType, setPasswordType] = useState(passNo);
   const [confirmType, setConfirmType] = useState(passNo);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const passRef = useRef(null);
@@ -83,35 +84,33 @@ const RegistPage = () => {
 
   const validationSchema = Yup.object({
     email: Yup.string()
-      .email("Введите верный email")
+      .email("Введен некорректный символ")
+
       .required("Обязательное поле"),
     username: Yup.string()
-      .matches(/^[A-Za-z0-9А-Яа-я]+$/, "Логин введен некорректно")
-      .min(6, "Слишком короткое имя")
-      .max(32, "Слишком длинное имя")
-      .minLowercase(
-        1,
-        "Логин должен содержать от 6 до 32 символов, включать хотя бы одну букву латинского алфавита и одну цифру"
-      )
-      // .minUppercase(1, "password must contain at least 1 upper case letter")
-      .minNumbers(
-        1,
-        "Логин должен содержать от 6 до 32 символов, включать хотя бы одну букву латинского алфавита и одну цифру"
-      )
+      .matches(/^[A-Za-z0-9]+$/, "Логин введен некорректно")
+      .min(6, "Логин должен состоять из 6 и более символов")
 
       .required("Обязательное поле"),
     password: Yup.string()
+      .matches(/^[A-Za-z0-9]+$/, "Введен некорректный символ")
       .required("Обязательное поле")
-      .min(6, "Пароль должен содержать минимум шесть символов")
-      .max(32, "Слишком длинный пароль")
-      .minNumbers(1, "Пароль должен содержать хотя бы одну цифру")
-      .minLowercase(
+      .min(
+        6,
+        "Пароль должен состоять из 6 из более символов, среди которых хотя бы одна буква верхнего регистра и хотя бы одна цифра"
+      )
+
+      .minNumbers(
         1,
-        "Пароль должен содержать символ с маленькой буквой латинского алфавита"
+        "Пароль должен состоять из 6 из более символов, среди которых хотя бы одна буква верхнего регистра и хотя бы одна цифра"
+      )
+      .minUppercase(
+        1,
+        "Пароль должен состоять из 6 из более символов, среди которых хотя бы одна буква верхнего регистра и хотя бы одна цифра"
       ),
     confirmPassword: Yup.string()
       .oneOf([Yup.ref("password")], "Пароли не совпадают")
-      .required("Обязательно"),
+      .required("Обязательное поле"),
   });
 
   return (
@@ -132,40 +131,68 @@ const RegistPage = () => {
             validationSchema={validationSchema}
             onSubmit={registerHandler}
           >
-            {({ isValid, dirty, isSubmiting }) => (
+            {({ isValid, dirty, isSubmiting, values, errors }) => (
               <Form className={style.form}>
                 <label>Адрес эл. почты</label>
                 <Field
+                  // autofocus="autofocus"
+
                   type="email"
                   name="email"
-                  className={style.input}
+                  className={
+                    values.email && errors.email
+                      ? style.inputError
+                      : style.input
+                  }
                   placeholder={"Введите адрес эл. почты..."}
                 />
-                <ErrorMessage
-                  name="email"
-                  component="div"
-                  className={style.error}
-                />
+
+                <div className={style.error}>
+                  {values.email && errors.email}
+                </div>
+
+                {!values.email && (
+                  <ErrorMessage
+                    name="email"
+                    component="div"
+                    className={style.error}
+                  />
+                )}
                 <br />
                 <label>Логин</label>
                 <Field
                   type="username"
                   name="username"
-                  className={style.input}
+                  className={
+                    values.username && errors.username
+                      ? style.inputError
+                      : style.input
+                  }
                   placeholder={"Введите логин..."}
                 />
-                <ErrorMessage
-                  name="username"
-                  component="div"
-                  className={style.error}
-                />
+
+                <div className={style.error}>
+                  {values.username && errors.username}
+                </div>
+                {!values.username && (
+                  <ErrorMessage
+                    name="username"
+                    component="div"
+                    className={style.error}
+                  />
+                )}
                 <br />
                 <label>Пароль</label>
-                <span className={style.pass}>
+                <div className={style.pass}>
                   <Field
+                    
                     type="password"
                     name="password"
-                    className={style.input}
+                    className={
+                      values.password && errors.password
+                        ? style.inputError
+                        : style.input
+                    }
                     placeholder={"Введите пароль..."}
                     innerRef={passRef}
                   />
@@ -174,20 +201,28 @@ const RegistPage = () => {
                     src={passwordType}
                     onClick={() => togglePassInput()}
                   ></img>
-                  <ErrorMessage
-                    name="password"
-                    component="div"
-                    className={style.error}
-                  />
-                </span>
-
+                  <div className={style.error}>
+                    {values.password && errors.password}
+                  </div>
+                  {!values.password && (
+                    <ErrorMessage
+                      name="password"
+                      component="div"
+                      className={style.error}
+                    />
+                  )}
+                </div>
                 <br />
                 <label>Подтвердите пароль</label>
                 <div className={style.pass}>
                   <Field
                     type="password"
                     name="confirmPassword"
-                    className={style.input}
+                    className={
+                      values.confirmPassword && errors.confirmPassword
+                        ? style.inputError
+                        : style.input
+                    }
                     placeholder={"Введите пароль повторно..."}
                     innerRef={confirmRef}
                   />
@@ -196,13 +231,17 @@ const RegistPage = () => {
                     src={confirmType}
                     onClick={() => toggleConfirmInput()}
                   ></img>
-                  <ErrorMessage
-                    name="confirmPassword"
-                    component="div"
-                    className={style.error}
-                  />
+                  <div className={style.error}>
+                    {values.confirmPassword && errors.confirmPassword}
+                  </div>
+                  {!values.confirmPassword && (
+                    <ErrorMessage
+                      name="confirmPassword"
+                      component="div"
+                      className={style.error}
+                    />
+                  )}
                 </div>
-
                 <br />
                 <p className={style.textReg}>
                   <br />
@@ -212,11 +251,10 @@ const RegistPage = () => {
                   </Link>
                 </p>
                 <div className={style.reply}>{reply}</div>
-
                 <button
                   className={style.btn}
                   type={"submit"}
-                  disabled={isSubmiting}
+                  disabled={!(isValid && dirty)}
                 >
                   Вперед
                 </button>

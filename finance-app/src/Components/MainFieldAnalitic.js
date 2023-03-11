@@ -19,7 +19,6 @@ function MainFieldAnalitic({
   const [gistogramType, setGistogramType] = useState("pie")
   const dataCalRange = useSelector((state) => state.data.dataRange)
   const [isActive, setIsActive] = useState("income")
-
   const dataStart =
     dataCalRange.length > 1 && dataCalRange[0].split(".").reverse().join("-")
   const dataEnd =
@@ -28,6 +27,7 @@ function MainFieldAnalitic({
   let dateStartObject = new Date(dataStart)
   let dateEndObject = new Date(dataEnd)
   let result = dateEndObject.getMonth() - dateStartObject.getMonth()
+  console.log(dataCalRange)
   useEffect(() => {
     if (result !== 0) {
       setGistogramType("bar")

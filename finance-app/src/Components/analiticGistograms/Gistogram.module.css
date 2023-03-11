@@ -47,3 +47,53 @@
   font-weight: 500;
   font-size: 16px;
 }
+
+@media screen and (max-width: 1919px) {
+  .bar_gistogram {
+    width: 600px;
+    height: 280px;
+    z-index: 1;
+  }
+  .categories_name {
+    width: 560px;
+    height: 120px;
+  }
+  .category_color {
+    width: 28px;
+    height: 14px;
+    border-radius: 8px;
+    margin-right: 10px;
+  }
+  .label_element {
+    margin-bottom: 14px;
+  }
+  .category_name {
+    font-size: 12px;
+  }
+}
+@media screen and (max-width: 1279px) {
+  .bar_gistogram {
+    width: 400px;
+    height: 200px;
+    z-index: 1;
+  }
+  .categories_name {
+    width: 400px;
+    height: 100px;
+  }
+}
+@media screen and (max-width: 768px) {
+  .bar_gistogram {
+    width: 280px;
+    height: 500px;
+    z-index: 1;
+  }
+  .gistogram {
+    padding: 10px;
+  }
+  .categories_name {
+    width: 350px;
+    height: 400px;
+  }
+  
+}

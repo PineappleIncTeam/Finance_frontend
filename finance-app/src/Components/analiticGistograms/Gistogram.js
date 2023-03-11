@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState, useEffect } from "react"
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -8,8 +8,10 @@ import {
   Tooltip,
   Legend,
 } from "chart.js"
+
 import { Bar } from "react-chartjs-2"
 import style from "./Gistogram.module.css"
+
 function Gistogram({
   sumGroupIncome,
   resultSumIncome,
@@ -25,8 +27,33 @@ function Gistogram({
     Tooltip,
     Legend
   )
-  console.log(sumGroupIncome)
+  const [gistogramSize, setGistogramSize] = useState({ width: 902, height: 408, indexAxis: "x" })
+  const [width, setWidth] = useState(window.innerWidth)
+  useEffect(() => {
+    const handleResize = (event) => {
+      setWidth(event.target.innerWidth);
+    };
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, [gistogramSize])
+
+  useEffect(() => {
+    if (width >= 1920) {
+      setGistogramSize({ width: 902, height: 408, indexAxis: "x" })
+    } else if (width < 1920 && width >= 1280) {
+      setGistogramSize({ width: 600, height: 280, indexAxis: "x" })
+    } else if (width < 1280 && width > 768) {
+      setGistogramSize({ width: 400, height: 200, indexAxis: "x" })
+    } else if (width < 768) {
+      setGistogramSize({ width: 280, height: 500, indexAxis: "y" })
+    }
+  }, [width])
+  console.log(gistogramSize)
+  console.log(width)
   const options = {
+    indexAxis: gistogramSize.indexAxis,
     barThickness: 10,
     plugins: {
       legend: {
@@ -69,7 +96,7 @@ function Gistogram({
       },
     },
   }
-  
+
   const colorsIncome = [
     "rgb(84  125   42)",
     "rgb(134  171   91)",
@@ -149,30 +176,60 @@ function Gistogram({
       return result
     }),
   }
-  console.log(isActive)
+
   return (
     <>
       <div className={style.gistogram}>
         <div className={style.bar_gistogram}>
           {isActive === "income" ? (
-            <Bar className={style.bar} options={options} data={dataIncome} />
+            <Bar
+              className={style.bar_gistogram}
+              width={gistogramSize.width}
+              height={gistogramSize.height}
+              options={options}
+              data={dataIncome}
+            />
           ) : (
-            <Bar className={style.bar} options={options} data={dataOutcome} />
+            <Bar
+              className={style.bar}
+              options={options}
+              width={gistogramSize.width}
+              height={gistogramSize.height}
+              data={dataOutcome}
+            />
           )}
         </div>
       </div>
       <div className={style.categories_name}>
-        {sumGroupIncome.map((item, index) => {
-          // let result = `<div className="category_color" style="background-color: ${colorsIncome[index]}">${item.categories__categoryName}</div>`
-          return (
-            <div className={style.label_element}>
-              <div className={style.category_color} style={{ backgroundColor: colorsIncome[index]}}></div>
-              <div className={style.category_name}>
-                {item.categories__categoryName}
-              </div>
-            </div>
-          )
-        })}
+        {isActive === "income"
+          ? sumGroupIncome.map((item, index) => {
+              // let result = `<div className="category_color" style="background-color: ${colorsIncome[index]}">${item.categories__categoryName}</div>`
+              return (
+                <div className={style.label_element}>
+                  <div
+                    className={style.category_color}
+                    style={{ backgroundColor: colorsIncome[index] }}
+                  ></div>
+                  <div className={style.category_name}>
+                    {item.categories__categoryName}
+                  </div>
+                </div>
+              )
+            })
+          : sumGroupOutcome.map((item, index) => {
+              // let result = `<div className="category_color" style="background-color: ${colorsIncome[index]}">${item.categories__categoryName}</div>`
+              return (
+                <div className={style.label_element}>
+                  <div
+                    className={style.category_color}
+                    style={{ backgroundColor: colorsOutcome[index] }}
+                  ></div>
+                  <div className={style.category_name}>
+                    {item.categories__categoryName}
+                  </div>
+                </div>
+              )
+            })}
       </div>
     </>
   )

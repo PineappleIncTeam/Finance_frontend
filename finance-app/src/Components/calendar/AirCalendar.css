@@ -140,8 +140,9 @@
     font-size: 10px;
     line-height: 14px;
   }
+  
 }
-@media screen and (max-width: 376px) {
+@media screen and (max-width: 375px) {
   
   .air-datepicker-nav {
     width: 130px;
@@ -189,7 +190,11 @@
   .vect {
     width: 15px;
     height: 15px;
-    top: 10px;
-    right: 2px;
+    top: 7px;
+    right: -20px;
+  }
+  .input {
+    font-size: 10px;
+    width: 125px;
   }
 }

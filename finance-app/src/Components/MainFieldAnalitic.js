@@ -24,6 +24,32 @@ function MainFieldAnalitic({
   const dataEnd =
     dataCalRange.length > 1 && dataCalRange[1].split(".").reverse().join("-")
   //
+  const [gistogramSize, setGistogramSize] = useState({ width: 902, height: 408, indexAxis: "x" })
+  const [width, setWidth] = useState(window.innerWidth)
+  useEffect(() => {
+    const handleResize = (event) => {
+      setWidth(event.target.innerWidth);
+    };
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, [gistogramSize])
+
+  useEffect(() => {
+    if (width >= 1920) {
+      setGistogramSize({ width: 902, height: 408, indexAxis: "x" })
+    } else if (width < 1920 && width >= 1280) {
+      setGistogramSize({ width: 600, height: 280, indexAxis: "x" })
+    } else if (width < 1280 && width > 768) {
+      setGistogramSize({ width: 400, height: 200, indexAxis: "x" })
+    } else if (width <= 768) {
+      setGistogramSize({ width: 280, height: 500, indexAxis: "y" })
+    }
+  }, [width])
+  console.log(gistogramSize)
+  console.log(width)
+  //
   let dateStartObject = new Date(dataStart)
   let dateEndObject = new Date(dataEnd)
   let result = dateEndObject.getMonth() - dateStartObject.getMonth()
@@ -148,10 +174,9 @@ function MainFieldAnalitic({
         />
       ) : (
         <Gistogram
+          gistogramSize={gistogramSize}
           sumGroupIncome={gistogramSumIncome}
-          resultSumIncome={resultSumIncome}
           sumGroupOutcome={gistogramSumOutcome}
-          resultSumOutcome={resultSumOutcome}
           isActive={isActive}
         />
       )}

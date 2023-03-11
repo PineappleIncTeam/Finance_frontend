@@ -507,12 +507,19 @@
   .mainField {
     grid-template-columns: 1fr minmax(150px, 220px);
   }
+  .main_field_analitic {
+    bottom: 0px;
+  }
   .main_field_title_analitic {
     margin-left: 80px;
+    margin-bottom: 40px;
   }
   .analitic_select_zone {
     margin-left: 80px;
   }
+  .analitic_select {
+    margin-right: 40px;
+}
 
   .button {
     width: 100%;
@@ -588,6 +595,17 @@
   }
   .ruble_icon_transactions {
     font-size: 11px;
+  }
+  .analitic_select_zone {
+    margin-left: 20px;
+  }
+  .main_field_title_analitic {
+    margin: 0px 0px 20px 20px;
+  }
+}
+@media screen and (max-width: 595px) {
+  .main_field_analitic {
+    top: 60px;
   }
 }
 @media screen and (max-width: 376px) {

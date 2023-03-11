@@ -13,6 +13,7 @@ import { Bar } from "react-chartjs-2"
 import style from "./Gistogram.module.css"
 
 function Gistogram({
+  gistogramSize,
   sumGroupIncome,
   resultSumIncome,
   sumGroupOutcome,
@@ -27,31 +28,6 @@ function Gistogram({
     Tooltip,
     Legend
   )
-  const [gistogramSize, setGistogramSize] = useState({ width: 902, height: 408, indexAxis: "x" })
-  const [width, setWidth] = useState(window.innerWidth)
-  useEffect(() => {
-    const handleResize = (event) => {
-      setWidth(event.target.innerWidth);
-    };
-    window.addEventListener('resize', handleResize);
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-  }, [gistogramSize])
-
-  useEffect(() => {
-    if (width >= 1920) {
-      setGistogramSize({ width: 902, height: 408, indexAxis: "x" })
-    } else if (width < 1920 && width >= 1280) {
-      setGistogramSize({ width: 600, height: 280, indexAxis: "x" })
-    } else if (width < 1280 && width > 768) {
-      setGistogramSize({ width: 400, height: 200, indexAxis: "x" })
-    } else if (width < 768) {
-      setGistogramSize({ width: 280, height: 500, indexAxis: "y" })
-    }
-  }, [width])
-  console.log(gistogramSize)
-  console.log(width)
   const options = {
     indexAxis: gistogramSize.indexAxis,
     barThickness: 10,
@@ -141,7 +117,7 @@ function Gistogram({
       let result = {}
       result = {
         label: item.categories__categoryName,
-        data: [item.result_sum],
+        data: [item.result_sum, item.result_sum, item.result_sum, item.result_sum, item.result_sum, item.result_sum, item.result_sum, item.result_sum],
         backgroundColor: colorsIncome[index],
       }
       return result

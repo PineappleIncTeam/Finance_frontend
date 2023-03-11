@@ -42,3 +42,8 @@
     height: 350px;
   }
 }
+@media (max-width: 625px) {
+  .diagrams {
+    margin: 20px;
+  }
+}

@@ -19,6 +19,9 @@ function MainFieldAnalitic({
   const [gistogramType, setGistogramType] = useState("pie")
   const dataCalRange = useSelector((state) => state.data.dataRange)
   const [isActive, setIsActive] = useState("income")
+  //
+  const [percentChoice, setPercentChoice] = useState(false)
+  //  
   const dataStart =
     dataCalRange.length > 1 && dataCalRange[0].split(".").reverse().join("-")
   const dataEnd =
@@ -113,15 +116,41 @@ function MainFieldAnalitic({
   const resultSumOutcome =
     sumGroupOutcome.length > 0 &&
     sumGroupOutcome[0].sum.map((item) => item.result_sum)
-
-  function handleChange(e) {
+  
+    function handleChange(e) {
     setIsActive(e.target.value)
   }
   //
   const gistogramSumIncome = sumGroupIncome.length > 0 ? sumGroupIncome[0].sum : []
   const gistogramSumOutcome = sumGroupOutcome.length > 0 ? sumGroupOutcome[0].sum : []
-  console.log(gistogramSumIncome)
+  console.log(resultSumIncome)
+
+  let resultSumIncomeTotal = resultSumIncome && resultSumIncome.reduce((a, b) => a + b)
+  let onePercentIncome = resultSumIncomeTotal / 100
+  let resultSumIncomeInPercent = []
+  for (let i = 0; i < resultSumIncome.length; i++) {
+    resultSumIncomeInPercent.push((resultSumIncome[i] / onePercentIncome).toFixed(2))
+  }
+  let resultSumOutcomeTotal = resultSumOutcome && resultSumOutcome.reduce((a, b) => a + b)
+  let onePercentOutcome = resultSumOutcomeTotal / 100
+  let resultSumOutcomeInPercent = []
+  for (let i = 0; i < resultSumOutcome.length; i++) {
+    resultSumOutcomeInPercent.push((resultSumOutcome[i] / onePercentOutcome).toFixed(2))
+  }
+  console.log(resultSumOutcomeTotal)
   //
+  
+
+  function handlePercentChange(e) {
+    if (e.target.value === 'В рублях') {
+      setPercentChoice(false)
+      console.log(1)
+    } else {
+      setPercentChoice(true)
+      console.log(2)
+    }
+  }
+
   return (
     <div className="main_field main_field_analitic">
       <h2 className="main_field_title main_field_title_analitic">Аналитика</h2>
@@ -148,7 +177,7 @@ function MainFieldAnalitic({
               id="option1"
               name="analitic_select"
               value="В рублях"
-              checked
+              onClick={(e) => handlePercentChange(e)}
             />
             <label htmlFor="option1">В рублях</label>
           </div>
@@ -159,6 +188,7 @@ function MainFieldAnalitic({
               id="option2"
               name="analitic_select"
               value="В процентах"
+              onClick={(e) => handlePercentChange(e)}
             />
             <label htmlFor="option2">В процентах</label>
           </div>
@@ -167,9 +197,9 @@ function MainFieldAnalitic({
       {gistogramType === "pie" ? (
         <ChartGistograms
           categoryNameIncome={categoryNameIncome}
-          resultSumIncome={resultSumIncome}
+          resultSumIncome={!percentChoice ? resultSumIncome : resultSumIncomeInPercent}
           categoryNameOutcome={categoryNameOutcome}
-          resultSumOutcome={resultSumOutcome}
+          resultSumOutcome={!percentChoice ? resultSumOutcome : resultSumOutcomeInPercent}
           isActive={isActive}
         />
       ) : (

@@ -164,24 +164,24 @@
   cursor: pointer;
   width: 264px;
   height: 60px;
-  border: 1px solid #54782b;
+  border: 1px solid #125B50;
   color: white;
   font-family: "Monserrat-Regular";
   font-weight: 600;
   font-size: 20px;
   margin: 28px 19px 0px;
-  background-color: #54782b;
+  background-color: #125B50;
   border-radius: 24px;
 }
 .main_field_string_button:hover {
-  background-color: #54782b;
+  background-color: #125B50;
   cursor: pointer;
   box-shadow: 0px 2px 5px 1px #0c4139;
   transform: translateY(-1px);
 }
 
 .main_field_string_button[disabled] {
-  background: #54782b;
+  background: #125B50;
 }
 .main_field_string_button[disabled]:hover {
   box-shadow: none;
@@ -377,6 +377,63 @@
   font-size: 24px;
   margin-top: 10px;
 }
+
+.main_field_storage {
+  display: flex;
+}
+.select_storage {
+  width: 264px;
+  height: 60px;
+  margin: 28px 20px;
+}
+.storage_categories {
+  margin-top: 68px;
+}
+.categories_storage_title {
+  display: flex;
+  width: 599px;
+  margin-left: 74px;
+  text-align: start;
+  vertical-align: middle;
+  border-bottom: 1px solid #F4F4F4;
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 35px;
+}
+.category_name_storage {
+  width: 231px;
+  height: 36px;
+  
+}
+.grand_total_storage {
+  width: 208px;
+  height: 36px;
+  
+}
+.sum_storage {
+  width: 160px;
+  height: 36px;
+}
+.sum_storage_content {
+  position: relative;
+  top: 5px;
+  width: fit-content;
+  height: fit-content;
+  background: #FFFFFF;
+  border: 1px solid #DFE2E9;
+  border-radius: 8px;
+  line-height: 22px;
+}
+.fat {
+  font-weight: 600;
+}
+.storage_title {
+  text-align: start;
+  margin-left: 20px;
+}
+
 @media screen and (max-width: 1919px) {
   .App {
     max-width: 1280px;

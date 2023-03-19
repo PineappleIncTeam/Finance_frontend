@@ -22,10 +22,18 @@ function MainFieldAnalitic({
   //
   const [percentChoice, setPercentChoice] = useState(false)
   //  
+  let date = new Date();
+  let year = date.getFullYear();
+  let month = date.getMonth() + 1;
+  let lastDayDate = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+  let lastDay = lastDayDate.toLocaleString().substring(0, 2);
+  let firstDayOfMonth = `${year}-${month}-01`;
+  let lastDayOfMonth = `${year}-${month}-${lastDay}`;
+  //
   const dataStart =
-    dataCalRange.length > 1 && dataCalRange[0].split(".").reverse().join("-")
+    dataCalRange.length > 1 ? dataCalRange[0].split(".").reverse().join("-") : firstDayOfMonth
   const dataEnd =
-    dataCalRange.length > 1 && dataCalRange[1].split(".").reverse().join("-")
+    dataCalRange.length > 1 ? dataCalRange[1].split(".").reverse().join("-") : lastDayOfMonth
   //
   const [gistogramSize, setGistogramSize] = useState({ width: 902, height: 408, indexAxis: "x" })
   const [width, setWidth] = useState(window.innerWidth)
@@ -50,8 +58,6 @@ function MainFieldAnalitic({
       setGistogramSize({ width: 280, height: 500, indexAxis: "y" })
     }
   }, [width])
-  console.log(gistogramSize)
-  console.log(width)
   //
   let dateStartObject = new Date(dataStart)
   let dateEndObject = new Date(dataEnd)
@@ -125,29 +131,26 @@ function MainFieldAnalitic({
   const gistogramSumOutcome = sumGroupOutcome.length > 0 ? sumGroupOutcome[0].sum : []
   console.log(resultSumIncome)
 
-  let resultSumIncomeTotal = resultSumIncome && resultSumIncome.reduce((a, b) => a + b)
+  let resultSumIncomeTotal = resultSumIncome.length > 0 && resultSumIncome.reduce((a, b) => a + b)
   let onePercentIncome = resultSumIncomeTotal / 100
   let resultSumIncomeInPercent = []
   for (let i = 0; i < resultSumIncome.length; i++) {
     resultSumIncomeInPercent.push((resultSumIncome[i] / onePercentIncome).toFixed(2))
   }
-  let resultSumOutcomeTotal = resultSumOutcome && resultSumOutcome.reduce((a, b) => a + b)
+  let resultSumOutcomeTotal = resultSumOutcome.length > 0 && resultSumOutcome.reduce((a, b) => a + b)
   let onePercentOutcome = resultSumOutcomeTotal / 100
   let resultSumOutcomeInPercent = []
   for (let i = 0; i < resultSumOutcome.length; i++) {
     resultSumOutcomeInPercent.push((resultSumOutcome[i] / onePercentOutcome).toFixed(2))
   }
-  console.log(resultSumOutcomeTotal)
   //
   
 
   function handlePercentChange(e) {
     if (e.target.value === 'В рублях') {
       setPercentChoice(false)
-      console.log(1)
     } else {
       setPercentChoice(true)
-      console.log(2)
     }
   }
 

@@ -75,6 +75,13 @@
   color: #999999;
   margin-bottom: 42px;
 }
+.balance_month {
+  font-family: "Monserrat-Medium";
+  font-weight: 600;
+  font-size: 16px;
+  margin-left: 10px;
+  color: #125B50;
+}
 .ruble_icon,
 .ruble_icon_small {
   font-family: "Monserrat-Regular";
@@ -462,6 +469,9 @@
     font-size: 12px;
     margin-bottom: 0px;
   }
+  .balance_month {
+    font-size: 12px;
+  }
   .ruble_icon {
     font-size: 16px;
     right: 18px;
@@ -624,7 +634,8 @@
 
 @media (max-width: 625px) {
   .main_field_input,
-  .main_field_title_label {
+  .main_field_title_label,
+  .balance_month {
     display: none;
   }
   .main_field_string {

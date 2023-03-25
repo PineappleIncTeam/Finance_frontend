@@ -35,6 +35,13 @@
   align-items: center;
   color: #999999;
 }
+.balance_month {
+  font-family: "Monserrat-Medium";
+  font-weight: 600;
+  font-size: 16px;
+  margin-left: 10px;
+  color: #125B50;
+}
 
 .datePicker {
   margin-top: 180px;
@@ -95,6 +102,9 @@
     align-items: flex-end;
     flex-direction: row;
   }
+  .textBalance, .balance_month {
+    font-size: 10px;
+  }
 }
 @media (max-width: 625px) {
   .datePicker {
@@ -110,6 +120,10 @@
   }
   .textBalance {
     font-size: 8px;
+  }
+  .balance_month {
+    font-size: 8px;
+    margin-left: 4px;
   }
   .balance input {
     font-size: 10px;

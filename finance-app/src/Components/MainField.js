@@ -12,6 +12,8 @@ function MainField({
   changeRangeCalendar,
   range,
   setCheckMainField,
+  months,
+  month
 }) {
   const token = useSelector((state) => state.user.token);
   const [categories, setCategories] = useState("");
@@ -48,7 +50,7 @@ function MainField({
         <input className="input_rub" value={inputData} readOnly></input>
         <span className="ruble_icon">₽</span>
       </div>
-      <div className="main_field_title_label">Общий доход</div>
+      <div className="main_field_title_label">Общий доход за <span className="balance_month">{months[month]}</span></div>
       <MainFieldString
         title="Постоянные"
         type="constant"

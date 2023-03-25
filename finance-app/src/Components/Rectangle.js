@@ -30,7 +30,20 @@ function Rectangle() {
   let lastDay = lastDayDate.toLocaleString().substring(0, 2);
   let firstDayOfMonth = `${year}-${month}-01`;
   let lastDayOfMonth = `${year}-${month}-${lastDay}`;
-
+  let months = {
+    1: 'Январь',
+    2: 'Февраль',
+    3: 'Март',
+    4: 'Апрель',
+    5: 'Май',
+    6: 'Июнь',
+    7: 'Июль',
+    8: 'Август',
+    9: 'Сентябрь',
+    10: 'Октябрь',
+    11: 'Ноябрь',
+    12: 'Декабрь',
+  }
   //
   // let typeOfOperation = "http://92.255.79.239:8000/api/last-5-incomecash/";
   const sumIncomeCash = `http://92.255.79.239:8000/api/sum-incomecash/?date_start=${firstDayOfMonth}&date_end=${lastDayOfMonth}`;
@@ -127,10 +140,12 @@ function Rectangle() {
               changeRangeCalendar={changeRangeCalendar}
               range={range}
               setCheckMainField={setCheckMainField}
+              months={months}
+              month={month}
             />
           </div>
           <div className="aside">
-            <Aside balanceData={balanceData} range={range} />
+            <Aside balanceData={balanceData} range={range} months={months} month={month} />
           </div>
         </div>
         {checkMainField && (

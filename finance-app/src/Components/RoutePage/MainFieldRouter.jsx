@@ -17,6 +17,8 @@ const MainFieldRouter = ({
   changeRangeCalendar,
   range,
   setCheckMainField,
+  months,
+  month
 }) => {
   return (
     <Routes>
@@ -32,6 +34,8 @@ const MainFieldRouter = ({
             changeRangeCalendar={changeRangeCalendar}
             range={range}
             setCheckMainField={setCheckMainField}
+            months={months}
+            month={month}
           />
         }
       />
@@ -48,6 +52,8 @@ const MainFieldRouter = ({
             changeRangeCalendar={changeRangeCalendar}
             range={range}
             setCheckMainField={setCheckMainField}
+            months={months}
+            month={month}
           />
         }
       />

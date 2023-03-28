@@ -44,6 +44,6 @@
 }
 @media (max-width: 625px) {
   .diagrams {
-    margin: 20px;
+    margin: 20px 0px 20px 20px;
   }
 }

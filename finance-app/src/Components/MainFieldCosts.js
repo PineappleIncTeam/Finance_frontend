@@ -92,7 +92,7 @@ function MainFieldCosts({
 
       <div className="mobileSum">
         <div className="mobileSum_input">
-          <div className="mainTextSumm">Ваш общий расход</div>
+          <div className="mainTextSumm">Ваш общий расход за <span className="balance_month_mobile">{months[month]}</span></div>
           <input className="input_rubMobile" value={inputData} readOnly></input>
           <span className="ruble_iconMobile">₽</span>
         </div>

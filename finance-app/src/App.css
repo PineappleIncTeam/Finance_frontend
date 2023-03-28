@@ -80,7 +80,7 @@
   font-weight: 600;
   font-size: 16px;
   margin-left: 10px;
-  color: #125B50;
+  color: #999999;
 }
 .ruble_icon,
 .ruble_icon_small {
@@ -360,24 +360,24 @@
   margin-top: 80px;
 }
 
-.mainTextSumm {
+.mainTextSumm, 
+.balance_month_mobile {
   font-family: "Monserrat-Medium";
   font-style: normal;
   font-weight: 400;
   font-size: 18px;
   line-height: 22px;
-
   color: #000000;
 }
 
 .input_rubMobile {
-  width: 165px;
+  width: 185px;
   height: 27px;
   margin-bottom: 0px;
   padding-left: 10px;
   padding-bottom: 5px;
   border: none;
-
+  background-color: rgba(250, 245, 228, 0.2);
   font-family: "Monserrat-Regular";
   text-align: center;
   font-weight: 400;
@@ -428,7 +428,7 @@
   top: 5px;
   width: fit-content;
   height: fit-content;
-  background: #FFFFFF;
+  background: rgba(250, 245, 228, 0.2);
   border: 1px solid #DFE2E9;
   border-radius: 8px;
   line-height: 22px;

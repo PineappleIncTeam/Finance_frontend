@@ -75,7 +75,7 @@ function MainFieldString({
 
   const changeHandler = (e) => {
     const value = e.target.value
-    e.target.value = value.replace(/[^0-9.]+/g, "")
+    e.target.value = value.replace(/[^0-9.,]+/g, "").replace(/\,/, '.')
   }
 
   return (

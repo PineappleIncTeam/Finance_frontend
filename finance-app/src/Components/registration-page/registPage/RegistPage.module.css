@@ -72,10 +72,14 @@
   outline: none;
 }
 
-.error {
+.error, 
+.only_lat_message {
   color: red;
   max-width: 400px;
   font-family: "Monserrat-Medium";
+}
+.only_lat_message {
+  margin-top: 20px;
 }
 
 .btn {
@@ -228,9 +232,14 @@
     height: 40px;
     font: 16px/16px "Monserrat-Medium";
   }
-  .error {
+  .error,
+  .only_lat_message {
     max-width: 290px;
     font-size: 12px;
+  }
+  .only_lat_message {
+    margin-top: 0px;
+    margin-bottom: 20px;
   }
   .pass {
     position: relative;

@@ -62,7 +62,8 @@
   color: #b7b7b7;
 }
 
-.error {
+.error, 
+.only_lat_message {
   color: red;
   max-width: 400px;
   font-family: "Monserrat-Medium";
@@ -220,7 +221,8 @@
     height: 40px;
     font: 16px/16px "Monserrat-Medium";
   }
-  .error {
+  .error,
+  .only_lat_message {
     max-width: 290px;
     font-size: 12px;
   }
@@ -229,6 +231,7 @@
     display: block;
     align-self: flex-start;
   }
+  
   .icon {
     width: 23px;
     height: 20px;
@@ -268,8 +271,9 @@
   }
 
   .registFon {
-    max-width: 200px;
-    max-height: 200px;
+    background-position-x: 20px;
+    max-width: 255px;
+    max-height: 255px;
     margin: 0px auto;
   }
 

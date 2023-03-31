@@ -201,13 +201,13 @@
   display: none;
   cursor: pointer;
   width: 45px;
-  border: 1px solid #54782b;
+  border: 1px solid #125B50;
   color: white;
   font-family: "Monserrat-Regular";
   font-weight: 600;
   font-size: 30px;
   margin: 28px 19px 0px;
-  background-color: #54782b;
+  background-color: #125B50;
   border-radius: 50%;
 }
 
@@ -615,16 +615,11 @@
 
 @media screen and (max-width: 720px) {
   .logo {
-    font-family: "Solitreo", cursive;
-    font-style: normal;
-    font-weight: 800;
     font-size: 20px;
     margin-top: 30px;
-    letter-spacing: 2px;
     line-height: 32px;
-    font-size: 28px;
     font-weight: 800;
-    color: #54782b;
+    color: #125B50;
   }
 
   .logo_block {

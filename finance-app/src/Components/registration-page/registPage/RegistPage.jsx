@@ -250,6 +250,7 @@ const RegistPage = () => {
                     Я уже зарегистрирован
                   </Link>
                 </p>
+                <div className={style.only_lat_message}>*только латиница</div>
                 <div className={style.reply}>{reply}</div>
                 <button
                   className={style.btn}

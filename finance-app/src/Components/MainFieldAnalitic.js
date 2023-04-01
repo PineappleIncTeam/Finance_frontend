@@ -8,7 +8,7 @@ import Gistogram from "./analiticGistograms/Gistogram"
 import style from "../Components/analiticGistograms/Gistogram.module.css"
 
 function MainFieldAnalitic({
-  operationList,
+  // operationList,
   changeRangeCalendar,
   range,
   setCheckMainField,
@@ -62,9 +62,9 @@ function MainFieldAnalitic({
   let dateStartObject = new Date(dataStart)
   let dateEndObject = new Date(dataEnd)
   let result = dateEndObject.getMonth() - dateStartObject.getMonth()
-  console.log(dataCalRange)
+  console.log(result)
   useEffect(() => {
-    if (result !== 0) {
+    if (result) {
       setGistogramType("bar")
       console.log(gistogramType)
     } else {
@@ -73,8 +73,10 @@ function MainFieldAnalitic({
     }
   }, [dataCalRange])
   //
-  useState(() => setCheckMainField(false), [])
+  useEffect(() => setCheckMainField(false), [])
   function getAnaliticSum() {
+    const incomeEndpoint = result ? `http://92.255.79.239:8000/api/sum-monthly-income/?date_start=${dataStart}&date_end=${dataEnd}` : `http://92.255.79.239:8000/api/sum-incomecash-group/?date_start=${dataStart}&date_end=${dataEnd}`
+    const outcomeEndpoint = result ? `http://92.255.79.239:8000/api/sum-monthly-outcome/?date_start=${dataStart}&date_end=${dataEnd}` : `http://92.255.79.239:8000/api/sum-outcomecash-group/?date_start=${dataStart}&date_end=${dataEnd}`
     const optionsIncome = {
       method: "GET",
       headers: {
@@ -83,7 +85,7 @@ function MainFieldAnalitic({
       },
     }
     fetch(
-      `http://92.255.79.239:8000/api/sum-incomecash-group/?date_start=${dataStart}&date_end=${dataEnd}`,
+      incomeEndpoint,
       optionsIncome
     )
       .then((result) => result.json())
@@ -97,7 +99,7 @@ function MainFieldAnalitic({
       },
     }
     fetch(
-      `http://92.255.79.239:8000/api/sum-outcomecash-group/?date_start=${dataStart}&date_end=${dataEnd}`,
+      outcomeEndpoint,
       optionsOutcome
     )
       .then((result) => result.json())
@@ -106,30 +108,31 @@ function MainFieldAnalitic({
 
   useEffect(() => {
     getAnaliticSum()
+    console.log('test')
     changeRangeCalendar(true)
-  }, [operationList, dataCalRange])
+  }, [dataCalRange])
 
-  const categoryNameIncome =
-    sumGroupIncome.length > 0 &&
-    sumGroupIncome[0].sum.map((item) => item.categories__categoryName)
-  const resultSumIncome =
-    sumGroupIncome.length > 0 &&
-    sumGroupIncome[0].sum.map((item) => item.result_sum)
+  const categoryNameIncome = 
+    (sumGroupIncome.length > 0 && sumGroupIncome[0].sum &&
+    !result) ? sumGroupIncome[0].sum.map((item) => item.categories__categoryName) : []
+  const resultSumIncome =  
+    (sumGroupIncome.length > 0 && sumGroupIncome[0].sum &&
+    !result) ? sumGroupIncome[0].sum.map((item) => item.result_sum) : []
 
-  const categoryNameOutcome =
-    sumGroupOutcome.length > 0 &&
-    sumGroupOutcome[0].sum.map((item) => item.categories__categoryName)
-  const resultSumOutcome =
-    sumGroupOutcome.length > 0 &&
-    sumGroupOutcome[0].sum.map((item) => item.result_sum)
+  const categoryNameOutcome =  
+    (sumGroupOutcome.length > 0 && sumGroupOutcome[0].sum &&
+    !result) ? sumGroupOutcome[0].sum.map((item) => item.categories__categoryName) : []
+  const resultSumOutcome =  
+    (sumGroupOutcome.length > 0 && sumGroupOutcome[0].sum &&
+    !result) ? sumGroupOutcome[0].sum.map((item) => item.result_sum) : []
   
     function handleChange(e) {
     setIsActive(e.target.value)
   }
   //
-  const gistogramSumIncome = sumGroupIncome.length > 0 ? sumGroupIncome[0].sum : []
-  const gistogramSumOutcome = sumGroupOutcome.length > 0 ? sumGroupOutcome[0].sum : []
-  console.log(resultSumIncome)
+  const gistogramSumIncome = sumGroupIncome.length > 0 && result ? sumGroupIncome : []
+  const gistogramSumOutcome = sumGroupOutcome.length > 0 && result ? sumGroupOutcome : []
+  console.log(gistogramSumIncome)
 
   let resultSumIncomeTotal = resultSumIncome.length > 0 && resultSumIncome.reduce((a, b) => a + b)
   let onePercentIncome = resultSumIncomeTotal / 100
@@ -197,7 +200,7 @@ function MainFieldAnalitic({
           </div>
         </form>
       </div>
-      {gistogramType === "pie" ? (
+      {(gistogramType === "pie") && !result ? (
         <ChartGistograms
           categoryNameIncome={categoryNameIncome}
           resultSumIncome={!percentChoice ? resultSumIncome : resultSumIncomeInPercent}

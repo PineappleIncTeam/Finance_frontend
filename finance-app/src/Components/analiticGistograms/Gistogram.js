@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react"
+// import React, { useState, useEffect } from "react"
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -15,9 +15,7 @@ import style from "./Gistogram.module.css"
 function Gistogram({
   gistogramSize,
   sumGroupIncome,
-  resultSumIncome,
   sumGroupOutcome,
-  resultSumOutcome,
   isActive,
 }) {
   ChartJS.register(
@@ -97,27 +95,18 @@ function Gistogram({
     "rgb(26   20    2)",
     "rgb(255  185    0)",
   ]
-  const labels = [
-    "Январь",
-    "Февраль",
-    "Март",
-    "Апрель",
-    "Май",
-    "Июнь",
-    "Июль",
-    "Август",
-    "Сентябрь",
-    "Октябрь",
-    "Ноябрь",
-    "Декабрь",
-  ]
+  const incomeCategories = sumGroupIncome.map(item => Object.keys(item))
+  const incomeCategory = sumGroupIncome.length > 0 && sumGroupIncome[0]
+  const incomeCategoryName = sumGroupIncome.length > 0 && Object.keys(incomeCategory)
+  const incomeMonths = sumGroupIncome.length > 0 && Object.keys(incomeCategory[incomeCategoryName])
+  const labels = incomeMonths
   const dataIncome = {
     labels,
-    datasets: sumGroupIncome.map((item, index) => {
+    datasets: incomeCategories.map((item, index) => {
       let result = {}
       result = {
-        label: item.categories__categoryName,
-        data: [item.result_sum, item.result_sum, item.result_sum, item.result_sum, item.result_sum, item.result_sum, item.result_sum, item.result_sum],
+        label: item,
+        data: Object.values(sumGroupIncome[index][item]),
         backgroundColor: colorsIncome[index],
       }
       return result
@@ -140,13 +129,17 @@ function Gistogram({
     // },
     // ],
   }
+  const outcomeCategories = sumGroupOutcome.map(item => Object.keys(item))
+  // const outcomeCategory = sumGroupOutcome.length > 0 && sumG roupOutcome[0]
+  // const outcomeCategoryName = sumGroupOutcome.length > 0 && Object.keys(outcomeCategory)
+  // const outcomeMonths = sumGroupOutcome.length > 0 && Object.keys(outcomeCategory[outcomeCategoryName])
   const dataOutcome = {
     labels,
-    datasets: sumGroupOutcome.map((item, index) => {
+    datasets: outcomeCategories.map((item, index) => {
       let result = {}
       result = {
-        label: item.categories__categoryName,
-        data: [item.result_sum],
+        label: item,
+        data: Object.values(sumGroupOutcome[index][item]),
         backgroundColor: colorsOutcome[index],
       }
       return result
@@ -178,7 +171,7 @@ function Gistogram({
       </div>
       <div className={style.categories_name}>
         {isActive === "income"
-          ? sumGroupIncome.map((item, index) => {
+          ? incomeCategories.map((item, index) => {
               // let result = `<div className="category_color" style="background-color: ${colorsIncome[index]}">${item.categories__categoryName}</div>`
               return (
                 <div className={style.label_element}>
@@ -187,12 +180,12 @@ function Gistogram({
                     style={{ backgroundColor: colorsIncome[index] }}
                   ></div>
                   <div className={style.category_name}>
-                    {item.categories__categoryName}
+                    {item}
                   </div>
                 </div>
               )
             })
-          : sumGroupOutcome.map((item, index) => {
+          : outcomeCategories.map((item, index) => {
               // let result = `<div className="category_color" style="background-color: ${colorsIncome[index]}">${item.categories__categoryName}</div>`
               return (
                 <div className={style.label_element}>
@@ -201,7 +194,7 @@ function Gistogram({
                     style={{ backgroundColor: colorsOutcome[index] }}
                   ></div>
                   <div className={style.category_name}>
-                    {item.categories__categoryName}
+                    {item}
                   </div>
                 </div>
               )

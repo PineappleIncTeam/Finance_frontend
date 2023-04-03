@@ -90,7 +90,7 @@ const RegistPage = () => {
     username: Yup.string()
       .matches(/^[A-Za-z0-9]+$/, "Логин введен некорректно")
       .min(6, "Логин должен состоять из 6 и более символов")
-
+      .max(32, "Логин должен содержать от 6 до 32 символов")
       .required("Обязательное поле"),
     password: Yup.string()
       .matches(/^[A-Za-z0-9]+$/, "Введен некорректный символ")
@@ -132,7 +132,7 @@ const RegistPage = () => {
             onSubmit={registerHandler}
           >
             {({ isValid, dirty, isSubmiting, values, errors }) => (
-              <Form className={style.form}>
+              <Form className={style.form} onChange={() => setReply('')}>
                 <label>Адрес эл. почты</label>
                 <Field
                   // autofocus="autofocus"

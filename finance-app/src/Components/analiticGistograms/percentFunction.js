@@ -17,7 +17,7 @@ function percentFunction(json) {
     }
   }
   parseJson()
-  console.log(result)
+//   console.log(result)
   let percentResult = []
   function createPercentArr() {
     let count = 0
@@ -35,7 +35,7 @@ function percentFunction(json) {
     }
   }
   createPercentArr()
-  console.log(percentResult)
+//   console.log(percentResult)
   let allCategories = []
   function setArrStructure() {
     let count = 0

@@ -5,6 +5,7 @@ import React, { useEffect, useState } from "react"
 import { useSelector } from "react-redux"
 import ChartGistograms from "./analiticGistograms/ChartGistograms"
 import Gistogram from "./analiticGistograms/Gistogram"
+import percentFunction from "./analiticGistograms/percentFunction"
 import style from "../Components/analiticGistograms/Gistogram.module.css"
 
 function MainFieldAnalitic({
@@ -148,12 +149,15 @@ function MainFieldAnalitic({
   }
   //
   
-
+  const [incomePercent, setIncomePercent] = useState([])
+  const [outcomePercent, setOutcomePercent] = useState([])
   function handlePercentChange(e) {
     if (e.target.value === 'В рублях') {
       setPercentChoice(false)
     } else {
       setPercentChoice(true)
+      setIncomePercent(percentFunction(sumGroupIncome))
+      setOutcomePercent(percentFunction(sumGroupOutcome))
     }
   }
 
@@ -214,6 +218,9 @@ function MainFieldAnalitic({
           sumGroupIncome={gistogramSumIncome}
           sumGroupOutcome={gistogramSumOutcome}
           isActive={isActive}
+          percentChoice={percentChoice}
+          incomePercent={incomePercent}
+          outcomePercent={outcomePercent}
         />
       )}
 

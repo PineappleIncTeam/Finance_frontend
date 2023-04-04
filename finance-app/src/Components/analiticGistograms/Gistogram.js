@@ -17,6 +17,9 @@ function Gistogram({
   sumGroupIncome,
   sumGroupOutcome,
   isActive,
+  percentChoice,
+  incomePercent,
+  outcomePercent
 }) {
   ChartJS.register(
     CategoryScale,
@@ -106,7 +109,7 @@ function Gistogram({
       let result = {}
       result = {
         label: item,
-        data: Object.values(sumGroupIncome[index][item]),
+        data: !percentChoice ? Object.values(sumGroupIncome[index][item]) : incomePercent[index],
         backgroundColor: colorsIncome[index],
       }
       return result
@@ -139,7 +142,7 @@ function Gistogram({
       let result = {}
       result = {
         label: item,
-        data: Object.values(sumGroupOutcome[index][item]),
+        data: !percentChoice ? Object.values(sumGroupOutcome[index][item]) : outcomePercent[index],
         backgroundColor: colorsOutcome[index],
       }
       return result

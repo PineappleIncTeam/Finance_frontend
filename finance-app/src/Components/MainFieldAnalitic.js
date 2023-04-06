@@ -22,6 +22,7 @@ function MainFieldAnalitic({
   const [isActive, setIsActive] = useState("income")
   //
   const [percentChoice, setPercentChoice] = useState(false)
+  console.log(percentChoice)
   //  
   let date = new Date();
   let year = date.getFullYear();
@@ -63,14 +64,12 @@ function MainFieldAnalitic({
   let dateStartObject = new Date(dataStart)
   let dateEndObject = new Date(dataEnd)
   let result = dateEndObject.getMonth() - dateStartObject.getMonth()
-  console.log(result)
+  //
   useEffect(() => {
     if (result) {
       setGistogramType("bar")
-      console.log(gistogramType)
-    } else {
+      } else {
       setGistogramType("pie")
-      console.log(gistogramType)
     }
   }, [dataCalRange])
   //
@@ -90,8 +89,14 @@ function MainFieldAnalitic({
       optionsIncome
     )
       .then((result) => result.json())
-      .then((dataSum) => setSumGroupIncome(dataSum))
-
+      .then((dataSum) => {
+        console.log('dataSum', dataSum)
+        setSumGroupIncome(dataSum)
+        if(percentChoice && result) {
+          setIncomePercent(percentFunction(dataSum))
+        }
+      })
+      
     const optionsOutcome = {
       method: "GET",
       headers: {
@@ -104,12 +109,17 @@ function MainFieldAnalitic({
       optionsOutcome
     )
       .then((result) => result.json())
-      .then((dataSum) => setSumGroupOutcome(dataSum))
+      .then((dataSum) => {
+        setSumGroupOutcome(dataSum)
+        if(percentChoice && result) {
+          setOutcomePercent(percentFunction(dataSum))
+        }
+      })
+      
   }
 
   useEffect(() => {
     getAnaliticSum()
-    console.log('test')
     changeRangeCalendar(true)
   }, [dataCalRange])
 
@@ -133,7 +143,7 @@ function MainFieldAnalitic({
   //
   const gistogramSumIncome = sumGroupIncome.length > 0 && result ? sumGroupIncome : []
   const gistogramSumOutcome = sumGroupOutcome.length > 0 && result ? sumGroupOutcome : []
-  console.log(gistogramSumIncome)
+  console.log(sumGroupIncome)
 
   let resultSumIncomeTotal = resultSumIncome.length > 0 && resultSumIncome.reduce((a, b) => a + b)
   let onePercentIncome = resultSumIncomeTotal / 100
@@ -151,7 +161,8 @@ function MainFieldAnalitic({
   
   const [incomePercent, setIncomePercent] = useState([])
   const [outcomePercent, setOutcomePercent] = useState([])
-  function handlePercentChange(e) {
+  
+    function handlePercentChange(e) {
     if (e.target.value === 'В рублях') {
       setPercentChoice(false)
     } else {
@@ -188,6 +199,7 @@ function MainFieldAnalitic({
               name="analitic_select"
               value="В рублях"
               onClick={(e) => handlePercentChange(e)}
+              
             />
             <label htmlFor="option1">В рублях</label>
           </div>

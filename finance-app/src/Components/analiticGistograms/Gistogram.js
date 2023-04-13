@@ -69,7 +69,7 @@ function Gistogram({
     },
     elements: {
       bar: {
-        borderRadius: 10,
+        // borderRadius: 10,
       },
     },
   }
@@ -124,6 +124,7 @@ function Gistogram({
     "rgb(0 0 128)",
     "rgb(72 61 139)",
   ]
+  console.log('income', sumGroupIncome)
   const incomeCategories = sumGroupIncome.map(item => Object.keys(item))
   const incomeCategory = sumGroupIncome.length > 0 && sumGroupIncome[0]
   const incomeCategoryName = sumGroupIncome.length > 0 && Object.keys(incomeCategory)
@@ -158,12 +159,14 @@ function Gistogram({
     // },
     // ],
   }
+  console.log('outcome', sumGroupOutcome)
   const outcomeCategories = sumGroupOutcome.map(item => Object.keys(item))
-  // const outcomeCategory = sumGroupOutcome.length > 0 && sumG roupOutcome[0]
-  // const outcomeCategoryName = sumGroupOutcome.length > 0 && Object.keys(outcomeCategory)
-  // const outcomeMonths = sumGroupOutcome.length > 0 && Object.keys(outcomeCategory[outcomeCategoryName])
+  const outcomeCategory = sumGroupOutcome.length > 0 && sumGroupOutcome[0]
+  const outcomeCategoryName = sumGroupOutcome.length > 0 && Object.keys(outcomeCategory)
+  const outcomeMonths = sumGroupOutcome.length > 0 && Object.keys(outcomeCategory[outcomeCategoryName])
+  const outcomeLabels = outcomeMonths
   const dataOutcome = {
-    labels,
+    labels: outcomeLabels,
     datasets: outcomeCategories.map((item, index) => {
       let result = {}
       result = {
@@ -174,7 +177,6 @@ function Gistogram({
       return result
     }),
   }
-
   return (
     <>
       <div className={style.gistogram}>
@@ -189,10 +191,10 @@ function Gistogram({
             />
           ) : (
             <Bar
-              className={style.bar}
-              options={options}
+              className={style.bar_gistogram}
               width={gistogramSize.width}
               height={gistogramSize.height}
+              options={options}
               data={dataOutcome}
             />
           )}

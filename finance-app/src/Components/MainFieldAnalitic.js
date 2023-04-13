@@ -22,7 +22,7 @@ function MainFieldAnalitic({
   const [isActive, setIsActive] = useState("income")
   //
   const [percentChoice, setPercentChoice] = useState(false)
-  console.log(percentChoice)
+  // console.log(percentChoice)
   //  
   let date = new Date();
   let year = date.getFullYear();
@@ -89,11 +89,12 @@ function MainFieldAnalitic({
       optionsIncome
     )
       .then((result) => result.json())
-      .then((dataSum) => {
-        console.log('dataSum', dataSum)
-        setSumGroupIncome(dataSum)
-        if(percentChoice && result) {
-          setIncomePercent(percentFunction(dataSum))
+      .then((dataSumIncome) => {
+        console.log('dataSumIncome', dataSumIncome)
+        setSumGroupIncome(dataSumIncome)
+        if(percentChoice && result && dataSumIncome.length > 0) {
+          console.log('Доходы пошли в проценты')
+          setIncomePercent(percentFunction(dataSumIncome))
         }
       })
       
@@ -109,10 +110,12 @@ function MainFieldAnalitic({
       optionsOutcome
     )
       .then((result) => result.json())
-      .then((dataSum) => {
-        setSumGroupOutcome(dataSum)
-        if(percentChoice && result) {
-          setOutcomePercent(percentFunction(dataSum))
+      .then((dataSumOutcome) => {
+        setSumGroupOutcome(dataSumOutcome)
+        console.log('dataSumOutcome', dataSumOutcome)
+        if(percentChoice && result && dataSumOutcome.length > 0) {
+          console.log('Расходы пошли в проценты')
+          setOutcomePercent(percentFunction(dataSumOutcome))
         }
       })
       
@@ -143,7 +146,7 @@ function MainFieldAnalitic({
   //
   const gistogramSumIncome = sumGroupIncome.length > 0 && result ? sumGroupIncome : []
   const gistogramSumOutcome = sumGroupOutcome.length > 0 && result ? sumGroupOutcome : []
-  console.log(sumGroupIncome)
+  // console.log(sumGroupIncome)
 
   let resultSumIncomeTotal = resultSumIncome.length > 0 && resultSumIncome.reduce((a, b) => a + b)
   let onePercentIncome = resultSumIncomeTotal / 100
@@ -167,8 +170,8 @@ function MainFieldAnalitic({
       setPercentChoice(false)
     } else {
       setPercentChoice(true)
-      setIncomePercent(percentFunction(sumGroupIncome))
-      setOutcomePercent(percentFunction(sumGroupOutcome))
+      sumGroupIncome.length > 0 && setIncomePercent(percentFunction(sumGroupIncome))
+      sumGroupOutcome.length > 0 && setOutcomePercent(percentFunction(sumGroupOutcome))
     }
   }
 

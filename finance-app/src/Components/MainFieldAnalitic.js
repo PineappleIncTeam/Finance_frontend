@@ -9,7 +9,6 @@ import percentFunction from "./analiticGistograms/percentFunction"
 import style from "../Components/analiticGistograms/Gistogram.module.css"
 
 function MainFieldAnalitic({
-  // operationList,
   changeRangeCalendar,
   range,
   setCheckMainField,
@@ -22,7 +21,6 @@ function MainFieldAnalitic({
   const [isActive, setIsActive] = useState("income")
   //
   const [percentChoice, setPercentChoice] = useState(false)
-  // console.log(percentChoice)
   //  
   let date = new Date();
   let year = date.getFullYear();
@@ -90,10 +88,8 @@ function MainFieldAnalitic({
     )
       .then((result) => result.json())
       .then((dataSumIncome) => {
-        console.log('dataSumIncome', dataSumIncome)
         setSumGroupIncome(dataSumIncome)
         if(percentChoice && result && dataSumIncome.length > 0) {
-          console.log('Доходы пошли в проценты')
           setIncomePercent(percentFunction(dataSumIncome))
         }
       })
@@ -112,9 +108,7 @@ function MainFieldAnalitic({
       .then((result) => result.json())
       .then((dataSumOutcome) => {
         setSumGroupOutcome(dataSumOutcome)
-        console.log('dataSumOutcome', dataSumOutcome)
         if(percentChoice && result && dataSumOutcome.length > 0) {
-          console.log('Расходы пошли в проценты')
           setOutcomePercent(percentFunction(dataSumOutcome))
         }
       })
@@ -146,7 +140,6 @@ function MainFieldAnalitic({
   //
   const gistogramSumIncome = sumGroupIncome.length > 0 && result ? sumGroupIncome : []
   const gistogramSumOutcome = sumGroupOutcome.length > 0 && result ? sumGroupOutcome : []
-  // console.log(sumGroupIncome)
 
   let resultSumIncomeTotal = resultSumIncome.length > 0 && resultSumIncome.reduce((a, b) => a + b)
   let onePercentIncome = resultSumIncomeTotal / 100

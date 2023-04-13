@@ -124,7 +124,6 @@ function Gistogram({
     "rgb(0 0 128)",
     "rgb(72 61 139)",
   ]
-  console.log('income', sumGroupIncome)
   const incomeCategories = sumGroupIncome.map(item => Object.keys(item))
   const incomeCategory = sumGroupIncome.length > 0 && sumGroupIncome[0]
   const incomeCategoryName = sumGroupIncome.length > 0 && Object.keys(incomeCategory)
@@ -159,7 +158,6 @@ function Gistogram({
     // },
     // ],
   }
-  console.log('outcome', sumGroupOutcome)
   const outcomeCategories = sumGroupOutcome.map(item => Object.keys(item))
   const outcomeCategory = sumGroupOutcome.length > 0 && sumGroupOutcome[0]
   const outcomeCategoryName = sumGroupOutcome.length > 0 && Object.keys(outcomeCategory)

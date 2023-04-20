@@ -25,7 +25,7 @@
   letter-spacing: 0.06em;
   text-transform: capitalize;
 
-  color: #125B50;
+  color: #125b50;
 }
 
 .form {
@@ -45,6 +45,19 @@
   text-align: left;
   color: #b7b7b7;
 }
+.password_recovery {
+  display: flex;
+  justify-content: space-between;
+}
+.recovery {
+  font-family: "Monserrat-Medium";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 29px;
+  color: #125B50;
+  text-decoration: none;
+}
 
 .input {
   box-sizing: border-box;
@@ -62,7 +75,7 @@
   color: #b7b7b7;
 }
 
-.error, 
+.error,
 .only_lat_message {
   color: red;
   max-width: 400px;
@@ -71,7 +84,7 @@
 
 .btn {
   margin-top: 60px;
-  background: #125B50;
+  background: #125b50;
   border-radius: 60px;
   padding: 12px 20px;
   font-family: "Monserrat-Regular";
@@ -87,7 +100,7 @@
 }
 
 .btn:hover {
-  background-color: #125B50;
+  background-color: #125b50;
   cursor: pointer;
   box-shadow: 0px 2px 5px 1px #0c4139;
   transform: translateY(-1px);
@@ -231,7 +244,7 @@
     display: block;
     align-self: flex-start;
   }
-  
+
   .icon {
     width: 23px;
     height: 20px;

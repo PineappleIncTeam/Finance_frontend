@@ -3,6 +3,7 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import Rectangle from "../Rectangle";
 import AuthReg from "../registration-page/auth/AuthReg";
 import RegistPage from "../registration-page/registPage/RegistPage";
+import RecoveryPass from "../registration-page/recoveryPage/RecoveryPass";
 
 const RoutePage = () => {
   return (
@@ -14,6 +15,7 @@ const RoutePage = () => {
         element={<Navigate to="/rectangle/mainfield" />}
       />
       <Route path="/rectangle/*" element={<Rectangle />} />
+      <Route path="/recovery" element={<RecoveryPass />} />
     </Routes>
   );
 };

@@ -4,6 +4,7 @@ import Rectangle from "../Rectangle";
 import AuthReg from "../registration-page/auth/AuthReg";
 import RegistPage from "../registration-page/registPage/RegistPage";
 import RecoveryPass from "../registration-page/recoveryPage/RecoveryPass";
+import NewPass from "../registration-page/recoveryPage/NewPass";
 
 const RoutePage = () => {
   return (
@@ -16,6 +17,7 @@ const RoutePage = () => {
       />
       <Route path="/rectangle/*" element={<Rectangle />} />
       <Route path="/recovery" element={<RecoveryPass />} />
+      <Route path="/newpass" element={<NewPass />} />
     </Routes>
   );
 };

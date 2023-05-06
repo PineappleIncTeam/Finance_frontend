@@ -1,3 +1,4 @@
+import { useState } from "react"
 import { Formik, Form, Field } from "formik"
 import axios from "axios"
 import Logo from "../../Logo"
@@ -8,11 +9,14 @@ import { Link } from "react-router-dom"
 const URL = 'http://92.255.79.239:8000/api/auth/users/reset_password/'
 
 const RecoveryPass = () => {
+
+  const [message, setMessage] = useState("")
+
   const validateEmail = (value) => {
     if (!value) {
-      return "Обязательно"
+      return "Обязательное поле"
     } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)) {
-      return "Invalid email address"
+      return "Введёт некорректный email"
     }
   }
 
@@ -23,7 +27,9 @@ const RecoveryPass = () => {
 
     try {
       const response = await axios.post(URL, data)
+      response.status === 204 && setMessage('На указанный вами адрес почты отправлено письмо для сброса пароля')
       console.log(response)
+      
     } catch (error) {
       console.log(error)
     }
@@ -48,7 +54,7 @@ const RecoveryPass = () => {
                 <label>Введите электронную почту</label>
                 <Field
                   className={
-                    values.email && errors.email
+                    (values.email || touched.email) && errors.email
                       ? style.inputError
                       : style.input
                   }
@@ -58,8 +64,9 @@ const RecoveryPass = () => {
                   placeholder="example@mail.ru"
                 />
                 <div className={style.error}>
-                  {values.email && errors.email}
+                  {(values.email || touched.email) && errors.email}
                 </div>
+                <div className={style.message}>{message}</div>
                 <button className={style.btn} type="submit">Восстановить
                   {/* <Link to="/newpass" className={style.btn_link}>Восстановить</Link> */}
                 </button>

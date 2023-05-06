@@ -515,7 +515,7 @@
   }
   .analitic_select_form {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     font-size: 14px;
     line-height: 14px;
   }
@@ -543,10 +543,11 @@
     margin: 28px 10px 0px;
   }
   .analitic_select_form {
+    width: 125px;
     font-size: 12px;
   }
   .analitic_select {
-    margin-right: 120px;
+    margin-right: 55px;
   }
 }
 
@@ -669,6 +670,10 @@
 @media screen and (max-width: 595px) {
   .main_field_analitic {
     top: 60px;
+  }
+  .analitic_select_form {
+    width: 100px;
+    font-size: 9px;
   }
 }
 @media screen and (max-width: 376px) {

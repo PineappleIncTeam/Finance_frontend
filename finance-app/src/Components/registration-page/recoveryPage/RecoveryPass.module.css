@@ -77,7 +77,13 @@
   border: 1px solid red;
   border-radius: 10px;
   outline: none;
-  margin-bottom: 24px;
+  margin-bottom: 5px;
+}
+.error, 
+.only_lat_message {
+  color: red;
+  max-width: 400px;
+  font-family: "Monserrat-Medium";
 }
 
 .btn {
@@ -139,10 +145,27 @@
   font-style: normal;
   font-weight: 600;
   font-size: 16px;
-  line-height: 29px;
+  line-height: 16px;
   color: #125B50;
   text-decoration: none;
-  margin-top: 40px;
+  width: 400px;
+  /* margin-top: 40px; */
+}
+.icon {
+  width: 34px;
+  height: 34px;
+  cursor: pointer;
+  position: absolute;
+  right: 10px;
+  top: 17px;
+  opacity: 0.5;
+}
+
+.icon:hover {
+  opacity: 1;
+}
+.pass {
+  position: relative;
 }
 
 @media screen and (max-width: 1919px) {
@@ -169,6 +192,9 @@
     width: 290px;
     height: 40px;
     font: 16px/16px "Monserrat-Medium";
+  }
+  .inputError {
+    margin-bottom: 8px;
   }
   .error,
   .only_lat_message,
@@ -203,6 +229,7 @@
     font-size: 14px;
   }
   .message {
+    width: 290px;
     font-size: 12px;
   }
 }

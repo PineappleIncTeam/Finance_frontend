@@ -76,7 +76,8 @@ const RegistPage = () => {
       });
     } catch (e) {
       console.log(e);
-      setReply(`Пользователь с логином ${payload.username} существует`);
+      // setReply(`Пользователь с логином ${payload.username} существует`);
+      e.response.data.email ? setReply(e.response.data.email) : setReply(`Пользователь с логином ${payload.username} существует`)
     } finally {
       setSubmitting(false);
     }

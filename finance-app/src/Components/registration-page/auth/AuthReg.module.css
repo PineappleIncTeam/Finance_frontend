@@ -235,9 +235,13 @@
     font: 16px/16px "Monserrat-Medium";
   }
   .error,
-  .only_lat_message {
+  .only_lat_message,
+  .recovery {
     max-width: 290px;
     font-size: 12px;
+  }
+  .recovery {
+    line-height: 20px;
   }
   .pass {
     position: relative;

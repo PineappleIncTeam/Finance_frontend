@@ -35,12 +35,13 @@
 .label_element {
   display: flex;
   margin-bottom: 19px;
+  margin-right: 5px;
 }
 .category_color {
   width: 39px;
   height: 18px;
   border-radius: 8px;
-  margin-right: 10px;
+  margin-right: 8px;
 }
 .category_name {
   font-family: "Monserrat-Medium";
@@ -62,7 +63,7 @@
     width: 28px;
     height: 14px;
     border-radius: 8px;
-    margin-right: 10px;
+    margin-right: 8px;
   }
   .label_element {
     margin-bottom: 14px;

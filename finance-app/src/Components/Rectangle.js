@@ -23,6 +23,33 @@ function Rectangle() {
   function changeRangeCalendar(range) {
     setRange(range);
   }
+
+  //
+  const [gistogramSize, setGistogramSize] = useState({ width: 280, height: 500, indexAxis: "y" })
+  const [width, setWidth] = useState(window.innerWidth)
+  useEffect(() => {
+    const handleResize = (event) => {
+      setWidth(event.target.innerWidth);
+    };
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, [gistogramSize])
+
+  useEffect(() => {
+    if (width >= 1920) {
+      setGistogramSize({ width: 902, height: 408, indexAxis: "x" })
+    } else if (width < 1920 && width >= 1280) {
+      setGistogramSize({ width: 600, height: 280, indexAxis: "x" })
+    } else if (width < 1280 && width > 768) {
+      setGistogramSize({ width: 400, height: 200, indexAxis: "x" })
+    } else if (width <= 768) {
+      setGistogramSize({ width: 280, height: 500, indexAxis: "y" })
+    }
+  }, [width])
+  //
+
   let date = new Date();
   let year = date.getFullYear();
   let month = date.getMonth() + 1;
@@ -142,6 +169,7 @@ function Rectangle() {
               setCheckMainField={setCheckMainField}
               months={months}
               month={month}
+              gistogramSize={gistogramSize}
             />
           </div>
           <div className="aside">

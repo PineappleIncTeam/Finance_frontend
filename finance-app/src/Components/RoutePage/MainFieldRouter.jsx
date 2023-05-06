@@ -18,7 +18,8 @@ const MainFieldRouter = ({
   range,
   setCheckMainField,
   months,
-  month
+  month,
+  gistogramSize
 }) => {
   return (
     <Routes>
@@ -66,6 +67,7 @@ const MainFieldRouter = ({
             changeRangeCalendar={changeRangeCalendar}
             range={range}
             setCheckMainField={setCheckMainField}
+            gistogramSize={gistogramSize}
           />
         }
       />

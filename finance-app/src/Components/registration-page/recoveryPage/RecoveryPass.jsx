@@ -1,7 +1,11 @@
 import { Formik, Form, Field } from "formik"
+import axios from "axios"
 import Logo from "../../Logo"
 import style from "./RecoveryPass.module.css"
 import { Link } from "react-router-dom"
+
+
+const URL = 'http://92.255.79.239:8000/api/auth/users/reset_password/'
 
 const RecoveryPass = () => {
   const validateEmail = (value) => {
@@ -9,6 +13,19 @@ const RecoveryPass = () => {
       return "Обязательно"
     } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)) {
       return "Invalid email address"
+    }
+  }
+
+  const sendEmail = async (values) => {
+    const data = {
+      email: values.email
+    }
+
+    try {
+      const response = await axios.post(URL, data)
+      console.log(response)
+    } catch (error) {
+      console.log(error)
     }
   }
 
@@ -24,9 +41,7 @@ const RecoveryPass = () => {
             initialValues={{
               email: "",
             }}
-            onSubmit={(values) => {
-              console.log("submit", values)
-            }}
+            onSubmit={sendEmail}
           >
             {({ errors, touched, values }) => (
               <Form className={style.form}>
@@ -45,8 +60,8 @@ const RecoveryPass = () => {
                 <div className={style.error}>
                   {values.email && errors.email}
                 </div>
-                <button className={style.btn} type={"submit"}>
-                  <Link to="/newpass" className={style.btn_link}>Восстановить</Link>
+                <button className={style.btn} type="submit">Восстановить
+                  {/* <Link to="/newpass" className={style.btn_link}>Восстановить</Link> */}
                 </button>
               </Form>
             )}

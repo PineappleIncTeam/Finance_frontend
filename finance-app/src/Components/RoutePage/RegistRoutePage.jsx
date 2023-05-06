@@ -17,7 +17,7 @@ const RoutePage = () => {
       />
       <Route path="/rectangle/*" element={<Rectangle />} />
       <Route path="/recovery" element={<RecoveryPass />} />
-      <Route path="/newpass" element={<NewPass />} />
+      <Route path="/password/reset/confirm/" element={<NewPass />} />
     </Routes>
   );
 };

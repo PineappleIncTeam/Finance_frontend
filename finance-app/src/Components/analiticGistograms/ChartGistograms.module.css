@@ -1,10 +1,10 @@
 .diagrams {
   display: flex;
-  margin: 52px auto;
+  margin: 52px auto 52px 40px;
 }
 .doughnut {
-  width: 500px;
-  height: 500px;
+  width: 400px;
+  height: 400px;
   z-index: 1;
 }
 
@@ -21,16 +21,79 @@
 .pie {
   display: flex;
 }
+.categories_name {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  height: 500px;
+}
+.label_element {
+  display: flex;
+  margin-bottom: 19px;
+  margin-right: 10px;
+}
+.category_color {
+  width: 39px;
+  height: 18px;
+  border-radius: 8px;
+  margin-right: 8px;
+}
+.category_name {
+  font-family: "Monserrat-Medium";
+  font-weight: 500;
+  font-size: 16px;
+}
 
 @media screen and (max-width: 1919px) {
+  .diagrams {
+    flex-direction: column;
+    margin: 52px auto 52px 40px;
+  }
   .doughnut {
-    width: 500px;
-    height: 500px;
+    width: 400px;
+    height: 400px;
+  }
+  .categories_name {
+    height: 160px;
+  }
+  .category_color {
+    width: 28px;
+    height: 14px;
+    border-radius: 8px;
+    margin-right: 8px;
+  }
+  .label_element {
+    margin-bottom: 14px;
+  }
+  .category_name {
+    font-size: 12px;
   }
 }
 @media screen and (max-width: 1280px) {
   .diagrams {
     flex-wrap: wrap;
+  }
+  .pie {
+    margin-bottom: 10px;
+  }
+  .doughnut {
+    width: 300px;
+    height: 300px;
+  }
+  .categories_name {
+    height: 275px;
+  }
+  .category_color {
+    width: 28px;
+    height: 14px;
+    border-radius: 8px;
+    margin-right: 8px;
+  }
+  .label_element {
+    margin-bottom: 14px;
+  }
+  .category_name {
+    font-size: 10px;
   }
 }
 @media (max-width: 840px) {
@@ -38,12 +101,16 @@
     margin: 80px;
   }
   .doughnut {
-    width: 350px;
-    height: 350px;
+    width: 300px;
+    height: 300px;
   }
 }
 @media (max-width: 625px) {
   .diagrams {
     margin: 20px 0px 20px 20px;
+  }
+  .categories_name {
+    width: 300px;
+    height: 400px;
   }
 }

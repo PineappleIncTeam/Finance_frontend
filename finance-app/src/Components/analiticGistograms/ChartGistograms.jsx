@@ -1,7 +1,7 @@
-import React from "react";
-import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
-import { Pie } from "react-chartjs-2";
-import style from "./ChartGistograms.module.css";
+import React from "react"
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js"
+import { Pie } from "react-chartjs-2"
+import style from "./ChartGistograms.module.css"
 
 function ChartGistograms({
   categoryNameIncome,
@@ -10,15 +10,15 @@ function ChartGistograms({
   resultSumOutcome,
   isActive,
 }) {
-  ChartJS.register(ArcElement, Tooltip, Legend);
-  const checkName = categoryNameIncome ? categoryNameIncome : [];
-  const checkSum = resultSumIncome ? resultSumIncome : [];
-  const checkNameOut = categoryNameOutcome ? categoryNameOutcome : [];
-  const checkSumOut = resultSumOutcome ? resultSumOutcome : [];
+  ChartJS.register(ArcElement, Tooltip, Legend)
+  const checkName = categoryNameIncome ? categoryNameIncome : []
+  const checkSum = resultSumIncome ? resultSumIncome : []
+  const checkNameOut = categoryNameOutcome ? categoryNameOutcome : []
+  const checkSumOut = resultSumOutcome ? resultSumOutcome : []
   let options = {
     plugins: {
       legend: {
-        display: true,
+        display: false,
 
         position: "right",
         align: "center",
@@ -40,43 +40,83 @@ function ChartGistograms({
         },
       },
     },
-  };
+  }
 
+  const colorsIncome = [
+    "#aceb0e",
+    "#124e5b",
+    "#125b38",
+    "#23b09b",
+    "#415b12",
+    "#125b2b",
+    "#125b3e",
+    "#1a8675",
+    "#23b09b",
+    "#1eb067",
+    "#1eb036",
+    "#52e29a",
+    "#7ee9b3",
+    "#1eb01e",
+    "#1eb067",
+    "#09c567",
+    "#0f5934",
+    "#17844d",
+    "#04592f",
+    "#045904",
+    "#068a49",
+    "#08bb63",
+    "#20770b",
+    "#2da60f",
+    "#3ad513",
+    "#2da60f",
+    "#1f8705",
+    "#608705",
+    "#207a3b",
+    "#5ed582",
+  ]
+  const colorsOutcome = [
+    "#dfa919",
+    "#f8b400",
+    "#926a00",
+    "#c58f00",
+    "#f8b400",
+    "#ffc52c",
+    "#f8f200",
+    "#8b8408",
+    "#bbb20b",
+    "#ebe00e",
+    "#f3ea39",
+    "#aba30c",
+    "#dbd00f",
+    "#f0e62d",
+    "#99931e",
+    "#ab7b0c",
+    "#c0a30f",
+    "#edc915",
+    "#ffd503",
+    "#dbed15",
+    "#edc915",
+    "#c4a714",
+    "#96800f",
+    "#c47b14",
+    "#edd351",
+    "#ffc700",
+    "#f7ff00",
+    "#ff8700",
+    "#c99d02",
+    "#c96b02",
+  ]
   const dataIncome = {
     labels: [...checkName],
 
     datasets: [
       {
         data: [...checkSum],
-        backgroundColor: [
-          "rgb(84  125   42)",
-          "rgb(134  171   91)",
-          "rgb(209  241  172)",
-          "rgb(164  240   76)",
-          "rgb(115  191   26)",
-          "rgb(55   93   10)",
-          "rgb(34   51   14)",
-          "rgb(74   85   60)",
-          "rgb(119  129  107)",
-          "rgb(129  240    2)",
-          "rgb(173 255 47)",
-          "rgb(255 228 181)",
-          "rgb(255 69 0)",
-          "rgb(160 82 45)",
-          "rgb(184 134 11)",
-          "rgb(222 184 135)",
-          "rgb(178 34 34)",
-          "rgb(233 150 122)",
-          "rgb(128 0 0)",
-          "rgb(250 128 114)",
-          "rgb(205 92 92)",
-          "rgb(240 128 128)",
-          "rgb(233 150 122)",
-        ],
+        backgroundColor: colorsIncome,
         hoverOffset: 4,
       },
     ],
-  };
+  }
 
   const dataCosts = {
     labels: [...checkNameOut],
@@ -84,35 +124,11 @@ function ChartGistograms({
     datasets: [
       {
         data: [...checkSumOut],
-        backgroundColor: [
-          "rgb(248  180    0)",
-          "rgb(238  212  143)",
-          "rgb(185  156   78)",
-          "rgb(112   92   41)",
-          "rgb(183  135    9)",
-          "rgb(75   60   20)",
-          "rgb(248  238  210)",
-          "rgb(177  167  140)",
-          "rgb(26   20    2)",
-          "rgb(255  185    0)",
-          "rgb(184 134 11)",
-          "rgb(255 69 0)",
-          "rgb(255 165 0)",
-          "rgb(244 164 96)",
-          "rgb(222 184 135)",
-          "rgb(139 0 0)",
-          "rgb(47 79 79)",
-          "rgb(119 136 153)",
-          "rgb(105 105 105)",
-          "rgb(30 144 255)",
-          "rgb(0 0 255)",
-          "rgb(0 0 128)",
-          "rgb(72 61 139)",
-        ],
+        backgroundColor: colorsOutcome,
         hoverOffset: 4,
       },
     ],
-  };
+  }
 
   // useEffect(() => {
   //     if (data) {
@@ -146,11 +162,36 @@ function ChartGistograms({
             options={options}
           />
         )}
-
-        <div className="categories">{}</div>
+      </div>
+      <div className={style.categories_name}>
+        {isActive === "income"
+          ? checkSum.map((item, index) => {
+              return (
+                <div className={style.label_element}>
+                  <div
+                    className={style.category_color}
+                    style={{ backgroundColor: colorsIncome[index] }}
+                  ></div>
+                  <div className={style.category_name}>{checkName[index]} {item}</div>
+                </div>
+              )
+            })
+          : checkSumOut.map((item, index) => {
+              return (
+                <div className={style.label_element}>
+                  <div
+                    className={style.category_color}
+                    style={{ backgroundColor: colorsOutcome[index] }}
+                  ></div>
+                  <div className={style.category_name}>
+                    {checkNameOut[index]} {item}
+                  </div>
+                </div>
+              )
+            })}
       </div>
     </div>
-  );
+  )
 }
 
-export default ChartGistograms;
+export default ChartGistograms

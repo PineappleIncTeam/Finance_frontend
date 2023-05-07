@@ -39,7 +39,7 @@ const NewPass = () => {
       console.log(response)
       if (response.status === 204) {
         setMessage("Ваш пароль успешно изменен")
-        setInterval(() => navigate("/"), 4000)
+        setTimeout(() => navigate("/"), 4000)
       }
     } catch (error) {
       console.log(error)

@@ -1,10 +1,11 @@
 import React, { useEffect, useRef } from "react"
 import "./Dropdown.css"
 import { useState } from "react"
+import { URLS } from "../../urls/urls"
 import CloseIcon from "./CloseIcon"
 import Modal from "../modalWindow/Modal"
 import style from "../modalWindow/Modal.module.css"
-import { render } from "react-dom"
+// import { render } from "react-dom"
 
 const Icon = () => {
   return (
@@ -59,8 +60,9 @@ function Dropdown({
   const [modalMessage, setModalMessage] = useState("")
   
   function createModal(categoryId, categoryName) {
-    setModalDelete(true)
+    setModalMessage(`Вы хотите удалить категорию "${categoryName}" или отправить её в архив?`)
     setSelectedCategory({ id: categoryId, name: categoryName })
+    setModalDelete(true)
   }
   //
   const userCategoriesName = categories.map((item) => {
@@ -129,16 +131,7 @@ function Dropdown({
 
   function chooseAndAddCategory(e) {
     e.preventDefault()
-    // disInput(e.target.selectedIndex);
-
-    // let selected = e.target.innerHTML
-    // if (selected === "Добавить категорию") {
-    //   // newCategory = prompt("Введите название категории (не более 14 символов)")
-    //   // setNewCategory(newCategory)
-    //   if (newCategory.length > 14) {
-    //     setError(true)
-    //     setErrorMessage("Не более 14 символов")
-    //   }
+    
     for (let i = 0; i < userCategoriesName.length; i++) {
       if (userCategoriesName[i] === newCategory.toLowerCase()) {
         setErrorMessage("Категория с таким именем уже существует")
@@ -160,7 +153,7 @@ function Dropdown({
       body: JSON.stringify(data),
     }
 
-    fetch("http://92.255.79.239:8000/api/categories/", options).then(
+    fetch(URLS.createCategory, options).then(
       (result) => {
         result.json()
         setSelectedValue("")
@@ -170,18 +163,10 @@ function Dropdown({
         setModalActive(false)
       }
     )
-    // } else {
-    //   // if (selectedValue !== title) {
-    //   //   changeSelectElement(e.target.value);
-    //   // } else if (selectedValue === title) {
-    //   //   getInputData();
-    //   // }
-    // }
   }
 
   function deleteCategory(e, category) {
     e.preventDefault()
-    // if (window.confirm("Удалить категорию и все данные?")) {
     const options = {
       method: "DELETE",
       headers: {
@@ -190,7 +175,7 @@ function Dropdown({
       },
     }
 
-    fetch(`http://92.255.79.239:8000/api/del-category/${category.id}`, options)
+    fetch(`${URLS.deleteCategory}${category.id}`, options)
       .then((result) => {
         setSelectedValue("")
         getDisplay()
@@ -209,7 +194,6 @@ function Dropdown({
 
   function sendToArchive(e, category) {
     e.preventDefault()
-    // if (window.confirm("Перевести в архив?")) {
     const options = {
       method: "PUT",
       headers: {
@@ -223,7 +207,7 @@ function Dropdown({
     }
 
     fetch(
-      `http://92.255.79.239:8000/api/update-category/${category.id}`,
+      `${URLS.sendCategoryToArchive}${category.id}`,
       options
     )
       .then((result) => {
@@ -353,10 +337,7 @@ function Dropdown({
         >
           <CloseIcon className={style.icon_styles} />
         </div>
-        <p className={style.modal_text}>
-          Вы хотите удалить категорию "{selectedCategory.name}" или отправить её
-          в архив?
-        </p>
+        <div className={style.modal_text}>{modalMessage}</div>
         <div>
           <button
             className={style.button}
@@ -374,7 +355,6 @@ function Dropdown({
             Отмена
           </button>
         </div>
-        <div className={style.message}>{modalMessage}</div>
       </Modal>
     </>
   )

@@ -1,0 +1,138 @@
+.modal {
+  height: 100vh;
+  width: 100vw;
+  background-color: rgba(0, 0, 0, 0.4);
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 20;
+  opacity: 0;
+  pointer-events: none;
+  transition: 0.5s;
+  backdrop-filter: blur(2px);
+}
+.active {
+  opacity: 1;
+  pointer-events: all;
+}
+.modal_content {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  border-radius: 10px;
+  background-color: white;
+}
+.modal_text {
+  font-family: "Monserrat-regular";
+  font-size: 16px;
+  margin-bottom: 20px;
+}
+
+.modal_input {
+  width: 190px;
+  height: 40px;
+  font-size: 16px;
+  border: 1px solid #b7b7b7;
+  border-radius: 8px;
+  font-family: "Monserrat-Regular";
+  font-weight: 400;
+  margin-top: 28px;
+  padding-left: 10px;
+  padding-right: 10px;
+  background-color: #faf5e433;
+  outline: none;
+}
+
+.error {
+  border: 1px solid red;
+  color: red;
+}
+.button {
+  cursor: pointer;
+  width: 190px;
+  height: 40px;
+  font-size: 16px;
+  border: 1px solid #125b50;
+  color: white;
+  font-family: "Monserrat-Regular";
+  font-weight: 600;
+  margin: 28px 20px 0px;
+  background-color: #125b50;
+  border-radius: 24px;
+}
+.button:hover {
+  background-color: #125b50;
+  cursor: pointer;
+  box-shadow: 0px 2px 5px 1px #0c4139;
+  transform: translateY(-1px);
+}
+.delete_icon {
+  align-self: flex-end;
+  height: 1.1em;
+  width: 1.1em;
+  display: flex;
+  align-items: center;
+}
+.delete_icon:hover {
+  /* transform: translate(1px); */
+  background-color: rgba(55, 93, 10, 0.3);
+}
+.icon_styles {
+  height: 2px;
+  width: 2px;
+}
+.message,
+.errorMessage {
+  text-align: center;
+  font-family: "Monserrat-regular";
+  font-size: 16px;
+  margin-top: 20px;
+}
+
+@media screen and (max-width: 1280px) {
+  .button,
+  .modal_input {
+    width: 120px;
+    height: 30px;
+    font-size: 12px;
+  }
+  
+  .modal_text,
+  .message,
+  .errorMessage {
+    font-size: 12px;
+    margin-top: 10px;
+  }
+}
+
+@media (max-width: 840px) {
+  .modal_content {
+    max-width: 235px;
+    max-height: 300px;
+  }
+  .button {
+    margin: 28px auto 0px;
+  }
+  .modal_text,
+  .message,
+  .errorMessage,
+  .button {
+    font-size: 12px;
+  }
+}
+@media (max-width: 625px) {
+  .modal_content {
+    max-width: 180px;
+    max-height: 250px;
+  }
+  .button,
+  .modal_input {
+    width: 140px;
+    height: 20px;
+    font-size: 10px;
+    margin-top: 10px;
+  }
+}

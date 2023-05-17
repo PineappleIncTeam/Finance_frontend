@@ -98,19 +98,20 @@ function MainFieldAnalitic({
     changeRangeCalendar(true)
   }, [dataCalRange])
 
+  //.sort((a, b) => b.result_sum - a.result_sum) - сортировка данных по размеру суммы
   const categoryNameIncome = 
     (sumGroupIncome.length > 0 && sumGroupIncome[0].sum &&
-    !result) ? sumGroupIncome[0].sum.map((item) => item.categories__categoryName) : []
+    !result) ? sumGroupIncome[0].sum.sort((a, b) => b.result_sum - a.result_sum).map((item) => item.categories__categoryName) : []
   const resultSumIncome =  
     (sumGroupIncome.length > 0 && sumGroupIncome[0].sum &&
-    !result) ? sumGroupIncome[0].sum.map((item) => item.result_sum) : []
+    !result) ? sumGroupIncome[0].sum.sort((a, b) => b.result_sum - a.result_sum).map((item) => item.result_sum) : []
 
   const categoryNameOutcome =  
     (sumGroupOutcome.length > 0 && sumGroupOutcome[0].sum &&
-    !result) ? sumGroupOutcome[0].sum.map((item) => item.categories__categoryName) : []
+    !result) ? sumGroupOutcome[0].sum.sort((a, b) => b.result_sum - a.result_sum).map((item) => item.categories__categoryName) : []
   const resultSumOutcome =  
     (sumGroupOutcome.length > 0 && sumGroupOutcome[0].sum &&
-    !result) ? sumGroupOutcome[0].sum.map((item) => item.result_sum) : []
+    !result) ? sumGroupOutcome[0].sum.sort((a, b) => b.result_sum - a.result_sum).map((item) => item.result_sum) : []
   
     function handleChange(e) {
     setIsActive(e.target.value)

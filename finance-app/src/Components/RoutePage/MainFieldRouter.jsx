@@ -58,7 +58,7 @@ const MainFieldRouter = ({
           />
         }
       />
-      <Route path="/mainfieldstorage" element={<MainFieldStorage />} />
+      <Route path="/mainfieldstorage" element={<MainFieldStorage setCheckMainField={setCheckMainField} />} />
       <Route
         path="/mainfieldanalitic"
         element={

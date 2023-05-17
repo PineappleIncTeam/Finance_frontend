@@ -2,6 +2,9 @@ import React, { useEffect, useRef } from "react"
 import "./Dropdown.css"
 import { useState } from "react"
 import CloseIcon from "./CloseIcon"
+import Modal from "../modalWindow/Modal"
+import style from "../modalWindow/Modal.module.css"
+import { render } from "react-dom"
 
 const Icon = () => {
   return (
@@ -26,13 +29,40 @@ function Dropdown({
   typeOfCategories,
   disInput,
 }) {
-  let [newCategory, setNewCategory] = useState("")
+  const [newCategory, setNewCategory] = useState("")
   const [showMenu, setShowMenu] = useState(false)
   const [selectedValue, setSelectedValue] = useState(null)
   const [searchValue, setSearchValue] = useState("")
   const searchRef = useRef()
   const inputRef = useRef()
-
+  //
+  const [modalActive, setModalActive] = useState(false)
+  const [error, setError] = useState(false)
+  const [errorMessage, setErrorMessage] = useState("")
+  function closeModal() {
+    setNewCategory("")
+    setModalActive(false)
+  }
+  function handleInput(e) {
+    setError(false)
+    setErrorMessage("")
+    e.preventDefault()
+    setNewCategory(e.target.value.replace(/[?.,/#$%^&*!()<>@]+/, ""))
+    if (e.target.value.length > 14) {
+      setError(true)
+      setErrorMessage("Не более 14 символов")
+    }
+  }
+  //
+  const [modalDelete, setModalDelete] = useState(false)
+  const [selectedCategory, setSelectedCategory] = useState({})
+  const [modalMessage, setModalMessage] = useState("")
+  
+  function createModal(categoryId, categoryName) {
+    setModalDelete(true)
+    setSelectedCategory({ id: categoryId, name: categoryName })
+  }
+  //
   const userCategoriesName = categories.map((item) => {
     if (item.category_type === category_type) {
       return item.categoryName.toLowerCase()
@@ -101,128 +131,252 @@ function Dropdown({
     e.preventDefault()
     // disInput(e.target.selectedIndex);
 
-    let selected = e.target.innerHTML
-    if (selected === "Добавить категорию") {
-      newCategory = prompt("Введите название категории (не более 14 символов)")
-      setNewCategory(newCategory)
-      if (newCategory.length > 14) {
-        alert('Название превышает допустимый размер')
+    // let selected = e.target.innerHTML
+    // if (selected === "Добавить категорию") {
+    //   // newCategory = prompt("Введите название категории (не более 14 символов)")
+    //   // setNewCategory(newCategory)
+    //   if (newCategory.length > 14) {
+    //     setError(true)
+    //     setErrorMessage("Не более 14 символов")
+    //   }
+    for (let i = 0; i < userCategoriesName.length; i++) {
+      if (userCategoriesName[i] === newCategory.toLowerCase()) {
+        setErrorMessage("Категория с таким именем уже существует")
         return
       }
-      for (let i = 0; i < userCategoriesName.length; i++) {
-        if (userCategoriesName[i] === newCategory.toLowerCase()) {
-          alert("Категория с таким именем уже существует")
-          return
-        }
-      }
-      let data = {
-        categoryName: newCategory,
-        category_type,
-        income_outcome,
-      }
-
-      const options = {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Token ${token}`,
-        },
-        body: JSON.stringify(data),
-      }
-
-      fetch("http://92.255.79.239:8000/api/categories/", options).then(
-        (result) => {
-          result.json()
-          setSelectedValue("")
-          getCategories(typeOfCategories)
-          getDisplay()
-        }
-      )
-    } else {
-      // if (selectedValue !== title) {
-      //   changeSelectElement(e.target.value);
-      // } else if (selectedValue === title) {
-      //   getInputData();
-      // }
     }
+    let data = {
+      categoryName: newCategory,
+      category_type,
+      income_outcome,
+    }
+
+    const options = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Token ${token}`,
+      },
+      body: JSON.stringify(data),
+    }
+
+    fetch("http://92.255.79.239:8000/api/categories/", options).then(
+      (result) => {
+        result.json()
+        setSelectedValue("")
+        getCategories(typeOfCategories)
+        getDisplay()
+        setNewCategory("")
+        setModalActive(false)
+      }
+    )
+    // } else {
+    //   // if (selectedValue !== title) {
+    //   //   changeSelectElement(e.target.value);
+    //   // } else if (selectedValue === title) {
+    //   //   getInputData();
+    //   // }
+    // }
   }
 
-  function deleteCategory(category) {
-    if (window.confirm("Удалить категорию и все данные?")) {
-      const options = {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Token ${token}`,
-        },
-      }
+  function deleteCategory(e, category) {
+    e.preventDefault()
+    // if (window.confirm("Удалить категорию и все данные?")) {
+    const options = {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Token ${token}`,
+      },
+    }
 
-      fetch(
-        `http://92.255.79.239:8000/api/del-category/${category}`,
-        options
-      ).then((result) => {
+    fetch(`http://92.255.79.239:8000/api/del-category/${category.id}`, options)
+      .then((result) => {
+        setSelectedValue("")
+        getDisplay()
+        getCategories(typeOfCategories)
+        setModalMessage(`Категория "${selectedCategory.name}" была удалена`)
+      })
+      .then(() => {
+        setTimeout(() => {
+          setModalDelete(false)
+          setSelectedCategory({})
+          setModalMessage("")
+        }, 2000)
+      })
+    // }
+  }
+
+  function sendToArchive(e, category) {
+    e.preventDefault()
+    // if (window.confirm("Перевести в архив?")) {
+    const options = {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Token ${token}`,
+      },
+      body: JSON.stringify({
+        category_id: category.id,
+        is_hidden: true,
+      }),
+    }
+
+    fetch(
+      `http://92.255.79.239:8000/api/update-category/${category.id}`,
+      options
+    )
+      .then((result) => {
+        setModalMessage(`Категория "${selectedCategory.name}" была переведена в архив`)
         setSelectedValue("")
         getDisplay()
         getCategories(typeOfCategories)
       })
-    }
+      .then(() => {
+        setTimeout(() => {
+          setModalDelete(false)
+          setSelectedCategory({})
+          setModalMessage("")
+        }, 2000)
+      })
+    // } else return
+  }
+
+  function cancel(e) {
+    e.preventDefault()
+    setSelectedCategory({})
+    setModalDelete(false)
   }
 
   return (
-    <div className="dropdown-container">
-      <div className="dropdown-input" ref={inputRef} onClick={handleInputClick}>
-        <div className="dropdown-selected-value">{getDisplay()}</div>
-        <div className="dropdown-tools">
-          <div className="dropdown-tool">
-            <Icon />
+    <>
+      <div className="dropdown-container">
+        <div
+          className="dropdown-input"
+          ref={inputRef}
+          onClick={handleInputClick}
+        >
+          <div className="dropdown-selected-value">{getDisplay()}</div>
+          <div className="dropdown-tools">
+            <div className="dropdown-tool">
+              <Icon />
+            </div>
           </div>
         </div>
-      </div>
-      {showMenu && (
-        <div className="dropdown-menu">
-          {isSearchable && (
-            <div className="search-box">
-              <input
-                onChange={onSearch}
-                value={searchValue}
-                ref={searchRef}
-                placeholder="Добавить категорию"
-              />
+        {showMenu && (
+          <div className="dropdown-menu">
+            {isSearchable && (
+              <div className="search-box">
+                <input
+                  onChange={onSearch}
+                  value={searchValue}
+                  ref={searchRef}
+                  placeholder="Добавить категорию"
+                />
+              </div>
+            )}
+            <div
+              className="option_list_add"
+              data-value="Добавить категорию"
+              onClick={() => setModalActive(true)}
+            >
+              Добавить категорию
             </div>
-          )}
-          <div
-            className="option_list_add"
-            data-value="Добавить категорию"
+            {categories.map((jsonObject, index) => {
+              if (
+                jsonObject.category_type === category_type &&
+                jsonObject.is_hidden === false
+              ) {
+                return (
+                  <div
+                    className={`dropdown-item ${
+                      isSelected(jsonObject) && "selected"
+                    }`}
+                    key={jsonObject.category_id}
+                    index={index}
+                    onClick={() => onItemClick(jsonObject)}
+                  >
+                    {jsonObject.categoryName}
+                    <span
+                      className="delete-icon"
+                      title="Удаление категории"
+                      // onClick={() => deleteCategory(jsonObject.category_id)}
+                      onClick={() =>
+                        createModal(
+                          jsonObject.category_id,
+                          jsonObject.categoryName
+                        )
+                      }
+                    >
+                      <CloseIcon />
+                    </span>
+                  </div>
+                )
+              }
+            })}
+          </div>
+        )}
+      </div>
+      <Modal
+        active={modalActive}
+        setActive={setModalActive}
+        setInput={() => setNewCategory("")}
+      >
+        <div className={style.delete_icon} onClick={closeModal}>
+          <CloseIcon className={style.icon_styles} />
+        </div>
+        <p className={style.modal_text}>
+          Введите название категории (не более 14 символов)
+        </p>
+        <div>
+          <input
+            className={
+              error ? `${style.modal_input} ${style.error}` : style.modal_input
+            }
+            type="text"
+            value={newCategory}
+            onChange={(e) => handleInput(e)}
+          />
+          <button
+            className={style.button}
             onClick={(e) => chooseAndAddCategory(e)}
           >
-            Добавить категорию
-          </div>
-          {categories.map((jsonObject, index) => {
-            if (jsonObject.category_type === category_type) {
-              return (
-                <div
-                  className={`dropdown-item ${
-                    isSelected(jsonObject) && "selected"
-                  }`}
-                  key={jsonObject.category_id}
-                  index={index}
-                  onClick={() => onItemClick(jsonObject)}
-                >
-                  {jsonObject.categoryName}
-                  <span
-                    className="delete-icon"
-                    title="Удаление категории"
-                    onClick={() => deleteCategory(jsonObject.category_id)}
-                  >
-                    <CloseIcon />
-                  </span>
-                </div>
-              )
-            }
-          })}
+            Добавить
+          </button>
         </div>
-      )}
-    </div>
+        <div className={style.errorMessage}>{errorMessage}</div>
+      </Modal>
+      <Modal active={modalDelete} setActive={setModalDelete}>
+        <div
+          className={style.delete_icon}
+          onClick={() => setModalDelete(false)}
+        >
+          <CloseIcon className={style.icon_styles} />
+        </div>
+        <p className={style.modal_text}>
+          Вы хотите удалить категорию "{selectedCategory.name}" или отправить её
+          в архив?
+        </p>
+        <div>
+          <button
+            className={style.button}
+            onClick={(e) => deleteCategory(e, selectedCategory)}
+          >
+            Удалить
+          </button>
+          <button
+            className={style.button}
+            onClick={(e) => sendToArchive(e, selectedCategory)}
+          >
+            В архив
+          </button>
+          <button className={style.button} onClick={(e) => cancel(e)}>
+            Отмена
+          </button>
+        </div>
+        <div className={style.message}>{modalMessage}</div>
+      </Modal>
+    </>
   )
 }
 export default Dropdown

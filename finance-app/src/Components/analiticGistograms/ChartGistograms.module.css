@@ -1,6 +1,9 @@
+.diagram_box {
+  display: flex;
+}
 .diagrams {
   display: flex;
-  margin: 52px auto 52px 40px;
+  margin: 52px 25px 52px 40px;
 }
 .doughnut {
   width: 400px;
@@ -26,11 +29,12 @@
   flex-direction: column;
   flex-wrap: wrap;
   height: 500px;
+  margin-top: 52px;
 }
 .label_element {
   display: flex;
   margin-bottom: 19px;
-  margin-right: 10px;
+  margin-right: 20px;
 }
 .category_color {
   width: 39px;
@@ -45,16 +49,21 @@
 }
 
 @media screen and (max-width: 1919px) {
+  .diagram_box {
+    flex-direction: column;
+  }
   .diagrams {
     flex-direction: column;
-    margin: 52px auto 52px 40px;
+    margin: 35px auto 24px 40px;
   }
   .doughnut {
     width: 400px;
     height: 400px;
   }
   .categories_name {
+    margin-top: 0px;
     height: 160px;
+    margin-left: 40px;
   }
   .category_color {
     width: 28px;
@@ -63,7 +72,8 @@
     margin-right: 8px;
   }
   .label_element {
-    margin-bottom: 14px;
+    margin-bottom: 0px;
+    margin-top: 14px;
   }
   .category_name {
     font-size: 12px;
@@ -81,16 +91,13 @@
     height: 300px;
   }
   .categories_name {
-    height: 275px;
+    height: 250px;
   }
   .category_color {
     width: 28px;
     height: 14px;
     border-radius: 8px;
     margin-right: 8px;
-  }
-  .label_element {
-    margin-bottom: 14px;
   }
   .category_name {
     font-size: 10px;
@@ -104,12 +111,18 @@
     width: 300px;
     height: 300px;
   }
+  .categories_name {
+    margin-left: 80px;
+    width: 300px;
+    height: 400px;
+  }
 }
 @media (max-width: 625px) {
   .diagrams {
     margin: 20px 0px 20px 20px;
   }
   .categories_name {
+    margin-left: 20px;
     width: 300px;
     height: 400px;
   }

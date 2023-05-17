@@ -140,28 +140,30 @@ function ChartGistograms({
   //     }
   //   }, [data, sum]);
   return (
-    <div className={style.diagrams}>
-      <div className={style.pie}>
-        {/* <label htmlFor="" className={style.title}>
+    <div className={style.diagram_box}>
+      <div className={style.diagrams}>
+        <div className={style.pie}>
+          {/* <label htmlFor="" className={style.title}>
           Доходы
         </label> */}
-        {isActive === "income" ? (
-          <Pie
-            className={style.doughnut}
-            width={style.doughnut}
-            height={style.doughnut}
-            data={dataIncome}
-            options={options}
-          />
-        ) : (
-          <Pie
-            className={style.doughnut}
-            width={style.doughnut}
-            height={style.doughnut}
-            data={dataCosts}
-            options={options}
-          />
-        )}
+          {isActive === "income" ? (
+            <Pie
+              className={style.doughnut}
+              width={style.doughnut}
+              height={style.doughnut}
+              data={dataIncome}
+              options={options}
+            />
+          ) : (
+            <Pie
+              className={style.doughnut}
+              width={style.doughnut}
+              height={style.doughnut}
+              data={dataCosts}
+              options={options}
+            />
+          )}
+        </div>
       </div>
       <div className={style.categories_name}>
         {isActive === "income"
@@ -172,7 +174,9 @@ function ChartGistograms({
                     className={style.category_color}
                     style={{ backgroundColor: colorsIncome[index] }}
                   ></div>
-                  <div className={style.category_name}>{checkName[index]} {item}</div>
+                  <div className={style.category_name}>
+                    {checkName[index]} {item}
+                  </div>
                 </div>
               )
             })

@@ -2,7 +2,7 @@ import { useSelector } from "react-redux"
 import s from "./Transactions.module.css"
 import { URLS } from "../../urls/urls"
 import { useState } from "react"
-import CloseIcon from "../Dropdown/CloseIcon"
+import closeIcon from "../../Images/closeIcon.svg"
 import Modal from "../modalWindow/Modal"
 import style from "../modalWindow/Modal.module.css"
 
@@ -24,13 +24,12 @@ function TransactionList({
   const [message, setMessage] = useState("")
 
   function createModalChangeSum(id, category_id, sum, symbol) {
-    setMessage("Введите новое числовое значение")
+    setMessage(`Введите новое числовое \n значение`)
     setModalChangeSum(true)
     setSelectedOperation({ id, category_id, sum, symbol })
     setNewSum(sum)
   }
   function closeModalChangeSum() {
-    // setNewCategory("")
     setModalChangeSum(false)
   }
   function handleInput(e) {
@@ -44,7 +43,7 @@ function TransactionList({
 
   function createDeleteModal(operationId, symbol) {
     setMessage(
-      "Вы действительно хотите удалить эту запись? Действие не может быть отменено"
+      "Вы действительно хотите удалить эту запись? \n Действие не может быть отменено"
     )
     setModalDeleteActive(true)
     setSelectedOperation({ id: operationId, symbol: symbol })
@@ -168,45 +167,52 @@ function TransactionList({
         setActive={setModalDeleteActive}
         setInput={setModalDeleteActive}
       >
-        <p className={style.modal_text}>{message}</p>
-        <div>
-          <button
-            className={style.button}
-            onClick={() =>
-              deleteCash(selectedOperation.id, selectedOperation.symbol)
-            }
-          >
-            Удалить
-          </button>
-          <button className={style.button} onClick={(e) => cancel(e)}>
-            Отмена
-          </button>
+        <div className={style.delete_icon} onClick={() => setModalDeleteActive(false)}>
+          <img src={closeIcon} alt="X" />
+        </div>
+        <div className={style.content_box}>
+          <p className={style.modal_text}>{message}</p>
+          <div>
+            <button
+              className={style.button}
+              onClick={() =>
+                deleteCash(selectedOperation.id, selectedOperation.symbol)
+              }
+            >
+              Удалить
+            </button>
+            <button className={style.button_cancel} onClick={(e) => cancel(e)}>
+              Отмена
+            </button>
+          </div>
         </div>
       </Modal>
       <Modal active={modalChangeSum} setActive={setModalChangeSum}>
         <div className={style.delete_icon} onClick={closeModalChangeSum}>
-          <CloseIcon className={style.icon_styles} />
+          <img src={closeIcon} alt="X" />
         </div>
-        <p className={style.modal_text}>{message}</p>
-        <div>
-          <input
-            className={style.modal_input}
-            type="text"
-            value={newSum}
-            onChange={(e) => handleInput(e)}
-          />
-          <button
-            className={style.button}
-            onClick={() =>
-              updateCash(
-                selectedOperation.id,
-                selectedOperation.category_id,
-                selectedOperation.symbol
-              )
-            }
-          >
-            Добавить
-          </button>
+        <div className={style.content_box}>
+          <p className={style.modal_text}>{message}</p>
+          <div>
+            <input
+              className={style.modal_input}
+              type="text"
+              value={newSum}
+              onChange={(e) => handleInput(e)}
+            />
+            <button
+              className={style.button}
+              onClick={() =>
+                updateCash(
+                  selectedOperation.id,
+                  selectedOperation.category_id,
+                  selectedOperation.symbol
+                )
+              }
+            >
+              Добавить
+            </button>
+          </div>
         </div>
       </Modal>
     </>

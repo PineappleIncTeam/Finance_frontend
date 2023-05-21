@@ -3,9 +3,9 @@ import "./Dropdown.css"
 import { useState } from "react"
 import { URLS } from "../../urls/urls"
 import CloseIcon from "./CloseIcon"
+import closeIcon from "../../Images/closeIcon.svg"
 import Modal from "../modalWindow/Modal"
 import style from "../modalWindow/Modal.module.css"
-// import { render } from "react-dom"
 
 const Icon = () => {
   return (
@@ -48,7 +48,7 @@ function Dropdown({
     setError(false)
     setErrorMessage("")
     e.preventDefault()
-    setNewCategory(e.target.value.replace(/[?.,/#$%^&*!()<>@]+/, ""))
+    setNewCategory(e.target.value.replace(/[/#$%^&*!()<>@]+/, ""))
     if (e.target.value.length > 14) {
       setError(true)
       setErrorMessage("Не более 14 символов")
@@ -58,9 +58,11 @@ function Dropdown({
   const [modalDelete, setModalDelete] = useState(false)
   const [selectedCategory, setSelectedCategory] = useState({})
   const [modalMessage, setModalMessage] = useState("")
-  
+
   function createModal(categoryId, categoryName) {
-    setModalMessage(`Вы хотите удалить категорию "${categoryName}" или отправить её в архив?`)
+    setModalMessage(
+      `Вы хотите удалить категорию "${categoryName}" или отправить её в архив?`
+    )
     setSelectedCategory({ id: categoryId, name: categoryName })
     setModalDelete(true)
   }
@@ -131,7 +133,7 @@ function Dropdown({
 
   function chooseAndAddCategory(e) {
     e.preventDefault()
-    
+
     for (let i = 0; i < userCategoriesName.length; i++) {
       if (userCategoriesName[i] === newCategory.toLowerCase()) {
         setErrorMessage("Категория с таким именем уже существует")
@@ -153,16 +155,14 @@ function Dropdown({
       body: JSON.stringify(data),
     }
 
-    fetch(URLS.createCategory, options).then(
-      (result) => {
-        result.json()
-        setSelectedValue("")
-        getCategories(typeOfCategories)
-        getDisplay()
-        setNewCategory("")
-        setModalActive(false)
-      }
-    )
+    fetch(URLS.createCategory, options).then((result) => {
+      result.json()
+      setSelectedValue("")
+      getCategories(typeOfCategories)
+      getDisplay()
+      setNewCategory("")
+      setModalActive(false)
+    })
   }
 
   function deleteCategory(e, category) {
@@ -206,12 +206,11 @@ function Dropdown({
       }),
     }
 
-    fetch(
-      `${URLS.sendCategoryToArchive}${category.id}`,
-      options
-    )
+    fetch(`${URLS.sendCategoryToArchive}${category.id}`, options)
       .then((result) => {
-        setModalMessage(`Категория "${selectedCategory.name}" была переведена в архив`)
+        setModalMessage(
+          `Категория "${selectedCategory.name}" была переведена в архив`
+        )
         setSelectedValue("")
         getDisplay()
         getCategories(typeOfCategories)
@@ -282,9 +281,8 @@ function Dropdown({
                   >
                     {jsonObject.categoryName}
                     <span
-                      className="delete-icon"
+                      className={style.delete_icon}
                       title="Удаление категории"
-                      // onClick={() => deleteCategory(jsonObject.category_id)}
                       onClick={() =>
                         createModal(
                           jsonObject.category_id,
@@ -307,35 +305,40 @@ function Dropdown({
         setInput={() => setNewCategory("")}
       >
         <div className={style.delete_icon} onClick={closeModal}>
-          <CloseIcon className={style.icon_styles} />
+          <img src={closeIcon} alt="X" />
         </div>
-        <p className={style.modal_text}>
-          Введите название категории (не более 14 символов)
-        </p>
-        <div>
-          <input
-            className={
-              error ? `${style.modal_input} ${style.error}` : style.modal_input
-            }
-            type="text"
-            value={newCategory}
-            onChange={(e) => handleInput(e)}
-          />
-          <button
-            className={style.button}
-            onClick={(e) => chooseAndAddCategory(e)}
-          >
-            Добавить
-          </button>
+        <div className={style.content_box}>
+          <p className={style.modal_text}>
+            Введите название категории <br />
+            (не более 14 символов)
+          </p>
+          <div>
+            <input
+              className={
+                error
+                  ? `${style.modal_input} ${style.error}`
+                  : style.modal_input
+              }
+              type="text"
+              value={newCategory}
+              onChange={(e) => handleInput(e)}
+            />
+            <button
+              className={style.button}
+              onClick={(e) => chooseAndAddCategory(e)}
+            >
+              Добавить
+            </button>
+          </div>
+          <div className={style.errorMessage}>{errorMessage}</div>
         </div>
-        <div className={style.errorMessage}>{errorMessage}</div>
       </Modal>
       <Modal active={modalDelete} setActive={setModalDelete}>
         <div
           className={style.delete_icon}
           onClick={() => setModalDelete(false)}
         >
-          <CloseIcon className={style.icon_styles} />
+          <img src={closeIcon} alt="X" />
         </div>
         <div className={style.modal_text}>{modalMessage}</div>
         <div>
@@ -346,12 +349,12 @@ function Dropdown({
             Удалить
           </button>
           <button
-            className={style.button}
+            className={style.button_archive}
             onClick={(e) => sendToArchive(e, selectedCategory)}
           >
             В архив
           </button>
-          <button className={style.button} onClick={(e) => cancel(e)}>
+          <button className={style.button_cancel} onClick={(e) => cancel(e)}>
             Отмена
           </button>
         </div>

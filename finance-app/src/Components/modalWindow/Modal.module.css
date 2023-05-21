@@ -26,17 +26,18 @@
   background-color: white;
 }
 .modal_text {
-  font-family: "Monserrat-regular";
+  font-family: "Monserrat-medium";
   font-size: 16px;
   margin-bottom: 20px;
+  white-space: pre-line;
 }
 
 .modal_input {
-  width: 190px;
-  height: 40px;
+  width: 200px;
+  height: 50px;
   font-size: 16px;
   border: 1px solid #b7b7b7;
-  border-radius: 8px;
+  border-radius: 12px;
   font-family: "Monserrat-Regular";
   font-weight: 400;
   margin-top: 28px;
@@ -52,8 +53,8 @@
 }
 .button {
   cursor: pointer;
-  width: 190px;
-  height: 40px;
+  width: 200px;
+  height: 50px;
   font-size: 16px;
   border: 1px solid #125b50;
   color: white;
@@ -61,7 +62,7 @@
   font-weight: 600;
   margin: 28px 20px 0px;
   background-color: #125b50;
-  border-radius: 24px;
+  border-radius: 20px;
 }
 .button:hover {
   background-color: #125b50;
@@ -69,21 +70,35 @@
   box-shadow: 0px 2px 5px 1px #0c4139;
   transform: translateY(-1px);
 }
+.button_cancel {
+  composes: button;
+  background-color: #a10930;
+  border-color: #a10930;
+}
+.button_cancel:hover {
+  background-color: #a10930;
+  box-shadow: 0px 2px 5px 1px #8a354a;
+}
+.button_archive {
+  composes: button;
+  background-color: #999999;
+  border-color: #999999;
+}
+.button_archive:hover {
+  background-color: #999999;
+  box-shadow: 0px 2px 5px 1px #999999;
+}
 .delete_icon {
   align-self: flex-end;
-  height: 1.1em;
-  width: 1.1em;
   display: flex;
-  align-items: center;
+  opacity: 0.4;
+  transition: 0.3s;
 }
 .delete_icon:hover {
-  /* transform: translate(1px); */
-  background-color: rgba(55, 93, 10, 0.3);
+  opacity: 1;
+  transition: 0.3s;
 }
-.icon_styles {
-  height: 2px;
-  width: 2px;
-}
+
 .message,
 .errorMessage {
   text-align: center;
@@ -93,46 +108,55 @@
 }
 
 @media screen and (max-width: 1280px) {
-  .button,
-  .modal_input {
-    width: 120px;
-    height: 30px;
-    font-size: 12px;
-  }
-  
   .modal_text,
   .message,
   .errorMessage {
-    font-size: 12px;
+    font-size: 16px;
     margin-top: 10px;
   }
 }
 
 @media (max-width: 840px) {
   .modal_content {
-    max-width: 235px;
-    max-height: 300px;
+    width: 295px;
+    height: 295px;
+  }
+  .content_box {
+    margin: 38px auto 0px;
   }
   .button {
-    margin: 28px auto 0px;
+    font-size: 20px;
+    width: 200px;
+    height: 50px;
+    margin: 0px auto 20px;
+  }
+  .modal_input {
+    width: 275px;
+    height: 50px;
+    margin-top: 7px;
+    margin-bottom: 44px;
   }
   .modal_text,
   .message,
-  .errorMessage,
-  .button {
-    font-size: 12px;
+  .errorMessage {
+    font-size: 16px;
+    margin-top: 0px;
+    margin-bottom: 25px;
+  }
+  .errorMessage {
+    margin-bottom: 0px;
   }
 }
 @media (max-width: 625px) {
-  .modal_content {
+  /* .modal_content {
     max-width: 180px;
     max-height: 250px;
-  }
-  .button,
+  } */
+  /* .button,
   .modal_input {
     width: 140px;
     height: 20px;
     font-size: 10px;
     margin-top: 10px;
-  }
+  } */
 }

@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux"
 import s from "./Transactions.module.css"
-import { URLS } from "../../urls/urls"
+import { URLS } from "../../urls/urlsAndDates"
 import { useState } from "react"
 import closeIcon from "../../Images/closeIcon.svg"
 import Modal from "../modalWindow/Modal"
@@ -12,8 +12,6 @@ function TransactionList({
   operationList,
   symbol,
   getInputData,
-  sumIncomeCash,
-  sumOutcomeCash,
 }) {
   const token = useSelector((state) => state.user.token)
 
@@ -66,7 +64,7 @@ function TransactionList({
       fetch(`${URLS.deleteIncomeCash}${id}`, deleteOptions)
       setTimeout(() => {
         getOperationList(URLS.last5IncomeCash, symbol)
-        getInputData(sumIncomeCash)
+        getInputData(URLS.sumIncomeCash)
         getBalanceData()
       }, 500)
     }
@@ -74,7 +72,7 @@ function TransactionList({
       fetch(`${URLS.deleteOutcomeCash}${id}`, deleteOptions)
       setTimeout(() => {
         getOperationList(URLS.last5OutcomeCash, symbol)
-        getInputData(sumOutcomeCash)
+        getInputData(URLS.sumOutcomeCash)
         getBalanceData()
       }, 500)
     }
@@ -99,7 +97,7 @@ function TransactionList({
       fetch(`${URLS.updateIncomeCash}${id}`, updateOptions)
       setTimeout(() => {
         getOperationList(URLS.last5IncomeCash, symbol)
-        getInputData(sumIncomeCash)
+        getInputData(URLS.sumIncomeCash)
         getBalanceData()
       }, 400)
     }
@@ -107,7 +105,7 @@ function TransactionList({
       fetch(`${URLS.updateOutcomeCash}${id}`, updateOptions)
       setTimeout(() => {
         getOperationList(URLS.last5OutcomeCash, symbol)
-        getInputData(sumOutcomeCash)
+        getInputData(URLS.sumOutcomeCash)
         getBalanceData()
       }, 400)
     }
@@ -167,7 +165,10 @@ function TransactionList({
         setActive={setModalDeleteActive}
         setInput={setModalDeleteActive}
       >
-        <div className={style.delete_icon} onClick={() => setModalDeleteActive(false)}>
+        <div
+          className={style.delete_icon}
+          onClick={() => setModalDeleteActive(false)}
+        >
           <img src={closeIcon} alt="X" />
         </div>
         <div className={style.content_box}>

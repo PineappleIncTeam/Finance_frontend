@@ -3,11 +3,10 @@ import style from "./Aside.module.css";
 import userAva from "./../../Images/userAva.svg";
 import "air-datepicker/air-datepicker.css";
 import AirDatePicker from "../calendar/AirCalendar";
-// import { useState } from "react";
-// import { useEffect } from "react";
-// import { useSelector } from "react-redux";
+import { months, month } from "../../urls/urlsAndDates";
 
-const Aside = ({ balanceData, range, months, month }) => {
+
+const Aside = ({ balanceData, range }) => {
   return (
     <div>
       <div className={style.root}>

@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import MainField from "../MainField";
 import MainFieldAnalitic from "../MainFieldAnalitic";
 import MainFieldCosts from "../MainFieldCosts";
@@ -11,14 +11,10 @@ const MainFieldRouter = ({
   getBalanceData,
   getInputData,
   inputData,
-  sumIncomeCash,
-  sumOutcomeCash,
   operationList,
   changeRangeCalendar,
   range,
   setCheckMainField,
-  months,
-  month,
   gistogramSize
 }) => {
   return (
@@ -31,12 +27,9 @@ const MainFieldRouter = ({
             getBalanceData={getBalanceData}
             getInputData={getInputData}
             inputData={inputData}
-            sumIncomeCash={sumIncomeCash}
             changeRangeCalendar={changeRangeCalendar}
             range={range}
             setCheckMainField={setCheckMainField}
-            months={months}
-            month={month}
           />
         }
       />
@@ -49,12 +42,9 @@ const MainFieldRouter = ({
             getBalanceData={getBalanceData}
             getInputData={getInputData}
             inputData={inputData}
-            sumOutcomeCash={sumOutcomeCash}
             changeRangeCalendar={changeRangeCalendar}
             range={range}
             setCheckMainField={setCheckMainField}
-            months={months}
-            month={month}
           />
         }
       />

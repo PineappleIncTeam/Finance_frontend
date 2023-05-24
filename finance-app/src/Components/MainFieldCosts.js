@@ -3,25 +3,23 @@ import { useEffect, useState } from "react";
 import { render } from "react-dom";
 import { useSelector } from "react-redux";
 import MainFieldString from "./MainFieldString";
+import { URLS, months, month } from "../urls/urlsAndDates";
 
 function MainFieldCosts({
   getOperationList,
   getBalanceData,
   getInputData,
   inputData,
-  sumOutcomeCash,
   changeRangeCalendar,
   setCheckMainField,
-  months,
-  month
 }) {
   const token = useSelector((state) => state.user.token);
   const [categories, setCategories] = useState("");
   const planned = ["Планируемые", "Добавить категорию"];
 
-  let outcomeOperations = "http://92.255.79.239:8000/api/last-5-outcomecash/";
-  let typeOfSum = "http://92.255.79.239:8000/api/outcomecash/";
-  let typeOfCategories = "http://92.255.79.239:8000/api/outcome-categories/";
+  // let outcomeOperations = "http://92.255.79.239:8000/api/last-5-outcomecash/";
+  // let typeOfSum = "http://92.255.79.239:8000/api/outcomecash/";
+  // let typeOfCategories = "http://92.255.79.239:8000/api/outcome-categories/";
 
   function getCategories(typeOfCategories) {
     const options = {
@@ -37,10 +35,10 @@ function MainFieldCosts({
   }
 
   useEffect(() => {
-    getInputData(sumOutcomeCash);
+    getInputData(URLS.sumOutcomeCash);
     setCheckMainField(true);
-    getOperationList(outcomeOperations, "-");
-    getCategories(typeOfCategories);
+    getOperationList(URLS.outcomeOperations, "-");
+    getCategories(URLS.getOutcomeCategories);
     changeRangeCalendar(false);
   }, []);
 
@@ -56,14 +54,14 @@ function MainFieldCosts({
         title="Постоянные"
         type="constant"
         income_outcome="outcome"
-        endpoint={outcomeOperations}
-        typeOfSum={typeOfSum}
+        endpoint={URLS.outcomeOperations}
+        typeOfSum={URLS.POSToutcomecash}
         getInputData={getInputData}
-        sumCash={sumOutcomeCash}
+        sumCash={URLS.sumOutcomeCash}
         typeForSum="constant_sum"
         getOperationList={getOperationList}
         getCategories={getCategories}
-        typeOfCategories={typeOfCategories}
+        typeOfCategories={URLS.getOutcomeCategories}
         categories={categories}
         symbol="-"
         getBalanceData={getBalanceData}
@@ -72,14 +70,14 @@ function MainFieldCosts({
         title="Временные"
         type="once"
         income_outcome="outcome"
-        endpoint={outcomeOperations}
-        typeOfSum={typeOfSum}
+        endpoint={URLS.outcomeOperations}
+        typeOfSum={URLS.POSToutcomecash}
         getInputData={getInputData}
-        sumCash={sumOutcomeCash}
+        sumCash={URLS.sumOutcomeCash}
         typeForSum="once_sum"
         getOperationList={getOperationList}
         getCategories={getCategories}
-        typeOfCategories={typeOfCategories}
+        typeOfCategories={URLS.getOutcomeCategories}
         categories={categories}
         symbol="-"
         getBalanceData={getBalanceData}

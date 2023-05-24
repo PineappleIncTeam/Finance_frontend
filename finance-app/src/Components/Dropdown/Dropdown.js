@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react"
 import "./Dropdown.css"
 import { useState } from "react"
-import { URLS } from "../../urls/urls"
+import { URLS } from "../../urls/urlsAndDates"
 import CloseIcon from "./CloseIcon"
 import closeIcon from "../../Images/closeIcon.svg"
 import Modal from "../modalWindow/Modal"

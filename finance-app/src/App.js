@@ -1,11 +1,10 @@
 //Корневой компонент приложения
 
 import "./App.css";
-import Rectangle from "./Components/Rectangle";
+// import Rectangle from "./Components/Rectangle";
 
-import { useState, useEffect } from "react";
-import RegistPage from "./Components/registration-page/registPage/RegistPage";
-import jsonToArray from "./Utils/jsonToArray";
+// import { useState, useEffect } from "react";
+// import RegistPage from "./Components/registration-page/registPage/RegistPage";
 import RegistRoutePage from "./Components/RoutePage/RegistRoutePage";
 
 function App() {

@@ -1,9 +1,8 @@
 // Компонент "Накопления"
 import MainFieldString from "./MainFieldString"
 function MainFieldStorage({ setCheckMainField }) {
-  
   setCheckMainField(false)
-  
+
   const categories = [
     {
       categoryName: "Зарплата",
@@ -22,12 +21,10 @@ function MainFieldStorage({ setCheckMainField }) {
     <div className="main_field">
       <h2 className="main_field_title storage_title">Накопления</h2>
       <div className="main_field_storage">
-        {/* <select className="select_storage analitic_select">
-            <option>Добавить категорию</option>
-            
-          </select> */}
-
-        <MainFieldString categories={categories} type={categories.category_type} />
+        <MainFieldString
+          categories={categories}
+          type={categories.category_type}
+        />
       </div>
       <div className="storage_categories">
         <div className="categories_storage_title fat">

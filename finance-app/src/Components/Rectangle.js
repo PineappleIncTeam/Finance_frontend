@@ -54,32 +54,6 @@ function Rectangle() {
   }, [width])
   //
 
-  // let date = new Date()
-  // let year = date.getFullYear()
-  // let month = date.getMonth() + 1
-  // let lastDayDate = new Date(date.getFullYear(), date.getMonth() + 1, 0)
-  // let lastDay = lastDayDate.toLocaleString().substring(0, 2)
-  // let firstDayOfMonth = `${year}-${month}-01`
-  // let lastDayOfMonth = `${year}-${month}-${lastDay}`
-  // let months = {
-  //   1: "Январь",
-  //   2: "Февраль",
-  //   3: "Март",
-  //   4: "Апрель",
-  //   5: "Май",
-  //   6: "Июнь",
-  //   7: "Июль",
-  //   8: "Август",
-  //   9: "Сентябрь",
-  //   10: "Октябрь",
-  //   11: "Ноябрь",
-  //   12: "Декабрь",
-  // }
-  //
-  // let typeOfOperation = "http://92.255.79.239:8000/api/last-5-incomecash/";
-  // const sumIncomeCash = `http://92.255.79.239:8000/api/sum-incomecash/?date_start=${firstDayOfMonth}&date_end=${lastDayOfMonth}`
-  // const sumOutcomeCash = `http://92.255.79.239:8000/api/sum-outcomecash/?date_start=${firstDayOfMonth}&date_end=${lastDayOfMonth}`
-  // const balance = `http://92.255.79.239:8000/api/balance/`
   function getOperationList(endpoint, symbol) {
     const options = {
       method: "GET",
@@ -96,9 +70,7 @@ function Rectangle() {
         setSymbol(symbol)
       })
   }
-  // useEffect(() => {
-  //   getOperationList(typeOfOperation);
-  // }, []);
+  
   function getBalanceData() {
     const options = {
       method: "GET",

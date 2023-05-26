@@ -4,8 +4,8 @@ let year = date.getFullYear()
 export let month = date.getMonth() + 1
 let lastDayDate = new Date(date.getFullYear(), date.getMonth() + 1, 0)
 let lastDay = lastDayDate.toLocaleString().substring(0, 2)
-let firstDayOfMonth = `${year}-${month}-01`
-let lastDayOfMonth = `${year}-${month}-${lastDay}`
+export let firstDayOfMonth = `${year}-${month}-01`
+export let lastDayOfMonth = `${year}-${month}-${lastDay}`
 
 export let months = {
     1: "Январь",
@@ -42,6 +42,11 @@ export const URLS = {
     last5OutcomeCash: "http://92.255.79.239:8000/api/last-5-outcomecash/",
     createCategory: "http://92.255.79.239:8000/api/categories/",
     deleteCategory: "http://92.255.79.239:8000/api/del-category/",
-    sendCategoryToArchive: "http://92.255.79.239:8000/api/update-category/"
+    sendCategoryToArchive: "http://92.255.79.239:8000/api/update-category/",
+    getSumIncomeGroup: "http://92.255.79.239:8000/api/sum-incomecash-group/",
+    getSumOutcomeGroup: "http://92.255.79.239:8000/api/sum-outcomecash-group/",
+    getSumMonthlyIncome: "http://92.255.79.239:8000/api/sum-monthly-income/",
+    getSumMonthlyOutcome: "http://92.255.79.239:8000/api/sum-monthly-outcome/",
 
+    
 }

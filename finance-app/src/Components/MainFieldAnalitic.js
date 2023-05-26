@@ -1,12 +1,13 @@
 // Компонент "Аналитика"
 // import MainFieldString from './MainFieldString';
-import { current } from "@reduxjs/toolkit"
+// import { current } from "@reduxjs/toolkit"
 import React, { useEffect, useState } from "react"
 import { useSelector } from "react-redux"
 import ChartGistograms from "./analiticGistograms/ChartGistograms"
 import Gistogram from "./analiticGistograms/Gistogram"
 import percentFunction from "./analiticGistograms/percentFunction"
-import style from "../Components/analiticGistograms/Gistogram.module.css"
+import { URLS, firstDayOfMonth, lastDayOfMonth } from "../urls/urlsAndDates"
+// import style from "../Components/analiticGistograms/Gistogram.module.css"
 
 function MainFieldAnalitic({
   changeRangeCalendar,
@@ -23,14 +24,6 @@ function MainFieldAnalitic({
   //
   const [percentChoice, setPercentChoice] = useState(false)
   //  
-  let date = new Date();
-  let year = date.getFullYear();
-  let month = date.getMonth() + 1;
-  let lastDayDate = new Date(date.getFullYear(), date.getMonth() + 1, 0);
-  let lastDay = lastDayDate.toLocaleString().substring(0, 2);
-  let firstDayOfMonth = `${year}-${month}-01`;
-  let lastDayOfMonth = `${year}-${month}-${lastDay}`;
-  //
   const dataStart =
     dataCalRange.length > 1 ? dataCalRange[0].split(".").reverse().join("-") : firstDayOfMonth
   const dataEnd =
@@ -47,12 +40,12 @@ function MainFieldAnalitic({
       } else {
       setGistogramType("pie")
     }
-  }, [dataCalRange])
+  }, [dataCalRange, result])
   //
-  useEffect(() => setCheckMainField(false), [])
+  useEffect(() => setCheckMainField(false))
   function getAnaliticSum() {
-    const incomeEndpoint = result ? `http://92.255.79.239:8000/api/sum-monthly-income/?date_start=${dataStart}&date_end=${dataEnd}` : `http://92.255.79.239:8000/api/sum-incomecash-group/?date_start=${dataStart}&date_end=${dataEnd}`
-    const outcomeEndpoint = result ? `http://92.255.79.239:8000/api/sum-monthly-outcome/?date_start=${dataStart}&date_end=${dataEnd}` : `http://92.255.79.239:8000/api/sum-outcomecash-group/?date_start=${dataStart}&date_end=${dataEnd}`
+    const incomeEndpoint = result ? `${URLS.getSumMonthlyIncome}?date_start=${dataStart}&date_end=${dataEnd}` : `${URLS.getSumIncomeGroup}?date_start=${dataStart}&date_end=${dataEnd}`
+    const outcomeEndpoint = result ? `${URLS.getSumMonthlyOutcome}?date_start=${dataStart}&date_end=${dataEnd}` : `${URLS.getSumOutcomeGroup}?date_start=${dataStart}&date_end=${dataEnd}`
     const optionsIncome = {
       method: "GET",
       headers: {

@@ -69,8 +69,11 @@ function Dropdown({
   //
   const userCategoriesName = categories.map((item) => {
     if (item.category_type === category_type) {
-      return item.categoryName.toLowerCase()
+      return (
+        item.categoryName.toLowerCase()
+      )
     }
+    return null
   })
 
   useEffect(() => {
@@ -84,15 +87,15 @@ function Dropdown({
     setSearchValue(event.target.value)
   }
 
-  const getOptions = () => {
-    if (!searchValue) {
-      return categories
-    }
-    return categories.filter(
-      (option) =>
-        option.label.toLowerCase().indexOf(searchValue.toLowerCase()) === 0
-    )
-  }
+  // const getOptions = () => {
+  //   if (!searchValue) {
+  //     return categories
+  //   }
+  //   return categories.filter(
+  //     (option) =>
+  //       option.label.toLowerCase().indexOf(searchValue.toLowerCase()) === 0
+  //   )
+  // }
 
   useEffect(() => {
     const handler = (event) => {
@@ -295,6 +298,7 @@ function Dropdown({
                   </div>
                 )
               }
+              return null
             })}
           </div>
         )}

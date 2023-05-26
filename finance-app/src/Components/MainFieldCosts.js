@@ -1,6 +1,6 @@
 // Компонент "Расходы"
 import { useEffect, useState } from "react";
-import { render } from "react-dom";
+// import { render } from "react-dom";
 import { useSelector } from "react-redux";
 import MainFieldString from "./MainFieldString";
 import { URLS, months, month } from "../urls/urlsAndDates";
@@ -15,11 +15,10 @@ function MainFieldCosts({
 }) {
   const token = useSelector((state) => state.user.token);
   const [categories, setCategories] = useState("");
-  const planned = ["Планируемые", "Добавить категорию"];
-
-  // let outcomeOperations = "http://92.255.79.239:8000/api/last-5-outcomecash/";
-  // let typeOfSum = "http://92.255.79.239:8000/api/outcomecash/";
-  // let typeOfCategories = "http://92.255.79.239:8000/api/outcome-categories/";
+  // console.log(render)
+  const [storageCategories, setStorageCategories] = useState("")
+  console.log(storageCategories)
+  // const planned = ["Планируемые", "Добавить категорию"];
 
   function getCategories(typeOfCategories) {
     const options = {
@@ -33,12 +32,26 @@ function MainFieldCosts({
       .then((result) => result.json())
       .then((userCategories) => setCategories(userCategories));
   }
+  
+  function getStorageCategories(typeOfCategories) {
+    const options = {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Token ${token}`,
+      },
+    };
+    fetch(typeOfCategories, options)
+      .then((result) => result.json())
+      .then((userCategories) => setStorageCategories(userCategories));
+  }
 
   useEffect(() => {
     getInputData(URLS.sumOutcomeCash);
     setCheckMainField(true);
     getOperationList(URLS.outcomeOperations, "-");
     getCategories(URLS.getOutcomeCategories);
+    getStorageCategories(URLS.getIncomeCategories)
     changeRangeCalendar(false);
   }, []);
 
@@ -84,8 +97,10 @@ function MainFieldCosts({
       />
       <MainFieldString
         title="Накопления"
-        type={planned}
-        categories={categories}
+        // type=""
+        categories={storageCategories}
+        getCategories={getStorageCategories}
+        typeOfCategories={URLS.getIncomeCategories}
       />
 
       <div className="mobileSum">

@@ -12,6 +12,8 @@ function TransactionList({
   operationList,
   symbol,
   getInputData,
+  getStorageCategories,
+  typeOfCategories
 }) {
   const token = useSelector((state) => state.user.token)
 
@@ -34,7 +36,7 @@ function TransactionList({
     e.preventDefault()
     setNewSum(
       e.target.value
-        .replace(/[a-zA-Zа-яА-Я!@#$%^&*(){}[\]/<>]+/, "")
+        .replace(/[^0-9.,]+/, "")
         .replace(/,/, ".")
     )
   }
@@ -76,6 +78,15 @@ function TransactionList({
         getBalanceData()
       }, 500)
     }
+    if (symbol === " ") {
+      fetch(`${URLS.deleteMoneyBoxCash}${id}`, deleteOptions)
+      setTimeout(() => {
+        getOperationList(URLS.last5MoneyBoxOperation, symbol)
+        getInputData(URLS.sumOutcomeCash)
+        getBalanceData()
+        getStorageCategories(typeOfCategories)
+      }, 400)
+    }
     setMessage("Запись была удалена")
     setTimeout(() => setModalDeleteActive(false), 2000)
   }
@@ -109,6 +120,16 @@ function TransactionList({
         getBalanceData()
       }, 400)
     }
+    if (symbol === " ") {
+      fetch(`${URLS.updateMoneyBoxCash}${id}`, updateOptions)
+      setTimeout(() => {
+        getOperationList(URLS.last5MoneyBoxOperation, symbol)
+        getInputData(URLS.sumOutcomeCash)
+        getBalanceData()
+        getStorageCategories(typeOfCategories)
+      }, 400)
+    }
+    
     setMessage("Запись была изменена")
     setTimeout(() => setModalChangeSum(false), 2000)
   }

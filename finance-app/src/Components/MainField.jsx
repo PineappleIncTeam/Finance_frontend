@@ -1,10 +1,12 @@
 // Компонент "Доходы"
-import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+// import { useSelector } from "react-redux";
+import { useEffect } from "react";
 import MainFieldString from "./MainFieldString";
 import { URLS, months, month } from "../urls/urlsAndDates";
 
 function MainField({
+  categories,
+  getCategories,
   getOperationList,
   getBalanceData,
   getInputData,
@@ -13,32 +15,14 @@ function MainField({
   range,
   setCheckMainField,
 }) {
-  const token = useSelector((state) => state.user.token);
-  const [categories, setCategories] = useState("");
-
-  // const incomeOperations = "http://92.255.79.239:8000/api/last-5-incomecash/";
-  // const typeOfSum = "http://92.255.79.239:8000/api/incomecash/";
-  // const typeOfCategories = "http://92.255.79.239:8000/api/income-categories/";
-
-  function getCategories(typeOfCategories) {
-    const options = {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Token ${token}`,
-      },
-    };
-    fetch(typeOfCategories, options)
-      .then((result) => result.json())
-      .then((userCategories) => setCategories(userCategories));
-  }
-
+  // const token = useSelector((state) => state.user.token);
+  
   useEffect(() => {
     getCategories(URLS.getIncomeCategories);
     changeRangeCalendar(false);
     getInputData(URLS.sumIncomeCash);
     setCheckMainField(true);
-    getOperationList(URLS.incomeOperations, "+");
+    getOperationList(URLS.last5IncomeCash, "+");
   }, []);
 
   return (
@@ -53,7 +37,7 @@ function MainField({
         title="Постоянные"
         type="constant"
         income_outcome="income"
-        endpoint={URLS.incomeOperations}
+        endpoint={URLS.last5IncomeCash}
         typeOfSum={URLS.POSTincomcash}
         getInputData={getInputData}
         sumCash={URLS.sumIncomeCash}
@@ -65,12 +49,13 @@ function MainField({
         symbol="+"
         getBalanceData={getBalanceData}
         range={range}
+        addActive={true}
       />
       <MainFieldString
         title="Временные"
         type="once"
         income_outcome="income"
-        endpoint={URLS.incomeOperations}
+        endpoint={URLS.last5IncomeCash}
         typeOfSum={URLS.POSTincomcash}
         getInputData={getInputData}
         sumCash={URLS.sumIncomeCash}
@@ -81,6 +66,7 @@ function MainField({
         categories={categories}
         symbol="+"
         getBalanceData={getBalanceData}
+        addActive={true}
       />
       <div className="mobileSum">
         <div className="mobileSum_input">

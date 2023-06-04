@@ -1,8 +1,8 @@
 // Компонент навигации по приложению. Переключает компоненты, соответствующие названию кнопок.
+// import CalcVector from "./../Images/CalcVector.png";
 import { NavLink } from "react-router-dom"
 import arrow from "./../Images/Arrow.png"
 import AnaliticVector from "./../Images/AnaliticVector.png"
-// import CalcVector from "./../Images/CalcVector.png";
 import CostsVector from "./../Images/CostsVector.png"
 import FieldVector from "./../Images/FieldVector.png"
 import StorVector from "./../Images/StorVector.png"

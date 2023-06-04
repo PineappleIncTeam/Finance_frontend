@@ -1,11 +1,15 @@
-import React from "react";
-import { Route, Routes } from "react-router-dom";
-import MainField from "../MainField";
-import MainFieldAnalitic from "../MainFieldAnalitic";
-import MainFieldCosts from "../MainFieldCosts";
-import MainFieldStorage from "../MainFieldStorage";
+import React from "react"
+import { Route, Routes } from "react-router-dom"
+import MainField from "../MainField"
+import MainFieldAnalitic from "../MainFieldAnalitic"
+import MainFieldCosts from "../MainFieldCosts"
+import MainFieldStorage from "../MainFieldStorage"
 
 const MainFieldRouter = ({
+  categories,
+  storageCategories,
+  getCategories,
+  getStorageCategories,
   getOperationList,
   setSymbol,
   getBalanceData,
@@ -15,7 +19,7 @@ const MainFieldRouter = ({
   changeRangeCalendar,
   range,
   setCheckMainField,
-  gistogramSize
+  gistogramSize,
 }) => {
   return (
     <Routes>
@@ -23,6 +27,8 @@ const MainFieldRouter = ({
         path="/mainfield"
         element={
           <MainField
+            categories={categories}
+            getCategories={getCategories}
             getOperationList={getOperationList}
             getBalanceData={getBalanceData}
             getInputData={getInputData}
@@ -37,6 +43,10 @@ const MainFieldRouter = ({
         path="/mainfieldcosts"
         element={
           <MainFieldCosts
+            categories={categories}
+            storageCategories={storageCategories}
+            getCategories={getCategories}
+            getStorageCategories={getStorageCategories}
             getOperationList={getOperationList}
             setSymbol={setSymbol}
             getBalanceData={getBalanceData}
@@ -48,7 +58,19 @@ const MainFieldRouter = ({
           />
         }
       />
-      <Route path="/mainfieldstorage" element={<MainFieldStorage setCheckMainField={setCheckMainField} />} />
+      <Route
+        path="/mainfieldstorage"
+        element={
+          <MainFieldStorage
+            storageCategories={storageCategories}
+            getStorageCategories={getStorageCategories}
+            setCheckMainField={setCheckMainField}
+            getOperationList={getOperationList}
+            getBalanceData={getBalanceData}
+            getInputData={getInputData}
+          />
+        }
+      />
       <Route
         path="/mainfieldanalitic"
         element={
@@ -62,7 +84,7 @@ const MainFieldRouter = ({
         }
       />
     </Routes>
-  );
-};
+  )
+}
 
-export default MainFieldRouter;
+export default MainFieldRouter

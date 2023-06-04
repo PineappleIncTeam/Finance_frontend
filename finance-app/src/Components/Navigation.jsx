@@ -7,11 +7,9 @@ import { useNavigate } from "react-router";
 
 import { useDispatch } from "react-redux";
 import { removeUser } from "../store/slice";
-import { useAuth } from "./registration-page/use-auth";
 
 function Navigation({ menuActive, setMenuActive }) {
   const dispatch = useDispatch();
-  const { isAuth } = useAuth();
   const navigate = useNavigate();
   const exitClick = () => {
     dispatch(removeUser());
@@ -27,7 +25,7 @@ function Navigation({ menuActive, setMenuActive }) {
       <ButtonNaviBlock />
       <div className="exit" onClick={() => exitClick()}>
         <div className="textExit">Выход</div>
-        <img src={exitUser} />
+        <img src={exitUser} alt="exit"/>
       </div>
     </div>
   );

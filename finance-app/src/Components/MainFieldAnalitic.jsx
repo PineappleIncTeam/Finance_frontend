@@ -13,7 +13,7 @@ function MainFieldAnalitic({
   changeRangeCalendar,
   range,
   setCheckMainField,
-  gistogramSize
+  gistogramSize,
 }) {
   const token = useSelector((state) => state.user.token)
   const [sumGroupIncome, setSumGroupIncome] = useState([])
@@ -23,13 +23,17 @@ function MainFieldAnalitic({
   const [isActive, setIsActive] = useState("income")
   //
   const [percentChoice, setPercentChoice] = useState(false)
-  //  
-  const dataStart =
-    dataCalRange.length > 1 ? dataCalRange[0].split(".").reverse().join("-") : firstDayOfMonth
-  const dataEnd =
-    dataCalRange.length > 1 ? dataCalRange[1].split(".").reverse().join("-") : lastDayOfMonth
   //
- 
+  const dataStart =
+    dataCalRange.length > 1
+      ? dataCalRange[0].split(".").reverse().join("-")
+      : firstDayOfMonth
+  const dataEnd =
+    dataCalRange.length > 1
+      ? dataCalRange[1].split(".").reverse().join("-")
+      : lastDayOfMonth
+  //
+
   let dateStartObject = new Date(dataStart)
   let dateEndObject = new Date(dataEnd)
   let result = dateEndObject.getMonth() - dateStartObject.getMonth()
@@ -37,15 +41,19 @@ function MainFieldAnalitic({
   useEffect(() => {
     if (result) {
       setGistogramType("bar")
-      } else {
+    } else {
       setGistogramType("pie")
     }
   }, [dataCalRange, result])
   //
   useEffect(() => setCheckMainField(false))
   function getAnaliticSum() {
-    const incomeEndpoint = result ? `${URLS.getSumMonthlyIncome}?date_start=${dataStart}&date_end=${dataEnd}` : `${URLS.getSumIncomeGroup}?date_start=${dataStart}&date_end=${dataEnd}`
-    const outcomeEndpoint = result ? `${URLS.getSumMonthlyOutcome}?date_start=${dataStart}&date_end=${dataEnd}` : `${URLS.getSumOutcomeGroup}?date_start=${dataStart}&date_end=${dataEnd}`
+    const incomeEndpoint = result
+      ? `${URLS.getSumMonthlyIncome}?date_start=${dataStart}&date_end=${dataEnd}`
+      : `${URLS.getSumIncomeGroup}?date_start=${dataStart}&date_end=${dataEnd}`
+    const outcomeEndpoint = result
+      ? `${URLS.getSumMonthlyOutcome}?date_start=${dataStart}&date_end=${dataEnd}`
+      : `${URLS.getSumOutcomeGroup}?date_start=${dataStart}&date_end=${dataEnd}`
     const optionsIncome = {
       method: "GET",
       headers: {
@@ -53,18 +61,15 @@ function MainFieldAnalitic({
         Authorization: `Token ${token}`,
       },
     }
-    fetch(
-      incomeEndpoint,
-      optionsIncome
-    )
+    fetch(incomeEndpoint, optionsIncome)
       .then((result) => result.json())
       .then((dataSumIncome) => {
         setSumGroupIncome(dataSumIncome)
-        if(percentChoice && result && dataSumIncome.length > 0) {
+        if (percentChoice && result && dataSumIncome.length > 0) {
           setIncomePercent(percentFunction(dataSumIncome))
         }
       })
-      
+
     const optionsOutcome = {
       method: "GET",
       headers: {
@@ -72,18 +77,14 @@ function MainFieldAnalitic({
         Authorization: `Token ${token}`,
       },
     }
-    fetch(
-      outcomeEndpoint,
-      optionsOutcome
-    )
+    fetch(outcomeEndpoint, optionsOutcome)
       .then((result) => result.json())
       .then((dataSumOutcome) => {
         setSumGroupOutcome(dataSumOutcome)
-        if(percentChoice && result && dataSumOutcome.length > 0) {
+        if (percentChoice && result && dataSumOutcome.length > 0) {
           setOutcomePercent(percentFunction(dataSumOutcome))
         }
       })
-      
   }
 
   useEffect(() => {
@@ -92,51 +93,73 @@ function MainFieldAnalitic({
   }, [dataCalRange])
 
   //.sort((a, b) => b.result_sum - a.result_sum) - сортировка данных по размеру суммы
-  const categoryNameIncome = 
-    (sumGroupIncome.length > 0 && sumGroupIncome[0].sum &&
-    !result) ? sumGroupIncome[0].sum.sort((a, b) => b.result_sum - a.result_sum).map((item) => item.categories__categoryName) : []
-  const resultSumIncome =  
-    (sumGroupIncome.length > 0 && sumGroupIncome[0].sum &&
-    !result) ? sumGroupIncome[0].sum.sort((a, b) => b.result_sum - a.result_sum).map((item) => item.result_sum) : []
+  const categoryNameIncome =
+    sumGroupIncome.length > 0 && sumGroupIncome[0].sum && !result
+      ? sumGroupIncome[0].sum
+          .sort((a, b) => b.result_sum - a.result_sum)
+          .map((item) => item.categories__categoryName)
+      : []
+  const resultSumIncome =
+    sumGroupIncome.length > 0 && sumGroupIncome[0].sum && !result
+      ? sumGroupIncome[0].sum
+          .sort((a, b) => b.result_sum - a.result_sum)
+          .map((item) => item.result_sum)
+      : []
 
-  const categoryNameOutcome =  
-    (sumGroupOutcome.length > 0 && sumGroupOutcome[0].sum &&
-    !result) ? sumGroupOutcome[0].sum.sort((a, b) => b.result_sum - a.result_sum).map((item) => item.categories__categoryName) : []
-  const resultSumOutcome =  
-    (sumGroupOutcome.length > 0 && sumGroupOutcome[0].sum &&
-    !result) ? sumGroupOutcome[0].sum.sort((a, b) => b.result_sum - a.result_sum).map((item) => item.result_sum) : []
-  
-    function handleChange(e) {
+  const categoryNameOutcome =
+    sumGroupOutcome.length > 0 && sumGroupOutcome[0].sum && !result
+      ? sumGroupOutcome[0].sum
+          .sort((a, b) => b.result_sum - a.result_sum)
+          .map((item) => item.categories__categoryName)
+      : []
+  const resultSumOutcome =
+    sumGroupOutcome.length > 0 && sumGroupOutcome[0].sum && !result
+      ? sumGroupOutcome[0].sum
+          .sort((a, b) => b.result_sum - a.result_sum)
+          .map((item) => item.result_sum)
+      : []
+
+  function handleChange(e) {
     setIsActive(e.target.value)
   }
   //
-  const gistogramSumIncome = sumGroupIncome.length > 0 && result ? sumGroupIncome : []
-  const gistogramSumOutcome = sumGroupOutcome.length > 0 && result ? sumGroupOutcome : []
+  const gistogramSumIncome =
+    sumGroupIncome.length > 0 && result ? sumGroupIncome : []
+  const gistogramSumOutcome =
+    sumGroupOutcome.length > 0 && result ? sumGroupOutcome : []
 
-  let resultSumIncomeTotal = resultSumIncome.length > 0 && resultSumIncome.reduce((a, b) => a + b)
+  let resultSumIncomeTotal =
+    resultSumIncome.length > 0 && resultSumIncome.reduce((a, b) => a + b)
   let onePercentIncome = resultSumIncomeTotal / 100
   let resultSumIncomeInPercent = []
   for (let i = 0; i < resultSumIncome.length; i++) {
-    resultSumIncomeInPercent.push((resultSumIncome[i] / onePercentIncome).toFixed(2))
+    resultSumIncomeInPercent.push(
+      (resultSumIncome[i] / onePercentIncome).toFixed(2)
+    )
   }
-  let resultSumOutcomeTotal = resultSumOutcome.length > 0 && resultSumOutcome.reduce((a, b) => a + b)
+  let resultSumOutcomeTotal =
+    resultSumOutcome.length > 0 && resultSumOutcome.reduce((a, b) => a + b)
   let onePercentOutcome = resultSumOutcomeTotal / 100
   let resultSumOutcomeInPercent = []
   for (let i = 0; i < resultSumOutcome.length; i++) {
-    resultSumOutcomeInPercent.push((resultSumOutcome[i] / onePercentOutcome).toFixed(2))
+    resultSumOutcomeInPercent.push(
+      (resultSumOutcome[i] / onePercentOutcome).toFixed(2)
+    )
   }
   //
-  
+
   const [incomePercent, setIncomePercent] = useState([])
   const [outcomePercent, setOutcomePercent] = useState([])
-  
-    function handlePercentChange(e) {
-    if (e.target.value === 'В рублях') {
+
+  function handlePercentChange(e) {
+    if (e.target.value === "В рублях") {
       setPercentChoice(false)
     } else {
       setPercentChoice(true)
-      sumGroupIncome.length > 0 && setIncomePercent(percentFunction(sumGroupIncome))
-      sumGroupOutcome.length > 0 && setOutcomePercent(percentFunction(sumGroupOutcome))
+      sumGroupIncome.length > 0 &&
+        setIncomePercent(percentFunction(sumGroupIncome))
+      sumGroupOutcome.length > 0 &&
+        setOutcomePercent(percentFunction(sumGroupOutcome))
     }
   }
 
@@ -167,7 +190,6 @@ function MainFieldAnalitic({
               name="analitic_select"
               value="В рублях"
               onClick={(e) => handlePercentChange(e)}
-              
             />
             <label htmlFor="option1">В рублях</label>
           </div>
@@ -184,13 +206,18 @@ function MainFieldAnalitic({
           </div>
         </form>
       </div>
-      {(gistogramType === "pie") && !result ? (
+      {gistogramType === "pie" && !result ? (
         <ChartGistograms
           categoryNameIncome={categoryNameIncome}
-          resultSumIncome={!percentChoice ? resultSumIncome : resultSumIncomeInPercent}
+          resultSumIncome={
+            !percentChoice ? resultSumIncome : resultSumIncomeInPercent
+          }
           categoryNameOutcome={categoryNameOutcome}
-          resultSumOutcome={!percentChoice ? resultSumOutcome : resultSumOutcomeInPercent}
+          resultSumOutcome={
+            !percentChoice ? resultSumOutcome : resultSumOutcomeInPercent
+          }
           isActive={isActive}
+          percentChoice={percentChoice}
         />
       ) : (
         <Gistogram
@@ -203,40 +230,6 @@ function MainFieldAnalitic({
           outcomePercent={outcomePercent}
         />
       )}
-
-      {/* <label className="label_analitic label_analitic1">
-        Доходы
-        <input
-          className="main_field_string_input analitic_string"
-          type="text"
-        ></input>
-      </label>
-      <label className="label_analitic">
-        Расходы
-        <input
-          className="main_field_string_input analitic_string"
-          type="text"
-        ></input>
-      </label>
-      <label className="label_analitic">
-        Баланс
-        <input
-          className="main_field_string_input analitic_string"
-          type="text"
-        ></input>
-      </label>
-      <h3 className="main_field_analitic_h3">Перевести в накопления</h3>
-      <div>
-        <input
-          className="main_field_string_input analitic_string_down"
-          type="text"
-        ></input>
-        <input
-          className="main_field_string_input analitic_string_down"
-          type="text"
-        ></input>
-        <button type="submit" className="main_field_string_button analitic_button">Добавить</button>
-      </div> */}
     </div>
   )
 }

@@ -4,12 +4,9 @@ import axios from "axios"
 import Logo from "../../Logo"
 import style from "./RecoveryPass.module.css"
 import { Link } from "react-router-dom"
-
-
-const URL = 'http://92.255.79.239:8000/api/auth/users/reset_password/'
+import { URLS } from "../../../urls/urlsAndDates"
 
 const RecoveryPass = () => {
-
   const [message, setMessage] = useState("")
 
   const validateEmail = (value) => {
@@ -22,14 +19,15 @@ const RecoveryPass = () => {
 
   const sendEmail = async (values) => {
     const data = {
-      email: values.email
+      email: values.email,
     }
 
     try {
-      const response = await axios.post(URL, data)
-      response.status === 204 && setMessage('На указанный вами адрес почты отправлено письмо для сброса пароля')
-      console.log(response)
-      
+      const response = await axios.post(URLS.resetPassword, data)
+      response.status === 204 &&
+        setMessage(
+          "На указанный вами адрес почты отправлено письмо для сброса пароля"
+        )
     } catch (error) {
       console.log(error)
     }
@@ -67,8 +65,8 @@ const RecoveryPass = () => {
                   {(values.email || touched.email) && errors.email}
                 </div>
                 <div className={style.message}>{message}</div>
-                <button className={style.btn} type="submit">Восстановить
-                  {/* <Link to="/newpass" className={style.btn_link}>Восстановить</Link> */}
+                <button className={style.btn} type="submit">
+                  Восстановить
                 </button>
               </Form>
             )}

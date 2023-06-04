@@ -14,6 +14,9 @@
   transition: 0.5s;
   backdrop-filter: blur(2px);
 }
+.disabled {
+  display: none;
+}
 .active {
   opacity: 1;
   pointer-events: all;
@@ -45,6 +48,10 @@
   padding-right: 10px;
   background-color: #faf5e433;
   outline: none;
+}
+.modal_input_storage {
+  composes: modal_input;
+  margin-left: 20px;
 }
 
 .error {
@@ -106,6 +113,9 @@
   font-size: 16px;
   margin-top: 20px;
 }
+.content_box {
+  margin: 10px auto 0px;
+}
 
 @media screen and (max-width: 1280px) {
   .modal_text,
@@ -119,7 +129,7 @@
 @media (max-width: 840px) {
   .modal_content {
     width: 295px;
-    height: 295px;
+    /* height: 295px; */
   }
   .content_box {
     margin: 38px auto 0px;
@@ -135,6 +145,11 @@
     height: 50px;
     margin-top: 7px;
     margin-bottom: 44px;
+  }
+  .modal_input_storage {
+    position: relative;
+    bottom: 20px;
+    margin: 0px 0px 10px;
   }
   .modal_text,
   .message,

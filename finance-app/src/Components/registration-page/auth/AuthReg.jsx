@@ -8,10 +8,9 @@ import { Link } from "react-router-dom"
 import { useRef, useState } from "react"
 import { useDispatch } from "react-redux"
 import { setUser } from "../../../store/slice"
+import { URLS } from "../../../urls/urlsAndDates"
 import passNo from "./../../../Images/passNo.png"
 import passYes from "./../../../Images/passYes.png"
-
-const URL = "http://92.255.79.239:8000/api/auth/token/login/"
 
 const AuthReg = () => {
   const [reply, setReply] = useState("")
@@ -35,7 +34,7 @@ const AuthReg = () => {
       password: values.password,
     }
     try {
-      const response = await axios.post(URL, payload)
+      const response = await axios.post(URLS.authorisation, payload)
       dispatch(
         setUser({
           token: response.data.auth_token,
@@ -128,7 +127,9 @@ const AuthReg = () => {
                 <br />
                 <div className={style.password_recovery}>
                   <label>Пароль</label>
-                  <Link to="recovery" className={style.recovery}>Забыли пароль?</Link>
+                  <Link to="recovery" className={style.recovery}>
+                    Забыли пароль?
+                  </Link>
                 </div>
                 <div className={style.pass}>
                   <Field
@@ -142,6 +143,7 @@ const AuthReg = () => {
                     className={style.icon}
                     src={passwordType}
                     onClick={() => togglePassInput()}
+                    alt="eye"
                   ></img>
                   <ErrorMessage
                     name="password"
@@ -173,12 +175,7 @@ const AuthReg = () => {
           </Formik>
         </div>
       </div>
-      <div className={style.registFon}>
-        {/* <div className={style.textFon}>
-          <div className={style.welcome}>Добро пожаловать в FREENANCE</div>
-          <div className={style.textConcept}>Помогаем cчитать быстро!</div>
-        </div> */}
-      </div>
+      <div className={style.registFon}></div>
     </div>
   )
 }

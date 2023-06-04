@@ -1,87 +1,86 @@
-import { Formik, Form, Field, ErrorMessage } from "formik";
-import style from "./RegistPage.module.css";
-import * as Yup from "yup";
-import YupPassword from "yup-password";
-import Logo from "../../Logo";
-import axios from "axios";
-import { Link, useNavigate } from "react-router-dom";
-import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { setUser } from "../../../store/slice";
-import passNo from "./../../../Images/passNo.png";
-import passYes from "./../../../Images/passYes.png";
-import { useRef } from "react";
+import { Formik, Form, Field, ErrorMessage } from "formik"
+import style from "./RegistPage.module.css"
+import * as Yup from "yup"
+import YupPassword from "yup-password"
+import Logo from "../../Logo"
+import axios from "axios"
+import { Link, useNavigate } from "react-router-dom"
+import { useState } from "react"
+import { useDispatch } from "react-redux"
+import { setUser } from "../../../store/slice"
+import passNo from "./../../../Images/passNo.png"
+import passYes from "./../../../Images/passYes.png"
+import { useRef } from "react"
+import { URLS } from "../../../urls/urlsAndDates"
 
-const URL = "http://92.255.79.239:8000/api/auth/users/";
-const URL2 = "http://92.255.79.239:8000/api/auth/token/login/";
-YupPassword(Yup);
+YupPassword(Yup)
 
 const RegistPage = () => {
-  const [reply, setReply] = useState("");
-  const [passwordType, setPasswordType] = useState(passNo);
-  const [confirmType, setConfirmType] = useState(passNo);
+  const [reply, setReply] = useState("")
+  const [passwordType, setPasswordType] = useState(passNo)
+  const [confirmType, setConfirmType] = useState(passNo)
 
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const passRef = useRef(null);
-  const confirmRef = useRef(null);
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+  const passRef = useRef(null)
+  const confirmRef = useRef(null)
   const togglePassInput = () => {
     if (passwordType === passNo) {
-      passRef.current.type = "text";
-      setPasswordType(passYes);
+      passRef.current.type = "text"
+      setPasswordType(passYes)
     } else if (passwordType === passYes) {
-      passRef.current.type = "password";
-      setPasswordType(passNo);
+      passRef.current.type = "password"
+      setPasswordType(passNo)
     }
-  };
+  }
 
   const toggleConfirmInput = () => {
     if (confirmType === passNo) {
-      confirmRef.current.type = "text";
-      setConfirmType(passYes);
+      confirmRef.current.type = "text"
+      setConfirmType(passYes)
     } else if (confirmType === passYes) {
-      confirmRef.current.type = "password";
-      setConfirmType(passNo);
+      confirmRef.current.type = "password"
+      setConfirmType(passNo)
     }
-  };
+  }
 
   const registerHandler = async (values, { setSubmitting }) => {
-    setPasswordType(passNo);
-    setConfirmType(passNo);
+    setPasswordType(passNo)
+    setConfirmType(passNo)
     const payload = {
       email: values.email,
       username: values.username,
       password: values.password,
-    };
+    }
     const payload2 = {
       username: values.username,
       password: values.password,
-    };
+    }
     try {
-      const response = await axios.post(URL, payload);
+      const response = await axios.post(URLS.registration, payload)
 
-      response.data.email && setReply("Регистрация прошла успешно");
-      axios.post(URL2, payload2).then((response2) => {
+      response.data.email && setReply("Регистрация прошла успешно")
+      axios.post(URLS.authorisation, payload2).then((response2) => {
         dispatch(
           setUser({
             token: response2.data.auth_token,
           })
-        );
+        )
         response.data.auth_token &&
           setReply(
             `Пользователь ${payload.username} вошел в свою учетную запись`
-          );
+          )
 
-        navigate("/rectangle");
-      });
+        navigate("/rectangle")
+      })
     } catch (e) {
-      console.log(e);
-      // setReply(`Пользователь с логином ${payload.username} существует`);
-      e.response.data.email ? setReply(e.response.data.email) : setReply(`Пользователь с логином ${payload.username} существует`)
+      e.response.data.email
+        ? setReply(e.response.data.email)
+        : setReply(`Пользователь с логином ${payload.username} существует`)
     } finally {
-      setSubmitting(false);
+      setSubmitting(false)
     }
-  };
+  }
 
   const validationSchema = Yup.object({
     email: Yup.string()
@@ -112,7 +111,7 @@ const RegistPage = () => {
     confirmPassword: Yup.string()
       .oneOf([Yup.ref("password")], "Пароли не совпадают")
       .required("Обязательное поле"),
-  });
+  })
 
   return (
     <div className={style.root}>
@@ -133,11 +132,9 @@ const RegistPage = () => {
             onSubmit={registerHandler}
           >
             {({ isValid, dirty, isSubmiting, values, errors }) => (
-              <Form className={style.form} onChange={() => setReply('')}>
+              <Form className={style.form} onChange={() => setReply("")}>
                 <label>Адрес эл. почты</label>
                 <Field
-                  // autofocus="autofocus"
-
                   type="email"
                   name="email"
                   className={
@@ -186,7 +183,6 @@ const RegistPage = () => {
                 <label>Пароль</label>
                 <div className={style.pass}>
                   <Field
-                    
                     type="password"
                     name="password"
                     className={
@@ -201,6 +197,7 @@ const RegistPage = () => {
                     className={style.icon}
                     src={passwordType}
                     onClick={() => togglePassInput()}
+                    alt="eye"
                   ></img>
                   <div className={style.error}>
                     {values.password && errors.password}
@@ -231,6 +228,7 @@ const RegistPage = () => {
                     className={style.icon}
                     src={confirmType}
                     onClick={() => toggleConfirmInput()}
+                    alt="eye"
                   ></img>
                   <div className={style.error}>
                     {values.confirmPassword && errors.confirmPassword}
@@ -265,14 +263,9 @@ const RegistPage = () => {
           </Formik>
         </div>
       </div>
-      <div className={style.registFon}>
-        {/* <div className={style.textFon}>
-          <div className={style.welcome}>Добро пожаловать в FREENANCE</div>
-          <div className={style.textConcept}>Помогаем cчитать быстро!</div>
-        </div> */}
-      </div>
+      <div className={style.registFon}></div>
     </div>
-  );
-};
+  )
+}
 
-export default RegistPage;
+export default RegistPage

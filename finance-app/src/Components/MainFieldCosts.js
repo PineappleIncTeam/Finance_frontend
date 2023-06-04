@@ -97,10 +97,10 @@ function MainFieldCosts({
       />
       <MainFieldString
         title="Накопления"
-        // type=""
+        type="constant"
         categories={storageCategories}
-        getCategories={getStorageCategories}
-        typeOfCategories={URLS.getIncomeCategories}
+        getCategories={getCategories}
+        typeOfCategories={URLS.moneyBoxCategories}
       />
 
       <div className="mobileSum">

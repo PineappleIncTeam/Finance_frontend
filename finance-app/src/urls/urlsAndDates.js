@@ -47,6 +47,6 @@ export const URLS = {
     getSumOutcomeGroup: "http://92.255.79.239:8000/api/sum-outcomecash-group/",
     getSumMonthlyIncome: "http://92.255.79.239:8000/api/sum-monthly-income/",
     getSumMonthlyOutcome: "http://92.255.79.239:8000/api/sum-monthly-outcome/",
-
+    moneyBoxCategories: "http://127.0.0.1:8000/api/money-box-categories/",
     
 }

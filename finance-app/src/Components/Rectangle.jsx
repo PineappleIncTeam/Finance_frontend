@@ -16,10 +16,14 @@ function Rectangle() {
   const [balanceData, setBalanceData] = useState("")
   const [inputData, setInputData] = useState("")
   const [checkMainField, setCheckMainField] = useState(true)
+  //
+  const [categories, setCategories] = useState("");
+  const [storageCategories, setStorageCategories] = useState("")
 
   const [range, setRange] = useState(true)
   const [menuActive, setMenuActive] = useState(false)
 
+  
   function changeRangeCalendar(range) {
     setRange(range)
   }
@@ -53,9 +57,34 @@ function Rectangle() {
     }
   }, [width])
   //
+  function getCategories(typeOfCategories) {
+    const options = {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Token ${token}`,
+      },
+    };
+    fetch(typeOfCategories, options)
+      .then((result) => result.json())
+      .then((userCategories) => setCategories(userCategories));
+  }
+
+  function getStorageCategories(typeOfCategories) {
+    const options = {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Token ${token}`,
+      },
+    };
+    fetch(typeOfCategories, options)
+      .then((result) => result.json())
+      .then((userCategories) => setStorageCategories(userCategories));
+  }
 
   function getOperationList(endpoint, symbol) {
-    const options = {
+     const options = {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -134,6 +163,10 @@ function Rectangle() {
           <div className="mainField">
             <div className="mainFieldBlock">
               <MainFieldRouter
+                categories={categories}
+                storageCategories={storageCategories}
+                getCategories={getCategories}
+                getStorageCategories={getStorageCategories}
                 getOperationList={getOperationList}
                 getBalanceData={getBalanceData}
                 getInputData={getInputData}
@@ -160,6 +193,7 @@ function Rectangle() {
                 operationList={operationList}
                 symbol={symbol}
                 getInputData={getInputData}
+                getStorageCategories={getStorageCategories}
               />
             </div>
           )}

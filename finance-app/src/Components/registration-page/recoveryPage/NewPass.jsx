@@ -2,6 +2,7 @@ import { useState } from "react"
 import { Formik, Form, Field } from "formik"
 import { useNavigate } from "react-router"
 import { Link, useLocation } from "react-router-dom"
+import { URLS } from "../../../urls/urlsAndDates"
 import axios from "axios"
 import queryString from "query-string"
 import Logo from "../../Logo"
@@ -9,7 +10,6 @@ import passNo from "./../../../Images/passNo.png"
 import passYes from "./../../../Images/passYes.png"
 import style from "./RecoveryPass.module.css"
 
-const URL = "http://92.255.79.239:8000/api/auth/users/reset_password_confirm/"
 
 const NewPass = () => {
   const [message, setMessage] = useState("")
@@ -35,11 +35,11 @@ const NewPass = () => {
       re_new_password: values.confirmPassword,
     }
     try {
-      const response = await axios.post(URL, data)
+      const response = await axios.post(URLS.resetPasswordConfirm, data)
       console.log(response)
       if (response.status === 204) {
         setMessage("Ваш пароль успешно изменен")
-        setTimeout(() => navigate("/"), 4000)
+        setTimeout(() => navigate("/"), 3000)
       }
     } catch (error) {
       console.log(error)
@@ -67,8 +67,6 @@ const NewPass = () => {
   }
 
   function validateConfirmPass(password, value) {
-    // console.log("password", password)
-    // console.log("confirm", value)
     if (!value) return "Обязательно"
     if (password !== value) return "Пароли не совпадают"
   }
@@ -113,7 +111,7 @@ const NewPass = () => {
                     {touched.password && errors.password}
                   </div>
                 </div>
-                <label>Пароль</label>
+                <label>Повторите пароль</label>
                 <div className={style.pass}>
                   <Field
                     className={
@@ -141,7 +139,6 @@ const NewPass = () => {
                 <div className={style.message}>{message}</div>
                 <button className={style.btn} type="submit">
                   Готово
-                  {/* <Link to="/" className={style.btn_link}>Готово</Link> */}
                 </button>
               </Form>
             )}

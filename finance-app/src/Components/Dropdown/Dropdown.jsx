@@ -29,8 +29,11 @@ function Dropdown({
   getCategories,
   typeOfCategories,
   disInput,
+  addActive,
+  storageType,
 }) {
   const [newCategory, setNewCategory] = useState("")
+  const [newTarget, setNewTarget] = useState("")
   const [showMenu, setShowMenu] = useState(false)
   const [selectedValue, setSelectedValue] = useState(null)
   const [searchValue, setSearchValue] = useState("")
@@ -54,6 +57,10 @@ function Dropdown({
       setErrorMessage("Не более 14 символов")
     }
   }
+  function handleInputTarget(e) {
+    e.preventDefault()
+    setNewTarget(e.target.value.replace(/[^0-9.,]+/g, "").replace(/,/, "."))
+  }
   //
   const [modalDelete, setModalDelete] = useState(false)
   const [selectedCategory, setSelectedCategory] = useState({})
@@ -69,9 +76,7 @@ function Dropdown({
   //
   const userCategoriesName = categories.map((item) => {
     if (item.category_type === category_type) {
-      return (
-        item.categoryName.toLowerCase()
-      )
+      return item.categoryName.toLowerCase()
     }
     return null
   })
@@ -147,6 +152,8 @@ function Dropdown({
       categoryName: newCategory,
       category_type,
       income_outcome,
+      //
+      target: newTarget
     }
 
     const options = {
@@ -192,7 +199,6 @@ function Dropdown({
           setModalMessage("")
         }, 2000)
       })
-    // }
   }
 
   function sendToArchive(e, category) {
@@ -225,7 +231,6 @@ function Dropdown({
           setModalMessage("")
         }, 2000)
       })
-    // } else return
   }
 
   function cancel(e) {
@@ -262,7 +267,7 @@ function Dropdown({
               </div>
             )}
             <div
-              className="option_list_add"
+              className={addActive ? "option_list_add" : "disabled"}
               data-value="Добавить категорию"
               onClick={() => setModalActive(true)}
             >
@@ -271,14 +276,14 @@ function Dropdown({
             {categories.map((jsonObject, index) => {
               if (
                 jsonObject.category_type === category_type &&
-                jsonObject.is_hidden === false
+                (jsonObject.is_hidden === false || !jsonObject.is_hidden)
               ) {
                 return (
                   <div
                     className={`dropdown-item ${
                       isSelected(jsonObject) && "selected"
                     }`}
-                    key={jsonObject.category_id}
+                    key={jsonObject.category_id || jsonObject.id}
                     index={index}
                     onClick={() => onItemClick(jsonObject)}
                   >
@@ -288,7 +293,7 @@ function Dropdown({
                       title="Удаление категории"
                       onClick={() =>
                         createModal(
-                          jsonObject.category_id,
+                          jsonObject.category_id || jsonObject.id,
                           jsonObject.categoryName
                         )
                       }
@@ -326,6 +331,16 @@ function Dropdown({
               type="text"
               value={newCategory}
               onChange={(e) => handleInput(e)}
+              placeholder="Название категории"
+            />
+            <input
+              className={
+                !storageType ? style.disabled : style.modal_input_storage
+              }
+              type="text"
+              value={newTarget}
+              onChange={(e) => handleInputTarget(e)}
+              placeholder="Цель, руб."
             />
             <button
               className={style.button}

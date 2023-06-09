@@ -123,13 +123,18 @@ function MainFieldString({
             title={title}
             changeSelectElement={changeSelectElement}
             token={token}
+            getBalanceData={getBalanceData}
             getInputData={getInputData}
+            sumCash={sumCash}
             typeForSum={typeForSum}
             getCategories={getCategories}
             typeOfCategories={typeOfCategories}
             disInput={disInput}
             addActive={addActive}
             // storageType={storageType}
+            endpoint={endpoint}
+            getOperationList={getOperationList}
+            symbol={symbol}
           />
         )}
 

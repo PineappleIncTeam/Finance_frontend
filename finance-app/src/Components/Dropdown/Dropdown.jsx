@@ -25,13 +25,18 @@ function Dropdown({
   title,
   changeSelectElement,
   token,
+  getBalanceData,
   getInputData,
+  sumCash,
   getCategories,
   typeOfCategories,
   disInput,
   addActive,
   // storageType,
-}) {
+  getOperationList,
+  endpoint,
+  symbol,
+  }) {
   const [newCategory, setNewCategory] = useState("")
   const [newTarget, setNewTarget] = useState("")
   const [showMenu, setShowMenu] = useState(false)
@@ -194,6 +199,9 @@ function Dropdown({
       })
       .then(() => {
         setTimeout(() => {
+          getInputData(sumCash)
+          getBalanceData()
+          getOperationList(endpoint, symbol)
           setModalDelete(false)
           setSelectedCategory({})
           setModalMessage("")

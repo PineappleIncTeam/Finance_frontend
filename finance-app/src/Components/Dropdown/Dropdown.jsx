@@ -30,7 +30,7 @@ function Dropdown({
   typeOfCategories,
   disInput,
   addActive,
-  storageType,
+  // storageType,
 }) {
   const [newCategory, setNewCategory] = useState("")
   const [newTarget, setNewTarget] = useState("")
@@ -153,7 +153,7 @@ function Dropdown({
       category_type,
       income_outcome,
       //
-      target: newTarget
+      target: newTarget,
     }
 
     const options = {
@@ -276,7 +276,7 @@ function Dropdown({
             {categories.map((jsonObject, index) => {
               if (
                 jsonObject.category_type === category_type &&
-                (jsonObject.is_hidden === false || !jsonObject.is_hidden)
+                jsonObject.is_hidden === false
               ) {
                 return (
                   <div
@@ -333,7 +333,7 @@ function Dropdown({
               onChange={(e) => handleInput(e)}
               placeholder="Название категории"
             />
-            <input
+            {/* <input
               className={
                 !storageType ? style.disabled : style.modal_input_storage
               }
@@ -341,7 +341,7 @@ function Dropdown({
               value={newTarget}
               onChange={(e) => handleInputTarget(e)}
               placeholder="Цель, руб."
-            />
+            /> */}
             <button
               className={style.button}
               onClick={(e) => chooseAndAddCategory(e)}

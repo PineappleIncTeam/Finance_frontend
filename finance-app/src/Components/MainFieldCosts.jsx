@@ -89,7 +89,7 @@ function MainFieldCosts({
         typeOfCategories={URLS.getMoneyBoxCategories}
         getBalanceData={getBalanceData}
         addActive={false}
-        storageType={true}
+        // storageType={true}
       />
 
       <div className="mobileSum">

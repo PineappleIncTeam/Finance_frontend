@@ -12,31 +12,31 @@ function ButtonNaviBlock() {
     <div className="button_navi_block">
       <NavLink to="/rectangle/mainfield" className="button">
         <div className="btnStek">
-          <img className="vectorBtn" src={FieldVector} alt="vectorImg"></img>Доходы
+          <img className="vectorBtn" src={FieldVector} alt="vectorImg" />
+          Доходы
         </div>
-
-        <img className="arrowVector" src={arrow} alt="vectorImg"></img>
+        <img className="arrowVector" src={arrow} alt="vectorImg" />
       </NavLink>
       <NavLink to="/rectangle/mainfieldcosts" className="button">
         <div className="btnStek">
-          <img className="vectorBtn" src={CostsVector} alt="vectorImg"></img> Расходы{" "}
+          <img className="vectorBtn" src={CostsVector} alt="vectorImg" />
+          Расходы
         </div>
-
-        <img className="arrowVector" src={arrow} alt="vectorImg"></img>
+        <img className="arrowVector" src={arrow} alt="vectorImg" />
       </NavLink>
       <NavLink to="/rectangle/mainfieldstorage" className="button">
         <div className="btnStek">
-          <img className="vectorBtn" src={StorVector} alt="vectorImg"></img> Накопления{" "}
+          <img className="vectorBtn" src={StorVector} alt="vectorImg" />
+          Накопления
         </div>
-
-        <img className="arrowVector" src={arrow} alt="vectorImg"></img>
+        <img className="arrowVector" src={arrow} alt="vectorImg" />
       </NavLink>
       <NavLink to="/rectangle/mainfieldanalitic" className="button">
         <div className="btnStek">
-          <img className="vectorBtn" src={AnaliticVector} alt="vectorImg"></img> Аналитика{" "}
+          <img className="vectorBtn" src={AnaliticVector} alt="vectorImg" />
+          Аналитика
         </div>
-
-        <img className="arrowVector" src={arrow} alt="vectorImg"></img>
+        <img className="arrowVector" src={arrow} alt="vectorImg" />
       </NavLink>
     </div>
   )

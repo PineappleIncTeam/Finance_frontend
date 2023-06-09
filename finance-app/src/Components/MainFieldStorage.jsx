@@ -63,6 +63,7 @@ function MainFieldStorage({
         {storageCategories &&
           storageCategories.map((category, index) => {
             const doneStorage = category.target - category.sum
+            if (!category.is_hidden)
             return (
               <div className={style.storage_category_row} key={index}>
                 <div className={style.categories_storage_title} key={index}>

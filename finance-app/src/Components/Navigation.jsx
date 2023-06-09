@@ -19,7 +19,7 @@ function Navigation({ menuActive, setMenuActive }) {
   return (
     <div
       className={menuActive ? "navigation active" : "navigation"}
-      active={menuActive}
+      // active={menuActive}
     >
       <Logo />
       <ButtonNaviBlock />

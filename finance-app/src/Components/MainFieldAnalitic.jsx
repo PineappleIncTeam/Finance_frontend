@@ -167,8 +167,8 @@ function MainFieldAnalitic({
     <div className="main_field main_field_analitic">
       <h2 className="main_field_title main_field_title_analitic">Аналитика</h2>
       <div className="analitic_select_zone">
-        <select className="analitic_select" onChange={(e) => handleChange(e)}>
-          <option className="analitic_select_option" value="income" selected>
+        <select className="analitic_select" defaultValue="income" onChange={(e) => handleChange(e)}>
+          <option className="analitic_select_option" value="income">
             Доходы
           </option>
           <option className="analitic_select_option" value="costs">

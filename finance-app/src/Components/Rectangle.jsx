@@ -132,8 +132,9 @@ function Rectangle() {
           responseServer.map((responseNumber) => {
             let constSum = Number(responseNumber.constant_sum)
             let onceSum = Number(responseNumber.once_sum)
-            let sumField = constSum + onceSum
-            setInputData(sumField)
+            let accumSum = Number(responseNumber.accum_sum)
+            let sumField = accumSum ? (constSum + onceSum + accumSum) : (constSum + onceSum)
+            return setInputData(sumField)
           })
         } else {
           setInputData("0")
@@ -158,7 +159,7 @@ function Rectangle() {
         <Navigation menuActive={menuActive} setMenuActive={setMenuActive} />
         <div
           className={menuActive ? "main active" : "main"}
-          active={menuActive}
+          // active={menuActive}
         >
           <div className="mainField">
             <div className="mainFieldBlock">

@@ -25,7 +25,7 @@ function MainFieldString({
   getBalanceData,
   range,
   addActive,
-  storageType,
+  // storageType,
   placeholder,
 }) {
   const token = useSelector((state) => state.user.token)
@@ -78,9 +78,9 @@ function MainFieldString({
       .then((response) => {
         console.log(response)
         if (response.status === 400) {
-          setModalMessage(`Вы можете добавить не более ${
-            (selectElement.target - selectElement.sum).toFixed(2)
-          } руб. \n для закрытия данного
+          setModalMessage(`Вы можете добавить не более ${(
+            selectElement.target - selectElement.sum
+          ).toFixed(2)} руб. \n для закрытия данного
           накопления`)
           setModalActive(true)
         }
@@ -129,7 +129,7 @@ function MainFieldString({
             typeOfCategories={typeOfCategories}
             disInput={disInput}
             addActive={addActive}
-            storageType={storageType}
+            // storageType={storageType}
           />
         )}
 
@@ -162,7 +162,7 @@ function MainFieldString({
           +
         </button>
       </form>
-      <Modal active={modalActive} setActive={setModalActive}>
+      <Modal active={modalActive} setActive={setModalActive} setInput={() => setModalActive(false)}> 
         <div
           className={style.delete_icon}
           onClick={() => setModalActive(false)}

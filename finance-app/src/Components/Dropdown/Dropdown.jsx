@@ -291,7 +291,7 @@ function Dropdown({
                     className={`dropdown-item ${
                       isSelected(jsonObject) && "selected"
                     }`}
-                    key={jsonObject.category_id || jsonObject.id}
+                    key={jsonObject.category_id}
                     index={index}
                     onClick={() => onItemClick(jsonObject)}
                   >
@@ -301,7 +301,7 @@ function Dropdown({
                       title="Удаление категории"
                       onClick={() =>
                         createModal(
-                          jsonObject.category_id || jsonObject.id,
+                          jsonObject.category_id,
                           jsonObject.categoryName
                         )
                       }

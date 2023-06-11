@@ -1,12 +1,12 @@
-import React from "react";
-import style from "./Aside.module.css";
-import userAva from "./../../Images/userAva.svg";
-import "air-datepicker/air-datepicker.css";
-import AirDatePicker from "../calendar/AirCalendar";
-import { months, month } from "../../urls/urlsAndDates";
+import React from "react"
+import style from "./Aside.module.css"
+import userAva from "./../../Images/userAva.svg"
+import "air-datepicker/air-datepicker.css"
+import AirDatePicker from "../calendar/AirCalendar"
+import { months } from "../../urls/urlsAndDates"
 
-
-const Aside = ({ balanceData, range }) => {
+const Aside = ({ balanceData, range, selectDate }) => {
+  let selectDateAside = selectDate.split("-")
   return (
     <div>
       <div className={style.root}>
@@ -14,7 +14,13 @@ const Aside = ({ balanceData, range }) => {
           <div className={style.balance}>
             <input type="text" value={balanceData} readOnly />
             <span className="ruble_icon">₽</span>
-            <div className={style.textBalance}>Ваш баланс за <span className={style.balance_month}>{months[month]}</span></div>
+            <div className={style.textBalance}>
+              Ваш баланс на{" "}
+              <span className={style.balance_month}>{selectDateAside[2]}</span>
+              <span className={style.balance_month}>
+                {months[Number(selectDateAside[1])]}
+              </span>
+            </div>
           </div>
           <div className={style.userAva}>
             <img src={userAva} alt="" />
@@ -25,7 +31,7 @@ const Aside = ({ balanceData, range }) => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Aside;
+export default Aside

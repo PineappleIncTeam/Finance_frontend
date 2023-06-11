@@ -18,6 +18,6 @@ const dataReducer = createSlice({
   },
 });
 
-export const { setDateCalendar, setDateCalendarRange } = dataReducer.actions;
+export const { setDateCalendar, setDateCalendarRange, data } = dataReducer.actions;
 
 export default dataReducer.reducer;

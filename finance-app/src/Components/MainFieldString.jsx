@@ -76,8 +76,11 @@ function MainFieldString({
 
     fetch(typeOfSum, options)
       .then((response) => {
-        console.log(response)
-        if (response.status === 400) {
+        if (placeholder && response.status === 400) {
+          setModalMessage("Вы не можете изменить цель накопления")
+          setModalActive(true)
+        }
+        if (!placeholder && response.status === 400) {
           setModalMessage(`Вы можете добавить не более ${(
             selectElement.target - selectElement.sum
           ).toFixed(2)} руб. \n для закрытия данного
@@ -167,7 +170,11 @@ function MainFieldString({
           +
         </button>
       </form>
-      <Modal active={modalActive} setActive={setModalActive} setInput={() => setModalActive(false)}> 
+      <Modal
+        active={modalActive}
+        setActive={setModalActive}
+        setInput={() => setModalActive(false)}
+      >
         <div
           className={style.delete_icon}
           onClick={() => setModalActive(false)}

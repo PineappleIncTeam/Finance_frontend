@@ -7,9 +7,13 @@ import Aside from "./Aside/Aside"
 import Transactions from "./Transactions/Transactions"
 import MainFieldRouter from "./RoutePage/MainFieldRouter"
 import { AiOutlineMenu, AiOutlineClose } from "react-icons/ai"
-import { URLS } from "../urls/urlsAndDates"
+import { URLS, currentDate, startDate } from "../urls/urlsAndDates"
 
 function Rectangle() {
+  //
+  const dataCal = useSelector((state) => state.data.data).split(".").reverse().join("-")
+  const selectDate = dataCal || currentDate
+  //
   const token = useSelector((state) => state.user.token)
   const [operationList, setOperationList] = useState("")
   const [symbol, setSymbol] = useState("+")
@@ -108,14 +112,14 @@ function Rectangle() {
         Authorization: `Token ${token}`,
       },
     }
-    fetch(URLS.balance, options)
+    fetch(`${URLS.balance}?date_start=${startDate}&date_end=${selectDate}`, options)
       .then((result) => result.json())
       .then((responseServer) => setBalanceData(responseServer.sum_balance))
   }
 
   useEffect(() => {
     getBalanceData()
-  }, [])
+  }, [dataCal])
 
   function getInputData(endpoint) {
     const options = {
@@ -183,6 +187,7 @@ function Rectangle() {
               <Aside
                 balanceData={balanceData}
                 range={range}
+                selectDate={selectDate}
               />
             </div>
           </div>

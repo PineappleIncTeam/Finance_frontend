@@ -13,7 +13,7 @@ function TransactionList({
   symbol,
   getInputData,
   getStorageCategories,
-  typeOfCategories
+  typeOfCategories,
 }) {
   const token = useSelector((state) => state.user.token)
 
@@ -34,14 +34,11 @@ function TransactionList({
   }
   function handleInput(e) {
     e.preventDefault()
-    setNewSum(
-      e.target.value
-        .replace(/[^0-9.,]+/, "")
-        .replace(/,/, ".")
-    )
+    setNewSum(e.target.value.replace(/[^0-9.,]+/, "").replace(/,/, "."))
   }
 
   function createDeleteModal(operationId, symbol) {
+    console.log(operationId, symbol)
     setMessage(
       "Вы действительно хотите удалить эту запись? \n Действие не может быть отменено"
     )
@@ -129,7 +126,7 @@ function TransactionList({
         getStorageCategories(typeOfCategories)
       }, 400)
     }
-    
+
     setMessage("Запись была изменена")
     setTimeout(() => setModalChangeSum(false), 2000)
   }

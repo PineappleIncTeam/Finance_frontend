@@ -3,7 +3,7 @@ import style from "./Aside.module.css"
 import userAva from "./../../Images/userAva.svg"
 import "air-datepicker/air-datepicker.css"
 import AirDatePicker from "../calendar/AirCalendar"
-import { months } from "../../urls/urlsAndDates"
+import { balanceMonths } from "../../urls/urlsAndDates"
 
 const Aside = ({ balanceData, range, selectDate }) => {
   let selectDateAside = selectDate.split("-")
@@ -18,7 +18,7 @@ const Aside = ({ balanceData, range, selectDate }) => {
               Ваш баланс на{" "}
               <span className={style.balance_month}>{selectDateAside[2]}</span>
               <span className={style.balance_month}>
-                {months[Number(selectDateAside[1])]}
+                {balanceMonths[Number(selectDateAside[1])]}
               </span>
             </div>
           </div>

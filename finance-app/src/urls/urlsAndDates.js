@@ -14,7 +14,7 @@ export let lastDayOfMonth = `${year}-${month}-${lastDay}`
 
 export let startDate = "2000-01-01"
 
-export let months = {
+export let balanceMonths = {
   1: "Января",
   2: "Февраля",
   3: "Марта",
@@ -27,6 +27,20 @@ export let months = {
   10: "Октября",
   11: "Ноября",
   12: "Декабря",
+}
+export let months = {
+  1: "Январь",
+  2: "Февраль",
+  3: "Март",
+  4: "Апрель",
+  5: "Май",
+  6: "Июнь",
+  7: "Июль",
+  8: "Август",
+  9: "Сентябрь",
+  10: "Октябрь",
+  11: "Ноябрь",
+  12: "Декабрь",
 }
 
 export const URLS = {

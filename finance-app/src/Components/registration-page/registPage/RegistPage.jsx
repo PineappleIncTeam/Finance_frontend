@@ -74,9 +74,10 @@ const RegistPage = () => {
         navigate("/rectangle")
       })
     } catch (e) {
-      e.response.data.email
-        ? setReply(e.response.data.email)
-        : setReply(`Пользователь с логином ${payload.username} существует`)
+      console.log(e)
+      e.response.data.username
+        ? setReply(`Пользователь с логином ${payload.username} уже зарегистрирован`)
+        : setReply(`Пользователь с таким Email уже зарегистрирован`)
     } finally {
       setSubmitting(false)
     }

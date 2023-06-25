@@ -21,6 +21,10 @@
   opacity: 1;
   pointer-events: all;
 }
+.modal_form {
+  display: flex;
+  flex-direction: column;
+}
 .modal_content {
   display: flex;
   flex-direction: column;

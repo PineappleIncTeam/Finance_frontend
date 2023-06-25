@@ -36,7 +36,7 @@ function Dropdown({
   getOperationList,
   endpoint,
   symbol,
-  }) {
+}) {
   const [newCategory, setNewCategory] = useState("")
   const [newTarget, setNewTarget] = useState("")
   const [showMenu, setShowMenu] = useState(false)
@@ -321,27 +321,29 @@ function Dropdown({
         setActive={setModalActive}
         setInput={() => setNewCategory("")}
       >
-        <div className={style.delete_icon} onClick={closeModal}>
-          <img src={closeIcon} alt="X" />
-        </div>
-        <div className={style.content_box}>
-          <p className={style.modal_text}>
-            Введите название категории <br />
-            (не более 14 символов)
-          </p>
-          <div>
-            <input
-              className={
-                error
-                  ? `${style.modal_input} ${style.error}`
-                  : style.modal_input
-              }
-              type="text"
-              value={newCategory}
-              onChange={(e) => handleInput(e)}
-              placeholder="Название категории"
-            />
-            {/* <input
+        <form className={style.modal_form} onSubmit={(e) => chooseAndAddCategory(e)}>
+          <div className={style.delete_icon} onClick={closeModal}>
+            <img src={closeIcon} alt="X" />
+          </div>
+          <div className={style.content_box}>
+            <p className={style.modal_text}>
+              Введите название категории <br />
+              (не более 14 символов)
+            </p>
+            <div>
+              <input
+                className={
+                  error
+                    ? `${style.modal_input} ${style.error}`
+                    : style.modal_input
+                }
+                type="text"
+                value={newCategory}
+                onChange={(e) => handleInput(e)}
+                onKeyDown={(event) => event.key === "Enter" ? chooseAndAddCategory(event) : ""}
+                placeholder="Название категории"
+              />
+              {/* <input
               className={
                 !storageType ? style.disabled : style.modal_input_storage
               }
@@ -350,41 +352,46 @@ function Dropdown({
               onChange={(e) => handleInputTarget(e)}
               placeholder="Цель, руб."
             /> */}
-            <button
-              className={style.button}
-              onClick={(e) => chooseAndAddCategory(e)}
-            >
-              Добавить
-            </button>
+              <button
+                className={style.button}
+                // onClick={(e) => chooseAndAddCategory(e)}
+                type="submit"
+              >
+                Добавить
+              </button>
+            </div>
+            <div className={style.errorMessage}>{errorMessage}</div>
           </div>
-          <div className={style.errorMessage}>{errorMessage}</div>
-        </div>
+        </form>
       </Modal>
       <Modal active={modalDelete} setActive={setModalDelete}>
-        <div
-          className={style.delete_icon}
-          onClick={() => setModalDelete(false)}
-        >
-          <img src={closeIcon} alt="X" />
-        </div>
-        <div className={style.modal_text}>{modalMessage}</div>
-        <div>
-          <button
-            className={style.button}
-            onClick={(e) => deleteCategory(e, selectedCategory)}
+        <form className={style.modal_form}>
+          <div
+            className={style.delete_icon}
+            onClick={() => setModalDelete(false)}
           >
-            Удалить
-          </button>
-          <button
-            className={style.button_archive}
-            onClick={(e) => sendToArchive(e, selectedCategory)}
-          >
-            В архив
-          </button>
-          <button className={style.button_cancel} onClick={(e) => cancel(e)}>
-            Отмена
-          </button>
-        </div>
+            <img src={closeIcon} alt="X" />
+          </div>
+          <div className={style.modal_text}>{modalMessage}</div>
+          <div>
+            <button
+              className={style.button}
+              onClick={(e) => deleteCategory(e, selectedCategory)}
+            >
+              Удалить
+            </button>
+            <button
+              className={style.button_archive}
+              onClick={(e) => sendToArchive(e, selectedCategory)}
+              type="submit"
+            >
+              В архив
+            </button>
+            <button className={style.button_cancel} onClick={(e) => cancel(e)}>
+              Отмена
+            </button>
+          </div>
+        </form>
       </Modal>
     </>
   )

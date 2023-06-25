@@ -5,7 +5,7 @@ let lastDayDate = new Date(date.getFullYear(), date.getMonth() + 1, 0)
 let lastDay = lastDayDate.toLocaleString().substring(0, 2)
 
 export let month = date.getMonth() + 1
-
+export let dateOnline = year + '-' + month + '-' + currentDay
 export let currentDate = `${year}-${month}-${currentDay}`
 
 export let firstDayOfMonth = `${year}-${month}-01`

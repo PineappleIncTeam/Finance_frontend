@@ -62,6 +62,8 @@ const MainFieldRouter = ({
         path="/mainfieldstorage"
         element={
           <MainFieldStorage
+            categories={categories}
+            getCategories={getCategories}
             storageCategories={storageCategories}
             getStorageCategories={getStorageCategories}
             setCheckMainField={setCheckMainField}

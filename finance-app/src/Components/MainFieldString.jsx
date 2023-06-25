@@ -7,6 +7,7 @@ import Dropdown from "./Dropdown/Dropdown"
 import Modal from "./modalWindow/Modal"
 import style from "./modalWindow/Modal.module.css"
 import closeIcon from "../Images/closeIcon.svg"
+import { dateOnline } from "../urls/urlsAndDates"
 
 function MainFieldString({
   title,
@@ -48,18 +49,18 @@ function MainFieldString({
   }
   let dataCalendar = dataCal && dataCal.split(".").reverse().join("-")
 
-  let Data = new Date()
-  let Year = Data.getFullYear()
-  let Month = Data.getMonth() + 1
-  let Day = Data.getDate()
-  let dataOnline = Year + "-" + Month + "-" + Day
+  // let Data = new Date()
+  // let Year = Data.getFullYear()
+  // let Month = Data.getMonth() + 1
+  // let Day = Data.getDate()
+  // let dataOnline = Year + "-" + Month + "-" + Day
 
   function sumSubmit(event) {
     event.preventDefault()
     let data = {
       sum: enterSum || "0",
       category_id: selectElement.category_id || selectElement.id,
-      date: dataCalendar ? dataCalendar : dataOnline,
+      date: dataCalendar ? dataCalendar : dateOnline,
       //
       target: selectElement.target ? selectElement.target : target,
       //
@@ -158,6 +159,7 @@ function MainFieldString({
         <button
           type="submit"
           className="main_field_string_button"
+          onKeyDown={(event) => event.key === "Enter" ? sumSubmit : ""}
           disabled={Boolean(!inputDis)}
         >
           Добавить

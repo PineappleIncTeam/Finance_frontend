@@ -8,6 +8,7 @@ import Transactions from "./Transactions/Transactions"
 import MainFieldRouter from "./RoutePage/MainFieldRouter"
 import { AiOutlineMenu, AiOutlineClose } from "react-icons/ai"
 import { URLS, currentDate, startDate } from "../urls/urlsAndDates"
+import { getStorageSum } from "../Utils/getStorageSum"
 
 function Rectangle() {
   //
@@ -23,6 +24,7 @@ function Rectangle() {
   //
   const [categories, setCategories] = useState("");
   const [storageCategories, setStorageCategories] = useState("")
+  const [storageSum, setStorageSum] = useState()
 
   const [range, setRange] = useState(true)
   const [menuActive, setMenuActive] = useState(false)
@@ -84,7 +86,10 @@ function Rectangle() {
     };
     fetch(typeOfCategories, options)
       .then((result) => result.json())
-      .then((userCategories) => setStorageCategories(userCategories));
+      .then((userCategories) => {
+        setStorageCategories(userCategories)
+        setStorageSum(getStorageSum(userCategories))
+      });
   }
 
   function getOperationList(endpoint, symbol) {
@@ -172,6 +177,7 @@ function Rectangle() {
                 storageCategories={storageCategories}
                 getCategories={getCategories}
                 getStorageCategories={getStorageCategories}
+                storageSum={storageSum}
                 getOperationList={getOperationList}
                 getBalanceData={getBalanceData}
                 getInputData={getInputData}

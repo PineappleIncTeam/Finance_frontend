@@ -75,7 +75,7 @@
 }
 @media (max-width: 1200px) {
   .balance input {
-    max-width: 90px;
+    max-width: 120px;
     font-size: 14px;
   }
 

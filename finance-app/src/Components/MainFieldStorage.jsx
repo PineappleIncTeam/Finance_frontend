@@ -8,11 +8,14 @@ import style from "./MainFieldStorage.module.css"
 import modalStyle from "./modalWindow/Modal.module.css"
 import statusImage from "../Images/statusImage.svg"
 import closeIcon from "../Images/closeIcon.svg"
+import statusCheckBox from "../Images/checkBox.svg"
+import { getStorageSum } from "../Utils/getStorageSum"
 
 function MainFieldStorage({
   categories,
   getCategories,
   storageCategories,
+  sum,
   getStorageCategories,
   setCheckMainField,
   getOperationList,
@@ -23,28 +26,31 @@ function MainFieldStorage({
   const [modalActive, setModalActive] = useState(false)
   const [modalMessage, setModalMessage] = useState("")
   const [selectedCategory, setSelectedCategory] = useState({})
-  // console.log(selectedCategory)
+  
+  //
+  getStorageSum(storageCategories)
+  let categoryFromStorage = {}
+  for (let i = 0; i < categories.length; i++) {
+    if (categories[i].categoryName === "Из Накоплений")
+      categoryFromStorage = categories[i]
+  }
+ 
   //
 
-  useEffect(() => {
-    getCategories(URLS.getIncomeCategories)
-    console.log("useEffect", categories)
-  }, [])
   function createModal(category) {
     setModalMessage(
       `Вы уверены, что хотите перевести накопление ${category.categoryName} в доходы?`
-      )
-      setModalActive(true)
-      setSelectedCategory(category)
-    }
-    function sendSumToIncome(e, category, categories) {
-      e.preventDefault()
-      
-      const categoryFromStorage = (categories)
-      
-      let data = {
+    )
+    setModalActive(true)
+    setSelectedCategory(category)
+  }
+
+  function sendSumToIncome(e, category, incomeCategory) {
+    e.preventDefault()
+
+    let data = {
       sum: category.sum,
-      category_id: category.category_id,
+      category_id: incomeCategory.category_id,
       date: dateOnline,
     }
     const options = {
@@ -59,9 +65,17 @@ function MainFieldStorage({
       setModalMessage(
         `Накопление ${category.categoryName} было переведено в доход в категорию "Из Накоплений"`
       )
+      getCategories(URLS.getIncomeCategories)
+      deleteCategory(e, category)
+      setTimeout(() => {
+        setModalActive(false)
+        setSelectedCategory({})
+        setModalMessage("")
+      }, 2000)
     })
+    getStorageSum(storageCategories)
   }
-  function addCategory(e) {
+  function addCategory(e, category) {
     e.preventDefault()
 
     let data = {
@@ -81,28 +95,50 @@ function MainFieldStorage({
       body: JSON.stringify(data),
     }
 
-    fetch(URLS.createCategory, options).then((result) => {
-      result.json()
-      // setSelectedValue("")
-      // getCategories(typeOfCategories)
-      // getDisplay()
-      // setNewCategory("")
-      setModalActive(false)
-    })
+    fetch(URLS.createCategory, options)
+      .then((response) => response.json())
+      .then((data) => {
+        sendSumToIncome(e, category, data)
+        getBalanceData()
+      })
   }
+
+  function deleteCategory(e, category) {
+    e.preventDefault()
+    const options = {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Token ${token}`,
+      },
+    }
+
+    fetch(`${URLS.deleteCategory}${category.category_id}`, options)
+      .then((result) => {
+        getStorageCategories(URLS.getMoneyBoxCategories)
+      })
+      .then(() => {
+        setTimeout(() => {
+          getBalanceData()
+          getOperationList(URLS.last5MoneyBoxOperation, " ")
+          setSelectedCategory({})
+        }, 2000)
+      })
+    getStorageSum(storageCategories)
+  }
+
   function sendStorageToIncome(e, category, categories) {
     e.preventDefault()
     let count = 0
     for (let i = 0; i < categories.length; i++) {
-      if (categories[i] === "Из Накоплений") {
+      if (categories[i].categoryName === "Из Накоплений") {
         count += 1
+        console.log(count)
       }
     }
-    if (count > 0) return
-    else {
-      addCategory(e)
-      sendSumToIncome(e, category, categories)
-    }
+    if (count > 0) sendSumToIncome(e, category, categoryFromStorage)
+    else addCategory(e, category)
+
     count = 0
   }
 
@@ -110,14 +146,26 @@ function MainFieldStorage({
     setCheckMainField(true)
     getOperationList(URLS.last5MoneyBoxOperation, " ")
     getStorageCategories(URLS.getMoneyBoxCategories)
+    getCategories(URLS.getIncomeCategories)
+    getBalanceData()
+    getStorageSum(storageCategories)
   }, [])
 
   return (
     <>
       <div className={style.main_field}>
-        <h2 className={`${style.main_field_title} ${style.storage_title}`}>
-          Накопления
-        </h2>
+        <h2 className={`${style.main_field_title}`}>Накопления</h2>
+        <div className={style.main_field_input}>
+          <input
+            className={style.input_rub}
+            value={sum}
+            readOnly
+          ></input>
+          <span className={style.ruble_icon}>₽</span>
+        </div>
+        <div className={style.main_field_title_label}>
+          Общая сумма накоплений
+        </div>
         <div className={style.main_field_storage}>
           <MainFieldString
             title="Накопления"
@@ -172,12 +220,20 @@ function MainFieldStorage({
                       </div>
                     </div>
                     {category.target && !doneStorage && (
-                      <img
-                        className={style.image}
-                        src={statusImage}
-                        alt="status ok"
-                        onClick={() => createModal(category)}
-                      />
+                      <>
+                        <img
+                          className={style.image}
+                          src={statusImage}
+                          alt="status ok"
+                          onClick={() => createModal(category)}
+                        />
+                        <img
+                          className={style.image_checkBox}
+                          src={statusCheckBox}
+                          alt="status ok"
+                          onClick={() => createModal(category)}
+                        />
+                      </>
                     )}
                   </div>
                 )
@@ -199,7 +255,9 @@ function MainFieldStorage({
         <div>
           <button
             className={modalStyle.button}
-            onClick={(e) => sendStorageToIncome(e, selectedCategory)}
+            onClick={(e) =>
+              sendStorageToIncome(e, selectedCategory, categories)
+            }
           >
             Да
           </button>

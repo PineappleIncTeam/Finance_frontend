@@ -45,6 +45,8 @@ function Dropdown({
   const searchRef = useRef()
   const inputRef = useRef()
   //
+  const [modalMessageActive, setModalMessageActive] = useState(false)
+  //
   const [modalActive, setModalActive] = useState(false)
   const [error, setError] = useState(false)
   const [errorMessage, setErrorMessage] = useState("")
@@ -131,10 +133,18 @@ function Dropdown({
   }
 
   const onItemClick = (option) => {
-    setSelectedValue(option)
-    console.log("onItemClick", option)
-    changeSelectElement(option)
-    disInput()
+    if (option.categoryName === "Из Накоплений") {
+      setModalMessage(
+        'В эту категорию можно только переносить данные из раздела "Накопления"'
+      )
+      setModalMessageActive(true)
+      getDisplay()
+    } else {
+      setSelectedValue(option)
+      console.log("onItemClick", option)
+      changeSelectElement(option)
+      disInput()
+    }
   }
 
   const isSelected = (option) => {
@@ -321,7 +331,10 @@ function Dropdown({
         setActive={setModalActive}
         setInput={() => setNewCategory("")}
       >
-        <form className={style.modal_form} onSubmit={(e) => chooseAndAddCategory(e)}>
+        <form
+          className={style.modal_form}
+          onSubmit={(e) => chooseAndAddCategory(e)}
+        >
           <div className={style.delete_icon} onClick={closeModal}>
             <img src={closeIcon} alt="X" />
           </div>
@@ -340,7 +353,9 @@ function Dropdown({
                 type="text"
                 value={newCategory}
                 onChange={(e) => handleInput(e)}
-                onKeyDown={(event) => event.key === "Enter" ? chooseAndAddCategory(event) : ""}
+                onKeyDown={(event) =>
+                  event.key === "Enter" ? chooseAndAddCategory(event) : ""
+                }
                 placeholder="Название категории"
               />
               {/* <input
@@ -354,7 +369,7 @@ function Dropdown({
             /> */}
               <button
                 className={style.button}
-                // onClick={(e) => chooseAndAddCategory(e)}
+                onClick={(e) => chooseAndAddCategory(e)}
                 type="submit"
               >
                 Добавить
@@ -392,6 +407,21 @@ function Dropdown({
             </button>
           </div>
         </form>
+      </Modal>
+      <Modal
+        active={modalMessageActive}
+        setActive={setModalMessageActive}
+        setInput={() => setModalActive(false)}
+      >
+        <div
+          className={style.delete_icon}
+          onClick={() => setModalMessageActive(false)}
+        >
+          <img src={closeIcon} alt="X" />
+        </div>
+        <div className={style.content_box}>
+          <div className={style.modal_text}>{modalMessage}</div>
+        </div>
       </Modal>
     </>
   )

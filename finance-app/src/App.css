@@ -7,7 +7,6 @@
 
 .navigation {
   max-width: 405px;
-  height: 1080px;
   background-image: url("../src/Images/navBlockBack2.png");
   margin-left: 120px;
 }
@@ -447,7 +446,6 @@
     height: 768px;
   }
   .navigation {
-    height: 768px;
     margin-left: 20px;
   }
   .button_navi_block {
@@ -678,6 +676,7 @@
 }
 @media screen and (max-width: 376px) {
   .main_field_string_input {
+    font-size: 10px;
     width: 110px;
     height: 32px;
     margin-top: 24px;

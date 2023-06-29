@@ -10,6 +10,7 @@ const MainFieldRouter = ({
   storageCategories,
   getCategories,
   getStorageCategories,
+  storageSum,
   getOperationList,
   setSymbol,
   getBalanceData,
@@ -65,6 +66,7 @@ const MainFieldRouter = ({
             categories={categories}
             getCategories={getCategories}
             storageCategories={storageCategories}
+            sum={storageSum}
             getStorageCategories={getStorageCategories}
             setCheckMainField={setCheckMainField}
             getOperationList={getOperationList}

@@ -13,7 +13,7 @@
   margin: 28px 20px;
 }
 .storage_categories {
-  margin-top: 68px;
+  margin: 68px 0px;
 }
 .storage_category_row {
   display: flex;
@@ -63,4 +63,160 @@
 }
 .image {
   cursor: pointer;
+}
+.image_checkBox {
+  display: none;
+}
+.input_rub {
+  width: 265px;
+  height: 27px;
+  margin-bottom: 0px;
+  padding-left: 10px;
+  padding-bottom: 5px;
+  border: none;
+  border-bottom: 1px solid #999999;
+  font-family: "Monserrat-Regular";
+  text-align: center;
+  font-weight: 400;
+  font-size: 24px;
+  background: rgba(250, 245, 228, 0.2);
+}
+.ruble_icon {
+  font-family: "Monserrat-Regular";
+  text-align: center;
+  font-weight: 400;
+  font-size: 24px;
+  color: #000000;
+  position: relative;
+  right: 25px;
+}
+.main_field_title_label {
+  font-family: "Monserrat-Medium";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  align-items: center;
+  text-align: center;
+  color: #999999;
+  margin-bottom: 42px;
+}
+
+@media screen and (max-width: 1919px) {
+  .main_field_title {
+    font-size: 32px;
+    margin-bottom: 32px;
+  }
+  .categories_storage_title {
+    margin-left: 28px;
+  }
+  .input_rub {
+    width: 190px;
+    height: 19px;
+    margin-left: 10px;
+    font-size: 16px;
+  }
+  .ruble_icon {
+    font-size: 16px;
+    right: 18px;
+  }
+  .main_field_title_label {
+    font-size: 12px;
+    margin-bottom: 0px;
+  }
+}
+
+@media (max-width: 1275px) {
+  .category_name_storage {
+    width: 170px;
+    height: 36px;
+  }
+  .grand_total_storage {
+    width: 150px;
+    height: 36px;
+  }
+  .sum_storage {
+    width: 100px;
+    height: 36px;
+  }
+  .categories_storage_title {
+    width: 390px;
+    margin-left: 28px;
+  }
+}
+@media (max-width: 1024px) {
+  .image {
+    display: none;
+  }
+  .image_checkBox {
+    display: block;
+  }
+}
+
+@media (max-width: 840px) {
+  .main_field {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .main_field_title {
+    margin: 10px 0px 0px 20px;
+    /* text-align: start; */
+    font-size: 24px;
+  }
+  .categories_storage_title {
+    width: 345px;
+    font-size: 12px;
+  }
+  .category_name_storage {
+    width: 115px;
+    height: 36px;
+  }
+  .grand_total_storage {
+    width: 115px;
+    height: 36px;
+  }
+  .sum_storage {
+    width: 115px;
+    height: 36px;
+  }
+  .image_checkBox {
+    position: relative;
+    right: 30px;
+  }
+}
+
+@media (max-width: 625px) {
+  .main_field {
+    align-items: start;
+  }
+  .main_field_title {
+    margin: 60px 0px 0px 20px;
+    font-size: 21px;
+    text-align: start;
+  }
+
+  .categories_storage_title {
+    width: 324px;
+    font-size: 10px;
+  }
+  .category_name_storage,
+  .grand_total_storage,
+  .sum_storage {
+    width: 108px;
+  }
+  .main_field_input,
+  .main_field_title_label,
+  .balance_month {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 376px) {
+  .mobileSum {
+    margin-top: 125px;
+  }
+  .ruble_icon {
+    font-size: 10px;
+  }
 }

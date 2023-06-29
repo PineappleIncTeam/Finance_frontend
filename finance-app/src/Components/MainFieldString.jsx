@@ -8,6 +8,7 @@ import Modal from "./modalWindow/Modal"
 import style from "./modalWindow/Modal.module.css"
 import closeIcon from "../Images/closeIcon.svg"
 import { dateOnline } from "../urls/urlsAndDates"
+import { getStorageSum } from "../Utils/getStorageSum"
 
 function MainFieldString({
   title,
@@ -103,6 +104,7 @@ function MainFieldString({
       .catch((error) => console.log("error", error))
     setEnterSum("")
     setTarget("")
+    getStorageSum(categories)
   }
 
   function handleInputChange(event) {

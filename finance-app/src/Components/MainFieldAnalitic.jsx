@@ -249,6 +249,10 @@ function MainFieldAnalitic({
           percentChoice={percentChoice}
           incomePercent={incomePercent}
           outcomePercent={outcomePercent}
+          storageSum={!percentChoice ? sum : balanceToTargetInPercent[0]}
+          balanceToTarget={
+            !percentChoice ? balanceToTarget : balanceToTargetInPercent[1]
+          }
         />
       )}
     </div>

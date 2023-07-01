@@ -74,11 +74,17 @@ function Dropdown({
   const [modalMessage, setModalMessage] = useState("")
 
   function createModal(categoryId, categoryName) {
-    setModalMessage(
-      `Вы хотите удалить категорию "${categoryName}" или отправить её в архив?`
-    )
-    setSelectedCategory({ id: categoryId, name: categoryName })
-    setModalDelete(true)
+    if (categoryName === "Из Накоплений") {
+      setModalMessage(`Вы хотите удалить категорию "${categoryName}"?`)
+      setSelectedCategory({ id: categoryId, name: categoryName })
+      setModalDelete(true)
+    } else {
+      setModalMessage(
+        `Вы хотите удалить категорию "${categoryName}" или отправить её в архив?`
+      )
+      setSelectedCategory({ id: categoryId, name: categoryName })
+      setModalDelete(true)
+    }
   }
   //
   const userCategoriesName = categories.map((item) => {
@@ -134,9 +140,9 @@ function Dropdown({
 
   const onItemClick = (option) => {
     if (option.categoryName === "Из Накоплений") {
-      setModalMessage(
-        'В эту категорию можно только переносить данные из раздела "Накопления"'
-      )
+      // setModalMessage(
+      //   'В эту категорию можно только переносить данные из раздела "Накопления"'
+      // )
       setModalMessageActive(true)
       getDisplay()
     } else {
@@ -395,13 +401,15 @@ function Dropdown({
             >
               Удалить
             </button>
-            <button
-              className={style.button_archive}
-              onClick={(e) => sendToArchive(e, selectedCategory)}
-              type="submit"
-            >
-              В архив
-            </button>
+            {selectedCategory.name !== "Из Накоплений" && (
+              <button
+                className={style.button_archive}
+                onClick={(e) => sendToArchive(e, selectedCategory)}
+                type="submit"
+              >
+                В архив
+              </button>
+            )}
             <button className={style.button_cancel} onClick={(e) => cancel(e)}>
               Отмена
             </button>
@@ -420,7 +428,10 @@ function Dropdown({
           <img src={closeIcon} alt="X" />
         </div>
         <div className={style.content_box}>
-          <div className={style.modal_text}>{modalMessage}</div>
+          <div className={style.modal_text}>
+            В эту категорию можно только переносить данные из раздела
+            "Накопления"
+          </div>
         </div>
       </Modal>
     </>

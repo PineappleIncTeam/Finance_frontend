@@ -9,8 +9,8 @@ import {
   Legend,
 } from "chart.js"
 
-import { Bar } from "react-chartjs-2"
-import { colorsIncome, colorsOutcome } from "../../data/colors"
+import { Bar, Doughnut } from "react-chartjs-2"
+import { colorsIncome, colorsOutcome, colorsStorage } from "../../data/colors"
 import style from "./Gistogram.module.css"
 
 function Gistogram({
@@ -21,6 +21,8 @@ function Gistogram({
   percentChoice,
   incomePercent,
   outcomePercent,
+  storageSum,
+  balanceToTarget,
 }) {
   ChartJS.register(
     CategoryScale,
@@ -74,7 +76,21 @@ function Gistogram({
       },
     },
   }
+  //
+  const storageData = [storageSum, balanceToTarget]
+  const storageNames = ["Сумма накоплений", "Осталось накопить"]
+  const dataStorage = {
+    labels: [...storageNames],
 
+    datasets: [
+      {
+        data: [...storageData],
+        backgroundColor: colorsStorage,
+        hoverOffset: 4,
+      },
+    ],
+  }
+  //
   const incomeCategories = sumGroupIncome.map((item) => Object.keys(item))
   const incomeCategory = sumGroupIncome.length > 0 && sumGroupIncome[0]
   const incomeCategoryName =
@@ -122,7 +138,7 @@ function Gistogram({
     <>
       <div className={style.gistogram}>
         <div className={style.bar_gistogram}>
-          {isActive === "income" ? (
+          {isActive === "income" && (
             <Bar
               className={style.bar_gistogram}
               width={gistogramSize.width}
@@ -130,7 +146,8 @@ function Gistogram({
               options={options}
               data={dataIncome}
             />
-          ) : (
+          )}
+          {isActive === "costs" && (
             <Bar
               className={style.bar_gistogram}
               width={gistogramSize.width}
@@ -139,32 +156,57 @@ function Gistogram({
               data={dataOutcome}
             />
           )}
+          {isActive === "storage" && (
+            <Doughnut
+              className={style.doughnut}
+              width={style.doughnut}
+              height={style.doughnut}
+              data={dataStorage}
+              options={options}
+            />
+          )}
         </div>
       </div>
       <div className={style.categories_name}>
-        {isActive === "income"
-          ? incomeCategories.map((item, index) => {
-              return (
-                <div className={style.label_element} key={index}>
-                  <div
-                    className={style.category_color}
-                    style={{ backgroundColor: colorsIncome[index] }}
-                  ></div>
-                  <div className={style.category_name}>{item}</div>
+        {isActive === "income" &&
+          incomeCategories.map((item, index) => {
+            return (
+              <div className={style.label_element} key={index}>
+                <div
+                  className={style.category_color}
+                  style={{ backgroundColor: colorsIncome[index] }}
+                ></div>
+                <div className={style.category_name}>{item}</div>
+              </div>
+            )
+          })}
+        {isActive === "income" &&
+          outcomeCategories.map((item, index) => {
+            return (
+              <div className={style.label_element} key={index}>
+                <div
+                  className={style.category_color}
+                  style={{ backgroundColor: colorsOutcome[index] }}
+                ></div>
+                <div className={style.category_name}>{item}</div>
+              </div>
+            )
+          })}
+        {isActive === "storage" &&
+          storageData.map((item, index) => {
+            return (
+              <div className={style.label_element} key={index}>
+                <div
+                  className={style.category_color}
+                  style={{ backgroundColor: colorsStorage[index] }}
+                ></div>
+                <div className={style.category_name}>
+                  {storageNames[index]} {item}{" "}
+                  <span>{!percentChoice ? "₽" : "%"}</span>
                 </div>
-              )
-            })
-          : outcomeCategories.map((item, index) => {
-              return (
-                <div className={style.label_element} key={index}>
-                  <div
-                    className={style.category_color}
-                    style={{ backgroundColor: colorsOutcome[index] }}
-                  ></div>
-                  <div className={style.category_name}>{item}</div>
-                </div>
-              )
-            })}
+              </div>
+            )
+          })}
       </div>
     </>
   )

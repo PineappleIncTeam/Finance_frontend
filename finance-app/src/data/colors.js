@@ -63,3 +63,5 @@ export const colorsOutcome = [
   "#c99d02",
   "#c96b02",
 ]
+
+export const colorsStorage = ["#23b09b", "#999999"]

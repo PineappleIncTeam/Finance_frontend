@@ -8,7 +8,7 @@ import Modal from "./modalWindow/Modal"
 import style from "./modalWindow/Modal.module.css"
 import closeIcon from "../Images/closeIcon.svg"
 import { dateOnline } from "../urls/urlsAndDates"
-import { getStorageSum } from "../Utils/getStorageSum"
+import { getStorageSum } from "../Utils/storageFunctions"
 
 function MainFieldString({
   title,
@@ -161,7 +161,7 @@ function MainFieldString({
         <button
           type="submit"
           className="main_field_string_button"
-          onKeyDown={(event) => event.key === "Enter" ? sumSubmit : ""}
+          onKeyDown={(event) => (event.key === "Enter" ? sumSubmit : "")}
           disabled={Boolean(!inputDis)}
         >
           Добавить

@@ -12,6 +12,10 @@ import { URLS, firstDayOfMonth, lastDayOfMonth } from "../urls/urlsAndDates"
 function MainFieldAnalitic({
   changeRangeCalendar,
   range,
+  getStorageCategories,
+  sum,
+  balanceToTarget,
+  balanceToTargetInPercent,
   setCheckMainField,
   gistogramSize,
 }) {
@@ -24,6 +28,7 @@ function MainFieldAnalitic({
   //
   const [percentChoice, setPercentChoice] = useState(false)
   //
+  // console.log(sum, balanceToTarget, balanceToTargetInPercent)
   const dataStart =
     dataCalRange.length > 1
       ? dataCalRange[0].split(".").reverse().join("-")
@@ -44,6 +49,8 @@ function MainFieldAnalitic({
     } else {
       setGistogramType("pie")
     }
+    getAnaliticSum()
+    changeRangeCalendar(true)
   }, [dataCalRange, result])
   //
   useEffect(() => setCheckMainField(false))
@@ -88,9 +95,8 @@ function MainFieldAnalitic({
   }
 
   useEffect(() => {
-    getAnaliticSum()
-    changeRangeCalendar(true)
-  }, [dataCalRange])
+    getStorageCategories(URLS.getMoneyBoxCategories)
+  }, [])
 
   //.sort((a, b) => b.result_sum - a.result_sum) - сортировка данных по размеру суммы
   const categoryNameIncome =
@@ -152,14 +158,21 @@ function MainFieldAnalitic({
   const [outcomePercent, setOutcomePercent] = useState([])
 
   function handlePercentChange(e) {
-    if (e.target.value === "В рублях") {
-      setPercentChoice(false)
-    } else {
+    if (e.target.value === "В рублях") return setPercentChoice(false)
+
+    if (e.target.value === "В процентах" && isActive === "storage")
+      return setPercentChoice(true)
+
+    if (
+      (e.target.value === "В процентах" && isActive === "costs") ||
+      "income"
+    ) {
       setPercentChoice(true)
       sumGroupIncome.length > 0 &&
         setIncomePercent(percentFunction(sumGroupIncome))
       sumGroupOutcome.length > 0 &&
         setOutcomePercent(percentFunction(sumGroupOutcome))
+      return
     }
   }
 
@@ -167,14 +180,18 @@ function MainFieldAnalitic({
     <div className="main_field main_field_analitic">
       <h2 className="main_field_title main_field_title_analitic">Аналитика</h2>
       <div className="analitic_select_zone">
-        <select className="analitic_select" defaultValue="income" onChange={(e) => handleChange(e)}>
+        <select
+          className="analitic_select"
+          defaultValue="income"
+          onChange={(e) => handleChange(e)}
+        >
           <option className="analitic_select_option" value="income">
             Доходы
           </option>
           <option className="analitic_select_option" value="costs">
             Расходы
           </option>
-          <option className="analitic_select_option" value="storage" disabled>
+          <option className="analitic_select_option" value="storage">
             Накопления
           </option>
           <option className="analitic_select_option" value="analitic" disabled>
@@ -218,6 +235,10 @@ function MainFieldAnalitic({
           }
           isActive={isActive}
           percentChoice={percentChoice}
+          storageSum={!percentChoice ? sum : balanceToTargetInPercent[0]}
+          balanceToTarget={
+            !percentChoice ? balanceToTarget : balanceToTargetInPercent[1]
+          }
         />
       ) : (
         <Gistogram

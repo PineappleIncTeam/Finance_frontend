@@ -9,7 +9,7 @@ import modalStyle from "./modalWindow/Modal.module.css"
 import statusImage from "../Images/statusImage.svg"
 import closeIcon from "../Images/closeIcon.svg"
 import statusCheckBox from "../Images/checkBox.svg"
-import { getStorageSum } from "../Utils/getStorageSum"
+import { getStorageSum } from "../Utils/storageFunctions"
 
 function MainFieldStorage({
   categories,
@@ -26,7 +26,7 @@ function MainFieldStorage({
   const [modalActive, setModalActive] = useState(false)
   const [modalMessage, setModalMessage] = useState("")
   const [selectedCategory, setSelectedCategory] = useState({})
-  
+
   //
   getStorageSum(storageCategories)
   let categoryFromStorage = {}
@@ -34,7 +34,7 @@ function MainFieldStorage({
     if (categories[i].categoryName === "Из Накоплений")
       categoryFromStorage = categories[i]
   }
- 
+
   //
 
   function createModal(category) {
@@ -156,11 +156,7 @@ function MainFieldStorage({
       <div className={style.main_field}>
         <h2 className={`${style.main_field_title}`}>Накопления</h2>
         <div className={style.main_field_input}>
-          <input
-            className={style.input_rub}
-            value={sum}
-            readOnly
-          ></input>
+          <input className={style.input_rub} value={sum} readOnly></input>
           <span className={style.ruble_icon}>₽</span>
         </div>
         <div className={style.main_field_title_label}>
@@ -238,6 +234,17 @@ function MainFieldStorage({
                   </div>
                 )
             })}
+        </div>
+        <div className={style.mobileSum}>
+          <div className={style.mobileSum_input}>
+            <div className={style.mainTextSumm}>Общая сумма накоплений</div>
+            <input
+              className={style.input_rubMobile}
+              value={sum}
+              readOnly
+            ></input>
+            <span className={style.ruble_iconMobile}>₽</span>
+          </div>
         </div>
       </div>
       <Modal

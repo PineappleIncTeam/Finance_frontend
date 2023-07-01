@@ -124,7 +124,7 @@
   text-align: center;
   font-weight: 400;
   font-size: 24px;
-  color: #000000;
+  color: #54782B;
   position: relative;
   right: 25px;
 }
@@ -356,7 +356,7 @@
 
 .mobileSum {
   display: none;
-  margin-top: 80px;
+  margin: 69px auto 150px;
 }
 
 .mainTextSumm, 
@@ -377,6 +377,7 @@
   padding-bottom: 5px;
   border: none;
   background-color: rgba(250, 245, 228, 0.2);
+  color: #54782B;
   font-family: "Monserrat-Regular";
   text-align: center;
   font-weight: 400;
@@ -568,6 +569,12 @@
   .ruble_icon_transactions {
     font-size: 12px;
   }
+  .main_field_string_input {
+    padding-left: 5px;
+  }
+  .ruble_icon_small {
+    right: 15px;
+  }
 }
 @media (max-width: 840px) {
   .mainField {
@@ -633,6 +640,7 @@
     display: none;
   }
   .main_field_string {
+    width: 100%;
     justify-content: space-between;
   }
   .main_field_string_input {
@@ -644,6 +652,7 @@
   }
   .ruble_icon_small {
     top: 45px;
+    right: 15px;
   }
 
   .main_field_title {

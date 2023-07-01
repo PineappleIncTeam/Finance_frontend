@@ -1,4 +1,3 @@
-
 import "./Rectangle.css"
 import Navigation from "./Navigation"
 import { useEffect, useState } from "react"
@@ -8,11 +7,14 @@ import Transactions from "./Transactions/Transactions"
 import MainFieldRouter from "./RoutePage/MainFieldRouter"
 import { AiOutlineMenu, AiOutlineClose } from "react-icons/ai"
 import { URLS, currentDate, startDate } from "../urls/urlsAndDates"
-import { getStorageSum } from "../Utils/getStorageSum"
+import { getStorageSum, getBalanceToTarget, getBalanceToTargetinPercent } from "../Utils/storageFunctions"
 
 function Rectangle() {
   //
-  const dataCal = useSelector((state) => state.data.data).split(".").reverse().join("-")
+  const dataCal = useSelector((state) => state.data.data)
+    .split(".")
+    .reverse()
+    .join("-")
   const selectDate = dataCal || currentDate
   //
   const token = useSelector((state) => state.user.token)
@@ -22,14 +24,15 @@ function Rectangle() {
   const [inputData, setInputData] = useState("")
   const [checkMainField, setCheckMainField] = useState(true)
   //
-  const [categories, setCategories] = useState("");
+  const [categories, setCategories] = useState("")
   const [storageCategories, setStorageCategories] = useState("")
   const [storageSum, setStorageSum] = useState()
+  const [balanceToTarget, setBalanceToTarget] = useState()
+  const [balanceToTargetInPercent, setBalanceToTargetInPercent] = useState([])
 
   const [range, setRange] = useState(true)
   const [menuActive, setMenuActive] = useState(false)
 
-  
   function changeRangeCalendar(range) {
     setRange(range)
   }
@@ -70,10 +73,10 @@ function Rectangle() {
         "Content-Type": "application/json",
         Authorization: `Token ${token}`,
       },
-    };
+    }
     fetch(typeOfCategories, options)
       .then((result) => result.json())
-      .then((userCategories) => setCategories(userCategories));
+      .then((userCategories) => setCategories(userCategories))
   }
 
   function getStorageCategories(typeOfCategories) {
@@ -83,17 +86,19 @@ function Rectangle() {
         "Content-Type": "application/json",
         Authorization: `Token ${token}`,
       },
-    };
+    }
     fetch(typeOfCategories, options)
       .then((result) => result.json())
       .then((userCategories) => {
         setStorageCategories(userCategories)
         setStorageSum(getStorageSum(userCategories))
-      });
+        setBalanceToTarget(getBalanceToTarget(userCategories))
+        setBalanceToTargetInPercent(getBalanceToTargetinPercent(userCategories))
+      })
   }
 
   function getOperationList(endpoint, symbol) {
-     const options = {
+    const options = {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -108,7 +113,7 @@ function Rectangle() {
         setSymbol(symbol)
       })
   }
-  
+
   function getBalanceData() {
     const options = {
       method: "GET",
@@ -117,7 +122,10 @@ function Rectangle() {
         Authorization: `Token ${token}`,
       },
     }
-    fetch(`${URLS.balance}?date_start=${startDate}&date_end=${selectDate}`, options)
+    fetch(
+      `${URLS.balance}?date_start=${startDate}&date_end=${selectDate}`,
+      options
+    )
       .then((result) => result.json())
       .then((responseServer) => setBalanceData(responseServer.sum_balance))
   }
@@ -142,7 +150,9 @@ function Rectangle() {
             let constSum = Number(responseNumber.constant_sum)
             let onceSum = Number(responseNumber.once_sum)
             let accumSum = Number(responseNumber.accum_sum)
-            let sumField = accumSum ? (constSum + onceSum + accumSum) : (constSum + onceSum)
+            let sumField = accumSum
+              ? constSum + onceSum + accumSum
+              : constSum + onceSum
             return setInputData(sumField)
           })
         } else {
@@ -178,6 +188,8 @@ function Rectangle() {
                 getCategories={getCategories}
                 getStorageCategories={getStorageCategories}
                 storageSum={storageSum}
+                balanceToTarget={balanceToTarget}
+                balanceToTargetInPercent={balanceToTargetInPercent}
                 getOperationList={getOperationList}
                 getBalanceData={getBalanceData}
                 getInputData={getInputData}

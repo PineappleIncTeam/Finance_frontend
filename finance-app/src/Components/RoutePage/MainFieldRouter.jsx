@@ -11,12 +11,14 @@ const MainFieldRouter = ({
   getCategories,
   getStorageCategories,
   storageSum,
+  balanceToTarget,
+  balanceToTargetInPercent,
   getOperationList,
   setSymbol,
   getBalanceData,
   getInputData,
   inputData,
-  operationList,
+  // operationList,
   changeRangeCalendar,
   range,
   setCheckMainField,
@@ -79,9 +81,13 @@ const MainFieldRouter = ({
         path="/mainfieldanalitic"
         element={
           <MainFieldAnalitic
-            operationList={operationList}
+            // operationList={operationList}
             changeRangeCalendar={changeRangeCalendar}
             range={range}
+            getStorageCategories={getStorageCategories}
+            sum={storageSum}
+            balanceToTarget={balanceToTarget}
+            balanceToTargetInPercent={balanceToTargetInPercent}
             setCheckMainField={setCheckMainField}
             gistogramSize={gistogramSize}
           />

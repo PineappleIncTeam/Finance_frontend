@@ -101,6 +101,42 @@
   color: #999999;
   margin-bottom: 42px;
 }
+.mobileSum {
+  display: none;
+  margin-top: 80px;
+}
+.mainTextSumm {
+  font-family: "Monserrat-Medium";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 22px;
+  color: #000000;
+}
+.input_rubMobile {
+  width: 185px;
+  height: 27px;
+  margin-bottom: 0px;
+  padding-left: 10px;
+  padding-bottom: 5px;
+  border: none;
+  background-color: rgba(250, 245, 228, 0.2);
+  color: #54782B;
+  font-family: "Monserrat-Regular";
+  text-align: center;
+  font-weight: 400;
+  font-size: 24px;
+  margin-top: 10px;
+}
+.ruble_iconMobile {
+  font-family: "Monserrat-Regular";
+  text-align: center;
+  font-weight: 400;
+  font-size: 24px;
+  color: #54782B;
+  position: relative;
+  right: 25px;
+}
 
 @media screen and (max-width: 1919px) {
   .main_field_title {
@@ -160,7 +196,7 @@
     align-items: center;
   }
   .main_field_title {
-    margin: 10px 0px 0px 20px;
+    margin: 10px 0px 32px 20px;
     /* text-align: start; */
     font-size: 24px;
   }
@@ -190,10 +226,16 @@
   .main_field {
     align-items: start;
   }
+  .main_field_storage {
+    width: 100%;
+  }
   .main_field_title {
     margin: 60px 0px 0px 20px;
     font-size: 21px;
     text-align: start;
+  }
+  .storage_categories {
+    margin: 68px auto;
   }
 
   .categories_storage_title {
@@ -209,6 +251,10 @@
   .main_field_title_label,
   .balance_month {
     display: none;
+  }
+  .mobileSum {
+    display: block;
+    margin: 0px auto 40px;
   }
 }
 

@@ -180,7 +180,7 @@ function Gistogram({
               </div>
             )
           })}
-        {isActive === "income" &&
+        {isActive === "costs" &&
           outcomeCategories.map((item, index) => {
             return (
               <div className={style.label_element} key={index}>

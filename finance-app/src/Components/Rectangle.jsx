@@ -127,7 +127,7 @@ function Rectangle() {
       options
     )
       .then((result) => result.json())
-      .then((responseServer) => setBalanceData(responseServer.sum_balance))
+      .then((responseServer) => setBalanceData(Number(responseServer.sum_balance).toFixed(2)))
   }
 
   useEffect(() => {
@@ -151,8 +151,8 @@ function Rectangle() {
             let onceSum = Number(responseNumber.once_sum)
             let accumSum = Number(responseNumber.accum_sum)
             let sumField = accumSum
-              ? constSum + onceSum + accumSum
-              : constSum + onceSum
+              ? (constSum + onceSum + accumSum).toFixed(2)
+              : (constSum + onceSum).toFixed(2)
             return setInputData(sumField)
           })
         } else {

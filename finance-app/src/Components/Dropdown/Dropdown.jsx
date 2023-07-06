@@ -75,9 +75,9 @@ function Dropdown({
 
   function createModal(categoryId, categoryName) {
     if (categoryName === "Из Накоплений") {
-      setModalMessage(`Вы хотите удалить категорию "${categoryName}"?`)
-      setSelectedCategory({ id: categoryId, name: categoryName })
-      setModalDelete(true)
+      setModalMessage('В эту категорию можно только переносить данные из раздела "Накопления"')
+      // setSelectedCategory({ id: categoryId, name: categoryName })
+      // setModalDelete(true)
     } else {
       setModalMessage(
         `Вы хотите удалить категорию "${categoryName}" или отправить её в архив?`

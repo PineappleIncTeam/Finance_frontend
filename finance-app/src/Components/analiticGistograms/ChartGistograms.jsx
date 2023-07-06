@@ -9,6 +9,8 @@ function ChartGistograms({
   resultSumIncome,
   categoryNameOutcome,
   resultSumOutcome,
+  categoryNameMoneyBox,
+  resultSumMoneyBox,
   isActive,
   percentChoice,
   storageSum,
@@ -17,10 +19,14 @@ function ChartGistograms({
   ChartJS.register(ArcElement, Tooltip, Legend)
   const checkName = categoryNameIncome ? categoryNameIncome : []
   const checkSum = resultSumIncome ? resultSumIncome : []
-  const checkSumTotal = checkSum.length > 0 && checkSum.reduce((a, b) => a + b)
+  const checkSumTotal = checkSum.length > 0 && checkSum.reduce((a, b) => ((+a) + (+b))).toFixed(2)
   const checkNameOut = categoryNameOutcome ? categoryNameOutcome : []
   const checkSumOut = resultSumOutcome ? resultSumOutcome : []
-  const checkSumOutTotal = checkSumOut.length > 0 && checkSumOut.reduce((a, b) => a + b)
+  const checkSumOutTotal = checkSumOut.length > 0 && checkSumOut.reduce((a, b) => ((+a) + (+b))).toFixed(2)
+  const checkNameMoneyBox = categoryNameMoneyBox ? categoryNameMoneyBox : []
+  const checkSumMoneyBox = resultSumMoneyBox ? resultSumMoneyBox : []
+  const checkSumMoneyBoxTotal = checkSumMoneyBox.length > 0 && checkSumMoneyBox.reduce((a, b) => ((+a) + (+b))).toFixed(2)
+  const totalCosts = Number(checkSumOutTotal) + Number(checkSumMoneyBoxTotal)
   const storageData = [storageSum, balanceToTarget]
   const storageNames = ["Сумма накоплений", "Осталось накопить"]
   let options = {
@@ -61,11 +67,11 @@ function ChartGistograms({
   }
 
   const dataCosts = {
-    labels: [...checkNameOut],
+    labels: [...checkNameOut, ...checkNameMoneyBox],
 
     datasets: [
       {
-        data: [...checkSumOut],
+        data: [...checkSumOut, ...checkSumMoneyBox],
         backgroundColor: colorsOutcome,
         hoverOffset: 4,
       },
@@ -152,7 +158,7 @@ function ChartGistograms({
               style={{ backgroundColor: colorsStorage[1] }}
             ></div>
             <div className={style.category_name}>
-              Общий расход {checkSumOutTotal}{" "}
+              Общий расход {totalCosts}{" "}
               <span>{!percentChoice ? "₽" : "%"}</span>
             </div>
           </div>
@@ -166,12 +172,29 @@ function ChartGistograms({
                   style={{ backgroundColor: colorsOutcome[index] }}
                 ></div>
                 <div className={style.category_name}>
-                  {checkNameOut[index]} {item}{" "}
+                  {checkNameOut[index] || checkNameMoneyBox[index - (checkSumOut.length - checkNameMoneyBox.length)]} {item}{" "}
                   <span>{!percentChoice ? "₽" : "%"}</span>
                 </div>
               </div>
             )
           })}
+          {isActive === "costs" &&
+          checkSumMoneyBox.map((item, index) => {
+            return (
+              <div className={style.label_element} key={index}>
+                <div
+                  className={style.category_color}
+                  style={{ backgroundColor: colorsOutcome[index + checkSumOut.length] }}
+                ></div>
+                <div className={style.category_name}>
+                  {checkNameMoneyBox[index]} {item}{" "}
+                  <span>{!percentChoice ? "₽" : "%"}</span>
+                </div>
+              </div>
+            )
+          })
+
+          }
         {isActive === "storage" &&
           storageData.map((item, index) => {
             return (

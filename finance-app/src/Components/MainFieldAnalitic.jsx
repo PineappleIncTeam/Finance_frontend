@@ -22,11 +22,13 @@ function MainFieldAnalitic({
   const token = useSelector((state) => state.user.token)
   const [sumGroupIncome, setSumGroupIncome] = useState([])
   const [sumGroupOutcome, setSumGroupOutcome] = useState([])
+  const [sumGroupMoneyBox, setSumGroupMoneyBox] = useState([])
   const [gistogramType, setGistogramType] = useState("pie")
   const dataCalRange = useSelector((state) => state.data.dataRange)
   const [isActive, setIsActive] = useState("income")
   //
   const [percentChoice, setPercentChoice] = useState(false)
+  const [totalCostsInPercent, setTotalCostsInPercent] = useState()
   //
   // console.log(sum, balanceToTarget, balanceToTargetInPercent)
   const dataStart =
@@ -61,6 +63,10 @@ function MainFieldAnalitic({
     const outcomeEndpoint = result
       ? `${URLS.getSumMonthlyOutcome}?date_start=${dataStart}&date_end=${dataEnd}`
       : `${URLS.getSumOutcomeGroup}?date_start=${dataStart}&date_end=${dataEnd}`
+    const moneyBoxEndpoint = result
+      ? `${URLS.getSumMonthlyMoneyBox}?date_start=${dataStart}&date_end=${dataEnd}`
+      : `${URLS.getSumMoneyBoxGroup}?date_start=${dataStart}&date_end=${dataEnd}`
+
     const optionsIncome = {
       method: "GET",
       headers: {
@@ -90,6 +96,21 @@ function MainFieldAnalitic({
         setSumGroupOutcome(dataSumOutcome)
         if (percentChoice && result && dataSumOutcome.length > 0) {
           setOutcomePercent(percentFunction(dataSumOutcome))
+        }
+      })
+    const optionsMoneyBox = {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Token ${token}`,
+      },
+    }
+    fetch(moneyBoxEndpoint, optionsMoneyBox)
+      .then((result) => result.json())
+      .then((dataSumMoneyBox) => {
+        setSumGroupMoneyBox(dataSumMoneyBox)
+        if (percentChoice && result && dataSumMoneyBox.length > 0) {
+          setSumGroupMoneyBox(percentFunction(dataSumMoneyBox))
         }
       })
   }
@@ -125,6 +146,19 @@ function MainFieldAnalitic({
           .map((item) => item.result_sum)
       : []
 
+  const categoryNameMoneyBox =
+    sumGroupMoneyBox.length > 0 && sumGroupMoneyBox[0].sum && !result
+      ? sumGroupMoneyBox[0].sum
+          .sort((a, b) => b.result_sum - a.result_sum)
+          .map((item) => item.categories__categoryName)
+      : []
+  const resultSumMoneyBox =
+    sumGroupMoneyBox.length > 0 && sumGroupMoneyBox[0].sum && !result
+      ? sumGroupMoneyBox[0].sum
+          .sort((a, b) => b.result_sum - a.result_sum)
+          .map((item) => item.result_sum)
+      : []
+
   function handleChange(e) {
     setIsActive(e.target.value)
   }
@@ -152,6 +186,30 @@ function MainFieldAnalitic({
       (resultSumOutcome[i] / onePercentOutcome).toFixed(2)
     )
   }
+  let resultSumMoneyBoxTotal =
+    resultSumMoneyBox.length > 0 && resultSumMoneyBox.reduce((a, b) => a + b)
+  let onePercentMoneyBox = resultSumMoneyBoxTotal / 100
+  let resultSumMoneyBoxInPercent = []
+  for (let i = 0; i < resultSumOutcome.length; i++) {
+    resultSumMoneyBoxInPercent.push(
+      (resultSumMoneyBox[i] / onePercentMoneyBox).toFixed(2)
+    )
+  }
+  let resultSumCostsTotal = Number(resultSumOutcomeTotal) + Number(resultSumMoneyBoxTotal)
+  let onePercentCosts = resultSumCostsTotal / 100
+  let resultSumCostsTotalinPercent = []
+  for (let i = 0; i < resultSumOutcome.length; i++) {
+    resultSumCostsTotalinPercent.push(
+      (resultSumOutcome[i] / onePercentCosts).toFixed(2)
+    )
+  }
+  console.log(resultSumCostsTotalinPercent)
+  for (let i = 0; i < resultSumMoneyBox.length; i++) {
+    resultSumCostsTotalinPercent.push(
+      (resultSumMoneyBox[i] / onePercentCosts).toFixed(2)
+    )
+  }
+  console.log(resultSumCostsTotalinPercent)
   //
 
   const [incomePercent, setIncomePercent] = useState([])
@@ -231,7 +289,11 @@ function MainFieldAnalitic({
           }
           categoryNameOutcome={categoryNameOutcome}
           resultSumOutcome={
-            !percentChoice ? resultSumOutcome : resultSumOutcomeInPercent
+            !percentChoice ? resultSumOutcome : resultSumCostsTotalinPercent
+          }
+          categoryNameMoneyBox={categoryNameMoneyBox}
+          resultSumMoneyBox={
+            !percentChoice ? resultSumMoneyBox : ""
           }
           isActive={isActive}
           percentChoice={percentChoice}

@@ -88,7 +88,8 @@ function TransactionList({
     setTimeout(() => setModalDeleteActive(false), 2000)
   }
 
-  function updateCash(id, category, symbol) {
+  function updateCash(event, id, category, symbol) {
+    event.preventDefault()
     let data = {
       category_id: category,
       sum: newSum,
@@ -207,32 +208,52 @@ function TransactionList({
         </div>
       </Modal>
       <Modal active={modalChangeSum} setActive={setModalChangeSum}>
-        <div className={style.delete_icon} onClick={closeModalChangeSum}>
-          <img src={closeIcon} alt="X" />
-        </div>
-        <div className={style.content_box}>
-          <p className={style.modal_text}>{message}</p>
-          <div>
-            <input
-              className={style.modal_input}
-              type="text"
-              value={newSum}
-              onChange={(e) => handleInput(e)}
-            />
-            <button
-              className={style.button}
-              onClick={() =>
-                updateCash(
-                  selectedOperation.id,
-                  selectedOperation.category_id,
-                  selectedOperation.symbol
-                )
-              }
-            >
-              Добавить
-            </button>
+        <form className={style.modal_form} onSubmit={(event) =>
+                  updateCash(
+                    event,
+                    selectedOperation.id,
+                    selectedOperation.category_id,
+                    selectedOperation.symbol
+                  )
+                }>
+          <div className={style.delete_icon} onClick={closeModalChangeSum}>
+            <img src={closeIcon} alt="X" />
           </div>
-        </div>
+          <div className={style.content_box}>
+            <p className={style.modal_text}>{message}</p>
+            <div>
+              <input
+                className={style.modal_input}
+                type="text"
+                value={newSum}
+                onKeyDown={(e) =>
+                  (e.key = "Enter"
+                    ? () =>
+                        updateCash(
+                          selectedOperation.id,
+                          selectedOperation.category_id,
+                          selectedOperation.symbol
+                        )
+                    : "")
+                }
+                onChange={(e) => handleInput(e)}
+              />
+              <button
+                type="submit"
+                className={style.button}
+                // onClick={() =>
+                //   updateCash(
+                //     selectedOperation.id,
+                //     selectedOperation.category_id,
+                //     selectedOperation.symbol
+                //   )
+                // }
+              >
+                Добавить
+              </button>
+            </div>
+          </div>
+        </form>
       </Modal>
     </>
   )

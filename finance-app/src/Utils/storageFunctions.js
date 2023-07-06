@@ -1,7 +1,7 @@
 export function getStorageSum(storageCategories) {
     let totalSum = 0
     if (storageCategories) storageCategories.map((item, index) => totalSum += item.sum)
-    return totalSum
+    return totalSum.toFixed(2)
 }
 
 export function getBalanceToTarget(storageCategories) {
@@ -10,13 +10,12 @@ export function getBalanceToTarget(storageCategories) {
     let balanceToTarget = 0
     storageCategories && storageCategories.map((item, index) => totalSum += item.sum)
     storageCategories && storageCategories.map((item, index) => totalTarget += item.target)
-    balanceToTarget = totalTarget - totalSum
+    balanceToTarget = (totalTarget - totalSum).toFixed(2)
     return balanceToTarget
 }
 export function getBalanceToTargetinPercent(storageCategories) {
     let totalSum = 0
     let totalTarget = 0
-    let balanceToTarget = 0
     storageCategories && storageCategories.map((item, index) => totalSum += item.sum)
     storageCategories && storageCategories.map((item, index) => totalTarget += item.target)
     let onePercent = totalTarget / 100

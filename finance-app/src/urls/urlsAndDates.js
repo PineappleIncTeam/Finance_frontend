@@ -72,6 +72,8 @@ export const URLS = {
   sendCategoryToArchive: "http://92.255.79.239:8000/api/update-category/",
   getSumIncomeGroup: "http://92.255.79.239:8000/api/sum-incomecash-group/",
   getSumOutcomeGroup: "http://92.255.79.239:8000/api/sum-outcomecash-group/",
+  getSumMoneyBoxGroup: "http://92.255.79.239:8000/api/sum-money-box-group/",
   getSumMonthlyIncome: "http://92.255.79.239:8000/api/sum-monthly-income/",
   getSumMonthlyOutcome: "http://92.255.79.239:8000/api/sum-monthly-outcome/",
+  getSumMonthlyMoneyBox: "http://92.255.79.239:8000/api/sum-monthly-money-box/",
 }

@@ -17,10 +17,12 @@ function Gistogram({
   gistogramSize,
   sumGroupIncome,
   sumGroupOutcome,
+  sumGroupMoneyBox,
   isActive,
   percentChoice,
   incomePercent,
   outcomePercent,
+  moneyBoxPercent,
   storageSum,
   balanceToTarget,
 }) {
@@ -112,6 +114,11 @@ function Gistogram({
       return result
     }),
   }
+  const moneyBoxCategories = sumGroupMoneyBox.map((item) => Object.keys(item))
+  const moneyBoxCategory = sumGroupMoneyBox.length > 0 && sumGroupMoneyBox[0]
+  const moneyBoxCategoryName = sumGroupMoneyBox.length > 0 && Object.keys(moneyBoxCategory)
+  // const moneyBoxMonths = sumGroupMoneyBox.length > 0 && Object.keys(moneyBoxCategory[moneyBoxCategoryName])
+
   const outcomeCategories = sumGroupOutcome.map((item) => Object.keys(item))
   const outcomeCategory = sumGroupOutcome.length > 0 && sumGroupOutcome[0]
   const outcomeCategoryName =
@@ -120,20 +127,52 @@ function Gistogram({
     sumGroupOutcome.length > 0 &&
     Object.keys(outcomeCategory[outcomeCategoryName])
   const outcomeLabels = outcomeMonths
+//
+  
+//
+  const datasets = outcomeCategories.map((item, index) => {
+    let result = {}
+    result = {
+      label: item,
+      data: !percentChoice
+        ? Object.values(sumGroupOutcome[index][item])
+        : outcomePercent[index],
+      backgroundColor: colorsOutcome[index],
+    }
+    return result
+    })
+  const moneyBoxDatasets = moneyBoxCategories.map((item, index) => {
+    let result = {}
+    result = {
+      label: item,
+      data: Object.values(sumGroupMoneyBox[index][item]),
+        
+      backgroundColor: colorsOutcome[index + outcomeCategories.length],
+    }
+    return result
+    })
+
+    ! percentChoice && datasets.push(...moneyBoxDatasets)
+//
+
   const dataOutcome = {
     labels: outcomeLabels,
-    datasets: outcomeCategories.map((item, index) => {
-      let result = {}
-      result = {
-        label: item,
-        data: !percentChoice
-          ? Object.values(sumGroupOutcome[index][item])
-          : outcomePercent[index],
-        backgroundColor: colorsOutcome[index],
-      }
-      return result
-    }),
+    datasets: datasets,
+  //   outcomeCategories.map((item, index) => {
+  //     let result = {}
+  //     result = {
+  //       label: item,
+  //       data: !percentChoice
+  //         ? Object.values(sumGroupOutcome[index][item])
+  //         : outcomePercent[index],
+  //       backgroundColor: colorsOutcome[index],
+  //     }
+  //     return result
+  //   }),
   }
+
+
+
   return (
     <>
       <div className={style.gistogram}>
@@ -187,6 +226,18 @@ function Gistogram({
                 <div
                   className={style.category_color}
                   style={{ backgroundColor: colorsOutcome[index] }}
+                ></div>
+                <div className={style.category_name}>{item}</div>
+              </div>
+            )
+          })}
+        {isActive === "costs" && !percentChoice &&
+          moneyBoxCategories.map((item, index) => {
+            return (
+              <div className={style.label_element} key={index}>
+                <div
+                  className={style.category_color}
+                  style={{ backgroundColor: colorsOutcome[index + outcomeCategories.length] }}
                 ></div>
                 <div className={style.category_name}>{item}</div>
               </div>

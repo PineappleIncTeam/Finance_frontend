@@ -19,15 +19,20 @@ function TransactionList({
 
   const [modalDeleteActive, setModalDeleteActive] = useState(false)
   const [modalChangeSum, setModalChangeSum] = useState(false)
+  const [modalMessageActive, setModalMessageActive] = useState(false)
+
   const [selectedOperation, setSelectedOperation] = useState({})
   const [newSum, setNewSum] = useState("")
   const [message, setMessage] = useState("")
 
-  function createModalChangeSum(id, category_id, sum, symbol) {
-    setMessage(`Введите новое числовое \n значение`)
-    setModalChangeSum(true)
-    setSelectedOperation({ id, category_id, sum, symbol })
-    setNewSum(sum)
+  function createModalChangeSum(operationName, id, category_id, sum, symbol) {
+    if (operationName === "Из Накоплений") setModalMessageActive(true)
+    else {
+      setMessage(`Введите новое числовое \n значение`)
+      setModalChangeSum(true)
+      setSelectedOperation({ id, category_id, sum, symbol })
+      setNewSum(sum)
+    }
   }
   function closeModalChangeSum() {
     setModalChangeSum(false)
@@ -37,13 +42,16 @@ function TransactionList({
     setNewSum(e.target.value.replace(/[^0-9.,]+/, "").replace(/,/, "."))
   }
 
-  function createDeleteModal(operationId, symbol) {
-    console.log(operationId, symbol)
-    setMessage(
-      "Вы действительно хотите удалить эту запись? \n Действие не может быть отменено"
-    )
-    setModalDeleteActive(true)
-    setSelectedOperation({ id: operationId, symbol: symbol })
+  function createDeleteModal(operationName, operationId, symbol) {
+    if (operationName === "Из Накоплений") setModalMessageActive(true)
+    else {
+      console.log(operationId, symbol)
+      setMessage(
+        "Вы действительно хотите удалить эту запись? \n Действие не может быть отменено"
+      )
+      setModalDeleteActive(true)
+      setSelectedOperation({ id: operationId, symbol: symbol })
+    }
   }
   function cancel(e) {
     e.preventDefault()
@@ -154,7 +162,11 @@ function TransactionList({
                     type="submit"
                     title="Удалить запись"
                     onClick={() => {
-                      createDeleteModal(operation.id, symbol)
+                      createDeleteModal(
+                        operation.categoryName,
+                        operation.id,
+                        symbol
+                      )
                     }}
                   >
                     <div className={s.operation_list_icon1}></div>
@@ -165,6 +177,7 @@ function TransactionList({
                     title="Редактировать"
                     onClick={() => {
                       createModalChangeSum(
+                        operation.categoryName,
                         operation.id,
                         operation.category_id,
                         operation.sum,
@@ -208,14 +221,17 @@ function TransactionList({
         </div>
       </Modal>
       <Modal active={modalChangeSum} setActive={setModalChangeSum}>
-        <form className={style.modal_form} onSubmit={(event) =>
-                  updateCash(
-                    event,
-                    selectedOperation.id,
-                    selectedOperation.category_id,
-                    selectedOperation.symbol
-                  )
-                }>
+        <form
+          className={style.modal_form}
+          onSubmit={(event) =>
+            updateCash(
+              event,
+              selectedOperation.id,
+              selectedOperation.category_id,
+              selectedOperation.symbol
+            )
+          }
+        >
           <div className={style.delete_icon} onClick={closeModalChangeSum}>
             <img src={closeIcon} alt="X" />
           </div>
@@ -238,22 +254,30 @@ function TransactionList({
                 }
                 onChange={(e) => handleInput(e)}
               />
-              <button
-                type="submit"
-                className={style.button}
-                // onClick={() =>
-                //   updateCash(
-                //     selectedOperation.id,
-                //     selectedOperation.category_id,
-                //     selectedOperation.symbol
-                //   )
-                // }
-              >
+              <button type="submit" className={style.button}>
                 Добавить
               </button>
             </div>
           </div>
         </form>
+      </Modal>
+      <Modal
+        active={modalMessageActive}
+        setActive={setModalMessageActive}
+        setInput={() => setModalMessageActive(false)}
+      >
+        <div
+          className={style.delete_icon}
+          onClick={() => setModalMessageActive(false)}
+        >
+          <img src={closeIcon} alt="X" />
+        </div>
+        <div className={style.content_box}>
+          <div className={style.modal_text}>
+            В эту категорию можно только переносить данные из раздела
+            "Накопления"
+          </div>
+        </div>
       </Modal>
     </>
   )

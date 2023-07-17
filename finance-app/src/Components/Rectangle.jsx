@@ -12,10 +12,8 @@ import { getStorageSum, getBalanceToTarget, getBalanceToTargetinPercent } from "
 function Rectangle() {
   //
   const dataCal = useSelector((state) => state.data.data)
-    .split(".")
-    .reverse()
-    .join("-")
-  const selectDate = dataCal || currentDate
+  
+  const selectDate = (dataCal && dataCal.split(".").reverse().join("-")) || currentDate
   //
   const token = useSelector((state) => state.user.token)
   const [operationList, setOperationList] = useState("")

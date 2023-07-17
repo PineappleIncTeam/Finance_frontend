@@ -78,11 +78,16 @@ function MainFieldString({
 
     fetch(typeOfSum, options)
       .then((response) => {
+        if (placeholder && selectElement.target && selectElement.target !== target) {
+          setModalMessage("Вы не можете изменить цель накопления")
+          setModalActive(true)
+        }
         if (placeholder && response.status === 400) {
           setModalMessage("Вы не можете изменить цель накопления")
           setModalActive(true)
         }
         if (!placeholder && response.status === 400) {
+          console.log(response)
           setModalMessage(`Вы можете добавить не более ${(
             selectElement.target - selectElement.sum
           ).toFixed(2)} руб. \n для закрытия данного
@@ -105,6 +110,7 @@ function MainFieldString({
     setEnterSum("")
     setTarget("")
     getStorageSum(categories)
+    if (placeholder) changeSelectElement({})
   }
 
   function handleInputChange(event) {

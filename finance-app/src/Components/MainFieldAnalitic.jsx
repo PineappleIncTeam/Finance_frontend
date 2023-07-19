@@ -20,26 +20,28 @@ function MainFieldAnalitic({
   gistogramSize,
 }) {
   const token = useSelector((state) => state.user.token)
+
   const [sumGroupIncome, setSumGroupIncome] = useState([])
   const [sumGroupOutcome, setSumGroupOutcome] = useState([])
   const [sumGroupMoneyBox, setSumGroupMoneyBox] = useState([])
+  const [outcomeTotal, setOutcomeTotal] = useState([])
   const [gistogramType, setGistogramType] = useState("pie")
   const dataCalRange = useSelector((state) => state.data.dataRange)
   const [isActive, setIsActive] = useState("income")
   //
   const [percentChoice, setPercentChoice] = useState(false)
-  const [totalCostsInPercent, setTotalCostsInPercent] = useState()
-  //
-  // console.log(sum, balanceToTarget, balanceToTargetInPercent)
+  const [incomePercent, setIncomePercent] = useState([])
+  const [outcomePercent, setOutcomePercent] = useState([])
+
   const dataStart =
     dataCalRange.length > 1
       ? dataCalRange[0].split(".").reverse().join("-")
       : firstDayOfMonth
+
   const dataEnd =
     dataCalRange.length > 1
       ? dataCalRange[1].split(".").reverse().join("-")
       : lastDayOfMonth
-  //
 
   let dateStartObject = new Date(dataStart)
   let dateEndObject = new Date(dataEnd)
@@ -56,6 +58,7 @@ function MainFieldAnalitic({
   }, [dataCalRange, result])
   //
   useEffect(() => setCheckMainField(false))
+
   function getAnaliticSum() {
     const incomeEndpoint = result
       ? `${URLS.getSumMonthlyIncome}?date_start=${dataStart}&date_end=${dataEnd}`
@@ -67,6 +70,7 @@ function MainFieldAnalitic({
       ? `${URLS.getSumMonthlyMoneyBox}?date_start=${dataStart}&date_end=${dataEnd}`
       : `${URLS.getSumMoneyBoxGroup}?date_start=${dataStart}&date_end=${dataEnd}`
 
+    let outcomeTotal = []
     const optionsIncome = {
       method: "GET",
       headers: {
@@ -94,10 +98,9 @@ function MainFieldAnalitic({
       .then((result) => result.json())
       .then((dataSumOutcome) => {
         setSumGroupOutcome(dataSumOutcome)
-        if (percentChoice && result && dataSumOutcome.length > 0) {
-          setOutcomePercent(percentFunction(dataSumOutcome))
-        }
+        outcomeTotal.unshift(...dataSumOutcome)
       })
+
     const optionsMoneyBox = {
       method: "GET",
       headers: {
@@ -108,14 +111,14 @@ function MainFieldAnalitic({
     fetch(moneyBoxEndpoint, optionsMoneyBox)
       .then((result) => result.json())
       .then((dataSumMoneyBox) => {
+        outcomeTotal.push(...dataSumMoneyBox)
         setSumGroupMoneyBox(dataSumMoneyBox)
-        // if (percentChoice && result && dataSumMoneyBox.length > 0) {
-        //   setMoneyBoxPercent(percentFunction(dataSumMoneyBox))
-        // }
+        setOutcomeTotal(outcomeTotal)
+        if (percentChoice && result && outcomeTotal.length > 0) {
+          setOutcomePercent(percentFunction(outcomeTotal))
+        }
       })
   }
-  
-  console.log(sumGroupOutcome)
 
   useEffect(() => {
     getStorageCategories(URLS.getMoneyBoxCategories)
@@ -197,7 +200,8 @@ function MainFieldAnalitic({
       (resultSumMoneyBox[i] / onePercentMoneyBox).toFixed(2)
     )
   }
-  let resultSumCostsTotal = Number(resultSumOutcomeTotal) + Number(resultSumMoneyBoxTotal)
+  let resultSumCostsTotal =
+    Number(resultSumOutcomeTotal) + Number(resultSumMoneyBoxTotal)
   let onePercentCosts = resultSumCostsTotal / 100
   let resultSumCostsTotalinPercent = []
   for (let i = 0; i < resultSumOutcome.length; i++) {
@@ -205,19 +209,13 @@ function MainFieldAnalitic({
       (resultSumOutcome[i] / onePercentCosts).toFixed(2)
     )
   }
-  console.log(resultSumCostsTotalinPercent)
   for (let i = 0; i < resultSumMoneyBox.length; i++) {
     resultSumCostsTotalinPercent.push(
       (resultSumMoneyBox[i] / onePercentCosts).toFixed(2)
     )
   }
-  
-  //
 
-  const [incomePercent, setIncomePercent] = useState([])
-  const [outcomePercent, setOutcomePercent] = useState([])
-  const [moneyBoxPercent, setMoneyBoxPercent] = useState([])
-  console.log(outcomePercent, moneyBoxPercent)
+  //
 
   function handlePercentChange(e) {
     if (e.target.value === "В рублях") return setPercentChoice(false)
@@ -226,14 +224,14 @@ function MainFieldAnalitic({
       return setPercentChoice(true)
 
     if (
-      (e.target.value === "В процентах" && isActive === "costs") ||
-      "income"
+      e.target.value === "В процентах" &&
+      (isActive === "costs" || "income")
     ) {
       setPercentChoice(true)
       sumGroupIncome.length > 0 &&
         setIncomePercent(percentFunction(sumGroupIncome))
-      sumGroupOutcome.length > 0 &&
-        setOutcomePercent(percentFunction(sumGroupOutcome))
+      outcomeTotal.length > 0 &&
+        setOutcomePercent(percentFunction(outcomeTotal))
       return
     }
   }
@@ -296,9 +294,7 @@ function MainFieldAnalitic({
             !percentChoice ? resultSumOutcome : resultSumCostsTotalinPercent
           }
           categoryNameMoneyBox={categoryNameMoneyBox}
-          resultSumMoneyBox={
-            !percentChoice ? resultSumMoneyBox : ""
-          }
+          resultSumMoneyBox={!percentChoice ? resultSumMoneyBox : ""}
           isActive={isActive}
           percentChoice={percentChoice}
           storageSum={!percentChoice ? sum : balanceToTargetInPercent[0]}
@@ -316,7 +312,6 @@ function MainFieldAnalitic({
           percentChoice={percentChoice}
           incomePercent={incomePercent}
           outcomePercent={outcomePercent}
-          moneyBoxPercent={moneyBoxPercent}
           storageSum={!percentChoice ? sum : balanceToTargetInPercent[0]}
           balanceToTarget={
             !percentChoice ? balanceToTarget : balanceToTargetInPercent[1]

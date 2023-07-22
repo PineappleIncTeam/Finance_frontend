@@ -86,7 +86,7 @@ function MainFieldString({
           setModalMessage("Вы не можете изменить цель накопления")
           setModalActive(true)
         }
-        if (!placeholder && response.status === 400) {
+        if (!placeholder && response.status === 400 && title === "Накопления") {
           console.log(response)
           setModalMessage(`Вы можете добавить не более ${(
             selectElement.target - selectElement.sum

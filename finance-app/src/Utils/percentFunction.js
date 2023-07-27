@@ -1,4 +1,4 @@
-function percentFunction(json) {
+export function percentFunction(json) {
   let test = json && json.map((item) => Object.keys(item))
   let test2 = json && json.map((item, index) => Object.values(json[index][test[index]]))
 //   let test3 = json && json.map((item, index) => Object.keys(json[index][test[index]]))
@@ -52,4 +52,5 @@ function percentFunction(json) {
   setArrStructure()
   return allCategories
 }
-export default percentFunction
+
+

@@ -5,7 +5,8 @@ import React, { useEffect, useState } from "react"
 import { useSelector } from "react-redux"
 import ChartGistograms from "./analiticGistograms/ChartGistograms"
 import Gistogram from "./analiticGistograms/Gistogram"
-import percentFunction from "./analiticGistograms/percentFunction"
+import { percentFunction } from "../Utils/percentFunction"
+import { getAnaliticGistogramSum } from "../Utils/analiticFunction"
 import { URLS, firstDayOfMonth, lastDayOfMonth } from "../urls/urlsAndDates"
 // import style from "../Components/analiticGistograms/Gistogram.module.css"
 
@@ -32,6 +33,10 @@ function MainFieldAnalitic({
   const [percentChoice, setPercentChoice] = useState(false)
   const [incomePercent, setIncomePercent] = useState([])
   const [outcomePercent, setOutcomePercent] = useState([])
+
+  const [analiticSumIncome, setAnaliticSumIncome] = useState()
+  const [analiticSumOutcome, setAnaliticSumOutcome] = useState()
+
 
   const dataStart =
     dataCalRange.length > 1
@@ -174,7 +179,7 @@ function MainFieldAnalitic({
     sumGroupOutcome.length > 0 && result ? sumGroupOutcome : []
 
   let resultSumIncomeTotal =
-    resultSumIncome.length > 0 && resultSumIncome.reduce((a, b) => a + b)
+    resultSumIncome.length > 0 && resultSumIncome.reduce((a, b) => +a + +b, 0).toFixed(2)
   let onePercentIncome = resultSumIncomeTotal / 100
   let resultSumIncomeInPercent = []
   for (let i = 0; i < resultSumIncome.length; i++) {
@@ -183,7 +188,7 @@ function MainFieldAnalitic({
     )
   }
   let resultSumOutcomeTotal =
-    resultSumOutcome.length > 0 && resultSumOutcome.reduce((a, b) => a + b)
+    resultSumOutcome.length > 0 && resultSumOutcome.reduce((a, b) => +a + +b, 0).toFixed(2)
   let onePercentOutcome = resultSumOutcomeTotal / 100
   let resultSumOutcomeInPercent = []
   for (let i = 0; i < resultSumOutcome.length; i++) {
@@ -192,7 +197,7 @@ function MainFieldAnalitic({
     )
   }
   let resultSumMoneyBoxTotal =
-    resultSumMoneyBox.length > 0 && resultSumMoneyBox.reduce((a, b) => a + b)
+    resultSumMoneyBox.length > 0 && resultSumMoneyBox.reduce((a, b) => +a + +b, 0).toFixed(2)
   let onePercentMoneyBox = resultSumMoneyBoxTotal / 100
   let resultSumMoneyBoxInPercent = []
   for (let i = 0; i < resultSumOutcome.length; i++) {
@@ -215,7 +220,17 @@ function MainFieldAnalitic({
     )
   }
 
+  const analiticTotal = [resultSumIncomeTotal, resultSumCostsTotal]
+  const onePercentAnaltiicTotal = analiticTotal.reduce((a, b) => +a + +b, 0).toFixed(2) / 100
+  const analiticTotalInPercent = analiticTotal.map(item => (item / onePercentAnaltiicTotal).toFixed(2))
   //
+  const analiticSumIncomeForGistogram = result ? getAnaliticGistogramSum(sumGroupIncome) : 0
+  const analiticSumOutcomeForGistogram = result ? getAnaliticGistogramSum(outcomeTotal) : 0
+  const analiticTotalForGistogram = [analiticSumIncomeForGistogram, analiticSumOutcomeForGistogram]
+  console.log(analiticTotalForGistogram)
+  const onePercentAnaliticTotalForGistogram = analiticTotalForGistogram.reduce((a, b) => +a + +b, 0).toFixed(2) / 100
+  const analiticTotalForGistogramInPercent = analiticTotalForGistogram.map(item => (item / onePercentAnaliticTotalForGistogram).toFixed(2))
+  console.log(analiticTotalForGistogramInPercent)
 
   function handlePercentChange(e) {
     if (e.target.value === "В рублях") return setPercentChoice(false)
@@ -254,7 +269,7 @@ function MainFieldAnalitic({
           <option className="analitic_select_option" value="storage">
             Накопления
           </option>
-          <option className="analitic_select_option" value="analitic" disabled>
+          <option className="analitic_select_option" value="analitic">
             Аналитика
           </option>
         </select>
@@ -301,6 +316,7 @@ function MainFieldAnalitic({
           balanceToTarget={
             !percentChoice ? balanceToTarget : balanceToTargetInPercent[1]
           }
+          analiticSum = {!percentChoice ? analiticTotal : analiticTotalInPercent}
         />
       ) : (
         <Gistogram
@@ -316,6 +332,7 @@ function MainFieldAnalitic({
           balanceToTarget={
             !percentChoice ? balanceToTarget : balanceToTargetInPercent[1]
           }
+          analiticSum={!percentChoice ? analiticTotalForGistogram : analiticTotalForGistogramInPercent}
         />
       )}
     </div>

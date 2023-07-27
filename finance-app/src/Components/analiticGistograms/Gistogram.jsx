@@ -10,7 +10,7 @@ import {
 } from "chart.js"
 
 import { Bar, Doughnut } from "react-chartjs-2"
-import { colorsIncome, colorsOutcome, colorsStorage } from "../../data/colors"
+import { colorsAnalitic, colorsIncome, colorsOutcome, colorsStorage } from "../../data/colors"
 import style from "./Gistogram.module.css"
 
 function Gistogram({
@@ -24,6 +24,7 @@ function Gistogram({
   outcomePercent,
   storageSum,
   balanceToTarget,
+  analiticSum
 }) {
   ChartJS.register(
     CategoryScale,
@@ -87,6 +88,18 @@ function Gistogram({
       {
         data: [...storageData],
         backgroundColor: colorsStorage,
+        hoverOffset: 4,
+      },
+    ],
+  }
+
+  const dataAnalitic = {
+    labels: ["Общий доход", "Общий расход"],
+
+    datasets: [
+      {
+        data: analiticSum,
+        backgroundColor: colorsAnalitic,
         hoverOffset: 4,
       },
     ],
@@ -194,6 +207,15 @@ function Gistogram({
               options={options}
             />
           )}
+          {isActive === "analitic" && (
+            <Doughnut
+              className={style.doughnut}
+              width={style.doughnut}
+              height={style.doughnut}
+              data={dataAnalitic}
+              options={options}
+            />
+          )}
         </div>
       </div>
       <div className={style.categories_name}>
@@ -246,6 +268,21 @@ function Gistogram({
                 ></div>
                 <div className={style.category_name}>
                   {storageNames[index]} {item}{" "}
+                  <span>{!percentChoice ? "₽" : "%"}</span>
+                </div>
+              </div>
+            )
+          })}
+        {isActive === "analitic" &&
+          analiticSum.map((item, index) => {
+            return (
+              <div className={style.label_element} key={index}>
+                <div
+                  className={style.category_color}
+                  style={{ backgroundColor: colorsAnalitic[index] }}
+                ></div>
+                <div className={style.category_name}>
+                  {dataAnalitic.labels[index]} {item}{" "}
                   <span>{!percentChoice ? "₽" : "%"}</span>
                 </div>
               </div>

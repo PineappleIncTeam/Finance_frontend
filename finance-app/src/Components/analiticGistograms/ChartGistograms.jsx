@@ -1,7 +1,7 @@
 import React from "react"
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js"
 import { Pie, Doughnut } from "react-chartjs-2"
-import { colorsIncome, colorsOutcome, colorsStorage } from "../../data/colors"
+import { colorsIncome, colorsOutcome, colorsStorage, colorsAnalitic } from "../../data/colors"
 import style from "./ChartGistograms.module.css"
 
 function ChartGistograms({
@@ -15,20 +15,28 @@ function ChartGistograms({
   percentChoice,
   storageSum,
   balanceToTarget,
+  analiticSum
 }) {
   ChartJS.register(ArcElement, Tooltip, Legend)
   const checkName = categoryNameIncome ? categoryNameIncome : []
   const checkSum = resultSumIncome ? resultSumIncome : []
-  const checkSumTotal = checkSum.length > 0 && checkSum.reduce((a, b) => ((+a) + (+b))).toFixed(2)
+  const checkSumTotal = checkSum.length > 0 && checkSum.reduce((a, b) => ((+a) + (+b)), 0).toFixed(2)
   const checkNameOut = categoryNameOutcome ? categoryNameOutcome : []
   const checkSumOut = resultSumOutcome ? resultSumOutcome : []
-  const checkSumOutTotal = checkSumOut.length > 0 && checkSumOut.reduce((a, b) => ((+a) + (+b))).toFixed(2)
+  const checkSumOutTotal = checkSumOut.length > 0 && checkSumOut.reduce((a, b) => ((+a) + (+b)), 0).toFixed(2)
   const checkNameMoneyBox = categoryNameMoneyBox ? categoryNameMoneyBox : []
   const checkSumMoneyBox = resultSumMoneyBox ? resultSumMoneyBox : []
-  const checkSumMoneyBoxTotal = checkSumMoneyBox.length > 0 && checkSumMoneyBox.reduce((a, b) => ((+a) + (+b))).toFixed(2)
+  const checkSumMoneyBoxTotal = checkSumMoneyBox.length > 0 && checkSumMoneyBox.reduce((a, b) => ((+a) + (+b)), 0).toFixed(2)
   const totalCosts = Number(checkSumOutTotal) + Number(checkSumMoneyBoxTotal)
   const storageData = [storageSum, balanceToTarget]
   const storageNames = ["Сумма накоплений", "Осталось накопить"]
+  
+  // const checkSumAnalitic = checkSum.length > 0 && [checkSumTotal, totalCosts]
+  // const onePercentAnalitic = checkSumAnalitic.length > 0 && (checkSumAnalitic.reduce((a, b) => ((+a) + (+b))).toFixed(2) / 100).toFixed(2)
+  // const checkSumAnaliticInPercent = checkSumAnalitic.length > 0 && checkSumAnalitic.map((item) => (item / onePercentAnalitic).toFixed(2) )
+  // console.log(checkSumAnaliticInPercent)
+  
+  
   let options = {
     plugins: {
       legend: {
@@ -89,6 +97,17 @@ function ChartGistograms({
       },
     ],
   }
+  const dataAnalitic = {
+    labels: ["Общий доход", "Общий расход"],
+
+    datasets: [
+      {
+        data: analiticSum,
+        backgroundColor: colorsAnalitic,
+        hoverOffset: 4,
+      },
+    ],
+  }
 
   return (
     <div className={style.diagram_box}>
@@ -118,6 +137,15 @@ function ChartGistograms({
               width={style.doughnut}
               height={style.doughnut}
               data={dataStorage}
+              options={options}
+            />
+          )}
+          {isActive === "analitic" && (
+            <Doughnut
+              className={style.doughnut}
+              width={style.doughnut}
+              height={style.doughnut}
+              data={dataAnalitic}
               options={options}
             />
           )}
@@ -205,6 +233,21 @@ function ChartGistograms({
                 ></div>
                 <div className={style.category_name}>
                   {storageNames[index]} {item}{" "}
+                  <span>{!percentChoice ? "₽" : "%"}</span>
+                </div>
+              </div>
+            )
+          })}
+          {isActive === "analitic" && analiticSum.length > 0 &&
+          analiticSum.map((item, index) => {
+            return (
+              <div className={style.label_element} key={index}>
+                <div
+                  className={style.category_color}
+                  style={{ backgroundColor: colorsAnalitic[index] }}
+                ></div>
+                <div className={style.category_name}>
+                  {dataAnalitic.labels[index]} {item}{" "}
                   <span>{!percentChoice ? "₽" : "%"}</span>
                 </div>
               </div>

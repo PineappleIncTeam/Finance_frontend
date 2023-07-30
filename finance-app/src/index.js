@@ -8,7 +8,11 @@ import { Provider } from "react-redux";
 import TagManager from 'react-gtm-module'
 
 const tagManagerArgs = { 
-  gtmId: 'GTM-000000' 
+  gtmId: 'GTM-TV3DPLD4',
+  dataLayer: {
+    userId: '001',
+    userProject: 'project'
+} 
 } 
 
 TagManager.initialize(tagManagerArgs)

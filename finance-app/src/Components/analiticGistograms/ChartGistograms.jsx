@@ -27,7 +27,7 @@ function ChartGistograms({
   const checkNameMoneyBox = categoryNameMoneyBox ? categoryNameMoneyBox : []
   const checkSumMoneyBox = resultSumMoneyBox ? resultSumMoneyBox : []
   const checkSumMoneyBoxTotal = checkSumMoneyBox.length > 0 && checkSumMoneyBox.reduce((a, b) => ((+a) + (+b)), 0).toFixed(2)
-  const totalCosts = Number(checkSumOutTotal) + Number(checkSumMoneyBoxTotal)
+  const totalCosts = (Number(checkSumOutTotal) + Number(checkSumMoneyBoxTotal)).toFixed(2)
   const storageData = [storageSum, balanceToTarget]
   const storageNames = ["Сумма накоплений", "Осталось накопить"]
   

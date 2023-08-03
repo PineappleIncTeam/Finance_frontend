@@ -1,4 +1,5 @@
 .rectangle {
+  height: 100%;
   display: flex;
   background: rgba(250, 245, 228, 0.2);
 }

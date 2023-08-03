@@ -10,7 +10,12 @@ import {
 } from "chart.js"
 
 import { Bar, Doughnut } from "react-chartjs-2"
-import { colorsAnalitic, colorsIncome, colorsOutcome, colorsStorage } from "../../data/colors"
+import {
+  colorsAnalitic,
+  colorsIncome,
+  colorsOutcome,
+  colorsStorage,
+} from "../../data/colors"
 import style from "./Gistogram.module.css"
 
 function Gistogram({
@@ -24,11 +29,11 @@ function Gistogram({
   outcomePercent,
   storageSum,
   balanceToTarget,
-  analiticSum
+  analiticSum,
 }) {
   ChartJS.register(
-    CategoryScale,
     LinearScale,
+    CategoryScale,
     BarElement,
     Title,
     Tooltip,
@@ -64,7 +69,7 @@ function Gistogram({
       },
     },
     responsive: true,
-    scales: {
+    scales: (isActive === "costs" || isActive === "income") && {
       x: {
         stacked: true,
       },
@@ -179,8 +184,8 @@ function Gistogram({
   return (
     <>
       <div className={style.gistogram}>
-        <div className={style.bar_gistogram}>
-          {isActive === "income" && (
+        {isActive === "income" && (
+          <div className={style.bar_gistogram}>
             <Bar
               className={style.bar_gistogram}
               width={gistogramSize.width}
@@ -188,8 +193,10 @@ function Gistogram({
               options={options}
               data={dataIncome}
             />
-          )}
-          {isActive === "costs" && (
+          </div>
+        )}
+        {isActive === "costs" && (
+          <div className={style.bar_gistogram}>
             <Bar
               className={style.bar_gistogram}
               width={gistogramSize.width}
@@ -197,27 +204,28 @@ function Gistogram({
               options={options}
               data={dataOutcome}
             />
-          )}
-          {isActive === "storage" && (
-            <Doughnut
-              className={style.doughnut}
-              width={style.doughnut}
-              height={style.doughnut}
-              data={dataStorage}
-              options={options}
-            />
-          )}
-          {isActive === "analitic" && (
-            <Doughnut
-              className={style.doughnut}
-              width={style.doughnut}
-              height={style.doughnut}
-              data={dataAnalitic}
-              options={options}
-            />
-          )}
-        </div>
+          </div>
+        )}
+        {isActive === "storage" && (
+          <Doughnut
+            className={style.doughnut}
+            width={style.doughnut}
+            height={style.doughnut}
+            data={dataStorage}
+            options={options}
+          />
+        )}
+        {isActive === "analitic" && (
+          <Doughnut
+            className={style.doughnut}
+            width={style.doughnut}
+            height={style.doughnut}
+            data={dataAnalitic}
+            options={options}
+          />
+        )}
       </div>
+
       <div className={style.categories_name}>
         {isActive === "income" &&
           incomeCategories.map((item, index) => {

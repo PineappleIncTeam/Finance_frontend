@@ -47,8 +47,7 @@ export const URLS = {
   registration: "https://back.freenance.online/api/auth/users/",
   authorisation: "https://back.freenance.online/api/auth/token/login/",
   resetPassword: "https://back.freenance.online/api/auth/users/reset_password/",
-  resetPasswordConfirm:
-    "https://back.freenance.online/api/auth/users/reset_password_confirm/",
+  resetPasswordConfirm: "https://back.freenance.online/api/auth/users/reset_password_confirm/",
   balance: `https://back.freenance.online/api/balance/`,
   sumIncomeCash: `https://back.freenance.online/api/sum-incomecash/?date_start=${firstDayOfMonth}&date_end=${lastDayOfMonth}`,
   sumOutcomeCash: `https://back.freenance.online/api/sum-outcomecash/?date_start=${firstDayOfMonth}&date_end=${lastDayOfMonth}`,
@@ -67,6 +66,7 @@ export const URLS = {
   last5IncomeCash: "https://back.freenance.online/api/last-5-incomecash/",
   last5OutcomeCash: "https://back.freenance.online/api/last-5-outcomecash/",
   last5MoneyBoxOperation: "https://back.freenance.online/api/last-5-money-box/",
+  getAllOperations: "https://back.freenance.online/api/report/",
   createCategory: "https://back.freenance.online/api/categories/",
   deleteCategory: "https://back.freenance.online/api/del-category/",
   sendCategoryToArchive: "https://back.freenance.online/api/update-category/",

@@ -16,6 +16,8 @@ function Rectangle() {
   const selectDate = (dataCal && dataCal.split(".").reverse().join("-")) || currentDate
   //
   const token = useSelector((state) => state.user.token)
+  //
+  // const [allOperationList, setAllOperationList] = useState()
   const [operationList, setOperationList] = useState("")
   const [symbol, setSymbol] = useState("+")
   const [balanceData, setBalanceData] = useState("")
@@ -111,6 +113,23 @@ function Rectangle() {
         setSymbol(symbol)
       })
   }
+  // function getAllOperationList() {
+  //   const options = {
+  //     method: "GET",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //       Authorization: `Token ${token}`,
+  //     },
+  //   }
+  //   fetch(URLS.getAllOperations, options)
+  //     .then((result) => result.json())
+  //     .then((responseServer) => {
+  //       setAllOperationList(responseServer)
+  //     })
+  // }
+  // useEffect(() => {
+  //   getAllOperationList()
+  // }, [])
 
   function getBalanceData() {
     const options = {
@@ -189,10 +208,12 @@ function Rectangle() {
                 balanceToTarget={balanceToTarget}
                 balanceToTargetInPercent={balanceToTargetInPercent}
                 getOperationList={getOperationList}
+                // getAllOperationList={getAllOperationList}
                 getBalanceData={getBalanceData}
                 getInputData={getInputData}
                 inputData={inputData}
                 operationList={operationList}
+                // allOperationList={allOperationList}
                 changeRangeCalendar={changeRangeCalendar}
                 range={range}
                 setCheckMainField={setCheckMainField}

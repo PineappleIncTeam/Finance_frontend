@@ -5,6 +5,7 @@ import React, { useEffect, useState } from "react"
 import { useSelector } from "react-redux"
 import ChartGistograms from "./analiticGistograms/ChartGistograms"
 import Gistogram from "./analiticGistograms/Gistogram"
+import AllTransactionsList from "./Transactions/AllTransactionsList"
 import { percentFunction } from "../Utils/percentFunction"
 import { getAnaliticGistogramSum } from "../Utils/analiticFunction"
 import { URLS, firstDayOfMonth, lastDayOfMonth } from "../urls/urlsAndDates"
@@ -19,6 +20,8 @@ function MainFieldAnalitic({
   balanceToTargetInPercent,
   setCheckMainField,
   gistogramSize,
+  // getAllOperationList,
+  // allOperationList,
 }) {
   const token = useSelector((state) => state.user.token)
 
@@ -34,9 +37,10 @@ function MainFieldAnalitic({
   const [incomePercent, setIncomePercent] = useState([])
   const [outcomePercent, setOutcomePercent] = useState([])
 
-  const [analiticSumIncome, setAnaliticSumIncome] = useState()
-  const [analiticSumOutcome, setAnaliticSumOutcome] = useState()
+  const [allOperationList, setAllOperationList] = useState()
 
+  // const [analiticSumIncome, setAnaliticSumIncome] = useState()
+  // const [analiticSumOutcome, setAnaliticSumOutcome] = useState()
 
   const dataStart =
     dataCalRange.length > 1
@@ -129,6 +133,29 @@ function MainFieldAnalitic({
     getStorageCategories(URLS.getMoneyBoxCategories)
   }, [])
 
+  function getAllOperationList() {
+    const options = {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Token ${token}`,
+      },
+    }
+    fetch(
+      `${URLS.getAllOperations}?date_start=${dataStart}&date_end=${dataEnd}`,
+      options
+    )
+      .then((result) => result.json())
+      .then((responseServer) => {
+        setAllOperationList("")
+        setAllOperationList(responseServer)
+      })
+  }
+  useEffect(() => {
+    getAllOperationList()
+    console.log("load")
+  }, [dataCalRange, result])
+
   //.sort((a, b) => b.result_sum - a.result_sum) - сортировка данных по размеру суммы
   const categoryNameIncome =
     sumGroupIncome.length > 0 && sumGroupIncome[0].sum && !result
@@ -179,7 +206,8 @@ function MainFieldAnalitic({
     sumGroupOutcome.length > 0 && result ? sumGroupOutcome : []
 
   let resultSumIncomeTotal =
-    resultSumIncome.length > 0 && resultSumIncome.reduce((a, b) => +a + +b, 0).toFixed(2)
+    resultSumIncome.length > 0 &&
+    resultSumIncome.reduce((a, b) => +a + +b, 0).toFixed(2)
   let onePercentIncome = resultSumIncomeTotal / 100
   let resultSumIncomeInPercent = []
   for (let i = 0; i < resultSumIncome.length; i++) {
@@ -188,7 +216,8 @@ function MainFieldAnalitic({
     )
   }
   let resultSumOutcomeTotal =
-    resultSumOutcome.length > 0 && resultSumOutcome.reduce((a, b) => +a + +b, 0).toFixed(2)
+    resultSumOutcome.length > 0 &&
+    resultSumOutcome.reduce((a, b) => +a + +b, 0).toFixed(2)
   let onePercentOutcome = resultSumOutcomeTotal / 100
   let resultSumOutcomeInPercent = []
   for (let i = 0; i < resultSumOutcome.length; i++) {
@@ -197,7 +226,8 @@ function MainFieldAnalitic({
     )
   }
   let resultSumMoneyBoxTotal =
-    resultSumMoneyBox.length > 0 && resultSumMoneyBox.reduce((a, b) => +a + +b, 0).toFixed(2)
+    resultSumMoneyBox.length > 0 &&
+    resultSumMoneyBox.reduce((a, b) => +a + +b, 0).toFixed(2)
   let onePercentMoneyBox = resultSumMoneyBoxTotal / 100
   let resultSumMoneyBoxInPercent = []
   for (let i = 0; i < resultSumOutcome.length; i++) {
@@ -221,16 +251,29 @@ function MainFieldAnalitic({
   }
 
   const analiticTotal = [resultSumIncomeTotal, resultSumCostsTotal]
-  const onePercentAnaltiicTotal = analiticTotal.reduce((a, b) => +a + +b, 0).toFixed(2) / 100
-  const analiticTotalInPercent = analiticTotal.map(item => (item / onePercentAnaltiicTotal).toFixed(2))
+  const onePercentAnaltiicTotal =
+    analiticTotal.reduce((a, b) => +a + +b, 0).toFixed(2) / 100
+  const analiticTotalInPercent = analiticTotal.map((item) =>
+    (item / onePercentAnaltiicTotal).toFixed(2)
+  )
   //
-  const analiticSumIncomeForGistogram = result ? getAnaliticGistogramSum(sumGroupIncome) : 0
-  const analiticSumOutcomeForGistogram = result ? getAnaliticGistogramSum(outcomeTotal) : 0
-  const analiticTotalForGistogram = [analiticSumIncomeForGistogram, analiticSumOutcomeForGistogram]
-  console.log(analiticTotalForGistogram)
-  const onePercentAnaliticTotalForGistogram = analiticTotalForGistogram.reduce((a, b) => +a + +b, 0).toFixed(2) / 100
-  const analiticTotalForGistogramInPercent = analiticTotalForGistogram.map(item => (item / onePercentAnaliticTotalForGistogram).toFixed(2))
-  console.log(analiticTotalForGistogramInPercent)
+  const analiticSumIncomeForGistogram = result
+    ? getAnaliticGistogramSum(sumGroupIncome)
+    : 0
+  const analiticSumOutcomeForGistogram = result
+    ? getAnaliticGistogramSum(outcomeTotal)
+    : 0
+  const analiticTotalForGistogram = [
+    analiticSumIncomeForGistogram,
+    analiticSumOutcomeForGistogram,
+  ]
+  // console.log(analiticTotalForGistogram)
+  const onePercentAnaliticTotalForGistogram =
+    analiticTotalForGistogram.reduce((a, b) => +a + +b, 0).toFixed(2) / 100
+  const analiticTotalForGistogramInPercent = analiticTotalForGistogram.map(
+    (item) => (item / onePercentAnaliticTotalForGistogram).toFixed(2)
+  )
+  // console.log(analiticTotalForGistogramInPercent)
 
   function handlePercentChange(e) {
     if (e.target.value === "В рублях") return setPercentChoice(false)
@@ -272,33 +315,41 @@ function MainFieldAnalitic({
           <option className="analitic_select_option" value="analitic">
             Аналитика
           </option>
+          <option className="analitic_select_option" value="operationsList">
+            Список операций
+          </option>
         </select>
-        <form className="analitic_select_form">
-          <div>
-            <input
-              className="analitic_radio_input"
-              type="radio"
-              id="option1"
-              name="analitic_select"
-              value="В рублях"
-              onClick={(e) => handlePercentChange(e)}
-            />
-            <label htmlFor="option1">В рублях</label>
-          </div>
-          <div>
-            <input
-              className="analitic_radio_input"
-              type="radio"
-              id="option2"
-              name="analitic_select"
-              value="В процентах"
-              onClick={(e) => handlePercentChange(e)}
-            />
-            <label htmlFor="option2">В процентах</label>
-          </div>
-        </form>
+        {isActive !== "operationsList" && (
+          <form className="analitic_select_form">
+            <div>
+              <input
+                className="analitic_radio_input"
+                type="radio"
+                id="option1"
+                name="analitic_select"
+                value="В рублях"
+                onClick={(e) => handlePercentChange(e)}
+              />
+              <label htmlFor="option1">В рублях</label>
+            </div>
+            <div>
+              <input
+                className="analitic_radio_input"
+                type="radio"
+                id="option2"
+                name="analitic_select"
+                value="В процентах"
+                onClick={(e) => handlePercentChange(e)}
+              />
+              <label htmlFor="option2">В процентах</label>
+            </div>
+          </form>
+        )}
       </div>
-      {gistogramType === "pie" && !result ? (
+      {isActive === "operationsList" && (
+        <AllTransactionsList allOperationList={allOperationList} />
+      )}
+      {isActive !== "operationsList" && gistogramType === "pie" && !result && (
         <ChartGistograms
           categoryNameIncome={categoryNameIncome}
           resultSumIncome={
@@ -316,9 +367,10 @@ function MainFieldAnalitic({
           balanceToTarget={
             !percentChoice ? balanceToTarget : balanceToTargetInPercent[1]
           }
-          analiticSum = {!percentChoice ? analiticTotal : analiticTotalInPercent}
+          analiticSum={!percentChoice ? analiticTotal : analiticTotalInPercent}
         />
-      ) : (
+      )}
+      {isActive !== "operationsList" && gistogramType !== "pie" && result && (
         <Gistogram
           gistogramSize={gistogramSize}
           sumGroupIncome={gistogramSumIncome}
@@ -332,7 +384,11 @@ function MainFieldAnalitic({
           balanceToTarget={
             !percentChoice ? balanceToTarget : balanceToTargetInPercent[1]
           }
-          analiticSum={!percentChoice ? analiticTotalForGistogram : analiticTotalForGistogramInPercent}
+          analiticSum={
+            !percentChoice
+              ? analiticTotalForGistogram
+              : analiticTotalForGistogramInPercent
+          }
         />
       )}
     </div>

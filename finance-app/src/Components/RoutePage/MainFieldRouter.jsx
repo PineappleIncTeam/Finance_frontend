@@ -14,11 +14,13 @@ const MainFieldRouter = ({
   balanceToTarget,
   balanceToTargetInPercent,
   getOperationList,
+  // getAllOperationList,
   setSymbol,
   getBalanceData,
   getInputData,
   inputData,
   // operationList,
+  // allOperationList,
   changeRangeCalendar,
   range,
   setCheckMainField,
@@ -90,6 +92,8 @@ const MainFieldRouter = ({
             balanceToTargetInPercent={balanceToTargetInPercent}
             setCheckMainField={setCheckMainField}
             gistogramSize={gistogramSize}
+            // getAllOperationList={getAllOperationList}
+            // allOperationList={allOperationList}
           />
         }
       />

@@ -1,7 +1,7 @@
 // Компонент "Аналитика"
 // import MainFieldString from './MainFieldString';
 // import { current } from "@reduxjs/toolkit"
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useState, useRef } from "react"
 import { useSelector } from "react-redux"
 import ChartGistograms from "./analiticGistograms/ChartGistograms"
 import Gistogram from "./analiticGistograms/Gistogram"
@@ -9,8 +9,12 @@ import AllTransactionsList from "./Transactions/AllTransactionsList"
 import { percentFunction } from "../Utils/percentFunction"
 import { getAnaliticGistogramSum } from "../Utils/analiticFunction"
 import { URLS, firstDayOfMonth, lastDayOfMonth } from "../urls/urlsAndDates"
-// import style from "../Components/analiticGistograms/Gistogram.module.css"
-
+import jsPDF from "jspdf"
+import PdfButton from "./PdfButton"
+import CreatePDF from "./CreatePDF"
+//
+import "../Utils/PlayfairDisplay-Medium-normal"
+//
 function MainFieldAnalitic({
   changeRangeCalendar,
   range,
@@ -38,10 +42,23 @@ function MainFieldAnalitic({
   const [outcomePercent, setOutcomePercent] = useState([])
 
   const [allOperationList, setAllOperationList] = useState()
+  //
+  const reportTemplateRef = useRef(null)
+  const doc = new jsPDF({
+    format: "a4",
+    unit: "px",
+  })
+  doc.setFont("PlayfairDisplay-Medium", "normal")
+  // doc.setFontSize(5)
 
-  // const [analiticSumIncome, setAnaliticSumIncome] = useState()
-  // const [analiticSumOutcome, setAnaliticSumOutcome] = useState()
-
+  const handleGeneratePdf = () => {
+    doc.html(reportTemplateRef.current, {
+      async callback(doc) {
+        await doc.save("document")
+      },
+    })
+  }
+  //
   const dataStart =
     dataCalRange.length > 1
       ? dataCalRange[0].split(".").reverse().join("-")
@@ -319,7 +336,7 @@ function MainFieldAnalitic({
             Список операций
           </option>
         </select>
-        {isActive !== "operationsList" && (
+        {isActive !== "operationsList" ? (
           <form className="analitic_select_form">
             <div>
               <input
@@ -344,10 +361,20 @@ function MainFieldAnalitic({
               <label htmlFor="option2">В процентах</label>
             </div>
           </form>
+        ) : (
+          <PdfButton func={handleGeneratePdf} />
         )}
       </div>
       {isActive === "operationsList" && (
-        <AllTransactionsList allOperationList={allOperationList} />
+        <>
+          <AllTransactionsList allOperationList={allOperationList} />
+          <div
+            ref={reportTemplateRef}
+            style={{ position: "absolute", top: "-10000%" }}
+          >
+            <CreatePDF allOperationList={allOperationList} />
+          </div>
+        </>
       )}
       {isActive !== "operationsList" && gistogramType === "pie" && !result && (
         <ChartGistograms

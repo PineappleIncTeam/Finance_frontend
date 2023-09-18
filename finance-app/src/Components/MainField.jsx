@@ -16,7 +16,7 @@ function MainField({
   setCheckMainField,
 }) {
   // const token = useSelector((state) => state.user.token);
-  
+
   useEffect(() => {
     getCategories(URLS.getIncomeCategories);
     changeRangeCalendar(false);
@@ -32,7 +32,9 @@ function MainField({
         <input className="input_rub" value={inputData} readOnly></input>
         <span className="ruble_icon">₽</span>
       </div>
-      <div className="main_field_title_label">Общий доход за <span className="balance_month">{months[month]}</span></div>
+      <div className="main_field_title_label">
+        Общий доход за <span className="balance_month">{months[month]}</span>
+      </div>
       <MainFieldString
         title="Постоянные"
         type="constant"
@@ -70,7 +72,10 @@ function MainField({
       />
       <div className="mobileSum">
         <div className="mobileSum_input">
-          <div className="mainTextSumm">Ваш общий доход за <span className="balance_month_mobile">{months[month]}</span></div>
+          <div className="mainTextSumm">
+            Ваш общий доход за{" "}
+            <span className="balance_month_mobile">{months[month]}</span>
+          </div>
           <input className="input_rubMobile" value={inputData} readOnly></input>
           <span className="ruble_iconMobile">₽</span>
         </div>

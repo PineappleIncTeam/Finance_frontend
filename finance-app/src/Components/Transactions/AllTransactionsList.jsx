@@ -2,11 +2,10 @@ import Transaction from "./Transaction"
 import style from "./AllTransactionsList.module.css"
 
 function AllTransactionsList({ allOperationList }) {
-  
   const incomeCash = allOperationList && allOperationList.income_cash
   const outcomeCash = allOperationList && allOperationList.outcome_cash
   const moneyBox = allOperationList && allOperationList.money_box
-  
+
   return (
     <>
       {(incomeCash && incomeCash.length > 0) ||

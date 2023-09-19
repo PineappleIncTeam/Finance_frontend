@@ -1,6 +1,4 @@
 // Компонент "Аналитика"
-// import MainFieldString from './MainFieldString';
-// import { current } from "@reduxjs/toolkit"
 import React, { useEffect, useState, useRef } from "react"
 import { useSelector } from "react-redux"
 import ChartGistograms from "./analiticGistograms/ChartGistograms"
@@ -9,12 +7,9 @@ import AllTransactionsList from "./Transactions/AllTransactionsList"
 import { percentFunction } from "../Utils/percentFunction"
 import { getAnaliticGistogramSum } from "../Utils/analiticFunction"
 import { URLS, firstDayOfMonth, lastDayOfMonth } from "../urls/urlsAndDates"
-import jsPDF from "jspdf"
 import PdfButton from "./PdfButton"
 import CreatePDF from "./CreatePDF"
-//
-import "../Utils/PlayfairDisplay-Medium-normal"
-//
+
 function MainFieldAnalitic({
   changeRangeCalendar,
   range,
@@ -28,13 +23,13 @@ function MainFieldAnalitic({
   // allOperationList,
 }) {
   const token = useSelector((state) => state.user.token)
+  const dataCalRange = useSelector((state) => state.data.dataRange)
 
   const [sumGroupIncome, setSumGroupIncome] = useState([])
   const [sumGroupOutcome, setSumGroupOutcome] = useState([])
   const [sumGroupMoneyBox, setSumGroupMoneyBox] = useState([])
   const [outcomeTotal, setOutcomeTotal] = useState([])
   const [gistogramType, setGistogramType] = useState("pie")
-  const dataCalRange = useSelector((state) => state.data.dataRange)
   const [isActive, setIsActive] = useState("income")
   //
   const [percentChoice, setPercentChoice] = useState(false)
@@ -44,21 +39,7 @@ function MainFieldAnalitic({
   const [allOperationList, setAllOperationList] = useState()
   //
   const reportTemplateRef = useRef(null)
-  const doc = new jsPDF({
-    format: "a4",
-    unit: "px",
-  })
-  doc.setFont("PlayfairDisplay-Medium", "normal")
-  // doc.setFontSize(5)
 
-  const handleGeneratePdf = () => {
-    doc.html(reportTemplateRef.current, {
-      async callback(doc) {
-        await doc.save("document")
-      },
-    })
-  }
-  //
   const dataStart =
     dataCalRange.length > 1
       ? dataCalRange[0].split(".").reverse().join("-")
@@ -360,7 +341,7 @@ function MainFieldAnalitic({
             </div>
           </form>
         ) : (
-          <PdfButton func={handleGeneratePdf} />
+          <PdfButton reportTemplateRef={reportTemplateRef} />
         )}
       </div>
       {isActive === "operationsList" && (
@@ -370,8 +351,11 @@ function MainFieldAnalitic({
             ref={reportTemplateRef}
             style={{ position: "absolute", top: "-10000%" }}
           >
-            <CreatePDF allOperationList={allOperationList} />
-          </div> 
+            <CreatePDF
+              allOperationList={allOperationList}
+              dataCalRange={dataCalRange}
+            />
+          </div>
         </>
       )}
       {isActive !== "operationsList" && gistogramType === "pie" && !result && (

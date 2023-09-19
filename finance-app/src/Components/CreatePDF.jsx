@@ -26,17 +26,16 @@ const CreatePDF = ({ allOperationList }) => {
       width: "450px",
     },
   }
-  
   const incomeCash = allOperationList && allOperationList.income_cash
   const outcomeCash = allOperationList && allOperationList.outcome_cash
   const moneyBox = allOperationList && allOperationList.money_box
   
   return (
     <div style={styles.page}>
-      {incomeCash.length > 0 && (
+      {incomeCash && incomeCash.length > 0 && (
         <h3 style={styles.introText}>Операции с доходами</h3>
       )}
-      {incomeCash.map((item, index) => {
+      {incomeCash && incomeCash.map((item, index) => {
         return (
           <div style={styles.block} key={index} id={item.id}>
             <div>{item.date}</div>
@@ -49,13 +48,12 @@ const CreatePDF = ({ allOperationList }) => {
           </div>
         )
 
-        //   return <Transaction operationItem={item} index={index} symbol={"+"} /> */
       })}
 
-      {outcomeCash.length > 0 && (
+      {outcomeCash && outcomeCash.length > 0 && (
         <h3 style={styles.introText}>Операции с расходами</h3>
       )}
-      {outcomeCash.map((item, index) => {
+      {outcomeCash && outcomeCash.map((item, index) => {
         return (
           <div style={styles.block} key={index} id={item.id}>
             <div>{item.date}</div>
@@ -67,12 +65,11 @@ const CreatePDF = ({ allOperationList }) => {
             </div>
           </div>
         )
-        // return <Transaction operationItem={item} index={index} symbol={"-"} />
       })}
-      {moneyBox.length > 0 && (
+      {moneyBox && moneyBox.length > 0 && (
         <h3 style={styles.introText}>Операции с накоплениями</h3>
       )}
-      {moneyBox.map((item, index) => {
+      {moneyBox && moneyBox.map((item, index) => {
         return (
           <div style={styles.block} key={index} id={item.id}>
             <div>{item.date}</div>
@@ -84,7 +81,6 @@ const CreatePDF = ({ allOperationList }) => {
             </div>
           </div>
         )
-        // return <Transaction operationItem={item} index={index} symbol={"-"} />
       })}
     </div>
   )

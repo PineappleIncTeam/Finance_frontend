@@ -14,6 +14,13 @@
   font-size: 24px;
   margin: 20px;
 }
+.message_text {
+  font-family: "Monserrat-Medium";
+  font-style: normal;
+  margin: 60px auto;
+  font-size: 20px;
+  line-height: 30px;
+}
 
 @media screen and (max-width: 1919px) {
   .operation_title {

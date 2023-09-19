@@ -164,13 +164,11 @@ function MainFieldAnalitic({
     )
       .then((result) => result.json())
       .then((responseServer) => {
-        setAllOperationList("")
         setAllOperationList(responseServer)
       })
   }
   useEffect(() => {
     getAllOperationList()
-    console.log("load")
   }, [dataCalRange, result])
 
   //.sort((a, b) => b.result_sum - a.result_sum) - сортировка данных по размеру суммы
@@ -373,7 +371,7 @@ function MainFieldAnalitic({
             style={{ position: "absolute", top: "-10000%" }}
           >
             <CreatePDF allOperationList={allOperationList} />
-          </div>
+          </div> 
         </>
       )}
       {isActive !== "operationsList" && gistogramType === "pie" && !result && (

@@ -22,7 +22,7 @@ const CreatePDF = ({ allOperationList, dataCalRange }) => {
       textAlign: "left",
       fontFamily: "PlayfairDisplay-Medium",
       fontSize: "12px",
-      margin: "0px 20px",
+      margin: "1.59px 20px 1.59px 50px",
     },
     text: {
       fontFamily: "PlayfairDisplay-Medium",

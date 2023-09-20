@@ -9,8 +9,8 @@ function PdfButton({ reportTemplateRef }) {
     unit: "px",
   })
   doc.setFont("PlayfairDisplay-Medium", "normal")
-  // doc.setFontSize(5)
-
+  
+  
   const handleGeneratePdf = () => {
     doc.html(reportTemplateRef.current, {
       async callback(doc) {

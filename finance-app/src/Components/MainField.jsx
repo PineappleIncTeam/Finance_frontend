@@ -73,7 +73,7 @@ function MainField({
       <div className="mobileSum">
         <div className="mobileSum_input">
           <div className="mainTextSumm">
-            Ваш общий доход за{" "}
+            Ваш общий доход за {" "}
             <span className="balance_month_mobile">{months[month]}</span>
           </div>
           <input className="input_rubMobile" value={inputData} readOnly></input>

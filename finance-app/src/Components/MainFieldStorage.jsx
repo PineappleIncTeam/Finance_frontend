@@ -210,9 +210,11 @@ function MainFieldStorage({
                         {category.target}
                       </div>
                       <div className={style.sum_storage}>
-                        <div className={style.sum_storage_content}>
-                          {category.sum}
-                        </div>
+                        {category.sum && (
+                          <div className={style.sum_storage_content}>
+                            {category.sum}
+                          </div>
+                        )}
                       </div>
                     </div>
                     {category.target && !doneStorage && (

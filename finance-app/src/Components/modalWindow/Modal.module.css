@@ -81,6 +81,15 @@
   box-shadow: 0px 2px 5px 1px #0c4139;
   transform: translateY(-1px);
 }
+.button[disabled] {
+  background: #125B50;
+}
+.button[disabled]:hover {
+  box-shadow: none;
+  transform: none;
+
+  cursor: auto;
+}
 .button_cancel {
   composes: button;
   background-color: #a10930;

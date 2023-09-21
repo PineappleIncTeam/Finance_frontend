@@ -444,7 +444,8 @@
 @media screen and (max-width: 1919px) {
   .App {
     max-width: 1280px;
-    height: 768px;
+    height: fit-content;
+    min-height: 768px;
   }
   .navigation {
     margin-left: 20px;

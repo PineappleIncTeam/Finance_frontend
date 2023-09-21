@@ -377,6 +377,7 @@ function Dropdown({
                 className={style.button}
                 onClick={(e) => chooseAndAddCategory(e)}
                 type="submit"
+                disabled={error}
               >
                 Добавить
               </button>

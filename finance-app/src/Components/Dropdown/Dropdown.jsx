@@ -50,6 +50,9 @@ function Dropdown({
   const [modalActive, setModalActive] = useState(false)
   const [error, setError] = useState(false)
   const [errorMessage, setErrorMessage] = useState("")
+
+  const handleModalInputRef = useRef(null)
+
   function closeModal() {
     setNewCategory("")
     setModalActive(false)
@@ -262,6 +265,10 @@ function Dropdown({
     setSelectedCategory({})
     setModalDelete(false)
   }
+  function getModalActive() {
+    handleModalInputRef.current.focus()
+    setModalActive(true)
+  }
 
   return (
     <>
@@ -293,7 +300,7 @@ function Dropdown({
             <div
               className={addActive ? "option_list_add" : "disabled"}
               data-value="Добавить категорию"
-              onClick={() => setModalActive(true)}
+              onClick={() => getModalActive()}
             >
               Добавить категорию
             </div>
@@ -350,7 +357,8 @@ function Dropdown({
               (не более 14 символов)
             </p>
             <div>
-              <input
+              <input 
+                ref={handleModalInputRef}
                 className={
                   error
                     ? `${style.modal_input} ${style.error}`

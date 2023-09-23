@@ -30,3 +30,12 @@ body {
     "Fira Sans", "Droid Sans", "Helvetica Neue", "Playfair Display" sans-serif,
     "Montserrat", "Montserrat-Medium";
 }
+*::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+*::-webkit-scrollbar-thumb {
+  background-color: #a8b8a6;
+  border-radius: 5px;
+  border: 1px solid rgb(227, 224, 219);
+}

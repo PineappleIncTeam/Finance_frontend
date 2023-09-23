@@ -14,6 +14,17 @@
 }
 .storage_categories {
   margin: 68px 0px;
+  max-height: 230px;
+  overflow: auto;
+}
+.storage_categories::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+.storage_categories::-webkit-scrollbar-thumb {
+  background-color: #a8b8a6;
+  border-radius: 5px;
+  border: 1px solid rgb(227, 224, 219);
 }
 .storage_category_row {
   display: flex;

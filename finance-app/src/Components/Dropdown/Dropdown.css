@@ -21,6 +21,7 @@
   align-items: center;
   justify-content: space-between;
   user-select: none;
+  overflow: hidden;
   background: rgba(250, 245, 228, 0.2);
 }
 .dropdown-menu {
@@ -31,10 +32,23 @@
   width: 100%;
   border: 1px solid #ccc;
   border-radius: 5px;
+  max-height: 440px;
   overflow: auto;
   background-color: #fffefa;
   z-index: 1;
+
+  
 }
+.dropdown-menu::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+.dropdown-menu::-webkit-scrollbar-thumb {
+  background-color: #a8b8a6;
+  border-radius: 5px;
+  border: 1px solid rgb(227, 224, 219);
+}
+
 .dropdown-selected-value {
   max-height: 60px;
   text-overflow: ellipsis;
@@ -88,6 +102,7 @@
   }
   .dropdown-menu {
     top: 40px;
+    max-height: 265px;
   }
   .dropdown-item {
     padding: 4px;

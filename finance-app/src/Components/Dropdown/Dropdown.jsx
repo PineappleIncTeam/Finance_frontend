@@ -44,6 +44,7 @@ function Dropdown({
   const [searchValue, setSearchValue] = useState("")
   const searchRef = useRef()
   const inputRef = useRef()
+  const handleModalInputRef = useRef(null)
   //
   const [modalMessageActive, setModalMessageActive] = useState(false)
   //
@@ -51,7 +52,6 @@ function Dropdown({
   const [error, setError] = useState(false)
   const [errorMessage, setErrorMessage] = useState("")
 
-  const handleModalInputRef = useRef(null)
 
   function closeModal() {
     setNewCategory("")

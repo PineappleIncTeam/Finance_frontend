@@ -38,6 +38,13 @@ function ButtonNaviBlock() {
         </div>
         <img className="arrowVector" src={arrow} alt="vectorImg" />
       </NavLink>
+      <NavLink to="/rectangle/calculator" className="button" style={{ display: "none" }}>
+        <div className="btnStek">
+          <img className="vectorBtn" alt="vectorImg" />
+          Калькулятор
+        </div>
+        <img className="arrowVector" src={arrow} alt="vectorImg" />
+      </NavLink>
     </div>
   )
 }

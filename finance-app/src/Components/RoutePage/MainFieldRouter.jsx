@@ -4,6 +4,7 @@ import MainField from "../MainField"
 import MainFieldAnalitic from "../MainFieldAnalitic"
 import MainFieldCosts from "../MainFieldCosts"
 import MainFieldStorage from "../MainFieldStorage"
+import Calculator from "../calculator/Calculator"
 
 const MainFieldRouter = ({
   categories,
@@ -97,6 +98,10 @@ const MainFieldRouter = ({
           />
         }
       />
+      <Route
+        path="/calculator"
+        element={<Calculator setCheckMainField={setCheckMainField} />}
+      ></Route>
     </Routes>
   )
 }

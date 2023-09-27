@@ -56,6 +56,8 @@ function Dropdown({
   function closeModal() {
     setNewCategory("")
     setModalActive(false)
+    setErrorMessage("")
+    setError(false)
   }
   function handleInput(e) {
     setError(false)
@@ -224,7 +226,7 @@ function Dropdown({
           setModalDelete(false)
           setSelectedCategory({})
           setModalMessage("")
-        }, 2000)
+        }, 1000)
       })
   }
 
@@ -256,7 +258,7 @@ function Dropdown({
           setModalDelete(false)
           setSelectedCategory({})
           setModalMessage("")
-        }, 2000)
+        }, 1000)
       })
   }
 

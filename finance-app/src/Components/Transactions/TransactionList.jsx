@@ -93,7 +93,7 @@ function TransactionList({
       }, 400)
     }
     setMessage("Запись была удалена")
-    setTimeout(() => setModalDeleteActive(false), 2000)
+    setTimeout(() => setModalDeleteActive(false), 1000)
   }
 
   function updateCash(event, id, category, symbol) {
@@ -137,7 +137,7 @@ function TransactionList({
     }
 
     setMessage("Запись была изменена")
-    setTimeout(() => setModalChangeSum(false), 2000)
+    setTimeout(() => setModalChangeSum(false), 1000)
   }
 
   return (

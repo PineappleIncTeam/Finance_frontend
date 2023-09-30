@@ -2,6 +2,10 @@
     display: flex;
     flex-direction: column;
 }
+.input_label {
+    align-self: flex-start;
+    margin: 6px 0px;
+}
 .input {
 	-webkit-appearance: textfield;
     -moz-appearance: textfield;

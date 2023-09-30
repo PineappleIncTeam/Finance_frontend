@@ -1,0 +1,16 @@
+.result_title_block {
+    font-family: "Monserrat-Regular";
+    font-size: 24px;
+    font-weight: bold;
+    line-height: 30px;
+    display: flex;
+    flex-direction: column;
+    width: 350px;
+    margin: 20px 0px;
+}
+.result_title_text {
+    /* margin: 10px 0px; */
+}
+.result_title_sum {
+    margin: 20px 0px;
+}

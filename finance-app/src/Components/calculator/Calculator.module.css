@@ -1,8 +1,24 @@
+.title {
+    font-family: "Monserrat-Medium";
+    font-size: 32px;
+    font-weight: 400;
+    margin-bottom: 40px;
+}
+.calculator_page {
+    display: flex;
+}
 .input_block {
     display: flex;
     flex-direction: column;
     margin: 20px 40px;
+    font-family: "Monserrat-Regular";
+    font-weight: 400;
+    font-size: 14px;
 }
 .input_label {
     align-self: flex-start;
+}
+.calculator_button {
+    display: flex;
+    margin: 20px 40px;
 }

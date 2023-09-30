@@ -73,6 +73,6 @@
     cursor: pointer;
     width: 13px;
     height: 13px;
-    -webkit-appearance: none;
+    -moz-appearance: none;
     margin-top: -5px
   }

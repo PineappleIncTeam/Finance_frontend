@@ -23,6 +23,7 @@ function MainField({
     getInputData(URLS.sumIncomeCash);
     setCheckMainField(true);
     getOperationList(URLS.last5IncomeCash, "+");
+    // eslint-disable-next-line 
   }, []);
 
   return (
@@ -39,7 +40,7 @@ function MainField({
         title="Постоянные"
         type="constant"
         income_outcome="income"
-        endpoint={URLS.last5IncomeCash}
+        endpoint={URLS.last5IncomeCash} 
         typeOfSum={URLS.POSTincomcash}
         getInputData={getInputData}
         sumCash={URLS.sumIncomeCash}

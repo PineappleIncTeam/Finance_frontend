@@ -24,18 +24,20 @@ function Calculator({ setCheckMainField }) {
             <CalculatorInput
               label={"Стоимость недвижимости"}
               min={0}
-              max={999000000}
+              max={99999999}
               value={totalCost}
               setValue={setTotalCost}
+              unformatted={false}
             />
           </div>
           <div className={style.input_block}>
             <CalculatorInput
               label={"Первоначальный взнос"}
               min={0}
-              max={999000000}
+              max={99499999}
               value={anInitialFee}
               setValue={setAnInitialFee}
+              unformatted={false}
             />
           </div>
           <div className={style.input_block}>
@@ -45,6 +47,7 @@ function Calculator({ setCheckMainField }) {
               max={35}
               value={creditTerm}
               setValue={setCreditTerm}
+              unformatted={true}
             />
           </div>
           <div className={style.input_block}>
@@ -55,6 +58,7 @@ function Calculator({ setCheckMainField }) {
               value={creditRate}
               setValue={setCreditRate}
               step={0.1}
+              unformatted={true}
             />
           </div>
           <div className={style.calculator_button}>

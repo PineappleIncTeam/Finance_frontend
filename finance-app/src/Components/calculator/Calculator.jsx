@@ -26,7 +26,7 @@ function Calculator({ setCheckMainField }) {
   }, [realEstate])
 
   return (
-    <>
+    <div className={style.calculator_main_page}>
       <h2 className={style.title}>Калькулятор</h2>
       <div className={style.choice_buttons_block}>
         <ChoiceButton
@@ -116,7 +116,7 @@ function Calculator({ setCheckMainField }) {
           <CalculationResult result={result} />
         </div>
       </div>
-    </>
+    </div>
   )
 }
 

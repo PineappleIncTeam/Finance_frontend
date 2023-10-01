@@ -1,0 +1,21 @@
+.button {
+    cursor: pointer;
+    width: fit-content;
+    height: 24px;
+    padding: 0px 2px;
+    border: 1px solid rgb(206, 229, 160);
+    color: white;
+    font-family: "Monserrat-Regular";
+    font-weight: 400;
+    font-size: 12px;
+    background-color: rgb(206, 229, 160);
+    border-radius: 24px;
+    margin: 4px;
+  }
+  .button:hover {
+    background-color: rgb(156, 174, 122);
+    border: 1px solid rgb(156, 174, 122);
+    cursor: pointer;
+    box-shadow: 0px 2px 5px 1px rgb(158, 176, 123);
+    transform: translateY(-1px);
+  }

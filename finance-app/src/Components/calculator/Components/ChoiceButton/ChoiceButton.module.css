@@ -1,14 +1,15 @@
 .button {
+  font-family: "Monserrat-Regular";
+  font-weight: 600;
+  font-size: 20px;
   cursor: pointer;
   width: 264px;
   height: 60px;
   border: 1px solid rgb(206, 229, 160);
   color: white;
-  font-family: "Monserrat-Regular";
-  font-weight: 600;
-  font-size: 20px;
   background-color: rgb(206, 229, 160);
   border-radius: 24px;
+  margin-right: 10px;
 }
 
 .button:hover {
@@ -16,6 +17,13 @@
   cursor: pointer;
   box-shadow: 0px 2px 5px 1px rgb(158, 176, 123);
   transform: translateY(-1px);
+}
+.active {
+  background-color: rgb(121, 162, 41);
+}
+.active:hover {
+  background-color: rgb(121, 162, 41);
+  border-color: rgb(121, 162, 41);
 }
 
 .button[disabled] {
@@ -30,7 +38,4 @@
     height: 40px;
     font-size: 16px;
   }
-}
-@media (max-width: 1024px) {
-
 }

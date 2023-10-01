@@ -4,19 +4,26 @@
     font-weight: 400;
     margin-bottom: 40px;
 }
+.choice_buttons_block {
+    display: flex;
+    margin-left: 40px;
+}
 .calculator_page {
     display: flex;
 }
 .input_block {
     display: flex;
     flex-direction: column;
-    margin: 20px 40px;
+    margin: 20px 40px 5px;
     font-family: "Monserrat-Regular";
     font-weight: 400;
     font-size: 14px;
 }
 .input_label {
     align-self: flex-start;
+}
+.percent_button_block {
+    margin-left: 36px;
 }
 .calculator_button {
     display: flex;

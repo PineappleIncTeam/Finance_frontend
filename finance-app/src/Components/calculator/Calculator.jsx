@@ -18,7 +18,8 @@ function Calculator({ setCheckMainField }) {
   const [result, setResult] = useState()
   const [realEstate, setRealEstate] = useState(true)
   const data = [totalCost, anInitialFee, creditTerm, creditRate]
-  const creditTermData = [5, 10, 15, 20]
+  const creditTermData = [1, 3, 5, 7]
+  const mortgageTermData = [5, 10, 15, 20]
   const creditRateData = [5.5, 7.5, 7.9, 11.4, 13.5]
 
   useEffect(() => {
@@ -84,7 +85,7 @@ function Calculator({ setCheckMainField }) {
           </div>
           <div className={style.percent_button_block}>
             <CreditTermRateButtonBlock
-              data={creditTermData}
+              data={realEstate ? mortgageTermData : creditTermData}
               content={"лет"}
               setData={setCreditTerm}
             />

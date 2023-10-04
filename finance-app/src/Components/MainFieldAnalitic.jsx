@@ -8,7 +8,7 @@ import { percentFunction } from "../Utils/percentFunction"
 import { getAnaliticGistogramSum } from "../Utils/analiticFunction"
 import { URLS, firstDayOfMonth, lastDayOfMonth } from "../urls/urlsAndDates"
 import PdfButton from "./PdfButton"
-import CreatePDF from "./CreatePDF"
+import CreatePDF from "./CreateFiles/CreatePDF"
 
 function MainFieldAnalitic({
   changeRangeCalendar,

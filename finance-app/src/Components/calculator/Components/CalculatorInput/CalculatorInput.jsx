@@ -18,9 +18,11 @@ const CalculatorInput = ({
   function handleInput(e) {
     e.preventDefault()
     setError(false)
+    const value = e.target.value
+    if (/,/.test(e.target.value)) e.target.value = value.replace(/,/, ".")
     if (e.target.value > max) setError(true)
     if (e.target.value === 0 || e.target.value === "0") setValue("")
-    else if (!/^([0-9])*[.]{0,1}([0-9]{1,2})?$/.test(e.target.value))
+    else if (!/^([0-9])*[.,]{0,1}([0-9]{1,2})?$/.test(e.target.value))
       setValue((prev) => prev)
     else {
       setValue(e.target.value)

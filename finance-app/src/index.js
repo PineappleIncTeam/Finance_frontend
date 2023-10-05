@@ -6,6 +6,7 @@ import { BrowserRouter } from "react-router-dom";
 import store from "./store";
 import { Provider } from "react-redux";
 import TagManager from 'react-gtm-module'
+console.log(process.env.NODE_ENV)
 
 const tagManagerArgs = { 
   gtmId: 'GTM-TV3DPLD4',

@@ -31,7 +31,7 @@ spec:
     spec:
       containers:
       - name: frontend
-        image: twnsnd2team/frontend:{{IMAGE_TAG}}
+        image: freenance/frontend:{{IMAGE_TAG}}
         resources:
           requests:
             memory: "32Mi"

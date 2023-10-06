@@ -4,6 +4,8 @@ WORKDIR /app
 
 COPY . .
 
+RUN npm install react-html-table-to-excel --legacy-peer-deps
+
 RUN npm ci 
 
 RUN npm run build

@@ -1,0 +1,7 @@
+.currensy_box {
+    display: flex;
+    margin: 10px 20px;
+}
+.currensy_symbol {
+    margin-right: 5px;
+}

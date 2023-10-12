@@ -25,6 +25,7 @@ const MainFieldRouter = ({
   changeRangeCalendar,
   range,
   setCheckMainField,
+  setCheckCalculator,
   gistogramSize,
 }) => {
   return (
@@ -42,6 +43,7 @@ const MainFieldRouter = ({
             changeRangeCalendar={changeRangeCalendar}
             range={range}
             setCheckMainField={setCheckMainField}
+            setCheckCalculator={setCheckCalculator}
           />
         }
       />
@@ -61,6 +63,7 @@ const MainFieldRouter = ({
             changeRangeCalendar={changeRangeCalendar}
             range={range}
             setCheckMainField={setCheckMainField}
+            setCheckCalculator={setCheckCalculator}
           />
         }
       />
@@ -74,6 +77,7 @@ const MainFieldRouter = ({
             sum={storageSum}
             getStorageCategories={getStorageCategories}
             setCheckMainField={setCheckMainField}
+            setCheckCalculator={setCheckCalculator}
             getOperationList={getOperationList}
             getBalanceData={getBalanceData}
             getInputData={getInputData}
@@ -92,6 +96,7 @@ const MainFieldRouter = ({
             balanceToTarget={balanceToTarget}
             balanceToTargetInPercent={balanceToTargetInPercent}
             setCheckMainField={setCheckMainField}
+            setCheckCalculator={setCheckCalculator}
             gistogramSize={gistogramSize}
             // getAllOperationList={getAllOperationList}
             // allOperationList={allOperationList}
@@ -100,7 +105,7 @@ const MainFieldRouter = ({
       />
       <Route
         path="/calculator"
-        element={<Calculator setCheckMainField={setCheckMainField} />}
+        element={<Calculator setCheckMainField={setCheckMainField} setCheckCalculator={setCheckCalculator} />}
       ></Route>
     </Routes>
   )

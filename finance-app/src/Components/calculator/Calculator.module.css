@@ -34,3 +34,10 @@
     display: flex;
     margin: 20px 40px;
 }
+
+.rates_block {
+    font-family: "Monserrat-Regular";
+    font-weight: 400;
+    font-size: 14px;
+    margin: 25px;
+}

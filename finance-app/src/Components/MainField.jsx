@@ -14,6 +14,7 @@ function MainField({
   changeRangeCalendar,
   range,
   setCheckMainField,
+  setCheckCalculator
 }) {
   // const token = useSelector((state) => state.user.token);
 
@@ -22,6 +23,7 @@ function MainField({
     changeRangeCalendar(false);
     getInputData(URLS.sumIncomeCash);
     setCheckMainField(true);
+    setCheckCalculator(false)
     getOperationList(URLS.last5IncomeCash, "+");
     // eslint-disable-next-line 
   }, []);

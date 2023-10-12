@@ -18,6 +18,7 @@ function MainFieldStorage({
   sum,
   getStorageCategories,
   setCheckMainField,
+  setCheckCalculator,
   getOperationList,
   getInputData,
   getBalanceData,
@@ -144,13 +145,14 @@ function MainFieldStorage({
 
   useEffect(() => {
     setCheckMainField(true)
+    setCheckCalculator(false)
     getOperationList(URLS.last5MoneyBoxOperation, " ")
     getStorageCategories(URLS.getMoneyBoxCategories)
     getCategories(URLS.getIncomeCategories)
     getBalanceData()
     getStorageSum(storageCategories)
   }, [])
-
+  
   return (
     <>
       <div className={style.main_field}>
@@ -209,13 +211,13 @@ function MainFieldStorage({
                       <div className={style.grand_total_storage}>
                         {category.target}
                       </div>
+                        {(Boolean(category.sum) || category.sum === 0) && (
                       <div className={style.sum_storage}>
-                        {category.sum && (
                           <div className={style.sum_storage_content}>
                             {category.sum}
                           </div>
-                        )}
                       </div>
+                        )}
                     </div>
                     {category.target && !doneStorage && (
                       <>

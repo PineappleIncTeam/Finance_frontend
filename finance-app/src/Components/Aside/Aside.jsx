@@ -5,7 +5,7 @@ import "air-datepicker/air-datepicker.css"
 import AirDatePicker from "../calendar/AirCalendar"
 import { balanceMonths } from "../../urls/urlsAndDates"
 
-const Aside = ({ balanceData, range, selectDate }) => {
+const Aside = ({ balanceData, range, selectDate, checkCalculator }) => {
   let selectDateAside = selectDate.split("-")
   return (
     <div>
@@ -26,9 +26,9 @@ const Aside = ({ balanceData, range, selectDate }) => {
             <img src={userAva} alt="" />
           </div>
         </div>
-        <div className={style.datePicker}>
+        {!checkCalculator && <div className={style.datePicker}>
           <AirDatePicker range={range} inline={false} autoClose={true} />
-        </div>
+        </div>}
       </div>
     </div>
   )

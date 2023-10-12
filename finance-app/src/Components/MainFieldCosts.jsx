@@ -16,12 +16,14 @@ function MainFieldCosts({
   inputData,
   changeRangeCalendar,
   setCheckMainField,
+  setCheckCalculator
 }) {
   // const token = useSelector((state) => state.user.token);
 
   useEffect(() => {
     getInputData(URLS.sumOutcomeCash)
     setCheckMainField(true)
+    setCheckCalculator(false)
     getOperationList(URLS.last5OutcomeCash, "-")
     getCategories(URLS.getOutcomeCategories)
     getStorageCategories(URLS.getMoneyBoxCategories)

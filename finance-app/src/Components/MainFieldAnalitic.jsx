@@ -19,6 +19,7 @@ function MainFieldAnalitic({
   balanceToTarget,
   balanceToTargetInPercent,
   setCheckMainField,
+  setCheckCalculator,
   gistogramSize,
   // getAllOperationList,
   // allOperationList,
@@ -65,7 +66,10 @@ function MainFieldAnalitic({
     changeRangeCalendar(true)
   }, [dataCalRange, result])
   //
-  useEffect(() => setCheckMainField(false))
+  useEffect(() => {
+    setCheckMainField(false)
+    setCheckCalculator(false)
+  })
 
   function getAnaliticSum() {
     const incomeEndpoint = result

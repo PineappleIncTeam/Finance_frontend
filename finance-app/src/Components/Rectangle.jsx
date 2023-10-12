@@ -23,6 +23,9 @@ function Rectangle() {
   const [balanceData, setBalanceData] = useState("")
   const [inputData, setInputData] = useState("")
   const [checkMainField, setCheckMainField] = useState(true)
+  const [checkCalculator, setCheckCalculator] = useState(false)
+  console.log(checkCalculator)
+  
   //
   const [categories, setCategories] = useState("")
   const [storageCategories, setStorageCategories] = useState("")
@@ -217,6 +220,7 @@ function Rectangle() {
                 changeRangeCalendar={changeRangeCalendar}
                 range={range}
                 setCheckMainField={setCheckMainField}
+                setCheckCalculator={setCheckCalculator}
                 gistogramSize={gistogramSize}
               />
             </div>
@@ -225,6 +229,7 @@ function Rectangle() {
                 balanceData={balanceData}
                 range={range}
                 selectDate={selectDate}
+                checkCalculator={checkCalculator}
               />
             </div>
           </div>

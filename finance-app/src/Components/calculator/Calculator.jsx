@@ -6,10 +6,12 @@ import CalculationResult from "./Components/CalculationResult/CalculationResult"
 import PercentButtonBlock from "./Components/PercentButtonBlock/PercentButtonBlock"
 import CreditTermRateButtonBlock from "./Components/CreditTermRateButtonBlock/CreditTermRateButtonBlock"
 import ChoiceButton from "./Components/ChoiceButton/ChoiceButton"
+import ExchangeRates from "./Components/ExchangeRates/ExchangeRates"
 
-function Calculator({ setCheckMainField }) {
+function Calculator({ setCheckMainField, setCheckCalculator }) {
   useEffect(() => {
     setCheckMainField(false)
+    setCheckCalculator(true)
   })
   const [totalCost, setTotalCost] = useState(0)
   const [anInitialFee, setAnInitialFee] = useState(0)
@@ -27,6 +29,7 @@ function Calculator({ setCheckMainField }) {
   }, [realEstate])
 
   return (
+   
     <div className={style.calculator_main_page}>
       <h2 className={style.title}>Калькулятор</h2>
       <div className={style.choice_buttons_block}>
@@ -109,15 +112,26 @@ function Calculator({ setCheckMainField }) {
             />
           </div>
           <div className={style.calculator_button}>
-            <CalculatorButton setResult={setResult} data={data} creditType={realEstate} />
+            <CalculatorButton
+              setResult={setResult}
+              data={data}
+              creditType={realEstate}
+            />
           </div>
         </div>
+        {/* <div>{getRatesResult}</div> */}
+        <div>
 
+        <div className={style.rates_block}>
+          <ExchangeRates />
+        </div>
         <div className={style.result_block}>
           <CalculationResult result={result} />
         </div>
+        </div>
       </div>
     </div>
+     
   )
 }
 

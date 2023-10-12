@@ -7,6 +7,7 @@ import PercentButtonBlock from "./Components/PercentButtonBlock/PercentButtonBlo
 import CreditTermRateButtonBlock from "./Components/CreditTermRateButtonBlock/CreditTermRateButtonBlock"
 import ChoiceButton from "./Components/ChoiceButton/ChoiceButton"
 import ExchangeRates from "./Components/ExchangeRates/ExchangeRates"
+import CurrencyChoiceButton from "./Components/CurrencyChoiceButton/CurrencyChoiceButton"
 
 function Calculator({ setCheckMainField, setCheckCalculator }) {
   useEffect(() => {
@@ -19,6 +20,8 @@ function Calculator({ setCheckMainField, setCheckCalculator }) {
   const [creditRate, setCreditRate] = useState(0)
   const [result, setResult] = useState()
   const [realEstate, setRealEstate] = useState(true)
+  const [exchangeRates, setExchangeRates] = useState()
+  const [currencyType, setCurrencyType] = useState("rub")
   const data = [totalCost, anInitialFee, creditTerm, creditRate]
   const creditTermData = [1, 3, 5, 7]
   const mortgageTermData = [5, 10, 15, 20]
@@ -29,7 +32,6 @@ function Calculator({ setCheckMainField, setCheckCalculator }) {
   }, [realEstate])
 
   return (
-   
     <div className={style.calculator_main_page}>
       <h2 className={style.title}>Калькулятор</h2>
       <div className={style.choice_buttons_block}>
@@ -54,6 +56,7 @@ function Calculator({ setCheckMainField, setCheckCalculator }) {
               value={totalCost}
               setValue={setTotalCost}
               unformatted={false}
+              currencyType={currencyType}
             />
           </div>
           {realEstate && (
@@ -66,6 +69,7 @@ function Calculator({ setCheckMainField, setCheckCalculator }) {
                   value={anInitialFee}
                   setValue={setAnInitialFee}
                   unformatted={false}
+                  currencyType={currencyType}
                 />
               </div>
               <div className={style.percent_button_block}>
@@ -84,6 +88,7 @@ function Calculator({ setCheckMainField, setCheckCalculator }) {
               value={creditTerm}
               setValue={setCreditTerm}
               unformatted={true}
+              currencyType={currencyType}
             />
           </div>
           <div className={style.percent_button_block}>
@@ -102,6 +107,7 @@ function Calculator({ setCheckMainField, setCheckCalculator }) {
               setValue={setCreditRate}
               step={0.1}
               unformatted={true}
+              currencyType={currencyType}
             />
           </div>
           <div className={style.percent_button_block}>
@@ -121,17 +127,25 @@ function Calculator({ setCheckMainField, setCheckCalculator }) {
         </div>
         {/* <div>{getRatesResult}</div> */}
         <div>
-
-        <div className={style.rates_block}>
-          <ExchangeRates />
-        </div>
-        <div className={style.result_block}>
-          <CalculationResult result={result} />
-        </div>
+          <div className={style.rates_block}>
+            <ExchangeRates
+              exchangeRates={exchangeRates}
+              setExchangeRates={setExchangeRates}
+              totalCost={totalCost}
+              setTotalCost={setTotalCost}
+              anInitialFee={anInitialFee}
+              setAnInitialFee={setAnInitialFee}
+              currencyType={currencyType}
+              setCurrencyType={setCurrencyType}
+              setResult={setResult}
+            />
+          </div>
+          <div className={style.result_block}>
+            <CalculationResult result={result} currencyType={currencyType}/>
+          </div>
         </div>
       </div>
     </div>
-     
   )
 }
 

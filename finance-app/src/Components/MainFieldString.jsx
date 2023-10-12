@@ -40,7 +40,7 @@ function MainFieldString({
   const [target, setTarget] = useState("")
   const [modalActive, setModalActive] = useState(false)
   const [modalMessage, setModalMessage] = useState("")
-
+  const sumForTarget = 0
   function changeSelectElement(object) {
     setSelectElement(object)
   }
@@ -53,11 +53,11 @@ function MainFieldString({
   function sumSubmit(event) {
     event.preventDefault()
     let data = {
-      sum: enterSum || "0",
+      sum: enterSum || sumForTarget.toFixed(2),
       category_id: selectElement.category_id || selectElement.id,
       date: dataCalendar ? dataCalendar : dateOnline,
       //
-      target: selectElement.target ? selectElement.target : target,
+      target: selectElement.target ? selectElement.target : Number(target).toFixed(2),
       //
     }
 
@@ -80,6 +80,7 @@ function MainFieldString({
       .then((response) => {
         if (!placeholder && response.status === 400 && title === "Накопления") {
           console.log(response)
+          console.log(selectElement.target - selectElement.sum)
           setModalMessage(`Вы можете добавить не более ${(
             selectElement.target - selectElement.sum
           ).toFixed(2)} руб. \n для закрытия данного

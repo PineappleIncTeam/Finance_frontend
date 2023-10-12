@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import style from "./CalculatorInput.module.css"
-import { numberFormat } from "../../functions/numberFormatHalper"
+import { numberFormatObject } from "../../functions/numberFormatHalper"
 
 const CalculatorInput = ({
   min,
@@ -10,6 +10,7 @@ const CalculatorInput = ({
   setValue,
   label,
   unformatted,
+  currencyType,
 }) => {
   const [error, setError] = useState(false)
   const [focus, setFocus] = useState(false)
@@ -29,21 +30,25 @@ const CalculatorInput = ({
     }
   }
   function getFocus(e) {
+    console.log(value)
     e.preventDefault()
     if (value === 0 || value === "0") setValue("")
-    setVisibleValue()
-    setFocus(true)
+    if (value > 0) setValue(Number(value).toFixed(2))
+      // setValue(value.toFixed(2))
+      setVisibleValue()
+      setFocus(true)
+    
   }
   function getBlur(e) {
     e.preventDefault()
     setFocus(false)
-    setVisibleValue(numberFormat.format(value))
+    setVisibleValue(numberFormatObject[currencyType].format(value))
   }
   useEffect(() => {
     setVisibleValue()
-    setVisibleValue(numberFormat.format(value))
+    setVisibleValue(numberFormatObject[currencyType].format(value))
     // eslint-disable-next-line
-  }, [value])
+  }, [value, currencyType])
 
   return (
     <div className={style.input_block}>

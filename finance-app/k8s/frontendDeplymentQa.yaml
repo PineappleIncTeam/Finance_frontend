@@ -1,0 +1,43 @@
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: {{NAMESPACE}}
+  name: finance-frontend-qa
+spec:
+  selector:
+    app: finance-frontend-qa
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: {{NAMESPACE}}
+  name: finance-frontend-qa
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: finance-frontend-qa
+  template:
+    metadata:
+      labels:
+        app: finance-frontend-qa
+      annotations:
+        fluentd.active: 'true'
+    spec:
+      containers:
+      - name: frontend
+        image: freenance/frontend:{{IMAGE_TAG}}
+        resources:
+          requests:
+            memory: "32Mi"
+            cpu: "25m"
+          limits:
+            memory: "64Mi"
+            cpu: "50m"
+        ports:
+        - containerPort: 80

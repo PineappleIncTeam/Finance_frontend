@@ -76,3 +76,20 @@
     -moz-appearance: none;
     margin-top: -5px
   }
+
+  @media (max-width: 840px) {
+    .input {
+        width: 260px;
+    }
+    .input_range {
+        width: 262px;
+    }
+  }
+  @media (max-width: 624px) {
+    .input {
+        width: 300px;
+    }
+    .input_range {
+        width: 302px;
+    }
+  }

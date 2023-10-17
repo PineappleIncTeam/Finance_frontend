@@ -31,6 +31,12 @@
     padding-top: 167px;
   }
 }
+@media screen and (max-width: 1024px) {
+  .aside {
+    position: absolute;
+    right: 15px;
+  }
+}
 
 @media (max-width: 840px) {
   .mainField {

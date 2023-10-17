@@ -6,6 +6,8 @@ import AnaliticVector from "./../Images/AnaliticVector.png"
 import CostsVector from "./../Images/CostsVector.png"
 import FieldVector from "./../Images/FieldVector.png"
 import StorVector from "./../Images/StorVector.png"
+import CalcVector from "./../Images/CalcVector.png"
+
 
 function ButtonNaviBlock() {
   return (
@@ -40,7 +42,7 @@ function ButtonNaviBlock() {
       </NavLink>
       <NavLink to="/rectangle/calculator" className="button">
         <div className="btnStek">
-          <img className="vectorBtn" alt="vectorImg" />
+          <img className="vectorBtn" src={CalcVector} alt="vectorImg" />
           Калькулятор
         </div>
         <img className="arrowVector" src={arrow} alt="vectorImg" />

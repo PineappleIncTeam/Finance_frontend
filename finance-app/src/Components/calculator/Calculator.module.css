@@ -39,5 +39,41 @@
     font-family: "Monserrat-Regular";
     font-weight: 400;
     font-size: 14px;
-    margin: 25px;
+    margin: 20px 40px;
+}
+
+@media (max-width: 840px) {
+    .calculator_main_page {
+        bottom: 0px
+    }
+    .calculator_page {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .choice_buttons_block {
+        justify-content: center;
+    }
+    .title {
+        text-align: center;
+    }
+}
+@media (max-width: 624px) {
+    .title {
+        text-align: start;
+    }
+    .choice_buttons_block {
+        justify-content: flex-start;
+    }
+    .calculator_page {
+        align-items: start;
+    }
+    .result_block {
+        margin-left: 40px;
+    }
+}
+@media (max-width: 376px) {
+    .calculator_main_page {
+        padding-top: 40px;
+    }
 }

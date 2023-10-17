@@ -39,3 +39,8 @@
     font-size: 16px;
   }
 }
+@media (max-width: 624px) {
+  .button {
+    width: 150px;
+  }
+}

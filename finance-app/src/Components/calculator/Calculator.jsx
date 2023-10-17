@@ -34,6 +34,19 @@ function Calculator({ setCheckMainField, setCheckCalculator }) {
   return (
     <div className={style.calculator_main_page}>
       <h2 className={style.title}>Калькулятор</h2>
+      <div className={style.rates_block}>
+        <ExchangeRates
+          exchangeRates={exchangeRates}
+          setExchangeRates={setExchangeRates}
+          totalCost={totalCost}
+          setTotalCost={setTotalCost}
+          anInitialFee={anInitialFee}
+          setAnInitialFee={setAnInitialFee}
+          currencyType={currencyType}
+          setCurrencyType={setCurrencyType}
+          setResult={setResult}
+        />
+      </div>
       <div className={style.choice_buttons_block}>
         <ChoiceButton
           textContent={"Недвижимость"}
@@ -125,9 +138,8 @@ function Calculator({ setCheckMainField, setCheckCalculator }) {
             />
           </div>
         </div>
-        {/* <div>{getRatesResult}</div> */}
-        <div>
-          <div className={style.rates_block}>
+
+        {/* <div className={style.rates_block}>
             <ExchangeRates
               exchangeRates={exchangeRates}
               setExchangeRates={setExchangeRates}
@@ -139,10 +151,9 @@ function Calculator({ setCheckMainField, setCheckCalculator }) {
               setCurrencyType={setCurrencyType}
               setResult={setResult}
             />
-          </div>
-          <div className={style.result_block}>
-            <CalculationResult result={result} currencyType={currencyType}/>
-          </div>
+          </div> */}
+        <div className={style.result_block}>
+          <CalculationResult result={result} currencyType={currencyType} />
         </div>
       </div>
     </div>

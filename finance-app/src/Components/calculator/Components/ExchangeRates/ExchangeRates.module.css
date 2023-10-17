@@ -3,8 +3,32 @@
 }
 .currency_buttons_block {
     display: flex;
+    justify-content: space-between;
+    width: 200px;
 }
 .currency_block {
     display: flex;
     justify-content: space-around;
+}
+
+@media (max-width: 840px) {
+    .exchange_rates_block {
+        justify-content: center;
+    }
+}
+@media (max-width: 624px) {
+    .exchange_rates_block {
+        flex-direction: column-reverse;
+    }
+    .currency_data_block {
+        width: 300px;
+        text-align: start;
+    }
+    .currency_block {
+        width: 300px;
+        justify-content: space-between;
+    }
+    .currency_buttons_block {
+        width: 310px;
+    }
 }

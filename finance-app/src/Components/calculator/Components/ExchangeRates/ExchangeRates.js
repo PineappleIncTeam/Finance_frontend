@@ -90,7 +90,7 @@ const ExchangeRates = ({
         />
       </div>
       <div className={style.currency_data_block}>
-        <div className={style.exchange_title}>Курс валют ЦБ РФ на {exchangeDate}</div>
+        <div className={style.exchange_title}>Курс валют ЦБ РФ <br />на {exchangeDate}</div>
         {exchangeRates && (
           <div className={style.currency_block}>
             <CurrencyBox symbol={"$"} data={USD} />

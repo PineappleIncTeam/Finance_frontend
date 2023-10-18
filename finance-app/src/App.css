@@ -261,7 +261,7 @@
   line-height: 19px;
   padding-left: 18px;
   padding-right: 18px;
-  margin-right: 166px;
+  /* margin-right: 166px; */
   background: rgba(250, 245, 228, 0.2);
 }
 .analitic_select_option {
@@ -312,6 +312,7 @@
   font-weight: 500;
   font-size: 20px;
   line-height: 24px;
+  margin-left: 166px;
 }
 .main_field_title_analitic {
   font-size: 32px;
@@ -545,9 +546,10 @@
   .analitic_select_form {
     width: 125px;
     font-size: 12px;
+    margin-left: 55px;
   }
   .analitic_select {
-    margin-right: 55px;
+    /* margin-right: 55px; */
   }
 }
 
@@ -592,8 +594,11 @@
     margin-left: 80px;
   }
   .analitic_select {
-    margin-right: 40px;
-}
+    /* margin-right: 40px; */
+  }
+  .analitic_select_form {
+    margin-left: 40px;
+  }
 
   .button {
     width: 100%;

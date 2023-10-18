@@ -7,7 +7,7 @@ import AllTransactionsList from "./Transactions/AllTransactionsList"
 import { percentFunction } from "../Utils/percentFunction"
 import { getAnaliticGistogramSum } from "../Utils/analiticFunction"
 import { URLS, firstDayOfMonth, lastDayOfMonth } from "../urls/urlsAndDates"
-import PdfButton from "./PdfButton"
+import PdfButton from "./CreateFiles/PDFButton/PdfButton"
 import CreatePDF from "./CreateFiles/CreatePDF"
 import CreateXLS from "./CreateFiles/CreateXLS"
 
@@ -347,8 +347,11 @@ function MainFieldAnalitic({
           </form>
         ) : (
           <>
-          <PdfButton reportTemplateRef={reportTemplateRef} />
-          {/* <CreateXLS /> */}
+            <PdfButton reportTemplateRef={reportTemplateRef} />
+            <CreateXLS
+              allOperationList={allOperationList}
+              dataCalRange={dataCalRange}
+            />
           </>
         )}
       </div>

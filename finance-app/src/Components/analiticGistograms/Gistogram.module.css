@@ -36,11 +36,12 @@
   width: 902px;
   height: 160px;
   margin: 12px 40px;
+  overflow-x: auto;
 }
 .label_element {
   display: flex;
   margin-bottom: 19px;
-  margin-right: 5px;
+  margin-right: 50px;
 }
 .category_color {
   width: 39px;
@@ -61,7 +62,7 @@
     z-index: 1;
   }
   .categories_name {
-    width: 560px;
+    width: 660px;
     height: 120px;
   }
   .category_color {
@@ -88,8 +89,8 @@
     height: 300px;
   }
   .categories_name {
-    width: 400px;
-    height: 100px;
+    width: 500px;
+    height: 200px;
   }
 }
 @media screen and (max-width: 840px) {
@@ -100,9 +101,10 @@
     margin-left: 80px;
     display: flex;
     flex-direction: column;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     height: 400px;
     width: 350px;
+    overflow-y: auto;
 
   }
 }

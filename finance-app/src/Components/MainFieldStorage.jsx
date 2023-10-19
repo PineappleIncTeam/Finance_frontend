@@ -4,12 +4,13 @@ import { useSelector } from "react-redux"
 import MainFieldString from "./MainFieldString"
 import { URLS, dateOnline } from "../urls/urlsAndDates"
 import Modal from "./modalWindow/Modal"
-import style from "./MainFieldStorage.module.css"
 import modalStyle from "./modalWindow/Modal.module.css"
 import statusImage from "../Images/statusImage.svg"
 import closeIcon from "../Images/closeIcon.svg"
 import statusCheckBox from "../Images/checkBox.svg"
 import { getStorageSum } from "../Utils/storageFunctions"
+import { numberFormatRub } from "./calculator/functions/numberFormatHalper"
+import style from "./MainFieldStorage.module.css"
 
 function MainFieldStorage({
   categories,
@@ -158,8 +159,8 @@ function MainFieldStorage({
       <div className={style.main_field}>
         <h2 className={`${style.main_field_title}`}>Накопления</h2>
         <div className={style.main_field_input}>
-          <input className={style.input_rub} value={sum} readOnly></input>
-          <span className={style.ruble_icon}>₽</span>
+          <input className={style.input_rub} value={numberFormatRub.format(sum)} readOnly></input>
+          {/* <span className={style.ruble_icon}>₽</span> */}
         </div>
         <div className={style.main_field_title_label}>
           Общая сумма накоплений
@@ -214,7 +215,7 @@ function MainFieldStorage({
                         {(Boolean(category.sum) || category.sum === 0) && (
                       <div className={style.sum_storage}>
                           <div className={style.sum_storage_content}>
-                            {category.sum}
+                            {numberFormatRub.format(category.sum)}
                           </div>
                       </div>
                         )}
@@ -244,10 +245,10 @@ function MainFieldStorage({
             <div className={style.mainTextSumm}>Общая сумма накоплений</div>
             <input
               className={style.input_rubMobile}
-              value={sum}
+              value={numberFormatRub.format(sum)}
               readOnly
             ></input>
-            <span className={style.ruble_iconMobile}>₽</span>
+            {/* <span className={style.ruble_iconMobile}>₽</span> */}
           </div>
         </div>
       </div>

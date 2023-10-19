@@ -4,6 +4,7 @@ import { URLS } from "../../urls/urlsAndDates"
 import { useState } from "react"
 import closeIcon from "../../Images/closeIcon.svg"
 import Modal from "../modalWindow/Modal"
+import { numberFormatRub } from "../calculator/functions/numberFormatHalper"
 import style from "../modalWindow/Modal.module.css"
 
 function TransactionList({
@@ -153,8 +154,8 @@ function TransactionList({
                 </div>
                 <div className={s.operation_list_item}>
                   {symbol}
-                  {operation.sum}
-                  <span className="ruble_icon ruble_icon_transactions">₽</span>
+                  {numberFormatRub.format(operation.sum)}
+                  {/* <span className="ruble_icon ruble_icon_transactions">₽</span> */}
                 </div>
                 <div className={s.icons}>
                   <button

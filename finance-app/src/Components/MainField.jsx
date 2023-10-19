@@ -3,6 +3,7 @@
 import { useEffect } from "react";
 import MainFieldString from "./MainFieldString";
 import { URLS, months, month } from "../urls/urlsAndDates";
+import { numberFormatRub } from "./calculator/functions/numberFormatHalper";
 
 function MainField({
   categories,
@@ -32,8 +33,8 @@ function MainField({
     <div className="main_field" key="">
       <h2 className="main_field_title">Доходы</h2>
       <div className="main_field_input">
-        <input className="input_rub" value={inputData} readOnly></input>
-        <span className="ruble_icon">₽</span>
+        <input className="input_rub" value={numberFormatRub.format(inputData)} readOnly></input>
+        {/* <span className="ruble_icon">₽</span> */}
       </div>
       <div className="main_field_title_label">
         Общий доход за <span className="balance_month">{months[month]}</span>
@@ -79,8 +80,8 @@ function MainField({
             Ваш общий доход за {" "}
             <span className="balance_month_mobile">{months[month]}</span>
           </div>
-          <input className="input_rubMobile" value={inputData} readOnly></input>
-          <span className="ruble_iconMobile">₽</span>
+          <input className="input_rubMobile" value={numberFormatRub.format(inputData)} readOnly></input>
+          {/* <span className="ruble_iconMobile">₽</span> */}
         </div>
       </div>
     </div>

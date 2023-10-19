@@ -57,7 +57,7 @@ const CreateXLS = ({ allOperationList, dataCalRange }) => {
                   <th>{item.categoryName}</th>
                   <th>
                     
-                    {item.sum}
+                    {String(item.sum).replace(/\./, ',')}
                     
                   </th>
                 </tr>
@@ -77,7 +77,7 @@ const CreateXLS = ({ allOperationList, dataCalRange }) => {
                   <th>{item.categoryName}</th>
                   <th>
                     
-                    {item.sum}
+                    {String(item.sum).replace(/\./, ',')}
                    
                   </th>
                 </tr>
@@ -96,7 +96,7 @@ const CreateXLS = ({ allOperationList, dataCalRange }) => {
                   <th>{item.categoryName}</th>
                   <th>
                     
-                    {item.sum}
+                    {String(item.sum).replace(/\./, ',')}
                     
                   </th>
                 </tr>

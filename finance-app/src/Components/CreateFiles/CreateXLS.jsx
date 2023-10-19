@@ -56,9 +56,9 @@ const CreateXLS = ({ allOperationList, dataCalRange }) => {
                   <th>{item.date}</th>
                   <th>{item.categoryName}</th>
                   <th>
-                    {"+ "}
+                    
                     {item.sum}
-                    {" руб."}
+                    
                   </th>
                 </tr>
               )
@@ -76,9 +76,9 @@ const CreateXLS = ({ allOperationList, dataCalRange }) => {
                   <th>{item.date}</th>
                   <th>{item.categoryName}</th>
                   <th>
-                    {"- "}
+                    
                     {item.sum}
-                    {" руб."}
+                   
                   </th>
                 </tr>
               )
@@ -95,9 +95,9 @@ const CreateXLS = ({ allOperationList, dataCalRange }) => {
                   <th>{item.date}</th>
                   <th>{item.categoryName}</th>
                   <th>
-                    {"- "}
+                    
                     {item.sum}
-                    {" руб."}
+                    
                   </th>
                 </tr>
               )

@@ -18,6 +18,8 @@ const ExchangeRates = ({
   currencyType,
   setCurrencyType,
   setResult,
+  realEstate,
+  data,
 }) => {
   const USD = exchangeRates && exchangeRates.Valute.USD.Value.toFixed(2)
   const EUR = exchangeRates && exchangeRates.Valute.EUR.Value.toFixed(2)
@@ -35,7 +37,7 @@ const ExchangeRates = ({
       console.log("попал")
       getRates()
     }
-  }, [exchangeDate, currentDate])
+  }, [exchangeDate, currentDate, currencyType, realEstate, data])
 
   function getRates() {
     console.log("skachal")
@@ -90,12 +92,16 @@ const ExchangeRates = ({
         />
       </div>
       <div className={style.currency_data_block}>
+        {exchangeRates ? (
+          <>
         <div className={style.exchange_title}>Курс валют ЦБ РФ <br />на {exchangeDate}</div>
-        {exchangeRates && (
           <div className={style.currency_block}>
             <CurrencyBox symbol={"$"} data={USD} />
             <CurrencyBox symbol={`€`} data={EUR} />
           </div>
+          </>
+        ) : (
+          <div className={style.exchange_title}>Нет данных курса валют</div>
         )}
       </div>
     </div>

@@ -7,9 +7,9 @@ import PercentButtonBlock from "./Components/PercentButtonBlock/PercentButtonBlo
 import CreditTermRateButtonBlock from "./Components/CreditTermRateButtonBlock/CreditTermRateButtonBlock"
 import ChoiceButton from "./Components/ChoiceButton/ChoiceButton"
 import ExchangeRates from "./Components/ExchangeRates/ExchangeRates"
-import CurrencyChoiceButton from "./Components/CurrencyChoiceButton/CurrencyChoiceButton"
 
 function Calculator({ setCheckMainField, setCheckCalculator }) {
+  console.log('render')
   useEffect(() => {
     setCheckMainField(false)
     setCheckCalculator(true)
@@ -26,6 +26,10 @@ function Calculator({ setCheckMainField, setCheckCalculator }) {
   const creditTermData = [1, 3, 5, 7]
   const mortgageTermData = [5, 10, 15, 20]
   const creditRateData = [5.5, 7.5, 7.9, 11.4, 13.5]
+
+  const USD = exchangeRates && exchangeRates.Valute.USD.Value.toFixed(2)
+  const EUR = exchangeRates && exchangeRates.Valute.EUR.Value.toFixed(2)
+  const inputMaxValueDivisor = { 'rub': 1, 'usd': USD, 'eur': EUR  }
 
   useEffect(() => {
     setResult()
@@ -45,6 +49,8 @@ function Calculator({ setCheckMainField, setCheckCalculator }) {
           currencyType={currencyType}
           setCurrencyType={setCurrencyType}
           setResult={setResult}
+          realEstate={realEstate}
+          data={data}
         />
       </div>
       <div className={style.choice_buttons_block}>
@@ -65,11 +71,12 @@ function Calculator({ setCheckMainField, setCheckCalculator }) {
             <CalculatorInput
               label={realEstate ? "Стоимость недвижимости" : "Сумма Кредита"}
               min={0}
-              max={99999999}
+              max={exchangeRates ? 99999999 / inputMaxValueDivisor[currencyType] : 99999999}
               value={totalCost}
               setValue={setTotalCost}
               unformatted={false}
               currencyType={currencyType}
+              exchangeRates={exchangeRates}
             />
           </div>
           {realEstate && (
@@ -78,11 +85,12 @@ function Calculator({ setCheckMainField, setCheckCalculator }) {
                 <CalculatorInput
                   label={"Первоначальный взнос"}
                   min={0}
-                  max={99499999}
+                  max={exchangeRates ? 99999999 / inputMaxValueDivisor[currencyType] : 99999999}
                   value={anInitialFee}
                   setValue={setAnInitialFee}
                   unformatted={false}
                   currencyType={currencyType}
+                  exchangeRates={exchangeRates}
                 />
               </div>
               <div className={style.percent_button_block}>

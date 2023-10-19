@@ -11,6 +11,7 @@ const CalculatorInput = ({
   label,
   unformatted,
   currencyType,
+  exchangeRates,
 }) => {
   const [error, setError] = useState(false)
   const [focus, setFocus] = useState(false)
@@ -60,7 +61,7 @@ const CalculatorInput = ({
         type="text"
         min={min}
         max={max}
-        value={focus || !visibleValue || unformatted ? value : visibleValue}
+        value={focus || !visibleValue || unformatted || !exchangeRates ? value : visibleValue}
         onChange={(e) => handleInput(e)}
         onFocus={(e) => getFocus(e)}
         onBlur={(e) => getBlur(e)}

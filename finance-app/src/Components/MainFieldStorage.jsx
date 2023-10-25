@@ -153,13 +153,17 @@ function MainFieldStorage({
     getBalanceData()
     getStorageSum(storageCategories)
   }, [])
-  
+
   return (
     <>
       <div className={style.main_field}>
         <h2 className={`${style.main_field_title}`}>Накопления</h2>
         <div className={style.main_field_input}>
-          <input className={style.input_rub} value={numberFormatRub.format(sum)} readOnly></input>
+          <input
+            className={style.input_rub}
+            value={numberFormatRub.format(sum)}
+            readOnly
+          ></input>
           {/* <span className={style.ruble_icon}>₽</span> */}
         </div>
         <div className={style.main_field_title_label}>
@@ -199,46 +203,50 @@ function MainFieldStorage({
               </div>
             </div>
           )}
-          {storageCategories &&
-            storageCategories.map((category, index) => {
-              const doneStorage = category.target - category.sum
-              if (!category.is_hidden)
-                return (
-                  <div className={style.storage_category_row} key={index}>
-                    <div className={style.categories_storage_title} key={index}>
-                      <div className={style.category_name_storage}>
-                        {category.categoryName}
-                      </div>
-                      <div className={style.grand_total_storage}>
-                        {category.target}
-                      </div>
+          <div className={style.storage_categories_list}>
+            {storageCategories &&
+              storageCategories.map((category, index) => {
+                const doneStorage = category.target - category.sum
+                if (!category.is_hidden)
+                  return (
+                    <div className={style.storage_category_row} key={category.category_id} index={index}>
+                      <div
+                        className={style.categories_storage_title}
+                      >
+                        <div className={style.category_name_storage}>
+                          {category.categoryName}
+                        </div>
+                        <div className={style.grand_total_storage}>
+                          {numberFormatRub.format(category.target)}
+                        </div>
                         {(Boolean(category.sum) || category.sum === 0) && (
-                      <div className={style.sum_storage}>
-                          <div className={style.sum_storage_content}>
-                            {numberFormatRub.format(category.sum)}
+                          <div className={style.sum_storage}>
+                            <div className={style.sum_storage_content}>
+                              {numberFormatRub.format(category.sum)}
+                            </div>
                           </div>
-                      </div>
                         )}
+                      </div>
+                      {category.target && !doneStorage && (
+                        <>
+                          <img
+                            className={style.image}
+                            src={statusImage}
+                            alt="status ok"
+                            onClick={() => createModal(category)}
+                          />
+                          <img
+                            className={style.image_checkBox}
+                            src={statusCheckBox}
+                            alt="status ok"
+                            onClick={() => createModal(category)}
+                          />
+                        </>
+                      )}
                     </div>
-                    {category.target && !doneStorage && (
-                      <>
-                        <img
-                          className={style.image}
-                          src={statusImage}
-                          alt="status ok"
-                          onClick={() => createModal(category)}
-                        />
-                        <img
-                          className={style.image_checkBox}
-                          src={statusCheckBox}
-                          alt="status ok"
-                          onClick={() => createModal(category)}
-                        />
-                      </>
-                    )}
-                  </div>
-                )
-            })}
+                  )
+              })}
+          </div>
         </div>
         <div className={style.mobileSum}>
           <div className={style.mobileSum_input}>

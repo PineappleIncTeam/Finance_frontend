@@ -143,11 +143,7 @@ function Gistogram({
 
   const moneyBoxCategories = sumGroupMoneyBox.map((item) => Object.keys(item))
   const moneyBoxCategoriesSum = getGistogramCategorySum(sumGroupMoneyBox)
-  // const moneyBoxCategoriesSumInPercent = getPercentForGistogramSum(moneyBoxCategoriesSum)
-  //
-  // const moneyBoxCategory = sumGroupMoneyBox.length > 0 && sumGroupMoneyBox[0]
-  // const moneyBoxCategoryName = sumGroupMoneyBox.length > 0 && Object.keys(moneyBoxCategory)
-  // const moneyBoxMonths = sumGroupMoneyBox.length > 0 && Object.keys(moneyBoxCategory[moneyBoxCategoryName])
+
 
   const outcomeCategories = sumGroupOutcome.map((item) => Object.keys(item))
   const outcomeCategory = sumGroupOutcome.length > 0 && sumGroupOutcome[0]

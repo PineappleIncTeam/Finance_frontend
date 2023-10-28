@@ -54,6 +54,9 @@
   font-weight: 500;
   font-size: 16px;
 }
+.sum {
+  margin-left: 10px;
+}
 
 @media screen and (max-width: 1919px) {
   .bar_gistogram {

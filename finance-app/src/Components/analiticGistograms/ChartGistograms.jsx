@@ -1,7 +1,13 @@
 import React from "react"
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js"
 import { Pie, Doughnut } from "react-chartjs-2"
-import { colorsIncome, colorsOutcome, colorsStorage, colorsAnalitic } from "../../data/colors"
+import {
+  colorsIncome,
+  colorsOutcome,
+  colorsStorage,
+  colorsAnalitic,
+} from "../../data/colors"
+import { numberFormatRub } from "../calculator/functions/numberFormatHalper"
 import style from "./ChartGistograms.module.css"
 
 function ChartGistograms({
@@ -15,28 +21,34 @@ function ChartGistograms({
   percentChoice,
   storageSum,
   balanceToTarget,
-  analiticSum
+  analiticSum,
 }) {
   ChartJS.register(ArcElement, Tooltip, Legend)
   const checkName = categoryNameIncome ? categoryNameIncome : []
   const checkSum = resultSumIncome ? resultSumIncome : []
-  const checkSumTotal = checkSum.length > 0 && checkSum.reduce((a, b) => ((+a) + (+b)), 0).toFixed(2)
+  const checkSumTotal =
+    checkSum.length > 0 && checkSum.reduce((a, b) => +a + +b, 0).toFixed(2)
   const checkNameOut = categoryNameOutcome ? categoryNameOutcome : []
   const checkSumOut = resultSumOutcome ? resultSumOutcome : []
-  const checkSumOutTotal = checkSumOut.length > 0 && checkSumOut.reduce((a, b) => ((+a) + (+b)), 0).toFixed(2)
+  const checkSumOutTotal =
+    checkSumOut.length > 0 &&
+    checkSumOut.reduce((a, b) => +a + +b, 0).toFixed(2)
   const checkNameMoneyBox = categoryNameMoneyBox ? categoryNameMoneyBox : []
   const checkSumMoneyBox = resultSumMoneyBox ? resultSumMoneyBox : []
-  const checkSumMoneyBoxTotal = checkSumMoneyBox.length > 0 && checkSumMoneyBox.reduce((a, b) => ((+a) + (+b)), 0).toFixed(2)
-  const totalCosts = (Number(checkSumOutTotal) + Number(checkSumMoneyBoxTotal)).toFixed(2)
+  const checkSumMoneyBoxTotal =
+    checkSumMoneyBox.length > 0 &&
+    checkSumMoneyBox.reduce((a, b) => +a + +b, 0).toFixed(2)
+  const totalCosts = (
+    Number(checkSumOutTotal) + Number(checkSumMoneyBoxTotal)
+  ).toFixed(2)
   const storageData = [storageSum, balanceToTarget]
   const storageNames = ["Сумма накоплений", "Осталось накопить"]
-  
+
   // const checkSumAnalitic = checkSum.length > 0 && [checkSumTotal, totalCosts]
   // const onePercentAnalitic = checkSumAnalitic.length > 0 && (checkSumAnalitic.reduce((a, b) => ((+a) + (+b))).toFixed(2) / 100).toFixed(2)
   // const checkSumAnaliticInPercent = checkSumAnalitic.length > 0 && checkSumAnalitic.map((item) => (item / onePercentAnalitic).toFixed(2) )
   // console.log(checkSumAnaliticInPercent)
-  
-  
+
   let options = {
     plugins: {
       legend: {
@@ -159,8 +171,8 @@ function ChartGistograms({
               style={{ backgroundColor: colorsStorage[1] }}
             ></div>
             <div className={style.category_name}>
-              Общий доход {checkSumTotal}{" "}
-              <span>{!percentChoice ? "₽" : "%"}</span>
+              Общий доход {numberFormatRub.format(checkSumTotal)}{" "}
+              <span>{!percentChoice ? "" : "%"}</span>
             </div>
           </div>
         )}
@@ -173,8 +185,9 @@ function ChartGistograms({
                   style={{ backgroundColor: colorsIncome[index] }}
                 ></div>
                 <div className={style.category_name}>
-                  {checkName[index]} {item}{" "}
-                  <span>{!percentChoice ? "₽" : "%"}</span>
+                  {checkName[index]}{" "}
+                  {!percentChoice ? numberFormatRub.format(item) : item}{" "}
+                  <span>{!percentChoice ? "" : "%"}</span>
                 </div>
               </div>
             )
@@ -186,8 +199,8 @@ function ChartGistograms({
               style={{ backgroundColor: colorsStorage[1] }}
             ></div>
             <div className={style.category_name}>
-              Общий расход {totalCosts}{" "}
-              <span>{!percentChoice ? "₽" : "%"}</span>
+              Общий расход {numberFormatRub.format(totalCosts)}{" "}
+              <span>{!percentChoice ? "" : "%"}</span>
             </div>
           </div>
         )}
@@ -200,29 +213,34 @@ function ChartGistograms({
                   style={{ backgroundColor: colorsOutcome[index] }}
                 ></div>
                 <div className={style.category_name}>
-                  {checkNameOut[index] || checkNameMoneyBox[index - (checkSumOut.length - checkNameMoneyBox.length)]} {item}{" "}
-                  <span>{!percentChoice ? "₽" : "%"}</span>
+                  {checkNameOut[index] ||
+                    checkNameMoneyBox[
+                      index - (checkSumOut.length - checkNameMoneyBox.length)
+                    ]}{" "}
+                  {!percentChoice ? numberFormatRub.format(item) : item}{" "}
+                  <span>{!percentChoice ? "" : "%"}</span>
                 </div>
               </div>
             )
           })}
-          {isActive === "costs" &&
+        {isActive === "costs" &&
           checkSumMoneyBox.map((item, index) => {
             return (
               <div className={style.label_element} key={index}>
                 <div
                   className={style.category_color}
-                  style={{ backgroundColor: colorsOutcome[index + checkSumOut.length] }}
+                  style={{
+                    backgroundColor: colorsOutcome[index + checkSumOut.length],
+                  }}
                 ></div>
                 <div className={style.category_name}>
-                  {checkNameMoneyBox[index]} {item}{" "}
-                  <span>{!percentChoice ? "₽" : "%"}</span>
+                  {checkNameMoneyBox[index]}{" "}
+                  {!percentChoice ? numberFormatRub.format(item) : item}{" "}
+                  <span>{!percentChoice ? "" : "%"}</span>
                 </div>
               </div>
             )
-          })
-
-          }
+          })}
         {isActive === "storage" &&
           storageData.map((item, index) => {
             return (
@@ -232,13 +250,15 @@ function ChartGistograms({
                   style={{ backgroundColor: colorsStorage[index] }}
                 ></div>
                 <div className={style.category_name}>
-                  {storageNames[index]} {item}{" "}
-                  <span>{!percentChoice ? "₽" : "%"}</span>
+                  {storageNames[index]}{" "}
+                  {!percentChoice ? numberFormatRub.format(item) : item}{" "}
+                  <span>{!percentChoice ? "" : "%"}</span>
                 </div>
               </div>
             )
           })}
-          {isActive === "analitic" && analiticSum.length > 0 &&
+        {isActive === "analitic" &&
+          analiticSum.length > 0 &&
           analiticSum.map((item, index) => {
             return (
               <div className={style.label_element} key={index}>
@@ -247,8 +267,9 @@ function ChartGistograms({
                   style={{ backgroundColor: colorsAnalitic[index] }}
                 ></div>
                 <div className={style.category_name}>
-                  {dataAnalitic.labels[index]} {item}{" "}
-                  <span>{!percentChoice ? "₽" : "%"}</span>
+                  {dataAnalitic.labels[index]}{" "}
+                  {!percentChoice ? numberFormatRub.format(item) : item}{" "}
+                  <span>{!percentChoice ? "" : "%"}</span>
                 </div>
               </div>
             )

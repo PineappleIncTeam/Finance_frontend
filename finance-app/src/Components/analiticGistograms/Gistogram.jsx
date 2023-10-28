@@ -16,6 +16,9 @@ import {
   colorsOutcome,
   colorsStorage,
 } from "../../data/colors"
+import { getGistogramCategorySum } from "../../Utils/getGistogramCategorySum"
+import { getPercentForGistogramSum } from "../../Utils/getPercentForGistogramSum"
+import { numberFormatRub } from "../calculator/functions/numberFormatHalper"
 import style from "./Gistogram.module.css"
 
 function Gistogram({
@@ -117,7 +120,12 @@ function Gistogram({
   const incomeMonths =
     sumGroupIncome.length > 0 && Object.keys(incomeCategory[incomeCategoryName])
   const labels = incomeMonths
+  //
+  const incomeCategoriesSum = getGistogramCategorySum(sumGroupIncome)
+  const incomeCategoriesSumInPercent =
+    getPercentForGistogramSum(incomeCategoriesSum)
 
+  //
   const dataIncome = {
     labels,
     datasets: incomeCategories.map((item, index) => {
@@ -134,6 +142,9 @@ function Gistogram({
   }
 
   const moneyBoxCategories = sumGroupMoneyBox.map((item) => Object.keys(item))
+  const moneyBoxCategoriesSum = getGistogramCategorySum(sumGroupMoneyBox)
+  // const moneyBoxCategoriesSumInPercent = getPercentForGistogramSum(moneyBoxCategoriesSum)
+  //
   // const moneyBoxCategory = sumGroupMoneyBox.length > 0 && sumGroupMoneyBox[0]
   // const moneyBoxCategoryName = sumGroupMoneyBox.length > 0 && Object.keys(moneyBoxCategory)
   // const moneyBoxMonths = sumGroupMoneyBox.length > 0 && Object.keys(moneyBoxCategory[moneyBoxCategoryName])
@@ -147,7 +158,13 @@ function Gistogram({
     Object.keys(outcomeCategory[outcomeCategoryName])
   const outcomeLabels = outcomeMonths
   //
-
+  const outcomeCategoriesSum = getGistogramCategorySum(sumGroupOutcome)
+  const outcomeCategoriesSumTotal = outcomeCategoriesSum.concat(
+    moneyBoxCategoriesSum
+  )
+  const outcomeCategoriesSumTotalInPercent = getPercentForGistogramSum(
+    outcomeCategoriesSumTotal
+  )
   //
   const datasets = outcomeCategories.map((item, index) => {
     let result = {}
@@ -235,7 +252,14 @@ function Gistogram({
                   className={style.category_color}
                   style={{ backgroundColor: colorsIncome[index] }}
                 ></div>
-                <div className={style.category_name}>{item}</div>
+                <div className={style.category_name}>
+                  {item}{" "}
+                  <span className={style.sum}>
+                    {!percentChoice
+                      ? numberFormatRub.format(incomeCategoriesSum[index])
+                      : incomeCategoriesSumInPercent[index] + " %"}
+                  </span>
+                </div>
               </div>
             )
           })}
@@ -247,7 +271,14 @@ function Gistogram({
                   className={style.category_color}
                   style={{ backgroundColor: colorsOutcome[index] }}
                 ></div>
-                <div className={style.category_name}>{item}</div>
+                <div className={style.category_name}>
+                  {item}{" "}
+                  <span className={style.sum}>
+                    {!percentChoice
+                      ? numberFormatRub.format(outcomeCategoriesSumTotal[index])
+                      : outcomeCategoriesSumTotalInPercent[index] + " %"}
+                  </span>
+                </div>
               </div>
             )
           })}
@@ -262,7 +293,20 @@ function Gistogram({
                       colorsOutcome[index + outcomeCategories.length],
                   }}
                 ></div>
-                <div className={style.category_name}>{item}</div>
+                <div className={style.category_name}>
+                  {item}{" "}
+                  <span className={style.sum}>
+                    {!percentChoice
+                      ? numberFormatRub.format(
+                          outcomeCategoriesSumTotal[
+                            index + outcomeCategoriesSum.length
+                          ]
+                        )
+                      : outcomeCategoriesSumTotalInPercent[
+                          index + outcomeCategoriesSum.length
+                        ] + " %"}
+                  </span>
+                </div>
               </div>
             )
           })}
@@ -275,8 +319,12 @@ function Gistogram({
                   style={{ backgroundColor: colorsStorage[index] }}
                 ></div>
                 <div className={style.category_name}>
-                  {storageNames[index]} {item}{" "}
-                  <span>{!percentChoice ? "₽" : "%"}</span>
+                  {storageNames[index]}{" "}
+                  <span className={style.sum}>
+                    {!percentChoice
+                      ? numberFormatRub.format(item)
+                      : item + " %"}
+                  </span>{" "}
                 </div>
               </div>
             )
@@ -290,8 +338,12 @@ function Gistogram({
                   style={{ backgroundColor: colorsAnalitic[index] }}
                 ></div>
                 <div className={style.category_name}>
-                  {dataAnalitic.labels[index]} {item}{" "}
-                  <span>{!percentChoice ? "₽" : "%"}</span>
+                  {dataAnalitic.labels[index]}{" "}
+                  <span className={style.sum}>
+                    {!percentChoice
+                      ? numberFormatRub.format(item)
+                      : item + " %"}
+                  </span>{" "}
                 </div>
               </div>
             )

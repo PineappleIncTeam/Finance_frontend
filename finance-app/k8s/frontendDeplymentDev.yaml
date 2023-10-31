@@ -21,7 +21,7 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app: finance-frontend-develop
+      app: finance-frontend-dev
   template:
     metadata:
       labels:

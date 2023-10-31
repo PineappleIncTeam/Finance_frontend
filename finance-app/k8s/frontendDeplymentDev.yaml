@@ -21,11 +21,11 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app: finance-frontend-dev
+      app: finance-frontend-develop
   template:
     metadata:
       labels:
-        app: finance-frontend-dev
+        app: finance-frontend-develop
       annotations:
         fluentd.active: 'true'
     spec:

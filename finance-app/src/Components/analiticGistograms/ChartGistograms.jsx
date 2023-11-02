@@ -171,8 +171,10 @@ function ChartGistograms({
               style={{ backgroundColor: colorsStorage[1] }}
             ></div>
             <div className={style.category_name}>
-              Общий доход {numberFormatRub.format(checkSumTotal)}{" "}
-              <span>{!percentChoice ? "" : "%"}</span>
+              Общий доход{" "}
+              <span className={style.sum}>
+                {numberFormatRub.format(checkSumTotal)}{" "}
+              </span>
             </div>
           </div>
         )}
@@ -186,8 +188,11 @@ function ChartGistograms({
                 ></div>
                 <div className={style.category_name}>
                   {checkName[index]}{" "}
-                  {!percentChoice ? numberFormatRub.format(item) : item}{" "}
-                  <span>{!percentChoice ? "" : "%"}</span>
+                  <span className={style.sum}>
+                    {!percentChoice
+                      ? numberFormatRub.format(item)
+                      : item + " %"}{" "}
+                  </span>
                 </div>
               </div>
             )
@@ -199,46 +204,59 @@ function ChartGistograms({
               style={{ backgroundColor: colorsStorage[1] }}
             ></div>
             <div className={style.category_name}>
-              Общий расход {numberFormatRub.format(totalCosts)}{" "}
-              <span>{!percentChoice ? "" : "%"}</span>
+              Общий расход{" "}
+              <span className={style.sum}>
+                {numberFormatRub.format(totalCosts)}{" "}
+              </span>
             </div>
           </div>
         )}
         {isActive === "costs" &&
           checkSumOut.map((item, index) => {
             return (
-              <div className={style.label_element} key={index}>
-                <div
-                  className={style.category_color}
-                  style={{ backgroundColor: colorsOutcome[index] }}
-                ></div>
-                <div className={style.category_name}>
-                  {checkNameOut[index] ||
-                    checkNameMoneyBox[
-                      index - (checkSumOut.length - checkNameMoneyBox.length)
-                    ]}{" "}
-                  {!percentChoice ? numberFormatRub.format(item) : item}{" "}
-                  <span>{!percentChoice ? "" : "%"}</span>
+              item > 0 && (
+                <div className={style.label_element} key={index}>
+                  <div
+                    className={style.category_color}
+                    style={{ backgroundColor: colorsOutcome[index] }}
+                  ></div>
+                  <div className={style.category_name}>
+                    {checkNameOut[index] ||
+                      checkNameMoneyBox[
+                        index - (checkSumOut.length - checkNameMoneyBox.length)
+                      ]}{" "}
+                    <span className={style.sum}>
+                      {!percentChoice
+                        ? numberFormatRub.format(item)
+                        : item + " %"}{" "}
+                    </span>
+                  </div>
                 </div>
-              </div>
+              )
             )
           })}
         {isActive === "costs" &&
           checkSumMoneyBox.map((item, index) => {
             return (
-              <div className={style.label_element} key={index}>
-                <div
-                  className={style.category_color}
-                  style={{
-                    backgroundColor: colorsOutcome[index + checkSumOut.length],
-                  }}
-                ></div>
-                <div className={style.category_name}>
-                  {checkNameMoneyBox[index]}{" "}
-                  {!percentChoice ? numberFormatRub.format(item) : item}{" "}
-                  <span>{!percentChoice ? "" : "%"}</span>
+              item > 0 && (
+                <div className={style.label_element} key={index}>
+                  <div
+                    className={style.category_color}
+                    style={{
+                      backgroundColor:
+                        colorsOutcome[index + checkSumOut.length],
+                    }}
+                  ></div>
+                  <div className={style.category_name}>
+                    {checkNameMoneyBox[index]}{" "}
+                    <span className={style.sum}>
+                    {!percentChoice
+                      ? numberFormatRub.format(item)
+                      : item + " %"}{" "}
+                  </span>
+                  </div>
                 </div>
-              </div>
+              )
             )
           })}
         {isActive === "storage" &&
@@ -251,8 +269,11 @@ function ChartGistograms({
                 ></div>
                 <div className={style.category_name}>
                   {storageNames[index]}{" "}
-                  {!percentChoice ? numberFormatRub.format(item) : item}{" "}
-                  <span>{!percentChoice ? "" : "%"}</span>
+                  <span className={style.sum}>
+                    {!percentChoice
+                      ? numberFormatRub.format(item)
+                      : item + " %"}{" "}
+                  </span>
                 </div>
               </div>
             )
@@ -268,8 +289,11 @@ function ChartGistograms({
                 ></div>
                 <div className={style.category_name}>
                   {dataAnalitic.labels[index]}{" "}
-                  {!percentChoice ? numberFormatRub.format(item) : item}{" "}
-                  <span>{!percentChoice ? "" : "%"}</span>
+                  <span className={style.sum}>
+                    {!percentChoice
+                      ? numberFormatRub.format(item)
+                      : item + " %"}{" "}
+                  </span>
                 </div>
               </div>
             )

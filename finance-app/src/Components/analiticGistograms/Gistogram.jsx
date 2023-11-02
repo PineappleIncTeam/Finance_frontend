@@ -144,7 +144,6 @@ function Gistogram({
   const moneyBoxCategories = sumGroupMoneyBox.map((item) => Object.keys(item))
   const moneyBoxCategoriesSum = getGistogramCategorySum(sumGroupMoneyBox)
 
-
   const outcomeCategories = sumGroupOutcome.map((item) => Object.keys(item))
   const outcomeCategory = sumGroupOutcome.length > 0 && sumGroupOutcome[0]
   const outcomeCategoryName =
@@ -243,67 +242,76 @@ function Gistogram({
         {isActive === "income" &&
           incomeCategories.map((item, index) => {
             return (
-              <div className={style.label_element} key={index}>
-                <div
-                  className={style.category_color}
-                  style={{ backgroundColor: colorsIncome[index] }}
-                ></div>
-                <div className={style.category_name}>
-                  {item}{" "}
-                  <span className={style.sum}>
-                    {!percentChoice
-                      ? numberFormatRub.format(incomeCategoriesSum[index])
-                      : incomeCategoriesSumInPercent[index] + " %"}
-                  </span>
+              incomeCategoriesSum[index] > 0 && (
+                <div className={style.label_element} key={index}>
+                  <div
+                    className={style.category_color}
+                    style={{ backgroundColor: colorsIncome[index] }}
+                  ></div>
+                  <div className={style.category_name}>
+                    {item}{" "}
+                    <span className={style.sum}>
+                      {!percentChoice
+                        ? numberFormatRub.format(incomeCategoriesSum[index])
+                        : incomeCategoriesSumInPercent[index] + " %"}
+                    </span>
+                  </div>
                 </div>
-              </div>
+              )
             )
           })}
         {isActive === "costs" &&
           outcomeCategories.map((item, index) => {
             return (
-              <div className={style.label_element} key={index}>
-                <div
-                  className={style.category_color}
-                  style={{ backgroundColor: colorsOutcome[index] }}
-                ></div>
-                <div className={style.category_name}>
-                  {item}{" "}
-                  <span className={style.sum}>
-                    {!percentChoice
-                      ? numberFormatRub.format(outcomeCategoriesSumTotal[index])
-                      : outcomeCategoriesSumTotalInPercent[index] + " %"}
-                  </span>
+              outcomeCategoriesSumTotal[index] > 0 && (
+                <div className={style.label_element} key={index}>
+                  <div
+                    className={style.category_color}
+                    style={{ backgroundColor: colorsOutcome[index] }}
+                  ></div>
+                  <div className={style.category_name}>
+                    {item}{" "}
+                    <span className={style.sum}>
+                      {!percentChoice
+                        ? numberFormatRub.format(
+                            outcomeCategoriesSumTotal[index]
+                          )
+                        : outcomeCategoriesSumTotalInPercent[index] + " %"}
+                    </span>
+                  </div>
                 </div>
-              </div>
+              )
             )
           })}
         {isActive === "costs" &&
           moneyBoxCategories.map((item, index) => {
             return (
-              <div className={style.label_element} key={index}>
-                <div
-                  className={style.category_color}
-                  style={{
-                    backgroundColor:
-                      colorsOutcome[index + outcomeCategories.length],
-                  }}
-                ></div>
-                <div className={style.category_name}>
-                  {item}{" "}
-                  <span className={style.sum}>
-                    {!percentChoice
-                      ? numberFormatRub.format(
-                          outcomeCategoriesSumTotal[
+              outcomeCategoriesSumTotal[index + outcomeCategoriesSum.length] >
+                0 && (
+                <div className={style.label_element} key={index}>
+                  <div
+                    className={style.category_color}
+                    style={{
+                      backgroundColor:
+                        colorsOutcome[index + outcomeCategories.length],
+                    }}
+                  ></div>
+                  <div className={style.category_name}>
+                    {item}{" "}
+                    <span className={style.sum}>
+                      {!percentChoice
+                        ? numberFormatRub.format(
+                            outcomeCategoriesSumTotal[
+                              index + outcomeCategoriesSum.length
+                            ]
+                          )
+                        : outcomeCategoriesSumTotalInPercent[
                             index + outcomeCategoriesSum.length
-                          ]
-                        )
-                      : outcomeCategoriesSumTotalInPercent[
-                          index + outcomeCategoriesSum.length
-                        ] + " %"}
-                  </span>
+                          ] + " %"}
+                    </span>
+                  </div>
                 </div>
-              </div>
+              )
             )
           })}
         {isActive === "storage" &&

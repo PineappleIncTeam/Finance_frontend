@@ -40,7 +40,6 @@ const ExchangeRates = ({
   }, [exchangeDate, currentDate, currencyType, realEstate, data])
 
   function getRates() {
-    console.log("skachal")
     fetch("https://www.cbr-xml-daily.ru/daily_json.js")
       .then((response) => response.json())
       .then((data) => setExchangeRates(data))

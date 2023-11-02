@@ -24,6 +24,7 @@ function Dropdown({
   categories,
   title,
   changeSelectElement,
+  selectElement,
   token,
   getBalanceData,
   getInputData,
@@ -135,11 +136,11 @@ function Dropdown({
   const handleInputClick = (event) => {
     setShowMenu(!showMenu)
   }
-
   function getDisplay() {
-    if (selectedValue) {
+    if (selectedValue && selectElement) {
       return selectedValue.categoryName
     }
+    
     return title
   }
 
@@ -152,7 +153,6 @@ function Dropdown({
       getDisplay()
     } else {
       setSelectedValue(option)
-      console.log("onItemClick", option)
       changeSelectElement(option)
       disInput()
     }

@@ -5,7 +5,7 @@ metadata:
   name: finance-frontend-dev
 spec:
   selector:
-    app: finance-frontend-dev
+    app: finance-frontend-develop
   ports:
     - protocol: TCP
       port: 80
@@ -21,23 +21,23 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app: finance-frontend-dev
+      app: finance-frontend-develop
   template:
     metadata:
       labels:
-        app: finance-frontend-dev
+        app: finance-frontend-develop
       annotations:
         fluentd.active: 'true'
     spec:
       containers:
-      - name: frontend
-        image: freenance/frontend-dev:{{IMAGE_TAG}}
-        resources:
-          requests:
-            memory: "32Mi"
-            cpu: "25m"
-          limits:
-            memory: "64Mi"
-            cpu: "50m"
-        ports:
-        - containerPort: 80
+        - name: frontend
+          image: freenance/frontend-dev:{{IMAGE_TAG}}
+          resources:
+            requests:
+              memory: "32Mi"
+              cpu: "25m"
+            limits:
+              memory: "64Mi"
+              cpu: "50m"
+          ports:
+            - containerPort: 80

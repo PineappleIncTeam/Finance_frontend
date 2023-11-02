@@ -5,7 +5,7 @@ metadata:
   name: finance-frontend-qa
 spec:
   selector:
-    app: finance-frontend-qa
+    app: finance-frontend-quality
   ports:
     - protocol: TCP
       port: 80
@@ -21,11 +21,11 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app: finance-frontend-qa
+      app: finance-frontend-quality
   template:
     metadata:
       labels:
-        app: finance-frontend-qa
+        app: finance-frontend-quality
       annotations:
         fluentd.active: 'true'
     spec:

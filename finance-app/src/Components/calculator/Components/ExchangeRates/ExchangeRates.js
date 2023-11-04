@@ -94,7 +94,7 @@ const ExchangeRates = ({
       <div className={style.currency_data_block}>
         {exchangeRates ? (
           <>
-        <div className={style.exchange_title}>Курс валют ЦБ РФ <br />на {exchangeDate}</div>
+        <div className={style.exchange_title}><a className={style.exchange_title_link} href="https://www.cbr-xml-daily.ru/" target="_blanck">Виджет курсов валют</a> ЦБ РФ<br />на {exchangeDate}</div>
           <div className={style.currency_block}>
             <CurrencyBox symbol={"$"} data={USD} />
             <CurrencyBox symbol={`€`} data={EUR} />

@@ -13,6 +13,11 @@
     display: flex;
     justify-content: space-around;
 }
+.exchange_title_link {
+    text-decoration: none;
+    font-weight: 600;
+    color: rgb(121, 162, 41);
+}
 
 @media (max-width: 840px) {
     .exchange_rates_block {

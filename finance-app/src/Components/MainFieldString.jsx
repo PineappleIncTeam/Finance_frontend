@@ -106,15 +106,16 @@ function MainFieldString({
     if (placeholder) changeSelectElement(null)
   }
 
-  function handleInputChange(event) {
-    placeholder
-      ? setTarget(event.target.value)
-      : setEnterSum(event.target.value)
-  }
-
   const changeHandler = (e) => {
     const value = e.target.value
-    e.target.value = value.replace(/[^0-9.,]+/g, "").replace(/,/, ".")
+    if (/,/.test(e.target.value)) e.target.value = value.replace(/,/, ".")
+    if (e.target.value === "00")
+      placeholder ? setTarget((prev) => prev) : setEnterSum((prev) => prev)
+    else if (!/^([0-9])*[.,]{0,1}([0-9]{1,2})?$/.test(e.target.value))
+      placeholder ? setTarget((prev) => prev) : setEnterSum((prev) => prev)
+    else {
+      placeholder ? setTarget(e.target.value) : setEnterSum(e.target.value)
+    }
   }
 
   return (
@@ -152,7 +153,7 @@ function MainFieldString({
             placeholder={placeholder}
             onInput={(event) => changeHandler(event)}
             min="1"
-            onChange={(event) => handleInputChange(event)}
+            // onChange={(event) => handleInputChange(event)}
             disabled={Boolean(!inputDis)}
           ></input>
           <span className="ruble_icon ruble_icon_small">₽</span>

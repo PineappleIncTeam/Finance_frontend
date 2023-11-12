@@ -6,6 +6,7 @@ import {
   getCurrencyCalculation,
   getReverseCalculation,
 } from "../../functions/getCurrencyCalculation"
+import { usePrevious } from "../../hooks/usePrevious"
 import style from "./ExchangeRates.module.css"
 
 const ExchangeRates = ({
@@ -21,18 +22,25 @@ const ExchangeRates = ({
   realEstate,
   data,
 }) => {
-  const USD = exchangeRates && exchangeRates.Valute.USD.Value.toFixed(2)
-  const EUR = exchangeRates && exchangeRates.Valute.EUR.Value.toFixed(2)
-  const exchangeDate = exchangeRates && exchangeRates.Date.slice(0, 10)
+  const localData = localStorage.getItem('exchengeRate')
+  const localRates = JSON.parse(localData)
+  const USD = localRates && localRates.Valute.USD.Value.toFixed(2)
+  const EUR = localRates && localRates.Valute.EUR.Value.toFixed(2)
+  const exchangeDate = localRates && localRates.Date.slice(0, 10)
   const dateExchangeDate = exchangeDate && new Date(exchangeDate)
   const dateCurrentDate = new Date(currentDate)
+  const prevExchangeRates = usePrevious(localRates) || {}
   const [exchangeRate, setExchangeRate] = useState(USD)
 
   useEffect(() => {
-    if (!exchangeRates) getRates()
+    if (!localRates) {
+      console.log('скачивание без локалстораджа')
+      getRates()
+    }
     if (
       exchangeDate &&
-      dateCurrentDate.getTime() > dateExchangeDate.getTime()
+      dateCurrentDate.getTime() > dateExchangeDate.getTime() &&
+      localRates.Date !== prevExchangeRates.Date
     ) {
       console.log("попал")
       getRates()
@@ -40,10 +48,12 @@ const ExchangeRates = ({
   }, [exchangeDate, currentDate, currencyType, realEstate, data])
 
   function getRates() {
-    console.log("skachal")
     fetch("https://www.cbr-xml-daily.ru/daily_json.js")
       .then((response) => response.json())
-      .then((data) => setExchangeRates(data))
+      .then((data) => {
+        setExchangeRates(data)
+        localStorage.setItem('exchengeRate', JSON.stringify(data))
+      })
   }
   return (
     <div className={style.exchange_rates_block}>

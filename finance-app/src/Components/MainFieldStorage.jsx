@@ -30,7 +30,7 @@ function MainFieldStorage({
   const [selectedCategory, setSelectedCategory] = useState({})
 
   //
-  getStorageSum(storageCategories)
+  // getStorageSum(storageCategories)
   let categoryFromStorage = {}
   for (let i = 0; i < categories.length; i++) {
     if (categories[i].categoryName === "Из Накоплений")
@@ -161,7 +161,7 @@ function MainFieldStorage({
         <div className={style.main_field_input}>
           <input
             className={style.input_rub}
-            value={numberFormatRub.format(sum)}
+            value={sum ? numberFormatRub.format(sum) : ""}
             readOnly
           ></input>
           {/* <span className={style.ruble_icon}>₽</span> */}
@@ -253,7 +253,7 @@ function MainFieldStorage({
             <div className={style.mainTextSumm}>Общая сумма накоплений</div>
             <input
               className={style.input_rubMobile}
-              value={numberFormatRub.format(sum)}
+              value={sum ? numberFormatRub.format(sum) : ""}
               readOnly
             ></input>
             {/* <span className={style.ruble_iconMobile}>₽</span> */}

@@ -447,6 +447,20 @@
   text-align: start;
   margin-left: 20px;
 }
+.ai_helper_checkbox {
+  display: flex;
+  align-items: flex-start;
+  font-family: "Montserrat";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 24px;
+  margin-left: 40px;
+}
+.ai_helper_checkbox input {
+  align-self: center;
+  margin-right: 10px;
+}
 
 @media screen and (max-width: 1919px) {
   .App {
@@ -537,6 +551,9 @@
   .analitic_radio_input:checked::after {
     width: 6px;
     height: 6px;
+  }
+  .ai_helper_checkbox {
+    font-size: 14px;
   }
 }
 

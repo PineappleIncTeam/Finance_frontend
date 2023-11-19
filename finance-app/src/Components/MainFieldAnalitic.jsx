@@ -10,6 +10,7 @@ import { URLS, firstDayOfMonth, lastDayOfMonth } from "../urls/urlsAndDates"
 import PdfButton from "./CreateFiles/PDFButton/PdfButton"
 import CreatePDF from "./CreateFiles/CreatePDF"
 import CreateXLS from "./CreateFiles/CreateXLS"
+import AiModalWindow from "./AiModalWindow/AiModalWindow"
 
 function MainFieldAnalitic({
   changeRangeCalendar,
@@ -41,6 +42,7 @@ function MainFieldAnalitic({
   const [allOperationList, setAllOperationList] = useState()
   //
   const reportTemplateRef = useRef(null)
+  //
 
   const dataStart =
     dataCalRange.length > 1
@@ -294,10 +296,31 @@ function MainFieldAnalitic({
       return
     }
   }
-
+  //
+  const [aiModalWindow, setAiModalWindow] = useState(false)
+  const aiHelper = JSON.parse(localStorage.getItem("aiHelper"))
+  const [checked, setChecked] = useState(aiHelper.value)
+  function handleCheckbox(e) {
+    e.stopPropagation()
+    if (e.target.checked) {
+      // setAiModalWindow(true)
+      localStorage.setItem("aiHelper", JSON.stringify({ value: true }))
+      setChecked(true)
+    }
+    if (!e.target.checked) {
+      // setAiModalWindow(true)
+      localStorage.setItem("aiHelper", JSON.stringify({ value: false }))
+      setChecked(false)
+    }
+  }
+  //
   return (
     <div className="main_field main_field_analitic">
       <h2 className="main_field_title main_field_title_analitic">Аналитика</h2>
+      <div className="ai_helper_checkbox">
+        <input type="checkbox" id="aiCheckbox" onChange={(e) => handleCheckbox(e)} checked={checked} />
+        <label>Активировать помощника по финансам</label>
+      </div>
       <div className="analitic_select_zone">
         <select
           className="analitic_select"
@@ -411,6 +434,7 @@ function MainFieldAnalitic({
           }
         />
       )}
+      <AiModalWindow active={aiModalWindow} setActive={setAiModalWindow} aiHelper={aiHelper} checked={checked} setChecked={setChecked} />
     </div>
   )
 }

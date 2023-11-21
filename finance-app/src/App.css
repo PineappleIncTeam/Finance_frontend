@@ -571,9 +571,7 @@
     font-size: 12px;
     margin-left: 55px;
   }
-  .analitic_select {
-    /* margin-right: 55px; */
-  }
+  
 }
 
 @media (max-width: 1130px) {
@@ -616,9 +614,7 @@
   .analitic_select_zone {
     margin-left: 80px;
   }
-  .analitic_select {
-    /* margin-right: 40px; */
-  }
+ 
   .analitic_select_form {
     margin-left: 40px;
   }
@@ -645,6 +641,9 @@
   }
   .arrowVector {
     margin-right: 10px;
+  }
+  .ai_helper_checkbox {
+    margin-left: 80px;
   }
 }
 
@@ -701,6 +700,9 @@
   }
   .main_field_title_analitic {
     margin: 0px 0px 20px 20px;
+  }
+  .ai_helper_checkbox {
+    margin-left: 20px;
   }
 }
 @media screen and (max-width: 595px) {

@@ -299,7 +299,7 @@ function MainFieldAnalitic({
   //
   const [aiModalWindow, setAiModalWindow] = useState(false)
   const aiHelper = JSON.parse(localStorage.getItem("aiHelper"))
-  const [checked, setChecked] = useState(aiHelper.value)
+  const [checked, setChecked] = useState(aiHelper ? aiHelper.value : true)
   function handleCheckbox(e) {
     e.stopPropagation()
     if (e.target.checked) {

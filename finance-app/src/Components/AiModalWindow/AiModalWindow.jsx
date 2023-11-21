@@ -8,7 +8,6 @@ const AiModalWindow = ({ active, setActive, checked, setChecked }) => {
   const aiHelper = JSON.parse(localStorage.getItem("aiHelper"))
   const token = useSelector((state) => state.user.token)
   const [aiAnswer, setAiAnswer] = useState("")
-  console.log(aiAnswer)
 
   function getAiRecomendation() {
     const options = {

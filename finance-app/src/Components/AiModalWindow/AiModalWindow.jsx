@@ -3,11 +3,16 @@ import { useSelector } from "react-redux"
 import closeIcon from "../../Images/closeIcon.svg"
 import style from "./AiModalWindow.module.css"
 import { URLS } from "../../urls/urlsAndDates"
+import AiAnswerMessage from "./Components/AiAnswerMessage/AiAnswerMessage"
+import AiAnswerButton from "./Components/AIAnswerButton/AiAnswerButton"
 
 const AiModalWindow = ({ active, setActive, checked, setChecked }) => {
-  const aiHelper = JSON.parse(localStorage.getItem("aiHelper"))
+  // const aiHelper = JSON.parse(localStorage.getItem("aiHelper"))
   const token = useSelector((state) => state.user.token)
   const [aiAnswer, setAiAnswer] = useState("")
+  const [aiSavingMoneyAdvice, setAiSavingMoneyAdvice] = useState("")
+  const [aiTaxDeduction, setAiTaxDeduction] = useState("")
+  const [messageType, setMessageType] = useState("Аналитика")
 
   function getAiRecomendation() {
     const options = {
@@ -20,6 +25,12 @@ const AiModalWindow = ({ active, setActive, checked, setChecked }) => {
     fetch(URLS.getAiAnswer, options)
       .then((response) => response.json())
       .then((result) => setAiAnswer(result.ai_answer))
+    fetch(URLS.getSavingMoneyAdvice, options)
+      .then((response) => response.json())
+      .then((result) => setAiSavingMoneyAdvice(result.ai_answer))
+    fetch(URLS.getTaxDeduction, options)
+      .then((response) => response.json())
+      .then((result) => setAiTaxDeduction(result.ai_answer))
   }
   useEffect(() => {
     if (checked) getAiRecomendation()
@@ -52,7 +63,39 @@ const AiModalWindow = ({ active, setActive, checked, setChecked }) => {
         <div className={style.delete_icon} onClick={() => setActive(false)}>
           <img src={closeIcon} alt="X" />
         </div>
-        <div className={style.modal_text}>{aiAnswer}</div>
+        <div className={style.answer_button_block}>
+          {aiAnswer && (
+            <AiAnswerButton
+              name={"Аналитика"}
+              setAnswer={setMessageType}
+              active={messageType === "Аналитика" ? true : false}
+            />
+          )}
+          {aiSavingMoneyAdvice && (
+            <AiAnswerButton
+              name={"Советы по экономии"}
+              setAnswer={setMessageType}
+              active={messageType === "Советы по экономии" ? true : false}
+            />
+          )}
+          {aiTaxDeduction && (
+            <AiAnswerButton
+              name={"Налоговый вычет"}
+              setAnswer={setMessageType}
+              active={messageType === "Налоговый вычет" ? true : false}
+            />
+          )}
+        </div>
+        {/* <div className={style.modal_text}>{aiAnswer}</div> */}
+        {messageType === "Аналитика" && (
+          <AiAnswerMessage aiAnswer={aiAnswer} />
+        )}
+        {messageType === "Советы по экономии" && (
+          <AiAnswerMessage aiAnswer={aiSavingMoneyAdvice} />
+        )}
+        {messageType === "Налоговый вычет" && (
+          <AiAnswerMessage aiAnswer={aiTaxDeduction} />
+        )}
         <div className={style.ai_helper_checkbox}>
           <input
             type="checkbox"

@@ -43,14 +43,12 @@ function AirDatePicker(props) {
       classes: "CLASSGREEN",
       onSelect({ date, formattedDate, datepicker }) {
         if (Array.isArray(formattedDate)) {
-          console.log(formattedDate);
           dispatch(
             setDateCalendarRange({
               dataRange: formattedDate,
             })
           );
         } else if (String(formattedDate)) {
-          console.log(formattedDate);
           dispatch(
             setDateCalendar({
               data: formattedDate,

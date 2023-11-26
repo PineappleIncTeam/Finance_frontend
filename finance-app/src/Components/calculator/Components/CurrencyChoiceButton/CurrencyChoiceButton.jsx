@@ -23,7 +23,6 @@ const CurrencyChoiceButton = ({
     let result = calculationFunction(totalCost, anInitialFee, exchangeRate)
     setTotalCost(result.totalCostResult)
     setAnInitialFee(result.anInitialFeeResult)
-    console.log(result)
   }
   return <button className={currencyType === type ? `${style.active} ${style.button}` : style.button } onClick={currencyCalculation} disabled={disabled}>{symbol}</button>
 }

@@ -21,17 +21,22 @@ function TransactionList({
   const [modalDeleteActive, setModalDeleteActive] = useState(false)
   const [modalChangeSum, setModalChangeSum] = useState(false)
   const [modalMessageActive, setModalMessageActive] = useState(false)
+  const [modalMessageText, setModalMessageText] = useState(false)
 
   const [selectedOperation, setSelectedOperation] = useState({})
   const [newSum, setNewSum] = useState("")
   const [message, setMessage] = useState("")
 
-  function createModalChangeSum(operationName, id, category_id, sum, symbol) {
-    if (operationName === "Из Накоплений") setModalMessageActive(true)
-    else {
+  function createModalChangeSum(categoryName, id, category_id, sum, symbol) {
+    if (categoryName === "Из Накоплений") {
+      setModalMessageText(
+        `В эту категорию можно только переносить данные из раздела "Накопления"`
+      )
+      setModalMessageActive(true)
+    } else {
       setMessage(`Введите новое числовое \n значение`)
       setModalChangeSum(true)
-      setSelectedOperation({ id, category_id, sum, symbol })
+      setSelectedOperation({ categoryName, id, category_id, sum, symbol })
       setNewSum(sum)
     }
   }
@@ -43,9 +48,13 @@ function TransactionList({
     setNewSum(e.target.value.replace(/[^0-9.,]+/, "").replace(/,/, "."))
   }
 
-  function createDeleteModal(operationName, operationId, symbol) {
-    if (operationName === "Из Накоплений") setModalMessageActive(true)
-    else {
+  function createDeleteModal(categoryName, operationId, symbol) {
+    if (categoryName === "Из Накоплений") {
+      setModalMessageText(
+        `В эту категорию можно только переносить данные из раздела "Накопления"`
+      )
+      setModalMessageActive(true)
+    } else {
       console.log(operationId, symbol)
       setMessage(
         "Вы действительно хотите удалить эту запись? \n Действие не может быть отменено"
@@ -97,12 +106,14 @@ function TransactionList({
     setTimeout(() => setModalDeleteActive(false), 1000)
   }
 
-  function updateCash(event, id, category, symbol) {
+  function updateCash(event, id, category, name, symbol) {
     event.preventDefault()
     let data = {
       category_id: category,
+      categoryName: name,
       sum: newSum,
     }
+    console.log(data)
     const updateOptions = {
       method: "PUT",
       headers: {
@@ -128,16 +139,26 @@ function TransactionList({
       }, 400)
     }
     if (symbol === " ") {
-      fetch(`${URLS.updateMoneyBoxCash}${id}`, updateOptions)
-      setTimeout(() => {
-        getOperationList(URLS.last5MoneyBoxOperation, symbol)
-        getInputData(URLS.sumOutcomeCash)
-        getBalanceData()
-        getStorageCategories(typeOfCategories)
-      }, 400)
+      fetch(`${URLS.updateMoneyBoxCash}${id}`, updateOptions).then(
+        (response) => {
+          if (response.status === 400) {
+            setModalChangeSum(false)
+            setModalMessageText(
+              `Сумма операции не должна превышать цель накопления`
+            )
+            setModalMessageActive(true)
+          } else
+            setTimeout(() => {
+              getOperationList(URLS.last5MoneyBoxOperation, symbol)
+              getInputData(URLS.sumOutcomeCash)
+              getBalanceData()
+              getStorageCategories(typeOfCategories)
+              setMessage("Запись была изменена")
+            }, 400)
+        }
+      )
     }
 
-    setMessage("Запись была изменена")
     setTimeout(() => setModalChangeSum(false), 1000)
   }
 
@@ -229,6 +250,7 @@ function TransactionList({
               event,
               selectedOperation.id,
               selectedOperation.category_id,
+              selectedOperation.categoryName,
               selectedOperation.symbol
             )
           }
@@ -249,6 +271,7 @@ function TransactionList({
                         updateCash(
                           selectedOperation.id,
                           selectedOperation.category_id,
+                          selectedOperation.categoryName,
                           selectedOperation.symbol
                         )
                     : "")
@@ -274,10 +297,7 @@ function TransactionList({
           <img src={closeIcon} alt="X" />
         </div>
         <div className={style.content_box}>
-          <div className={style.modal_text}>
-            В эту категорию можно только переносить данные из раздела
-            "Накопления"
-          </div>
+          <div className={style.modal_text}>{modalMessageText}</div>
         </div>
       </Modal>
     </>

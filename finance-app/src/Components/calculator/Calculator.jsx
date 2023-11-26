@@ -9,7 +9,6 @@ import ChoiceButton from "./Components/ChoiceButton/ChoiceButton"
 import ExchangeRates from "./Components/ExchangeRates/ExchangeRates"
 
 function Calculator({ setCheckMainField, setCheckCalculator }) {
-  console.log('render')
   useEffect(() => {
     setCheckMainField(false)
     setCheckCalculator(true)

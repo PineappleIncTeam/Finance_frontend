@@ -35,7 +35,7 @@ function MainFieldString({
 
   const [inputDis, setInputDis] = useState(false)
   const [enterSum, setEnterSum] = useState("")
-  const [selectElement, setSelectElement] = useState({})
+  const [selectElement, setSelectElement] = useState(null)
   //
   const [target, setTarget] = useState("")
   const [modalActive, setModalActive] = useState(false)
@@ -53,11 +53,13 @@ function MainFieldString({
   function sumSubmit(event) {
     event.preventDefault()
     let data = {
-      sum: enterSum || sumForTarget.toFixed(2),
+      // sum: enterSum || sumForTarget.toFixed(2),
+      sum: enterSum || sumForTarget,
       category_id: selectElement.category_id || selectElement.id,
       date: dataCalendar ? dataCalendar : dateOnline,
       //
-      target: selectElement.target ? selectElement.target : Number(target).toFixed(2),
+      // target: selectElement.target ? selectElement.target : Number(target).toFixed(2),
+      target: selectElement.target ? selectElement.target : target,
       //
     }
 
@@ -70,7 +72,7 @@ function MainFieldString({
       body: JSON.stringify(data),
     }
 
-    if (data.sum === "0" && data.target === selectElement.target) {
+    if (data.sum === 0 && data.target === selectElement.target) {
       setModalMessage("Вы не можете изменить цель накопления")
       setModalActive(true)
       return
@@ -79,8 +81,6 @@ function MainFieldString({
     fetch(typeOfSum, options)
       .then((response) => {
         if (!placeholder && response.status === 400 && title === "Накопления") {
-          console.log(response)
-          console.log(selectElement.target - selectElement.sum)
           setModalMessage(`Вы можете добавить не более ${(
             selectElement.target - selectElement.sum
           ).toFixed(2)} руб. \n для закрытия данного
@@ -103,18 +103,19 @@ function MainFieldString({
     setEnterSum("")
     setTarget("")
     getStorageSum(categories)
-    if (placeholder) changeSelectElement({})
-  }
-
-  function handleInputChange(event) {
-    placeholder
-      ? setTarget(event.target.value)
-      : setEnterSum(event.target.value)
+    if (placeholder) changeSelectElement(null)
   }
 
   const changeHandler = (e) => {
     const value = e.target.value
-    e.target.value = value.replace(/[^0-9.,]+/g, "").replace(/,/, ".")
+    if (/,/.test(e.target.value)) e.target.value = value.replace(/,/, ".")
+    if (e.target.value === "00")
+      placeholder ? setTarget((prev) => prev) : setEnterSum((prev) => prev)
+    else if (!/^([0-9])*[.,]{0,1}([0-9]{1,2})?$/.test(e.target.value))
+      placeholder ? setTarget((prev) => prev) : setEnterSum((prev) => prev)
+    else {
+      placeholder ? setTarget(e.target.value) : setEnterSum(e.target.value)
+    }
   }
 
   return (
@@ -127,6 +128,7 @@ function MainFieldString({
             income_outcome={income_outcome}
             title={title}
             changeSelectElement={changeSelectElement}
+            selectElement={selectElement}
             token={token}
             getBalanceData={getBalanceData}
             getInputData={getInputData}
@@ -151,7 +153,7 @@ function MainFieldString({
             placeholder={placeholder}
             onInput={(event) => changeHandler(event)}
             min="1"
-            onChange={(event) => handleInputChange(event)}
+            // onChange={(event) => handleInputChange(event)}
             disabled={Boolean(!inputDis)}
           ></input>
           <span className="ruble_icon ruble_icon_small">₽</span>
@@ -161,14 +163,14 @@ function MainFieldString({
           type="submit"
           className="main_field_string_button"
           onKeyDown={(event) => (event.key === "Enter" ? sumSubmit : "")}
-          disabled={Boolean(!inputDis)}
+          disabled={placeholder ? target <= 0 : enterSum <= 0}
         >
           Добавить
         </button>
         <button
           type="submit"
           className="main_field_string_button_plus"
-          disabled={Boolean(!inputDis)}
+          disabled={placeholder ? target <= 0 : enterSum <= 0}
         >
           +
         </button>

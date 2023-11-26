@@ -22,7 +22,7 @@ const ExchangeRates = ({
   realEstate,
   data,
 }) => {
-  const localData = localStorage.getItem('exchengeRate')
+  const localData = localStorage.getItem("exchengeRate")
   const localRates = JSON.parse(localData)
   const USD = localRates && localRates.Valute.USD.Value.toFixed(2)
   const EUR = localRates && localRates.Valute.EUR.Value.toFixed(2)
@@ -34,7 +34,7 @@ const ExchangeRates = ({
 
   useEffect(() => {
     if (!localRates) {
-      console.log('скачивание без локалстораджа')
+      console.log("скачивание без локалстораджа")
       getRates()
     }
     if (
@@ -52,7 +52,7 @@ const ExchangeRates = ({
       .then((response) => response.json())
       .then((data) => {
         setExchangeRates(data)
-        localStorage.setItem('exchengeRate', JSON.stringify(data))
+        localStorage.setItem("exchengeRate", JSON.stringify(data))
       })
   }
   return (
@@ -104,11 +104,22 @@ const ExchangeRates = ({
       <div className={style.currency_data_block}>
         {exchangeRates ? (
           <>
-        <div className={style.exchange_title}><a className={style.exchange_title_link} href="https://www.cbr-xml-daily.ru/" target="_blanck">Виджет курсов валют</a> ЦБ РФ<br />на {exchangeDate}</div>
-          <div className={style.currency_block}>
-            <CurrencyBox symbol={"$"} data={USD} />
-            <CurrencyBox symbol={`€`} data={EUR} />
-          </div>
+            <div className={style.exchange_title}>
+              <a
+                className={style.exchange_title_link}
+                href="https://www.cbr-xml-daily.ru/"
+                target="_blanck"
+              >
+                Виджет курсов валют
+              </a>{" "}
+              ЦБ РФ <br />
+              на {exchangeDate}
+            </div>
+
+            <div className={style.currency_block}>
+              <CurrencyBox symbol={"$"} data={USD} />
+              <CurrencyBox symbol={`€`} data={EUR} />
+            </div>
           </>
         ) : (
           <div className={style.exchange_title}>Нет данных курса валют</div>

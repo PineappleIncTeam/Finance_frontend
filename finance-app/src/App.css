@@ -186,7 +186,8 @@
   transform: translateY(-1px);
 }
 
-.main_field_string_button[disabled] {
+.main_field_string_button[disabled],
+.main_field_string_button_plus[disabled] {
   background: #125B50;
 }
 .main_field_string_button[disabled]:hover {
@@ -214,6 +215,11 @@
   background: rgba(0, 0, 0, 0);
   color: teal;
   box-shadow: inset 0 0 0 3px teal;
+}
+.main_field_string_button_plus[disabled]:hover {
+  background-color: #125B50;
+  color: white;
+  box-shadow: none;
 }
 
 .main_field_analitic_h3 {

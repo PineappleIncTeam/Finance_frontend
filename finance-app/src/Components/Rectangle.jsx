@@ -24,7 +24,6 @@ function Rectangle() {
   const [inputData, setInputData] = useState("")
   const [checkMainField, setCheckMainField] = useState(true)
   const [checkCalculator, setCheckCalculator] = useState(false)
-  console.log(checkCalculator)
   
   //
   const [categories, setCategories] = useState("")

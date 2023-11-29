@@ -40,9 +40,14 @@ const ExchangeRates = ({
       console.log('скачивание без локалстораджа')
       getRates()
     }
+    if (!exchangeRates && localRates) {
+      console.log('запись из localStorage в state')
+      setExchangeRates(localRates)
+    }
     if (
       exchangeDate &&
-      dateCurrentDate.getTime() > dateExchangeDate.getTime() &&
+      dateCurrentDate.getTime() > dateExchangeDate.getTime() 
+      &&
       localRates.Date !== prevExchangeRates.Date
     ) {
       console.log("попал")

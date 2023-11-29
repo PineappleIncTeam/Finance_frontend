@@ -32,6 +32,9 @@ const ExchangeRates = ({
   const prevExchangeRates = usePrevious(localRates) || {}
   const [exchangeRate, setExchangeRate] = useState(USD)
 
+  console.log('exchangeRates', exchangeRates)
+  console.log('localRates', localRates)
+
   useEffect(() => {
     if (!localRates) {
       console.log('скачивание без локалстораджа')

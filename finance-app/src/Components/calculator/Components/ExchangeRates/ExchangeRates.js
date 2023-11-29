@@ -33,10 +33,10 @@ const ExchangeRates = ({
   const [exchangeRate, setExchangeRate] = useState(USD)
 
   useEffect(() => {
-    if (!localRates) {
-      console.log("скачивание без локалстораджа")
-      getRates()
-    }
+    if (!localRates) getRates()
+
+    if (!exchangeRates && localRates) setExchangeRates(localRates)
+
     if (
       exchangeDate &&
       dateCurrentDate.getTime() > dateExchangeDate.getTime() &&

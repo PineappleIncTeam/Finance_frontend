@@ -11,6 +11,8 @@ import PdfButton from "./CreateFiles/PDFButton/PdfButton"
 import CreatePDF from "./CreateFiles/CreatePDF"
 import CreateXLS from "./CreateFiles/CreateXLS"
 import AiModalWindow from "./AiModalWindow/AiModalWindow"
+import TheMan from "./VirtualAssistant/Components/TheMan/TheMan"
+import VirtualAssistant from "./VirtualAssistant/VirtualAssistant"
 
 function MainFieldAnalitic({
   changeRangeCalendar,
@@ -434,7 +436,8 @@ function MainFieldAnalitic({
           }
         />
       )}
-      <AiModalWindow active={aiModalWindow} setActive={setAiModalWindow} aiHelper={aiHelper} checked={checked} setChecked={setChecked} />
+      {/* <AiModalWindow active={aiModalWindow} setActive={setAiModalWindow} aiHelper={aiHelper} checked={checked} setChecked={setChecked} /> */}
+      <VirtualAssistant active={aiModalWindow} setActive={setAiModalWindow} aiHelper={aiHelper} checked={checked} setChecked={setChecked} />
     </div>
   )
 }

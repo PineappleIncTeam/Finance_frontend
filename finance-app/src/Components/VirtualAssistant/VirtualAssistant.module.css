@@ -1,0 +1,12 @@
+.virtual_asistant_block {
+    display: flex;
+    position: fixed;
+    right: 40px;
+    bottom: 40px;
+    transition: 1s;
+    opacity: 0;
+    z-index: 10;
+}
+.active {
+    opacity: 1;
+}

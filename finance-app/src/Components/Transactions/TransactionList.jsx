@@ -278,7 +278,7 @@ function TransactionList({
                 }
                 onChange={(e) => handleInput(e)}
               />
-              <button type="submit" className={style.button}>
+              <button type="submit" className={style.button} disabled={Boolean(newSum <= 0)}>
                 Добавить
               </button>
             </div>

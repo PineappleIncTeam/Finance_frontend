@@ -38,13 +38,14 @@ const VirtualAssistant = ({ active, setActive, checked, setChecked }) => {
   }
 
   useEffect(() => {
-    if (checked) getAiRecomendation()
+    if (checked && !aiAnswer) getAiRecomendation()
+    if (checked && aiAnswer) setActive(true)
     if (!checked) setActive(false)
   }, [checked])
 
   useEffect(() => {
-    if (aiAnswer) setActive(true)
-  }, [aiAnswer])
+    if (aiAnswer || aiSavingMoneyAdvice || aiTaxDeduction) setActive(true)
+  }, [aiAnswer, aiSavingMoneyAdvice, aiTaxDeduction])
 
   // function hideArtificialIntelligence(e) {
   //   e.stopPropagation()

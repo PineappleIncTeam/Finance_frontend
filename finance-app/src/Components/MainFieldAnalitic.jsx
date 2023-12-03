@@ -299,18 +299,17 @@ function MainFieldAnalitic({
     }
   }
   //
-  const [aiModalWindow, setAiModalWindow] = useState(false)
+  const [virtualAssistant, setVirtualAssistant] = useState(false)
   const aiHelper = JSON.parse(localStorage.getItem("aiHelper"))
   const [checked, setChecked] = useState(aiHelper ? aiHelper.value : true)
   function handleCheckbox(e) {
     e.stopPropagation()
     if (e.target.checked) {
-      // setAiModalWindow(true)
       localStorage.setItem("aiHelper", JSON.stringify({ value: true }))
+      // setVirtualAssistant(true)
       setChecked(true)
     }
     if (!e.target.checked) {
-      // setAiModalWindow(true)
       localStorage.setItem("aiHelper", JSON.stringify({ value: false }))
       setChecked(false)
     }
@@ -437,7 +436,7 @@ function MainFieldAnalitic({
         />
       )}
       {/* <AiModalWindow active={aiModalWindow} setActive={setAiModalWindow} aiHelper={aiHelper} checked={checked} setChecked={setChecked} /> */}
-      <VirtualAssistant active={aiModalWindow} setActive={setAiModalWindow} aiHelper={aiHelper} checked={checked} setChecked={setChecked} />
+      <VirtualAssistant active={virtualAssistant} setActive={setVirtualAssistant} aiHelper={aiHelper} checked={checked} setChecked={setChecked} />
     </div>
   )
 }

@@ -121,7 +121,7 @@ function MainFieldString({
   return (
     <>
       <form className="main_field_string" onSubmit={sumSubmit}>
-        {categories && (
+        {/* {categories && ( */}
           <Dropdown
             categories={categories}
             category_type={type}
@@ -143,7 +143,7 @@ function MainFieldString({
             getOperationList={getOperationList}
             symbol={symbol}
           />
-        )}
+        {/* )} */}
 
         <div className="input_container">
           <input

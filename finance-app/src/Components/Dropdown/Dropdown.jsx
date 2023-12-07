@@ -93,7 +93,7 @@ function Dropdown({
     }
   }
   //
-  const userCategoriesName = categories.map((item) => {
+  const userCategoriesName = categories && categories.map((item) => {
     if (item.category_type === category_type) {
       return item.categoryName.toLowerCase()
     }
@@ -306,7 +306,7 @@ function Dropdown({
             >
               Добавить категорию
             </div>
-            {categories.map((jsonObject, index) => {
+            {categories && categories.map((jsonObject, index) => {
               if (
                 jsonObject.category_type === category_type &&
                 jsonObject.is_hidden === false

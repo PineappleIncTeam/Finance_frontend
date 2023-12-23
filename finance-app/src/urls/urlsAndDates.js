@@ -79,4 +79,7 @@ export const URLS = {
   getSumMonthlyIncome: "https://dev.freenance.store/api/sum-monthly-income/",
   getSumMonthlyOutcome: "https://dev.freenance.store/api/sum-monthly-outcome/",
   getSumMonthlyMoneyBox: "https://dev.freenance.store/api/sum-monthly-money-box/",
+  getAiAnswer: "https://dev.freenance.store/api/ai-answer/",
+  getSavingMoneyAdvice: "https://dev.freenance.store/api/saving_money_advice",
+  getTaxDeduction: "https://dev.freenance.store/api/tax_deduction"
 }

@@ -61,15 +61,17 @@ function Dropdown({
     setError(false)
   }
   function handleInput(e) {
+    e.preventDefault()
     setError(false)
     setErrorMessage("")
-    e.preventDefault()
-    setNewCategory(e.target.value.replace(/[/#$%^&*!()<>@]+/, ""))
     if (e.target.value.length > 14) {
       setError(true)
       setErrorMessage("Не более 14 символов")
     }
+    if (e.target.value === " ") setNewCategory(prev => prev)
+    else setNewCategory(e.target.value.replace(/[/#$%^&*!()<>@]+/, ""))
   }
+
   function handleInputTarget(e) {
     e.preventDefault()
     setNewTarget(e.target.value.replace(/[^0-9.,]+/g, "").replace(/,/, "."))
@@ -93,7 +95,7 @@ function Dropdown({
     }
   }
   //
-  const userCategoriesName = categories.map((item) => {
+  const userCategoriesName = categories && categories.map((item) => {
     if (item.category_type === category_type) {
       return item.categoryName.toLowerCase()
     }
@@ -306,7 +308,7 @@ function Dropdown({
             >
               Добавить категорию
             </div>
-            {categories.map((jsonObject, index) => {
+            {categories && categories.map((jsonObject, index) => {
               if (
                 jsonObject.category_type === category_type &&
                 jsonObject.is_hidden === false
@@ -374,20 +376,12 @@ function Dropdown({
                 }
                 placeholder="Название категории"
               />
-              {/* <input
-              className={
-                !storageType ? style.disabled : style.modal_input_storage
-              }
-              type="text"
-              value={newTarget}
-              onChange={(e) => handleInputTarget(e)}
-              placeholder="Цель, руб."
-            /> */}
+              
               <button
                 className={style.button}
                 onClick={(e) => chooseAndAddCategory(e)}
                 type="submit"
-                disabled={error}
+                disabled={error || !newCategory}
               >
                 Добавить
               </button>

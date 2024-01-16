@@ -7,7 +7,7 @@ import PercentButtonBlock from "./Components/PercentButtonBlock/PercentButtonBlo
 import CreditTermRateButtonBlock from "./Components/CreditTermRateButtonBlock/CreditTermRateButtonBlock"
 import ChoiceButton from "./Components/ChoiceButton/ChoiceButton"
 import ExchangeRates from "./Components/ExchangeRates/ExchangeRates"
-
+//test commit
 function Calculator({ setCheckMainField, setCheckCalculator }) {
   useEffect(() => {
     setCheckMainField(false)

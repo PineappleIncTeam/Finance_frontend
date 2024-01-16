@@ -71,7 +71,13 @@ const AiModalWindow = ({
         <div className={style.delete_icon} onClick={() => setActive(false)}>
           <img src={closeIcon} alt="X" />
         </div>
-        <div className={style.answer_button_block}>
+        <div
+          className={
+            aiSavingMoneyAdvice || aiTaxDeduction
+              ? style.answer_button_block
+              : style.disabled
+          }
+        >
           {aiAnswer && (
             <AiAnswerButton
               name={"Аналитика"}

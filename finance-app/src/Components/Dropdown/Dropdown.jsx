@@ -33,7 +33,8 @@ function Dropdown({
   typeOfCategories,
   disInput,
   addActive,
-  // storageType,
+  setEnterSum,
+  setTarget,
   getOperationList,
   endpoint,
   symbol,
@@ -156,7 +157,7 @@ function Dropdown({
     } else {
       setSelectedValue(option)
       changeSelectElement(option)
-      disInput()
+      disInput(true)
     }
   }
 
@@ -219,6 +220,9 @@ function Dropdown({
         getDisplay()
         getCategories(typeOfCategories)
         setModalMessage(`Категория "${selectedCategory.name}" была удалена`)
+        disInput(false)
+        setEnterSum("")
+        setTarget("")
       })
       .then(() => {
         setTimeout(() => {

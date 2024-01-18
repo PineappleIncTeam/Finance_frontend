@@ -45,8 +45,8 @@ function MainFieldString({
     setSelectElement(object)
   }
 
-  const disInput = () => {
-    setInputDis(true)
+  const disInput = (boolean) => {
+    setInputDis(boolean)
   }
   let dataCalendar = dataCal && dataCal.split(".").reverse().join("-")
 
@@ -138,7 +138,8 @@ function MainFieldString({
             typeOfCategories={typeOfCategories}
             disInput={disInput}
             addActive={addActive}
-            // storageType={storageType}
+            setEnterSum={setEnterSum}
+            setTarget={setTarget}
             endpoint={endpoint}
             getOperationList={getOperationList}
             symbol={symbol}

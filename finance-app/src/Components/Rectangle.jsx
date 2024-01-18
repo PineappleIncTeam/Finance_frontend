@@ -8,6 +8,7 @@ import MainFieldRouter from "./RoutePage/MainFieldRouter"
 import { AiOutlineMenu, AiOutlineClose } from "react-icons/ai"
 import { URLS, currentDate, startDate } from "../urls/urlsAndDates"
 import { getStorageSum, getBalanceToTarget, getBalanceToTargetinPercent } from "../Utils/storageFunctions"
+import { useNavigate } from "react-router-dom"
 
 function Rectangle() {
   //
@@ -17,6 +18,7 @@ function Rectangle() {
   //
   const token = useSelector((state) => state.user.token)
   //
+  const navigate = useNavigate()
   // const [allOperationList, setAllOperationList] = useState()
   const [operationList, setOperationList] = useState("")
   const [symbol, setSymbol] = useState("+")
@@ -76,9 +78,17 @@ function Rectangle() {
         Authorization: `Token ${token}`,
       },
     }
+    // fetch(typeOfCategories, options)
+    //   .then((result) => result.json())
+    //   .then((userCategories) => setCategories(userCategories))
     fetch(typeOfCategories, options)
-      .then((result) => result.json())
-      .then((userCategories) => setCategories(userCategories))
+    .then(function(response) {
+      if (response.status === 401) {
+        navigate("/")
+        return
+      }
+      response.json().then((userCategories) => setCategories(userCategories))
+    })
   }
 
   function getStorageCategories(typeOfCategories) {
@@ -145,8 +155,15 @@ function Rectangle() {
       `${URLS.balance}?date_start=${startDate}&date_end=${selectDate}`,
       options
     )
-      .then((result) => result.json())
-      .then((responseServer) => setBalanceData(Number(responseServer.sum_balance).toFixed(2)))
+      .then(function(response) {
+        if(response.status === 401) {
+          navigate("/")
+          return
+        }
+        response.json().then((responseServer) => setBalanceData(Number(responseServer.sum_balance).toFixed(2)))
+      })
+      // .then((result) => result.json())
+      // .then((responseServer) => setBalanceData(Number(responseServer.sum_balance).toFixed(2)))
   }
 
   useEffect(() => {

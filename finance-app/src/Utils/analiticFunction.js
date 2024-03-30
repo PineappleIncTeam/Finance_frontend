@@ -5,5 +5,6 @@ export function getAnaliticGistogramSum(json) {
     for (let i = 0; i < result.length; i++) {
       totalSum += result[i].reduce((a, b) => ((+a) + (+b)), 0)
     }
-    return totalSum.toFixed(2)
+
+    return totalSum.toFixed(2) // returning value
   }

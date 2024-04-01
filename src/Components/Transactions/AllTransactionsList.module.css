@@ -1,0 +1,62 @@
+.all_transactions {
+	width: 90%;
+	max-height: 860px;
+	margin: 20px 0px 0px 40px;
+	overflow: overlay;
+
+	border: 2px solid gray;
+	border-radius: 8px;
+}
+.operation_title {
+	font-family: "Monserrat-Medium";
+	font-style: normal;
+	font-weight: 400;
+	font-size: 24px;
+	margin: 20px;
+}
+.message_text {
+	font-family: "Monserrat-Medium";
+	font-style: normal;
+	margin: 60px auto;
+	font-size: 20px;
+	line-height: 30px;
+}
+
+@media screen and (max-width: 1919px) {
+	.operation_title {
+		font-size: 16px;
+	}
+	.all_transactions {
+		max-height: 580px;
+	}
+}
+
+@media screen and (max-width: 1040px) {
+	.operation_title {
+		font-size: 12px;
+	}
+}
+
+@media (max-width: 840px) {
+	.all_transactions {
+		margin-left: 80px;
+	}
+}
+
+@media (max-width: 624px) {
+	.all_transactions {
+		margin-left: 20px;
+	}
+}
+
+@media (max-width: 420px) {
+	.operation_title {
+		font-size: 11px;
+	}
+}
+
+@media (max-width: 400px) {
+	.operation_title {
+		font-size: 9px;
+	}
+}

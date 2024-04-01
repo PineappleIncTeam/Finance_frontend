@@ -1,58 +1,57 @@
 .button,
 .button_mini {
-  cursor: pointer;
-  width: 264px;
-  height: 60px;
-  border: 1px solid #125b50;
-  color: white;
-  font-family: "Monserrat-Regular";
-  font-weight: 600;
-  font-size: 20px;
-  margin: 0px 42px 0px;
-  background-color: #125b50;
-  border-radius: 24px;
+	cursor: pointer;
+	width: 264px;
+	height: 60px;
+	border: 1px solid #125b50;
+	color: white;
+	font-family: "Monserrat-Regular";
+	font-weight: 600;
+	font-size: 20px;
+	margin: 0px 42px 0px;
+	background-color: #125b50;
+	border-radius: 24px;
 }
 .button_mini {
-  display: none;
+	display: none;
 }
 .button:hover,
 .button_mini:hover {
-  background-color: #125b50;
-  cursor: pointer;
-  box-shadow: 0px 2px 5px 1px #0c4139;
-  transform: translateY(-1px);
+	background-color: #125b50;
+	cursor: pointer;
+	box-shadow: 0px 2px 5px 1px #0c4139;
+	transform: translateY(-1px);
 }
 
 @media screen and (max-width: 1919px) {
-  .button,
-  .button_mini {
-    width: 190px;
-    height: 40px;
-    font-size: 16px;
-    margin: 0px 19px 0px;
-  }
+	.button,
+	.button_mini {
+		width: 190px;
+		height: 40px;
+		font-size: 16px;
+		margin: 0px 19px 0px;
+	}
 }
 @media screen and (max-width: 1279px) {
-  .button {
-    font-size: 14px;
-    width: 135px;
-  }
+	.button {
+		font-size: 14px;
+		width: 135px;
+	}
 }
 @media (max-width: 1024px) {
-  .button {
-    display: none;
-  }
-  .button_mini {
-    display: block;
-    align-self: flex-end;
-    width: 45px;
-    border: 1px solid #125b50;
-    color: white;
-    font-family: "Monserrat-Regular";
-    font-weight: 600;
-    font-size: 12px;
-    background-color: #125b50;
-    border-radius: 50%;
-    
-  }
+	.button {
+		display: none;
+	}
+	.button_mini {
+		display: block;
+		align-self: flex-end;
+		width: 45px;
+		border: 1px solid #125b50;
+		color: white;
+		font-family: "Monserrat-Regular";
+		font-weight: 600;
+		font-size: 12px;
+		background-color: #125b50;
+		border-radius: 50%;
+	}
 }

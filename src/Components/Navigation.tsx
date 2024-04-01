@@ -1,16 +1,18 @@
 //Компонент-контейнер, включает в себя компоненты Логотип и Навигацию кнопками по приложению
-import "./Navigation.css";
-import { useNavigate } from "react-router";
 
+import { useNavigate } from "react-router";
 import { useDispatch } from "react-redux";
 
 import { removeUser } from "../store/slice";
 
-import Logo from "./Logo";
 import ButtonNaviBlock from "./ButtonNaviBlock";
+
+import Logo from "./Logo";
 import exitUser from "./../../src/Images/exit.png";
 
-function Navigation({ menuActive, setMenuActive }) {
+import "./Navigation.css";
+
+function Navigation({ menuActive }: any) {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 	const exitClick = () => {
@@ -19,10 +21,7 @@ function Navigation({ menuActive, setMenuActive }) {
 		navigate("/");
 	};
 	return (
-		<div
-			className={menuActive ? "navigation active" : "navigation"}
-			// active={menuActive}
-		>
+		<div className={menuActive ? "navigation active" : "navigation"}>
 			<Logo />
 			<ButtonNaviBlock />
 			<div className="exit" onClick={() => exitClick()}>

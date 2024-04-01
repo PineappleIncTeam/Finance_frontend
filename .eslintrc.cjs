@@ -27,6 +27,7 @@ module.exports = {
     "prefer-const": "warn",
     "max-len": ["error", { "code": 12000 }],
     "@typescript-eslint/no-inferrable-types": "off",
+    "no-constant-condition": "warn",
     "@typescript-eslint/ban-types": [
 			"error",
 			{

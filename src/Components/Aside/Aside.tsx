@@ -1,14 +1,13 @@
-import React from "react";
-
-import style from "./Aside.module.css";
-import userAva from "./../../Images/userAva.svg";
-
 import "air-datepicker/air-datepicker.css";
 import AirDatePicker from "../calendar/AirCalendar";
 import { balanceMonths } from "../../urls/urlsAndDates";
 import { numberFormatRub } from "../calculator/functions/numberFormatHalper";
 
-const Aside = ({ balanceData, range, selectDate, checkCalculator }) => {
+import userAva from "./../../Images/userAva.svg";
+
+import style from "./Aside.module.css";
+
+const Aside = ({ balanceData, range, selectDate, checkCalculator }: any) => {
 	const selectDateAside = selectDate.split("-");
 	return (
 		<div>

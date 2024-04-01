@@ -41,7 +41,6 @@ const ExchangeRates = ({
 			dateCurrentDate.getTime() > dateExchangeDate.getTime() &&
 			localRates.Date !== prevExchangeRates.Date
 		) {
-			console.log("попал");
 			getRates();
 		}
 	}, [exchangeDate, currentDate, currencyType, realEstate, data]);

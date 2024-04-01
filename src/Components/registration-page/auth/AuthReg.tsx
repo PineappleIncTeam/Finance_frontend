@@ -1,19 +1,20 @@
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
-
 import axios from "axios";
 import { useNavigate } from "react-router";
 import { Link } from "react-router-dom";
 import { useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 
-import Logo from "../../Logo";
 import { setUser } from "../../../store/slice";
 import { URLS } from "../../../urls/urlsAndDates";
 
-import style from "./AuthReg.module.css";
+import Logo from "../../Logo";
+
 import passNo from "./../../../Images/passNo.png";
 import passYes from "./../../../Images/passYes.png";
+
+import style from "./AuthReg.module.css";
 
 const AuthReg = () => {
 	const [reply, setReply] = useState("");
@@ -107,7 +108,7 @@ const AuthReg = () => {
 						validateOnBlur
 						validationSchema={validationSchema}
 						onSubmit={registerHandler}>
-						{({ isValid, dirty, isSubmiting }) => (
+						{({ isValid }) => (
 							<Form className={style.form} onChange={resetReply}>
 								<br />
 								<label>Логин</label>
@@ -143,7 +144,7 @@ const AuthReg = () => {
 								<br />
 								<div className={style.only_lat_message}>*только латиница</div>
 								<div className={style.reply}>{reply}</div>
-								<button className={style.btn} type={"submit"} disabled={isSubmiting}>
+								<button className={style.btn} type={"submit"} disabled={isValid}>
 									Вперед
 								</button>
 							</Form>

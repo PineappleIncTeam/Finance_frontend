@@ -1,4 +1,3 @@
-import React from "react";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
@@ -10,7 +9,7 @@ import style from "./VirtualAssistant.module.css";
 import TheMan from "./Components/TheMan/TheMan";
 import InformBox from "./Components/InformBox/InformBox";
 
-const VirtualAssistant = ({ active, setActive, checked, setChecked }) => {
+const VirtualAssistant = ({ active, setActive, checked, setChecked }: any) => {
 	const token = useSelector((state) => state.user.token);
 
 	const [aiModalWindow, setAiModalWindow] = useState(false);

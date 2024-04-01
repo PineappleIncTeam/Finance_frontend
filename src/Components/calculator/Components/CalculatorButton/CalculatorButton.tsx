@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 import { getMortgageCalculation } from "../../functions/getMortgageCalculation";
 import { getCreditCalculation } from "../../functions/getCreditCalculation";
 
 import style from "./CalculatorButton.module.css";
 
-const CalculatorButton = ({ setResult, data, creditType }) => {
+const CalculatorButton = ({ setResult, data, creditType }: any) => {
 	const [blocked, setBlocked] = useState(true);
 	const [totalCost, anInitialFee, creditTerm, creditRate] = data;
 

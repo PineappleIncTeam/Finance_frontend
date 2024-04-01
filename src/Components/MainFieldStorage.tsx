@@ -63,7 +63,7 @@ function MainFieldStorage({
 			},
 			body: JSON.stringify(data),
 		};
-		fetch(URLS.POSTincomcash, options).then((result) => {
+		fetch(URLS.POSTincomcash, options).then(() => {
 			setModalMessage(`Накопление ${category.categoryName} было переведено в доход в категорию "Из Накоплений"`);
 			getCategories(URLS.getIncomeCategories);
 			deleteCategory(e, category);
@@ -114,7 +114,7 @@ function MainFieldStorage({
 		};
 
 		fetch(`${URLS.deleteCategory}${category.category_id}`, options)
-			.then((result) => {
+			.then(() => {
 				getStorageCategories(URLS.getMoneyBoxCategories);
 			})
 			.then(() => {

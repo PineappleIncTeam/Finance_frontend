@@ -1,5 +1,5 @@
 // Компонент "Аналитика"
-import React, { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useSelector } from "react-redux";
 
 import { percentFunction } from "../Utils/percentFunction";
@@ -15,13 +15,10 @@ import AllTransactionsList from "./Transactions/AllTransactionsList";
 import PdfButton from "./CreateFiles/PDFButton/PdfButton";
 import CreatePDF from "./CreateFiles/CreatePDF";
 import CreateXLS from "./CreateFiles/CreateXLS";
-import AiModalWindow from "./AiModalWindow/AiModalWindow";
-import TheMan from "./VirtualAssistant/Components/TheMan/TheMan";
 import VirtualAssistant from "./VirtualAssistant/VirtualAssistant";
 
 function MainFieldAnalitic({
 	changeRangeCalendar,
-	range,
 	getStorageCategories,
 	sum,
 	balanceToTarget,
@@ -29,11 +26,9 @@ function MainFieldAnalitic({
 	setCheckMainField,
 	setCheckCalculator,
 	gistogramSize,
-	// getAllOperationList,
-	// allOperationList,
-}) {
-	const token = useSelector((state) => state.user.token);
-	const dataCalRange = useSelector((state) => state.data.dataRange);
+}: any) {
+	const token = useSelector((state: any) => state.user.token);
+	const dataCalRange = useSelector((state: any) => state.data.dataRange);
 
 	const [sumGroupIncome, setSumGroupIncome] = useState([]);
 	const [sumGroupOutcome, setSumGroupOutcome] = useState([]);
@@ -47,9 +42,7 @@ function MainFieldAnalitic({
 	const [outcomePercent, setOutcomePercent] = useState([]);
 
 	const [allOperationList, setAllOperationList] = useState();
-	//
 	const reportTemplateRef = useRef(null);
-	//
 
 	const dataStart = dataCalRange.length > 1 ? dataCalRange[0].split(".").reverse().join("-") : firstDayOfMonth;
 
@@ -58,7 +51,7 @@ function MainFieldAnalitic({
 	const dateStartObject = new Date(dataStart);
 	const dateEndObject = new Date(dataEnd);
 	const result = dateEndObject.getMonth() - dateStartObject.getMonth();
-	//
+
 	useEffect(() => {
 		if (result) {
 			setGistogramType("bar");

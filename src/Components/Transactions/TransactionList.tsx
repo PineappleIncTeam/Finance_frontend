@@ -1,6 +1,6 @@
-import { useSelector } from "react-redux";
-
+/* eslint-disable quotes */
 import { useState } from "react";
+import { useSelector } from "react-redux";
 
 import { URLS } from "../../urls/urlsAndDates";
 import closeIcon from "../../Images/closeIcon.svg";
@@ -18,8 +18,8 @@ function TransactionList({
 	getInputData,
 	getStorageCategories,
 	typeOfCategories,
-}) {
-	const token = useSelector((state) => state.user.token);
+}: any) {
+	const token = useSelector((state: any) => state.user.token);
 
 	const [modalDeleteActive, setModalDeleteActive] = useState(false);
 	const [modalChangeSum, setModalChangeSum] = useState(false);
@@ -54,7 +54,6 @@ function TransactionList({
 			setModalMessageText('В эту категорию можно только переносить данные из раздела "Накопления"');
 			setModalMessageActive(true);
 		} else {
-			console.log(operationId, symbol);
 			setMessage("Вы действительно хотите удалить эту запись? \n Действие не может быть отменено");
 			setModalDeleteActive(true);
 			setSelectedOperation({ id: operationId, symbol: symbol });
@@ -110,7 +109,6 @@ function TransactionList({
 			categoryName: name,
 			sum: newSum,
 		};
-		console.log(data);
 		const updateOptions = {
 			method: "PUT",
 			headers: {
@@ -237,7 +235,7 @@ function TransactionList({
 								className={style.modal_input}
 								type="text"
 								value={newSum}
-								onKeyDown={(e) =>
+								onKeyDown={(e: any) =>
 									(e.key = "Enter"
 										? () =>
 												updateCash(

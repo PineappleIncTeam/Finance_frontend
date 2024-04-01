@@ -21,17 +21,14 @@ const RecoveryPass = () => {
 		}
 	};
 
-	const sendEmail = async (values) => {
+	const sendEmail = async (values: any) => {
 		const data = {
 			email: values.email,
 		};
 
-		try {
-			const response = await axios.post(URLS.resetPassword, data);
-			response.status === 204 && setMessage("На указанный вами адрес почты отправлено письмо для сброса пароля");
-		} catch (error) {
-			console.log(error);
-		}
+		const response = await axios.post(URLS.resetPassword, data);
+
+		return response.status === 204 && setMessage("На указанный вами адрес почты отправлено письмо для сброса пароля");
 	};
 
 	return (

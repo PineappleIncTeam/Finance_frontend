@@ -1,17 +1,14 @@
-// import { useDispatch } from "react-redux"
-// import { setDateCalendar } from "../store/dataSlice"
-// import SelectElement from "./SelectElement"
 import { useState } from "react";
 import { useSelector } from "react-redux";
 
-import closeIcon from "../Images/closeIcon.svg";
-
+import { getStorageSum } from "../Utils/storageFunctions";
 import { dateOnline } from "../urls/urlsAndDates";
 
-import { getStorageSum } from "../Utils/storageFunctions";
+import closeIcon from "../Images/closeIcon.svg";
 
 import Dropdown from "./Dropdown/Dropdown";
 import Modal from "./modalWindow/Modal";
+
 import style from "./modalWindow/Modal.module.css";
 
 function MainFieldString({
@@ -29,11 +26,9 @@ function MainFieldString({
 	categories,
 	symbol,
 	getBalanceData,
-	range,
 	addActive,
-	// storageType,
 	placeholder,
-}) {
+}: any) {
 	const token = useSelector((state) => state.user.token);
 	const dataCal = useSelector((state) => state.data.data);
 
@@ -92,6 +87,7 @@ function MainFieldString({
 					setModalActive(true);
 				}
 				if (response.status === 500) {
+					// eslint-disable-next-line quotes
 					setModalMessage('Вы не задали цель для данного накопления. \n Пройдите в раздел "Накопления".');
 					setModalActive(true);
 				} else getInputData(sumCash);

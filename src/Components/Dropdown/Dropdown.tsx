@@ -1,6 +1,4 @@
-import React, { useEffect, useRef } from "react";
-import "./Dropdown.css";
-import { useState } from "react";
+import { BaseSyntheticEvent, useEffect, useRef, useState } from "react";
 
 import { URLS } from "../../urls/urlsAndDates";
 
@@ -9,6 +7,8 @@ import Modal from "../modalWindow/Modal";
 import style from "../modalWindow/Modal.module.css";
 
 import CloseIcon from "./CloseIcon";
+
+import "./Dropdown.css";
 
 const Icon = () => {
 	return (
@@ -19,9 +19,7 @@ const Icon = () => {
 };
 
 function Dropdown({
-	placeHolder,
 	isSearchable,
-	onChange,
 	category_type,
 	income_outcome,
 	categories,
@@ -41,9 +39,9 @@ function Dropdown({
 	getOperationList,
 	endpoint,
 	symbol,
-}) {
+}: any) {
 	const [newCategory, setNewCategory] = useState("");
-	const [newTarget, setNewTarget] = useState("");
+	// const [newTarget, setNewTarget] = useState("");
 	const [showMenu, setShowMenu] = useState(false);
 	const [selectedValue, setSelectedValue] = useState(null);
 	const [searchValue, setSearchValue] = useState("");
@@ -57,13 +55,15 @@ function Dropdown({
 	const [error, setError] = useState(false);
 	const [errorMessage, setErrorMessage] = useState("");
 
+	const newTarget = "";
+
 	function closeModal() {
 		setNewCategory("");
 		setModalActive(false);
 		setErrorMessage("");
 		setError(false);
 	}
-	function handleInput(e) {
+	function handleInput(e: BaseSyntheticEvent) {
 		e.preventDefault();
 		setError(false);
 		setErrorMessage("");
@@ -75,17 +75,18 @@ function Dropdown({
 		else setNewCategory(e.target.value.replace(/[/#$%^&*!()<>@]+/, ""));
 	}
 
-	function handleInputTarget(e) {
-		e.preventDefault();
-		setNewTarget(e.target.value.replace(/[^0-9.,]+/g, "").replace(/,/, "."));
-	}
-	//
+	// function handleInputTarget(e) {
+	// 	e.preventDefault();
+	// 	setNewTarget(e.target.value.replace(/[^0-9.,]+/g, "").replace(/,/, "."));
+	// }
+
 	const [modalDelete, setModalDelete] = useState(false);
 	const [selectedCategory, setSelectedCategory] = useState({});
 	const [modalMessage, setModalMessage] = useState("");
 
 	function createModal(categoryId, categoryName) {
 		if (categoryName === "Из Накоплений") {
+			// eslint-disable-next-line quotes
 			setModalMessage('В эту категорию можно только переносить данные из раздела "Накопления"');
 			// setSelectedCategory({ id: categoryId, name: categoryName })
 			// setModalDelete(true)
@@ -138,7 +139,7 @@ function Dropdown({
 			window.removeEventListener("click", handler);
 		};
 	});
-	const handleInputClick = (event) => {
+	const handleInputClick = () => {
 		setShowMenu(!showMenu);
 	};
 	function getDisplay() {
@@ -217,7 +218,7 @@ function Dropdown({
 		};
 
 		fetch(`${URLS.deleteCategory}${category.id}`, options)
-			.then((result) => {
+			.then(() => {
 				setSelectedValue("");
 				getDisplay();
 				getCategories(typeOfCategories);
@@ -253,7 +254,7 @@ function Dropdown({
 		};
 
 		fetch(`${URLS.sendCategoryToArchive}${category.id}`, options)
-			.then((result) => {
+			.then(() => {
 				setModalMessage(`Категория "${selectedCategory.name}" была переведена в архив`);
 				setSelectedValue("");
 				getDisplay();

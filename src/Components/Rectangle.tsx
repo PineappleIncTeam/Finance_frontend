@@ -19,11 +19,11 @@ import MainFieldRouter from "./RoutePage/MainFieldRouter";
 
 function Rectangle() {
 	//
-	const dataCal = useSelector((state) => state.data.data);
+	const dataCal = useSelector((state: any) => state.data.data);
 
 	const selectDate = (dataCal && dataCal.split(".").reverse().join("-")) || currentDate;
 	//
-	const token = useSelector((state) => state.user.token);
+	const token = useSelector((state: any) => state.user.token);
 	//
 	const navigate = useNavigate();
 	// const [allOperationList, setAllOperationList] = useState()
@@ -172,7 +172,7 @@ function Rectangle() {
 		getBalanceData();
 	}, [dataCal]);
 
-	function getInputData(endpoint) {
+	function getInputData(endpoint: any) {
 		const options = {
 			method: "GET",
 			headers: {

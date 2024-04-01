@@ -1,20 +1,15 @@
 import { Formik, Form, Field, ErrorMessage } from "formik";
-
 import * as Yup from "yup";
 import YupPassword from "yup-password";
-
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 
-import { useRef } from "react";
-
 import { setUser } from "../../../store/slice";
+import { URLS } from "../../../urls/urlsAndDates";
 
 import Logo from "../../Logo";
-
-import { URLS } from "../../../urls/urlsAndDates";
 
 import passNo from "./../../../Images/passNo.png";
 import passYes from "./../../../Images/passYes.png";
@@ -78,9 +73,8 @@ const RegistPage = () => {
 
 				navigate("/rectangle");
 			});
-		} catch (e) {
-			console.log(e);
-			e.response.data.username
+		} catch (error: any) {
+			error.response.data.username
 				? setReply(`Пользователь с логином ${payload.username} уже зарегистрирован`)
 				: setReply("Пользователь с таким Email уже зарегистрирован");
 		} finally {
@@ -137,7 +131,7 @@ const RegistPage = () => {
 						validateOnBlur
 						validationSchema={validationSchema}
 						onSubmit={registerHandler}>
-						{({ isValid, dirty, isSubmiting, values, errors }) => (
+						{({ isValid, dirty, values, errors }) => (
 							<Form className={style.form} onChange={() => setReply("")}>
 								<label>Адрес эл. почты</label>
 								<Field

@@ -1,10 +1,10 @@
 import { Routes, Route, Navigate } from "react-router-dom";
 
-import Rectangle from "../../components1/Rectangle";
-import AuthReg from "../../components1/registration-page/auth/AuthReg";
-import NewPass from "../../components1/registration-page/recoveryPage/NewPass";
-import RecoveryPass from "../../components1/registration-page/recoveryPage/RecoveryPass";
-import RegistPage from "../../components1/registration-page/registPage/RegistPage";
+import Rectangle from "../../components/Rectangle";
+import AuthReg from "../../components/registration-page/auth/AuthReg";
+import NewPass from "../../components/registration-page/recoveryPage/NewPass";
+import RecoveryPass from "../../components/registration-page/recoveryPage/RecoveryPass";
+import RegistPage from "../../components/registration-page/registPage/RegistPage";
 
 const IntroRouteList = () => {
 	return (

@@ -1,10 +1,10 @@
 import { Route, Routes } from "react-router-dom";
 
-import MainFieldStorage from "../../components1/MainFieldStorage";
-import MainFieldAnalitic from "../../components1/MainFieldAnalitic";
-import Calculator from "../../components1/calculator/Calculator";
-import MainField from "../../components1/MainField";
-import MainFieldCosts from "../../components1/MainFieldCosts";
+import MainFieldStorage from "../../components/MainFieldStorage";
+import MainFieldAnalitic from "../../components/MainFieldAnalitic";
+import Calculator from "../../components/calculator/Calculator";
+import MainField from "../../components/MainField";
+import MainFieldCosts from "../../components/MainFieldCosts";
 
 const MainFieldRouter = ({
 	categories,

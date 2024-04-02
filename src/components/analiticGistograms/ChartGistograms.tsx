@@ -1,4 +1,3 @@
-import React from "react";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { Pie, Doughnut } from "react-chartjs-2";
 
@@ -19,7 +18,7 @@ function ChartGistograms({
 	storageSum,
 	balanceToTarget,
 	analiticSum,
-}) {
+}: any) {
 	ChartJS.register(ArcElement, Tooltip, Legend);
 	const checkName = categoryNameIncome ? categoryNameIncome : [];
 	const checkSum = resultSumIncome ? resultSumIncome : [];
@@ -163,7 +162,7 @@ function ChartGistograms({
 					</div>
 				)}
 				{isActive === "income" &&
-					checkSum.map((item, index) => {
+					checkSum.map((item, index: number) => {
 						return (
 							<div className={style.label_element} key={index}>
 								<div className={style.category_color} style={{ backgroundColor: colorsIncome[index] }}></div>

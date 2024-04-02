@@ -5,9 +5,10 @@ import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import { useRef, useState } from "react";
 
-import useAppDispatch from "../../../hooks/useAppDisptch";
+import useAppDispatch from "../../../hooks/useAppDispatch";
 
 import { setUser } from "../../../services/redux/features/userData/UserDataSlice";
+import { AuthPath } from "../../../services/router/routes";
 import { URLS } from "../../../helpers/urlsAndDates";
 
 import Logo from "../../Logo";
@@ -189,7 +190,7 @@ const RegistPage = () => {
 								<br />
 								<p className={style.textReg}>
 									<br />
-									<Link to="/" className={style.reg}>
+									<Link to={AuthPath.Login} className={style.reg}>
 										{" "}
 										Я уже зарегистрирован
 									</Link>

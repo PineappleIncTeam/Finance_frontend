@@ -5,8 +5,9 @@ import { Link, useLocation } from "react-router-dom";
 import axios from "axios";
 import queryString from "query-string";
 
-import { URLS } from "../../../helpers/urlsAndDates";
 import Logo from "../../Logo";
+import { URLS } from "../../../helpers/urlsAndDates";
+import { AuthPath } from "../../../services/router/routes";
 
 import passNo from "./../../../assets/passNo.png";
 import passYes from "./../../../assets/passYes.png";
@@ -28,7 +29,7 @@ const NewPass = () => {
 	const location = useLocation();
 	const { uid, token } = queryString.parse(location.search);
 
-	const changePassword = async (values) => {
+	const changePassword = async (values: any) => {
 		const data = {
 			uid: uid,
 			token: token,
@@ -118,7 +119,7 @@ const NewPass = () => {
 							</Form>
 						)}
 					</Formik>
-					<Link to="/" className={style.recovery}>
+					<Link to={AuthPath.Login} className={style.recovery}>
 						Вернуться назад
 					</Link>
 				</div>

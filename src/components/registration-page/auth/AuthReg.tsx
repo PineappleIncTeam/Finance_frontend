@@ -5,9 +5,10 @@ import { useNavigate } from "react-router";
 import { Link } from "react-router-dom";
 import { useRef, useState } from "react";
 
-import useAppDispatch from "../../../hooks/useAppDisptch";
+import useAppDispatch from "../../../hooks/useAppDispatch";
 
 import { setUser } from "../../../services/redux/features/userData/UserDataSlice";
+import { AuthPath } from "../../../services/router/routes";
 import { URLS } from "../../../helpers/urlsAndDates";
 
 import Logo from "../../Logo";
@@ -117,7 +118,7 @@ const AuthReg = () => {
 								<br />
 								<div className={style.password_recovery}>
 									<label>Пароль</label>
-									<Link to="recovery" className={style.recovery}>
+									<Link to={AuthPath.RecoveryPassword} className={style.recovery}>
 										Забыли пароль?
 									</Link>
 								</div>
@@ -136,7 +137,7 @@ const AuthReg = () => {
 								<br />
 								<p className={style.textReg}>
 									Если у вас нет учетной записи, <br />
-									<Link to="/login" className={style.reg}>
+									<Link to={AuthPath.Signup} className={style.reg}>
 										{" "}
 										зарегистрируйтесь
 									</Link>

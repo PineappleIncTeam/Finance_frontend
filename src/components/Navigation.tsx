@@ -2,7 +2,7 @@
 
 import { useNavigate } from "react-router";
 
-import useAppDispatch from "../hooks/useAppDisptch";
+import useAppDispatch from "../hooks/useAppDispatch";
 
 import { removeUser } from "../services/redux/features/userData/UserDataSlice";
 

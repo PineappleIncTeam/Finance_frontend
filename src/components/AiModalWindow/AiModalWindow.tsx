@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { BaseSyntheticEvent, useState } from "react";
 
 import closeIcon from "../../assets/closeIcon.svg";
 
@@ -48,8 +48,9 @@ const AiModalWindow = ({
 	//   if (aiAnswer) setActive(true)
 	// }, [aiAnswer])
 
-	function hideArtificialIntelligence(e) {
+	function hideArtificialIntelligence(e: BaseSyntheticEvent) {
 		e.stopPropagation();
+
 		if (e.target.value) {
 			localStorage.setItem("aiHelper", JSON.stringify({ value: false }));
 			setChecked(false);

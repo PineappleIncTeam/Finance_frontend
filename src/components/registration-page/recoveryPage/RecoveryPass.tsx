@@ -1,11 +1,10 @@
 import { useState } from "react";
 import { Formik, Form, Field } from "formik";
 import axios from "axios";
-
 import { Link } from "react-router-dom";
 
 import Logo from "../../Logo";
-
+import { AuthPath } from "../../../services/router/routes";
 import { URLS } from "../../../helpers/urlsAndDates";
 
 import style from "./RecoveryPass.module.css";
@@ -62,7 +61,7 @@ const RecoveryPass = () => {
 							</Form>
 						)}
 					</Formik>
-					<Link to="/" className={style.recovery}>
+					<Link to={AuthPath.Login} className={style.recovery}>
 						Вернуться назад
 					</Link>
 				</div>

@@ -1,7 +1,7 @@
 import AirDatepicker from "air-datepicker";
 import { useEffect, useRef } from "react";
 
-import useAppDispatch from "../../hooks/useAppDisptch";
+import useAppDispatch from "../../hooks/useAppDispatch";
 
 import "./AirCalendar.css";
 

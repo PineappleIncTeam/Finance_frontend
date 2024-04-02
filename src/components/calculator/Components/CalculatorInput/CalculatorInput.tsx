@@ -4,7 +4,7 @@ import { numberFormatObject } from "../../functions/numberFormatHalper";
 
 import style from "./CalculatorInput.module.css";
 
-const CalculatorInput = ({ min, max, step, value, setValue, label, unformatted, currencyType, exchangeRates }) => {
+const CalculatorInput = ({ min, max, step, value, setValue, label, unformatted, currencyType, exchangeRates }: any) => {
 	const [error, setError] = useState(false);
 	const [focus, setFocus] = useState(false);
 	const [visibleValue, setVisibleValue] = useState(false);
@@ -21,8 +21,7 @@ const CalculatorInput = ({ min, max, step, value, setValue, label, unformatted, 
 			setValue(e.target.value);
 		}
 	}
-	function getFocus(e) {
-		console.log(value);
+	function getFocus(e: any) {
 		e.preventDefault();
 		if (value === 0 || value === "0") setValue("");
 		if (value > 0) setValue(Number(value).toFixed(2));

@@ -6,6 +6,8 @@ import Calculator from "../../components/calculator/Calculator";
 import MainField from "../../components/MainField";
 import MainFieldCosts from "../../components/MainFieldCosts";
 
+import { MainFieldPath } from "./routes";
+
 const MainFieldRouter = ({
 	categories,
 	storageCategories,
@@ -31,7 +33,7 @@ const MainFieldRouter = ({
 	return (
 		<Routes>
 			<Route
-				path="/mainfield"
+				path={MainFieldPath.Base}
 				element={
 					<MainField
 						categories={categories}
@@ -48,7 +50,7 @@ const MainFieldRouter = ({
 				}
 			/>
 			<Route
-				path="/mainfieldcosts"
+				path={MainFieldPath.Cost}
 				element={
 					<MainFieldCosts
 						categories={categories}
@@ -68,7 +70,7 @@ const MainFieldRouter = ({
 				}
 			/>
 			<Route
-				path="/mainfieldstorage"
+				path={MainFieldPath.Storage}
 				element={
 					<MainFieldStorage
 						categories={categories}
@@ -85,7 +87,7 @@ const MainFieldRouter = ({
 				}
 			/>
 			<Route
-				path="/mainfieldanalitic"
+				path={MainFieldPath.Analytics}
 				element={
 					<MainFieldAnalitic
 						// operationList={operationList}
@@ -104,7 +106,7 @@ const MainFieldRouter = ({
 				}
 			/>
 			<Route
-				path="/calculator"
+				path={MainFieldPath.Calculator}
 				element={<Calculator setCheckMainField={setCheckMainField} setCheckCalculator={setCheckCalculator} />}></Route>
 		</Routes>
 	);

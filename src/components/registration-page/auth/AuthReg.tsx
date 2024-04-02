@@ -49,7 +49,6 @@ const AuthReg = () => {
 
 			navigate("/rectangle");
 		} catch (e) {
-			console.log(e);
 			setReply("Неверно введен логин или пароль");
 		} finally {
 			setSubmitting(false);

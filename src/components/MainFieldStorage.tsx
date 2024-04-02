@@ -133,7 +133,6 @@ function MainFieldStorage({
 		for (let i = 0; i < categories.length; i++) {
 			if (categories[i].categoryName === "Из Накоплений") {
 				count += 1;
-				console.log(count);
 			}
 		}
 		if (count > 0) sendSumToIncome(e, category, categoryFromStorage);

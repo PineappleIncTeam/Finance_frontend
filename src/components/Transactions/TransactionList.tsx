@@ -238,7 +238,7 @@ function TransactionList({
 								type="text"
 								value={newSum}
 								onKeyDown={(e: any) =>
-									(e.key = "Enter"
+									e.key == "Enter"
 										? () =>
 												updateCash(
 													selectedOperation.id,
@@ -246,7 +246,7 @@ function TransactionList({
 													selectedOperation.categoryName,
 													selectedOperation.symbol,
 												)
-										: "")
+										: ""
 								}
 								onChange={(e) => handleInput(e)}
 							/>

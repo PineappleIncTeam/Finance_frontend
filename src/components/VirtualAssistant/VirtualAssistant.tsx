@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 
 import useAppSelector from "../../hooks/useAppSelector";
 
+import userDataSelector from "../../services/redux/features/userData/UserDataSelector";
 import { URLS } from "../../helpers/urlsAndDates";
 
 import AiModalWindow from "../AiModalWindow/AiModalWindow";
@@ -11,10 +12,10 @@ import TheMan from "./Components/TheMan/TheMan";
 import InformBox from "./Components/InformBox/InformBox";
 
 const VirtualAssistant = ({ active, setActive, checked, setChecked }: any) => {
-	const token = useAppSelector((state) => state.user.token);
+	const token = useAppSelector(userDataSelector).token;
 
 	const [aiModalWindow, setAiModalWindow] = useState(false);
-	const aiHelper = JSON.parse(localStorage.getItem("aiHelper"));
+	const aiHelper = JSON.parse(localStorage.getItem("aiHelper") ?? "");
 
 	const [aiAnswer, setAiAnswer] = useState("");
 	const [aiSavingMoneyAdvice, setAiSavingMoneyAdvice] = useState("");
@@ -29,6 +30,7 @@ const VirtualAssistant = ({ active, setActive, checked, setChecked }: any) => {
 				Authorization: `Token ${token}`,
 			},
 		};
+
 		fetch(URLS.getAiAnswer, options)
 			.then((response) => response.json())
 			.then((result) => setAiAnswer(result.ai_answer));

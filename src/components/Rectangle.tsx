@@ -4,6 +4,8 @@ import { AiOutlineMenu, AiOutlineClose } from "react-icons/ai";
 
 import useAppSelector from "../hooks/useAppSelector";
 
+import infoPartSelector from "../services/redux/features/infoPart/InfoPartSelector";
+import userDataSelector from "../services/redux/features/userData/UserDataSelector";
 import { getStorageSum, getBalanceToTarget, getBalanceToTargetinPercent } from "../utils/storageFunctions";
 import { URLS, currentDate, startDate } from "../helpers/urlsAndDates";
 
@@ -34,8 +36,8 @@ function Rectangle() {
 	const [menuActive, setMenuActive] = useState(false);
 
 	const navigate = useNavigate();
-	const dataCal = useAppSelector((state: any) => state.data.data);
-	const token = useAppSelector((state: any) => state.user.token);
+	const dataCal = useAppSelector(infoPartSelector).data;
+	const token = useAppSelector(userDataSelector).token;
 
 	const selectDate = (dataCal && dataCal.split(".").reverse().join("-")) || currentDate;
 

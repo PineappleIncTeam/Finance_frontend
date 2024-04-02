@@ -18,8 +18,6 @@ function MainField({
 	setCheckMainField,
 	setCheckCalculator,
 }: any) {
-	// const token = useAppSelector((state) => state.user.token);
-
 	useEffect(() => {
 		getCategories(URLS.getIncomeCategories);
 		changeRangeCalendar(false);

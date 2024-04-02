@@ -1,6 +1,5 @@
 import { useState } from "react";
 
-// import { useSelector } from "react-redux"
 import closeIcon from "../../assets/closeIcon.svg";
 
 import style from "./AiModalWindow.module.css";
@@ -18,7 +17,6 @@ const AiModalWindow = ({
 	aiTaxDeduction,
 }: any) => {
 	// const aiHelper = JSON.parse(localStorage.getItem("aiHelper"))
-	// const token = useAppSelector((state) => state.user.token)
 	// const [aiAnswer, setAiAnswer] = useState("")
 	// const [aiSavingMoneyAdvice, setAiSavingMoneyAdvice] = useState("")
 	// const [aiTaxDeduction, setAiTaxDeduction] = useState("")

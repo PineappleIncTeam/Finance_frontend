@@ -5,6 +5,7 @@ import useAppSelector from "../../hooks/useAppSelector";
 
 import Modal from "../modalWindow/Modal";
 import { numberFormatRub } from "../calculator/functions/numberFormatHalper";
+import userDataSelector from "../../services/redux/features/userData/UserDataSelector";
 import { URLS } from "../../helpers/urlsAndDates";
 
 import closeIcon from "../../assets/closeIcon.svg";
@@ -22,7 +23,7 @@ function TransactionList({
 	getStorageCategories,
 	typeOfCategories,
 }: any) {
-	const token = useAppSelector((state: any) => state.user.token);
+	const token = useAppSelector(userDataSelector).token;
 
 	const [modalDeleteActive, setModalDeleteActive] = useState(false);
 	const [modalChangeSum, setModalChangeSum] = useState(false);
@@ -33,7 +34,7 @@ function TransactionList({
 	const [newSum, setNewSum] = useState("");
 	const [message, setMessage] = useState("");
 
-	function createModalChangeSum(categoryName, id, category_id, sum, symbol) {
+	function createModalChangeSum(categoryName: any, id: any, category_id: any, sum: any, symbol: any) {
 		if (categoryName === "Из Накоплений") {
 			setModalMessageText('В эту категорию можно только переносить данные из раздела "Накопления"');
 			setModalMessageActive(true);
@@ -44,15 +45,17 @@ function TransactionList({
 			setNewSum(sum);
 		}
 	}
+
 	function closeModalChangeSum() {
 		setModalChangeSum(false);
 	}
+
 	function handleInput(e) {
 		e.preventDefault();
 		setNewSum(e.target.value.replace(/[^0-9.,]+/, "").replace(/,/, "."));
 	}
 
-	function createDeleteModal(categoryName, operationId, symbol) {
+	function createDeleteModal(categoryName: any, operationId: any, symbol: any) {
 		if (categoryName === "Из Накоплений") {
 			setModalMessageText('В эту категорию можно только переносить данные из раздела "Накопления"');
 			setModalMessageActive(true);
@@ -62,6 +65,7 @@ function TransactionList({
 			setSelectedOperation({ id: operationId, symbol: symbol });
 		}
 	}
+
 	function cancel(e: BaseSyntheticEvent) {
 		e.preventDefault();
 
@@ -106,8 +110,9 @@ function TransactionList({
 		setTimeout(() => setModalDeleteActive(false), 1000);
 	}
 
-	function updateCash(event, id, category, name, symbol) {
+	function updateCash(event: BaseSyntheticEvent, id: any, category: any, name: any, symbol: any) {
 		event.preventDefault();
+
 		const data = {
 			category_id: category,
 			categoryName: name,
@@ -161,7 +166,7 @@ function TransactionList({
 		<>
 			<div className={s.transactions}>
 				{operationList &&
-					operationList.map((operation, index) => {
+					operationList.map((operation: any, index: number) => {
 						return (
 							<div className={s.operation} key={index} id={operation.id}>
 								<div className={s.operation_list_item1}>{operation.date}</div>

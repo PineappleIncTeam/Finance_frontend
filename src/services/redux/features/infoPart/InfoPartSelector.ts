@@ -1,7 +1,7 @@
 import { RootState } from "../../";
 
-const userDataSelector = (state: RootState) => {
+const infoPartSelector = (state: RootState) => {
 	return state.data;
 };
 
-export default userDataSelector;
+export default infoPartSelector;

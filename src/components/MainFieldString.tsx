@@ -2,6 +2,8 @@ import { useState } from "react";
 
 import useAppSelector from "../hooks/useAppSelector";
 
+import userDataSelector from "../services/redux/features/userData/UserDataSelector";
+import infoPartSelector from "../services/redux/features/infoPart/InfoPartSelector";
 import { getStorageSum } from "../utils/storageFunctions";
 import { dateOnline } from "../helpers/urlsAndDates";
 
@@ -30,27 +32,29 @@ function MainFieldString({
 	addActive,
 	placeholder,
 }: any) {
-	const token = useAppSelector((state) => state.user.token);
-	const dataCal = useAppSelector((state) => state.data.data);
+	const token = useAppSelector(userDataSelector).token;
+	const dataCal = useAppSelector(infoPartSelector).data;
 
 	const [inputDis, setInputDis] = useState(false);
 	const [enterSum, setEnterSum] = useState("");
 	const [selectElement, setSelectElement] = useState(null);
-	//
+
 	const [target, setTarget] = useState("");
 	const [modalActive, setModalActive] = useState(false);
 	const [modalMessage, setModalMessage] = useState("");
+
 	const sumForTarget = 0;
-	function changeSelectElement(object) {
+
+	function changeSelectElement(object: any) {
 		setSelectElement(object);
 	}
 
-	const disInput = (boolean) => {
+	const disInput = (boolean: any) => {
 		setInputDis(boolean);
 	};
 	const dataCalendar = dataCal && dataCal.split(".").reverse().join("-");
 
-	function sumSubmit(event) {
+	function sumSubmit(event: any) {
 		event.preventDefault();
 		const data = {
 			// sum: enterSum || sumForTarget.toFixed(2),
@@ -104,9 +108,11 @@ function MainFieldString({
 		if (placeholder) changeSelectElement(null);
 	}
 
-	const changeHandler = (e) => {
+	const changeHandler = (e: any) => {
 		const value = e.target.value;
+
 		if (/,/.test(e.target.value)) e.target.value = value.replace(/,/, ".");
+
 		if (e.target.value === "00") placeholder ? setTarget((prev) => prev) : setEnterSum((prev) => prev);
 		else if (!/^([0-9])*[.,]{0,1}([0-9]{1,2})?$/.test(e.target.value))
 			placeholder ? setTarget((prev) => prev) : setEnterSum((prev) => prev);

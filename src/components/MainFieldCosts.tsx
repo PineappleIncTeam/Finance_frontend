@@ -19,8 +19,6 @@ function MainFieldCosts({
 	setCheckMainField,
 	setCheckCalculator,
 }: any) {
-	// const token = useAppSelector((state) => state.user.token);
-
 	useEffect(() => {
 		getInputData(URLS.sumOutcomeCash);
 		setCheckMainField(true);

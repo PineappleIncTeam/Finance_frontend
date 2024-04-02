@@ -3,8 +3,8 @@ import { BaseSyntheticEvent, useEffect, useState } from "react";
 
 import useAppSelector from "../hooks/useAppSelector";
 
+import userDataSelector from "../services/redux/features/userData/UserDataSelector";
 import { URLS, dateOnline } from "../helpers/urlsAndDates";
-
 import { getStorageSum } from "../utils/storageFunctions";
 
 import closeIcon from "../assets/closeIcon.svg";
@@ -31,7 +31,7 @@ function MainFieldStorage({
 	getInputData,
 	getBalanceData,
 }: any) {
-	const token = useAppSelector((state: any) => state.user.token);
+	const token = useAppSelector(userDataSelector).token;
 	const [modalActive, setModalActive] = useState(false);
 	const [modalMessage, setModalMessage] = useState("");
 	const [selectedCategory, setSelectedCategory] = useState({});
@@ -128,7 +128,7 @@ function MainFieldStorage({
 		getStorageSum(storageCategories);
 	}
 
-	function sendStorageToIncome(e: BaseSyntheticEvent, category, categories) {
+	function sendStorageToIncome(e: BaseSyntheticEvent, category: any, categories: any) {
 		e.preventDefault();
 		let count = 0;
 		for (let i = 0; i < categories.length; i++) {
@@ -191,7 +191,7 @@ function MainFieldStorage({
 					)}
 					<div className={style.storage_categories_list}>
 						{storageCategories &&
-							storageCategories.map((category, index) => {
+							storageCategories.map((category: any, index: number) => {
 								const doneStorage = category.target - category.sum;
 								if (!category.is_hidden)
 									return (

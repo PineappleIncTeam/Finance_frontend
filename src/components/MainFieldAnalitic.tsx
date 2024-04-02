@@ -3,9 +3,10 @@ import { useEffect, useState, useRef } from "react";
 
 import useAppSelector from "../hooks/useAppSelector";
 
+import userDataSelector from "../services/redux/features/userData/UserDataSelector";
+import infoPartSelector from "../services/redux/features/infoPart/InfoPartSelector";
 import { percentFunction } from "../utils/percentFunction";
 import { getAnaliticGistogramSum } from "../utils/analiticFunction";
-
 import { URLS, firstDayOfMonth, lastDayOfMonth } from "../helpers/urlsAndDates";
 
 import ChartGistograms from "./analiticGistograms/ChartGistograms";
@@ -27,8 +28,8 @@ function MainFieldAnalitic({
 	setCheckCalculator,
 	gistogramSize,
 }: any) {
-	const token = useAppSelector((state: any) => state.user.token);
-	const dataCalRange = useAppSelector((state: any) => state.data.dataRange);
+	const token = useAppSelector(userDataSelector).token;
+	const dataCalRange = useAppSelector(infoPartSelector).dataRange;
 
 	const [sumGroupIncome, setSumGroupIncome] = useState([]);
 	const [sumGroupOutcome, setSumGroupOutcome] = useState([]);

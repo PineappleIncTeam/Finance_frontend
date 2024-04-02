@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { useSelector } from "react-redux";
+
+import useAppSelector from "../hooks/useAppSelector";
 
 import { getStorageSum } from "../utils/storageFunctions";
 import { dateOnline } from "../helpers/urlsAndDates";
@@ -29,8 +30,8 @@ function MainFieldString({
 	addActive,
 	placeholder,
 }: any) {
-	const token = useSelector((state) => state.user.token);
-	const dataCal = useSelector((state) => state.data.data);
+	const token = useAppSelector((state) => state.user.token);
+	const dataCal = useAppSelector((state) => state.data.data);
 
 	const [inputDis, setInputDis] = useState(false);
 	const [enterSum, setEnterSum] = useState("");

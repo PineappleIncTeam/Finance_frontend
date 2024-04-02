@@ -1,6 +1,7 @@
 // Компонент "Аналитика"
 import { useEffect, useState, useRef } from "react";
-import { useSelector } from "react-redux";
+
+import useAppSelector from "../hooks/useAppSelector";
 
 import { percentFunction } from "../utils/percentFunction";
 import { getAnaliticGistogramSum } from "../utils/analiticFunction";
@@ -26,8 +27,8 @@ function MainFieldAnalitic({
 	setCheckCalculator,
 	gistogramSize,
 }: any) {
-	const token = useSelector((state: any) => state.user.token);
-	const dataCalRange = useSelector((state: any) => state.data.dataRange);
+	const token = useAppSelector((state: any) => state.user.token);
+	const dataCalRange = useAppSelector((state: any) => state.data.dataRange);
 
 	const [sumGroupIncome, setSumGroupIncome] = useState([]);
 	const [sumGroupOutcome, setSumGroupOutcome] = useState([]);

@@ -1,5 +1,4 @@
 // Компонент "Доходы"
-// import { useSelector } from "react-redux";
 import { useEffect } from "react";
 
 import { URLS, months, month } from "../helpers/urlsAndDates";
@@ -18,8 +17,8 @@ function MainField({
 	range,
 	setCheckMainField,
 	setCheckCalculator,
-}) {
-	// const token = useSelector((state) => state.user.token);
+}: any) {
+	// const token = useAppSelector((state) => state.user.token);
 
 	useEffect(() => {
 		getCategories(URLS.getIncomeCategories);

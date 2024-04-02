@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+
+import { usePreviousExchangeRates } from "../../../../hooks/usePreviousExchangeRates";
 
 import CurrencyBox from "../CurrencyBox/CurrencyBox";
 import { currentDate } from "../../../../helpers/urlsAndDates";
 import CurrencyChoiceButton from "../CurrencyChoiceButton/CurrencyChoiceButton";
 import { getCurrencyCalculation, getReverseCalculation } from "../../functions/getCurrencyCalculation";
-import { usePrevious } from "../../hooks/usePrevious";
 
 import style from "./ExchangeRates.module.css";
 
@@ -25,11 +26,13 @@ const ExchangeRates = ({
 	const localRates = JSON.parse(localData);
 	const USD = localRates && localRates.Valute.USD.Value.toFixed(2);
 	const EUR = localRates && localRates.Valute.EUR.Value.toFixed(2);
+
+	const [exchangeRate, setExchangeRate] = useState(USD);
+
 	const exchangeDate = localRates && localRates.Date.slice(0, 10);
 	const dateExchangeDate = exchangeDate && new Date(exchangeDate);
 	const dateCurrentDate = new Date(currentDate);
-	const prevExchangeRates = usePrevious(localRates) || {};
-	const [exchangeRate, setExchangeRate] = useState(USD);
+	const prevExchangeRates = usePreviousExchangeRates(localRates) || {};
 
 	useEffect(() => {
 		if (!localRates) getRates();

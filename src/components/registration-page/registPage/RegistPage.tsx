@@ -3,8 +3,9 @@ import * as Yup from "yup";
 import YupPassword from "yup-password";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
-import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useRef, useState } from "react";
+
+import useAppDispatch from "../../../hooks/useAppDisptch";
 
 import { setUser } from "../../../services/redux/features/userData/UserDataSlice";
 import { URLS } from "../../../helpers/urlsAndDates";
@@ -23,7 +24,7 @@ const RegistPage = () => {
 	const [passwordType, setPasswordType] = useState(passNo);
 	const [confirmType, setConfirmType] = useState(passNo);
 
-	const dispatch = useDispatch();
+	const dispatch = useAppDispatch();
 	const navigate = useNavigate();
 	const passRef = useRef(null);
 	const confirmRef = useRef(null);

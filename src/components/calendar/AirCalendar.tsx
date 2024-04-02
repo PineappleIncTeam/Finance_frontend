@@ -1,15 +1,16 @@
 import AirDatepicker from "air-datepicker";
 import { useEffect, useRef } from "react";
 
+import useAppDispatch from "../../hooks/useAppDisptch";
+
 import "./AirCalendar.css";
-import { useDispatch } from "react-redux";
 
 import { setDateCalendar, setDateCalendarRange } from "../../services/redux/features/infoPart/InfoPartSlice";
 
 import vect from "./../../assets/calendar.png";
 
 function AirDatePicker(props: any) {
-	const dispatch = useDispatch();
+	const dispatch = useAppDispatch();
 
 	const $input = useRef();
 	const dp = useRef();

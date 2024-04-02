@@ -18,7 +18,7 @@ const AiModalWindow = ({
 	aiTaxDeduction,
 }: any) => {
 	// const aiHelper = JSON.parse(localStorage.getItem("aiHelper"))
-	// const token = useSelector((state) => state.user.token)
+	// const token = useAppSelector((state) => state.user.token)
 	// const [aiAnswer, setAiAnswer] = useState("")
 	// const [aiSavingMoneyAdvice, setAiSavingMoneyAdvice] = useState("")
 	// const [aiTaxDeduction, setAiTaxDeduction] = useState("")

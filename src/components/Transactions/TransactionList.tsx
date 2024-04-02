@@ -1,6 +1,7 @@
 /* eslint-disable quotes */
-import { useState } from "react";
-import { useSelector } from "react-redux";
+import { BaseSyntheticEvent, useState } from "react";
+
+import useAppSelector from "../../hooks/useAppSelector";
 
 import Modal from "../modalWindow/Modal";
 import { numberFormatRub } from "../calculator/functions/numberFormatHalper";
@@ -21,7 +22,7 @@ function TransactionList({
 	getStorageCategories,
 	typeOfCategories,
 }: any) {
-	const token = useSelector((state: any) => state.user.token);
+	const token = useAppSelector((state: any) => state.user.token);
 
 	const [modalDeleteActive, setModalDeleteActive] = useState(false);
 	const [modalChangeSum, setModalChangeSum] = useState(false);
@@ -61,8 +62,9 @@ function TransactionList({
 			setSelectedOperation({ id: operationId, symbol: symbol });
 		}
 	}
-	function cancel(e) {
+	function cancel(e: BaseSyntheticEvent) {
 		e.preventDefault();
+
 		setSelectedOperation({});
 		setModalDeleteActive(false);
 	}

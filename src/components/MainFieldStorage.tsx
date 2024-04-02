@@ -1,6 +1,7 @@
 // Компонент "Накопления"
 import { BaseSyntheticEvent, useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+
+import useAppSelector from "../hooks/useAppSelector";
 
 import { URLS, dateOnline } from "../helpers/urlsAndDates";
 
@@ -30,7 +31,7 @@ function MainFieldStorage({
 	getInputData,
 	getBalanceData,
 }: any) {
-	const token = useSelector((state: any) => state.user.token);
+	const token = useAppSelector((state: any) => state.user.token);
 	const [modalActive, setModalActive] = useState(false);
 	const [modalMessage, setModalMessage] = useState("");
 	const [selectedCategory, setSelectedCategory] = useState({});

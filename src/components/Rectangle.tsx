@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { AiOutlineMenu, AiOutlineClose } from "react-icons/ai";
+
+import useAppSelector from "../hooks/useAppSelector";
 
 import { getStorageSum, getBalanceToTarget, getBalanceToTargetinPercent } from "../utils/storageFunctions";
 import { URLS, currentDate, startDate } from "../helpers/urlsAndDates";
@@ -15,14 +16,6 @@ import Transactions from "./Transactions/Transactions";
 import "./Rectangle.css";
 
 function Rectangle() {
-	//
-	const dataCal = useSelector((state: any) => state.data.data);
-
-	const selectDate = (dataCal && dataCal.split(".").reverse().join("-")) || currentDate;
-	//
-	const token = useSelector((state: any) => state.user.token);
-	//
-	const navigate = useNavigate();
 	// const [allOperationList, setAllOperationList] = useState()
 	const [operationList, setOperationList] = useState("");
 	const [symbol, setSymbol] = useState("+");
@@ -31,7 +24,6 @@ function Rectangle() {
 	const [checkMainField, setCheckMainField] = useState(true);
 	const [checkCalculator, setCheckCalculator] = useState(false);
 
-	//
 	const [categories, setCategories] = useState("");
 	const [storageCategories, setStorageCategories] = useState("");
 	const [storageSum, setStorageSum] = useState();
@@ -40,6 +32,12 @@ function Rectangle() {
 
 	const [range, setRange] = useState(true);
 	const [menuActive, setMenuActive] = useState(false);
+
+	const navigate = useNavigate();
+	const dataCal = useAppSelector((state: any) => state.data.data);
+	const token = useAppSelector((state: any) => state.user.token);
+
+	const selectDate = (dataCal && dataCal.split(".").reverse().join("-")) || currentDate;
 
 	function changeRangeCalendar(range: any) {
 		setRange(range);

@@ -4,7 +4,8 @@ import axios from "axios";
 import { useNavigate } from "react-router";
 import { Link } from "react-router-dom";
 import { useRef, useState } from "react";
-import { useDispatch } from "react-redux";
+
+import useAppDispatch from "../../../hooks/useAppDisptch";
 
 import { setUser } from "../../../services/redux/features/userData/UserDataSlice";
 import { URLS } from "../../../helpers/urlsAndDates";
@@ -19,7 +20,7 @@ import style from "./AuthReg.module.css";
 const AuthReg = () => {
 	const [reply, setReply] = useState("");
 	const [passwordType, setPasswordType] = useState(passNo);
-	const dispatch = useDispatch();
+	const dispatch = useAppDispatch();
 	const navigate = useNavigate();
 	const passRef = useRef(null);
 

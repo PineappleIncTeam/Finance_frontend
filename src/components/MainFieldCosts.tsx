@@ -1,6 +1,4 @@
 // Компонент "Расходы"
-// import { render } from "react-dom";
-// import { useSelector } from "react-redux";
 import { useEffect } from "react";
 
 import { URLS, months, month } from "../helpers/urlsAndDates";
@@ -20,8 +18,8 @@ function MainFieldCosts({
 	changeRangeCalendar,
 	setCheckMainField,
 	setCheckCalculator,
-}) {
-	// const token = useSelector((state) => state.user.token);
+}: any) {
+	// const token = useAppSelector((state) => state.user.token);
 
 	useEffect(() => {
 		getInputData(URLS.sumOutcomeCash);

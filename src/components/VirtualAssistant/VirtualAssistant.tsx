@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+
+import useAppSelector from "../../hooks/useAppSelector";
 
 import { URLS } from "../../helpers/urlsAndDates";
 
@@ -10,7 +11,7 @@ import TheMan from "./Components/TheMan/TheMan";
 import InformBox from "./Components/InformBox/InformBox";
 
 const VirtualAssistant = ({ active, setActive, checked, setChecked }: any) => {
-	const token = useSelector((state) => state.user.token);
+	const token = useAppSelector((state) => state.user.token);
 
 	const [aiModalWindow, setAiModalWindow] = useState(false);
 	const aiHelper = JSON.parse(localStorage.getItem("aiHelper"));

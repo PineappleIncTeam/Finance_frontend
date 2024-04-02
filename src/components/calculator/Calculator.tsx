@@ -1,15 +1,18 @@
 import { useEffect, useState } from "react";
 
 import CalculatorInput from "./Components/CalculatorInput/CalculatorInput";
-import style from "./Calculator.module.css";
+
 import CalculatorButton from "./Components/CalculatorButton/CalculatorButton";
 import CalculationResult from "./Components/CalculationResult/CalculationResult";
 import PercentButtonBlock from "./Components/PercentButtonBlock/PercentButtonBlock";
 import CreditTermRateButtonBlock from "./Components/CreditTermRateButtonBlock/CreditTermRateButtonBlock";
 import ChoiceButton from "./Components/ChoiceButton/ChoiceButton";
 import ExchangeRates from "./Components/ExchangeRates/ExchangeRates";
+
+import style from "./Calculator.module.css";
+
 //test commit
-function Calculator({ setCheckMainField, setCheckCalculator }) {
+function Calculator({ setCheckMainField, setCheckCalculator }: any) {
 	useEffect(() => {
 		setCheckMainField(false);
 		setCheckCalculator(true);
@@ -130,15 +133,15 @@ function Calculator({ setCheckMainField, setCheckCalculator }) {
 
 				{/* <div className={style.rates_block}>
             <ExchangeRates
-              exchangeRates={exchangeRates}
-              setExchangeRates={setExchangeRates}
-              totalCost={totalCost}
-              setTotalCost={setTotalCost}
-              anInitialFee={anInitialFee}
-              setAnInitialFee={setAnInitialFee}
-              currencyType={currencyType}
-              setCurrencyType={setCurrencyType}
-              setResult={setResult}
+				exchangeRates={exchangeRates}
+				setExchangeRates={setExchangeRates}
+				totalCost={totalCost}
+				setTotalCost={setTotalCost}
+				anInitialFee={anInitialFee}
+				setAnInitialFee={setAnInitialFee}
+				currencyType={currencyType}
+				setCurrencyType={setCurrencyType}
+				setResult={setResult}
             />
           </div> */}
 				<div className={style.result_block}>

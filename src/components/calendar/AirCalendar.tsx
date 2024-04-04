@@ -10,10 +10,9 @@ import { setDateCalendar, setDateCalendarRange } from "../../services/redux/feat
 import vect from "./../../assets/calendar.png";
 
 function AirDatePicker(props: any) {
-	const dispatch = useAppDispatch();
-
 	const $input = useRef();
 	const dp = useRef();
+	const dispatch = useAppDispatch();
 
 	useEffect(() => {
 		const button2 = {

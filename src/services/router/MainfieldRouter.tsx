@@ -1,10 +1,10 @@
 import { Route, Routes } from "react-router-dom";
 
-import MainFieldStorage from "../../components/MainFieldStorage";
-import MainFieldAnalitic from "../../components/MainFieldAnalitic";
-import Calculator from "../../components/calculator/Calculator";
-import MainField from "../../components/MainField";
-import MainFieldCosts from "../../components/MainFieldCosts";
+import MainFieldStorage from "../../pages/mainFieldPages/mainFieldStorage/MainFieldStorage";
+import MainFieldAnalytic from "../../pages/mainFieldPages/analytic/MainFieldAnalytic";
+import Calculator from "../../pages/mainFieldPages/calculator/Calculator";
+import MainField from "../../pages/mainFieldPages/incomeExpenses1/MainField";
+import MainFieldCosts from "../../pages/mainFieldPages/incomeExpenses1/MainFieldCosts";
 
 import { MainFieldPath } from "./routes";
 
@@ -89,7 +89,7 @@ const MainFieldRouter = ({
 			<Route
 				path={MainFieldPath.Analytics}
 				element={
-					<MainFieldAnalitic
+					<MainFieldAnalytic
 						// operationList={operationList}
 						changeRangeCalendar={changeRangeCalendar}
 						range={range}

@@ -1,18 +1,18 @@
 import { useState } from "react";
 import { Formik, Form, Field } from "formik";
-import axios from "axios";
 import { Link } from "react-router-dom";
 
+import { TRecoveryData } from "../../../types/api/Auth";
 import Logo from "../../../components/logoElement/LogoElement";
 import { AuthPath } from "../../../services/router/routes";
-import { URLS } from "../../../helpers/urlsAndDates";
+import { sendRecoveryMail } from "../../../services/api/auth/SendRecoveryMail";
 
 import style from "./RecoveryPages.module.css";
 
 const RecoveryPass = () => {
 	const [message, setMessage] = useState("");
 
-	const validateEmail = (value) => {
+	const validateEmail = (value: any) => {
 		if (!value) {
 			return "Обязательное поле";
 		} else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)) {
@@ -21,11 +21,11 @@ const RecoveryPass = () => {
 	};
 
 	const sendEmail = async (values: any) => {
-		const data = {
+		const recoveryData: TRecoveryData = {
 			email: values.email,
 		};
 
-		const response = await axios.post(URLS.resetPassword, data);
+		const response = await sendRecoveryMail(recoveryData);
 
 		return response.status === 204 && setMessage("На указанный вами адрес почты отправлено письмо для сброса пароля");
 	};

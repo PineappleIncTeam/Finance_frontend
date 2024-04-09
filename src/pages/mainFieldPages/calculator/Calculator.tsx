@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 
 import CalculatorInput from "../../../components/calculatorComponents/CalculatorInput/CalculatorInput";
-
 import CalculatorButton from "../../../components/calculatorComponents/CalculatorButton/CalculatorButton";
 import CalculationResult from "../../../components/calculatorComponents/CalculationResult/CalculationResult";
 import PercentButtonBlock from "../../../components/calculatorComponents/PercentButtonBlock/PercentButtonBlock";
@@ -11,7 +10,6 @@ import ExchangeRates from "../../../components/calculatorComponents/ExchangeRate
 
 import style from "./Calculator.module.css";
 
-//test commit
 function Calculator({ setCheckMainField, setCheckCalculator }: any) {
 	const [totalCost, setTotalCost] = useState(0);
 	const [anInitialFee, setAnInitialFee] = useState(0);

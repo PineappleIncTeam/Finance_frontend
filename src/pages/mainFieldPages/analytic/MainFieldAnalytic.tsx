@@ -3,20 +3,24 @@ import { useEffect, useState, useRef } from "react";
 
 import useAppSelector from "../../../hooks/useAppSelector";
 
-import userDataSelector from "../../../services/redux/features/userData/UserDataSelector";
-import infoPartSelector from "../../../services/redux/features/infoPart/InfoPartSelector";
-import { percentFunction } from "../../../utils/percentFunction";
-import { getAnaliticGistogramSum } from "../../../utils/analiticFunction";
-import { URLS, firstDayOfMonth, lastDayOfMonth } from "../../../helpers/urlsAndDates";
-
-import ChartHistograms from "../../../components/analyticGistograms/chartHistograms/ChartHistograms";
-import HistogramBase from "../../../components/analyticGistograms/histogramBase/HistogramBase";
-import AllTransactionsList from "../../../components/transactionComponents/transactionWholeList/TransactionWholeList";
-
 import PdfButton from "../../../ui/PDFButton/PdfButton";
 import CreatePDF from "../../../components/createFileElements/createPDF/CreatePDF";
 import CreateXLS from "../../../components/createFileElements/createXLS/CreateXLS";
 import VirtualAssistant from "../../../components/virtualAssistantComponents/virtualAssistntBase/VirtualAssistantBase";
+import ChartHistograms from "../../../components/analyticGistograms/chartHistograms/ChartHistograms";
+import HistogramBase from "../../../components/analyticGistograms/histogramBase/HistogramBase";
+import AllTransactionsList from "../../../components/transactionComponents/transactionWholeList/TransactionWholeList";
+import userDataSelector from "../../../services/redux/features/userData/UserDataSelector";
+import infoPartSelector from "../../../services/redux/features/infoPart/InfoPartSelector";
+import { percentFunction } from "../../../utils/percentFunction";
+import { getAnaliticGistogramSum } from "../../../utils/analyticUtils";
+import { URLS, firstDayOfMonth, lastDayOfMonth } from "../../../helpers/urlsAndDates";
+import {
+	getIncomePercent,
+	getMoneyBox,
+	getOperationList,
+	getOutcomePercent,
+} from "../../../services/api/mainFieldApi/AnalyticActions";
 
 import "./MainFieldAnalytic.css";
 
@@ -88,14 +92,8 @@ function MainFieldAnalytic({
 			: `${URLS.getSumMoneyBoxGroup}?date_start=${dataStart}&date_end=${dataEnd}`;
 
 		const outcomeTotal: any = [];
-		const optionsIncome = {
-			method: "GET",
-			headers: {
-				"Content-Type": "application/json",
-				Authorization: `Token ${token}`,
-			},
-		};
-		fetch(incomeEndpoint, optionsIncome)
+
+		getIncomePercent(incomeEndpoint, token ?? "")
 			.then((result) => result.json())
 			.then((dataSumIncome) => {
 				setSumGroupIncome(dataSumIncome);
@@ -104,28 +102,14 @@ function MainFieldAnalytic({
 				}
 			});
 
-		const optionsOutcome = {
-			method: "GET",
-			headers: {
-				"Content-Type": "application/json",
-				Authorization: `Token ${token}`,
-			},
-		};
-		fetch(outcomeEndpoint, optionsOutcome)
+		getOutcomePercent(outcomeEndpoint, token ?? "")
 			.then((result) => result.json())
 			.then((dataSumOutcome) => {
 				setSumGroupOutcome(dataSumOutcome);
 				outcomeTotal.unshift(...dataSumOutcome);
 			});
 
-		const optionsMoneyBox = {
-			method: "GET",
-			headers: {
-				"Content-Type": "application/json",
-				Authorization: `Token ${token}`,
-			},
-		};
-		fetch(moneyBoxEndpoint, optionsMoneyBox)
+		getMoneyBox(moneyBoxEndpoint, token ?? "")
 			.then((result) => result.json())
 			.then((dataSumMoneyBox) => {
 				outcomeTotal.push(...dataSumMoneyBox);
@@ -140,21 +124,6 @@ function MainFieldAnalytic({
 	useEffect(() => {
 		getStorageCategories(URLS.getMoneyBoxCategories);
 	}, []);
-
-	function getAllOperationList() {
-		const options = {
-			method: "GET",
-			headers: {
-				"Content-Type": "application/json",
-				Authorization: `Token ${token}`,
-			},
-		};
-		fetch(`${URLS.getAllOperations}?date_start=${dataStart}&date_end=${dataEnd}`, options)
-			.then((result) => result.json())
-			.then((responseServer) => {
-				setAllOperationList(responseServer);
-			});
-	}
 
 	useEffect(() => {
 		getAllOperationList();
@@ -237,6 +206,14 @@ function MainFieldAnalytic({
 		(item / onePercentAnaliticTotalForGistogram).toFixed(2),
 	);
 	// console.log(analiticTotalForGistogramInPercent)
+
+	function getAllOperationList() {
+		getOperationList(dataStart, dataEnd, token ?? "")
+			.then((result) => result.json())
+			.then((responseServer) => {
+				setAllOperationList(responseServer);
+			});
+	}
 
 	function handlePercentChange(e) {
 		if (e.target.value === "В рублях") return setPercentChoice(false);

@@ -5,7 +5,7 @@ import useAppSelector from "../../../hooks/useAppSelector";
 import PersonElement from "../personElement/PersonElement";
 import InformBox from "../InformBox/InformBox";
 import userDataSelector from "../../../services/redux/features/userData/UserDataSelector";
-import { URLS } from "../../../helpers/urlsAndDates";
+import { getAiAnswer, getAiMoneyAdvice, getAiTaxRecommendation } from "../../../services/api/VirtualAssistant";
 
 import AiModalWindow from "../../aiModal/windowBaseElement/AiModalWindow";
 
@@ -20,36 +20,35 @@ const VirtualAssistant = ({ active, setActive, checked, setChecked }: any) => {
 	const [aiAnswer, setAiAnswer] = useState("");
 	const [aiSavingMoneyAdvice, setAiSavingMoneyAdvice] = useState("");
 	const [aiTaxDeduction, setAiTaxDeduction] = useState("");
-	// const [messageType, setMessageType] = useState("Аналитика")
 
-	function getAiRecomendation() {
-		const options = {
-			method: "GET",
-			headers: {
-				"Content-type": "application/json",
-				Authorization: `Token ${token}`,
-			},
-		};
-
-		fetch(URLS.getAiAnswer, options)
+	async function getAiRecommendation() {
+		await getAiAnswer(token ?? "")
 			.then((response) => response.json())
 			.then((result) => setAiAnswer(result.ai_answer));
-		fetch(URLS.getSavingMoneyAdvice, options)
+		await getAiMoneyAdvice(token ?? "")
 			.then((response) => response.json())
 			.then((result) => setAiSavingMoneyAdvice(result.ai_answer));
-		fetch(URLS.getTaxDeduction, options)
+		await getAiTaxRecommendation(token ?? "")
 			.then((response) => response.json())
 			.then((result) => setAiTaxDeduction(result.ai_answer));
 	}
 
 	useEffect(() => {
-		if (checked && !aiAnswer) getAiRecomendation();
-		if (checked && aiAnswer) setActive(true);
-		if (!checked) setActive(false);
+		if (checked && !aiAnswer) {
+			getAiRecommendation();
+		}
+		if (checked && aiAnswer) {
+			setActive(true);
+		}
+		if (!checked) {
+			setActive(false);
+		}
 	}, [checked]);
 
 	useEffect(() => {
-		if (aiAnswer || aiSavingMoneyAdvice || aiTaxDeduction) setActive(true);
+		if (aiAnswer || aiSavingMoneyAdvice || aiTaxDeduction) {
+			setActive(true);
+		}
 	}, [aiAnswer, aiSavingMoneyAdvice, aiTaxDeduction]);
 
 	// function hideArtificialIntelligence(e) {

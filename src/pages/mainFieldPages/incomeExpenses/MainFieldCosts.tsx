@@ -1,9 +1,8 @@
 // Компонент "Расходы"
 import { useEffect } from "react";
 
-import { URLS, months, month } from "../../../helpers/urlsAndDates";
-
 import MainFieldString from "../../../components/mainFieldString/MainFieldString";
+import { URLS, months, month } from "../../../helpers/urlsAndDates";
 import { numberFormatRub } from "../../../helpers/calculator";
 
 function MainFieldCosts({

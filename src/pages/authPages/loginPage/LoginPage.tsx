@@ -1,15 +1,15 @@
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import axios from "axios";
 import { useNavigate } from "react-router";
 import { Link } from "react-router-dom";
 import { useRef, useState } from "react";
 
 import useAppDispatch from "../../../hooks/useAppDispatch";
 
+import { TLoginData } from "../../../types/api/Auth";
 import { setUser } from "../../../services/redux/features/userData/UserDataSlice";
 import { AuthPath } from "../../../services/router/routes";
-import { URLS } from "../../../helpers/urlsAndDates";
+import { loginUser } from "../../../services/api/auth/Login";
 
 import Logo from "../../../components/logoElement/LogoElement";
 
@@ -35,20 +35,20 @@ const LoginPage = () => {
 			setPasswordType(passNo);
 		}
 	};
-	const registerHandler = async (values, { setSubmitting }) => {
-		const payload = {
+	const signInHandler = async (values: any, { setSubmitting }: any) => {
+		const loginData: TLoginData = {
 			username: values.username,
 			password: values.password,
 		};
 		try {
-			const response = await axios.post(URLS.authorisation, payload);
+			const response = await loginUser(loginData);
 			dispatch(
 				setUser({
 					token: response.data.auth_token,
 				}),
 			);
 
-			response.data.auth_token && setReply(`Пользователь ${payload.username} вошел в свою учетную запись`);
+			response.data.auth_token && setReply(`Пользователь ${loginData.username} вошел в свою учетную запись`);
 
 			navigate("/rectangle");
 		} catch (e) {
@@ -109,7 +109,7 @@ const LoginPage = () => {
 						}}
 						validateOnBlur
 						validationSchema={validationSchema}
-						onSubmit={registerHandler}>
+						onSubmit={signInHandler}>
 						{({ isValid }) => (
 							<Form className={style.form} onChange={resetReply}>
 								<br />

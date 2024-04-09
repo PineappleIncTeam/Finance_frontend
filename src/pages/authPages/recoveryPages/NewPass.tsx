@@ -2,12 +2,14 @@ import { useState } from "react";
 import { Formik, Form, Field } from "formik";
 import { useNavigate } from "react-router";
 import { Link, useLocation } from "react-router-dom";
-import axios from "axios";
 import queryString from "query-string";
 
 import Logo from "../../../components/logoElement/LogoElement";
-import { URLS } from "../../../helpers/urlsAndDates";
 import { AuthPath } from "../../../services/router/routes";
+
+import { changeUserPassword } from "../../../services/api/auth/Newpassword";
+
+import { ChangingUserPassword } from "../../../types/api/Auth";
 
 import passNo from "./../../../assets/passNo.png";
 import passYes from "./../../../assets/passYes.png";
@@ -30,13 +32,14 @@ const NewPass = () => {
 	const { uid, token } = queryString.parse(location.search);
 
 	const changePassword = async (values: any) => {
-		const data = {
+		const userData: ChangingUserPassword = {
 			uid: uid,
-			token: token,
+			token: String(token),
 			new_password: values.password,
 			re_new_password: values.confirmPassword,
 		};
-		const response = await axios.post(URLS.resetPasswordConfirm, data);
+		const response = await changeUserPassword(userData);
+
 		if (response.status === 204) {
 			setMessage("Ваш пароль успешно изменен");
 			setTimeout(() => navigate("/"), 3000);
@@ -59,11 +62,11 @@ const NewPass = () => {
 		}
 	};
 
-	function validatePass(value) {
+	function validatePass(value: any) {
 		if (!value) return "Обязательно";
 	}
 
-	function validateConfirmPass(password, value) {
+	function validateConfirmPass(password: any, value: any) {
 		if (!value) return "Обязательно";
 		if (password !== value) return "Пароли не совпадают";
 	}
@@ -103,7 +106,7 @@ const NewPass = () => {
 										type={confirmType.type}
 										name="confirmPassword"
 										placeholder="Повторите пароль"
-										validate={(value) => validateConfirmPass(values.password, value)}
+										validate={(value: any) => validateConfirmPass(values.password, value)}
 									/>
 									<img
 										className={style.icon}

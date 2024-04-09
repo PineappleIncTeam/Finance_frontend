@@ -12,6 +12,16 @@ import closeIcon from "../../../assets/closeIcon.svg";
 
 import style from "../../../ui/modalWindow/Modal.module.css";
 
+import {
+	deleteIncomeCash,
+	deleteMoneyBoxCash,
+	deleteOutcomeCash,
+	updateIncomeCash,
+	updateMoneyBoxCash,
+	updateOutcomeCash,
+} from "../../../services/api/TransactionListActions";
+import { ICashData } from "../../../types/api/TransactionListActions";
+
 import s from "./TransactionList.module.css";
 
 function TransactionList({
@@ -50,8 +60,9 @@ function TransactionList({
 		setModalChangeSum(false);
 	}
 
-	function handleInput(e) {
+	function handleInput(e: any) {
 		e.preventDefault();
+
 		setNewSum(e.target.value.replace(/[^0-9.,]+/, "").replace(/,/, "."));
 	}
 
@@ -73,16 +84,9 @@ function TransactionList({
 		setModalDeleteActive(false);
 	}
 
-	function deleteCash(id, symbol) {
-		const deleteOptions = {
-			method: "DELETE",
-			headers: {
-				"Content-Type": "application/json",
-				Authorization: `Token ${token}`,
-			},
-		};
+	function deleteCash(id: any, symbol: any) {
 		if (symbol === "+") {
-			fetch(`${URLS.deleteIncomeCash}${id}`, deleteOptions);
+			deleteIncomeCash(id, token ?? "");
 			setTimeout(() => {
 				getOperationList(URLS.last5IncomeCash, symbol);
 				getInputData(URLS.sumIncomeCash);
@@ -90,7 +94,7 @@ function TransactionList({
 			}, 500);
 		}
 		if (symbol === "-") {
-			fetch(`${URLS.deleteOutcomeCash}${id}`, deleteOptions);
+			deleteOutcomeCash(id, token ?? "");
 			setTimeout(() => {
 				getOperationList(URLS.last5OutcomeCash, symbol);
 				getInputData(URLS.sumOutcomeCash);
@@ -98,7 +102,7 @@ function TransactionList({
 			}, 500);
 		}
 		if (symbol === " ") {
-			fetch(`${URLS.deleteMoneyBoxCash}${id}`, deleteOptions);
+			deleteMoneyBoxCash(id, token ?? "");
 			setTimeout(() => {
 				getOperationList(URLS.last5MoneyBoxOperation, symbol);
 				getInputData(URLS.sumOutcomeCash);
@@ -113,21 +117,14 @@ function TransactionList({
 	function updateCash(event: BaseSyntheticEvent, id: any, category: any, name: any, symbol: any) {
 		event.preventDefault();
 
-		const data = {
+		const cashData: ICashData = {
 			category_id: category,
 			categoryName: name,
 			sum: newSum,
 		};
-		const updateOptions = {
-			method: "PUT",
-			headers: {
-				"Content-Type": "application/json",
-				Authorization: `Token ${token}`,
-			},
-			body: JSON.stringify(data),
-		};
+
 		if (symbol === "+") {
-			fetch(`${URLS.updateIncomeCash}${id}`, updateOptions);
+			updateIncomeCash(cashData, id, token ?? "");
 			setTimeout(() => {
 				getOperationList(URLS.last5IncomeCash, symbol);
 				getInputData(URLS.sumIncomeCash);
@@ -135,7 +132,7 @@ function TransactionList({
 			}, 400);
 		}
 		if (symbol === "-") {
-			fetch(`${URLS.updateOutcomeCash}${id}`, updateOptions);
+			updateOutcomeCash(cashData, id, token ?? "");
 			setTimeout(() => {
 				getOperationList(URLS.last5OutcomeCash, symbol);
 				getInputData(URLS.sumOutcomeCash);
@@ -143,7 +140,7 @@ function TransactionList({
 			}, 400);
 		}
 		if (symbol === " ") {
-			fetch(`${URLS.updateMoneyBoxCash}${id}`, updateOptions).then((response) => {
+			updateMoneyBoxCash(cashData, id, token ?? "").then((response) => {
 				if (response.status === 400) {
 					setModalChangeSum(false);
 					setModalMessageText("Сумма операции не должна превышать цель накопления");

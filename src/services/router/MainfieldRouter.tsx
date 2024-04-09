@@ -3,8 +3,8 @@ import { Route, Routes } from "react-router-dom";
 import MainFieldStorage from "../../pages/mainFieldPages/mainFieldStorage/MainFieldStorage";
 import MainFieldAnalytic from "../../pages/mainFieldPages/analytic/MainFieldAnalytic";
 import Calculator from "../../pages/mainFieldPages/calculator/Calculator";
-import MainField from "../../pages/mainFieldPages/incomeExpenses1/MainField";
-import MainFieldCosts from "../../pages/mainFieldPages/incomeExpenses1/MainFieldCosts";
+import MainField from "../../pages/mainFieldPages/incomeExpenses/MainField";
+import MainFieldCosts from "../../pages/mainFieldPages/incomeExpenses/MainFieldCosts";
 
 import { MainFieldPath } from "./routes";
 

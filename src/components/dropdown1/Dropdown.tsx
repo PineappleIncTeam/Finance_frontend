@@ -1,9 +1,10 @@
 import { BaseSyntheticEvent, useEffect, useRef, useState } from "react";
 
-import { URLS } from "../../helpers/urlsAndDates";
+import { IArchiveCategoryData, IDropdownCategoryData } from "../../types/api/Dropdown";
+import Modal from "../../ui/modalWindow/Modal";
+import { addDropdownCategory, deleteDropdownCategory, sendCategoryToArchive } from "../../services/api/Dropdown";
 
 import closeIcon from "../../assets/closeIcon.svg";
-import Modal from "../../ui/modalWindow/Modal";
 import style from "../../ui/modalWindow/Modal.module.css";
 
 import CloseIcon from "../../assets/script/CloseIcon";
@@ -85,7 +86,7 @@ function Dropdown({
 	// 	setNewTarget(e.target.value.replace(/[^0-9.,]+/g, "").replace(/,/, "."));
 	// }
 
-	function createModal(categoryId, categoryName) {
+	function createModal(categoryId: any, categoryName: any) {
 		if (categoryName === "Из Накоплений") {
 			// eslint-disable-next-line quotes
 			setModalMessage('В эту категорию можно только переносить данные из раздела "Накопления"');
@@ -100,7 +101,7 @@ function Dropdown({
 	//
 	const userCategoriesName =
 		categories &&
-		categories.map((item) => {
+		categories.map((item: any) => {
 			if (item.category_type === category_type) {
 				return item.categoryName.toLowerCase();
 			}
@@ -114,7 +115,7 @@ function Dropdown({
 		}
 	}, [showMenu]);
 
-	const onSearch = (event) => {
+	const onSearch = (event: any) => {
 		setSearchValue(event.target.value);
 	};
 
@@ -129,13 +130,14 @@ function Dropdown({
 	// }
 
 	useEffect(() => {
-		const handler = (event) => {
+		const handler = (event: any) => {
 			if (inputRef.current && !inputRef.current.contains(event.target)) {
 				setShowMenu(false);
 			}
 		};
 
 		window.addEventListener("click", handler);
+
 		return () => {
 			window.removeEventListener("click", handler);
 		};
@@ -151,7 +153,7 @@ function Dropdown({
 		return title;
 	}
 
-	const onItemClick = (option) => {
+	const onItemClick = (option: any) => {
 		if (option.categoryName === "Из Накоплений") {
 			// setModalMessage(
 			//   'В эту категорию можно только переносить данные из раздела "Накопления"'
@@ -165,14 +167,14 @@ function Dropdown({
 		}
 	};
 
-	const isSelected = (option) => {
+	const isSelected = (option: any) => {
 		if (!selectedValue) {
 			return false;
 		}
 		return selectedValue.categoryName === option.categoryName;
 	};
 
-	function chooseAndAddCategory(e) {
+	function chooseAndAddCategory(e: BaseSyntheticEvent) {
 		e.preventDefault();
 
 		for (let i = 0; i < userCategoriesName.length; i++) {
@@ -181,24 +183,15 @@ function Dropdown({
 				return;
 			}
 		}
-		const data = {
+
+		const dropdownCategoryData: IDropdownCategoryData = {
 			categoryName: newCategory,
 			category_type,
 			income_outcome,
-			//
 			target: newTarget,
 		};
 
-		const options = {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-				Authorization: `Token ${token}`,
-			},
-			body: JSON.stringify(data),
-		};
-
-		fetch(URLS.createCategory, options).then((result) => {
+		addDropdownCategory(dropdownCategoryData, token ?? "").then((result) => {
 			result.json();
 			setSelectedValue("");
 			getCategories(typeOfCategories);
@@ -208,17 +201,10 @@ function Dropdown({
 		});
 	}
 
-	function deleteCategory(e, category) {
+	function deleteCategory(e: BaseSyntheticEvent, category: any) {
 		e.preventDefault();
-		const options = {
-			method: "DELETE",
-			headers: {
-				"Content-Type": "application/json",
-				Authorization: `Token ${token}`,
-			},
-		};
 
-		fetch(`${URLS.deleteCategory}${category.id}`, options)
+		deleteDropdownCategory(category.id, token ?? "")
 			.then(() => {
 				setSelectedValue("");
 				getDisplay();
@@ -240,21 +226,15 @@ function Dropdown({
 			});
 	}
 
-	function sendToArchive(e, category) {
+	function sendToArchive(e: BaseSyntheticEvent, category: any) {
 		e.preventDefault();
-		const options = {
-			method: "PUT",
-			headers: {
-				"Content-Type": "application/json",
-				Authorization: `Token ${token}`,
-			},
-			body: JSON.stringify({
-				category_id: category.id,
-				is_hidden: true,
-			}),
+
+		const archiveCategoryData: IArchiveCategoryData = {
+			category_id: category.id,
+			is_hidden: true,
 		};
 
-		fetch(`${URLS.sendCategoryToArchive}${category.id}`, options)
+		sendCategoryToArchive(archiveCategoryData, category.id, token ?? "")
 			.then(() => {
 				setModalMessage(`Категория "${selectedCategory.name}" была переведена в архив`);
 				setSelectedValue("");

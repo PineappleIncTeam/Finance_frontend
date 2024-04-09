@@ -1,15 +1,16 @@
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import YupPassword from "yup-password";
-import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import { useRef, useState } from "react";
 
 import useAppDispatch from "../../../hooks/useAppDispatch";
 
+import { ISignupUserData, TLoginData } from "../../../types/api/Auth";
+import { signupUser } from "../../../services/api/auth/Signup";
+import { loginUser } from "../../../services/api/auth/Login";
 import { setUser } from "../../../services/redux/features/userData/UserDataSlice";
 import { AuthPath } from "../../../services/router/routes";
-import { URLS } from "../../../helpers/urlsAndDates";
 
 import Logo from "../../../components/logoElement/LogoElement";
 
@@ -50,35 +51,34 @@ const SignupPage = () => {
 		}
 	};
 
-	const registerHandler = async (values, { setSubmitting }) => {
+	const registerHandler = async (values: any, { setSubmitting }: any) => {
 		setPasswordType(passNo);
 		setConfirmType(passNo);
-		const payload = {
+
+		const signupUserData: ISignupUserData = {
 			email: values.email,
 			username: values.username,
 			password: values.password,
 		};
-		const payload2 = {
+		const loginData: TLoginData = {
 			username: values.username,
 			password: values.password,
 		};
 		try {
-			const response = await axios.post(URLS.registration, payload);
+			const response = await signupUser(signupUserData);
 
 			response.data.email && setReply("Регистрация прошла успешно");
-			axios.post(URLS.authorisation, payload2).then((response2) => {
-				dispatch(
-					setUser({
-						token: response2.data.auth_token,
-					}),
-				);
-				response.data.auth_token && setReply(`Пользователь ${payload.username} вошел в свою учетную запись`);
+
+			loginUser(loginData).then((response2) => {
+				dispatch(setUser({ token: response2.data.auth_token }));
+
+				response.data.auth_token && setReply(`Пользователь ${signupUserData.username} вошел в свою учетную запись`);
 
 				navigate("/rectangle");
 			});
 		} catch (error: any) {
 			error.response.data.username
-				? setReply(`Пользователь с логином ${payload.username} уже зарегистрирован`)
+				? setReply(`Пользователь с логином ${signupUserData.username} уже зарегистрирован`)
 				: setReply("Пользователь с таким Email уже зарегистрирован");
 		} finally {
 			setSubmitting(false);

@@ -7,7 +7,7 @@ import useAppSelector from "../../../hooks/useAppSelector";
 import infoPartSelector from "../../../services/redux/features/infoPart/InfoPartSelector";
 import userDataSelector from "../../../services/redux/features/userData/UserDataSelector";
 import { getStorageSum, getBalanceToTarget, getBalanceToTargetinPercent } from "../../../utils/storageFunctions";
-import { URLS, currentDate, startDate } from "../../../helpers/urlsAndDates";
+import { currentDate, startDate } from "../../../helpers/urlsAndDates";
 
 import MainFieldRouter from "../../../services/router/MainfieldRouter";
 
@@ -16,6 +16,12 @@ import Aside from "../../../components/dateBar/DateBar";
 import Transactions from "../../../components/transactionComponents/transactionArray/TransactionArray";
 
 import "./Rectangle.css";
+import {
+	getBalanceInfo,
+	getBaseCategoryList,
+	getInputInfo,
+	getOperations,
+} from "../../../services/api/mainFieldApi/RectangleActions";
 
 function Rectangle() {
 	// const [allOperationList, setAllOperationList] = useState()
@@ -52,8 +58,6 @@ function Rectangle() {
 		setRange(range);
 	}
 
-	//
-
 	useEffect(() => {
 		const handleResize = (event: any) => {
 			setWidth(event.target.innerWidth);
@@ -75,38 +79,21 @@ function Rectangle() {
 			setGistogramSize({ width: 280, height: 500, indexAxis: "y" });
 		}
 	}, [width]);
-	//
+
 	function getCategories(typeOfCategories: any) {
-		const options = {
-			method: "GET",
-			headers: {
-				"Content-Type": "application/json",
-				Authorization: `Token ${token}`,
-			},
-		};
-		// fetch(typeOfCategories, options)
-		//   .then((result) => result.json())
-		//   .then((userCategories) => setCategories(userCategories))
-		fetch(typeOfCategories, options).then(function (response) {
+		getBaseCategoryList(typeOfCategories, token ?? "").then(function (response: any) {
 			if (response.status === 401) {
 				navigate("/");
 				return;
 			}
-			response.json().then((userCategories) => setCategories(userCategories));
+			response.json().then((userCategories: any) => setCategories(userCategories));
 		});
 	}
 
 	function getStorageCategories(typeOfCategories: any) {
-		const options = {
-			method: "GET",
-			headers: {
-				"Content-Type": "application/json",
-				Authorization: `Token ${token}`,
-			},
-		};
-		fetch(typeOfCategories, options)
-			.then((result) => result.json())
-			.then((userCategories) => {
+		getBaseCategoryList(typeOfCategories, token ?? "")
+			.then((result: any) => result.json())
+			.then((userCategories: any) => {
 				setStorageCategories(userCategories);
 				setStorageSum(getStorageSum(userCategories));
 				setBalanceToTarget(getBalanceToTarget(userCategories));
@@ -114,15 +101,8 @@ function Rectangle() {
 			});
 	}
 
-	function getOperationList(endpoint: any, symbol: any) {
-		const options = {
-			method: "GET",
-			headers: {
-				"Content-Type": "application/json",
-				Authorization: `Token ${token}`,
-			},
-		};
-		fetch(endpoint, options)
+	function getOperationList(endpoint: string, symbol: any) {
+		getOperations(endpoint, token ?? "")
 			.then((result) => result.json())
 			.then((responseServer) => {
 				setOperationList("");
@@ -130,56 +110,23 @@ function Rectangle() {
 				setSymbol(symbol);
 			});
 	}
-	// function getAllOperationList() {
-	//   const options = {
-	//     method: "GET",
-	//     headers: {
-	//       "Content-Type": "application/json",
-	//       Authorization: `Token ${token}`,
-	//     },
-	//   }
-	//   fetch(URLS.getAllOperations, options)
-	//     .then((result) => result.json())
-	//     .then((responseServer) => {
-	//       setAllOperationList(responseServer)
-	//     })
-	// }
-	// useEffect(() => {
-	//   getAllOperationList()
-	// }, [])
 
 	function getBalanceData() {
-		const options = {
-			method: "GET",
-			headers: {
-				"Content-Type": "application/json",
-				Authorization: `Token ${token}`,
-			},
-		};
-		fetch(`${URLS.balance}?date_start=${startDate}&date_end=${selectDate}`, options).then(function (response) {
+		getBalanceInfo(startDate, selectDate, token ?? "").then(function (response) {
 			if (response.status === 401) {
 				navigate("/");
 				return;
 			}
 			response.json().then((responseServer) => setBalanceData(Number(responseServer.sum_balance).toFixed(2)));
 		});
-		// .then((result) => result.json())
-		// .then((responseServer) => setBalanceData(Number(responseServer.sum_balance).toFixed(2)))
 	}
 
 	useEffect(() => {
 		getBalanceData();
 	}, [dataCal]);
 
-	function getInputData(endpoint: any) {
-		const options = {
-			method: "GET",
-			headers: {
-				"Content-Type": "application/json",
-				Authorization: `Token ${token}`,
-			},
-		};
-		fetch(endpoint, options)
+	function getInputData(endpoint: string) {
+		getInputInfo(endpoint, token ?? "")
 			.then((result) => result.json())
 			.then((responseServer) => {
 				if (responseServer.length) {

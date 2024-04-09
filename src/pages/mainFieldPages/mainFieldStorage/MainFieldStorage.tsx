@@ -1,24 +1,25 @@
-// Компонент "Накопления"
 import { BaseSyntheticEvent, useEffect, useState } from "react";
 
 import useAppSelector from "../../../hooks/useAppSelector";
 
+import { SendingIncomeToSum } from "../../../types/api/StorageActions";
 import Modal from "../../../ui/modalWindow/Modal";
+import MainFieldString from "../../../components/mainFieldString/MainFieldString";
 import userDataSelector from "../../../services/redux/features/userData/UserDataSelector";
+import { createNewCategory, removeCategory, sendIncomeToSum } from "../../../services/api/mainFieldApi/StorageActions";
 import { URLS, dateOnline } from "../../../helpers/urlsAndDates";
+import { numberFormatRub } from "../../../helpers/calculator";
 import { getStorageSum } from "../../../utils/storageFunctions";
 
 import closeIcon from "../../../assets/closeIcon.svg";
 import statusImage from "../../../assets/statusImage.svg";
 import statusCheckBox from "../../../assets/checkBox.svg";
 
-import MainFieldString from "../../../components/mainFieldString/MainFieldString";
-import { numberFormatRub } from "../../../helpers/calculator";
-
 import modalStyle from "../../../ui/modalWindow/Modal.module.css";
 
 import style from "./MainFieldStorage.module.css";
 
+// Компонент "Накопления"
 function MainFieldStorage({
 	categories,
 	getCategories,
@@ -48,23 +49,16 @@ function MainFieldStorage({
 		setSelectedCategory(category);
 	}
 
-	function sendSumToIncome(e: BaseSyntheticEvent, category: any, incomeCategory: any) {
+	function addSumToIncome(e: BaseSyntheticEvent, category: any, incomeCategory: any) {
 		e.preventDefault();
 
-		const data = {
+		const incomeData: SendingIncomeToSum = {
 			sum: category.sum,
 			category_id: incomeCategory.category_id,
 			date: dateOnline,
 		};
-		const options = {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-				Authorization: `Token ${token}`,
-			},
-			body: JSON.stringify(data),
-		};
-		fetch(URLS.POSTincomcash, options).then(() => {
+
+		sendIncomeToSum(incomeData, token ?? "").then(() => {
 			setModalMessage(`Накопление ${category.categoryName} было переведено в доход в категорию "Из Накоплений"`);
 			getCategories(URLS.getIncomeCategories);
 			deleteCategory(e, category);
@@ -76,45 +70,22 @@ function MainFieldStorage({
 		});
 		getStorageSum(storageCategories);
 	}
+
 	function addCategory(e: BaseSyntheticEvent, category: any) {
 		e.preventDefault();
 
-		const data = {
-			categoryName: "Из Накоплений",
-			category_type: "constant",
-			income_outcome: "income",
-			//
-			// target: newTarget,
-		};
-
-		const options = {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-				Authorization: `Token ${token}`,
-			},
-			body: JSON.stringify(data),
-		};
-
-		fetch(URLS.createCategory, options)
+		createNewCategory(token ?? "")
 			.then((response) => response.json())
 			.then((data) => {
-				sendSumToIncome(e, category, data);
+				addSumToIncome(e, category, data);
 				getBalanceData();
 			});
 	}
 
 	function deleteCategory(e: BaseSyntheticEvent, category: any) {
 		e.preventDefault();
-		const options = {
-			method: "DELETE",
-			headers: {
-				"Content-Type": "application/json",
-				Authorization: `Token ${token}`,
-			},
-		};
 
-		fetch(`${URLS.deleteCategory}${category.category_id}`, options)
+		removeCategory(`${URLS.deleteCategory}${category.category_id}`, token ?? "")
 			.then(() => {
 				getStorageCategories(URLS.getMoneyBoxCategories);
 			})
@@ -125,18 +96,20 @@ function MainFieldStorage({
 					setSelectedCategory({});
 				}, 2000);
 			});
+
 		getStorageSum(storageCategories);
 	}
 
 	function sendStorageToIncome(e: BaseSyntheticEvent, category: any, categories: any) {
 		e.preventDefault();
 		let count = 0;
+
 		for (let i = 0; i < categories.length; i++) {
 			if (categories[i].categoryName === "Из Накоплений") {
 				count += 1;
 			}
 		}
-		if (count > 0) sendSumToIncome(e, category, categoryFromStorage);
+		if (count > 0) addSumToIncome(e, category, categoryFromStorage);
 		else addCategory(e, category);
 
 		count = 0;
@@ -252,34 +225,3 @@ function MainFieldStorage({
 	);
 }
 export default MainFieldStorage;
-
-// function sendToArchive(e, category) {
-//   e.preventDefault()
-//   const options = {
-//     method: "PUT",
-//     headers: {
-//       "Content-Type": "application/json",
-//       Authorization: `Token ${token}`,
-//     },
-//     body: JSON.stringify({
-//       category_id: category.category_id,
-//       is_hidden: true,
-//     }),
-//   }
-//   fetch(
-//     `${URLS.sendCategoryToArchive}${selectedCategory.category_id}`,
-//     options
-//   )
-//     .then((result) => {
-//       setModalMessage(
-//         `Категория "${selectedCategory.categoryName}" была переведена в архив`
-//       )
-//     })
-//     .then(() => {
-//       setTimeout(() => {
-//         getStorageCategories(URLS.getMoneyBoxCategories)
-//         setModalActive(false)
-//         setModalMessage("")
-//       }, 2000)
-//     })
-// }

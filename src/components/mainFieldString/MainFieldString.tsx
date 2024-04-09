@@ -14,6 +14,9 @@ import Dropdown from "../dropdown1/Dropdown";
 
 import style from "../../ui/modalWindow/Modal.module.css";
 
+import { sendCurrentSum } from "../../services/api/mainFieldApi/MainFieldString";
+import { ISummaryData } from "../../types/api/MainFieldString";
+
 import styles from "./MainFieldString.module.css";
 
 function MainFieldString({
@@ -58,39 +61,24 @@ function MainFieldString({
 
 	function sumSubmit(event: any) {
 		event.preventDefault();
-		const data = {
-			// sum: enterSum || sumForTarget.toFixed(2),
+
+		const summaryData: ISummaryData = {
 			sum: enterSum || sumForTarget,
 			category_id: selectElement.category_id || selectElement.id,
 			date: dataCalendar ? dataCalendar : dateOnline,
-			//
-			// target: selectElement.target ? selectElement.target : Number(target).toFixed(2),
 			target: selectElement.target ? selectElement.target : target,
-			//
-		};
-
-		const options = {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-				Authorization: `Token ${token}`,
-			},
-			body: JSON.stringify(data),
 		};
 
 		if (data.sum === 0 && data.target === selectElement.target) {
 			setModalMessage("Вы не можете изменить цель накопления");
 			setModalActive(true);
-			return;
+			return null;
 		}
 
-		fetch(typeOfSum, options)
+		sendCurrentSum(typeOfSum, summaryData, token ?? "")
 			.then((response) => {
 				if (!placeholder && response.status === 400 && title === "Накопления") {
-					setModalMessage(`Вы можете добавить не более ${(selectElement.target - selectElement.sum).toFixed(
-						2,
-					)} руб. \n для закрытия данного
-          накопления`);
+					setModalMessage(`Вы можете добавить не более ${(selectElement.target - selectElement.sum).toFixed(2)}`);
 					setModalActive(true);
 				}
 				if (response.status === 500) {

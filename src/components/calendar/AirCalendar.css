@@ -34,7 +34,7 @@
 	display: inline-block;
 }
 
-.vect {
+.calendar-vector {
 	position: absolute;
 	top: 16px;
 	right: 10px;
@@ -92,7 +92,7 @@
 	.air-datepicker-nav--title {
 		font-size: 16px;
 	}
-	.vect {
+	.calendar-vector {
 		width: 18px;
 		height: 18px;
 		top: 12px;
@@ -186,7 +186,7 @@
 	.input::placeholder {
 		font-size: 10px;
 	}
-	.vect {
+	.calendar-vector {
 		width: 15px;
 		height: 15px;
 		top: 7px;

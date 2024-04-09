@@ -1,4 +1,3 @@
-// import RegistRoutePage from "./components/RoutePage/RegistRoutePage";
 import IntroRouteList from "./services/router/SignupRouteList";
 
 import "./App.css";

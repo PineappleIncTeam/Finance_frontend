@@ -109,7 +109,7 @@ const ExchangeRates = ({
 				{exchangeRates ? (
 					<>
 						<div className={style.exchange_title}>
-							<a className={style.exchange_title_link} href="https://www.cbr-xml-daily.ru/" target="_blanck">
+							<a className={style.exchange_title_link} href="https://www.cbr-xml-daily.ru/" target="_blank">
 								Виджет курсов валют
 							</a>{" "}
 							ЦБ РФ <br />

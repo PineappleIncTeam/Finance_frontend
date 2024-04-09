@@ -72,11 +72,7 @@
 		text-align: left;
 	}
 }
-@media (max-width: 1280px) {
-	.balance input {
-		/* width: 120px; */
-	}
-}
+
 @media (max-width: 1200px) {
 	.balance input {
 		max-width: 120px;

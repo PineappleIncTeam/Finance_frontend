@@ -13,7 +13,7 @@ export function getBalanceToTarget(storageCategories: any) {
 	balanceToTarget = (totalTarget - totalSum).toFixed(2);
 	return balanceToTarget;
 }
-export function getBalanceToTargetinPercent(storageCategories: any) {
+export function getBalanceToTargetingPercent(storageCategories: any) {
 	let totalSum = 0;
 	let totalTarget = 0;
 	storageCategories && storageCategories.map((item: any) => (totalSum += item.sum));

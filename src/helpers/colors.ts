@@ -65,4 +65,4 @@ export const colorsOutcome = [
 ];
 
 export const colorsStorage = ["#23b09b", "#999999"];
-export const colorsAnalitic = ["#aceb0e", ...colorsOutcome];
+export const colorsAnalytic = ["#aceb0e", ...colorsOutcome];

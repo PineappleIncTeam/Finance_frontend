@@ -4,7 +4,7 @@ import { firstDayOfMonthToPDF, lastDayOfMonthToPDF } from "../../../helpers/urls
 
 import style from "./CreateXLS.module.css";
 
-const CreateXLS = ({ allOperationList, dataCalRange }) => {
+const CreateXLS = ({ allOperationList, dataCalRange }: any) => {
 	const dataStart = dataCalRange.length > 1 ? dataCalRange[0] : firstDayOfMonthToPDF;
 	const dataEnd = dataCalRange.length > 1 ? dataCalRange[1] : lastDayOfMonthToPDF;
 
@@ -45,7 +45,7 @@ const CreateXLS = ({ allOperationList, dataCalRange }) => {
 						</tr>
 					)}
 					{incomeCash &&
-						incomeCash.map((item, index) => {
+						incomeCash.map((item: any, index: number) => {
 							return (
 								<tr key={index} id={item.id}>
 									<th>{item.date}</th>
@@ -61,7 +61,7 @@ const CreateXLS = ({ allOperationList, dataCalRange }) => {
 						</tr>
 					)}
 					{outcomeCash &&
-						outcomeCash.map((item, index) => {
+						outcomeCash.map((item: any, index: number) => {
 							return (
 								<tr key={index} id={item.id}>
 									<th>{item.date}</th>
@@ -76,7 +76,7 @@ const CreateXLS = ({ allOperationList, dataCalRange }) => {
 						</tr>
 					)}
 					{moneyBox &&
-						moneyBox.map((item, index) => {
+						moneyBox.map((item: any, index: number) => {
 							return (
 								<tr key={index} id={item.id}>
 									<th>{item.date}</th>
@@ -85,22 +85,6 @@ const CreateXLS = ({ allOperationList, dataCalRange }) => {
 								</tr>
 							);
 						})}
-
-					{/* <tr>
-            <th>Firstname</th>
-            <th>Lastname</th>
-            <th>Age</th>
-          </tr>
-          <tr>
-            <td>Jill</td>
-            <td>Smith</td>
-            <td>50</td>
-          </tr>
-          <tr>
-            <td>Eve</td>
-            <td>Jackson</td>
-            <td>94</td>
-          </tr> */}
 				</tbody>
 			</table>
 		</>

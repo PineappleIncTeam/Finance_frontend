@@ -3,7 +3,6 @@
 	font-weight: 400;
 	font-size: 18px;
 	line-height: 24px;
-	/* identical to box height, or 133% */
 
 	display: flex;
 	align-items: center;
@@ -20,9 +19,6 @@
 	font-family: "Monserrat-Medium";
 }
 
-/* .mobile_burg {
-  display: none;
-} */
 @media screen and (max-width: 1919px) {
 	.exit {
 		margin-top: 85px;

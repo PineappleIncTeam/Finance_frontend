@@ -11,6 +11,7 @@ const CalculatorInput = ({ min, max, step, value, setValue, label, unformatted, 
 
 	function handleInput(e) {
 		e.preventDefault();
+
 		setError(false);
 		const value = e.target.value;
 		if (/,/.test(e.target.value)) e.target.value = value.replace(/,/, ".");
@@ -23,6 +24,7 @@ const CalculatorInput = ({ min, max, step, value, setValue, label, unformatted, 
 	}
 	function getFocus(e: any) {
 		e.preventDefault();
+
 		if (value === 0 || value === "0") setValue("");
 		if (value > 0) setValue(Number(value).toFixed(2));
 		// setValue(value.toFixed(2))

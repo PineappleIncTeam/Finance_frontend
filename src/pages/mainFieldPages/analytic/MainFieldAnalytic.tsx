@@ -1,4 +1,3 @@
-// Компонент "Аналитика"
 import { useEffect, useState, useRef } from "react";
 
 import useAppSelector from "../../../hooks/useAppSelector";
@@ -6,14 +5,14 @@ import useAppSelector from "../../../hooks/useAppSelector";
 import PdfButton from "../../../ui/PDFButton/PdfButton";
 import CreatePDF from "../../../components/createFileElements/createPDF/CreatePDF";
 import CreateXLS from "../../../components/createFileElements/createXLS/CreateXLS";
-import VirtualAssistant from "../../../components/virtualAssistantComponents/virtualAssistntBase/VirtualAssistantBase";
-import ChartHistograms from "../../../components/analyticGistograms/chartHistograms/ChartHistograms";
-import HistogramBase from "../../../components/analyticGistograms/histogramBase/HistogramBase";
+import VirtualAssistant from "../../../components/virtualAssistantComponents/virtualAssistantBase/VirtualAssistantBase";
+import ChartHistograms from "../../../components/analyticHistograms/chartHistograms/ChartHistograms";
+import HistogramBase from "../../../components/analyticHistograms/histogramBase/HistogramBase";
 import AllTransactionsList from "../../../components/transactionComponents/transactionWholeList/TransactionWholeList";
 import userDataSelector from "../../../services/redux/features/userData/UserDataSelector";
 import infoPartSelector from "../../../services/redux/features/infoPart/InfoPartSelector";
 import { percentFunction } from "../../../utils/percentFunction";
-import { getAnaliticGistogramSum } from "../../../utils/analyticUtils";
+import { getAnalyticHistogramSum } from "../../../utils/analyticUtils";
 import { URLS, firstDayOfMonth, lastDayOfMonth } from "../../../helpers/urlsAndDates";
 import {
 	getIncomePercent,
@@ -24,6 +23,7 @@ import {
 
 import "./MainFieldAnalytic.css";
 
+// Компонент "Аналитика"
 function MainFieldAnalytic({
 	changeRangeCalendar,
 	getStorageCategories,
@@ -32,7 +32,7 @@ function MainFieldAnalytic({
 	balanceToTargetInPercent,
 	setCheckMainField,
 	setCheckCalculator,
-	gistogramSize,
+	histogramSize,
 }: any) {
 	const aiHelper = JSON.parse(localStorage.getItem("aiHelper") ?? "");
 
@@ -43,7 +43,7 @@ function MainFieldAnalytic({
 	const [sumGroupOutcome, setSumGroupOutcome] = useState([]);
 	const [sumGroupMoneyBox, setSumGroupMoneyBox] = useState([]);
 	const [outcomeTotal, setOutcomeTotal] = useState([]);
-	const [gistogramType, setGistogramType] = useState("pie");
+	const [histogramType, setHistogramType] = useState("pie");
 	const [isActive, setIsActive] = useState("income");
 	//
 	const [percentChoice, setPercentChoice] = useState(false);
@@ -67,11 +67,11 @@ function MainFieldAnalytic({
 
 	useEffect(() => {
 		if (result) {
-			setGistogramType("bar");
+			setHistogramType("bar");
 		} else {
-			setGistogramType("pie");
+			setHistogramType("pie");
 		}
-		getAnaliticSum();
+		getAnalyticSum();
 		changeRangeCalendar(true);
 	}, [dataCalRange, result]);
 	//
@@ -80,7 +80,7 @@ function MainFieldAnalytic({
 		setCheckCalculator(false);
 	});
 
-	function getAnaliticSum() {
+	function getAnalyticSum() {
 		const incomeEndpoint = result
 			? `${URLS.getSumMonthlyIncome}?date_start=${dataStart}&date_end=${dataEnd}`
 			: `${URLS.getSumIncomeGroup}?date_start=${dataStart}&date_end=${dataEnd}`;
@@ -160,9 +160,9 @@ function MainFieldAnalytic({
 	function handleChange(e) {
 		setIsActive(e.target.value);
 	}
-	//
-	const gistogramSumIncome = sumGroupIncome.length > 0 && result ? sumGroupIncome : [];
-	const gistogramSumOutcome = sumGroupOutcome.length > 0 && result ? sumGroupOutcome : [];
+
+	const histogramSumIncome = sumGroupIncome.length > 0 && result ? sumGroupIncome : [];
+	const histogramSumOutcome = sumGroupOutcome.length > 0 && result ? sumGroupOutcome : [];
 
 	const resultSumIncomeTotal = resultSumIncome.length > 0 && resultSumIncome.reduce((a, b) => +a + +b, 0).toFixed(2);
 	const onePercentIncome = resultSumIncomeTotal / 100;
@@ -185,27 +185,26 @@ function MainFieldAnalytic({
 	}
 	const resultSumCostsTotal = Number(resultSumOutcomeTotal) + Number(resultSumMoneyBoxTotal);
 	const onePercentCosts = resultSumCostsTotal / 100;
-	const resultSumCostsTotalinPercent = [];
+	const resultSumCostsTotalingPercent = [];
 	for (let i = 0; i < resultSumOutcome.length; i++) {
-		resultSumCostsTotalinPercent.push((resultSumOutcome[i] / onePercentCosts).toFixed(2));
+		resultSumCostsTotalingPercent.push((resultSumOutcome[i] / onePercentCosts).toFixed(2));
 	}
 	for (let i = 0; i < resultSumMoneyBox.length; i++) {
-		resultSumCostsTotalinPercent.push((resultSumMoneyBox[i] / onePercentCosts).toFixed(2));
+		resultSumCostsTotalingPercent.push((resultSumMoneyBox[i] / onePercentCosts).toFixed(2));
 	}
 
-	const analiticTotal = [resultSumIncomeTotal, resultSumCostsTotal];
-	const onePercentAnaltiicTotal = analiticTotal.reduce((a, b) => +a + +b, 0).toFixed(2) / 100;
-	const analiticTotalInPercent = analiticTotal.map((item) => (item / onePercentAnaltiicTotal).toFixed(2));
-	//
-	const analiticSumIncomeForGistogram = result ? getAnaliticGistogramSum(sumGroupIncome) : 0;
-	const analiticSumOutcomeForGistogram = result ? getAnaliticGistogramSum(outcomeTotal) : 0;
-	const analiticTotalForGistogram = [analiticSumIncomeForGistogram, analiticSumOutcomeForGistogram];
-	// console.log(analiticTotalForGistogram)
-	const onePercentAnaliticTotalForGistogram = analiticTotalForGistogram.reduce((a, b) => +a + +b, 0).toFixed(2) / 100;
-	const analiticTotalForGistogramInPercent = analiticTotalForGistogram.map((item) =>
-		(item / onePercentAnaliticTotalForGistogram).toFixed(2),
+	const analyticTotal = [resultSumIncomeTotal, resultSumCostsTotal];
+	const onePercentAnalyticTotal = analyticTotal.reduce((a, b) => +a + +b, 0).toFixed(2) / 100;
+	const analyticTotalInPercent = analyticTotal.map((item) => (item / onePercentAnalyticTotal).toFixed(2));
+
+	const analyticSumIncomeForHistogram = result ? getAnalyticHistogramSum(sumGroupIncome) : 0;
+	const analyticSumOutcomeForHistogram = result ? getAnalyticHistogramSum(outcomeTotal) : 0;
+	const analyticTotalForHistogram = [analyticSumIncomeForHistogram, analyticSumOutcomeForHistogram];
+
+	const onePercentAnalyticTotalForHistogram = analyticTotalForHistogram.reduce((a, b) => +a + +b, 0).toFixed(2) / 100;
+	const analyticTotalForHistogramInPercent = analyticTotalForHistogram.map((item) =>
+		(item / onePercentAnalyticTotalForHistogram).toFixed(2),
 	);
-	// console.log(analiticTotalForGistogramInPercent)
 
 	function getAllOperationList() {
 		getOperationList(dataStart, dataEnd, token ?? "")
@@ -234,7 +233,7 @@ function MainFieldAnalytic({
 
 		if (e.target.checked) {
 			localStorage.setItem("aiHelper", JSON.stringify({ value: true }));
-			// setVirtualAssistant(true)
+
 			setChecked(true);
 		}
 		if (!e.target.checked) {
@@ -308,26 +307,26 @@ function MainFieldAnalytic({
 					</div>
 				</>
 			)}
-			{isActive !== "operationsList" && gistogramType === "pie" && !result && (
+			{isActive !== "operationsList" && histogramType === "pie" && !result && (
 				<ChartHistograms
 					categoryNameIncome={categoryNameIncome}
 					resultSumIncome={!percentChoice ? resultSumIncome : resultSumIncomeInPercent}
 					categoryNameOutcome={categoryNameOutcome}
-					resultSumOutcome={!percentChoice ? resultSumOutcome : resultSumCostsTotalinPercent}
+					resultSumOutcome={!percentChoice ? resultSumOutcome : resultSumCostsTotalingPercent}
 					categoryNameMoneyBox={categoryNameMoneyBox}
 					resultSumMoneyBox={!percentChoice ? resultSumMoneyBox : ""}
 					isActive={isActive}
 					percentChoice={percentChoice}
 					storageSum={!percentChoice ? sum : balanceToTargetInPercent[0]}
 					balanceToTarget={!percentChoice ? balanceToTarget : balanceToTargetInPercent[1]}
-					analiticSum={!percentChoice ? analiticTotal : analiticTotalInPercent}
+					analiticSum={!percentChoice ? analyticTotal : analyticTotalInPercent}
 				/>
 			)}
-			{isActive !== "operationsList" && gistogramType !== "pie" && result && (
+			{isActive !== "operationsList" && histogramType !== "pie" && result && (
 				<HistogramBase
-					gistogramSize={gistogramSize}
-					sumGroupIncome={gistogramSumIncome}
-					sumGroupOutcome={gistogramSumOutcome}
+					histogramSize={histogramSize}
+					sumGroupIncome={histogramSumIncome}
+					sumGroupOutcome={histogramSumOutcome}
 					sumGroupMoneyBox={sumGroupMoneyBox}
 					isActive={isActive}
 					percentChoice={percentChoice}
@@ -335,10 +334,9 @@ function MainFieldAnalytic({
 					outcomePercent={outcomePercent}
 					storageSum={!percentChoice ? sum : balanceToTargetInPercent[0]}
 					balanceToTarget={!percentChoice ? balanceToTarget : balanceToTargetInPercent[1]}
-					analiticSum={!percentChoice ? analiticTotalForGistogram : analiticTotalForGistogramInPercent}
+					analiticSum={!percentChoice ? analyticTotalForHistogram : analyticTotalForHistogramInPercent}
 				/>
 			)}
-			{/* <AiModalWindow active={aiModalWindow} setActive={setAiModalWindow} aiHelper={aiHelper} checked={checked} setChecked={setChecked} /> */}
 			<VirtualAssistant
 				active={virtualAssistant}
 				setActive={setVirtualAssistant}

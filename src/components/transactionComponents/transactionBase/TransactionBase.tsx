@@ -11,40 +11,7 @@ function TransactionBase({ operationItem, index, symbol }: any) {
 				<div className={s.operation_list_item}>
 					{symbol}
 					{numberFormatRub.format(operationItem.sum)}
-					{/* <span className="ruble_icon ruble_icon_transactions">₽</span> */}
 				</div>
-				{/* <div className={s.icons}>
-        <button
-        className={s.icon_button}
-        type="submit"
-        title="Удалить запись"
-        onClick={() => {
-          createDeleteModal(
-            operation.categoryName,
-            operation.id,
-            symbol
-          )
-        }}
-      >
-        <div className={s.operation_list_icon1}></div>
-      </button>
-      <button
-        className={s.icon_button}
-        type="submit"
-        title="Редактировать"
-        onClick={() => {
-          createModalChangeSum(
-            operation.categoryName,
-            operation.id,
-            operation.category_id,
-            operation.sum,
-            symbol
-          )
-        }}
-      >
-        <div className={s.operation_list_icon2}></div>
-      </button>
-      </div> */}
 			</div>
 		)
 	);

@@ -130,20 +130,6 @@ function Calculator({ setCheckMainField, setCheckCalculator }: any) {
 						<CalculatorButton setResult={setResult} data={data} creditType={realEstate} />
 					</div>
 				</div>
-
-				{/* <div className={style.rates_block}>
-            <ExchangeRates
-				exchangeRates={exchangeRates}
-				setExchangeRates={setExchangeRates}
-				totalCost={totalCost}
-				setTotalCost={setTotalCost}
-				anInitialFee={anInitialFee}
-				setAnInitialFee={setAnInitialFee}
-				currencyType={currencyType}
-				setCurrencyType={setCurrencyType}
-				setResult={setResult}
-            />
-          </div> */}
 				<div className={style.result_block}>
 					<CalculationResult result={result} currencyType={currencyType} />
 				</div>

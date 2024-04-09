@@ -1,4 +1,4 @@
-export function getGistogramCategorySum(obj: any) {
+export function getHistogramCategorySum(obj: any) {
 	const result: any[] = [];
 	const objectKeys = obj && obj.map((item: any) => Object.keys(item));
 

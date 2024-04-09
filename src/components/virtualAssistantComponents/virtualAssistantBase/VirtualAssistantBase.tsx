@@ -51,17 +51,8 @@ const VirtualAssistant = ({ active, setActive, checked, setChecked }: any) => {
 		}
 	}, [aiAnswer, aiSavingMoneyAdvice, aiTaxDeduction]);
 
-	// function hideArtificialIntelligence(e) {
-	//   e.stopPropagation()
-	//   if (e.target.value) {
-	//     localStorage.setItem("aiHelper", JSON.stringify({ value: false }))
-	//     setChecked(false)
-	//     setActive(false)
-	//   }
-	// }
-
 	return (
-		<div className={active ? `${style.virtual_asistant_block} ${style.active}` : style.virtual_asistant_block}>
+		<div className={active ? `${style.virtual_assistant_block} ${style.active}` : style.virtual_assistant_block}>
 			<PersonElement />
 			<InformBox
 				setActiveVirtualAssistant={setActive}

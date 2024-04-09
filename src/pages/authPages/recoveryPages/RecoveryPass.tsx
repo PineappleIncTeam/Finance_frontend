@@ -32,11 +32,11 @@ const RecoveryPass = () => {
 
 	return (
 		<div className={style.root}>
-			<div className={style.formRegist}>
+			<div className={style.newPasswordFormWrap}>
 				<div className={style.logo}>
 					<Logo />
 				</div>
-				<div className={style.regist}>
+				<div className={style.newPasswordFormContainer}>
 					<h1>Восстановление пароля</h1>
 					<Formik
 						initialValues={{
@@ -66,7 +66,7 @@ const RecoveryPass = () => {
 					</Link>
 				</div>
 			</div>
-			<div className={style.registFon}></div>
+			<div className={style.newPasswordBackground}></div>
 		</div>
 	);
 };

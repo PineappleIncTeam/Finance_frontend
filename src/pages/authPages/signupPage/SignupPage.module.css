@@ -13,14 +13,14 @@
 	padding-left: 120px;
 }
 
-.regist {
+.signupFormContainer {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
 	margin-top: 70px;
 }
-.regist h1 {
+.signupFormContainer h1 {
 	font-family: "Monserrat-medium";
 	font-style: normal;
 	font-weight: 800;
@@ -118,7 +118,7 @@
 	transform: translateY(0px);
 }
 
-.registFon {
+.signupBackground {
 	position: relative;
 	background-image: url("./../../../../src/assets/fonGirl.svg");
 	width: 100%;
@@ -201,7 +201,7 @@
 }
 
 @media screen and (max-width: 1919px) {
-	.registFon {
+	.signupBackground {
 		height: 768px;
 		background-size: cover;
 
@@ -211,10 +211,10 @@
 		text-align: center;
 		padding-left: 0px;
 	}
-	.regist {
+	.signupFormContainer {
 		margin-top: 35px;
 	}
-	.regist h1 {
+	.signupFormContainer h1 {
 		font-size: 24px;
 	}
 	.form label {
@@ -270,7 +270,7 @@
 }
 
 @media screen and (max-width: 1180px) {
-	.registFon {
+	.signupBackground {
 		background-size: cover;
 		text-align: center;
 		margin-top: 100px;
@@ -285,13 +285,13 @@
 		flex-direction: column-reverse;
 	}
 
-	.registFon {
+	.signupBackground {
 		max-width: 200px;
 		max-height: 200px;
 		margin: 0px auto;
 	}
 
-	.regist {
+	.signupFormContainer {
 		margin: 0px auto;
 	}
 }

@@ -7,7 +7,7 @@ import queryString from "query-string";
 import Logo from "../../../components/logoElement/LogoElement";
 import { AuthPath } from "../../../services/router/routes";
 
-import { changeUserPassword } from "../../../services/api/auth/Newpassword";
+import { changeUserPassword } from "../../../services/api/auth/NewPassword1";
 
 import { ChangingUserPassword } from "../../../types/api/Auth";
 
@@ -73,11 +73,11 @@ const NewPass = () => {
 
 	return (
 		<div className={style.root}>
-			<div className={style.formRegist}>
+			<div className={style.newPasswordFormWrap}>
 				<div className={style.logo}>
 					<Logo />
 				</div>
-				<div className={style.regist}>
+				<div className={style.newPasswordFormContainer}>
 					<h1>Изменение пароля</h1>
 					<Formik
 						initialValues={{
@@ -127,7 +127,7 @@ const NewPass = () => {
 					</Link>
 				</div>
 			</div>
-			<div className={style.registFon}></div>
+			<div className={style.newPasswordBackground}></div>
 		</div>
 	);
 };

@@ -13,14 +13,14 @@
 	padding-left: 120px;
 }
 
-.regist {
+.newPasswordFormContainer {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
 	margin-top: 157px;
 }
-.regist h1 {
+.newPasswordFormContainer h1 {
 	font-family: "Monserrat-medium";
 	font-style: normal;
 	font-weight: 800;
@@ -31,7 +31,7 @@
 	margin-bottom: 48px;
 	color: #125b50;
 }
-.registFon {
+.newPasswordBackground {
 	position: relative;
 	background-image: url("./../../../../src/assets/fonGirl.svg");
 	width: 100%;
@@ -169,7 +169,7 @@
 }
 
 @media screen and (max-width: 1919px) {
-	.registFon {
+	.newPasswordBackground {
 		height: 768px;
 		background-size: cover;
 	}
@@ -177,10 +177,10 @@
 		text-align: center;
 		padding-left: 0px;
 	}
-	.regist {
+	.newPasswordFormContainer {
 		margin-top: 110px;
 	}
-	.regist h1 {
+	.newPasswordFormContainer h1 {
 		font-size: 24px;
 	}
 	.form label {
@@ -234,7 +234,7 @@
 	}
 }
 @media screen and (max-width: 1180px) {
-	.registFon {
+	.newPasswordBackground {
 		background-size: cover;
 		text-align: center;
 		margin-top: 100px;
@@ -249,14 +249,14 @@
 		flex-direction: column-reverse;
 	}
 
-	.registFon {
+	.newPasswordBackground {
 		background-position-x: 20px;
 		max-width: 255px;
 		max-height: 255px;
 		margin: 0px auto;
 	}
 
-	.regist {
+	.newPasswordFormContainer {
 		margin: 0px auto;
 	}
 }

@@ -1,10 +1,10 @@
-// Компонент "Расходы"
 import { useEffect } from "react";
 
 import MainFieldString from "../../../components/mainFieldString/MainFieldString";
 import { URLS, months, month } from "../../../helpers/urlsAndDates";
 import { numberFormatRub } from "../../../helpers/calculator";
 
+// Компонент "Расходы"
 function MainFieldCosts({
 	categories,
 	storageCategories,
@@ -33,7 +33,6 @@ function MainFieldCosts({
 			<h2 className="main_field_title">Расходы</h2>
 			<div className="main_field_input">
 				<input className="input_rub" value={numberFormatRub.format(inputData)} readOnly></input>
-				{/* <span className="ruble_icon">₽</span> */}
 			</div>
 			<div className="main_field_title_label">
 				Общий расход за <span className="balance_month">{months[month]}</span>
@@ -89,7 +88,6 @@ function MainFieldCosts({
 				typeOfCategories={URLS.getMoneyBoxCategories}
 				getBalanceData={getBalanceData}
 				addActive={false}
-				// storageType={true}
 			/>
 
 			<div className="mobileSum">
@@ -98,7 +96,6 @@ function MainFieldCosts({
 						Ваш общий расход за <span className="balance_month_mobile">{months[month]}</span>
 					</div>
 					<input className="input_rubMobile" value={numberFormatRub.format(inputData)} readOnly></input>
-					{/* <span className="ruble_iconMobile">₽</span> */}
 				</div>
 			</div>
 		</div>

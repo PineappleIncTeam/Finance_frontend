@@ -59,7 +59,6 @@ function Dropdown({
 	const searchRef = useRef();
 	const inputRef = useRef();
 	const handleModalInputRef = useRef(null);
-	//
 
 	const newTarget = "";
 
@@ -81,24 +80,17 @@ function Dropdown({
 		else setNewCategory(e.target.value.replace(/[/#$%^&*!()<>@]+/, ""));
 	}
 
-	// function handleInputTarget(e) {
-	// 	e.preventDefault();
-	// 	setNewTarget(e.target.value.replace(/[^0-9.,]+/g, "").replace(/,/, "."));
-	// }
-
 	function createModal(categoryId: any, categoryName: any) {
 		if (categoryName === "Из Накоплений") {
 			// eslint-disable-next-line quotes
 			setModalMessage('В эту категорию можно только переносить данные из раздела "Накопления"');
-			// setSelectedCategory({ id: categoryId, name: categoryName })
-			// setModalDelete(true)
 		} else {
 			setModalMessage(`Вы хотите удалить категорию "${categoryName}" или отправить её в архив?`);
 			setSelectedCategory({ id: categoryId, name: categoryName });
 			setModalDelete(true);
 		}
 	}
-	//
+
 	const userCategoriesName =
 		categories &&
 		categories.map((item: any) => {
@@ -118,16 +110,6 @@ function Dropdown({
 	const onSearch = (event: any) => {
 		setSearchValue(event.target.value);
 	};
-
-	// const getOptions = () => {
-	//   if (!searchValue) {
-	//     return categories
-	//   }
-	//   return categories.filter(
-	//     (option) =>
-	//       option.label.toLowerCase().indexOf(searchValue.toLowerCase()) === 0
-	//   )
-	// }
 
 	useEffect(() => {
 		const handler = (event: any) => {
@@ -155,9 +137,6 @@ function Dropdown({
 
 	const onItemClick = (option: any) => {
 		if (option.categoryName === "Из Накоплений") {
-			// setModalMessage(
-			//   'В эту категорию можно только переносить данные из раздела "Накопления"'
-			// )
 			setModalMessageActive(true);
 			getDisplay();
 		} else {
@@ -252,6 +231,7 @@ function Dropdown({
 
 	function cancel(e) {
 		e.preventDefault();
+
 		setSelectedCategory({});
 		setModalDelete(false);
 	}

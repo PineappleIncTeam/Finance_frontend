@@ -119,11 +119,11 @@ const SignupPage = () => {
 
 	return (
 		<div className={style.root}>
-			<div className={style.formRegist}>
+			<div className={style.signupFormWrap}>
 				<div className={style.logo}>
 					<Logo />
 				</div>
-				<div className={style.regist}>
+				<div className={style.signupFormContainer}>
 					<h1>Регистрация</h1>
 					<Formik
 						initialValues={{
@@ -206,7 +206,7 @@ const SignupPage = () => {
 					</Formik>
 				</div>
 			</div>
-			<div className={style.registFon}></div>
+			<div className={style.signupBackground}></div>
 		</div>
 	);
 };

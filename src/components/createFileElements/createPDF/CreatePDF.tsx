@@ -1,6 +1,6 @@
 import { firstDayOfMonthToPDF, lastDayOfMonthToPDF } from "../../../helpers/urlsAndDates";
 
-const CreatePDF = ({ allOperationList, dataCalRange }) => {
+const CreatePDF = ({ allOperationList, dataCalRange }: any) => {
 	const dataStart = dataCalRange.length > 1 ? dataCalRange[0] : firstDayOfMonthToPDF;
 	const dataEnd = dataCalRange.length > 1 ? dataCalRange[1] : lastDayOfMonthToPDF;
 

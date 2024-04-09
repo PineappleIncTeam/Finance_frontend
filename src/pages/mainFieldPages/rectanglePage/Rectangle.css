@@ -8,7 +8,6 @@
 	display: grid;
 	width: 100%;
 	min-height: 768px;
-	/* grid-template-rows: 1fr 200px; */
 }
 .transactions {
 	align-self: flex-end;

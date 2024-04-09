@@ -1,5 +1,3 @@
-//Компонент-контейнер, включает в себя компоненты Логотип и Навигацию кнопками по приложению
-
 import { useNavigate } from "react-router";
 
 import useAppDispatch from "../../hooks/useAppDispatch";
@@ -13,6 +11,7 @@ import exitUser from "../../assets/exit.png";
 
 import "./NavBar.css";
 
+//Компонент-контейнер, включает в себя компоненты Логотип и Навигацию кнопками по приложению
 function NavBar({ menuActive }: any) {
 	const dispatch = useAppDispatch();
 	const navigate = useNavigate();

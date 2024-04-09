@@ -1,5 +1,3 @@
-import React from "react";
-
 import style from "./CurrencyChoiceButton.module.css";
 
 const CurrencyChoiceButton = ({
@@ -15,7 +13,7 @@ const CurrencyChoiceButton = ({
 	currencyType,
 	setCurrencyType,
 	setResult,
-}) => {
+}: any) => {
 	const disabled =
 		currencyType === type || (type === "usd" && currencyType === "eur") || (type === "eur" && currencyType === "usd");
 	function currencyCalculation() {

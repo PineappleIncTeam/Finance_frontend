@@ -1,4 +1,4 @@
-.gistogram {
+.histogram {
 	font-family: "Monserrat-Medium";
 	font-weight: 500px;
 	display: flex;
@@ -9,7 +9,7 @@
 	padding: 20px;
 }
 
-.bar_gistogram {
+.bar_histogram {
 	width: 902px;
 	height: 408px;
 	z-index: 1;
@@ -59,7 +59,7 @@
 }
 
 @media screen and (max-width: 1919px) {
-	.bar_gistogram {
+	.bar_histogram {
 		width: 600px;
 		height: 280px;
 		z-index: 1;
@@ -82,7 +82,7 @@
 	}
 }
 @media screen and (max-width: 1279px) {
-	.bar_gistogram {
+	.bar_histogram {
 		width: 400px;
 		height: 200px;
 		z-index: 1;
@@ -97,7 +97,7 @@
 	}
 }
 @media screen and (max-width: 840px) {
-	.gistogram {
+	.histogram {
 		margin-left: 80px;
 	}
 	.categories_name {
@@ -111,18 +111,18 @@
 	}
 }
 @media screen and (max-width: 768px) {
-	.bar_gistogram {
+	.bar_histogram {
 		width: 280px;
 		height: 500px;
 		z-index: 1;
 	}
-	.gistogram {
+	.histogram {
 		padding: 10px;
 		margin: 52px 40px 52px 80px;
 	}
 }
 @media screen and (max-width: 625px) {
-	.gistogram {
+	.histogram {
 		margin: 20px;
 	}
 	.categories_name {

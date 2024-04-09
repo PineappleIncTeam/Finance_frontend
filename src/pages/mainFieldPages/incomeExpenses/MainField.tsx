@@ -1,10 +1,10 @@
-// Компонент "Доходы"
 import { useEffect } from "react";
 
 import MainFieldString from "../../../components/mainFieldString/MainFieldString";
 import { URLS, months, month } from "../../../helpers/urlsAndDates";
 import { numberFormatRub } from "../../../helpers/calculator";
 
+// Компонент "Доходы"
 function MainFieldBase({
 	categories,
 	getCategories,

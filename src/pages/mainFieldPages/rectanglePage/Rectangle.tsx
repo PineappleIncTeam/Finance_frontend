@@ -6,16 +6,15 @@ import useAppSelector from "../../../hooks/useAppSelector";
 
 import infoPartSelector from "../../../services/redux/features/infoPart/InfoPartSelector";
 import userDataSelector from "../../../services/redux/features/userData/UserDataSelector";
-import { getStorageSum, getBalanceToTarget, getBalanceToTargetinPercent } from "../../../utils/storageFunctions";
+import { getStorageSum, getBalanceToTarget, getBalanceToTargetingPercent } from "../../../utils/storageFunctions";
 import { currentDate, startDate } from "../../../helpers/urlsAndDates";
 
-import MainFieldRouter from "../../../services/router/MainfieldRouter";
+import MainFieldRouter from "../../../services/router/MainFieldRouter1";
 
 import Navigation from "../../../components/navBar/NavBar";
 import Aside from "../../../components/dateBar/DateBar";
 import Transactions from "../../../components/transactionComponents/transactionArray/TransactionArray";
 
-import "./Rectangle.css";
 import {
 	getBalanceInfo,
 	getBaseCategoryList,
@@ -23,8 +22,9 @@ import {
 	getOperations,
 } from "../../../services/api/mainFieldApi/RectangleActions";
 
+import "./Rectangle.css";
+
 function Rectangle() {
-	// const [allOperationList, setAllOperationList] = useState()
 	const [operationList, setOperationList] = useState("");
 	const [symbol, setSymbol] = useState("+");
 	const [balanceData, setBalanceData] = useState("");
@@ -41,7 +41,7 @@ function Rectangle() {
 
 	const [range, setRange] = useState(true);
 
-	const [gistogramSize, setGistogramSize] = useState({
+	const [histogramSize, setHistogramSize] = useState({
 		width: 280,
 		height: 500,
 		indexAxis: "y",
@@ -66,17 +66,17 @@ function Rectangle() {
 		return () => {
 			window.removeEventListener("resize", handleResize);
 		};
-	}, [gistogramSize]);
+	}, [histogramSize]);
 
 	useEffect(() => {
 		if (width >= 1920) {
-			setGistogramSize({ width: 902, height: 408, indexAxis: "x" });
+			setHistogramSize({ width: 902, height: 408, indexAxis: "x" });
 		} else if (width < 1920 && width >= 1280) {
-			setGistogramSize({ width: 600, height: 280, indexAxis: "x" });
+			setHistogramSize({ width: 600, height: 280, indexAxis: "x" });
 		} else if (width < 1280 && width > 768) {
-			setGistogramSize({ width: 400, height: 200, indexAxis: "x" });
+			setHistogramSize({ width: 400, height: 200, indexAxis: "x" });
 		} else if (width <= 768) {
-			setGistogramSize({ width: 280, height: 500, indexAxis: "y" });
+			setHistogramSize({ width: 280, height: 500, indexAxis: "y" });
 		}
 	}, [width]);
 
@@ -97,7 +97,7 @@ function Rectangle() {
 				setStorageCategories(userCategories);
 				setStorageSum(getStorageSum(userCategories));
 				setBalanceToTarget(getBalanceToTarget(userCategories));
-				setBalanceToTargetInPercent(getBalanceToTargetinPercent(userCategories));
+				setBalanceToTargetInPercent(getBalanceToTargetingPercent(userCategories));
 			});
 	}
 
@@ -133,8 +133,8 @@ function Rectangle() {
 					responseServer.map((responseNumber: any) => {
 						const constSum = Number(responseNumber.constant_sum);
 						const onceSum = Number(responseNumber.once_sum);
-						const accumSum = Number(responseNumber.accum_sum);
-						const sumField = accumSum ? (constSum + onceSum + accumSum).toFixed(2) : (constSum + onceSum).toFixed(2);
+						const accSum = Number(responseNumber.accum_sum);
+						const sumField = accSum ? (constSum + onceSum + accSum).toFixed(2) : (constSum + onceSum).toFixed(2);
 						return setInputData(sumField);
 					});
 				} else {
@@ -151,10 +151,7 @@ function Rectangle() {
 				</div>
 
 				<Navigation menuActive={menuActive} setMenuActive={setMenuActive} />
-				<div
-					className={menuActive ? "main active" : "main"}
-					// active={menuActive}
-				>
+				<div className={menuActive ? "main active" : "main"}>
 					<div className="mainField">
 						<div className="mainFieldBlock">
 							<MainFieldRouter
@@ -166,17 +163,15 @@ function Rectangle() {
 								balanceToTarget={balanceToTarget}
 								balanceToTargetInPercent={balanceToTargetInPercent}
 								getOperationList={getOperationList}
-								// getAllOperationList={getAllOperationList}
 								getBalanceData={getBalanceData}
 								getInputData={getInputData}
 								inputData={inputData}
 								operationList={operationList}
-								// allOperationList={allOperationList}
 								changeRangeCalendar={changeRangeCalendar}
 								range={range}
 								setCheckMainField={setCheckMainField}
 								setCheckCalculator={setCheckCalculator}
-								gistogramSize={gistogramSize}
+								histogramSize={histogramSize}
 							/>
 						</div>
 						<div className="aside">

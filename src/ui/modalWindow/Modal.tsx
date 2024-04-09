@@ -1,6 +1,6 @@
 import style from "./Modal.module.css";
 
-const Modal = ({ active, setActive, setInput, children }) => {
+const Modal = ({ active, setActive, setInput, children }: any) => {
 	return (
 		<div
 			className={active ? `${style.modal} ${style.active}` : style.modal}

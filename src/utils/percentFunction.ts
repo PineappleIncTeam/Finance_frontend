@@ -1,8 +1,10 @@
 export function percentFunction(json: any) {
 	const test = json && json.map((item: any) => Object.keys(item));
 	const test2 = json && json.map((_item: any, index: any) => Object.values(json[index][test[index]]));
-	//   let test3 = json && json.map((item, index) => Object.keys(json[index][test[index]]))
-	const result = [];
+
+	const result: any = [];
+	const percentResult: any = [];
+	const allCategories: any = [];
 
 	function parseJson() {
 		let count = 0;
@@ -18,8 +20,6 @@ export function percentFunction(json: any) {
 		}
 	}
 	parseJson();
-	//   console.log(result)
-	const percentResult = [];
 
 	function createPercentArr() {
 		let count = 0;
@@ -37,8 +37,6 @@ export function percentFunction(json: any) {
 		}
 	}
 	createPercentArr();
-	//   console.log(percentResult)
-	const allCategories = [];
 
 	function setArrStructure() {
 		let count = 0;

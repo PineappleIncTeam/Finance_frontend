@@ -1,14 +1,16 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 import PercentButton from "../PercentButton/PercentButton";
 
 import style from "./PercentButtonBlock.module.css";
 
-const PercentButtonBlock = ({ totalCost, setAnInitialFee }) => {
+const PercentButtonBlock = ({ totalCost, setAnInitialFee }: any) => {
 	const [percentButtonBlockActive, setPercentButtonBlockActive] = useState(false);
+
 	useEffect(() => {
 		totalCost > 0 ? setPercentButtonBlockActive(true) : setPercentButtonBlockActive(false);
 	}, [totalCost]);
+
 	return (
 		<div className={style.percent_button_block}>
 			<PercentButton

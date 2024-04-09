@@ -67,39 +67,22 @@ const LoginPage = () => {
 			.min(6, "Логин должен состоять из 6 и более символов")
 			.max(32, "Логин должен содержать от 6 до 32 символов")
 			.required("Обязательное поле"),
-		// .minLowercase(
-		//   1,
-		//   "Логин должен содержать от 6 до 32 символов, включать хотя бы одну букву и одну цифру"
-		// )
-		// // .minUppercase(1, "password must contain at least 1 upper case letter")
-		// .minNumbers(
-		//   1,
-		//   "Логин должен содержать от 6 до 32 символов, включать хотя бы одну букву и одну цифру"
-		// )
 
 		password: Yup.string()
 			.matches(/^[A-Za-z0-9А-Яа-я]+$/, "Пароль введен некорректно")
 			.min(6, "Слишком короткий пароль")
 			.max(32, "Слишком длинный пароль")
-			// .minLowercase(
-			//   1,
-			//   "Пароль должен содержать от 6 до 32 символов, включать хотя бы одну заглавную букву, одну строчную и одну цифру"
-			// )
-			// .minUppercase(
-			//   1,
-			//   "Пароль должен содержать от 6 до 32 символов, включать хотя бы одну заглавную букву, одну строчную и одну цифру"
-			// )
 			.minNumbers(1, "Пароль должен содержать от 6 до 32 символов, включать хотя бы одну букву и одну цифру")
 			.required("Обязательное поле"),
 	});
 
 	return (
 		<div className={style.root}>
-			<div className={style.formRegist}>
+			<div className={style.signupFormWrap}>
 				<div className={style.logo}>
 					<Logo />
 				</div>
-				<div className={style.regist}>
+				<div className={style.signupFormContainer}>
 					<h1>Вход</h1>
 					<Formik
 						initialValues={{
@@ -112,7 +95,6 @@ const LoginPage = () => {
 						onSubmit={signInHandler}>
 						{({ isValid }) => (
 							<Form className={style.form} onChange={resetReply}>
-								<br />
 								<label>Логин</label>
 								<Field type="username" name="username" className={style.input} placeholder={"Введите логин..."} />
 								<ErrorMessage name="username" component="div" className={style.error} />
@@ -154,7 +136,7 @@ const LoginPage = () => {
 					</Formik>
 				</div>
 			</div>
-			<div className={style.registFon}></div>
+			<div className={style.signupBackground}></div>
 		</div>
 	);
 };

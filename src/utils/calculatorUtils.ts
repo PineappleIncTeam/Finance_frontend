@@ -1,4 +1,4 @@
-export function getCreditCalculation(totalCost, creditTerm, creditRate) {
+export function getCreditCalculation(totalCost: any, creditTerm: any, creditRate: any) {
 	const numberOfMonths = creditTerm * 12;
 	const monthlyCreditRate = creditRate / 12 / 100;
 	const totalRate = (1 + monthlyCreditRate) ** numberOfMonths;
@@ -15,19 +15,19 @@ export function getCreditCalculation(totalCost, creditTerm, creditRate) {
 	return { monthlyPaymentToFixed, loanAmount, overpaymentToFixed, totalPaymentToFixed };
 }
 
-export function getCurrencyCalculation(totalCost, anInitialFee, currencyRate = 1) {
+export function getCurrencyCalculation(totalCost: any, anInitialFee: any, currencyRate: any = 1) {
 	const totalCostResult = totalCost / currencyRate;
 	const anInitialFeeResult = anInitialFee / currencyRate;
 	return { totalCostResult, anInitialFeeResult };
 }
 
-export function getReverseCalculation(totalCost, anInitialFee, currencyRate = 1) {
+export function getReverseCalculation(totalCost: any, anInitialFee: any, currencyRate: any = 1) {
 	const totalCostResult = totalCost * currencyRate;
 	const anInitialFeeResult = anInitialFee * currencyRate;
 	return { totalCostResult, anInitialFeeResult };
 }
 
-export function getMortgageCalculation(totalCost, anInitialFee, creditTerm, creditRate) {
+export function getMortgageCalculation(totalCost: any, anInitialFee: any, creditTerm: any, creditRate: any) {
 	const numberOfMonths = creditTerm * 12;
 	const monthlyCreditRate = creditRate / 12 / 100;
 	const totalRate = (1 + monthlyCreditRate) ** numberOfMonths;
@@ -44,7 +44,7 @@ export function getMortgageCalculation(totalCost, anInitialFee, creditTerm, cred
 	return { monthlyPaymentToFixed, loanAmount, overpaymentToFixed, totalPaymentToFixed };
 }
 
-export function getPercentFromTotalCost(totalCost, percents, callback) {
+export function getPercentFromTotalCost(totalCost: any, percents: any, callback: any) {
 	const result = (totalCost / 100) * percents;
 	return callback(result);
 }

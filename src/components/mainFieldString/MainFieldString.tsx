@@ -10,7 +10,7 @@ import { dateOnline } from "../../helpers/urlsAndDates";
 import closeIcon from "../../assets/closeIcon.svg";
 
 import Modal from "../../ui/modalWindow/Modal";
-import Dropdown from "../dropdown1/Dropdown";
+import Dropdown from "../dropdown/Dropdown";
 
 import style from "../../ui/modalWindow/Modal.module.css";
 
@@ -114,7 +114,6 @@ function MainFieldString({
 	return (
 		<>
 			<form className="main_field_string" onSubmit={sumSubmit}>
-				{/* {categories && ( */}
 				<Dropdown
 					categories={categories}
 					category_type={type}
@@ -137,7 +136,6 @@ function MainFieldString({
 					getOperationList={getOperationList}
 					symbol={symbol}
 				/>
-				{/* )} */}
 
 				<div className="input_container">
 					<input

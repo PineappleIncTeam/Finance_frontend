@@ -1,7 +1,7 @@
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { Pie, Doughnut } from "react-chartjs-2";
 
-import { colorsIncome, colorsOutcome, colorsStorage, colorsAnalitic } from "../../../helpers/colors";
+import { colorsIncome, colorsOutcome, colorsStorage, colorsAnalytic } from "../../../helpers/colors";
 import { numberFormatRub } from "../../../helpers/calculator";
 
 import style from "./ChartHistograms.module.css";
@@ -17,7 +17,7 @@ function ChartHistograms({
 	percentChoice,
 	storageSum,
 	balanceToTarget,
-	analiticSum,
+	analyticSum,
 }: any) {
 	ChartJS.register(ArcElement, Tooltip, Legend);
 	const checkName = categoryNameIncome ? categoryNameIncome : [];
@@ -32,11 +32,6 @@ function ChartHistograms({
 	const totalCosts = (Number(checkSumOutTotal) + Number(checkSumMoneyBoxTotal)).toFixed(2);
 	const storageData = [storageSum, balanceToTarget];
 	const storageNames = ["Сумма накоплений", "Осталось накопить"];
-
-	// const checkSumAnalitic = checkSum.length > 0 && [checkSumTotal, totalCosts]
-	// const onePercentAnalitic = checkSumAnalitic.length > 0 && (checkSumAnalitic.reduce((a, b) => ((+a) + (+b))).toFixed(2) / 100).toFixed(2)
-	// const checkSumAnaliticInPercent = checkSumAnalitic.length > 0 && checkSumAnalitic.map((item) => (item / onePercentAnalitic).toFixed(2) )
-	// console.log(checkSumAnaliticInPercent)
 
 	const options = {
 		plugins: {
@@ -98,13 +93,13 @@ function ChartHistograms({
 			},
 		],
 	};
-	const dataAnalitic = {
+	const dataAnalytic = {
 		labels: ["Общий доход", "Общий расход"],
 
 		datasets: [
 			{
-				data: analiticSum,
-				backgroundColor: colorsAnalitic,
+				data: analyticSum,
+				backgroundColor: colorsAnalytic,
 				hoverOffset: 4,
 			},
 		],
@@ -146,7 +141,7 @@ function ChartHistograms({
 							className={style.doughnut}
 							width={style.doughnut}
 							height={style.doughnut}
-							data={dataAnalitic}
+							data={dataAnalytic}
 							options={options}
 						/>
 					)}
@@ -162,7 +157,7 @@ function ChartHistograms({
 					</div>
 				)}
 				{isActive === "income" &&
-					checkSum.map((item, index: number) => {
+					checkSum.map((item: any, index: number) => {
 						return (
 							<div className={style.label_element} key={index}>
 								<div className={style.category_color} style={{ backgroundColor: colorsIncome[index] }}></div>
@@ -182,7 +177,7 @@ function ChartHistograms({
 					</div>
 				)}
 				{isActive === "costs" &&
-					checkSumOut.map((item, index) => {
+					checkSumOut.map((item: any, index: number) => {
 						return (
 							item > 0 && (
 								<div className={style.label_element} key={index}>
@@ -196,7 +191,7 @@ function ChartHistograms({
 						);
 					})}
 				{isActive === "costs" &&
-					checkSumMoneyBox.map((item, index) => {
+					checkSumMoneyBox.map((item: any, index: number) => {
 						return (
 							item > 0 && (
 								<div className={style.label_element} key={index}>
@@ -226,13 +221,13 @@ function ChartHistograms({
 						);
 					})}
 				{isActive === "analitic" &&
-					analiticSum.length > 0 &&
-					analiticSum.map((item, index) => {
+					analyticSum.length > 0 &&
+					analyticSum.map((item, index) => {
 						return (
 							<div className={style.label_element} key={index}>
-								<div className={style.category_color} style={{ backgroundColor: colorsAnalitic[index] }}></div>
+								<div className={style.category_color} style={{ backgroundColor: colorsAnalytic[index] }}></div>
 								<div className={style.category_name}>
-									{dataAnalitic.labels[index]}{" "}
+									{dataAnalytic.labels[index]}{" "}
 									<span className={style.sum}>{!percentChoice ? numberFormatRub.format(item) : item + " %"} </span>
 								</div>
 							</div>

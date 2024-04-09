@@ -1,9 +1,9 @@
 import jsPDF from "jspdf";
 
 import style from "./PdfButton.module.css";
-import "../../utils/PlayfairDisplay-Medium-normal";
+import "../../assets/font/PlayfairDisplay-Medium-normal";
 
-function PdfButton({ reportTemplateRef }) {
+function PdfButton({ reportTemplateRef }: any) {
 	const doc = new jsPDF({
 		format: "a4",
 		unit: "px",

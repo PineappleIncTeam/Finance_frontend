@@ -1,6 +1,5 @@
 .root {
 	display: grid;
-
 	grid-template-columns: 1fr 1fr;
 }
 
@@ -9,14 +8,14 @@
 	padding-left: 120px;
 }
 
-.regist {
+.signupFormContainer {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
 	margin-top: 126px;
 }
-.regist h1 {
+.signupFormContainer h1 {
 	font-family: "Monserrat-Medium";
 	font-style: normal;
 	font-weight: 800;
@@ -24,7 +23,6 @@
 	line-height: 48px;
 	letter-spacing: 0.06em;
 	text-transform: capitalize;
-
 	color: #125b50;
 }
 
@@ -113,7 +111,7 @@
 	background-color: aqua;
 }
 
-.registFon {
+.signupBackground {
 	position: relative;
 	background-image: url("./../../../../src/assets/fonGirl.svg");
 	width: 100%;
@@ -171,22 +169,6 @@
 	color: teal;
 }
 
-/* .reg:hover {
-  font-weight: bold;
-  color: teal;
-  text-shadow: 0 1px 0 teal, 0 2px 0 teal, 0 3px 0 #bbb, 0 4px 0 #b9b9b9,
-    0 5px 0 teal, 0 6px 1px rgba(0, 0, 0, 0.1), 0 0 5px rgba(0, 0, 0, 0.1),
-    0 1px 3px rgba(0, 0, 0, 0.3), 0 3px 5px rgba(0, 0, 0, 0.2),
-    0 5px 10px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.2),
-    0 20px 20px rgba(0, 0, 0, 0.15);
-  font-size: 18px;
-  line-height: 18px;
-  letter-spacing: 1px;
-  display: inline-block;
-  color: rgb(58, 112, 112);
-  font-family: "Russo One", sans-serif;
-} */
-
 .reply {
 	font: italic 20px/25px Arial;
 	color: red;
@@ -211,7 +193,7 @@
 }
 
 @media screen and (max-width: 1919px) {
-	.registFon {
+	.signupBackground {
 		height: 768px;
 		background-size: cover;
 	}
@@ -219,10 +201,10 @@
 		text-align: center;
 		padding-left: 0px;
 	}
-	.regist {
+	.signupFormContainer {
 		margin-top: 110px;
 	}
-	.regist h1 {
+	.signupFormContainer h1 {
 		font-size: 24px;
 	}
 	.form label {
@@ -272,7 +254,7 @@
 }
 
 @media screen and (max-width: 1180px) {
-	.registFon {
+	.signupBackground {
 		background-size: cover;
 		text-align: center;
 		margin-top: 100px;
@@ -287,14 +269,14 @@
 		flex-direction: column-reverse;
 	}
 
-	.registFon {
+	.signupBackground {
 		background-position-x: 20px;
 		max-width: 255px;
 		max-height: 255px;
 		margin: 0px auto;
 	}
 
-	.regist {
+	.signupFormContainer {
 		margin: 0px auto;
 	}
 }

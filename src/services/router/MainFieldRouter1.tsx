@@ -17,18 +17,14 @@ const MainFieldRouter = ({
 	balanceToTarget,
 	balanceToTargetInPercent,
 	getOperationList,
-	// getAllOperationList,
-	// setSymbol,
 	getBalanceData,
 	getInputData,
 	inputData,
-	// operationList,
-	// allOperationList,
 	changeRangeCalendar,
 	range,
 	setCheckMainField,
 	setCheckCalculator,
-	gistogramSize,
+	histogramSize,
 }: any) => {
 	return (
 		<Routes>
@@ -58,12 +54,10 @@ const MainFieldRouter = ({
 						getCategories={getCategories}
 						getStorageCategories={getStorageCategories}
 						getOperationList={getOperationList}
-						// setSymbol={setSymbol}
 						getBalanceData={getBalanceData}
 						getInputData={getInputData}
 						inputData={inputData}
 						changeRangeCalendar={changeRangeCalendar}
-						// range={range}
 						setCheckMainField={setCheckMainField}
 						setCheckCalculator={setCheckCalculator}
 					/>
@@ -90,7 +84,6 @@ const MainFieldRouter = ({
 				path={MainFieldPath.Analytics}
 				element={
 					<MainFieldAnalytic
-						// operationList={operationList}
 						changeRangeCalendar={changeRangeCalendar}
 						range={range}
 						getStorageCategories={getStorageCategories}
@@ -99,9 +92,7 @@ const MainFieldRouter = ({
 						balanceToTargetInPercent={balanceToTargetInPercent}
 						setCheckMainField={setCheckMainField}
 						setCheckCalculator={setCheckCalculator}
-						gistogramSize={gistogramSize}
-						// getAllOperationList={getAllOperationList}
-						// allOperationList={allOperationList}
+						histogramSize={histogramSize}
 					/>
 				}
 			/>

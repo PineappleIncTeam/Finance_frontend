@@ -7,7 +7,7 @@ import "./AirCalendar.css";
 
 import { setDateCalendar, setDateCalendarRange } from "../../services/redux/features/infoPart/InfoPartSlice";
 
-import vect from "./../../assets/calendar.png";
+import vectorCalendar from "./../../assets/calendar.png";
 
 function AirDatePicker(props: any) {
 	const $input = useRef();
@@ -38,6 +38,7 @@ function AirDatePicker(props: any) {
 				);
 			},
 		};
+
 		dp.current = new AirDatepicker($input.current, {
 			...props,
 			buttons: [button2, button1],
@@ -67,7 +68,7 @@ function AirDatePicker(props: any) {
 	return (
 		<div className="rootInput">
 			<input className="input" ref={$input} placeholder={"Выбор даты"} readOnly />
-			<img src={vect} alt="" className="vect" />
+			<img src={vectorCalendar} alt="" className="calendar-vector" />
 		</div>
 	);
 }

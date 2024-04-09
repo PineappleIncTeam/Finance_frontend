@@ -1,4 +1,4 @@
-export function getAnaliticGistogramSum(json: any) {
+export function getAnalyticHistogramSum(json: any) {
 	const keys = json && json.map((item: any) => Object.keys(item));
 	const result = json && json.map((_item: any, index: any) => Object.values(json[index][keys[index]]));
 

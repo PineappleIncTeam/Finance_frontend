@@ -16,7 +16,6 @@ const DateBar = ({ balanceData, range, selectDate, checkCalculator }: any) => {
 				<div className={style.userDate}>
 					<div className={style.balance}>
 						<input type="text" value={numberFormatRub.format(balanceData)} readOnly />
-						{/* <span className="ruble_icon">₽</span> */}
 						<div className={style.textBalance}>
 							Ваш баланс на <span className={style.balance_month}>{selectDateAside[2]}</span>
 							<span className={style.balance_month}>{balanceMonths[Number(selectDateAside[1])]}</span>

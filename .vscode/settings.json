@@ -6,6 +6,7 @@
         "formik",
         "freenance",
         "jspdf",
+        "Signin",
         "Signup",
         "Stek",
         "tablexls",

@@ -1,8 +1,9 @@
 import { BaseSyntheticEvent, useState } from "react";
 
+import { messageTypeValues } from "../../../helpers/AiModalWindow";
+
 import closeIcon from "../../../assets/closeIcon.svg";
 
-// import { URLS } from "../../urls/urlsAndDates"
 import AiAnswerMessage from "../aiAnswerComponents/AiAnswerMessage/AiAnswerMessage";
 import AiAnswerButton from "../aiAnswerComponents/AIAnswerButton/AiAnswerButton";
 
@@ -17,37 +18,7 @@ const AiModalWindow = ({
 	aiSavingMoneyAdvice,
 	aiTaxDeduction,
 }: any) => {
-	// const aiHelper = JSON.parse(localStorage.getItem("aiHelper"))
-	// const [aiAnswer, setAiAnswer] = useState("")
-	// const [aiSavingMoneyAdvice, setAiSavingMoneyAdvice] = useState("")
-	// const [aiTaxDeduction, setAiTaxDeduction] = useState("")
-	const [messageType, setMessageType] = useState("Аналитика");
-
-	// function getAiRecomendation() {
-	//   const options = {
-	//     method: "GET",
-	//     headers: {
-	//       "Content-type": "application/json",
-	//       Authorization: `Token ${token}`,
-	//     },
-	//   }
-	//   fetch(URLS.getAiAnswer, options)
-	//     .then((response) => response.json())
-	//     .then((result) => setAiAnswer(result.ai_answer))
-	//   fetch(URLS.getSavingMoneyAdvice, options)
-	//     .then((response) => response.json())
-	//     .then((result) => setAiSavingMoneyAdvice(result.ai_answer))
-	//   fetch(URLS.getTaxDeduction, options)
-	//     .then((response) => response.json())
-	//     .then((result) => setAiTaxDeduction(result.ai_answer))
-	// }
-	// useEffect(() => {
-	//   if (checked) getAiRecomendation()
-	// }, [checked])
-
-	// useEffect(() => {
-	//   if (aiAnswer) setActive(true)
-	// }, [aiAnswer])
+	const [messageType, setMessageType] = useState<string>(messageTypeValues.analytic);
 
 	function hideArtificialIntelligence(e: BaseSyntheticEvent) {
 		e.stopPropagation();
@@ -72,30 +43,29 @@ const AiModalWindow = ({
 				<div className={aiSavingMoneyAdvice || aiTaxDeduction ? style.answer_button_block : style.disabled}>
 					{aiAnswer && (
 						<AiAnswerButton
-							name={"Аналитика"}
+							name={messageTypeValues.analytic}
 							setAnswer={setMessageType}
-							active={messageType === "Аналитика" ? true : false}
+							active={messageType === messageTypeValues.analytic ? true : false}
 						/>
 					)}
 					{aiSavingMoneyAdvice && (
 						<AiAnswerButton
-							name={"Советы по экономии"}
+							name={messageTypeValues.economicAdvice}
 							setAnswer={setMessageType}
-							active={messageType === "Советы по экономии" ? true : false}
+							active={messageType === messageTypeValues.economicAdvice ? true : false}
 						/>
 					)}
 					{aiTaxDeduction && (
 						<AiAnswerButton
-							name={"Налоговый вычет"}
+							name={messageTypeValues.taxDeduction}
 							setAnswer={setMessageType}
-							active={messageType === "Налоговый вычет" ? true : false}
+							active={messageType === messageTypeValues.taxDeduction ? true : false}
 						/>
 					)}
 				</div>
-				{/* <div className={style.modal_text}>{aiAnswer}</div> */}
-				{messageType === "Аналитика" && <AiAnswerMessage aiAnswer={aiAnswer} />}
-				{messageType === "Советы по экономии" && <AiAnswerMessage aiAnswer={aiSavingMoneyAdvice} />}
-				{messageType === "Налоговый вычет" && <AiAnswerMessage aiAnswer={aiTaxDeduction} />}
+				{messageType === messageTypeValues.analytic && <AiAnswerMessage aiAnswer={aiAnswer} />}
+				{messageType === messageTypeValues.economicAdvice && <AiAnswerMessage aiAnswer={aiSavingMoneyAdvice} />}
+				{messageType === messageTypeValues.taxDeduction && <AiAnswerMessage aiAnswer={aiTaxDeduction} />}
 				<div className={style.ai_helper_checkbox}>
 					<input type="checkbox" id="aiCheckbox" onChange={(e) => hideArtificialIntelligence(e)} checked={!checked} />
 					<label>Не показывать сообщение помощника по финансам</label>

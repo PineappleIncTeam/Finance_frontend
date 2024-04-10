@@ -7,6 +7,7 @@ import { useRef, useState } from "react";
 import useAppDispatch from "../../../hooks/useAppDispatch";
 
 import { TLoginData } from "../../../types/api/Auth";
+import { IFormSubmitting, TSigninFormValues } from "../../../types/pages/Authorization";
 import { setUser } from "../../../services/redux/features/userData/UserDataSlice";
 import { AuthPath } from "../../../services/router/routes";
 import { loginUser } from "../../../services/api/auth/Login";
@@ -19,23 +20,29 @@ import passYes from "./../../../assets/passYes.png";
 import style from "./LoginPage.module.css";
 
 const LoginPage = () => {
-	const [reply, setReply] = useState("");
-	const [passwordType, setPasswordType] = useState(passNo);
+	const [reply, setReply] = useState<string>("");
+	const [passwordType, setPasswordType] = useState<string>(passNo);
 
-	const passRef = useRef(null);
+	const passRef = useRef<HTMLInputElement>(null);
 	const dispatch = useAppDispatch();
 	const navigate = useNavigate();
 
+	const formInitialValues: TSigninFormValues = {
+		email: "",
+		username: "",
+		password: "",
+	};
+
 	const togglePassInput = () => {
-		if (passwordType === passNo) {
+		if (passwordType === passNo && passRef && passRef.current) {
 			passRef.current.type = "text";
 			setPasswordType(passYes);
-		} else if (passwordType === passYes) {
+		} else if (passwordType === passYes && passRef && passRef.current) {
 			passRef.current.type = "password";
 			setPasswordType(passNo);
 		}
 	};
-	const signInHandler = async (values: any, { setSubmitting }: any) => {
+	const signInHandler = async (values: TSigninFormValues, { setSubmitting }: IFormSubmitting) => {
 		const loginData: TLoginData = {
 			username: values.username,
 			password: values.password,
@@ -85,11 +92,7 @@ const LoginPage = () => {
 				<div className={style.signupFormContainer}>
 					<h1>Вход</h1>
 					<Formik
-						initialValues={{
-							email: "",
-							username: "",
-							password: "",
-						}}
+						initialValues={formInitialValues}
 						validateOnBlur
 						validationSchema={validationSchema}
 						onSubmit={signInHandler}>
@@ -98,7 +101,6 @@ const LoginPage = () => {
 								<label>Логин</label>
 								<Field type="username" name="username" className={style.input} placeholder={"Введите логин..."} />
 								<ErrorMessage name="username" component="div" className={style.error} />
-								<br />
 								<div className={style.password_recovery}>
 									<label>Пароль</label>
 									<Link to={AuthPath.RecoveryPassword} className={style.recovery}>
@@ -117,15 +119,14 @@ const LoginPage = () => {
 									<ErrorMessage name="password" component="div" className={style.error} />
 								</div>
 
-								<br />
 								<p className={style.textReg}>
-									Если у вас нет учетной записи, <br />
+									Если у вас нет учетной записи,
 									<Link to={AuthPath.Signup} className={style.reg}>
 										{" "}
 										зарегистрируйтесь
 									</Link>
 								</p>
-								<br />
+
 								<div className={style.only_lat_message}>*только латиница</div>
 								<div className={style.reply}>{reply}</div>
 								<button className={style.btn} type={"submit"} disabled={isValid}>

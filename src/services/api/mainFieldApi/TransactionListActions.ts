@@ -1,7 +1,7 @@
-import { ICashData } from "../../types/api/TransactionListActions";
-import { URLS } from "../../helpers/urlsAndDates";
-import { getCustomOptions } from "../../utils/getCustomOptions";
-import { getUpdateOptions } from "../../utils/getUpdateOptions";
+import { ICashData } from "../../../types/api/TransactionListActions";
+import { URLS } from "../../../helpers/urlsAndDates";
+import { getCustomOptions } from "../../../utils/getCustomOptions";
+import { getUpdateOptions } from "../../../utils/getUpdateOptions";
 
 export async function deleteIncomeCash(id: any, token: string) {
 	return await fetch(`${URLS.deleteIncomeCash}${id}`, getCustomOptions(token));

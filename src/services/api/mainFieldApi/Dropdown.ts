@@ -1,5 +1,5 @@
-import { IArchiveCategoryData, IDropdownCategoryData } from "../../types/api/Dropdown";
-import { URLS } from "../../helpers/urlsAndDates";
+import { IArchiveCategoryData, IDropdownCategoryData } from "../../../types/api/Dropdown";
+import { URLS } from "../../../helpers/urlsAndDates";
 
 export async function addDropdownCategory(categoryData: IDropdownCategoryData, token: string) {
 	return await fetch(URLS.createCategory, {

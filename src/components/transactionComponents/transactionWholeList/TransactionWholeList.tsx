@@ -31,10 +31,7 @@ function TransactionWholeList({ allOperationList }: any) {
 						})}
 				</div>
 			) : (
-				<div className={style.message_text}>
-					Операции за выбранный период <br />
-					отсутствуют
-				</div>
+				<div className={style.message_text}>Операции за выбранный период отсутствуют</div>
 			)}
 		</>
 	);

@@ -24,7 +24,7 @@ const ExchangeRates = ({
 	data,
 }: any) => {
 	const localData = localStorage.getItem("exchengeRate");
-	const localRates = JSON.parse(localData);
+	const localRates = JSON.parse(localData ?? "");
 
 	const prevExchangeRates = usePreviousExchangeRates(localRates) || {};
 
@@ -112,8 +112,7 @@ const ExchangeRates = ({
 							<a className={style.exchange_title_link} href="https://www.cbr-xml-daily.ru/" target="_blank">
 								Виджет курсов валют
 							</a>{" "}
-							ЦБ РФ <br />
-							на {exchangeDate}
+							ЦБ РФ на {exchangeDate}
 						</div>
 						<div className={style.currency_block}>
 							<CurrencyBox symbol={"$"} data={USD} />

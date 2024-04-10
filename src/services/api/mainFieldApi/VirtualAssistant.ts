@@ -1,5 +1,5 @@
-import { URLS } from "../../helpers/urlsAndDates";
-import { getCustomOptions } from "../../utils/getCustomOptions";
+import { URLS } from "../../../helpers/urlsAndDates";
+import { getCustomOptions } from "../../../utils/getCustomOptions";
 
 export async function getAiAnswer(token: string) {
 	return await fetch(URLS.getAiAnswer, getCustomOptions(token));

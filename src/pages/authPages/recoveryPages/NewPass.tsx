@@ -4,6 +4,7 @@ import { useNavigate } from "react-router";
 import { Link, useLocation } from "react-router-dom";
 import queryString from "query-string";
 
+import { InputTypeBase, TNewPasswordFormValues } from "../../../types/pages/Authorization";
 import Logo from "../../../components/logoElement/LogoElement";
 import { AuthPath } from "../../../services/router/routes";
 
@@ -17,21 +18,27 @@ import passYes from "./../../../assets/passYes.png";
 import style from "./RecoveryPages.module.css";
 
 const NewPass = () => {
-	const [message, setMessage] = useState("");
-	const [passwordType, setPasswordType] = useState({
+	const [message, setMessage] = useState<string>("");
+	const [passwordType, setPasswordType] = useState<InputTypeBase>({
 		eye: passNo,
 		type: "password",
 	});
-	const [confirmType, setConfirmType] = useState({
+	const [confirmType, setConfirmType] = useState<InputTypeBase>({
 		eye: passNo,
 		type: "password",
 	});
 
 	const location = useLocation();
 	const navigate = useNavigate();
+
 	const { uid, token } = queryString.parse(location.search);
 
-	const changePassword = async (values: any) => {
+	const formInitialValues: TNewPasswordFormValues = {
+		password: "",
+		confirmPassword: "",
+	};
+
+	const handleSubmit = async (values: TNewPasswordFormValues) => {
 		const userData: ChangingUserPassword = {
 			uid: uid,
 			token: String(token),
@@ -47,11 +54,10 @@ const NewPass = () => {
 	};
 
 	const togglePassInput = () => {
-		if (passwordType.eye === passNo) {
-			setPasswordType({ eye: passYes, type: "text" });
-		} else if (passwordType.eye === passYes) {
-			setPasswordType({ eye: passNo, type: "password" });
-		}
+		return setPasswordType({
+			eye: passwordType.eye === passYes ? passNo : passYes,
+			type: passwordType.eye === passYes ? "password" : "text",
+		});
 	};
 
 	const toggleConfirmInput = () => {
@@ -62,13 +68,12 @@ const NewPass = () => {
 		}
 	};
 
-	function validatePass(value: any) {
-		if (!value) return "Обязательно";
+	function validatePass(value: string) {
+		return !value ? "Обязательно" : "";
 	}
 
-	function validateConfirmPass(password: any, value: any) {
-		if (!value) return "Обязательно";
-		if (password !== value) return "Пароли не совпадают";
+	function validateConfirmPass(password: string, value: string) {
+		return !value ? "Обязательно" : password !== value ? "Пароли не совпадают" : "";
 	}
 
 	return (
@@ -79,12 +84,7 @@ const NewPass = () => {
 				</div>
 				<div className={style.newPasswordFormContainer}>
 					<h1>Изменение пароля</h1>
-					<Formik
-						initialValues={{
-							password: "",
-							confirmPassword: "",
-						}}
-						onSubmit={changePassword}>
+					<Formik initialValues={formInitialValues} onSubmit={handleSubmit}>
 						{({ errors, touched, values }) => (
 							<Form className={style.form}>
 								<label>Пароль</label>
@@ -106,7 +106,7 @@ const NewPass = () => {
 										type={confirmType.type}
 										name="confirmPassword"
 										placeholder="Повторите пароль"
-										validate={(value: any) => validateConfirmPass(values.password, value)}
+										validate={(value: string) => validateConfirmPass(values.password, value)}
 									/>
 									<img
 										className={style.icon}

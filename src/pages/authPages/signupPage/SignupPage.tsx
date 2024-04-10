@@ -6,6 +6,7 @@ import { useRef, useState } from "react";
 
 import useAppDispatch from "../../../hooks/useAppDispatch";
 
+import { IFormSubmitting, ISignupFormValues } from "../../../types/pages/Authorization";
 import { ISignupUserData, TLoginData } from "../../../types/api/Auth";
 import { signupUser } from "../../../services/api/auth/Signup";
 import { loginUser } from "../../../services/api/auth/Login";
@@ -22,36 +23,43 @@ import style from "./SignupPage.module.css";
 YupPassword(Yup);
 
 const SignupPage = () => {
-	const [reply, setReply] = useState("");
-	const [passwordType, setPasswordType] = useState(passNo);
-	const [confirmType, setConfirmType] = useState(passNo);
+	const [reply, setReply] = useState<string>("");
+	const [passwordType, setPasswordType] = useState<string>(passNo);
+	const [confirmType, setConfirmType] = useState<string>(passNo);
 
-	const passRef = useRef(null);
-	const confirmRef = useRef(null);
+	const passRef = useRef<HTMLInputElement>(null);
+	const confirmRef = useRef<HTMLInputElement>(null);
 	const dispatch = useAppDispatch();
 	const navigate = useNavigate();
 
+	const formInitialValues: ISignupFormValues = {
+		email: "",
+		username: "",
+		password: "",
+		confirmPassword: "",
+	};
+
 	const togglePassInput = () => {
-		if (passwordType === passNo) {
+		if (passwordType === passNo && passRef && passRef.current) {
 			passRef.current.type = "text";
 			setPasswordType(passYes);
-		} else if (passwordType === passYes) {
+		} else if (passwordType === passYes && passRef && passRef.current) {
 			passRef.current.type = "password";
 			setPasswordType(passNo);
 		}
 	};
 
 	const toggleConfirmInput = () => {
-		if (confirmType === passNo) {
+		if (confirmType === passNo && confirmRef && confirmRef.current) {
 			confirmRef.current.type = "text";
 			setConfirmType(passYes);
-		} else if (confirmType === passYes) {
+		} else if (confirmType === passYes && confirmRef && confirmRef.current) {
 			confirmRef.current.type = "password";
 			setConfirmType(passNo);
 		}
 	};
 
-	const registerHandler = async (values: any, { setSubmitting }: any) => {
+	const registerHandler = async (values: ISignupFormValues, { setSubmitting }: IFormSubmitting) => {
 		setPasswordType(passNo);
 		setConfirmType(passNo);
 
@@ -126,11 +134,7 @@ const SignupPage = () => {
 				<div className={style.signupFormContainer}>
 					<h1>Регистрация</h1>
 					<Formik
-						initialValues={{
-							email: "",
-							username: "",
-							password: "",
-						}}
+						initialValues={formInitialValues}
 						validateOnBlur
 						validationSchema={validationSchema}
 						onSubmit={registerHandler}>
@@ -147,7 +151,7 @@ const SignupPage = () => {
 								<div className={style.error}>{values.email && errors.email}</div>
 
 								{!values.email && <ErrorMessage name="email" component="div" className={style.error} />}
-								<br />
+
 								<label>Логин</label>
 								<Field
 									type="username"
@@ -158,7 +162,7 @@ const SignupPage = () => {
 
 								<div className={style.error}>{values.username && errors.username}</div>
 								{!values.username && <ErrorMessage name="username" component="div" className={style.error} />}
-								<br />
+
 								<label>Пароль</label>
 								<div className={style.pass}>
 									<Field
@@ -172,7 +176,7 @@ const SignupPage = () => {
 									<div className={style.error}>{values.password && errors.password}</div>
 									{!values.password && <ErrorMessage name="password" component="div" className={style.error} />}
 								</div>
-								<br />
+
 								<label>Подтвердите пароль</label>
 								<div className={style.pass}>
 									<Field
@@ -188,9 +192,8 @@ const SignupPage = () => {
 										<ErrorMessage name="confirmPassword" component="div" className={style.error} />
 									)}
 								</div>
-								<br />
+
 								<p className={style.textReg}>
-									<br />
 									<Link to={AuthPath.Login} className={style.reg}>
 										{" "}
 										Я уже зарегистрирован

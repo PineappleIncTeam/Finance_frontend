@@ -2,7 +2,11 @@ import { BaseSyntheticEvent, useEffect, useRef, useState } from "react";
 
 import { IArchiveCategoryData, IDropdownCategoryData } from "../../types/api/Dropdown";
 import Modal from "../../ui/modalWindow/Modal";
-import { addDropdownCategory, deleteDropdownCategory, sendCategoryToArchive } from "../../services/api/Dropdown";
+import {
+	addDropdownCategory,
+	deleteDropdownCategory,
+	sendCategoryToArchive,
+} from "../../services/api/mainFieldApi/Dropdown";
 
 import closeIcon from "../../assets/closeIcon.svg";
 import style from "../../ui/modalWindow/Modal.module.css";
@@ -294,10 +298,7 @@ function Dropdown({
 						<img src={closeIcon} alt="cross" />
 					</div>
 					<div className={style.content_box}>
-						<p className={style.modal_text}>
-							Введите название категории <br />
-							(не более 14 символов)
-						</p>
+						<p className={style.modal_text}>Введите название категории (не более 14 символов)</p>
 						<div>
 							<input
 								ref={handleModalInputRef}

@@ -5,7 +5,11 @@ import useAppSelector from "../../../hooks/useAppSelector";
 import PersonElement from "../personElement/PersonElement";
 import InformBox from "../InformBox/InformBox";
 import userDataSelector from "../../../services/redux/features/userData/UserDataSelector";
-import { getAiAnswer, getAiMoneyAdvice, getAiTaxRecommendation } from "../../../services/api/VirtualAssistant";
+import {
+	getAiAnswer,
+	getAiMoneyAdvice,
+	getAiTaxRecommendation,
+} from "../../../services/api/mainFieldApi/VirtualAssistant";
 
 import AiModalWindow from "../../aiModal/windowBaseElement/AiModalWindow";
 

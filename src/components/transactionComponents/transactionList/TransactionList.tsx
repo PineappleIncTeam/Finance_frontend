@@ -19,7 +19,7 @@ import {
 	updateIncomeCash,
 	updateMoneyBoxCash,
 	updateOutcomeCash,
-} from "../../../services/api/TransactionListActions";
+} from "../../../services/api/mainFieldApi/TransactionListActions";
 import { ICashData } from "../../../types/api/TransactionListActions";
 
 import s from "./TransactionList.module.css";

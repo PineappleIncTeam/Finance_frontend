@@ -122,11 +122,11 @@ function HistogramBase({
 	const outcomeCategoryName = sumGroupOutcome.length > 0 && Object.keys(outcomeCategory);
 	const outcomeMonths = sumGroupOutcome.length > 0 && Object.keys(outcomeCategory[outcomeCategoryName]);
 	const outcomeLabels = outcomeMonths;
-	//
+
 	const outcomeCategoriesSum = getHistogramCategorySum(sumGroupOutcome);
 	const outcomeCategoriesSumTotal = outcomeCategoriesSum.concat(moneyBoxCategoriesSum);
 	const outcomeCategoriesSumTotalInPercent = getPercentForHistogramSum(outcomeCategoriesSumTotal);
-	//
+
 	const datasets = outcomeCategories.map((item: any, index: number) => {
 		let result = {};
 		result = {
@@ -150,7 +150,6 @@ function HistogramBase({
 	});
 
 	datasets.push(...moneyBoxDatasets);
-	//
 
 	const dataOutcome = {
 		labels: outcomeLabels,

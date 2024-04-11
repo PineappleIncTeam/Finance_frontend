@@ -1,11 +1,11 @@
-import RegistRoutePage from "./Components/RoutePage/RegistRoutePage";
+import IntroRouteList from "./services/router/SignupRouteList";
 
 import "./App.css";
 
 function App() {
 	return (
 		<div className="App">
-			<RegistRoutePage />
+			<IntroRouteList />
 		</div>
 	);
 }

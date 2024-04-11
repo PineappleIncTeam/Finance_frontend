@@ -11,7 +11,7 @@ module.exports = {
   ],
   ignorePatterns: ['dist', '.eslintrc.cjs'],
   parser: '@typescript-eslint/parser',
-  plugins: ['react-refresh', "import", "prettier"],
+  plugins: ['react-refresh', "import", "hooks", "prettier"],
   rules: {
     'react-refresh/only-export-components': [
       'warn',
@@ -28,6 +28,24 @@ module.exports = {
     "max-len": ["error", { "code": 12000 }],
     "@typescript-eslint/no-inferrable-types": "off",
     "no-constant-condition": "warn",
+    "hooks/sort": [
+      2,
+      {
+        "groups": [
+          "useState",
+          "useReducer",
+          "useContext",
+          "useRef",
+          "useAppDispatch",
+          "useAppSelector",
+          "useLocation",
+          "useNavigate",
+          "usePreviousExchangeRates",
+          "useCallback",
+          "useEffect"
+        ]
+      }
+    ],
     "@typescript-eslint/ban-types": [
 			"error",
 			{

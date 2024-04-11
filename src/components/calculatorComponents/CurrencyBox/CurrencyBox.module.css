@@ -1,0 +1,7 @@
+.currency_box {
+	display: flex;
+	margin: 10px 20px;
+}
+.currency_symbol {
+	margin-right: 5px;
+}

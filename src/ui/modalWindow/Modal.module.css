@@ -1,0 +1,178 @@
+.modal {
+	height: 100vh;
+	width: 100vw;
+	background-color: rgba(0, 0, 0, 0.4);
+	position: fixed;
+	top: 0;
+	left: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	z-index: 20;
+	opacity: 0;
+	pointer-events: none;
+	transition: 0.5s;
+	backdrop-filter: blur(2px);
+}
+.disabled {
+	display: none;
+}
+.active {
+	opacity: 1;
+	pointer-events: all;
+}
+.modal_form {
+	display: flex;
+	flex-direction: column;
+}
+.modal_content {
+	display: flex;
+	flex-direction: column;
+	padding: 20px;
+	border-radius: 10px;
+	background-color: white;
+}
+.modal_text {
+	font-family: "Monserrat-medium";
+	font-size: 16px;
+	margin-bottom: 20px;
+	white-space: pre-line;
+}
+
+.modal_input {
+	width: 200px;
+	height: 50px;
+	font-size: 16px;
+	border: 1px solid #b7b7b7;
+	border-radius: 12px;
+	font-family: "Monserrat-Regular";
+	font-weight: 400;
+	margin-top: 28px;
+	padding-left: 10px;
+	padding-right: 10px;
+	background-color: #faf5e433;
+	outline: none;
+}
+.modal_input_storage {
+	composes: modal_input;
+	margin-left: 20px;
+}
+
+.error {
+	border: 1px solid red;
+	color: red;
+}
+.button {
+	cursor: pointer;
+	width: 200px;
+	height: 50px;
+	font-size: 16px;
+	border: 1px solid #125b50;
+	color: white;
+	font-family: "Monserrat-Regular";
+	font-weight: 600;
+	margin: 28px 20px 0px;
+	background-color: #125b50;
+	border-radius: 20px;
+}
+.button:hover {
+	background-color: #125b50;
+	cursor: pointer;
+	box-shadow: 0px 2px 5px 1px #0c4139;
+	transform: translateY(-1px);
+}
+.button[disabled] {
+	background: #125b50;
+}
+.button[disabled]:hover {
+	box-shadow: none;
+	transform: none;
+
+	cursor: auto;
+}
+.button_cancel {
+	composes: button;
+	background-color: #a10930;
+	border-color: #a10930;
+}
+.button_cancel:hover {
+	background-color: #a10930;
+	box-shadow: 0px 2px 5px 1px #8a354a;
+}
+.button_archive {
+	composes: button;
+	background-color: #999999;
+	border-color: #999999;
+}
+.button_archive:hover {
+	background-color: #999999;
+	box-shadow: 0px 2px 5px 1px #999999;
+}
+.delete_icon {
+	cursor: pointer;
+	align-self: flex-end;
+	display: flex;
+	opacity: 0.4;
+	transition: 0.3s;
+}
+.delete_icon:hover {
+	opacity: 1;
+	transition: 0.3s;
+}
+
+.message,
+.errorMessage {
+	text-align: center;
+	font-family: "Monserrat-regular";
+	font-size: 16px;
+	margin-top: 20px;
+}
+.content_box {
+	margin: 10px auto 0px;
+}
+
+@media screen and (max-width: 1280px) {
+	.modal_text,
+	.message,
+	.errorMessage {
+		font-size: 16px;
+		margin-top: 10px;
+	}
+}
+
+@media (max-width: 840px) {
+	.modal_content {
+		width: 295px;
+		/* height: 295px; */
+	}
+	.content_box {
+		margin: 38px auto 0px;
+	}
+	.button {
+		font-size: 20px;
+		width: 200px;
+		height: 50px;
+		margin: 0px auto 20px;
+	}
+	.modal_input {
+		width: 275px;
+		height: 50px;
+		margin-top: 7px;
+		margin-bottom: 44px;
+	}
+	.modal_input_storage {
+		position: relative;
+		bottom: 20px;
+		margin: 0px 0px 10px;
+	}
+	.modal_text,
+	.message,
+	.errorMessage {
+		font-size: 16px;
+		margin-top: 0px;
+		margin-bottom: 25px;
+	}
+	.errorMessage {
+		margin-bottom: 0px;
+	}
+}

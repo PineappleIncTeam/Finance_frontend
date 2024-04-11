@@ -1,0 +1,43 @@
+.exchange_rates_block {
+	display: flex;
+}
+.currency_buttons_block {
+	display: flex;
+	justify-content: space-between;
+	width: 200px;
+}
+.currency_data_block {
+	margin-left: 20px;
+}
+.currency_block {
+	display: flex;
+	justify-content: space-around;
+}
+.exchange_title_link {
+	text-decoration: none;
+	font-weight: 600;
+	color: rgb(121, 162, 41);
+}
+
+@media (max-width: 840px) {
+	.exchange_rates_block {
+		justify-content: space-around;
+	}
+}
+@media (max-width: 624px) {
+	.exchange_rates_block {
+		flex-direction: column-reverse;
+	}
+	.currency_data_block {
+		width: 300px;
+		text-align: start;
+		margin: 20px 0px;
+	}
+	.currency_block {
+		width: 300px;
+		justify-content: space-between;
+	}
+	.currency_buttons_block {
+		width: 310px;
+	}
+}

@@ -1,13 +1,11 @@
-import IntroRouteList from "./services/router/SignupRouteList";
+import { RouterProvider } from "react-router-dom";
+
+import router from "./services/router/router";
 
 import "./App.css";
 
 function App() {
-	return (
-		<div className="App">
-			<IntroRouteList />
-		</div>
-	);
+	return <RouterProvider router={router} />;
 }
 
 export default App;

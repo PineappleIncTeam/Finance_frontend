@@ -1,11 +1,11 @@
 export interface IDropdownCategoryData {
-	categoryName: any;
-	category_type: any;
-	income_outcome: any;
-	target: any;
+	categoryName: string;
+	category_type: string;
+	income_outcome: string;
+	target: string;
 }
 
 export interface IArchiveCategoryData {
-	category_id: any;
+	category_id: number;
 	is_hidden: boolean;
 }

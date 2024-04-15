@@ -1,15 +1,9 @@
-export enum AuthPath {
-	Login = "/",
-	Signup = "/login",
-	RecoveryPassword = "/recovery",
-	RectanglePage = "/rectangle",
-	NewPassword = "/password/reset/confirm/",
+export enum MainPath {
+	Main = "/",
+	Login = "/login",
 }
 
-export enum MainFieldPath {
-	Base = "/mainfield",
-	Cost = "/mainfieldcosts",
-	Storage = "/mainfieldstorage",
-	Analytics = "/mainfieldanalitic",
-	Calculator = "/calculator",
+export enum UserProfilePath {
+	Profit = "/profit",
+	SpendingMoney = "/spendingMoney",
 }

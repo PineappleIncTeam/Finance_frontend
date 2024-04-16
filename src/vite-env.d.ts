@@ -1,3 +1,4 @@
 // / <reference types="vite/client" />
 
-declare module "react-html-table-to-excel";
+declare module "*.css";
+declare module "*.module.css";

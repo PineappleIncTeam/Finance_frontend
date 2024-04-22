@@ -1,1 +1,3 @@
-export const propsTypes = 0;
+// import { ReactNode } from "react";
+
+export type CustomLayout = () => Element;

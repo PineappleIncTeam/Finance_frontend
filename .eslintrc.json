@@ -24,6 +24,7 @@
         "prefer-const": "warn",
         "max-len": ["error", { "code": 12000 }],
         "no-constant-condition": "warn",
+        "sonarjs/cognitive-complexity": "off",
         "sonarjs/no-duplicate-string": "warn",
         "sonarjs/prefer-immediate-return": "warn",
         "@typescript-eslint/no-explicit-any": "warn",

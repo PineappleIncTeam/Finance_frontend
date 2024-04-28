@@ -1,4 +1,4 @@
-import { User } from "../types/components/ComponentsTypes";
+import { IUser } from "../types/components/ComponentsTypes";
 
 export const constantExample = 18;
 export const constantExample1 = 21;
@@ -8,7 +8,7 @@ export const constantObjectExample = {
 	property2: 0,
 };
 
-export function processUserData(user: User): boolean {
+export function processUserData(user: IUser): boolean {
 	let isValid = true;
 
 	if (user.age < constantExample) {

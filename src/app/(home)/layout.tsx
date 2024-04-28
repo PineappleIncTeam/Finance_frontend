@@ -1,5 +1,8 @@
-import "./reset.css";
-import "./globals.css";
+import "../reset.css";
+import "../globals.css";
+
+import MainHeader from "../../components/mainLayout/mainHeader/MainHeader";
+import Footer from "../../components/mainLayout/footer/Footer";
 
 import type { Metadata } from "next";
 
@@ -15,7 +18,11 @@ export default function RootLayout({
 }>) {
 	return (
 		<html lang="en">
-			<body>{children}</body>
+			<body>
+				<MainHeader />
+				{children}
+				<Footer />
+			</body>
 		</html>
 	);
 }

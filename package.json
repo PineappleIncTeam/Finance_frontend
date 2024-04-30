@@ -9,6 +9,7 @@
     "lint": "next lint ",
     "preCommitLint": "next lint --quiet",
     "lint:fix": "npm run lint -- --fix",
+    "index": "git add .",
     "format": "prettier --write src/**/*.{js,jsx,ts,tsx,css,md,json} --config ./.prettierrc"
   },
   "dependencies": {

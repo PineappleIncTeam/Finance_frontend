@@ -1,0 +1,156 @@
+{
+    "extends": [
+        "next/core-web-vitals",
+        "eslint:recommended",
+        "plugin:react/recommended",
+		"plugin:react-redux/recommended",
+        "plugin:@typescript-eslint/recommended",
+		"plugin:import/errors",
+		"plugin:import/warnings",
+		"plugin:sonarjs/recommended",
+		"plugin:solid/recommended",
+		"prettier"
+    ],
+    "env": { 
+        "browser": true, 
+        "es2020": true 
+    },
+    "parser": "@typescript-eslint/parser",
+    "plugins": [
+        "solid",
+        "import", 
+        "@typescript-eslint",  
+        "sonarjs", 
+        "react", 
+        "hooks", 
+        "jsx-a11y",
+        "react-redux", 
+        "prettier"
+    ],
+    "rules": {
+		"camelcase": "error",
+		"spaced-comment": "error",
+		"quotes": ["error", "double"],
+		"jsx-quotes": ["error", "prefer-double"],
+		"no-duplicate-imports": "error",
+		"no-console": "warn",
+		"prefer-const": "warn",
+		"max-len": ["error", { "code": 12000 }],
+		"no-unused-vars": "warn",
+		"prefer-arrow-callback": "error",
+		"constructor-super": "error",
+		"no-this-before-super": "error",
+		"react/react-in-jsx-scope": "off",
+		"react/no-unknown-property": "off",
+		"react/prop-types": "off",
+		"jsx-a11y/alt-text": "error",
+		"jsx-a11y/anchor-has-content": "warn",
+		"jsx-a11y/img-redundant-alt": "warn",
+		"jsx-a11y/no-static-element-interactions": [
+			"warn",
+			{
+				"handlers": [
+					"onClick",
+					"onMouseDown",
+					"onMouseUp",
+					"onKeyPress",
+					"onKeyDown",
+					"onKeyUp"
+				],
+				"allowExpressionValues": true
+			}
+		],
+		"react-redux/useSelector-prefer-selectors": ["error", { "hook": "useAppSelector" }],
+		"sonarjs/no-duplicate-string": "warn",
+		"sonarjs/prefer-immediate-return": "warn",
+		"sonarjs/no-useless-catch": "error",
+		"sonarjs/no-redundant-jump": "error",
+		"sonarjs/no-inverted-boolean-check": "error",
+		"sonarjs/prefer-object-literal": "warn",
+		"sonarjs/no-all-duplicated-branches": "error",
+		"solid/no-destructure": "off",
+		"solid/no-react-specific-props": "off",
+		"solid/components-return-once": "off",
+		"solid/prefer-for": "off",
+		"solid/style-prop": "off",
+		"solid/reactivity": "off",
+		"solid/event-handlers": "warn",
+		"solid/jsx-no-script-url": "warn",
+		"solid/jsx-no-duplicate-props": "error",
+		"solid/no-innerhtml": "error",
+		"@next/next/no-img-element": "error",
+		"@next/next/no-html-link-for-pages": "warn",
+		"@typescript-eslint/explicit-module-boundary-types": "off",
+		"@typescript-eslint/no-explicit-any": "warn",
+		"@typescript-eslint/no-inferrable-types": "off",
+		"@typescript-eslint/no-non-null-assertion": "warn",
+		"@typescript-eslint/no-empty-function": "error",
+		"@typescript-eslint/no-unused-expressions": "warn",
+		"@typescript-eslint/no-empty-interface": "warn",
+		"@typescript-eslint/naming-convention": [
+			"error",
+			{
+				"selector": "interface",
+				"format": ["PascalCase"],
+				"custom": {
+					"regex": "^I[A-Z]",
+					"match": true
+				}
+			}
+		],
+		"@typescript-eslint/ban-types": [
+			"error",
+			{
+				"types": {
+					"FC":
+					"Useless and has some drawbacks, see https://github.com/facebook/create-react-app/pull/8177",
+					"React.FC":
+					"Useless and has some drawbacks, see https://github.com/facebook/create-react-app/pull/8177",
+					"React.FunctionComponent":
+					"Useless and has some drawbacks, see https://github.com/facebook/create-react-app/pull/8177",
+					"React.FunctionalComponent":
+					"Preact specific, useless and has some drawbacks, see https://github.com/facebook/create-react-app/pull/8177"
+				}
+			}
+		],
+		"no-magic-numbers": ["warn", {
+			"ignore": [1, 0, -1, 2], 
+			"ignoreArrayIndexes": true,
+			"ignoreDefaultValues": true
+			}
+		],
+		"import/no-unresolved": "off",
+		"import/first": "error",
+		"import/no-duplicates": "error",
+		"import/order": [
+			"error",
+			{
+				"groups": ["builtin", "external", "internal", "parent", "sibling", "index", "object", "type"],
+				"newlines-between": "always-and-inside-groups"
+			}
+		],
+        "hooks/sort": [
+            2,
+            {
+                "groups": [
+                    "useState",
+                    "useReducer",
+                    "useContext",
+                    "useRef",
+                    "useAppDispatch",
+                    "useAppSelector",
+                    "useLocation",
+                    "useNavigate",
+                    "usePreviousExchangeRates",
+                    "useCallback",
+                    "useEffect"
+                ]
+            }
+        ]
+    },
+    "settings": {
+		"import/resolver": {
+			"typescript": {}
+		}
+	}
+}

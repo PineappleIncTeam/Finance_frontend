@@ -1,1 +1,5 @@
-export const componentsTypes = 0;
+export interface IUser {
+	age: number;
+	parentalConsent: boolean;
+	country: string;
+}

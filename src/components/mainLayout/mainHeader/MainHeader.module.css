@@ -1,0 +1,254 @@
+.header {
+    background-color: var(--color-pure-light);
+}
+
+.header__wrapper {
+    width: 93%;
+    display: flex;
+    justify-content: space-between;
+    padding: 46px 0;
+    margin: 0 auto;
+    align-items: center;
+}
+
+.header__navigationWrap {
+    display: flex;
+    max-width: 661px;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.header__buttonsWrapper {
+    display: flex;
+    gap: 24px;
+}
+
+.header__modalWindow__buttonsWrapper {
+    display: flex;
+    gap: 34px;
+}
+
+.header__burger {
+    display: none;
+}
+
+.header__modalWindow {
+    width: 500px;
+    height: 404px;
+    background-color: var(--color-pure-light);
+    position: absolute;
+    top: 100px;
+    right: 0;
+    z-index: 10;
+    border-radius: 16px;
+    box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
+}
+
+.header__modalWindow__wrapper {
+    width: 87.2%;
+    padding: 32px 0 40px 0;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    margin: 0 auto;
+}
+
+.header__modalWindow__menu {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 12px;
+}
+
+.header__modalWindow__menu__text {
+    color: var(--color-dark-spring-green);
+    font-size: 2.8rem;
+    font-weight: 400;
+}
+
+.header__modalWindow__navigation {
+    height: 204px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    margin-bottom: 24px;
+}
+
+.header__activeLink {
+    position: relative;
+    text-decoration: none;
+    color: var(--color-eerie-black);
+    font-size: 2.8rem;
+    font-weight: 400;
+}
+
+.header__activeLink::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: -10px;
+    height: 3px;
+    background-color: var(--color-dark-spring-green);
+    width: 100%;
+}
+
+.header__link {
+    position: relative;
+    text-decoration: none;
+    color: var(--color-eerie-black);
+    font-size: 2.8rem;
+    font-weight: 400;
+}
+
+.header__link::before {
+    content: "";
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 3px;
+    background-color: var(--color-dark-spring-green);
+    transition: width 0.3s ease;
+}
+
+.header__link:hover::before {
+    width: 100%;
+}
+
+@media screen and (max-width: 1630px) {
+
+    .header__navigationWrap {
+        max-width: 550px;
+    }
+
+    .header__img {
+        width: 275px;
+    }
+
+    .header__buttonsWrapper {
+        gap: 20px;
+    }
+}
+
+@media screen and (max-width: 1445px) {
+    .header__wrapper {
+        padding: 38px 0;
+    }
+
+    .header__navigationWrap {
+        max-width: 494px;
+    }
+
+    .header__img {
+        width: 240px;
+        height: 48px;
+    }
+
+    .header__activeLink,
+    .header__link {
+        font-size: 2.2rem;
+    }
+
+}
+
+@media screen and (max-width: 1265px) {
+
+    .header__navigationWrap {
+        max-width: 420px;
+    }
+
+    .header__buttonsWrapper {
+        gap: 10px;
+    }
+
+    .header__img {
+        width: 215px;
+        height: 43px;
+    }
+
+}
+
+@media screen and (max-width: 1085px) {
+
+    .header__navigationWrap {
+        max-width: 370px;
+    }
+
+    .header__activeLink,
+    .header__link {
+        font-size: 2rem;
+    }
+
+}
+
+@media screen and (max-width: 1024px) {
+    .header__navigationWrap {
+        display: none;
+    }
+
+    .header__buttonsWrapper {
+        display: none;
+    }
+
+    .header__burger {
+        display: block;
+    }
+
+    .header__img {
+        width: 280px;
+        height: 56px;
+    }
+
+    .header__link {
+        width: fit-content;
+    }
+}
+
+@media screen and (max-width: 490px) {
+    .header__img {
+        width: 130px;
+        height: 26px;
+    }
+
+    .header__burger {
+        height: 17px;
+        width: 40px;
+    }
+
+    .header__wrapper {
+        padding: 48px 0;
+    }
+
+    .header__modalWindow__wrapper {
+        padding: 20px 0 32px 0;
+    }
+
+    .header__modalWindow {
+        width: 360px;
+        height: 276px;
+    }
+
+    .header__modalWindow__menu__text {
+        font-size: 2.2rem;
+    }
+
+    .header__modalWindow__navigation {
+        height: 140px;
+    }
+
+    .header__modalWindow__buttonsWrapper {
+        gap: 14px;
+    }
+
+    .header__activeLink,
+    .header__link {
+        font-size: 1.6rem;
+    }
+
+    .header__link::before,
+    .header__activeLink::after {
+        bottom: -5px;
+        height: 2px;
+    }
+}

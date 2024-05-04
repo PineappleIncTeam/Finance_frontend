@@ -2,17 +2,17 @@
 
 body,
 button {
-    font-family: "Rubik", Verdana, Arial, Tahoma, sans-serif;
-    cursor: default;
+	font-family: "Rubik", Verdana, Arial, Tahoma, sans-serif;
+	cursor: default;
 }
 
 :root {
-    --color-pure-light: #ffffff;
-    --color-eerie-black: #17191a;
-    --color-cal-poly-pomona-green: #1a572e;
-    --color-dark-spring-green: #21703c;
-    --color-jasmine: #ffde82;
-    --color-sandy-drown: #f0a956;
-    --color-mustard: #ffd45c;
-    --color-carrot-orange: #ec9128;
+	--color-pure-light: #ffffff;
+	--color-eerie-black: #17191a;
+	--color-cal-poly-pomona-green: #1a572e;
+	--color-dark-spring-green: #21703c;
+	--color-jasmine: #ffde82;
+	--color-sandy-drown: #f0a956;
+	--color-mustard: #ffd45c;
+	--color-carrot-orange: #ec9128;
 }

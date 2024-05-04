@@ -5,6 +5,5 @@ export type CustomLayout = () => Element;
 export interface IButton {
 	content: string | ReactNode;
 	styleName: string;
-	testId?: string;
 	onClick?: () => void;
 }

@@ -6,14 +6,15 @@ import { usePathname } from "next/navigation";
 
 import { useState } from "react";
 
+import cn from "classnames";
+
 import { MainPath } from "../../../services/router/routes";
 import { Button } from "../../../ui/button/Button";
 import logo from "../../../assets/layouts/main/logo.png";
-import burger from "../../../assets/layouts/main/burger.png";
-import close from "../../../assets/layouts/main/close.png";
+import burger from "../../../assets/layouts/main/burger.svg";
+import close from "../../../assets/layouts/main/close.svg";
 
 import styles from "./MainHeader.module.css";
-
 
 const MainHeader = () => {
 	const pathname = usePathname();
@@ -23,22 +24,22 @@ const MainHeader = () => {
 		return (
 			<>
 				<Link href={MainPath.Main}>
-					<p className={`${styles.header__link} ${pathname === MainPath.Main ? styles.header__activeLink : ""}`}>
+					<p className={cn(styles.navigationLink, { [styles.navigationActiveLink]: pathname === MainPath.Main })}>
 						Главная
 					</p>
 				</Link>
 				<Link href={MainPath.AboutUs}>
-					<p className={`${styles.header__link} ${pathname === MainPath.AboutUs ? styles.header__activeLink : ""}`}>
+					<p className={cn(styles.navigationLink, { [styles.navigationActiveLink]: pathname === MainPath.AboutUs })}>
 						О нас
 					</p>
 				</Link>
 				<Link href={MainPath.AboutApp}>
-					<p className={`${styles.header__link} ${pathname === MainPath.AboutApp ? styles.header__activeLink : ""}`}>
+					<p className={cn(styles.navigationLink, { [styles.navigationActiveLink]: pathname === MainPath.AboutApp })}>
 						О приложении
 					</p>
 				</Link>
 				<Link href={MainPath.Blog}>
-					<p className={`${styles.header__link} ${pathname === MainPath.Blog ? styles.header__activeLink : ""}`}>
+					<p className={cn(styles.navigationLink, { [styles.navigationActiveLink]: pathname === MainPath.Blog })}>
 						Блог
 					</p>
 				</Link>
@@ -46,41 +47,44 @@ const MainHeader = () => {
 		);
 	};
 
-	return (
-		<header className={styles.header}>
-			<div className={styles.header__wrapper}>
-				<Link href={MainPath.Main}>
-					<Image src={logo} alt="" width={284} height={56} className={styles.header__img} />
-				</Link>
-				<Image
-					src={burger}
-					alt=""
-					width={74}
-					height={30}
-					className={styles.header__burger}
-					onClick={() => setOpen(!open)}
-				/>
-				{open && (
-					<div className={styles.header__modalWindow}>
-						<div className={styles.header__modalWindow__wrapper}>
-							<div className={styles.header__modalWindow__menu}>
-								<p className={styles.header__modalWindow__menu__text}>Меню</p>
-								<Image src={close} alt="" width={24} height={24} onClick={() => setOpen(false)} />
-							</div>
-							<nav className={styles.header__modalWindow__navigation}>{renderNavigationElements()}</nav>
-							<div className={styles.header__modalWindow__buttonsWrapper}>
-								<Link href={MainPath.SignUp}>
-									<Button content="Регистрация" styleName="buttonForRegistration" />
-								</Link>
-								<Link href={MainPath.Login}>
-									<Button content="Вход" styleName="buttonForLogin" />
-								</Link>
-							</div>
+	const renderModalWindow = () => {
+		return (
+			open && (
+				<div className={styles.modalWindowWrap}>
+					<div className={styles.modalWindowContainer}>
+						<div className={styles.menuWrap}>
+							<p className={styles.menuWrap__title}>Меню</p>
+							<button onClick={() => setOpen(false)}>
+								<Image src={close} alt="Крестик" width={24} height={24} />
+							</button>
+						</div>
+						<nav className={styles.navigatingWrap}>{renderNavigationElements()}</nav>
+						<div className={styles.authLinkWrap}>
+							<Link href={MainPath.SignUp}>
+								<Button content="Регистрация" styleName="buttonForRegistration" />
+							</Link>
+							<Link href={MainPath.Login}>
+								<Button content="Вход" styleName="buttonForLogin" />
+							</Link>
 						</div>
 					</div>
-				)}
-				<nav className={styles.header__navigationWrap}>{renderNavigationElements()}</nav>
-				<div className={styles.header__buttonsWrapper}>
+				</div>
+			)
+		);
+	};
+
+	return (
+		<header className={styles.headerWrap}>
+			<div className={styles.headerContainer}>
+				<Link href={MainPath.Main}>
+					<Image src={logo} alt="Логотип" width={284} height={56} className={styles.headerContainer__img} />
+				</Link>
+				<button onClick={() => setOpen(!open)}>
+					<Image src={burger} alt="Бургер" width={74} height={30} className={styles.headerContainer__burger} />
+				</button>
+				{renderModalWindow()}
+				<nav className={styles.navigationWrap}>{renderNavigationElements()}</nav>
+				<div className={styles.authWrap}>
 					<Link href={MainPath.Login}>
 						<Button content="Вход" styleName="buttonForLogin" />
 					</Link>

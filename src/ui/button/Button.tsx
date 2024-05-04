@@ -4,7 +4,7 @@ import { IButton } from "../../types/common/ComponentsProps";
 
 import styles from "./Button.module.css";
 
-export const Button = ({ content, styleName, testId, onClick }: IButton) => {
+export const Button = ({ content, styleName, onClick }: IButton) => {
 	function getCorrectStyleName(styleName: string): string {
 		if (styleName.includes(" ")) {
 			const styleClassPair: string[] = styleName.split(" ");
@@ -14,7 +14,7 @@ export const Button = ({ content, styleName, testId, onClick }: IButton) => {
 	}
 
 	return (
-		<button data-testId={testId} className={getCorrectStyleName(styleName)} onClick={onClick} type="button">
+		<button className={getCorrectStyleName(styleName)} onClick={onClick} type="button">
 			{content}
 		</button>
 	);

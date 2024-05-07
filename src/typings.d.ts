@@ -3,5 +3,4 @@ declare module "*.jpg";
 declare module "*.webp";
 declare module "*.css";
 declare module "*.svg";
-declare module "uuid";
 

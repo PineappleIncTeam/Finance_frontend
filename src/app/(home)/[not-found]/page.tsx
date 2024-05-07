@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-import meditatingMan from "../../../../public/meditatingMan.svg";
+import meditatingMan from "../../../assets/pages/notFound/meditatingMan.png";
 
 import styles from "./page.module.css";
 

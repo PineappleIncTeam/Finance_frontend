@@ -12,7 +12,7 @@ import { MainPath } from "../../../services/router/routes";
 import { Button } from "../../../ui/button/Button";
 import logo from "../../../assets/layouts/main/logo.png";
 import burger from "../../../assets/layouts/main/burger.svg";
-import close from "../../../assets/layouts/main/close.svg";
+import closeElement from "../../../assets/layouts/main/closeElement.svg";
 
 import styles from "./MainHeader.module.css";
 
@@ -55,7 +55,7 @@ const MainHeader = () => {
 						<div className={styles.menuWrap}>
 							<p className={styles.menuWrap__title}>Меню</p>
 							<button onClick={() => setOpen(false)}>
-								<Image src={close} alt="Крестик" width={24} height={24} />
+								<Image src={closeElement} alt="Крестик" width={24} height={24} />
 							</button>
 						</div>
 						<nav className={styles.navigatingWrap}>{renderNavigationElements()}</nav>

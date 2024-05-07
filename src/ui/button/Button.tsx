@@ -1,6 +1,6 @@
 import cn from "classnames/dedupe";
 
-import { IButton } from "../../types/common/ComponentsProps";
+import { IButton } from "../../types/common/UiKitProps";
 
 import styles from "./Button.module.css";
 

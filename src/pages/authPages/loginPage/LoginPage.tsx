@@ -19,6 +19,7 @@ import passYes from "./../../../assets/passYes.png";
 
 import style from "./LoginPage.module.css";
 
+
 const LoginPage = () => {
 	const [reply, setReply] = useState<string>("");
 	const [passwordType, setPasswordType] = useState<string>(passNo);
@@ -132,7 +133,10 @@ const LoginPage = () => {
 								<button className={style.btn} type={"submit"} disabled={isValid}>
 									Вперед
 								</button>
-							</Form>
+								<button className={style.btn} onClick={() => {navigate("/server-error")}}>
+									Server Error
+								</button>
+							</Form>	
 						)}
 					</Formik>
 				</div>

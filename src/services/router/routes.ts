@@ -13,3 +13,7 @@ export enum MainFieldPath {
 	Analytics = "/mainfieldanalitic",
 	Calculator = "/calculator",
 }
+
+export enum ErrorPath {
+	ServerError = "/server-error"
+}

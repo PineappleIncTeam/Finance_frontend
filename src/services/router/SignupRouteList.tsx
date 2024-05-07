@@ -5,8 +5,10 @@ import LoginPage from "../../pages/authPages/loginPage/LoginPage";
 import NewPass from "../../pages/authPages/recoveryPages/NewPass";
 import RecoveryPass from "../../pages/authPages/recoveryPages/RecoveryPass";
 import SignupPage from "../../pages/authPages/signupPage/SignupPage";
+import { ServerErrorPage } from "../../pages/serverErrorPage/ServerErrorPage";
 
-import { AuthPath } from "./routes";
+import { AuthPath, ErrorPath } from "./routes";
+
 
 const IntroRouteList = () => {
 	return (
@@ -17,6 +19,7 @@ const IntroRouteList = () => {
 			<Route path={AuthPath.RectanglePage + "/*"} element={<Rectangle />} />
 			<Route path={AuthPath.RecoveryPassword} element={<RecoveryPass />} />
 			<Route path={AuthPath.NewPassword} element={<NewPass />} />
+			<Route path={ErrorPath.ServerError} element={<ServerErrorPage />} />
 		</Routes>
 	);
 };

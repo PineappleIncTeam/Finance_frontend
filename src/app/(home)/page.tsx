@@ -14,6 +14,7 @@ export default function Home() {
 				<Service />
 				<Link href={"/random"}>random</Link>
 			</div>
+			<Link href="/serverError/page">ServerErrorPage</Link>
 		</div>
 	);
 }

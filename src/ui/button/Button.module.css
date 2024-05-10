@@ -1,83 +1,74 @@
 .buttonForLogin {
-    width: 244px;
-    height: 64px;
-    border-radius: 20px;
-    background: linear-gradient(179.76deg, var(--color-jasmine) 0.21%, var(--color-sandy-drown) 172.57%);
-    border: none;
-    color: var(--color-eerie-black);
-    font-size: 2.8rem;
-    font-weight: 400;
-    cursor: pointer;
+	width: 244px;
+	height: 64px;
+	border-radius: 20px;
+	background: linear-gradient(179.76deg, var(--color-jasmine) 0.21%, var(--color-sandy-drown) 172.57%);
+	border: none;
+	color: var(--color-eerie-black);
+	font-size: 2.8rem;
+	font-weight: 400;
+	cursor: pointer;
 }
 
 .buttonForLogin:hover {
-    background: linear-gradient(179.76deg, var(--color-mustard) 0.21%, var(--color-carrot-orange) 172.57%);
-
+	background: linear-gradient(179.76deg, var(--color-mustard) 0.21%, var(--color-carrot-orange) 172.57%);
 }
 
 .buttonForRegistration {
-    width: 244px;
-    height: 64px;
-    border-radius: 20px;
-    background: transparent;
-    color: var(--color-eerie-black);
-    font-size: 2.8rem;
-    font-weight: 400;
-    border: 3px solid var(--color-dark-spring-green);
-    cursor: pointer;
+	width: 244px;
+	height: 64px;
+	border-radius: 20px;
+	background: transparent;
+	color: var(--color-eerie-black);
+	font-size: 2.8rem;
+	font-weight: 400;
+	border: 3px solid var(--color-dark-spring-green);
+	cursor: pointer;
 }
 
 .buttonForRegistration:hover {
-    color: var(--color-cal-poly-pomona-green)
+	color: var(--color-cal-poly-pomona-green);
 }
 
 @media screen and (max-width: 1630px) {
-
-    .buttonForLogin,
-    .buttonForRegistration {
-        width: 230px;
-    }
-
+	.buttonForLogin,
+	.buttonForRegistration {
+		width: 230px;
+	}
 }
 
 @media screen and (max-width: 1445px) {
-
-    .buttonForLogin,
-    .buttonForRegistration {
-        width: 200px;
-        height: 52px;
-        font-size: 2.2rem;
-    }
+	.buttonForLogin,
+	.buttonForRegistration {
+		width: 200px;
+		height: 52px;
+		font-size: 2.2rem;
+	}
 }
 
 @media screen and (max-width: 1265px) {
-
-    .buttonForLogin,
-    .buttonForRegistration {
-        width: 170px;
-        height: 52px;
-        font-size: 2.2rem;
-    }
-
+	.buttonForLogin,
+	.buttonForRegistration {
+		width: 170px;
+		height: 52px;
+		font-size: 2.2rem;
+	}
 }
 
 @media screen and (max-width: 1024px) {
-
-    .buttonForLogin,
-    .buttonForRegistration {
-        width: 200px;
-        height: 52px;
-        font-size: 2.2rem;
-    }
-
+	.buttonForLogin,
+	.buttonForRegistration {
+		width: 200px;
+		height: 52px;
+		font-size: 2.2rem;
+	}
 }
 
 @media screen and (max-width: 490px) {
-
-    .buttonForLogin,
-    .buttonForRegistration {
-        width: 156px;
-        height: 36px;
-        font-size: 1.6rem;
-    }
+	.buttonForLogin,
+	.buttonForRegistration {
+		width: 156px;
+		height: 36px;
+		font-size: 1.6rem;
+	}
 }

@@ -3,6 +3,7 @@
 body,
 button {
 	font-family: "Rubik", Verdana, Arial, Tahoma, sans-serif;
+	font-weight: 400;
 	cursor: default;
 }
 

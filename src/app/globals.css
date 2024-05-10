@@ -10,8 +10,6 @@ button {
 :root {
 	--color-pure-light: #ffffff;
 	--color-silver-gray: #f8f8f8;
-	--color-dark: #17191a;
-	--color-button-gradient: linear-gradient(179.76deg, #ffde82 0.21%, #f0a956 172.57%);
 	--color-eerie-black: #17191a;
 	--color-cal-poly-pomona-green: #1a572e;
 	--color-dark-spring-green: #21703c;

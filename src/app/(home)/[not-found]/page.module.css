@@ -3,11 +3,12 @@
 	justify-content: center;
 	align-items: center;
 	width: 100vw;
-	height: 100vh;
+	height: calc(98vh - 148px);
 	background-color: var(--color-silver-gray);
 }
 .notFoundPageContainer {
 	display: flex;
+	gap: 0px 16px;
 }
 .notFoundPageContainer__meditatingMan {
 	width: 410px;
@@ -16,15 +17,13 @@
 .infoContainer {
 	font-family: "Rubik";
 	font-weight: 400;
-	color: var(--color-dark);
+	color: var(--color-eerie-black);
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
 	width: 404px;
 	height: 382px;
-	margin-top: 10px;
-	margin-left: 16px;
-	padding: 20px;
+	padding: 30px 20px 20px 20px;
 }
 .infoContainer__title {
 	font-weight: 400;
@@ -42,11 +41,17 @@
 	border-radius: 12px;
 	font-size: 2.8rem;
 	line-height: 4rem;
-	background: var(--color-button-gradient);
+	background: linear-gradient(179.76deg, var(--color-jasmine) 0.21%, var(--color-sandy-drown) 172.57%);
 	cursor: pointer;
+}
+.infoContainer__navigateAction:hover {
+	background: linear-gradient(179.76deg, var(--color-mustard) 0.21%, var(--color-carrot-orange) 172.57%);
 }
 
 @media (max-width: 1440px) {
+	.notFoundPageWrap {
+		height: calc(98vh - 132px);
+	}
 	.notFoundPageContainer__meditatingMan {
 		width: 332px;
 		height: 336px;
@@ -55,17 +60,30 @@
 	.infoContainer {
 		width: 404px;
 		height: 356px;
-		margin: 0px;
+		padding: 20px;
+	}
+}
+
+@media (max-width: 1024px) {
+	.notFoundPageWrap {
+		height: calc(98vh - 144px);
+	}
+	.notFoundPageContainer {
+		gap: 0px;
 	}
 }
 
 @media (max-width: 768px) {
+	.notFoundPageWrap {
+		height: calc(98vh - 128px);
+	}
 	.notFoundPageContainer__meditatingMan {
 		width: 260px;
 		height: 260px;
 		margin-top: 0px;
 	}
 	.infoContainer {
+		padding: 20px 10px 20px 20px;
 		width: 260px;
 		height: 260px;
 	}
@@ -78,14 +96,16 @@
 		line-height: 2.2rem;
 	}
 	.infoContainer__navigateAction {
+		padding: 10px 34px;
 		font-size: 1.6rem;
 		line-height: 2.2rem;
-		width: 230px;
-		height: 44px;
 	}
 }
 
 @media (max-width: 540px) {
+	.notFoundPageWrap {
+		height: calc(98vh - 86px);
+	}
 	.notFoundPageContainer__meditatingMan {
 		width: 126px;
 		height: 122px;
@@ -105,6 +125,7 @@
 		line-height: 1.8rem;
 	}
 	.infoContainer__navigateAction {
+		padding: 8px 12px;
 		font-size: 1.3rem;
 		line-height: 1.8rem;
 		width: 156px;

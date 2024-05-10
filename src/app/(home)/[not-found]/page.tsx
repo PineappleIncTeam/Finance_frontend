@@ -15,7 +15,9 @@ function NotFound() {
 					<h1 className={styles.infoContainer__title}>404</h1>
 					<p className={styles.infoContainer__subtitle}>Такой страницы у нас нет...</p>
 					<p className={styles.infoContainer__subtitle}>Но есть помощник финансового планирования</p>
-					<Link href={MainPath.Login} className={styles.infoContainer__navigateAction}>Войти в приложение</Link>
+					<Link href={MainPath.Login} className={styles.infoContainer__navigateAction}>
+						Войти в приложение
+					</Link>
 				</div>
 			</div>
 		</main>

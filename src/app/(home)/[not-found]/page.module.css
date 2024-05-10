@@ -27,6 +27,7 @@
 	padding: 20px;
 }
 .infoContainer__title {
+	font-weight: 400;
 	font-size: 11.6rem;
 	line-height: 8rem;
 }
@@ -35,8 +36,8 @@
 	line-height: 3.2rem;
 }
 .infoContainer__navigateAction {
-	width: 364px;
-	height: 64px;
+	padding: 12px 40px;
+	text-align: center;
 	border: none;
 	border-radius: 12px;
 	font-size: 2.8rem;

@@ -15,7 +15,6 @@
 	height: 408px;
 }
 .infoContainer {
-	font-family: "Rubik";
 	font-weight: 400;
 	color: var(--color-eerie-black);
 	display: flex;

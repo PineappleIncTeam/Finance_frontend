@@ -1,7 +1,10 @@
 export enum MainPath {
 	Main = "/",
 	Login = "/login",
-	ServerError = "/serverError"
+	ServerError = "/serverError",
+	SignUp = "/signUp",
+	AboutUs = "/aboutUs",
+	AboutApp = "/aboutApp",
 }
 
 export enum UserProfilePath {

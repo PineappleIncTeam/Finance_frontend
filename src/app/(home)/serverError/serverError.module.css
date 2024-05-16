@@ -1,4 +1,4 @@
-.serverError {
+.serverErrorWrap {
 	margin: auto;
 	max-width: 1920px;
 	height: 1080px;
@@ -9,26 +9,26 @@
 	background-size: cover;
 }
 
-.serverError__textWrapper {
+.serverErrorContainer {
 	display: flex;
 	flex-direction: column;
 	position: fixed;
 	top: 47%;
-	left: 67%;
+	left: 69%;
 	transform: translate(-50%, -50%);
 	text-align: left;
-	width: 715px;
+	width: 714px;
 	height: 264px;
 }
 
-.serverError__title {
+.serverErrorContainer__title {
 	font-size: 4.8rem;
 	font-weight: 500;
 	line-height: 6rem;
 	margin-bottom: 3rem;
 }
 
-.serverError__text {
+.serverErrorContainer__subtitle {
 	font-size: 2.2rem;
 	font-weight: 400;
 	line-height: 3.2rem;
@@ -36,11 +36,11 @@
 }
 
 @media (max-width: 1440px) {
-	.serverError__textWrapper {
+	.serverErrorContainer {
 		height: 248px;
 		left: 71%;
 	}
-	.serverError__title {
+	.serverErrorContainer__title {
 		font-size: 3.6rem;
 		font-weight: 500;
 		line-height: 4.4rem;
@@ -48,23 +48,23 @@
 }
 
 @media (max-width: 1024px) {
-	.serverError {
+	.serverErrorWrap {
 		background-size: auto;
 		background-position: 39%;
 	}
-	.serverError__textWrapper {
+	.serverErrorContainer {
 		width: 463px;
 		height: 344px;
 		top: 41%;
 		left: 73%;
 	}
-	.serverError__title {
+	.serverErrorContainer__title {
 		font-size: 3.6rem;
 		font-weight: 500;
 		line-height: 4.4rem;
 		margin-bottom: 2rem;
 	}
-	.serverError__text {
+	.serverErrorContainer__subtitle {
 		font-size: 2.2rem;
 		font-weight: 400;
 		line-height: 3rem;
@@ -72,47 +72,58 @@
 }
 
 @media (max-width: 768px) {
-	.serverError {
-		background-size: auto 73%;
+	.serverErrorWrap {
+		background-size: auto 70%;
+		background-position: 40% 75%;
 	}
-	.serverError__textWrapper {
+	.serverErrorContainer {
 		width: 330px;
 		height: 248px;
-		top: 46%;
+		top: 54%;
 		left: 75%;
 	}
-	.serverError__title {
+	.serverErrorContainer__title {
 		font-size: 2.4rem;
 		font-weight: 500;
 		line-height: 3rem;
+		margin-bottom: 1rem;
 	}
-	.serverError__text {
+	.serverErrorContainer__subtitle {
 		font-size: 1.6rem;
 		font-weight: 400;
 		line-height: 2.2rem;
-		margin-bottom: 0.75rem;
+		margin-bottom: 0.7rem;
+	}
+}
+@media (max-width: 540px) {
+	.serverErrorWrap {
+		background-position: 30% 95%;
+	}
+	.serverErrorContainer {
+		top: 22%;
+		left: 50%;	
 	}
 }
 
 @media (max-width: 360px) {
-	.serverError {
+	.serverErrorWrap {
 		background-size: auto 50%;
 		background-position: 25% 105%;
 	}
-	.serverError__textWrapper {
+	.serverErrorContainer {
 		width: 320px;
 		height: 210px;
 		top: 41%;
 		left: 50%;
 		margin-bottom: 5rem;
 	}
-	.serverError__title {
+	.serverErrorContainer__title {
 		font-size: 2.4rem;
 		font-weight: 500;
 		line-height: 3.2rem;
 		text-align: center;
 	}
-	.serverError__text {
+	.serverErrorContainer__subtitle {
 		font-size: 1.3rem;
 		font-weight: 400;
 		line-height: 1.8rem;

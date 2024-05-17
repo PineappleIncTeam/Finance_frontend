@@ -1,7 +1,24 @@
 import { ReactNode } from "react";
 
+import { UseControllerProps } from "react-hook-form";
+
+import { ISignUpForm } from "../../components/mainLayout/signUpForm/SignUpForm";
+
 export interface IButton {
 	content: string | ReactNode;
 	styleName: string;
 	onClick?: () => void;
+}
+
+export interface IInputProps extends UseControllerProps<ISignUpForm> {
+	label: string;
+	type: string;
+	placeholder?: string;
+	autoComplete?: string;
+	subtitle?: string;
+	error?: string;
+}
+
+export interface ITitle {
+	title: string;
 }

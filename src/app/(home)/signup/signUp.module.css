@@ -1,0 +1,49 @@
+.signUpWrap {
+    max-width: 100%;
+    height: calc(100vh - 150px);
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    background-image: url('../../../assets/pages/signUp/background.svg');
+    background-repeat: no-repeat;
+    background-position: center 40%;
+    background-color: var(--color-silver-gray);
+}
+
+@media screen and (max-width: 1440px) {
+    .signUpWrap {
+        background-image: url('../../../assets/pages/signUp/backgroundForTablet.svg');
+    }
+}
+
+@media screen and (max-width: 1240px) {
+    .signUpWrap {
+        background-size: 1100px;
+    }
+}
+
+@media screen and (max-width: 1120px) {
+    .signUpWrap {
+        background-image: url('../../../assets/pages/signUp/backgroundForTabletMini.svg');
+        background-position: center;
+        background-size: auto;
+        justify-content: center;
+        align-items: flex-start;
+        padding-left: 80px;
+    }
+}
+
+@media screen and (max-width: 910px) {
+    .signUpWrap {
+        background-image: url('../../../assets/pages/signUp/backgroundForPhone.svg');
+        padding: 0;
+        align-items: center;
+    }
+}
+
+@media screen and (max-width: 550px) {
+    .signUpWrap {
+        background-image: none;
+    }
+}

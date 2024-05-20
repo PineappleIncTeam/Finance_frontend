@@ -9,12 +9,12 @@ import { useState } from "react";
 import cn from "classnames";
 
 import { MainPath } from "../../../services/router/routes";
-import { Button } from "../../../ui/button/button1";
+import { Button } from "../../../ui/button/button";
 import logo from "../../../assets/layouts/main/logo.png";
 import burger from "../../../assets/layouts/main/burger.svg";
 import closeElement from "../../../assets/layouts/main/closeElement.svg";
 
-import styles from "./mainHeader1.module.scss";
+import styles from "./mainHeader.module.scss";
 
 const MainHeader = () => {
 	const pathname = usePathname();

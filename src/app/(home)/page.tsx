@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 
-import Service from "../../pages/homeLayout/service/service1";
+import Service from "../../pages/homeLayout/service/service";
 
 import { MainPath } from "../../services/router/routes";
 

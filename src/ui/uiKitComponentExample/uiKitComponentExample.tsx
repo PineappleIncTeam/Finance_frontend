@@ -1,4 +1,4 @@
-import styles from "./uiKitComponentExample1.module.scss";
+import styles from "./uiKitComponentExample.module.scss";
 
 function UiKitComponentExample() {
 	return <div className={styles.uiKitComponentExampleWrap}>UiKitComponentExample</div>;

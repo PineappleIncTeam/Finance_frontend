@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 
-import styles from "./privateProfile1.module.scss";
+import styles from "./privateProfile.module.scss";
 
 export default function PrivateProfile() {
 	return (

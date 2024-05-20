@@ -1,7 +1,7 @@
 import "../reset.css";
 import "../globals.css";
 
-import MainHeader from "../../components/mainLayout/mainHeader/MainHeader";
+import MainHeader from "../../components/mainLayout/mainHeader/mainHeader1";
 
 import type { Metadata } from "next";
 

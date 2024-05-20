@@ -1,10 +1,11 @@
 import Image from "next/image";
 import Link from "next/link";
 
-import meditatingMan from "../../../assets/pages/notFound/meditatingMan.png";
 import { MainPath } from "../../../services/router/routes";
 
-import styles from "./page.module.css";
+import meditatingMan from "../../../assets/pages/notFound/meditatingMan.png";
+
+import styles from "./notFound.module.scss";
 
 function NotFound() {
 	return (

@@ -2,9 +2,7 @@
 
 import Link from "next/link";
 
-// import Main from "./main/page";
-
-import styles from "./PrivateProfile.module.css";
+import styles from "./privateProfile1.module.scss";
 
 export default function PrivateProfile() {
 	return (

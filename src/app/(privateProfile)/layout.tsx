@@ -1,7 +1,7 @@
 import "../reset.css";
 import "../globals.css";
 
-import UserProfileHeader1 from "../../components/userProfileLayout/userProfileHeader/UserProfileHeader1";
+import UserProfileHeader1 from "../../components/userProfileLayout/userProfileHeader/userProfileHeader";
 
 import type { Metadata } from "next";
 

@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 
-import Service from "../../pages/homeLayout/service/Service";
+import Service from "../../pages/homeLayout/service/service";
 
 import { MainPath } from "../../services/router/routes";
 
@@ -15,6 +15,7 @@ export default function Home() {
 			<div>
 				<Service />
 				<Link href={"/random"}>random</Link>
+				<Link href={MainPath.ServerError}>ServerErrorPage</Link>
 				<Link href={MainPath.ChangePassword}>ChangePassword</Link>
 			</div>			
 		</div>

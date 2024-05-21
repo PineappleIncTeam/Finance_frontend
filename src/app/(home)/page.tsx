@@ -4,6 +4,8 @@ import Link from "next/link";
 
 import Service from "../../pages/homeLayout/service/Service";
 
+import { MainPath } from "../../services/router/routes";
+
 import styles from "./page.module.css";
 
 export default function Home() {
@@ -13,7 +15,8 @@ export default function Home() {
 			<div>
 				<Service />
 				<Link href={"/random"}>random</Link>
-			</div>
+				<Link href={MainPath.ChangePassword}>ChangePassword</Link>
+			</div>			
 		</div>
 	);
 }

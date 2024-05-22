@@ -8,9 +8,10 @@ import { ArrowsIcon } from "../../../assets/pages/changePassword/ArrowsIcon";
 import { QuestionIcon } from "../../../assets/pages/changePassword/QuestionIcon";
 import { EmailIcon } from "../../../assets/pages/changePassword/EmailIcon";
 
-import style from "./changePassword.module.css";
 import { OvalIcon } from "../../../assets/pages/changePassword/OvalIcon";
 import { ManIcon } from "../../../assets/pages/changePassword/ManIcon";
+
+import style from "./changePassword.module.css";
 
 // interface ChangePasswordProps {
 // 	onSubmit: () => void;

@@ -54,11 +54,16 @@
     "eslint-plugin-solid": "^0.14.0",
     "eslint-plugin-sonarjs": "^0.25.1",
     "pre-commit": "^1.2.2",
+    "pre-push": "^0.1.4",
     "prettier": "^3.2.5",
     "typescript": "^5.4.5"
   },
   "license": "ISC",
   "pre-commit": [
     "preCommitLint"
+  ],
+  "prepush.silent": true,
+  "pre-push": [
+    "build"
   ]
 }

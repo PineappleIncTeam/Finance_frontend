@@ -8,6 +8,12 @@
     padding: 18px;
     background-color: var(--color-anti-flash-white);
     z-index: 2;
+    opacity: 1;
+    transition: 0.5s;
+}
+.popupContainer_hidden {
+    opacity: 0;
+    height: 0px;
 }
 .infoBlock {
     display: flex;
@@ -40,4 +46,7 @@
 }
 .infoBlock__subtitle_green {
     color: var(	--color-dark-spring-green);
+}
+.infoBlock__button {
+    cursor: pointer;
 }

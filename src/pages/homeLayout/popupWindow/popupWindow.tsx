@@ -1,17 +1,28 @@
+"use client";
+
 import Image from "next/image";
 
+import Link from "next/link";
+
+import { useState } from "react";
+
+import cn from "classnames";
+
 import { Button } from "../../../ui/button/button";
+import { MainPath } from "../../../services/router/routes";
 import closeIcon from "../../../assets/pages/mainPage/closeIcon.svg";
 
 import styles from "./popupWindow.module.scss";
 
 const PopupWindow = () => {
+	const [isOpen, setIsOpen] = useState<boolean>(true);
+
 	return (
-		<div className={styles.popupContainer}>
+		<div className={cn(styles.popupContainer, { [styles.popupContainer_hidden]: !isOpen })}>
 			<div className={styles.infoBlock}>
 				<div className={styles.infoBlock__titleBlock}>
 					<h3 className={styles.infoBlock__title}>Файлы cookies</h3>
-					<button type="button">
+					<button type="button" className={styles.infoBlock__button} onClick={() => setIsOpen(false)}>
 						<Image src={closeIcon} alt="крестик" />
 					</button>
 				</div>
@@ -19,7 +30,9 @@ const PopupWindow = () => {
 					Все на сайте — для вас, <span className={styles.infoBlock__subtitle_green}>«cookies»</span> — для нас.
 					Собираем их, чтобы сделать наш сайт еще удобнее. Ограничить или настроить их можно в браузере.
 				</div>
-				<Button content="Регистрация" styleName="buttonForRegistration" />
+				<Link href={MainPath.SignUp}>
+					<Button content="Регистрация" styleName="buttonForRegistration" />
+				</Link>
 			</div>
 		</div>
 	);

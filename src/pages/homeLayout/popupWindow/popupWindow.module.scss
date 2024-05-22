@@ -15,6 +15,11 @@
 			height: 256px;
 		}
 	}
+    & {
+		@media (width < 1280px) {
+			justify-content: center;
+		}
+	}
 }
 .popupContainer_hidden {
     opacity: 0;
@@ -35,6 +40,11 @@
 		@media (width < 1920px) {
 			width: 743px;
             height: 220px;
+		}
+	}
+    & {
+		@media (width < 768px) {
+			width: 100vh;
 		}
 	}
 }
@@ -64,6 +74,12 @@
 		@media (width < 1920px) {
 			font-size: 1.6rem;
 			line-height: 2.2rem;
+		}
+	}
+    & {
+		@media (width < 768px) {
+			font-size: 1.3rem;
+			line-height: 1.6rem;
 		}
 	}
 }

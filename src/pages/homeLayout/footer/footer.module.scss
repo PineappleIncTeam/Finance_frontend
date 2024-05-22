@@ -8,10 +8,22 @@
     border-top: 2px solid #A3C0BB;
     color: var(--color-eerie-black);
     z-index: 1;
+    & {
+		@media (width < 1920px) {
+			width: 448px;
+            height: 80px;
+		}
+	}
 }
 .footerContainer__copyright {
     font-size: 2.2rem;
     line-height: 3.2rem;
+    & {
+		@media (width < 1920px) {
+			font-size: 1.6rem;
+			line-height: 2.2rem;
+		}
+	}
 }
 .footerContainer__link {
     font-size: 1.6rem;

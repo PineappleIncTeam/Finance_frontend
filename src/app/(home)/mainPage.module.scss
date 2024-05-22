@@ -4,4 +4,10 @@
 	gap: 63px;
 	background: var(--color-pure-light);
 	padding: 56px 80px;
+	& {
+		@media (width < 1920px) {
+			padding: 48px;
+			gap: 140px;
+		}
+	}
 }

@@ -10,6 +10,7 @@ import cn from "classnames";
 
 import { Button } from "../../../ui/button/button";
 import { MainPath } from "../../../services/router/routes";
+import { coockieLinkTitle } from "../../../mocks/popupWindow";
 import closeIcon from "../../../assets/pages/mainPage/closeIcon.svg";
 
 import styles from "./popupWindow.module.scss";
@@ -29,7 +30,7 @@ const PopupWindow = () => {
 				<div className={styles.infoBlock__subtitle}>
 					Все на сайте — для вас,{" "}
 					<a
-						href="https://ru.wikipedia.org/wiki/Cookie"
+						href={coockieLinkTitle}
 						target="_blank"
 						rel="noreferrer"
 						className={styles.infoBlock__link}>

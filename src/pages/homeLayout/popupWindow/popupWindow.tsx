@@ -37,7 +37,7 @@ const PopupWindow = () => {
 					</a>{" "}
 					— для нас. Собираем их, чтобы сделать наш сайт еще удобнее. Ограничить или настроить их можно в браузере.
 				</div>
-				<Link href={MainPath.SignUp}>
+				<Link href={MainPath.SignUp} className={styles.infoBlock__linkButton}>
 					<Button content="Регистрация" styleName="buttonForRegistration" />
 				</Link>
 			</div>

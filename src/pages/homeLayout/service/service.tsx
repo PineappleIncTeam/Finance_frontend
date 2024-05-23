@@ -20,23 +20,23 @@ function Service() {
 						FREEnance — онлайн-приложение <br />
 						для учёта личных и семейных финансов.
 					</p>
-					<div className={styles.listOfFeatures}>
-						<p className={styles.listOfFeatures__subtitle}>С нами вы сможете легко:</p>
-						<ul className={styles.listOfFeatures__ul}>
-							<li className={styles.listOfFeatures__item}>
-								<Image className={styles.listOfFeatures__listPoint} src={listPoint} alt=" " />
+					<div className={styles.featuresListWrap}>
+						<p className={styles.featuresListWrap__title}>С нами вы сможете легко:</p>
+						<ul className={styles.featuresListContainer}>
+							<li className={styles.featuresListContainer__featureElement}>
+								<Image className={styles.featuresListContainer__listPoint} src={listPoint} alt=" " />
 								погасить ипотеку быстрее
 							</li>
-							<li className={styles.listOfFeatures__item}>
-								<Image className={styles.listOfFeatures__listPoint} src={listPoint} alt=" " />
+							<li className={styles.featuresListContainer__featureElement}>
+								<Image className={styles.featuresListContainer__listPoint} src={listPoint} alt=" " />
 								узнать, куда сбегают ваши финансы
 							</li>
-							<li className={styles.listOfFeatures__item}>
-								<Image className={styles.listOfFeatures__listPoint} src={listPoint} alt=" " />
+							<li className={styles.featuresListContainer__featureElement}>
+								<Image className={styles.featuresListContainer__listPoint} src={listPoint} alt=" " />
 								больше не брать кредиты
 							</li>
-							<li className={styles.listOfFeatures__item}>
-								<Image className={styles.listOfFeatures__listPoint} src={listPoint} alt=" " />
+							<li className={styles.featuresListContainer__featureElement}>
+								<Image className={styles.featuresListContainer__listPoint} src={listPoint} alt=" " />
 								позаботься о завтра сегодня
 							</li>
 						</ul>

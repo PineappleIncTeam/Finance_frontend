@@ -1,25 +1,26 @@
 .mainPageWrap {
 	display: flex;
 	flex-direction: column;
-	gap: 63px;
+	gap: 62px;
 	background: var(--color-pure-light);
 	padding: 56px 80px;
-	& {
-		@media (width < 1920px) {
+	@media (width < 1920px) {
+		& {
 			padding: 48px;
 			gap: 140px;
 		}
 	}
-	& {
-		@media (width < 1280px) {
+
+	@media (width < 1280px) {
+		& {
 			padding: 0px 48px 36px;
 			gap: 0px;
 		}
 	}
-	& {
-		@media (width < 768px) {
+
+	@media (width < 768px) {
+		& {
 			padding: 0px 0px 20px;
-			gap: 0px;
 		}
 	}
 }

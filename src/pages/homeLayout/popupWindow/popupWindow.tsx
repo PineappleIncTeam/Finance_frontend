@@ -27,8 +27,15 @@ const PopupWindow = () => {
 					</button>
 				</div>
 				<div className={styles.infoBlock__subtitle}>
-					Все на сайте — для вас, <span className={styles.infoBlock__subtitle_green}>«cookies»</span> — для нас.
-					Собираем их, чтобы сделать наш сайт еще удобнее. Ограничить или настроить их можно в браузере.
+					Все на сайте — для вас,{" "}
+					<a
+						href="https://ru.wikipedia.org/wiki/Cookie"
+						target="_blank"
+						rel="noreferrer"
+						className={styles.infoBlock__link}>
+						«cookies»
+					</a>{" "}
+					— для нас. Собираем их, чтобы сделать наш сайт еще удобнее. Ограничить или настроить их можно в браузере.
 				</div>
 				<Link href={MainPath.SignUp}>
 					<Button content="Регистрация" styleName="buttonForRegistration" />

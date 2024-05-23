@@ -2,6 +2,7 @@ import "../reset.css";
 import "../globals.css";
 
 import MainHeader from "../../components/mainLayout/mainHeader/mainHeader";
+import PopupWindow from "../../pages/homeLayout/popupWindow/popupWindow";
 
 import type { Metadata } from "next";
 
@@ -19,6 +20,7 @@ export default function RootLayout({
 		<html lang="en">
 			<body>
 				<MainHeader />
+				<PopupWindow />
 				{children}
 			</body>
 		</html>

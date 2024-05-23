@@ -20,25 +20,25 @@ const PopupWindow = () => {
 
 	return (
 		<div className={cn(styles.popupContainer, { [styles.popupContainer_hidden]: !isOpen })}>
-			<div className={styles.infoBlock}>
-				<div className={styles.infoBlock__titleBlock}>
-					<h3 className={styles.infoBlock__title}>Файлы cookies</h3>
-					<button type="button" className={styles.infoBlock__button} onClick={() => setIsOpen(false)}>
+			<div className={styles.textContentBlock}>
+				<div className={styles.textContentBlock__titleBlock}>
+					<h3 className={styles.textContentBlock__title}>Файлы cookies</h3>
+					<button type="button" className={styles.textContentBlock__action} onClick={() => setIsOpen(false)}>
 						<Image src={closeIcon} alt="крестик" />
 					</button>
 				</div>
-				<div className={styles.infoBlock__subtitle}>
+				<div className={styles.textContentBlock__subtitle}>
 					Все на сайте — для вас,{" "}
 					<a
 						href={coockieLinkTitle}
 						target="_blank"
 						rel="noreferrer"
-						className={styles.infoBlock__link}>
+						className={styles.textContentBlock__link}>
 						«cookies»
 					</a>{" "}
 					— для нас. Собираем их, чтобы сделать наш сайт еще удобнее. Ограничить или настроить их можно в браузере.
 				</div>
-				<Link href={MainPath.SignUp} className={styles.infoBlock__linkButton}>
+				<Link href={MainPath.SignUp} className={styles.textContentBlock__linkButton}>
 					<Button content="Регистрация" styleName="buttonForRegistration" />
 				</Link>
 			</div>

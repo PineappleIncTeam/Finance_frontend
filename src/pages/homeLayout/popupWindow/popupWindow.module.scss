@@ -29,7 +29,7 @@
 	height: 0px;
 }
 
-.infoBlock {
+.textContentBlock {
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
@@ -55,16 +55,16 @@
 	}
 }
 
-.infoBlock__linkButton {
+.textContentBlock__linkButton {
 	align-self: end;
 }
 
-.infoBlock__titleBlock {
+.textContentBlock__titleBlock {
 	display: flex;
 	justify-content: space-between;
 }
 
-.infoBlock__title {
+.textContentBlock__title {
 	font-weight: 500;
 	font-size: 2.4rem;
 	line-height: 3.2rem;
@@ -77,7 +77,7 @@
 	}
 }
 
-.infoBlock__subtitle {
+.textContentBlock__subtitle {
 	font-weight: 400;
 	font-size: 2.2rem;
 	line-height: 3.2rem;
@@ -97,10 +97,10 @@
 	}
 }
 
-.infoBlock__link {
+.textContentBlock__link {
 	color: var(--color-dark-spring-green);
 }
 
-.infoBlock__button {
+.textContentBlock__action {
 	cursor: pointer;
 }

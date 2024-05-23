@@ -24,19 +24,19 @@ function Service() {
 						<p className={styles.featuresListWrap__title}>С нами вы сможете легко:</p>
 						<ul className={styles.featuresListContainer}>
 							<li className={styles.featuresListContainer__featureElement}>
-								<Image className={styles.featuresListContainer__listPoint} src={listPoint} alt=" " />
+								<Image className={styles.featuresListContainer__listPoint} src={listPoint} alt="пункт списка" />
 								погасить ипотеку быстрее
 							</li>
 							<li className={styles.featuresListContainer__featureElement}>
-								<Image className={styles.featuresListContainer__listPoint} src={listPoint} alt=" " />
+								<Image className={styles.featuresListContainer__listPoint} src={listPoint} alt="пункт списка" />
 								узнать, куда сбегают ваши финансы
 							</li>
 							<li className={styles.featuresListContainer__featureElement}>
-								<Image className={styles.featuresListContainer__listPoint} src={listPoint} alt=" " />
+								<Image className={styles.featuresListContainer__listPoint} src={listPoint} alt="пункт списка" />
 								больше не брать кредиты
 							</li>
 							<li className={styles.featuresListContainer__featureElement}>
-								<Image className={styles.featuresListContainer__listPoint} src={listPoint} alt=" " />
+								<Image className={styles.featuresListContainer__listPoint} src={listPoint} alt="пункт списка" />
 								позаботься о завтра сегодня
 							</li>
 						</ul>

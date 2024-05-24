@@ -48,22 +48,22 @@ function Service() {
 					alt="Главная картинка с денежным деревом, кальулятором и графиками"
 				/>
 			</div>
-			<div className={styles.mainPageContainerMobile}>
+			<div className={styles.mobileMainPageContainer}>
 				<Image
 					src={mainPagePictureTablet}
 					alt="Главная картинка с денежным деревом, кальулятором и графиками"
-					className={styles.mainPageContainer__mainPictureTablet}
+					className={styles.mobileMainPageContainer__mainPictureTablet}
 				/>
 				<Image
 					src={mainPagePictureMobile}
 					alt="Главная картинка с денежным деревом, кальулятором и графиками"
-					className={styles.mainPageContainer__mainPictureMobile}
+					className={styles.mobileMainPageContainer__mainPictureMobile}
 				/>
-				<h1 className={styles.infoContainer__title}>
+				<h1 className={styles.mobileMainPageContainer__title}>
 					Наслаждайся расходами, <br />
 					экономь без усилий
 				</h1>
-				<p className={styles.infoContainer__subtitle}>
+				<p className={styles.mobileMainPageContainer__subtitle}>
 					Ваши доходы и расходы, планирование бюджета, <br />
 					курсы валют. <br />
 					Все в одном приложении.

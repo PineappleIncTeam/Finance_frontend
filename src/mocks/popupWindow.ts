@@ -1,1 +1,0 @@
-export const coockieLinkTitle = "https://ru.wikipedia.org/wiki/Cookie"

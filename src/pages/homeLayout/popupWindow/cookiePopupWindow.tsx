@@ -10,12 +10,12 @@ import cn from "classnames";
 
 import { Button } from "../../../ui/button/button";
 import { MainPath } from "../../../services/router/routes";
-import { coockieLinkTitle } from "../../../mocks/popupWindow";
+import { cookieLinkTitle } from "../../../mocks/cookiePopupWindow";
 import closeIcon from "../../../assets/pages/mainPage/closeIcon.svg";
 
-import styles from "./popupWindow.module.scss";
+import styles from "./cookiePopupWindow.module.scss";
 
-const PopupWindow = () => {
+const CookiePopupWindow = () => {
 	const [isOpen, setIsOpen] = useState<boolean>(true);
 
 	return (
@@ -30,7 +30,7 @@ const PopupWindow = () => {
 				<div className={styles.textContentBlock__subtitle}>
 					Все на сайте — для вас,{" "}
 					<a
-						href={coockieLinkTitle}
+						href={cookieLinkTitle}
 						target="_blank"
 						rel="noreferrer"
 						className={styles.textContentBlock__link}>
@@ -46,4 +46,4 @@ const PopupWindow = () => {
 	);
 };
 
-export default PopupWindow;
+export default CookiePopupWindow;

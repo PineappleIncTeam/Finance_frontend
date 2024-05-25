@@ -36,7 +36,7 @@
 		}
 	}
 
-	@media (width < 768px) {
+	@media (width < 550px) {
 		& {
 			padding: 0px 0px 20px;
 		}
@@ -162,7 +162,7 @@
 		}
 	}
 
-	@media (width < 768px) {
+	@media (width < 550px) {
 		& {
 			display: none;
 		}
@@ -171,7 +171,7 @@
 .mobileMainPageContainer__mainPictureMobile {
 	display: none;
 
-	@media (width < 768px) {
+	@media (width < 550px) {
 		& {
 			display: block;
 		}
@@ -195,7 +195,7 @@
 		}
 	}
 
-	@media (width < 768px) {
+	@media (width < 550px) {
 		& {
 			font-size: 2.4rem;
 			line-height: 3.2rem;
@@ -218,7 +218,7 @@
 		}
 	}
 
-	@media (width < 768px) {
+	@media (width < 550px) {
 		& {
 			font-size: 1.6rem;
 			line-height: 2.2rem;

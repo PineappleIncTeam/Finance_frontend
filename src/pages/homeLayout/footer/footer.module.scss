@@ -30,7 +30,7 @@
 		}
 	}
 
-	@media (width < 768px) {
+	@media (width < 550px) {
 		& {
 			width: 288px;
 			height: 54px;
@@ -57,7 +57,7 @@
 		}
 	}
 
-	@media (width < 768px) {
+	@media (width < 550px) {
 		& {
 			font-size: 1.1rem;
 			line-height: 1.3rem;
@@ -78,7 +78,7 @@
 		}
 	}
 
-	@media (width < 768px) {
+	@media (width < 550px) {
 		& {
 			font-size: 1.1rem;
 			line-height: 1.3rem;

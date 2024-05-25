@@ -1,1 +1,1 @@
-export const cookieLinkTitle = "https://ru.wikipedia.org/wiki/Cookie"
+export const cookieLinkTitle = "https://ru.wikipedia.org/wiki/Cookie";

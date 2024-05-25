@@ -29,11 +29,7 @@ const CookiePopupWindow = () => {
 				</div>
 				<div className={styles.textContentBlock__subtitle}>
 					Все на сайте — для вас,{" "}
-					<a
-						href={cookieLinkTitle}
-						target="_blank"
-						rel="noreferrer"
-						className={styles.textContentBlock__link}>
+					<a href={cookieLinkTitle} target="_blank" rel="noreferrer" className={styles.textContentBlock__link}>
 						«cookies»
 					</a>{" "}
 					— для нас. Собираем их, чтобы сделать наш сайт еще удобнее. Ограничить или настроить их можно в браузере.

@@ -6,7 +6,7 @@ export enum MainPath {
 	AboutUs = "/aboutUs",
 	AboutApp = "/aboutApp",
 	Blog = "/blog",
-	UserAgreement = "/userAgreement"
+	UserAgreement = "/userAgreement",
 }
 
 export enum UserProfilePath {

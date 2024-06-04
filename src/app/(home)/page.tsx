@@ -17,6 +17,7 @@ export default function Home() {
 				<Link href={"/random"}>random</Link>
 				<Link href={MainPath.ServerError}>ServerErrorPage</Link>
 				<Link href={MainPath.ChangePassword}>ChangePassword</Link>
+				<Link href={MainPath.NewPassword}>NewPassword</Link>
 			</div>			
 		</div>
 	);

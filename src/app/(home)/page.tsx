@@ -1,24 +1,16 @@
-"use client";
-
-import Link from "next/link";
-
 import Service from "../../pages/homeLayout/service/service";
 
-import { MainPath } from "../../services/router/routes";
+import Footer from "../../pages/homeLayout/footer/footer";
 
-import styles from "./page.module.css";
+import styles from "./mainPage.module.scss";
 
-export default function Home() {
+export default function MainPage() {
 	return (
-		<div className={styles.homePageWrap}>
-			<Link href="/login">LoginPage</Link>
-			<div>
+		<>
+			<main className={styles.mainPageWrap}>
 				<Service />
-				<Link href={"/random"}>random</Link>
-				<Link href={MainPath.ServerError}>ServerErrorPage</Link>
-				<Link href={MainPath.ChangePassword}>ChangePassword</Link>
-				<Link href={MainPath.NewPassword}>NewPassword</Link>
-			</div>			
-		</div>
+				<Footer />
+			</main>
+		</>
 	);
 }

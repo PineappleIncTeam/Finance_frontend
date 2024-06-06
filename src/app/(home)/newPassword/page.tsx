@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 
 import { LetterIcon } from "../../../assets/script/changePassword/LetterIcon";
@@ -14,11 +15,14 @@ import { OvalIcon } from "../../../assets/script/changePassword/OvalIcon";
 import { ManIcon } from "../../../assets/script/changePassword/ManIcon";
 
 import { INewPassword } from "../../../types/pages/Password";
+import { NewPasswordModal } from "../../../components/appResponse/newPasswordModal/newPasswordModal";
 
 import style from "./newPassword.module.scss";
 
 
 export default function NewPassword() {
+
+	const [isNewPasswordModalShown, setIsNewPasswordModalShown] = useState(false);
 	
 	const {
 		register,
@@ -29,8 +33,13 @@ export default function NewPassword() {
 
 	const onSubmit = (data: INewPassword) => {
 		alert(JSON.stringify(data));
+		handleNewPasswordModal();
 		reset();
 	};
+
+	const handleNewPasswordModal = () => {
+		setIsNewPasswordModalShown(true)
+	}
 
 	return (
 		<div className={style.newPasswordWrap}>
@@ -48,6 +57,7 @@ export default function NewPassword() {
 					<div className={style.newPasswordContainer__modal__content}>
 						<h1 className={style.newPasswordContainer__form__title}>Восстановление пароля</h1>
 						<form onSubmit={handleSubmit(onSubmit)}>
+						{isNewPasswordModalShown && <NewPasswordModal/>}
 							<label htmlFor="enterEmail" className={style.label}>Введите почту</label>
 							<input 
 							id="enterEmail"

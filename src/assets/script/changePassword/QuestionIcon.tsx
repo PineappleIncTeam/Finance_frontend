@@ -1,8 +1,4 @@
-import React from "react"
-
-interface IQuestionIconProps {
-  classNames?: string
-}
+import { IQuestionIconProps } from "../../../types/pages/Password"
 
 export const QuestionIcon = ({classNames}: IQuestionIconProps) => {
    return (

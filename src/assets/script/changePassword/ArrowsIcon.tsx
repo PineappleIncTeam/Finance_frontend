@@ -1,8 +1,4 @@
-import React from "react"
-
-interface IArrowsIconProps {
-  classNames?: string
-}
+import { IArrowsIconProps } from "../../../types/pages/Password"
 
   export const ArrowsIcon = ({classNames}: IArrowsIconProps) => {
     return (

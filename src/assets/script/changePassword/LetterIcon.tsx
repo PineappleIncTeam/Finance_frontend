@@ -1,8 +1,4 @@
-import React from "react"
-
-interface ILetterIconProps {
-  classNames?: string
-}
+import { ILetterIconProps } from "../../../types/pages/Password"
 
 export const LetterIcon = ({classNames}: ILetterIconProps) => {
   return (

@@ -1,5 +1,3 @@
-import React from "react"
-
 import style from "./newPasswordModal.module.scss"
 
 export const NewPasswordModal = () => {

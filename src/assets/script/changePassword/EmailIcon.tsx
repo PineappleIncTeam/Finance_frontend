@@ -1,8 +1,4 @@
-import React from "react"
-
-interface IEmailIconProps {
-  classNames?: string
-}
+import { IEmailIconProps } from "../../../types/pages/Password"
 
 export const EmailIcon = ({ classNames }: IEmailIconProps ) => {
   return (

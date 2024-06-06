@@ -1,9 +1,4 @@
-import React from "react";
-
-interface IVisibilityOffIconProps {
-	classNames?: string;
-	cb?: () => void;
-}
+import { IVisibilityOffIconProps } from "../../../types/pages/Password";
 
 export const VisibilityOffIcon = ({ classNames, cb }: IVisibilityOffIconProps) => {
 	return (

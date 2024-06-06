@@ -38,9 +38,14 @@ const MainHeader = () => {
 						О приложении
 					</p>
 				</Link>
-				<Link href={MainPath.ChangePassword}>
+				<Link href={MainPath.NewPassword}>
 					<p className={cn(styles.navigationLink, { [styles.navigationActiveLink]: pathname === MainPath.Blog })}>
 						Блог
+					</p>
+				</Link>
+				<Link href={MainPath.ChangePassword}>
+					<p className={cn(styles.navigationLink, { [styles.navigationActiveLink]: pathname === MainPath.Blog })}>
+						Пароль
 					</p>
 				</Link>
 			</>

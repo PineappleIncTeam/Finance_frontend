@@ -1,28 +1,26 @@
 "use client";
 
-import React, { useState } from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 
-import { LetterIcon } from "../../../assets/pages/changePassword/LetterIcon";
+import { LetterIcon } from "../../../assets/script/changePassword/LetterIcon";
 
-import { PaperAirLineIcon } from "../../../assets/pages/changePassword/PaperAirLineIcon";
-import { OpenLetterIcon } from "../../../assets/pages/changePassword/OpenLetterIcon";
-import { ArrowsIcon } from "../../../assets/pages/changePassword/ArrowsIcon";
-import { QuestionIcon } from "../../../assets/pages/changePassword/QuestionIcon";
-import { EmailIcon } from "../../../assets/pages/changePassword/EmailIcon";
+import { PaperAirLineIcon } from "../../../assets/script/changePassword/PaperAirLineIcon";
+import { OpenLetterIcon } from "../../../assets/script/changePassword/OpenLetterIcon";
+import { ArrowsIcon } from "../../../assets/script/changePassword/ArrowsIcon";
+import { QuestionIcon } from "../../../assets/script/changePassword/QuestionIcon";
+import { EmailIcon } from "../../../assets/script/changePassword/EmailIcon";
 
-import { OvalIcon } from "../../../assets/pages/changePassword/OvalIcon";
-import { ManIcon } from "../../../assets/pages/changePassword/ManIcon";
-import { VisibilityOffIcon } from "../../../assets/pages/changePassword/VisibilityOffIcon";
+import { OvalIcon } from "../../../assets/script/changePassword/OvalIcon";
+import { ManIcon } from "../../../assets/script/changePassword/ManIcon";
+import { VisibilityOffIcon } from "../../../assets/script/changePassword/VisibilityOffIcon";
 
 import { ChangePasswordModal } from "../../../components/appResponse/changePasswordModal/changePasswordModal";
 
+import { IChangePassword } from "../../../types/pages/Password";
+
 import style from "./changePassword.module.scss";
 
-export interface IChangePassword {
-	enterNewPassword: string;
-	reenterNewPassword: string;
-}
 
 export default function ChangePassword() {
 	const {
@@ -73,9 +71,9 @@ export default function ChangePassword() {
 						<h1 className={style.changePasswordContainer__form__title}>Изменение пароля</h1>
 						<form onSubmit={handleSubmit(onSubmit)}>
 							{isChangePasswordModalShown && <ChangePasswordModal/>}
-							<label className={style.label}>
-								Введите новый пароль
+							<label htmlFor="enterNewPassword" className={style.label}>Введите новый пароль</label>
 								<input
+									id="enterNewPassword"
 									type={isEnterNewPasswordShown ? "text" : "password"}
 									className={style.changePasswordRow}
 									placeholder="Пароль"
@@ -84,15 +82,14 @@ export default function ChangePassword() {
 									})}
 								/>
 								<VisibilityOffIcon classNames={style.visibilityOffIcon} cb={toggleEnterPasswordVisibility} />
-							</label>
 							{errors?.enterNewPassword && <p>Проверьте пароль</p>}
 							<p className={style.changePasswordHelper}>
 								Пароль должен состоять из 6 и более символов, среди которых хотя бы одна буква верхнего регистра и хотя
 								бы одна цифра
 							</p>
-							<label className={style.label}>
-								Повторите пароль
+							<label htmlFor="reenterNewPassword" className={style.label}>Повторите пароль</label>
 								<input
+									id="reenterNewPassword"
 									className={style.changePasswordRow}
 									type={isReenterNewPasswordShown ? "text" : "password"}
 									placeholder="Пароль"
@@ -108,8 +105,7 @@ export default function ChangePassword() {
 										},
 									})}
 								/>
-								<VisibilityOffIcon classNames={style.visibilityOffIcon2} cb={toggleReenterPasswordVisibility} />
-							</label>
+								<VisibilityOffIcon classNames={style.visibilityOffIcon2} cb={toggleReenterPasswordVisibility} />						
 							{errors?.reenterNewPassword?.message}
 							<input className={style.saveButton} type="submit" value="Сохранить" />
 						</form>

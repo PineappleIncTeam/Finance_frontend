@@ -1,8 +1,5 @@
-import React from "react";
+import { IQuestionIconProps } from "../../../types/pages/Password";
 
-interface IQuestionIconProps {
-	classNames?: string
-}
 
 export const OpenLetterIcon = ({classNames}: IQuestionIconProps) => {
 	return (

@@ -1,8 +1,4 @@
-import React from "react"
-
-interface IManIconProps {
-  classNames?: string
-}
+import { IManIconProps } from "../../../types/pages/Password"
 
 export const ManIcon = ({classNames}: IManIconProps) => {
   return (

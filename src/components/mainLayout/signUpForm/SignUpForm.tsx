@@ -1,8 +1,4 @@
 "use client";
-import cn from "classnames";
-
-import Link from "next/link";
-
 import { useForm } from "react-hook-form";
 
 import { Button } from "../../../ui/button/Button";
@@ -13,12 +9,9 @@ import { emailPattern, errorPasswordRepeat, passwordPattern } from "../../../hel
 
 import { formHelpers } from "../../../utils/formHelpers";
 
+import { ISignUpForm } from "../../../types/components/ComponentsTypes";
+
 import styles from "./SignUpForm.module.css";
-export interface ISignUpForm {
-	email: string;
-	password: string;
-	repeatPassword: string;
-}
 
 const SignUpForm = () => {
 	const {
@@ -76,8 +69,8 @@ const SignUpForm = () => {
 					}}
 				/>
 				<div className={styles.actionWrap}>
-					<Button content="Отменить" styleName={cn("small", "buttonForRegistration")} />
-					<Button content="Вход" styleName={cn("small", "buttonForLogin")} />
+					<Button content="Отменить" styleName="small buttonForRegistration" />
+					<Button content="Вход" styleName="small buttonForLogin" />
 				</div>
 				<div className={styles.dividerWrap}>
 					<div className={styles.dividerWrap__line} />
@@ -86,9 +79,9 @@ const SignUpForm = () => {
 				</div>
 				<p className={styles.signUpFormContainer__auth}>
 					Войти через{" "}
-					<Link href={"https://vk.com/"}>
-						<span className={styles.signUpFormContainer__auth_link}>Вконтакте</span>
-					</Link>
+					<a href="https://vk.com/" rel="nofollow noreferrer" target="_blank" className={styles.signUpFormContainer__auth_link}>
+						Вконтакте
+					</a>
 				</p>
 			</div>
 		</form>

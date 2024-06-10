@@ -2,7 +2,7 @@ import { ReactNode } from "react";
 
 import { UseControllerProps } from "react-hook-form";
 
-import { ISignUpForm } from "../../components/mainLayout/signUpForm/SignUpForm";
+import { ISignUpForm } from "../components/ComponentsTypes";
 
 export interface IButton {
 	content: string | ReactNode;

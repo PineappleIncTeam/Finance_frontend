@@ -3,3 +3,9 @@ export interface IUser {
 	parentalConsent: boolean;
 	country: string;
 }
+
+export interface ISignUpForm {
+	email: string;
+	password: string;
+	repeatPassword: string;
+}

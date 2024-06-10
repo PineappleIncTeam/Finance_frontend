@@ -5,9 +5,9 @@ import Image from "next/image";
 
 import showPassword from "../../assets/pages/signUp/showPassword.svg";
 
-import { ISignUpForm } from "../../components/mainLayout/signUpForm/SignUpForm";
-
 import { IInputProps } from "../../types/common/UiKitProps";
+
+import { ISignUpForm } from "../../types/components/ComponentsTypes";
 
 import styles from "./Input.module.css";
 

@@ -1,31 +1,31 @@
 .signUpWrap {
     max-width: 100%;
-    height: calc(100vh - 150px);
+    height: 100vh;
     display: flex;
     align-items: center;
     flex-direction: column;
     justify-content: center;
-    background-image: url('../../../assets/pages/signUp/background.svg');
+    background-image: url('../../../assets/pages/signUp/background.png');
     background-repeat: no-repeat;
-    background-position: center 40%;
+    background-position: center 30%;
     background-color: var(--color-silver-gray);
 }
 
 @media screen and (max-width: 1440px) {
     .signUpWrap {
-        background-image: url('../../../assets/pages/signUp/backgroundForTablet.svg');
+        background-image: url('../../../assets/pages/signUp/backgroundForTablet.png');
     }
 }
 
 @media screen and (max-width: 1240px) {
     .signUpWrap {
-        background-size: 1100px;
+        background-size: 1100px 800px;
     }
 }
 
 @media screen and (max-width: 1120px) {
     .signUpWrap {
-        background-image: url('../../../assets/pages/signUp/backgroundForTabletMini.svg');
+        background-image: url('../../../assets/pages/signUp/backgroundForTabletMini.png');
         background-position: center;
         background-size: auto;
         justify-content: center;
@@ -36,7 +36,7 @@
 
 @media screen and (max-width: 910px) {
     .signUpWrap {
-        background-image: url('../../../assets/pages/signUp/backgroundForPhone.svg');
+        background-image: url('../../../assets/pages/signUp/backgroundForPhone.png');
         padding: 0;
         align-items: center;
     }

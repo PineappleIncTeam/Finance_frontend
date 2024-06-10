@@ -1,7 +1,7 @@
 "use client";
 import { useForm } from "react-hook-form";
 
-import { Button } from "../../../ui/button/Button";
+import { Button } from "../../../ui/button/button";
 import { Input } from "../../../ui/input/Input";
 import { Title } from "../../../ui/title/Title";
 
@@ -11,7 +11,7 @@ import { formHelpers } from "../../../utils/formHelpers";
 
 import { ISignUpForm } from "../../../types/components/ComponentsTypes";
 
-import styles from "./SignUpForm.module.css";
+import styles from "./signUpForm.module.css";
 
 const SignUpForm = () => {
 	const {

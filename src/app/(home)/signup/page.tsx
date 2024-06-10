@@ -1,4 +1,4 @@
-import SignUpForm from "../../../components/mainLayout/signUpForm/SignUpForm";
+import SignUpForm from "../../../components/mainLayout/signUpForm/signUpForm";
 
 import styles from "./signUp.module.css";
 

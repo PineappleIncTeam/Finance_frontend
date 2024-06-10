@@ -2,7 +2,7 @@ import cn from "classnames/dedupe";
 
 import { IButton } from "../../types/common/UiKitProps";
 
-import styles from "./Button.module.css";
+import styles from "./button.module.scss";
 
 export const Button = ({ content, styleName, onClick }: IButton) => {
 	function getCorrectStyleName(styleName: string): string {

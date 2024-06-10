@@ -22,4 +22,7 @@ button {
 	--color-ash-grey: #bbbbbb;
 	--color-bright-maroon: #c22347;
 	--color-black: #0000001f;
+	--color-anti-flash-white: rgba(241, 241, 242, 0.9);
+	--color-gray-umber-light: #2b2d331f;
+	--color-cambridge-blue: #a3c0bb;
 }

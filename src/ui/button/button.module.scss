@@ -1,0 +1,140 @@
+.buttonForLogin {
+    width: 244px;
+    height: 64px;
+    border-radius: 20px;
+    background: linear-gradient(179.76deg, var(--color-jasmine) 0.21%, var(--color-sandy-drown) 172.57%);
+    border: none;
+    color: var(--color-eerie-black);
+    font-size: 2.8rem;
+    font-weight: 400;
+    cursor: pointer;
+
+    @media (max-width: 1630px) {
+        & {
+            width: 230px;
+        }
+    }
+
+    @media (max-width: 1445px) {
+        & {
+            width: 200px;
+            height: 52px;
+            font-size: 2.2rem;
+        }
+    }
+
+    @media (max-width: 1265px) {
+        & {
+            width: 170px;
+            height: 52px;
+            font-size: 2.2rem;
+        }
+    }
+
+    @media (max-width: 1024px) {
+        & {
+            width: 200px;
+            height: 52px;
+            font-size: 2.2rem;
+        }
+    }
+
+    @media (max-width: 490px) {
+        & {
+            width: 156px;
+            height: 36px;
+            font-size: 1.6rem;
+        }
+    }
+
+}
+
+.buttonForLogin:hover {
+    background: linear-gradient(179.76deg, var(--color-mustard) 0.21%, var(--color-carrot-orange) 172.57%);
+}
+
+.buttonForRegistration {
+    width: 244px;
+    height: 64px;
+    border-radius: 20px;
+    background: transparent;
+    color: var(--color-eerie-black);
+    font-size: 2.8rem;
+    font-weight: 400;
+    border: 3px solid var(--color-dark-spring-green);
+    cursor: pointer;
+
+    @media (max-width: 1630px) {
+        & {
+            width: 230px;
+        }
+    }
+
+    @media (max-width: 1445px) {
+        & {
+            width: 200px;
+            height: 52px;
+            font-size: 2.2rem;
+        }
+    }
+
+    @media (max-width: 1265px) {
+        & {
+            width: 170px;
+            height: 52px;
+            font-size: 2.2rem;
+        }
+    }
+
+    @media (max-width: 1024px) {
+        & {
+            width: 200px;
+            height: 52px;
+            font-size: 2.2rem;
+        }
+    }
+
+    @media (max-width: 490px) {
+        & {
+            width: 156px;
+            height: 36px;
+            font-size: 1.6rem;
+        }
+    }
+}
+
+.buttonForRegistration:hover {
+    color: var(--color-cal-poly-pomona-green);
+}
+
+.buttonForRegistration.small {
+    width: 200px;
+    height: 52px;
+    font-size: 2.2rem;
+    border: 2px solid var(--color-dark-spring-green);
+
+    @media screen and (max-width: 550px) {
+        & {
+            width: 140px;
+            height: 36px;
+            font-size: 1.6rem;
+            border-radius: 8px;
+        }
+    }
+}
+
+.buttonForLogin.small {
+    width: 200px;
+    height: 52px;
+    font-size: 2.2rem;
+
+    @media screen and (max-width: 550px) {
+        & {
+            width: 140px;
+            height: 36px;
+            font-size: 1.6rem;
+            border-radius: 8px;
+        }
+    }
+
+}

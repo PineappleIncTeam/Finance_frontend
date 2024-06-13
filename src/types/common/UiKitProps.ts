@@ -17,7 +17,7 @@ export interface IInputProps extends UseControllerProps<ISignUpForm> {
 	placeholder?: string;
 	autoComplete?: string;
 	subtitle?: string;
-	error?: string;
+	error?: string | null;
 }
 
 export interface ITitle {

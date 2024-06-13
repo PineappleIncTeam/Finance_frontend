@@ -9,12 +9,15 @@ import { IInputProps } from "../../types/common/UiKitProps";
 
 import { ISignUpForm } from "../../types/components/ComponentsTypes";
 
+import { InputType } from "../../helpers/Input";
+
 import styles from "./Input.module.css";
 
 export const Input = ({ label, type, placeholder, autoComplete, subtitle, error, ...props }: IInputProps) => {
 	const { field, fieldState } = useController<ISignUpForm>(props);
-	const [passwordType, setPasswordType] = useState("password");
-	const togglePasswordVisibility = () => setPasswordType(passwordType === "password" ? "text" : "password");
+	const [passwordType, setPasswordType] = useState(InputType.Password);
+	const togglePasswordVisibility = () =>
+		setPasswordType(passwordType === InputType.Password ? InputType.Text : InputType.Password);
 
 	return (
 		<div className={styles.inputWrap}>
@@ -22,12 +25,12 @@ export const Input = ({ label, type, placeholder, autoComplete, subtitle, error,
 			<div className={cn(styles.inputWrap__element, { [styles.inputWrap__element_error]: error })}>
 				<input
 					{...field}
-					type={type === "password" ? passwordType : type}
+					type={type === InputType.Password ? passwordType : type}
 					placeholder={placeholder}
 					className={styles.inputWrap__input}
 					autoComplete={autoComplete}
 				/>
-				{type === "password" && (
+				{type === InputType.Password && (
 					<button onClick={togglePasswordVisibility} className={styles.inputWrap__passwordEye} type="button">
 						<Image src={showPassword} alt="Toggle visibility" />
 					</button>

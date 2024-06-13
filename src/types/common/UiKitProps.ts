@@ -8,6 +8,7 @@ export interface IButton {
 	content: string | ReactNode;
 	styleName: string;
 	onClick?: () => void;
+	type?: "button" | "submit";
 }
 
 export interface IInputProps extends UseControllerProps<ISignUpForm> {

@@ -7,5 +7,5 @@ export interface IUser {
 export interface ISignUpForm {
 	email: string;
 	password: string;
-	repeatPassword: string;
+	re_password: string;
 }

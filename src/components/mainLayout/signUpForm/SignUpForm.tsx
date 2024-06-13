@@ -1,15 +1,18 @@
 "use client";
 import { useForm } from "react-hook-form";
 
+import { useRouter } from "next/navigation";
+
 import { Button } from "../../../ui/button/button";
 import { Input } from "../../../ui/input/Input";
 import { Title } from "../../../ui/title/Title";
-
 import { emailPattern, errorPasswordRepeat, passwordPattern } from "../../../helpers/authConstants";
-
 import { formHelpers } from "../../../utils/formHelpers";
-
 import { ISignUpForm } from "../../../types/components/ComponentsTypes";
+
+import { InputType } from "../../../helpers/Input";
+
+import { registration } from "../../../services/api/auth/Registration";
 
 import styles from "./signUpForm.module.css";
 
@@ -18,23 +21,32 @@ const SignUpForm = () => {
 		formState: { errors },
 		control,
 		watch,
+		handleSubmit,
 	} = useForm<ISignUpForm>({
 		defaultValues: {
 			email: "",
 			password: "",
-			repeatPassword: "",
+			// eslint-disable-next-line camelcase
+			re_password: "",
 		},
 		mode: "all",
 		delayError: 200,
 	});
 
+	const router = useRouter();
 	const validateRepeatPassword = (value: string) => {
-		const password = watch("password");
+		const password = watch(InputType.Password);
 		return value === password || errorPasswordRepeat;
 	};
 
+	const goBack = () => {
+		router.back();
+	};
+	const onSubmit = async (data: ISignUpForm) => {
+		await registration(data);
+	};
 	return (
-		<form className={styles.signUpFormWrap}>
+		<form className={styles.signUpFormWrap} onSubmit={handleSubmit(onSubmit)}>
 			<div className={styles.signUpFormContainer}>
 				<Title title={"Регистрация"} />
 				<Input
@@ -48,7 +60,7 @@ const SignUpForm = () => {
 				/>
 				<Input
 					label={"Введите пароль"}
-					type="password"
+					type={InputType.Password}
 					placeholder="Пароль"
 					subtitle="Пароль должен состоять из 6 и более символов, среди которых хотя бы одна буква верхнего регистра и хотя бы одна цифра"
 					error={formHelpers.getPasswordError(errors, control._formValues.password)}
@@ -58,19 +70,19 @@ const SignUpForm = () => {
 				/>
 				<Input
 					label={"Повторите пароль"}
-					type="password"
+					type={InputType.Password}
 					placeholder="Пароль"
 					control={control}
-					name={"repeatPassword"}
-					error={errors.repeatPassword?.message}
+					name={"re_password"}
+					error={errors.re_password?.message}
 					rules={{
 						required: true,
 						validate: validateRepeatPassword,
 					}}
 				/>
 				<div className={styles.actionWrap}>
-					<Button content="Отменить" styleName="small buttonForRegistration" />
-					<Button content="Вход" styleName="small buttonForLogin" />
+					<Button content="Отменить" styleName="small buttonForRegistration" onClick={goBack} />
+					<Button content="Вход" styleName="small buttonForLogin" type="submit" />
 				</div>
 				<div className={styles.dividerWrap}>
 					<div className={styles.dividerWrap__line} />
@@ -79,7 +91,11 @@ const SignUpForm = () => {
 				</div>
 				<p className={styles.signUpFormContainer__auth}>
 					Войти через{" "}
-					<a href="https://vk.com/" rel="nofollow noreferrer" target="_blank" className={styles.signUpFormContainer__auth_link}>
+					<a
+						href="https://vk.com/"
+						rel="nofollow noreferrer"
+						target="_blank"
+						className={styles.signUpFormContainer__auth_link}>
 						Вконтакте
 					</a>
 				</p>

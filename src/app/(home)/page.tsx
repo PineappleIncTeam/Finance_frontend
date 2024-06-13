@@ -1,4 +1,4 @@
-import Service from "../../pages/homeLayout/service/service";
+import Service from "../../pages/homeLayout/service/service1";
 
 import Footer from "../../pages/homeLayout/footer/footer";
 

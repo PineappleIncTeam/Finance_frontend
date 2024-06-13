@@ -8,7 +8,7 @@ import { useState } from "react";
 
 import cn from "classnames";
 
-import { Button } from "../../../ui/button/button";
+import { Button } from "../../../ui/button/button1";
 import { MainPath } from "../../../services/router/routes";
 import { cookieLinkTitle } from "../../../mocks/cookiePopupWindow";
 import closeIcon from "../../../assets/pages/mainPage/closeIcon.svg";

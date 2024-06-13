@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 
 import { useRouter } from "next/navigation";
 
-import { Button } from "../../../ui/button/button";
+import { Button } from "../../../ui/button/button1";
 import { Input } from "../../../ui/input/Input";
 import { Title } from "../../../ui/title/Title";
 import { emailPattern, errorPasswordRepeat, passwordPattern } from "../../../helpers/authConstants";

@@ -1,7 +1,7 @@
 import "../reset.css";
 import "../globals.css";
 
-import MainHeader from "../../components/mainLayout/mainHeader/mainHeader";
+import MainHeader from "../../components/mainLayout/mainHeader/mainHeader1";
 import CookiePopupWindow from "../../pages/homeLayout/cookiePopupWindow/cookiePopupWindow";
 
 import type { Metadata } from "next";

@@ -1,6 +1,5 @@
 "use client";
 import { useForm } from "react-hook-form";
-
 import { useRouter } from "next/navigation";
 
 import { Button } from "../../../ui/button/button";
@@ -9,10 +8,10 @@ import { Title } from "../../../ui/title/Title";
 import { emailPattern, errorPasswordRepeat, passwordPattern } from "../../../helpers/authConstants";
 import { formHelpers } from "../../../utils/formHelpers";
 import { ISignUpForm } from "../../../types/components/ComponentsTypes";
-
 import { InputType } from "../../../helpers/Input";
-
 import { registration } from "../../../services/api/auth/Registration";
+
+import { MainPath } from "../../../services/router/routes";
 
 import styles from "./signUpForm.module.css";
 
@@ -34,6 +33,9 @@ const SignUpForm = () => {
 	});
 
 	const router = useRouter();
+	const errorStatusMin = 500;
+	const errorStatusMax = 600;
+
 	const validateRepeatPassword = (value: string) => {
 		const password = watch(InputType.Password);
 		return value === password || errorPasswordRepeat;
@@ -42,9 +44,18 @@ const SignUpForm = () => {
 	const goBack = () => {
 		router.back();
 	};
+
 	const onSubmit = async (data: ISignUpForm) => {
-		await registration(data);
+		try {
+			await registration(data);
+			router.push(MainPath.Login);
+		} catch (error) {
+			if (error.response && error.response.status >= errorStatusMin && error.response.status < errorStatusMax) {
+				router.push(MainPath.ServerError);
+			}
+		}
 	};
+
 	return (
 		<form className={styles.signUpFormWrap} onSubmit={handleSubmit(onSubmit)}>
 			<div className={styles.signUpFormContainer}>

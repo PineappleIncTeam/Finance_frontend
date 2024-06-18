@@ -19,8 +19,9 @@ import { ChangePasswordModal } from "../../../components/appResponse/changePassw
 
 import { IChangePassword } from "../../../types/pages/Password";
 
-import style from "./changePassword.module.scss";
+// import { passwordRegex } from "../../../helpers/password";
 
+import style from "./changePassword.module.scss";
 
 export default function ChangePassword() {
 	const {
@@ -34,7 +35,6 @@ export default function ChangePassword() {
 	const onSubmit = (data: IChangePassword) => {
 		alert(JSON.stringify(data));
 		handleChangePasswordModal();
-		// changePasswordRequest;
 		reset();
 	};
 
@@ -51,27 +51,35 @@ export default function ChangePassword() {
 	};
 
 	const handleChangePasswordModal = () => {
-		setIsChangePasswordModalShown(true)
-	}
+		setIsChangePasswordModalShown(true);
+	};
+
+	const validatePasswords = (value: string) => {
+		if (watch("enterNewPassword") !== value) {
+			return "Ваши пароли не совпадают";
+		}
+	};
 
 	return (
-		<div className={style.changePasswordWrap}>
-			<div className={style.changePasswordContainer}>
-				<OvalIcon classNames={style.ovalIcon} />
-				<QuestionIcon classNames={style.questionIcon} />
-				<EmailIcon classNames={style.emailIcon} />
-				<ArrowsIcon classNames={style.arrowsIcon} />
-				<LetterIcon classNames={style.letterIcon} />
-				<OpenLetterIcon classNames={style.openLetterIcon} />
-				<ManIcon classNames={style.manIcon} />
-				<PaperAirLineIcon classNames={style.paperAirLineIcon} />
-				<OpenLetterIcon classNames={style.secondOpenLetterIcon} />
-				<div className={style.changePasswordContainer__modal}>
-					<div className={style.changePasswordContainer__modal__content}>
-						<h1 className={style.changePasswordContainer__form__title}>Изменение пароля</h1>
-						<form onSubmit={handleSubmit(onSubmit)}>
-							{isChangePasswordModalShown && <ChangePasswordModal/>}
-							<label htmlFor="enterNewPassword" className={style.label}>Введите новый пароль</label>
+			<div className={style.changePasswordWrap}>
+				<div className={style.changePasswordContainer}>
+					<OvalIcon classNames={style.ovalIcon} />
+					<QuestionIcon classNames={style.questionIcon} />
+					<EmailIcon classNames={style.emailIcon} />
+					<ArrowsIcon classNames={style.arrowsIcon} />
+					<LetterIcon classNames={style.letterIcon} />
+					<OpenLetterIcon classNames={style.openLetterIcon} />
+					<ManIcon classNames={style.manIcon} />
+					<PaperAirLineIcon classNames={style.paperAirLineIcon} />
+					<OpenLetterIcon classNames={style.secondOpenLetterIcon} />
+					<div className={style.changePasswordContainer__modal}>
+						<div className={style.changePasswordContainer__modal__content}>
+							<h1 className={style.changePasswordContainer__form__title}>Изменение пароля</h1>
+							<form onSubmit={handleSubmit(onSubmit)}>
+								{isChangePasswordModalShown && <ChangePasswordModal />}
+								<label htmlFor="enterNewPassword" className={style.formWrap_passwordTitle}>
+									Введите новый пароль
+								</label>
 								<input
 									id="enterNewPassword"
 									type={isEnterNewPasswordShown ? "text" : "password"}
@@ -79,15 +87,20 @@ export default function ChangePassword() {
 									placeholder="Пароль"
 									{...register("enterNewPassword", {
 										pattern: /[A-Za-z]{3}/,
+										// pattern: passwordRegex
 									})}
 								/>
-								<VisibilityOffIcon classNames={style.visibilityOffIcon} cb={toggleEnterPasswordVisibility} />
-							{errors?.enterNewPassword && <p>Проверьте пароль</p>}
-							<p className={style.changePasswordHelper}>
-								Пароль должен состоять из 6 и более символов, среди которых хотя бы одна буква верхнего регистра и хотя
-								бы одна цифра
-							</p>
-							<label htmlFor="reenterNewPassword" className={style.label}>Повторите пароль</label>
+								<button type="button" onClick={toggleEnterPasswordVisibility}>
+									<VisibilityOffIcon classNames={style.visibilityOffIcon} />
+								</button>
+								{errors?.enterNewPassword && <p>Проверьте пароль</p>}
+								<p className={style.changePasswordHelper}>
+									Пароль должен состоять из 6 и более символов, среди которых хотя бы одна буква верхнего регистра и
+									хотя бы одна цифра
+								</p>
+								<label htmlFor="reenterNewPassword" className={style.formWrap_passwordTitle}>
+									Повторите пароль
+								</label>
 								<input
 									id="reenterNewPassword"
 									className={style.changePasswordRow}
@@ -98,20 +111,18 @@ export default function ChangePassword() {
 											value: true,
 											message: "Поле обязательно для заполнения",
 										},
-										validate: (value: string) => {
-											if (watch("enterNewPassword") !== value) {
-												return "Ваши пароли не совпадают";
-											}
-										},
+										validate: validatePasswords,
 									})}
 								/>
-								<VisibilityOffIcon classNames={style.visibilityOffIcon2} cb={toggleReenterPasswordVisibility} />						
-							{errors?.reenterNewPassword?.message}
-							<input className={style.saveButton} type="submit" value="Сохранить" />
-						</form>
+								<button type="button" onClick={toggleReenterPasswordVisibility}>
+									<VisibilityOffIcon classNames={style.visibilityOffIcon2} />
+								</button>
+								{errors?.reenterNewPassword?.message}
+								<input className={style.saveButton} type="submit" value="Сохранить" />
+							</form>
+						</div>
 					</div>
 				</div>
 			</div>
-		</div>
 	);
 }

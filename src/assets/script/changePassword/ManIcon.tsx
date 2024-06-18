@@ -1,6 +1,6 @@
-import { IManIconProps } from "../../../types/pages/Password"
+import { IIconsProps } from "../../../types/pages/Password"
 
-export const ManIcon = ({classNames}: IManIconProps) => {
+export const ManIcon = ({classNames}: IIconsProps) => {
   return (
     <svg className={classNames} width="351" height="585" viewBox="0 0 351 585" fill="none" xmlns="http://www.w3.org/2000/svg">
     <g filter="url(#filter0_f_487_1246)">

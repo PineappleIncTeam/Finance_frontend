@@ -1,10 +1,9 @@
 import { IVisibilityOffIconProps } from "../../../types/pages/Password";
 
-export const VisibilityOffIcon = ({ classNames, cb }: IVisibilityOffIconProps) => {
+export const VisibilityOffIcon = ({ classNames }: IVisibilityOffIconProps) => {
 	return (
 		<svg
 			className={classNames}
-			onClick={cb}
 			width="22"
 			height="17"
 			viewBox="0 0 22 17"

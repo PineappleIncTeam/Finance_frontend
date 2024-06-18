@@ -1,6 +1,6 @@
-import { IEmailIconProps } from "../../../types/pages/Password"
+import { IIconsProps } from "../../../types/pages/Password"
 
-export const EmailIcon = ({ classNames }: IEmailIconProps ) => {
+export const EmailIcon = ({ classNames }: IIconsProps ) => {
   return (
     <svg className={classNames} width="95" height="95" viewBox="0 0 95 95" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path d="M92.6963 42.3102L92.6963 92.6064M92.6963 42.3102L83.5501 31.5236M92.6963 42.3102L58.9748 65.4378M92.6963 92.6064L2.1631 92.6064M92.6963 92.6064L58.9748 65.4378M2.1631 92.6064L2.1631 42.3102M2.1631 92.6064L36.1081 65.4378M2.1631 42.3102L10.84 31.5236M2.1631 42.3102L36.1081 65.4378M36.1081 65.4378L47.5792 73.2533L58.9748 65.4378" stroke="#DCDDDD" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>

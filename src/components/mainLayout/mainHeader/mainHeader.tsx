@@ -33,7 +33,7 @@ const MainHeader = () => {
 						О нас
 					</p>
 				</Link>
-				<Link href={MainPath.AboutApp}>
+				<Link href={MainPath.ChangePassword}>
 					<p className={cn(styles.navigationLink, { [styles.navigationActiveLink]: pathname === MainPath.AboutApp })}>
 						О приложении
 					</p>
@@ -41,11 +41,6 @@ const MainHeader = () => {
 				<Link href={MainPath.NewPassword}>
 					<p className={cn(styles.navigationLink, { [styles.navigationActiveLink]: pathname === MainPath.Blog })}>
 						Блог
-					</p>
-				</Link>
-				<Link href={MainPath.ChangePassword}>
-					<p className={cn(styles.navigationLink, { [styles.navigationActiveLink]: pathname === MainPath.Blog })}>
-						Пароль
 					</p>
 				</Link>
 			</>

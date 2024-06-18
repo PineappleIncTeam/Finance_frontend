@@ -1,6 +1,6 @@
-import { IPaperAirLineIconProps } from "../../../types/pages/Password"
+import { IIconsProps } from "../../../types/pages/Password"
 
-export const PaperAirLineIcon = ({ classNames }: IPaperAirLineIconProps) => {
+export const PaperAirLineIcon = ({ classNames }: IIconsProps) => {
     return (
       
         <svg  className={classNames} width="93" height="93" viewBox="0 0 93 93" fill="none" xmlns="http://www.w3.org/2000/svg">

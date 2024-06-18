@@ -41,7 +41,8 @@ select {
 	padding: 0;
 }
 
-img {
+img,
+svg {
 	cursor: pointer;
 	user-select: none;
 }

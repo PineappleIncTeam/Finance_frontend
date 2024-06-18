@@ -1,6 +1,6 @@
-import { IArrowsIconProps } from "../../../types/pages/Password"
+import { IIconsProps } from "../../../types/pages/Password"
 
-  export const ArrowsIcon = ({classNames}: IArrowsIconProps) => {
+  export const ArrowsIcon = ({classNames}: IIconsProps) => {
     return (
        <svg className={classNames} width="36" height="49" viewBox="0 0 36 49" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M6.04958 6.27983L20.5508 1.83521L33.5672 9.62066" stroke="#DCDDDD" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>

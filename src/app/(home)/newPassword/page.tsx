@@ -17,13 +17,14 @@ import { ManIcon } from "../../../assets/script/changePassword/ManIcon";
 import { INewPassword } from "../../../types/pages/Password";
 import { NewPasswordModal } from "../../../components/appResponse/newPasswordModal/newPasswordModal";
 
+// import { emailRegex } from "../../../helpers/password";
+
 import style from "./newPassword.module.scss";
 
-
 export default function NewPassword() {
-
 	const [isNewPasswordModalShown, setIsNewPasswordModalShown] = useState(false);
-	
+	const [email, setEmail] = useState("");
+
 	const {
 		register,
 		handleSubmit,
@@ -32,58 +33,60 @@ export default function NewPassword() {
 	} = useForm<INewPassword>({ mode: "onBlur" });
 
 	const onSubmit = (data: INewPassword) => {
-		alert(JSON.stringify(data));
+		setEmail(data?.enterEmail);
 		handleNewPasswordModal();
 		reset();
 	};
 
 	const handleNewPasswordModal = () => {
-		setIsNewPasswordModalShown(true)
-	}
+		setIsNewPasswordModalShown(true);
+	};
 
-	return (
-		<div className={style.newPasswordWrap}>
-			<div className={style.newPasswordContainer}>
-				<OvalIcon classNames={style.ovalIcon} />
-				<QuestionIcon classNames={style.questionIcon} />
-				<EmailIcon classNames={style.emailIcon} />
-				<ArrowsIcon classNames={style.arrowsIcon} />
-				<LetterIcon classNames={style.letterIcon} />
-				<OpenLetterIcon classNames={style.openLetterIcon} />
-				<ManIcon classNames={style.manIcon} />
-				<PaperAirLineIcon classNames={style.paperAirLineIcon} />
-				<OpenLetterIcon classNames={style.secondOpenLetterIcon} />
-				<div className={style.newPasswordContainer__modal}>
-					<div className={style.newPasswordContainer__modal__content}>
-						<h1 className={style.newPasswordContainer__form__title}>Восстановление пароля</h1>
-						<form onSubmit={handleSubmit(onSubmit)}>
-						{isNewPasswordModalShown && <NewPasswordModal/>}
-							<label htmlFor="enterEmail" className={style.label}>Введите почту</label>
-							<input 
-							id="enterEmail"
-							className={style.newPasswordRow} 
-							placeholder="_@_._" 
-							{...register("enterEmail", {
-								required: {
-									value: true,
-									message: "Поле обязательно для заполнения",
-								},
-								pattern: {
-									value: /\S+@\S+\.\S+/,
-									message: "Значение не соответсвует формату email"
-								}
-							})
-							}
-							/>
-							{errors?.enterEmail && <span role="alert">{errors.enterEmail.message}</span>}	
-							<div className={style.newPassword__modal__buttons}>
-								<input className={style.backButton} type="submit" value="Назад" />
-								<input className={style.restoreButton} type="submit" value="Восстановить" />
-							</div>
-						</form>
+	return (		
+			<div className={style.newPasswordWrap}>
+				<div className={style.newPasswordContainer}>
+					<OvalIcon classNames={style.ovalIcon} />
+					<QuestionIcon classNames={style.questionIcon} />
+					<EmailIcon classNames={style.emailIcon} />
+					<ArrowsIcon classNames={style.arrowsIcon} />
+					<LetterIcon classNames={style.letterIcon} />
+					<OpenLetterIcon classNames={style.openLetterIcon} />
+					<ManIcon classNames={style.manIcon} />
+					<PaperAirLineIcon classNames={style.paperAirLineIcon} />
+					<OpenLetterIcon classNames={style.secondOpenLetterIcon} />
+					<div className={style.newPasswordContainer__modal}>
+						<div className={style.newPasswordContainer__modal__content}>
+							<h1 className={style.newPasswordContainer__form__title}>Восстановление пароля</h1>
+							<form onSubmit={handleSubmit(onSubmit)}>
+								{isNewPasswordModalShown && <NewPasswordModal email={email} onClose={close} />}
+								<label htmlFor="enterEmail" className={style.formWrap__emailTitle}>
+									Введите почту
+								</label>
+								<input
+									id="enterEmail"
+									className={style.newPasswordRow}
+									placeholder="_@_._"
+									{...register("enterEmail", {
+										required: {
+											value: true,
+											message: "Поле обязательно для заполнения",
+										},
+										pattern: {
+											value: /\S+@\S+\.\S+/,
+											// value: emailRegex,
+											message: "Значение не соответсвует формату email",
+										},
+									})}
+								/>
+								{errors?.enterEmail && <span role="alert">{errors.enterEmail.message}</span>}
+								<div className={style.newPassword__modal__buttons}>
+									<input className={style.backButton} type="submit" value="Назад" />
+									<input className={style.restoreButton} type="submit" value="Восстановить" />
+								</div>
+							</form>
+						</div>
 					</div>
 				</div>
 			</div>
-		</div>
 	);
 }

@@ -1,6 +1,6 @@
-import { IQuestionIconProps } from "../../../types/pages/Password"
+import { IIconsProps } from "../../../types/pages/Password"
 
-export const QuestionIcon = ({classNames}: IQuestionIconProps) => {
+export const QuestionIcon = ({classNames}: IIconsProps) => {
    return (
     <svg className={classNames} width="94" height="95" viewBox="0 0 94 95" fill="none" xmlns="http://www.w3.org/2000/svg">
     <circle cx="46.9828" cy="47.5951" r="45.266" stroke="#DCDDDD" stroke-width="3"/>

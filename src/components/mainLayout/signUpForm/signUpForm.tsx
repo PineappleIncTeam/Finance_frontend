@@ -44,8 +44,8 @@ const SignUpForm = () => {
 		router.back();
 	};
 
-	const isAxiosError = (error: { isAxiosError: boolean }): error is AxiosError => {
-		return error.isAxiosError;
+	const isAxiosError = (error: unknown): error is AxiosError => {
+		return (error as AxiosError).isAxiosError !== undefined;
 	};
 
 	const onSubmit = async (data: ISignUpForm) => {

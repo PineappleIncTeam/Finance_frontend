@@ -1,6 +1,7 @@
 "use client";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
+import { AxiosError } from "axios";
 
 import { Button } from "../../../ui/button/button";
 import { Input } from "../../../ui/input/Input";
@@ -10,8 +11,8 @@ import { formHelpers } from "../../../utils/formHelpers";
 import { ISignUpForm } from "../../../types/components/ComponentsTypes";
 import { InputType } from "../../../helpers/Input";
 import { registration } from "../../../services/api/auth/Registration";
-
 import { MainPath } from "../../../services/router/routes";
+import { ApiResponseCode } from "../../../helpers/apiResponseCode";
 
 import styles from "./signUpForm.module.css";
 
@@ -33,8 +34,6 @@ const SignUpForm = () => {
 	});
 
 	const router = useRouter();
-	const errorStatusMin = 500;
-	const errorStatusMax = 600;
 
 	const validateRepeatPassword = (value: string) => {
 		const password = watch(InputType.Password);
@@ -45,12 +44,22 @@ const SignUpForm = () => {
 		router.back();
 	};
 
+	const isAxiosError = (error: { isAxiosError: boolean }): error is AxiosError => {
+		return error.isAxiosError;
+	};
+
 	const onSubmit = async (data: ISignUpForm) => {
 		try {
 			await registration(data);
 			router.push(MainPath.Login);
 		} catch (error) {
-			if (error.response && error.response.status >= errorStatusMin && error.response.status < errorStatusMax) {
+			if (
+				isAxiosError(error) &&
+				error.response &&
+				error.response.status &&
+				error.response.status >= ApiResponseCode.ERROR_STATUS_MIN &&
+				error.response.status < ApiResponseCode.ERROR_STATUS_MAX
+			) {
 				router.push(MainPath.ServerError);
 			}
 		}

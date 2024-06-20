@@ -1,7 +1,7 @@
-import { IQuestionIconProps } from "../../../types/pages/Password";
+import { IIconsProps } from "../../../types/pages/Password";
 
 
-export const OpenLetterIcon = ({classNames}: IQuestionIconProps) => {
+export const OpenLetterIcon = ({classNames}: IIconsProps) => {
 	return (
 		<svg className={classNames} width="91" height="91" viewBox="0 0 91 91" fill="none" xmlns="http://www.w3.org/2000/svg">
 			<path

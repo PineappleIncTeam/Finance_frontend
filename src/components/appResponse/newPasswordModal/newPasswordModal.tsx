@@ -2,10 +2,10 @@ import { INewPasswordModalProps } from "../../../types/pages/Password";
 
 import style from "./newPasswordModal.module.scss";
 
-export const NewPasswordModal = ({email, onClose} : INewPasswordModalProps) => {
+export const NewPasswordModal = ({email} : INewPasswordModalProps) => {
 	return (
 		<div className={style.backgroundModal}>
-			<section className={style.newPasswordResponseModalWrap} onClick={onClose}>
+			<dialog open className={style.newPasswordResponseModalWrap}>
 				<div className={style.newPasswordResponseModalContainer}>
 					<h1 className={style.newPasswordResponseModalContainer__title}>Письмо отправлено</h1>
 					<p className={style.newPasswordResponseModalContainer__subtitle}>
@@ -18,7 +18,7 @@ export const NewPasswordModal = ({email, onClose} : INewPasswordModalProps) => {
 						Повторить отправку
 					</button>
 				</div>
-			</section>
+			</dialog>
 		</div>
 	);
 };

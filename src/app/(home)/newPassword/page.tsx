@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 
 import { LetterIcon } from "../../../assets/script/changePassword/LetterIcon";
 
@@ -26,7 +26,7 @@ export default function NewPassword() {
 	const [email, setEmail] = useState("");
 
 	const {
-		register,
+		control,
 		handleSubmit,
 		reset,
 		formState: { errors },
@@ -42,51 +42,47 @@ export default function NewPassword() {
 		setIsNewPasswordModalShown(true);
 	};
 
-	return (		
-			<div className={style.newPasswordWrap}>
-				<div className={style.newPasswordContainer}>
-					<OvalIcon classNames={style.ovalIcon} />
-					<QuestionIcon classNames={style.questionIcon} />
-					<EmailIcon classNames={style.emailIcon} />
-					<ArrowsIcon classNames={style.arrowsIcon} />
-					<LetterIcon classNames={style.letterIcon} />
-					<OpenLetterIcon classNames={style.openLetterIcon} />
-					<ManIcon classNames={style.manIcon} />
-					<PaperAirLineIcon classNames={style.paperAirLineIcon} />
-					<OpenLetterIcon classNames={style.secondOpenLetterIcon} />
-					<div className={style.newPasswordContainer__modal}>
-						<div className={style.newPasswordContainer__modal__content}>
-							<h1 className={style.newPasswordContainer__form__title}>Восстановление пароля</h1>
-							<form onSubmit={handleSubmit(onSubmit)}>
-								{isNewPasswordModalShown && <NewPasswordModal email={email} onClose={close} />}
-								<label htmlFor="enterEmail" className={style.formWrap__emailTitle}>
-									Введите почту
-								</label>
-								<input
-									id="enterEmail"
-									className={style.newPasswordRow}
-									placeholder="_@_._"
-									{...register("enterEmail", {
-										required: {
-											value: true,
-											message: "Поле обязательно для заполнения",
-										},
-										pattern: {
-											value: /\S+@\S+\.\S+/,
-											// value: emailRegex,
-											message: "Значение не соответсвует формату email",
-										},
-									})}
-								/>
-								{errors?.enterEmail && <span role="alert">{errors.enterEmail.message}</span>}
-								<div className={style.newPassword__modal__buttons}>
-									<input className={style.backButton} type="submit" value="Назад" />
-									<input className={style.restoreButton} type="submit" value="Восстановить" />
-								</div>
-							</form>
-						</div>
+	const emailRules = {
+		required: { value: true, message: "Поле обязательно для заполнения" },
+		pattern: { value: /\S+@\S+\.\S+/, message: "Значение не соответсвует формату email" },
+						// emailRegex
+	};
+
+	return (
+		<div className={style.newPasswordWrap}>
+			<div className={style.newPasswordContainer}>
+				<OvalIcon classNames={style.ovalIcon} />
+				<QuestionIcon classNames={style.questionIcon} />
+				<EmailIcon classNames={style.emailIcon} />
+				<ArrowsIcon classNames={style.arrowsIcon} />
+				<LetterIcon classNames={style.letterIcon} />
+				<OpenLetterIcon classNames={style.openLetterIcon} />
+				<ManIcon classNames={style.manIcon} />
+				<PaperAirLineIcon classNames={style.paperAirLineIcon} />
+				<OpenLetterIcon classNames={style.secondOpenLetterIcon} />
+				<div className={style.newPasswordContainer__modal}>
+					<div className={style.newPasswordContainer__modal__content}>
+						<h1 className={style.newPasswordContainer__form__title}>Восстановление пароля</h1>
+						<form onSubmit={handleSubmit(onSubmit)}>
+							{isNewPasswordModalShown && <NewPasswordModal email={email} />}
+							<label htmlFor="enterEmail" className={style.formWrap__emailTitle}>
+								Введите почту
+							</label>
+							<Controller
+								name="enterEmail"
+								control={control}
+								rules={emailRules}
+								render={({ field }) => <input className={style.newPasswordRow} placeholder="_@_._" {...field} />}
+							/>
+							{errors?.enterEmail && <span role="alert">{errors.enterEmail.message}</span>}
+							<div className={style.newPassword__modal__buttons}>
+								<input className={style.backButton} type="submit" value="Назад" />
+								<input className={style.restoreButton} type="submit" value="Восстановить" />
+							</div>
+						</form>
 					</div>
 				</div>
 			</div>
+		</div>
 	);
 }

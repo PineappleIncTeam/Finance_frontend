@@ -17,5 +17,4 @@ export interface IVisibilityOffIconProps {
 
 export interface INewPasswordModalProps {
   email: string;
-  onClose: () => void
 }

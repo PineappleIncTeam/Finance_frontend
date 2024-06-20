@@ -42,7 +42,6 @@ select {
 }
 
 img {
-	cursor: pointer;
 	user-select: none;
 }
 

@@ -51,7 +51,9 @@ export default function ChangePassword() {
 	};
 
 	const handleChangePasswordModal = () => {
+		const numberSeconds = 4000;
 		setIsChangePasswordModalShown(true);
+		setTimeout(() => setIsChangePasswordModalShown(false), numberSeconds);
 	};
 
 	const validatePasswords = (value: string) => {

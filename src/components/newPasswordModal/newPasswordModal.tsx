@@ -4,7 +4,7 @@ import { INewPasswordModal } from "../../types/common/ComponentsProps";
 
 import style from "./newPasswordModal.module.scss";
 
-export const NewPasswordModal = ({ email, open }: INewPasswordModal) => {
+export const NewPasswordModal = ({ email, open, toggle }: INewPasswordModal) => {
 	const lockScroll = useScrollLock(open);
 	lockScroll();
 
@@ -20,7 +20,7 @@ export const NewPasswordModal = ({ email, open }: INewPasswordModal) => {
 						<p className={style.newPasswordResponseModalContainer__subtitle}>
 							В случае, если не нашли письма, проверьте папку «Спам» и правильность введенного адреса.
 						</p>
-						<button className={style.repeatSendButton} type="button">
+						<button className={style.repeatSendButton} type="button" onClick={toggle}>
 							Повторить отправку
 						</button>
 					</div>

@@ -42,6 +42,10 @@ export default function NewPassword() {
 		setIsNewPasswordModalShown(true);
 	};
 
+	const closeNewPasswordModal = () => {
+		setIsNewPasswordModalShown(false);
+	};
+
 	const emailRules = {
 		required: { value: true, message: "Поле обязательно для заполнения" },
 		pattern: { value: emailRegex, message: "Значение не соответсвует формату email" },
@@ -63,7 +67,7 @@ export default function NewPassword() {
 					<div className={style.newPasswordContainer__modal__content}>
 						<h1 className={style.newPasswordContainer__form__title}>Восстановление пароля</h1>
 						<form onSubmit={handleSubmit(onSubmit)}>
-							<NewPasswordModal email={email} open={isNewPasswordModalShown} />
+							<NewPasswordModal email={email} open={isNewPasswordModalShown} toggle={closeNewPasswordModal} />
 							<label htmlFor="enterEmail" className={style.formWrap__emailTitle}>
 								Введите почту
 							</label>

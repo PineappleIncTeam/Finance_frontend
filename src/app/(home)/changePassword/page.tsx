@@ -15,11 +15,11 @@ import { OvalIcon } from "../../../assets/script/changePassword/OvalIcon";
 import { ManIcon } from "../../../assets/script/changePassword/ManIcon";
 import { VisibilityOffIcon } from "../../../assets/script/changePassword/VisibilityOffIcon";
 
-import { ChangePasswordModal } from "../../../components/appResponse/changePasswordModal/changePasswordModal";
+import { ChangePasswordModal } from "../../../components/changePasswordModal/changePasswordModal";
 
 import { IChangePassword } from "../../../types/pages/Password";
 
-// import { passwordRegex } from "../../../helpers/password";
+import { passwordRegex } from "../../../helpers/password";
 
 import style from "./changePassword.module.scss";
 
@@ -62,8 +62,7 @@ export default function ChangePassword() {
 
 	const passwordRules = {
 		required: { value: true, message: "Поле обязательно для заполнения" },
-		pattern: { value: /[A-Za-z]{3}/, message: "Значение не соответсвует формату пароля"},
-			// passwordRegex
+		pattern: { value: passwordRegex, message: "Значение не соответсвует формату пароля" },
 	};
 
 	return (
@@ -82,7 +81,7 @@ export default function ChangePassword() {
 					<div className={style.changePasswordContainer__modal__content}>
 						<h1 className={style.changePasswordContainer__form__title}>Изменение пароля</h1>
 						<form onSubmit={handleSubmit(onSubmit)}>
-							{isChangePasswordModalShown && <ChangePasswordModal />}
+							<ChangePasswordModal open={isChangePasswordModalShown} />
 							<label htmlFor="enterNewPassword" className={style.formWrap_passwordTitle}>
 								Введите новый пароль
 							</label>
@@ -90,11 +89,15 @@ export default function ChangePassword() {
 								name="enterNewPassword"
 								control={control}
 								rules={passwordRules}
+								defaultValue=""
 								render={({ field }) => (
-									<input id="enterNewPassword" 
-									className={style.changePasswordRow}
-									type={isEnterNewPasswordShown ? "text" : "password"}
-									placeholder="Пароль" {...field} />
+									<input
+										id="enterNewPassword"
+										className={style.changePasswordRow}
+										type={isEnterNewPasswordShown ? "text" : "password"}
+										placeholder="Пароль"
+										{...field}
+									/>
 								)}
 							/>
 							<button type="button" onClick={toggleEnterPasswordVisibility}>
@@ -111,12 +114,15 @@ export default function ChangePassword() {
 							<Controller
 								name="reenterNewPassword"
 								control={control}
-								rules={{...passwordRules, validate: validatePasswords}}
+								rules={{ ...passwordRules, validate: validatePasswords }}
+								defaultValue=""
 								render={({ field }) => (
-									<input id="reenterNewPassword" 
-									className={style.changePasswordRow} 
-									type={isReenterNewPasswordShown ? "text" : "password"} 
-									placeholder="Пароль" {...field} 
+									<input
+										id="reenterNewPassword"
+										className={style.changePasswordRow}
+										type={isReenterNewPasswordShown ? "text" : "password"}
+										placeholder="Пароль"
+										{...field}
 									/>
 								)}
 							/>

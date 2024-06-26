@@ -15,9 +15,9 @@ import { OvalIcon } from "../../../assets/script/changePassword/OvalIcon";
 import { ManIcon } from "../../../assets/script/changePassword/ManIcon";
 
 import { INewPassword } from "../../../types/pages/Password";
-import { NewPasswordModal } from "../../../components/appResponse/newPasswordModal/newPasswordModal";
+import { NewPasswordModal } from "../../../components/newPasswordModal/newPasswordModal";
 
-// import { emailRegex } from "../../../helpers/password";
+import { emailRegex } from "../../../helpers/password";
 
 import style from "./newPassword.module.scss";
 
@@ -44,8 +44,7 @@ export default function NewPassword() {
 
 	const emailRules = {
 		required: { value: true, message: "Поле обязательно для заполнения" },
-		pattern: { value: /\S+@\S+\.\S+/, message: "Значение не соответсвует формату email" },
-						// emailRegex
+		pattern: { value: emailRegex, message: "Значение не соответсвует формату email" },
 	};
 
 	return (
@@ -64,7 +63,7 @@ export default function NewPassword() {
 					<div className={style.newPasswordContainer__modal__content}>
 						<h1 className={style.newPasswordContainer__form__title}>Восстановление пароля</h1>
 						<form onSubmit={handleSubmit(onSubmit)}>
-							{isNewPasswordModalShown && <NewPasswordModal email={email} />}
+							<NewPasswordModal email={email} open={isNewPasswordModalShown} />
 							<label htmlFor="enterEmail" className={style.formWrap__emailTitle}>
 								Введите почту
 							</label>
@@ -72,7 +71,10 @@ export default function NewPassword() {
 								name="enterEmail"
 								control={control}
 								rules={emailRules}
-								render={({ field }) => <input className={style.newPasswordRow} placeholder="_@_._" {...field} />}
+								defaultValue=""
+								render={({ field }) => (
+									<input id="enterEmail" className={style.newPasswordRow} placeholder="_@_._" {...field} />
+								)}
 							/>
 							{errors?.enterEmail && <span role="alert">{errors.enterEmail.message}</span>}
 							<div className={style.newPassword__modal__buttons}>

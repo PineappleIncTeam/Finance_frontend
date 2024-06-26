@@ -41,10 +41,10 @@ select {
 	padding: 0;
 }
 
-img,
-svg {
+img {
 	cursor: pointer;
 	user-select: none;
+	scrollbar-gutter: stable;
 }
 
 table {

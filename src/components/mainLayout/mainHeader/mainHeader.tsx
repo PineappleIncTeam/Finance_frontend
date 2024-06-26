@@ -4,7 +4,7 @@ import Image from "next/image";
 
 import { usePathname } from "next/navigation";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import cn from "classnames";
 
@@ -19,7 +19,25 @@ import styles from "./mainHeader.module.scss";
 const MainHeader = () => {
 	const pathname = usePathname();
 	const [open, setOpen] = useState(false);
+	const modalRef = useRef(null);
 
+	useEffect(() => {
+		const handleClickOutside = (event) => {
+			if (modalRef.current && !modalRef.current.contains(event.target)) {
+				setOpen(false);
+			}
+		};
+		if (open) {
+			document.addEventListener("mousedown", handleClickOutside);
+		} else {
+			document.removeEventListener("mousedown", handleClickOutside);
+		}
+
+		return () => {
+			document.removeEventListener("mousedown", handleClickOutside);
+		};
+	}, [open]);
+	
 	const renderNavigationElements = () => {
 		return (
 			<>
@@ -50,7 +68,7 @@ const MainHeader = () => {
 	const renderModalWindow = () => {
 		return (
 			open && (
-				<div className={styles.modalWindowWrap}>
+				<div className={styles.modalWindowWrap} ref={modalRef}>
 					<div className={styles.modalWindowContainer}>
 						<div className={styles.menuWrap}>
 							<p className={styles.menuWrap__title}>Меню</p>

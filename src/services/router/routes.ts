@@ -6,6 +6,8 @@ export enum MainPath {
 	AboutUs = "/aboutUs",
 	AboutApp = "/aboutApp",
 	Blog = "/blog",
+	ChangePassword = "/changePassword",
+	NewPassword = "/newPassword",
 	UserAgreement = "/userAgreement",
 }
 

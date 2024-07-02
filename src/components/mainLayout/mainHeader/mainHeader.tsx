@@ -37,7 +37,11 @@ const MainHeader = () => {
 			document.removeEventListener("mousedown", handleClickOutside);
 		};
 	}, [open]);
-	
+
+	useEffect(() => {
+		setOpen(false);
+	}, [pathname]);
+
 	const renderNavigationElements = () => {
 		return (
 			<>

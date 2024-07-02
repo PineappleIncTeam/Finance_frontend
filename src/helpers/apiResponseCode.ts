@@ -1,6 +1,5 @@
-const errorStatusMin = 500;
-const errorStatusMax = 600;
+/* eslint-disable no-magic-numbers */
 export enum ApiResponseCode {
-	ERROR_STATUS_MIN = errorStatusMin,
-	ERROR_STATUS_MAX = errorStatusMax,
+	ERROR_STATUS_MIN = 500,
+	ERROR_STATUS_MAX = 600,
 }

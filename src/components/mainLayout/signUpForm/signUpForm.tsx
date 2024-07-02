@@ -62,6 +62,7 @@ const SignUpForm = () => {
 			) {
 				router.push(MainPath.ServerError);
 			}
+			router.push(MainPath.NotFound);
 		}
 	};
 

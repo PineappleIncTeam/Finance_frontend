@@ -60,9 +60,9 @@ const SignUpForm = () => {
 				error.response.status >= ApiResponseCode.ERROR_STATUS_MIN &&
 				error.response.status < ApiResponseCode.ERROR_STATUS_MAX
 			) {
-				router.push(MainPath.ServerError);
+				return router.push(MainPath.ServerError);
 			}
-			router.push(MainPath.NotFound);
+			return router.push(MainPath.NotFound);
 		}
 	};
 

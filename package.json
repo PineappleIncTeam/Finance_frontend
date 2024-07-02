@@ -7,10 +7,10 @@
     "build": "next build",
     "start": "next start ",
     "lint": "next lint ",
-    "preCommitLint": "next lint --quiet",
     "lint:fix": "npm run lint -- --fix",
-    "index": "git add .",
-    "format": "prettier --write src/**/*.{js,jsx,ts,tsx,css,md,json} --config ./.prettierrc"
+    "preCommitLint": "next lint --quiet",
+    "format": "prettier --write src/**/*.{js,jsx,ts,tsx,css,md,json} --config ./.prettierrc",
+    "index": "git add ."
   },
   "dependencies": {
     "@emotion/react": "^11.11.4",

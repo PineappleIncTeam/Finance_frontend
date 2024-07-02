@@ -9,6 +9,7 @@ export enum MainPath {
 	ChangePassword = "/changePassword",
 	NewPassword = "/newPassword",
 	UserAgreement = "/userAgreement",
+	NotFound = "/notfound",
 }
 
 export enum UserProfilePath {

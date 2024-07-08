@@ -23,19 +23,19 @@
 
 	@media (max-width: 1440px) {
 		& {
-			left: 280px;
+			left: 250px;
 		}
 	}
 
 	@media (max-width: 1260px) {
 		& {
-			left: 250px;
+			left: 220px;
 			width: 462px;
 			height: 342px;
 		}
 	}
 
-	@media (max-width: 768px) {
+	@media (max-width: 900px) {
 		& {
 			top: 340px;
 			left: 160px;
@@ -44,7 +44,7 @@
 		}
 	}
 
-	@media (max-width: 600px) {
+	@media (max-width: 700px) {
 		& {
 			top: 40px;
 			left: 12px;
@@ -54,7 +54,7 @@
 	}
 	@media (max-width: 360) {
 		& {
-			left: 0px;
+			left: 10px;
 		}
 	}
 }

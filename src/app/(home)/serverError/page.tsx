@@ -1,9 +1,14 @@
+import Image from "next/image";
+
+import manHoldingDisconnection from "../../../assets/pages/serverError/manHoldingDisconnection.png";
+
 import style from "./serverError.module.scss";
 
 export default function ServerErrorPage() {
 	return (
 		<div className={style.serverErrorWrap}>
-			<div className={style.serverErrorContainer}>
+			<Image className={style.manHoldingDisconnection} src={manHoldingDisconnection} alt="man holding disconnection" />
+			<div className={style.infoContainer}>
 				<h1 className={style.serverErrorContainer__title}>Ошибка на сервере...</h1>
 				<p className={style.serverErrorContainer__subtitle}>
 					Приложение еще активно разрабатывается и ошибки случаются...

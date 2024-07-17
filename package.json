@@ -6,9 +6,10 @@
     "dev": "next dev --turbo",
     "build": "next build",
     "start": "next start ",
+    "preCommitLint": "next lint --quiet",
+    "prePushBuild": "next build . --no-lint",
     "lint": "next lint ",
     "lint:fix": "npm run lint -- --fix",
-    "preCommitLint": "next lint --quiet",
     "format": "prettier --write src/**/*.{js,jsx,ts,tsx,css,md,json} --config ./.prettierrc",
     "index": "git add ."
   },
@@ -54,11 +55,15 @@
     "eslint-plugin-solid": "^0.14.1",
     "eslint-plugin-sonarjs": "^0.25.1",
     "pre-commit": "^1.2.2",
+    "pre-push": "^0.1.4",
     "prettier": "^3.3.3",
     "typescript": "^5.5.3"
   },
   "license": "ISC",
   "pre-commit": [
     "preCommitLint"
+  ],
+  "pre-push": [
+    "prePushBuild"
   ]
 }

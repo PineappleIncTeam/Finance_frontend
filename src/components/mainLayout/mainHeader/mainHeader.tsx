@@ -1,11 +1,8 @@
 "use client";
 import Link from "next/link";
 import Image from "next/image";
-
 import { usePathname } from "next/navigation";
-
 import { useEffect, useRef, useState } from "react";
-
 import cn from "classnames";
 
 import { MainPath } from "../../../services/router/routes";
@@ -19,10 +16,10 @@ import styles from "./mainHeader.module.scss";
 const MainHeader = () => {
 	const pathname = usePathname();
 	const [open, setOpen] = useState(false);
-	const modalRef = useRef(null);
+	const modalRef = useRef<HTMLDivElement | null>(null);
 
 	useEffect(() => {
-		const handleClickOutside = (event) => {
+		const handleClickOutside = (event: any) => {
 			if (modalRef.current && !modalRef.current.contains(event.target)) {
 				setOpen(false);
 			}

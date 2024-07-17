@@ -1,3 +1,7 @@
+"use client";
+
+import { useEffect } from "react";
+
 import { useScrollLock } from "../../hooks/useScrollLock";
 
 import { IChangePasswordModal } from "../../types/common/ComponentsProps";
@@ -6,7 +10,10 @@ import style from "./changePasswordModal.module.scss";
 
 export const ChangePasswordModal = ({ open }: IChangePasswordModal) => {
 	const lockScroll = useScrollLock(open);
-	lockScroll();
+
+	useEffect(() => {
+		lockScroll();
+	}, [lockScroll]);
 
 	return (
 		<>

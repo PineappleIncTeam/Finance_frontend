@@ -4,8 +4,7 @@ import Image from "next/image";
 
 import { IBlogCard } from "../../types/common/ComponentsProps";
 import { ArrowRightSmallIcon } from "../../assets/script/blog/ArrowRightSmallIcon";
-
-import shareIcon from "../../assets/pages/blog/share.png";
+import { ShareIcon } from "../../assets/script/blog/ShareIcon";
 
 import useCurrentLinkCard from "../../hooks/useCurrentLinkCard";
 
@@ -18,7 +17,7 @@ export const BlogCard = ({ image, date, descriptionImage, text, click, id }: IBl
 		<div className={style.blogCardContainer}>
 			<Image className={style.blogCardImage} src={image} alt={descriptionImage} />
 			<button type="button" onClick={() => shared(id)}>
-				<Image className={style.blogCardShareButton} src={shareIcon} alt={descriptionImage} />
+				<ShareIcon classNames={style.blogCardShareButton} />
 			</button>
 			<p className={style.blogCardDate}>{date}</p>
 			<p className={style.blogCardText}>{text}</p>

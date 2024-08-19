@@ -15,6 +15,6 @@ export interface IBlogCard {
 	date: string;
 	descriptionImage: string;
 	text: string;
-	click: () => void;
+	blogAction: () => void;
 	id?: string;
 }

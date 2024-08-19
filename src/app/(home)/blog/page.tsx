@@ -25,13 +25,17 @@ export default function Blog() {
 	return (
 		<div className={style.blogWrap}>
 			<div className={style.blogContainer}>
-				<div className={style.blogContainer__header}>
-					<h1 className={style.blogContainer__title}>
+				<div className={style.blogHeaderWrap}>
+					<h1 className={style.blogHeaderWrap__title}>
 						Здесь вы найдете свежие новости о нашем приложении и интересные статьи по учету собственных финансов
 					</h1>
 					<div className={style.buttonsArrowsWrap}>
-						<ArrowLeftIcon classNames={style.buttonsArrowIcon} />
-						<ArrowRightIcon classNames={style.buttonsArrowIcon} />
+						<button className={style.buttonsArrow} type="button">
+							<ArrowLeftIcon classNames={style.buttonsArrowIcon} />
+						</button>
+						<button className={style.buttonsArrow} type="button">
+							<ArrowRightIcon classNames={style.buttonsArrowIcon} />
+						</button>
 					</div>
 				</div>
 				<div className={style.blogCardsContainer}>
@@ -40,7 +44,7 @@ export default function Blog() {
 						date="06 июня 2024"
 						descriptionImage="money flower"
 						text="5 шагов к успешному управлению личными финансами с помощью приложения"
-						click={transitionMainPage}
+						blogAction={transitionMainPage}
 						id="12"
 					/>
 					<BlogCard
@@ -48,7 +52,7 @@ export default function Blog() {
 						date="06 июня 2024"
 						descriptionImage="notebook"
 						text={"Плюсы и минусы автоматизации учета финансов при помощи приложений"}
-						click={transitionMainPage}
+						blogAction={transitionMainPage}
 						id="123"
 					/>
 					<BlogCard
@@ -56,7 +60,7 @@ export default function Blog() {
 						date="04 июня 2024"
 						descriptionImage="wok environment"
 						text="Какие ошибки чаще всего допускают пользователи при использовании приложений для учета финансов и как их избежать"
-						click={transitionMainPage}
+						blogAction={transitionMainPage}
 						id="1234"
 					/>
 				</div>

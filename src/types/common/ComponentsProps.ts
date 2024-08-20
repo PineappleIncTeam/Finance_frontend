@@ -9,3 +9,12 @@ export interface INewPasswordModal {
 export interface IChangePasswordModal {
 	open: boolean;
 }
+
+export interface IBlogCard {
+	image: string;
+	date: string;
+	descriptionImage: string;
+	text: string;
+	blogAction: () => void;
+	id?: string;
+}

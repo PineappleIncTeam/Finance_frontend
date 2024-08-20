@@ -1,0 +1,209 @@
+.blogWrap {
+	display: flex;
+	justify-content: center;
+	width: 100vw;
+	height: 1080px;
+	background-color: var(--color-silver-gray);
+
+	@media (width < 1920px) {
+		& {
+			width: 100%;
+		}
+	}
+	@media (width < 1360px) {
+		& {
+			width: 1360px;
+		}
+	}
+
+	@media (width < 1030px) {
+		& {
+			width: 1024px;
+			height: 1222px;
+			overflow: hidden;
+		}
+	}
+	@media (width < 800px) {
+		& {
+			width: 768px;
+			height: 896px;
+			overflow: hidden;
+			justify-content: flex-start;
+		}
+	}
+
+	@media (width < 600px) {
+		& {
+			width: 590px;
+			height: 716px;
+		}
+	}
+
+	@media (width < 440px) {
+		& {
+			width: 424px;
+		}
+	}
+
+	@media (width < 370px) {
+		& {
+			width: 360px;
+		}
+	}
+}
+
+.blogContainer {
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+	margin-left: 10px;
+
+	@media (width: 1024px) {
+		& {
+			justify-content: start;
+			margin-top: 50px;
+		}
+	}
+
+	@media (width: 360px) {
+		& {
+			justify-content: left;
+		}
+	}
+}
+
+.blogHeaderWrap {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+
+	@media (width < 1030px) {
+		& {
+			justify-content: flex-start;
+		}
+	}
+}
+
+.buttonsArrowsWrap {
+	display: flex;
+	align-items: flex-end;
+	gap: 20px;
+
+	@media (width < 1400px) {
+		& {
+			margin-right: 40px;
+		}
+	}
+
+	@media (width < 370px) {
+		& {
+			margin-left: 40px;
+		}
+	}
+}
+
+.buttonsArrow {
+	background-color: var(--color-silver-gray);
+}
+
+.buttonsArrowIcon {
+	cursor: pointer;
+}
+
+.blogHeaderWrap__title {
+	width: 1014px;
+	height: 88px;
+	font-size: 3.6rem;
+	font-weight: 400;
+	line-height: 4.4rem;
+	margin-left: 70px;
+
+	@media (width < 1920px) {
+		& {
+			margin-left: 40px;
+		}
+	}
+
+	@media (width < 1030px) {
+		& {
+			width: 832px;
+			height: 132px;
+			margin-left: 610px;
+		}
+	}
+
+	@media (width < 800px) {
+		& {
+			width: 590px;
+			height: 114px;
+			font-size: 2.6rem;
+			line-height: 3.8rem;
+			margin-top: 30px;
+			margin-left: 20px;
+		}
+	}
+
+	@media (width < 600px) {
+		& {
+			width: 322px;
+			height: 112px;
+			font-size: 2rem;
+			line-height: 2.8rem;
+			margin-top: 0px;
+		}
+	}
+
+	@media (width < 370px) {
+		& {
+			margin: 10px 6px;
+		}
+	}
+}
+
+.blogCardsContainer {
+	display: flex;
+	justify-content: space-evenly;
+	width: 1600px;
+	height: 570px;
+	margin: 70px;
+	gap: 100px;
+
+	@media (width < 1920px) {
+		& {
+			width: 1280px;
+			margin-left: 40px;
+			gap: 50px;
+		}
+	}
+
+	@media (width < 1030px) {
+		& {
+			width: 1524px;
+			margin-bottom: 250px;
+			margin-left: 610px;
+			gap: 30px;
+		}
+	}
+
+	@media (width < 800px) {
+		& {
+			width: 1280px;
+			margin: 24px;
+			gap: 10px;
+		}
+	}
+
+	@media (width < 600px) {
+		& {
+			width: 916px;
+			height: 462px;
+			margin-bottom: 20px;
+		}
+	}
+
+	@media (width < 370px) {
+		& {
+			margin: 18px 4px;
+		}
+	}
+}

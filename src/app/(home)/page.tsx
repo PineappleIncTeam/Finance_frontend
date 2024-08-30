@@ -4,7 +4,7 @@ import Footer from "../../pages/homeLayout/footer/footer";
 
 import styles from "./mainPage.module.scss";
 
-export default function MainPage() {
+function MainPage() {
 	return (
 		<>
 			<main className={styles.mainPageWrap}>
@@ -14,3 +14,5 @@ export default function MainPage() {
 		</>
 	);
 }
+
+export default MainPage;

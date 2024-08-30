@@ -4,7 +4,7 @@ import manHoldingDisconnection from "../../../assets/pages/serverError/manHoldin
 
 import style from "./serverError.module.scss";
 
-export default function ServerErrorPage() {
+function ServerErrorPage() {
 	return (
 		<div className={style.serverErrorWrap}>
 			<Image className={style.manHoldingDisconnection} src={manHoldingDisconnection} alt="man holding disconnection" />
@@ -22,3 +22,5 @@ export default function ServerErrorPage() {
 		</div>
 	);
 }
+
+export default ServerErrorPage;

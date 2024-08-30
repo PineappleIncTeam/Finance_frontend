@@ -8,7 +8,7 @@ import { IChangePasswordModal } from "../../types/common/ComponentsProps";
 
 import style from "./changePasswordModal.module.scss";
 
-export const ChangePasswordModal = ({ open }: IChangePasswordModal) => {
+const ChangePasswordModal = ({ open }: IChangePasswordModal) => {
 	const lockScroll = useScrollLock(open);
 
 	useEffect(() => {
@@ -30,3 +30,5 @@ export const ChangePasswordModal = ({ open }: IChangePasswordModal) => {
 		</>
 	);
 };
+
+export default ChangePasswordModal;

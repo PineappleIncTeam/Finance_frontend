@@ -4,7 +4,7 @@ import { IButton } from "../../types/common/UiKitProps";
 
 import styles from "./button.module.scss";
 
-export const Button = ({ content, styleName, onClick, type }: IButton) => {
+const Button = ({ content, styleName, onClick, type }: IButton) => {
 	function getCorrectStyleName(styleName: string): string {
 		if (styleName.includes(" ")) {
 			const styleClassPair: string[] = styleName.split(" ");
@@ -19,3 +19,5 @@ export const Button = ({ content, styleName, onClick, type }: IButton) => {
 		</button>
 	);
 };
+
+export default Button;

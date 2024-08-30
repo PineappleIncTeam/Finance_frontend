@@ -15,7 +15,7 @@ import { OvalIcon } from "../../../assets/script/changePassword/OvalIcon";
 import { ManIcon } from "../../../assets/script/changePassword/ManIcon";
 import { VisibilityOffIcon } from "../../../assets/script/changePassword/VisibilityOffIcon";
 
-import { ChangePasswordModal } from "../../../components/changePasswordModal/changePasswordModal";
+import ChangePasswordModal from "../../../components/changePasswordModal/changePasswordModal";
 
 import { IChangePassword } from "../../../types/pages/Password";
 

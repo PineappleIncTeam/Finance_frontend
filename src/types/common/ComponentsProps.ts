@@ -1,3 +1,5 @@
+import { StaticImageData } from "next/image";
+
 export type CustomLayout = () => Element;
 
 export interface INewPasswordModal {
@@ -11,7 +13,7 @@ export interface IChangePasswordModal {
 }
 
 export interface IBlogCard {
-	image: string;
+	image: string | StaticImageData;
 	date: string;
 	descriptionImage: string;
 	text: string;

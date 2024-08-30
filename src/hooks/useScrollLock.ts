@@ -13,3 +13,5 @@ export const useScrollLock = (lock: boolean) => {
 
 	return lock ? lockScroll : unlockScroll;
 };
+
+export default useScrollLock;

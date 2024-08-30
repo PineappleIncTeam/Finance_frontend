@@ -13,7 +13,7 @@ import { InputType } from "../../helpers/Input";
 
 import styles from "./Input.module.css";
 
-export const Input = ({ label, type, placeholder, autoComplete, subtitle, error, ...props }: IInputProps) => {
+const Input = ({ label, type, placeholder, autoComplete, subtitle, error, ...props }: IInputProps) => {
 	const { field, fieldState } = useController<ISignUpForm>(props);
 	const [passwordType, setPasswordType] = useState(InputType.Password);
 	const togglePasswordVisibility = () =>
@@ -41,3 +41,5 @@ export const Input = ({ label, type, placeholder, autoComplete, subtitle, error,
 		</div>
 	);
 };
+
+export default Input;

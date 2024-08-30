@@ -1,11 +1,12 @@
 "use client";
+
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import { AxiosError } from "axios";
 
-import { Button } from "../../../ui/button/button";
-import { Input } from "../../../ui/input/Input";
-import { Title } from "../../../ui/title/Title";
+import Button from "../../../ui/button/button";
+import Input from "../../../ui/input/Input";
+import Title from "../../../ui/title/Title";
 import { emailPattern, errorPasswordRepeat, passwordPattern } from "../../../helpers/authConstants";
 import { formHelpers } from "../../../utils/formHelpers";
 import { ISignUpForm } from "../../../types/components/ComponentsTypes";

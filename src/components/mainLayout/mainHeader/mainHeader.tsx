@@ -6,7 +6,7 @@ import { useEffect, useRef, useState } from "react";
 import cn from "classnames";
 
 import { MainPath } from "../../../services/router/routes";
-import { Button } from "../../../ui/button/button";
+import Button from "../../../ui/button/button";
 import logo from "../../../assets/layouts/main/logo.png";
 import burger from "../../../assets/layouts/main/burger.svg";
 import closeElement from "../../../assets/layouts/main/closeElement.svg";

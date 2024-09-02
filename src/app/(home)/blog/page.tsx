@@ -8,7 +8,7 @@ import workEnvironment from "../../../assets/pages/blog/workEnvironment.png";
 
 import Footer from "../../../pages/homeLayout/footer/footer";
 
-import BlogCard from "../../../components/blogCard/blogCard";
+import BlogCard from "../../../components/mainLayout/blogCard/blogCard";
 
 import { ArrowRightIcon } from "../../../assets/script/blog/ArrowRightIcon";
 import { ArrowLeftIcon } from "../../../assets/script/blog/ArrowLeftIcon";

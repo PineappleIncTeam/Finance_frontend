@@ -15,7 +15,7 @@ import { OvalIcon } from "../../../assets/script/changePassword/OvalIcon";
 import { ManIcon } from "../../../assets/script/changePassword/ManIcon";
 
 import { INewPassword } from "../../../types/pages/Password";
-import NewPasswordModal from "../../../components/newPasswordModal/newPasswordModal";
+import NewPasswordModal from "../../../components/mainLayout/newPasswordModal/newPasswordModal";
 
 import { emailRegex } from "../../../helpers/password";
 

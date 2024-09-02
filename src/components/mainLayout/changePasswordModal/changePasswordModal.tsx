@@ -2,9 +2,9 @@
 
 import { useEffect } from "react";
 
-import { useScrollLock } from "../../hooks/useScrollLock";
+import { useScrollLock } from "../../../hooks/useScrollLock";
 
-import { IChangePasswordModal } from "../../types/common/ComponentsProps";
+import { IChangePasswordModal } from "../../../types/common/ComponentsProps";
 
 import style from "./changePasswordModal.module.scss";
 

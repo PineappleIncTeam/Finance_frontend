@@ -3,13 +3,11 @@ import { useController } from "react-hook-form";
 import cn from "classnames";
 import Image from "next/image";
 
-import showPassword from "../../assets/pages/signUp/showPassword.svg";
-
 import { IInputProps } from "../../types/common/UiKitProps";
-
 import { ISignUpForm } from "../../types/components/ComponentsTypes";
-
 import { InputType } from "../../helpers/Input";
+
+import showPassword from "../../assets/pages/signUp/showPassword.svg";
 
 import styles from "./Input.module.css";
 

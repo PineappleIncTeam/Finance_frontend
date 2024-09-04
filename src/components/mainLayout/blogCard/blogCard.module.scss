@@ -52,7 +52,7 @@
 	font-size: 1.6rem;
 	font-weight: 400;
 	line-height: 2.2rem;
-	color: rgba(144, 184, 158, 1);
+	color: var(--color-dark-sea-green);
 	margin-top: -8px;
 	margin-bottom: 8px;
 
@@ -73,6 +73,7 @@
 	overflow: hidden;
 	text-overflow: ellipsis;
 	display: -webkit-box;
+	line-clamp: 3;
 	-webkit-line-clamp: 3;
 	-webkit-box-orient: vertical;
 
@@ -91,6 +92,7 @@
 			line-height: 3.8rem;
 			width: 420px;
 			height: 142px;
+			line-clamp: 5;
 			-webkit-line-clamp: 5;
 			margin-bottom: 34px;
 		}

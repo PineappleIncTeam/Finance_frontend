@@ -15,7 +15,7 @@ import { registration } from "../../../services/api/auth/Registration";
 import { MainPath } from "../../../services/router/routes";
 import { ApiResponseCode } from "../../../helpers/apiResponseCode";
 
-import styles from "./signUpForm.module.css";
+import styles from "./signUpForm.module.scss";
 
 const SignUpForm = () => {
 	const {

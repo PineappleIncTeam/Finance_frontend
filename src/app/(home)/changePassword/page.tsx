@@ -60,7 +60,7 @@ export default function ChangePassword() {
 
 	const passwordRules = {
 		required: { value: true, message: "Поле обязательно для заполнения" },
-		pattern: { value: passwordRegex, message: "Значение не соответсвует формату пароля" },
+		pattern: { value: passwordRegex, message: "Значение не соответствует формату пароля" },
 	};
 
 	return (

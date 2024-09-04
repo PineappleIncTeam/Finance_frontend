@@ -45,7 +45,7 @@ export default function NewPassword() {
 
 	const emailRules = {
 		required: { value: true, message: "Поле обязательно для заполнения" },
-		pattern: { value: emailRegex, message: "Значение не соответсвует формату email" },
+		pattern: { value: emailRegex, message: "Значение не соответствует формату email" },
 	};
 
 	return (

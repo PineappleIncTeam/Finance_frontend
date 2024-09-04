@@ -45,18 +45,18 @@ function Service() {
 				<Image
 					className={styles.mainPageContainer__mainPicture}
 					src={mainPagePicture}
-					alt="Главная картинка с денежным деревом, кальулятором и графиками"
+					alt="Главная картинка с денежным деревом, калькулятором и графиками"
 				/>
 			</div>
 			<div className={styles.mobileMainPageContainer}>
 				<Image
 					src={mainPagePictureTablet}
-					alt="Главная картинка с денежным деревом, кальулятором и графиками"
+					alt="Главная картинка с денежным деревом, калькулятором и графиками"
 					className={styles.mobileMainPageContainer__mainPictureTablet}
 				/>
 				<Image
 					src={mainPagePictureMobile}
-					alt="Главная картинка с денежным деревом, кальулятором и графиками"
+					alt="Главная картинка с денежным деревом, калькулятором и графиками"
 					className={styles.mobileMainPageContainer__mainPictureMobile}
 				/>
 				<h1 className={styles.mobileMainPageContainer__title}>

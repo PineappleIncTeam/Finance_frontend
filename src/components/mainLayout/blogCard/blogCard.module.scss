@@ -1,0 +1,188 @@
+.blogCardContainer {
+	width: 478px;
+	height: 570px;
+	background-color: var(--color-pure-light);
+	border-radius: 20px;
+	padding: 24px;
+
+	@media (width < 1920px) {
+		& {
+			width: 414px;
+			height: 540px;
+			padding: 28px;
+		}
+	}
+
+	@media (width < 1030px) {
+		& {
+			width: 478px;
+			height: 630px;
+		}
+	}
+
+	@media (width < 800px) {
+		& {
+			width: 416px;
+			height: 541px;
+		}
+	}
+	@media (width < 600px) {
+		& {
+			width: 300px;
+			height: 462px;
+			padding: 16px;
+		}
+	}
+}
+
+.blogCardImage {
+	width: 100%;
+	height: 278px;
+	padding: 6px 0px;
+
+	@media (width < 600px) {
+		& {
+			width: 268px;
+			height: 240px;
+		}
+	}
+}
+
+.blogCardDate {
+	font-size: 1.6rem;
+	font-weight: 400;
+	line-height: 2.2rem;
+	color: var(--color-dark-sea-green);
+	margin-top: -8px;
+	margin-bottom: 8px;
+
+	@media (width < 600px) {
+		& {
+			font-size: 1.3rem;
+			line-height: 1.8rem;
+		}
+	}
+}
+
+.blogCardText {
+	width: 432px;
+	font-size: 2.6rem;
+	font-weight: 400;
+	line-height: 3.8rem;
+	margin-bottom: 20px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	display: -webkit-box;
+	line-clamp: 3;
+	-webkit-line-clamp: 3;
+	-webkit-box-orient: vertical;
+
+	@media (width < 1920px) {
+		& {
+			font-size: 2rem;
+			line-height: 2.8rem;
+			width: 378px;
+			height: 84px;
+			margin-bottom: 14px;
+		}
+	}
+	@media (width < 1030px) {
+		& {
+			font-size: 2.6rem;
+			line-height: 3.8rem;
+			width: 420px;
+			height: 142px;
+			line-clamp: 5;
+			-webkit-line-clamp: 5;
+			margin-bottom: 34px;
+		}
+	}
+
+	@media (width < 800px) {
+		& {
+			font-size: 2rem;
+			line-height: 2.8rem;
+			width: 368px;
+			height: 84px;
+		}
+	}
+
+	@media (width < 600px) {
+		& {
+			font-size: 1.6rem;
+			line-height: 2.2rem;
+			width: 268px;
+			margin-bottom: 6px;
+		}
+	}
+}
+
+.blogCardButtonWrap {
+	display: flex;
+	justify-content: flex-end;
+	gap: 20px;
+	padding-top: 20px;
+	border-top: 1px solid var(--color-cambridge-blue);
+
+	@media (width < 1920px) {
+		& {
+			padding-top: 18px;
+		}
+	}
+
+	@media (width < 600px) {
+		& {
+			padding-top: 16px;
+		}
+	}
+}
+
+.blogCardButton {
+	width: 428px;
+	font-size: 2rem;
+	font-weight: 400;
+	line-height: 2.8rem;
+	text-align: right;
+	cursor: pointer;
+
+	@media (width < 600px) {
+		& {
+			font-size: 1.6rem;
+			line-height: 2.2rem;
+			text-align: left;
+		}
+	}
+
+	@media (width < 370px) {
+		& {
+			width: 268px;
+		}
+	}
+}
+
+.blogCardArrow {
+	padding-top: 12px;
+	padding-left: 12px;
+
+	@media (width < 370px) {
+		& {
+			margin-left: 146px;
+		}
+	}
+}
+
+.blogCardShareButton {
+	width: 24px;
+	height: 24px;
+	border-radius: 50px;
+	position: relative;
+	bottom: 254px;
+	left: 384px;
+	cursor: pointer;
+
+	@media (width < 1920px) {
+		& {
+			left: 316px;
+		}
+	}
+}

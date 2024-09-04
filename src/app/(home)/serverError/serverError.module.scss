@@ -1,0 +1,181 @@
+.serverErrorWrap {
+	display: flex;
+	justify-content: center;
+	position: relative;
+	width: calc(100vw - 20px);
+	height: 1080px;
+	background-color: var(--color-silver-gray);
+	overflow: hidden;
+
+	@media (max-width: 1024px) {
+		& {
+			height: 100vh;
+		}
+	}
+}
+
+.infoContainer {
+	position: relative;
+	top: 240px;
+	left: 300px;
+	width: 744px;
+	height: 264px;
+
+	@media (max-width: 1440px) {
+		& {
+			left: 250px;
+		}
+	}
+
+	@media (max-width: 1260px) {
+		& {
+			left: 220px;
+			width: 462px;
+			height: 342px;
+		}
+	}
+
+	@media (max-width: 900px) {
+		& {
+			top: 340px;
+			left: 160px;
+			width: 330px;
+			height: 248px;
+		}
+	}
+
+	@media (max-width: 700px) {
+		& {
+			top: 40px;
+			left: 12px;
+			width: 320px;
+			height: 210px;
+		}
+	}
+	@media (max-width: 360) {
+		& {
+			left: 10px;
+		}
+	}
+}
+
+.manHoldingDisconnection {
+	height: 1002px;
+	position: absolute;
+	bottom: 190px;
+
+	@media (width < 1920px) {
+		& {
+			width: 100vw;
+		}
+	}
+
+	@media (max-width: 1440px) {
+		& {
+			width: 1920px;
+		}
+	}
+
+	@media (max-width: 1024px) {
+		& {
+			top: 20px;
+			left: -340px;
+		}
+	}
+
+	@media (max-width: 900) {
+		& {
+			left: -560px;
+			transform: scale(0.65);
+		}
+	}
+	@media (max-width: 540) {
+		& {
+			top: -80px;
+			left: -600px;
+			transform: scale(0.5, 0.5);
+		}
+	}
+	@media (max-width: 360) {
+		& {
+			top: -80px;
+			left: -700px;
+			transform: scale(0.4, 0.37);
+		}
+	}
+}
+
+.serverErrorContainer__title {
+	font-size: 4.8rem;
+	font-weight: 500;
+	line-height: 6rem;
+	margin-bottom: 25px;
+
+	@media (max-width: 1440px) {
+		& {
+			font-size: 3.6rem;
+			font-weight: 500;
+			line-height: 4.4rem;
+		}
+	}
+
+	@media (max-width: 1024px) {
+		& {
+			font-size: 3.6rem;
+			font-weight: 500;
+			line-height: 4.4rem;
+		}
+	}
+
+	@media (max-width: 900px) {
+		& {
+			font-size: 2.4rem;
+			font-weight: 500;
+			line-height: 3rem;
+			margin-bottom: 10px;
+		}
+	}
+
+	@media (max-width: 540px) {
+		& {
+			font-size: 2.4rem;
+			font-weight: 500;
+			line-height: 3.2rem;
+			text-align: center;
+			margin-bottom: 20px;
+		}
+	}
+}
+
+.serverErrorContainer__subtitle {
+	font-size: 2.2rem;
+	font-weight: 400;
+	line-height: 3.2rem;
+	margin-bottom: 15px;
+
+	@media (max-width: 1024px) {
+		& {
+			font-size: 2.2rem;
+			font-weight: 400;
+			line-height: 3rem;
+		}
+	}
+
+	@media (max-width: 900px) {
+		& {
+			font-size: 1.6rem;
+			font-weight: 400;
+			line-height: 2.2rem;
+			margin-bottom: 7px;
+		}
+	}
+
+	@media (max-width: 540px) {
+		& {
+			font-size: 1.3rem;
+			font-weight: 400;
+			line-height: 1.8rem;
+			margin-bottom: 12px;
+		}
+	}
+}

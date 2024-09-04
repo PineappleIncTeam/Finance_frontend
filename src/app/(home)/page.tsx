@@ -1,19 +1,18 @@
-"use client";
+import Service from "../../pages/homeLayout/service/service";
 
-import Link from "next/link";
+import Footer from "../../pages/homeLayout/footer/footer";
 
-import Service from "../../pages/homeLayout/service/Service";
+import styles from "./mainPage.module.scss";
 
-import styles from "./page.module.css";
-
-export default function Home() {
+function MainPage() {
 	return (
-		<div className={styles.homePageWrap}>
-			<Link href="/login">LoginPage</Link>
-			<div>
+		<>
+			<main className={styles.mainPageWrap}>
 				<Service />
-				<Link href={"/random"}>random</Link>
-			</div>
-		</div>
+				<Footer />
+			</main>
+		</>
 	);
 }
+
+export default MainPage;

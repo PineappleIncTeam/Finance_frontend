@@ -1,0 +1,306 @@
+.headerWrap {
+	background-color: var(--color-pure-light);
+}
+
+.headerContainer {
+	width: 93%;
+	display: flex;
+	justify-content: space-between;
+	padding: 46px 0;
+	margin: 0 auto;
+	align-items: center;
+
+	@media (max-width: 1445px) {
+		& {
+			padding: 30px 0;
+		}
+	}
+
+	@media (max-width: 490px) {
+		& {
+			padding: 40px 0 20px 0;
+		}
+	}
+}
+
+.headerContainer__img {
+	width: 275px;
+
+	@media (max-width: 1445px) {
+		& {
+			width: 240px;
+			height: 48px;
+		}
+	}
+
+	@media (max-width: 1265px) {
+		& {
+			width: 215px;
+			height: 43px;
+		}
+	}
+
+	@media (max-width: 1024px) {
+		& {
+			width: 280px;
+			height: 56px;
+		}
+	}
+
+	@media (max-width: 490px) {
+		& {
+			width: 130px;
+			height: 26px;
+		}
+	}
+}
+
+.navigationWrap {
+	display: flex;
+	max-width: 660px;
+	width: 100%;
+	justify-content: space-between;
+
+	@media (max-width: 1630px) {
+		& {
+			max-width: 550px;
+		}
+	}
+
+	@media (max-width: 1445px) {
+		& {
+			max-width: 465px;
+		}
+	}
+
+	@media (max-width: 1265px) {
+		& {
+			max-width: 420px;
+		}
+	}
+
+	@media (max-width: 1085px) {
+		& {
+			max-width: 370px;
+		}
+	}
+
+	@media (max-width: 1024px) {
+		& {
+			display: none;
+		}
+	}
+}
+
+.authWrap {
+	display: flex;
+	gap: 24px;
+
+	@media (max-width: 1630px) {
+		& {
+			gap: 20px;
+		}
+	}
+
+	@media (max-width: 1265px) {
+		& {
+			gap: 10px;
+		}
+	}
+
+	@media (max-width: 1024px) {
+		& {
+			display: none;
+		}
+	}
+}
+
+.authLinkWrap {
+	display: flex;
+	gap: 34px;
+
+	@media (max-width: 490px) {
+		& {
+			gap: 14px;
+		}
+	}
+}
+
+.headerContainer__burger {
+	display: none;
+
+	@media (max-width: 1024px) {
+		& {
+			display: block;
+		}
+	}
+
+	@media (max-width: 490px) {
+		& {
+			height: 17px;
+			width: 40px;
+		}
+	}
+}
+
+.modalWindowWrap {
+	width: 500px;
+	height: 405px;
+	background-color: var(--color-pure-light);
+	position: absolute;
+	top: 100px;
+	right: 0;
+	z-index: 10;
+	border-radius: 16px;
+	box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
+
+	@media (max-width: 490px) {
+		& {
+			width: 360px;
+			height: 276px;
+			top: 85px;
+		}
+	}
+}
+
+.modalWindowContainer {
+	width: 87.2%;
+	padding: 32px 0 40px 0;
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+	margin: 0 auto;
+
+	@media (max-width: 490px) {
+		& {
+			padding: 20px 0 32px 0;
+		}
+	}
+}
+
+.menuWrap {
+	display: flex;
+	justify-content: space-between;
+	margin-bottom: 12px;
+}
+
+.menuWrap__title {
+	color: var(--color-dark-spring-green);
+	font-size: 2.8rem;
+	font-weight: 400;
+
+	@media (max-width: 490px) {
+		& {
+			font-size: 2.2rem;
+		}
+	}
+}
+
+.navigatingWrap {
+	height: 205px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+	margin-bottom: 24px;
+
+	@media (max-width: 490px) {
+		& {
+			height: 140px;
+			margin-bottom: 10px;
+		}
+	}
+}
+
+.navigationActiveLink {
+	position: relative;
+	text-decoration: none;
+	color: var(--color-eerie-black);
+	font-size: 2.8rem;
+	font-weight: 400;
+
+	@media (max-width: 1445px) {
+		& {
+			font-size: 2rem;
+		}
+	}
+
+	@media (max-width: 1085px) {
+		& {
+			font-size: 2rem;
+		}
+	}
+
+	@media (max-width: 490px) {
+		& {
+			font-size: 1.6rem;
+		}
+	}
+}
+
+.navigationActiveLink::after {
+	content: "";
+	position: absolute;
+	left: 50%;
+	transform: translateX(-50%);
+	bottom: -10px;
+	height: 3px;
+	background-color: var(--color-dark-spring-green);
+	width: 100%;
+
+	@media (max-width: 490px) {
+		& {
+			bottom: -5px;
+			height: 2px;
+		}
+	}
+}
+
+.navigationLink {
+	position: relative;
+	text-decoration: none;
+	color: var(--color-eerie-black);
+	font-size: 2.8rem;
+	font-weight: 400;
+
+	@media (max-width: 1445px) {
+		& {
+			font-size: 2rem;
+		}
+	}
+
+	@media (max-width: 1024px) {
+		& {
+			width: fit-content;
+		}
+	}
+
+	@media (max-width: 490px) {
+		& {
+			font-size: 1.6rem;
+		}
+	}
+}
+
+.navigationLink::before {
+	content: "";
+	position: absolute;
+	bottom: -10px;
+	left: 50%;
+	transform: translateX(-50%);
+	width: 0;
+	height: 3px;
+	background-color: var(--color-dark-spring-green);
+	transition: width 0.3s ease;
+
+	@media (max-width: 490px) {
+		& {
+			bottom: -5px;
+			height: 2px;
+		}
+	}
+}
+
+.navigationLink:hover::before {
+	width: 100%;
+}
+

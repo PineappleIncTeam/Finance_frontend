@@ -8,8 +8,8 @@ spec:
     app: finance-frontend-develop
   ports:
     - protocol: TCP
-      port: 80
-      targetPort: 80
+      port: 3000
+      targetPort: 3000
   type: ClusterIP
 ---
 apiVersion: apps/v1
@@ -34,10 +34,10 @@ spec:
           image: freenance/frontend-dev:{{IMAGE_TAG}}
           resources:
             requests:
-              memory: "32Mi"
-              cpu: "25m"
+              memory: "256Mi"
+              cpu: "100m"
             limits:
-              memory: "64Mi"
-              cpu: "50m"
+              memory: "512Mi"
+              cpu: "150m"
           ports:
-            - containerPort: 80
+            - containerPort: 3000

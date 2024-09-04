@@ -3,9 +3,31 @@
 body,
 button {
 	font-family: "Rubik", Verdana, Arial, Tahoma, sans-serif;
+	font-weight: 400;
 	cursor: default;
 }
 
 :root {
 	--color-pure-light: #ffffff;
+	--color-silver-gray: #f8f8f8;
+	--color-anti-flash-white: rgba(241, 241, 242, 0.9);
+	--color-dark-sea-green: #90b89e;
+	--color-dark-spring-green: #21703c;
+	--color-cal-poly-pomona-green: #1a572e;
+	--color-jasmine: #ffde82;
+	--color-mustard: #ffd45c;
+	--color-sandy-drown: #f0a956;
+	--color-carrot-orange: #ec9128;
+	--color-bright-maroon: #c22347;
+	--color-cambridge-blue: #a3c0bb;
+	--color-gainsboro: #dcdddd;
+	--color-light-silver: #d9d9d9;
+	--color-chinese-silver: #ccc;
+	--color-ash-grey: #bbbbbb;
+	--color-star-dust: #9c9d9d;
+	--color-eerie-black: #17191a;
+	--color-gray-umber-light: #2b2d331f;
+	--color-black-eight-part: #0000001f;
+	--color-black-two-of-third: #000000b3;
+	--color-pure-black: #000;
 }

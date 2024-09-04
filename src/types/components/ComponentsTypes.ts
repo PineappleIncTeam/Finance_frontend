@@ -9,3 +9,7 @@ export interface ISignUpForm {
 	password: string;
 	re_password: string;
 }
+
+export interface INodeTargetEvent extends Event {
+	target: Node;
+}

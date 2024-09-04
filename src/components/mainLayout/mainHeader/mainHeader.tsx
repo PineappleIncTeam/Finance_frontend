@@ -1,10 +1,12 @@
 "use client";
+
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import cn from "classnames";
 
+import { INodeTargetEvent } from "../../../types/components/ComponentsTypes";
 import { MainPath } from "../../../services/router/routes";
 import Button from "../../../ui/button/button";
 
@@ -20,7 +22,7 @@ const MainHeader = () => {
 	const modalRef = useRef<HTMLDivElement | null>(null);
 
 	useEffect(() => {
-		const handleClickOutside = (event: any) => {
+		const handleClickOutside = (event: INodeTargetEvent) => {
 			if (modalRef.current && !modalRef.current.contains(event.target)) {
 				setOpen(false);
 			}

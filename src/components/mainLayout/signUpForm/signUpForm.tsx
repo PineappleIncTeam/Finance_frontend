@@ -58,8 +58,8 @@ const SignUpForm = () => {
 				isAxiosError(error) &&
 				error.response &&
 				error.response.status &&
-				error.response.status >= ApiResponseCode.ERROR_STATUS_MIN &&
-				error.response.status < ApiResponseCode.ERROR_STATUS_MAX
+				error.response.status >= ApiResponseCode.SERVER_ERROR_STATUS_MIN &&
+				error.response.status < ApiResponseCode.SERVER_ERROR_STATUS_MAX
 			) {
 				return router.push(MainPath.ServerError);
 			}

@@ -1,1 +1,5 @@
-export const storeTypes = 0;
+import { ReactNode } from "react";
+
+export interface IProviderList {
+	children: ReactNode;
+}

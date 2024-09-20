@@ -1,13 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const authTokenStorage = localStorage.getItem("token");
-const balanceSum = localStorage.getItem("balans");
+// const authTokenStorage = localStorage.getItem("token");
+// const balanceSum = localStorage.getItem("balans");
 
 const initialState = {
-	token: authTokenStorage,
+	token: "authTokenStorage",
 	balanceString: 0,
 	balanceCosts: 0,
-	balanceBase: balanceSum,
+	balanceBase: "balanceSum",
 };
 
 const slice = createSlice({

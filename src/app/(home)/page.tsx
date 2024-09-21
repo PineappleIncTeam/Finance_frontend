@@ -1,3 +1,5 @@
+"use client";
+
 import Service from "../../pages/homeLayout/service/service";
 
 import Footer from "../../pages/homeLayout/footer/footer";

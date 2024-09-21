@@ -1,12 +1,14 @@
 import { configureStore } from "@reduxjs/toolkit";
 
-import sliceReducer from "./features/userData/UserDataSlice";
+// import sliceReducer from "./features/userData/UserDataSlice";
 import dataReducer from "./features/infoPart/InfoPartSlice";
+import statusReducer from "./features/cookieStatus/cookieStatusSlice";
 
 const store = configureStore({
 	reducer: {
-		user: sliceReducer,
+		// user: sliceReducer,
 		data: dataReducer,
+		status: statusReducer,
 	},
 });
 

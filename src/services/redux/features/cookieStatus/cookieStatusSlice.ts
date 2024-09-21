@@ -1,4 +1,4 @@
-import { createSlice} from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 
 import { ICookieStatus } from "../../../../types/redux/StoreTypes";
 
@@ -16,6 +16,6 @@ const cookieStatus = createSlice({
 	},
 });
 
-export const { setCookieStatus } = cookieStatus.actions
+export const { setCookieStatus } = cookieStatus.actions;
 
-export default cookieStatus.reducer
+export default cookieStatus.reducer;

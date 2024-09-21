@@ -13,11 +13,11 @@
 }
 
 .popupContainer_hidden {
+	pointer-events: none;
 	opacity: 0;
 }
 
 .textContentBlock {
-	pointer-events: none;
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;

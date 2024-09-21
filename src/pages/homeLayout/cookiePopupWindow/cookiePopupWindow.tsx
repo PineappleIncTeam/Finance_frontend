@@ -1,5 +1,7 @@
 "use client";
 
+import { useState } from "react";
+
 import cn from "classnames";
 
 import Button from "../../../ui/button/button";
@@ -13,15 +15,21 @@ import { setCookieStatus } from "../../../services/redux/features/cookieStatus/c
 import styles from "./cookiePopupWindow.module.scss";
 
 const CookiePopupWindow = () => {
+	const [isOpen, setIsOpen] = useState<boolean>(true);
 
 	const dispatch = useAppDispatch();
 
 	const { status } = useAppSelector(cookieStatusSelector);
 
+	const handleClick = () => {
+		setIsOpen(false);
+		dispatch(setCookieStatus("rejected"));
+	};
+
 	return (
 		<div
-			className={cn(styles.popupContainer, { [styles.popupContainer_hidden]: status === "confirmed" })}
-			onClick={() => dispatch(setCookieStatus("rejected"))}>
+			className={cn(styles.popupContainer, { [styles.popupContainer_hidden]: status === "confirmed" || !isOpen })}
+			onClick={handleClick}>
 			<div className={styles.textContentBlock} onClick={(e) => e.stopPropagation()}>
 				<div className={styles.textContentBlock__titleBlock}>
 					<h3 className={styles.textContentBlock__title}>Файлы cookies</h3>

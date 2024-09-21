@@ -1,5 +1,3 @@
-"use client";
-
 import "../reset.css";
 import "../globals.css";
 

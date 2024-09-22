@@ -42,7 +42,7 @@ const UserProfile = ({ avatar, name, balance }: IUserProfile) => {
 
 	const renderNavigationElements = (title: string, link?: string) => {
 		return (
-			<Link href={link}>
+			<Link href={link || "#"}>
 				<div className={style.navigationElementsWrap}>
 					<p className={style.navigationElements__title}>{title}</p>
 					<Image src={navigationArrowIcon} alt={""} />

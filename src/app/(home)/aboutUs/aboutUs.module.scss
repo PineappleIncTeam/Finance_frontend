@@ -1,0 +1,26 @@
+.aboutUsWrap {
+	display: flex;
+	justify-content: space-between;
+}
+
+.aboutUsProfile {
+	display: flex;
+	flex-direction: column;
+	flex: 1;
+	align-items: flex-end;
+    position: relative;
+	@media (max-width: 1100px) {
+		& {
+			flex-direction: column-reverse;
+            gap: 16px;
+		}
+	}
+}
+
+.aboutUsWrap__navBar {
+	@media (max-width: 1100px) {
+		& {
+			display: none;
+		}
+	}
+}

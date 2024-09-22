@@ -20,3 +20,15 @@ export interface IBlogCard {
 	blogAction: () => void;
 	id?: string;
 }
+
+export interface IUserProfile {
+	avatar?: string;
+	balance?: string;
+	name?: string;
+}
+
+export interface ICurrentRate {
+	dollar?: string;
+	euro?: string;
+	crypto?: string;
+}

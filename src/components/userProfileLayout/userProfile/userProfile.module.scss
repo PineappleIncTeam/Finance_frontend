@@ -1,0 +1,211 @@
+.userProfileWrap {
+	width: 350px;
+	background: var(--BG-white, #ffffff);
+	height: 100vh;
+	padding-top: 50px;
+	@media (max-width: 1440px) {
+		& {
+			width: 290px;
+		}
+	}
+	@media (max-width: 1100px) {
+		& {
+			width: 100%;
+			background: var(--BG-primary, #21703c);
+			height: fit-content;
+			padding: 20px 24px;
+			border-radius: 12px;
+		}
+	}
+	@media (max-width: 360px) {
+		& {
+			padding: 8px 12px;
+		}
+	}
+}
+
+.userProfileContainer {
+	max-width: 255px;
+	display: flex;
+	flex-direction: column;
+	margin: 0 auto;
+	gap: 32px;
+	@media (max-width: 1100px) {
+		& {
+			max-width: 100%;
+			margin: 0;
+			flex-direction: row;
+			justify-content: space-between;
+			gap: 0;
+		}
+	}
+}
+.userInformationWrap__avatar {
+	border-radius: 50%;
+	width: 110px;
+	height: 110px;
+	object-fit: cover;
+	@media (max-width: 1100px) {
+		& {
+			width: 50px;
+			height: 50px;
+		}
+	}
+	@media (max-width: 360px) {
+		& {
+			width: 32px;
+			height: 32px;
+		}
+	}
+}
+.userInformationWrap_images {
+	position: relative;
+}
+
+.userInformationWrap__edit {
+	position: absolute;
+	bottom: -10%;
+	right: 30%;
+	opacity: 0;
+}
+.userInformationWrap_images_action {
+	border: none;
+	background-color: transparent;
+}
+.userInformationWrap_images_action:hover + .userInformationWrap__edit {
+	opacity: 1;
+}
+.userInformationWrap__name {
+	font-size: 2.2rem;
+	font-weight: 400;
+	color: var(--Text-main, #17191a);
+	@media (max-width: 1100px) {
+		& {
+			display: none;
+		}
+	}
+}
+.userInformationWrap__adaptive {
+	@media (max-width: 1100px) {
+		& {
+			display: flex;
+			flex-direction: column-reverse;
+			gap: 3px;
+		}
+	}
+}
+.burgerActionWrap {
+	display: none;
+	@media (max-width: 1100px) {
+		& {
+			display: block;
+			background: transparent;
+			border: none;
+		}
+	}
+}
+.userInformationWrap__date {
+	font-size: 2.2rem;
+	line-height: 3.5rem;
+	font-weight: 400;
+	color: var(--Text-secondary, #9c9d9d);
+	@media (max-width: 1100px) {
+		& {
+			font-size: 1.6rem;
+			line-height: 1;
+		}
+	}
+	@media (max-width: 360px) {
+		& {
+			font-size: 1.1rem;
+		}
+	}
+}
+.userInformationWrap__balance {
+	font-size: 2.6rem;
+	font-weight: 400;
+	color: var(--Text-main, #17191a);
+	@media (max-width: 1100px) {
+		& {
+			color: #ffffff;
+			border-bottom: 1px solid #ffffff;
+		}
+	}
+
+	@media (max-width: 360px) {
+		& {
+			font-size: 1.3rem;
+		}
+	}
+}
+
+.burgerActionWrap_icon {
+	@media (max-width: 360px) {
+		& {
+			width: 29px;
+			height: 37px;
+		}
+	}
+}
+.userProfileFunctions {
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+}
+.userProfileNavigation {
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+	@media (max-width: 1100px) {
+		& {
+			display: none;
+		}
+	}
+}
+.userInformationWrap {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	text-align: center;
+	gap: 16px;
+	@media (max-width: 1100px) {
+		& {
+			flex-direction: row;
+		}
+	}
+}
+.profileFunctionsWrap {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	background: transparent;
+	border: none;
+	@media (max-width: 1100px) {
+		& {
+			display: none;
+		}
+	}
+}
+
+.profileFunctionsWrap__title {
+	font-size: 20px;
+	font-weight: 400;
+	color: var(--BG-primary, #21703c);
+}
+
+.navigationElementsWrap {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	@media (max-width: 1100px) {
+		& {
+			display: none;
+		}
+	}
+}
+
+.navigationElements__title {
+	color: var(--Text-lable, #434546);
+	font-size: 20px;
+	font-weight: 400;
+}

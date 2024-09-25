@@ -18,3 +18,17 @@ export interface IBlogCard {
 	blogAction: () => void;
 	id?: string;
 }
+
+export interface IBlogArticle {
+	image?: string;
+	date: string;
+	title: string;
+	articleContent: string[];
+	articleAction?: () => void;
+	id?: string;
+}
+
+export interface IBlogArticleShareTooltip {
+	open: boolean;
+	toggle?: () => void;
+}

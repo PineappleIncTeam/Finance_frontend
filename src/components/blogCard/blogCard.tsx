@@ -10,7 +10,7 @@ import useCurrentLinkCard from "../../hooks/useCurrentLinkCard";
 
 import style from "./blogCard.module.scss";
 
-export const BlogCard = ({ image, date, descriptionImage, text, click, id }: IBlogCard) => {
+export const BlogCard = ({ image, date, descriptionImage, text, blogAction, id }: IBlogCard) => {
 	const shared = useCurrentLinkCard();
 
 	return (
@@ -22,7 +22,7 @@ export const BlogCard = ({ image, date, descriptionImage, text, click, id }: IBl
 			<p className={style.blogCardDate}>{date}</p>
 			<p className={style.blogCardText}>{text}</p>
 			<div className={style.blogCardButtonWrap}>
-				<button className={style.blogCardButton} type="button" onClick={click}>
+				<button className={style.blogCardButton} type="button" onClick={blogAction}>
 					Подробнее <ArrowRightSmallIcon classNames={style.blogCardArrow} />
 				</button>
 			</div>

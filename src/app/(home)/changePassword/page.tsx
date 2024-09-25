@@ -3,23 +3,19 @@
 import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 
-import { LetterIcon } from "../../../assets/script/changePassword/LetterIcon";
+import { IChangePassword } from "../../../types/pages/Password";
+import ChangePasswordModal from "../../../components/mainLayout/changePasswordModal/changePasswordModal";
+import { passwordRegex } from "../../../helpers/password";
 
+import { LetterIcon } from "../../../assets/script/changePassword/LetterIcon";
 import { PaperAirLineIcon } from "../../../assets/script/changePassword/PaperAirLineIcon";
 import { OpenLetterIcon } from "../../../assets/script/changePassword/OpenLetterIcon";
 import { ArrowsIcon } from "../../../assets/script/changePassword/ArrowsIcon";
 import { QuestionIcon } from "../../../assets/script/changePassword/QuestionIcon";
 import { EmailIcon } from "../../../assets/script/changePassword/EmailIcon";
-
 import { OvalIcon } from "../../../assets/script/changePassword/OvalIcon";
 import { ManIcon } from "../../../assets/script/changePassword/ManIcon";
 import { VisibilityOffIcon } from "../../../assets/script/changePassword/VisibilityOffIcon";
-
-import { ChangePasswordModal } from "../../../components/changePasswordModal/changePasswordModal";
-
-import { IChangePassword } from "../../../types/pages/Password";
-
-import { passwordRegex } from "../../../helpers/password";
 
 import style from "./changePassword.module.scss";
 
@@ -64,7 +60,7 @@ export default function ChangePassword() {
 
 	const passwordRules = {
 		required: { value: true, message: "Поле обязательно для заполнения" },
-		pattern: { value: passwordRegex, message: "Значение не соответсвует формату пароля" },
+		pattern: { value: passwordRegex, message: "Значение не соответствует формату пароля" },
 	};
 
 	return (

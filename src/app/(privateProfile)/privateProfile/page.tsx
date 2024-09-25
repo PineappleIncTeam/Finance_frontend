@@ -4,7 +4,7 @@ import Link from "next/link";
 
 import styles from "./privateProfile.module.scss";
 
-export default function PrivateProfile() {
+function PrivateProfile() {
 	return (
 		<div className={styles.privateProfileWrap}>
 			<Link href="/profitArea">profitArea</Link>
@@ -12,3 +12,5 @@ export default function PrivateProfile() {
 		</div>
 	);
 }
+
+export default PrivateProfile;

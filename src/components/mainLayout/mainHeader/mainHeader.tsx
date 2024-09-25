@@ -1,12 +1,14 @@
 "use client";
+
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
+import { Dispatch, RefObject, SetStateAction, useEffect, useRef, useState } from "react";
 import cn from "classnames";
 
 import { MainPath } from "../../../services/router/routes";
-import { Button } from "../../../ui/button/button";
+import Button from "../../../ui/button/button";
+
 import logo from "../../../assets/layouts/main/logo.png";
 import burger from "../../../assets/layouts/main/burger.svg";
 import closeElement from "../../../assets/layouts/main/closeElement.svg";
@@ -15,23 +17,31 @@ import styles from "./mainHeader.module.scss";
 
 const MainHeader = () => {
 	const pathname = usePathname();
-	const [open, setOpen] = useState(false);
+	const [open, setOpen] = useState<boolean>(false);
 	const modalRef = useRef<HTMLDivElement | null>(null);
 
+	const handleClickOutside = (
+		event: MouseEvent,
+		modalRef: RefObject<HTMLDivElement>,
+		setOpen: Dispatch<SetStateAction<boolean>>,
+	) => {
+		if (modalRef.current && !modalRef.current.contains(event.target as Node)) {
+			setOpen(false);
+		}
+	};
+
 	useEffect(() => {
-		const handleClickOutside = (event: any) => {
-			if (modalRef.current && !modalRef.current.contains(event.target)) {
-				setOpen(false);
-			}
+		const handleDocumentClick = (event: MouseEvent) => {
+			handleClickOutside(event, modalRef, setOpen);
 		};
 		if (open) {
-			document.addEventListener("mousedown", handleClickOutside);
+			document.addEventListener("mousedown", handleDocumentClick);
 		} else {
-			document.removeEventListener("mousedown", handleClickOutside);
+			document.removeEventListener("mousedown", handleDocumentClick);
 		}
 
 		return () => {
-			document.removeEventListener("mousedown", handleClickOutside);
+			document.removeEventListener("mousedown", handleDocumentClick);
 		};
 	}, [open]);
 

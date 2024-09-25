@@ -3,21 +3,18 @@
 import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 
-import { LetterIcon } from "../../../assets/script/changePassword/LetterIcon";
+import { INewPassword } from "../../../types/pages/Password";
+import NewPasswordModal from "../../../components/mainLayout/newPasswordModal/newPasswordModal";
+import { emailRegex } from "../../../helpers/password";
 
+import { LetterIcon } from "../../../assets/script/changePassword/LetterIcon";
 import { PaperAirLineIcon } from "../../../assets/script/changePassword/PaperAirLineIcon";
 import { OpenLetterIcon } from "../../../assets/script/changePassword/OpenLetterIcon";
 import { ArrowsIcon } from "../../../assets/script/changePassword/ArrowsIcon";
 import { QuestionIcon } from "../../../assets/script/changePassword/QuestionIcon";
 import { EmailIcon } from "../../../assets/script/changePassword/EmailIcon";
-
 import { OvalIcon } from "../../../assets/script/changePassword/OvalIcon";
 import { ManIcon } from "../../../assets/script/changePassword/ManIcon";
-
-import { INewPassword } from "../../../types/pages/Password";
-import { NewPasswordModal } from "../../../components/newPasswordModal/newPasswordModal";
-
-import { emailRegex } from "../../../helpers/password";
 
 import style from "./newPassword.module.scss";
 
@@ -48,7 +45,7 @@ export default function NewPassword() {
 
 	const emailRules = {
 		required: { value: true, message: "Поле обязательно для заполнения" },
-		pattern: { value: emailRegex, message: "Значение не соответсвует формату email" },
+		pattern: { value: emailRegex, message: "Значение не соответствует формату email" },
 	};
 
 	return (

@@ -3,17 +3,15 @@ import { useController } from "react-hook-form";
 import cn from "classnames";
 import Image from "next/image";
 
-import showPassword from "../../assets/pages/signUp/showPassword.svg";
-
 import { IInputProps } from "../../types/common/UiKitProps";
-
 import { ISignUpForm } from "../../types/components/ComponentsTypes";
-
 import { InputType } from "../../helpers/Input";
+
+import showPassword from "../../assets/pages/signUp/showPassword.svg";
 
 import styles from "./Input.module.css";
 
-export const Input = ({ label, type, placeholder, autoComplete, subtitle, error, ...props }: IInputProps) => {
+const Input = ({ label, type, placeholder, autoComplete, subtitle, error, ...props }: IInputProps) => {
 	const { field, fieldState } = useController<ISignUpForm>(props);
 	const [passwordType, setPasswordType] = useState(InputType.Password);
 	const togglePasswordVisibility = () =>
@@ -41,3 +39,5 @@ export const Input = ({ label, type, placeholder, autoComplete, subtitle, error,
 		</div>
 	);
 };
+
+export default Input;

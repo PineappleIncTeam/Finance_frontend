@@ -26,6 +26,7 @@ button {
 	--color-ash-grey: #bbbbbb;
 	--color-star-dust: #9c9d9d;
 	--color-eerie-black: #17191a;
+	--color-eerie-black-opacity: rgba(23, 25, 26, 0.35);
 	--color-gray-umber-light: #2b2d331f;
 	--color-black-eight-part: #0000001f;
 	--color-black-two-of-third: #000000b3;

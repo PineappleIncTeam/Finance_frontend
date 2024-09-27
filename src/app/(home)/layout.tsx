@@ -2,7 +2,7 @@ import "../reset.css";
 import "../globals.css";
 
 import MainHeader from "../../components/mainLayout/mainHeader/mainHeader";
-import CookiePopupWindow from "../../pages/homeLayout/cookiePopupWindow/cookiePopupWindow";
+import CookiePopupWindowPage from "../../pages/homeLayout/cookiePopupWindowPage/cookiePopupWindowPage";
 
 import type { Metadata } from "next";
 
@@ -20,7 +20,7 @@ export default function RootLayout({
 		<html lang="en">
 			<body>
 				<MainHeader />
-				<CookiePopupWindow />
+				<CookiePopupWindowPage />
 				{children}
 			</body>
 		</html>

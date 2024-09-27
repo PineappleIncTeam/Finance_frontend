@@ -1,6 +1,6 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-import { ICookieStatus } from "../../../../types/redux/StoreTypes";
+import { CookieStatusList, ICookieStatus } from "../../../../types/redux/StoreTypes";
 
 const initialState: ICookieStatus = {
 	status: "pending",
@@ -10,7 +10,7 @@ const cookieStatus = createSlice({
 	name: "cookieStatus",
 	initialState,
 	reducers: {
-		setCookieStatus(state, action) {
+		setCookieStatus(state: ICookieStatus, action: PayloadAction<CookieStatusList>) {
 			state.status = action.payload;
 		},
 	},

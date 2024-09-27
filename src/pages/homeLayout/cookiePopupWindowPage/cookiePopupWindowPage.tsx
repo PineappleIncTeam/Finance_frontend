@@ -12,9 +12,9 @@ import cookieStatusSelector from "../../../services/redux/features/cookieStatus/
 import useAppDispatch from "../../../hooks/useAppDispatch";
 import { setCookieStatus } from "../../../services/redux/features/cookieStatus/cookieStatusSlice";
 
-import styles from "./cookiePopupWindow.module.scss";
+import styles from "./cookiePopupWindowPage.module.scss";
 
-const CookiePopupWindow = () => {
+const CookiePopupWindowPage = () => {
 	const [isOpen, setIsOpen] = useState<boolean>(true);
 
 	const dispatch = useAppDispatch();
@@ -29,8 +29,9 @@ const CookiePopupWindow = () => {
 	return (
 		<div
 			className={cn(styles.popupContainer, { [styles.popupContainer_hidden]: status === "confirmed" || !isOpen })}
-			onClick={handleClick}>
-			<div className={styles.textContentBlock} onClick={(e) => e.stopPropagation()}>
+			onClick={handleClick}
+			role="button">
+			<div className={styles.textContentBlock} onClick={(e) => e.stopPropagation()} role="button">
 				<div className={styles.textContentBlock__titleBlock}>
 					<h3 className={styles.textContentBlock__title}>Файлы cookies</h3>
 				</div>
@@ -51,4 +52,4 @@ const CookiePopupWindow = () => {
 	);
 };
 
-export default CookiePopupWindow;
+export default CookiePopupWindowPage;

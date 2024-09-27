@@ -14,7 +14,7 @@ import { BlogArticleShareTooltip } from "../blogArticleShareTooltip/blogArticleS
 
 import style from "./blogArticle.module.scss";
 
-export const BlogArticle = ({ image, date, title, articleContent, id }: IBlogArticle) => {
+export default function BlogArticle({ image, date, title, articleContent, id }: IBlogArticle) {
 	const [isArticleShareTooltipShown, setIsArticleShareTooltipShown] = useState(false);
 
 	const shared = useCurrentLinkCard();
@@ -23,6 +23,11 @@ export const BlogArticle = ({ image, date, title, articleContent, id }: IBlogArt
 		const numberSeconds = 1500;
 		setIsArticleShareTooltipShown(true);
 		return setTimeout(() => setIsArticleShareTooltipShown(false), numberSeconds);
+	};
+
+	const clickShare = () => {
+		shared(id);
+		tooltip();
 	};
 
 	return (
@@ -36,7 +41,7 @@ export const BlogArticle = ({ image, date, title, articleContent, id }: IBlogArt
 							type="button"
 							className={style.BlogArticleShareIconWrap}
 							onClick={() => {
-								shared(id), tooltip();
+								clickShare();
 							}}>
 							<ShareIcon classNames={style.BlogArticleShareIcon} />
 						</button>
@@ -52,4 +57,4 @@ export const BlogArticle = ({ image, date, title, articleContent, id }: IBlogArt
 			</div>
 		</div>
 	);
-};
+}

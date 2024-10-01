@@ -1,16 +1,15 @@
 "use client";
 
 import { useState } from "react";
-
 import cn from "classnames";
 
-import Button from "../../../ui/button/button";
-import { cookieLinkTitle } from "../../../mocks/cookiePopupWindow";
-
 import useAppSelector from "../../../hooks/useAppSelector";
-import cookieStatusSelector from "../../../services/redux/features/cookieStatus/cookieStatusSelector";
 import useAppDispatch from "../../../hooks/useAppDispatch";
+
+import Button from "../../../ui/button/button";
+import cookieStatusSelector from "../../../services/redux/features/cookieStatus/cookieStatusSelector";
 import { setCookieStatus } from "../../../services/redux/features/cookieStatus/cookieStatusSlice";
+import { cookieLinkTitle } from "../../../mocks/cookiePopupWindow";
 
 import styles from "./cookiePopupWindowPage.module.scss";
 

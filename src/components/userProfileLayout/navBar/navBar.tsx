@@ -9,19 +9,18 @@ import cn from "classnames";
 import { MainPath } from "../../../services/router/routes";
 
 import logo from "../../../assets/components/logo.png";
-import IncomeIcon from "../../../assets/components/navBar/IncomeIcon";
-import ExpensesIcon from "../../../assets/components/navBar/ExpensesIcon";
-import AccumulationIcon from "../../../assets/components/navBar/AccumulationIcon";
-import AnalyticsIcon from "../../../assets/components/navBar/AnalyticsIcon";
-import CalculatorIcon from "../../../assets/components/navBar/CalculatorIcon";
+import IncomeIcon from "../../../assets/script/privateProfileNavBar/IncomeIcon";
+import ExpensesIcon from "../../../assets/script/privateProfileNavBar/ExpensesIcon";
+import AccumulationIcon from "../../../assets/script/privateProfileNavBar/AccumulationIcon";
+import AnalyticsIcon from "../../../assets/script/privateProfileNavBar/AnalyticsIcon";
+import CalculatorIcon from "../../../assets/script/privateProfileNavBar/CalculatorIcon";
 import borderIcon from "../../../assets/components/navBar/border.svg";
 import infoIcon from "../../../assets/components/navBar/infoIcon.svg";
 import crossIcon from "../../../assets/components/navBar/crossIcon.svg";
 
+import { INavBar } from "../../../types/common/ComponentsProps";
+
 import styles from "./navBar.module.scss";
-interface INavBar {
-	onClick?: () => void;
-}
 
 const NavBar = ({ onClick }: INavBar) => {
 	const pathname = usePathname();

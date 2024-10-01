@@ -1,5 +1,3 @@
-import React from "react";
-
 const IncomeIcon = ({ color = "white" }) => (
 	<svg width="27" height="26" viewBox="0 0 27 26" fill="none" xmlns="http://www.w3.org/2000/svg">
 		<g opacity="0.8" clipPath="url(#clip0_1830_14919)">

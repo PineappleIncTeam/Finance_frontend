@@ -32,3 +32,7 @@ export interface ICurrentRate {
 	euro?: string;
 	crypto?: string;
 }
+
+export interface INavBar {
+	onClick?: () => void;
+}

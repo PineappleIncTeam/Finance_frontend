@@ -17,9 +17,10 @@
 			padding: 48px 0px;
 			border-radius: 10px;
 			position: absolute;
-			top: 50%;
+			top: 10%;
 			right: 0;
 			left: auto;
+			height: auto;
 		}
 	}
 	@media (max-width: 465px) {
@@ -66,8 +67,8 @@
 	padding: 20px 0;
 	border-top: 1px solid var(--BG-dividerSite, #a3c0bb);
 }
-.border{
-    border-top: none;
+.border {
+	border-top: none;
 }
 .active {
 	background: var(--BG-page, #f8f8f8);

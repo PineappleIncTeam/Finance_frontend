@@ -13,20 +13,17 @@
 		}
 	}
 
-	@media (max-width: 768) {
+	@media (max-width: 810) {
 		& {
-			width: 768px;
-			height: 892px;
+			width: 100vw;
+			height: 894px;
 			margin-left: 0px;
 		}
 	}
 
-	@media (max-width: 400) {
+	@media (max-width: 460) {
 		& {
-			width: 360px;
-			height: 720px;
-			padding-left: 0;
-			margin-left: 14px;
+			height: 720px;			
 		}
 	}
 }

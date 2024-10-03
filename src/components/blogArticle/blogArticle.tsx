@@ -19,8 +19,9 @@ export default function BlogArticle({ image, date, title, articleContent, id }: 
 
 	const shared = useCurrentLinkCard();
 
+	const numberSeconds = 1500;
+
 	const tooltip = () => {
-		const numberSeconds = 1500;
 		setIsArticleShareTooltipShown(true);
 		return setTimeout(() => setIsArticleShareTooltipShown(false), numberSeconds);
 	};

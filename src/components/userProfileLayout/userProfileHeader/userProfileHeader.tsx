@@ -39,8 +39,8 @@ const UserProfileHeader = ({ dollar, euro, crypto }: ICurrentRate) => {
 							$ {dollar || 0} € {euro || 0}
 						</p>
 						<div className={style.cryptoWrap}>
-							<Image src={cryptoIcon} alt={""} className={style.cryptoWrap__icon} />
-							<Image src={cryptoBlackIcon} alt={""} className={style.cryptoWrap__iconBlack} />
+							<Image src={cryptoIcon} alt={"crypto"} className={style.cryptoWrap__icon} />
+							<Image src={cryptoBlackIcon} alt={"cryptoBlack"} className={style.cryptoWrap__iconBlack} />
 							<p className={cn(style.currencyRateWrap__titles, style.currencyRateWrap__titles_color)}>{crypto || 0}</p>
 						</div>
 					</div>
@@ -51,7 +51,7 @@ const UserProfileHeader = ({ dollar, euro, crypto }: ICurrentRate) => {
 						<Link href={""}>
 							<p className={style.navigationWrap__link}>Поддержка</p>
 						</Link>
-						<Image src={infoIcon} alt={""} />
+						<Image src={infoIcon} alt={"info"} />
 					</div>
 				</div>
 			</div>

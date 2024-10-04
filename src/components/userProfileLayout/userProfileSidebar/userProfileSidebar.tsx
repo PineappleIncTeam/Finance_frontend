@@ -6,7 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 import arrowRightIcon from "../../../assets/components/userProfile/arrowRight.svg";
-import { IUserProfile } from "../../../types/common/ComponentsProps";
+import { IUserProfileSidebar } from "../../../types/common/ComponentsProps";
 import navigationArrowIcon from "../../../assets/components/userProfile/navigationArrow.svg";
 import userAvatar from "../../../assets/components/userProfile/userPhoto.svg";
 import { MainPath } from "../../../services/router/routes";
@@ -14,22 +14,22 @@ import burgerIcon from "../../../assets/components/userProfile/burger.svg";
 import NavBar from "../navBar/navBar";
 import editProfileIcon from "../../../assets/components/userProfile/editProfile.svg";
 
-import style from "./userProfile.module.scss";
+import style from "./userProfileSidebar.module.scss";
+import { LastTwoDigits } from "../../../helpers/lastTwoDigits";
 
-const UserProfile = ({ avatar, name, balance }: IUserProfile) => {
+const UserProfileSidebar = ({ avatar, name, balance }: IUserProfileSidebar) => {
 	const [currentDate, setCurrentDate] = useState<string>("");
 	const [isOpen, setIsOpen] = useState(false);
-	const LAST_TWO_DIGITS = -2;
 
 	useEffect(() => {
 		const today = new Date();
 		const day = today.getDate().toString().padStart(2, "0");
 		const month = (today.getMonth() + 1).toString().padStart(2, "0");
-		const year = today.getFullYear().toString().slice(LAST_TWO_DIGITS);
+		const year = today.getFullYear().toString().slice(LastTwoDigits.LAST_TWO_DIGITS);
 
 		const formattedDate = `${day}.${month}.${year}`;
 		setCurrentDate(formattedDate); // eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []); 
+	}, []);
 
 	const renderProfileFunctions = (title: string, onClick?: any) => {
 		return (
@@ -58,9 +58,9 @@ const UserProfile = ({ avatar, name, balance }: IUserProfile) => {
 					<div className={style.userInformationWrap}>
 						<div className={style.userInformationWrap_images}>
 							<button className={style.userInformationWrap_images_action}>
-								<Image src={avatar || userAvatar} alt={""} className={style.userInformationWrap__avatar} />
+								<Image src={avatar || userAvatar} alt={"userAvatar"} className={style.userInformationWrap__avatar} />
 							</button>
-							<Image src={editProfileIcon} alt={""} className={style.userInformationWrap__edit} />
+							<Image src={editProfileIcon} alt={"editProfile"} className={style.userInformationWrap__edit} />
 						</div>
 						<p className={style.userInformationWrap__name}>{name || "Имя"}</p>
 						<div className={style.userInformationWrap__adaptive}>
@@ -79,7 +79,7 @@ const UserProfile = ({ avatar, name, balance }: IUserProfile) => {
 						{renderNavigationElements("Блог", MainPath.Blog)}
 					</div>
 					<button onClick={() => setIsOpen(!isOpen)} className={style.burgerActionWrap}>
-						<Image src={burgerIcon} alt={""} className={style.burgerActionWrap_icon} />
+						<Image src={burgerIcon} alt={"burger"} className={style.burgerActionWrap_icon} />
 					</button>
 				</div>
 			</div>
@@ -88,4 +88,4 @@ const UserProfile = ({ avatar, name, balance }: IUserProfile) => {
 	);
 };
 
-export default UserProfile;
+export default UserProfileSidebar;

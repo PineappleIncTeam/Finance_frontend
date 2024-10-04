@@ -21,7 +21,7 @@ export interface IBlogCard {
 	id?: string;
 }
 
-export interface IUserProfile {
+export interface IUserProfileSidebar {
 	avatar?: string;
 	balance?: string;
 	name?: string;

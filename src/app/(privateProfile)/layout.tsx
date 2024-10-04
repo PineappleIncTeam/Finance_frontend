@@ -3,7 +3,7 @@ import "../globals.css";
 
 import NavBar from "../../components/userProfileLayout/navBar/navBar";
 import UserProfileHeader from "../../components/userProfileLayout/userProfileHeader/userProfileHeader";
-import UserProfile from "../../components/userProfileLayout/userProfile/userProfile";
+import UserProfile from "../../components/userProfileLayout/userProfileSidebar/userProfileSidebar";
 
 import styles from "./privateProfile.module.scss"
 

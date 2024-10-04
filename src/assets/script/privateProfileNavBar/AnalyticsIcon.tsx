@@ -7,8 +7,8 @@ const AnalyticsIcon = ({ color = "white" }) => (
 					fill={color}
 				/>
 				<path
-					fill-rule="evenodd"
-					clip-rule="evenodd"
+					fillRule="evenodd"
+					clipRule="evenodd"
 					d="M0.875 5.13817C0.875 4.50957 1.38457 4 2.01317 4H25.7368C26.3654 4 26.875 4.50957 26.875 5.13817V28.8618C26.875 29.4904 26.3654 30 25.7368 30H2.01317C1.38457 30 0.875 29.4904 0.875 28.8618V5.13817ZM3.15133 6.27633V27.7237H24.5987V6.27633H3.15133Z"
 					fill={color}
 				/>

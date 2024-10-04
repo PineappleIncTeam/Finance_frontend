@@ -27,7 +27,7 @@ export interface IBlogArticle {
 	title: string;
 	articleContent: string[];
 	articleAction?: () => void;
-	id?: string;
+	id: string;
 }
 
 export interface IBlogArticleShareTooltip {

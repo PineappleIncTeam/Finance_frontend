@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation";
 
-import Footer from "../../../pages/homeLayout/footer/footer";
+import Footer from "../../../pageComponents/homeLayout/footer/footer";
 import BlogCard from "../../../components/mainLayout/blogCard/blogCard";
 
 import moneyFlower from "../../../assets/pages/blog/moneyFlower.png";
@@ -11,13 +11,23 @@ import workEnvironment from "../../../assets/pages/blog/workEnvironment.png";
 import { ArrowRightIcon } from "../../../assets/script/blog/ArrowRightIcon";
 import { ArrowLeftIcon } from "../../../assets/script/blog/ArrowLeftIcon";
 
+import { MainPath } from "../../../services/router/routes";
+
 import style from "./blog.module.scss";
 
 export default function Blog() {
 	const router = useRouter();
 
-	const transitionMainPage = () => {
-		router.push("/");
+	const transitionList = {
+		firstTransition: () => {
+			router.push(MainPath.BlogPage + "/1");
+		},
+		secondTransition: () => {
+			router.push(MainPath.BlogPage + "/2");
+		},
+		thirdTransition: () => {
+			router.push(MainPath.BlogPage + "/3");
+		},
 	};
 
 	return (
@@ -42,7 +52,7 @@ export default function Blog() {
 						date="06 июня 2024"
 						descriptionImage="money flower"
 						text="5 шагов к успешному управлению личными финансами с помощью приложения"
-						blogAction={transitionMainPage}
+						blogAction={transitionList.firstTransition}
 						id="12"
 					/>
 					<BlogCard
@@ -50,7 +60,7 @@ export default function Blog() {
 						date="06 июня 2024"
 						descriptionImage="notebook"
 						text={"Плюсы и минусы автоматизации учета финансов при помощи приложений"}
-						blogAction={transitionMainPage}
+						blogAction={transitionList.secondTransition}
 						id="123"
 					/>
 					<BlogCard
@@ -58,7 +68,7 @@ export default function Blog() {
 						date="04 июня 2024"
 						descriptionImage="wok environment"
 						text="Какие ошибки чаще всего допускают пользователи при использовании приложений для учета финансов и как их избежать"
-						blogAction={transitionMainPage}
+						blogAction={transitionList.thirdTransition}
 						id="1234"
 					/>
 				</div>

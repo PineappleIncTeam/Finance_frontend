@@ -14,8 +14,9 @@ import burgerIcon from "../../../assets/components/userProfile/burger.svg";
 import NavBar from "../navBar/navBar";
 import editProfileIcon from "../../../assets/components/userProfile/editProfile.svg";
 
-import style from "./userProfileSidebar.module.scss";
 import { LastTwoDigits } from "../../../helpers/lastTwoDigits";
+
+import style from "./userProfileSidebar.module.scss";
 
 const UserProfileSidebar = ({ avatar, name, balance }: IUserProfileSidebar) => {
 	const [currentDate, setCurrentDate] = useState<string>("");

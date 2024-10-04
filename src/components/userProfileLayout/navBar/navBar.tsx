@@ -20,8 +20,9 @@ import crossIcon from "../../../assets/components/navBar/crossIcon.svg";
 
 import { INavBar } from "../../../types/common/ComponentsProps";
 
-import styles from "./navBar.module.scss";
 import { COLORS } from "../../../helpers/color";
+
+import styles from "./navBar.module.scss";
 
 const NavBar = ({ onClick }: INavBar) => {
 	const pathname = usePathname();

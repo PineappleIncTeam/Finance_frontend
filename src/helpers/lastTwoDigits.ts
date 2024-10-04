@@ -1,3 +1,3 @@
 export enum LastTwoDigits {
-	LAST_TWO_DIGITS = -2
+	LAST_TWO_DIGITS = -2,
 }

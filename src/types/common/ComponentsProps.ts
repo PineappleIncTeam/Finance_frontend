@@ -36,3 +36,17 @@ export interface ICurrentRate {
 export interface INavBar {
 	onClick?: () => void;
 }
+
+export interface IBlogArticle {
+	image?: string;
+	date: string;
+	title: string;
+	articleContent: string[];
+	articleAction?: () => void;
+	id?: string;
+}
+
+export interface IBlogArticleShareTooltip {
+	open: boolean;
+	toggle?: () => void;
+}

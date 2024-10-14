@@ -1,6 +1,6 @@
-import Service from "../../pages/homeLayout/service/service";
+import Service from "../../pageComponents/homeLayout/service/service";
 
-import Footer from "../../pages/homeLayout/footer/footer";
+import Footer from "../../pageComponents/homeLayout/footer/footer";
 
 import styles from "./mainPage.module.scss";
 

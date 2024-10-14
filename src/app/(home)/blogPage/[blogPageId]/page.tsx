@@ -2,6 +2,7 @@
 
 import { useParams, useRouter } from "next/navigation";
 
+import Footer from "../../../../pageComponents/homeLayout/footer/footer";
 
 import BlogArticle from "../../../../components/blogArticle/blogArticle";
 import { blogArticles } from "../../../../mocks/BlogArticles";

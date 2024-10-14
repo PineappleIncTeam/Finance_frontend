@@ -1,16 +1,15 @@
 "use client";
 
 import Image from "next/image";
-
 import { useState } from "react";
-
-import { IBlogArticle } from "../../types/common/ComponentsProps";
 
 import useCurrentLinkCard from "../../hooks/useCurrentLinkCard";
 
-import { ShareIcon } from "../../assets/script/blogArticle/ShareIcon";
-
+import { IBlogArticle } from "../../types/common/ComponentsProps";
 import { BlogArticleShareTooltip } from "../blogArticleShareTooltip/blogArticleShareTooltip";
+
+import { ShareIcon } from "../../assets/script/blogArticle/ShareIcon";
+import mockImage from "../../mocks/images/blogArticleMock.jpg";
 
 import style from "./blogArticle.module.scss";
 
@@ -35,7 +34,7 @@ export default function BlogArticle({ image, date, title, articleContent, id }: 
 		<div className={style.BlogArticleContainer}>
 			<div className={style.BlogArticleContent}>
 				<div className={style.BlogArticleHeaderWrapper}>
-					<Image className={style.BlogArticleImage} src={image} alt="descriptionImage" />
+					<Image className={style.BlogArticleImage} src={image ?? mockImage} alt="descriptionImage" />
 					<div className={style.BlogArticleTitleWrapper}>
 						<p className={style.BlogArticleDate}>{date}</p>
 						<button

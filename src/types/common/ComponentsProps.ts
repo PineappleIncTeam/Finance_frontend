@@ -38,7 +38,7 @@ export interface INavBar {
 }
 
 export interface IBlogArticle {
-	image?: string | StaticImageData;
+	image?: string;
 	date: string;
 	title: string;
 	articleContent: string[];

@@ -4,7 +4,7 @@
 	line-height: 12rem;
 	@media (max-width: 1100px) {
 		& {
-			background: var(--Border-input, #f1f1f2);
+			background: var(--color-ghost-white);
 			height: 80px;
 			line-height: 8rem;
 			border-radius: 12px;
@@ -18,7 +18,7 @@
 			line-height: normal;
 		}
 	}
-	@media (max-width: 360px) {
+	@media (max-width: 420px) {
 		& {
 			height: 65px;
 		}
@@ -38,14 +38,14 @@
 .currencyRateWrap__titles {
 	font-size: 2.6rem;
 	font-weight: 400;
-	color: var(--Text-secondary, #9c9d9d);
+	color: var(--color-star-dust);
 
 	@media (max-width: 1440px) {
 		& {
 			font-size: 2rem;
 		}
 	}
-	@media (max-width: 360px) {
+	@media (max-width: 420px) {
 		& {
 			font-size: 1.3rem;
 		}
@@ -60,14 +60,14 @@
 			margin-left: 0;
 			display: flex;
 			align-items: center;
-			color: var(--Text-lable, #434546);
+			color: var(--color-dark-cyan-blue);
 		}
 	}
 }
 .currencyRateWrap__titles_color {
 	@media (max-width: 768px) {
 		& {
-			color: var(--Text-lable, #434546);
+			color: var(--color-dark-cyan-blue);
 		}
 	}
 }
@@ -91,7 +91,7 @@
 			display: block;
 		}
 	}
-	@media (max-width: 360px) {
+	@media (max-width: 420px) {
 		& {
 			width: 14px;
 			height: 14px;
@@ -118,7 +118,7 @@
 .navigationWrap__link {
 	font-size: 2.6rem;
 	font-weight: 400;
-	color: var(--BG-primary, #21703c);
+	color: var(--color-dark-spring-green);
 	@media (max-width: 1440px) {
 		& {
 			font-size: 2rem;
@@ -142,7 +142,7 @@
 			flex-wrap: wrap;
 		}
 	}
-	@media (max-width: 360px) {
+	@media (max-width: 420px) {
 		& {
 			max-width: 200px;
 		}

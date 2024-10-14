@@ -1,6 +1,6 @@
 const AccumulationIcon = ({ color = "white" }) => (
 	<svg width="33" height="34" viewBox="0 0 33 34" fill="none" xmlns="http://www.w3.org/2000/svg">
-		<g opacity="0.8" clip-path="url(#clip0_1520_9330)">
+		<g opacity="0.8" clipPath="url(#clip0_1520_9330)">
 			<path
 				fillRule="evenodd"
 				clipRule="evenodd"

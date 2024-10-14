@@ -2,11 +2,13 @@
 
 import { useParams, useRouter } from "next/navigation";
 
-import Footer from "../../../../pages/homeLayout/footer/footer";
+
 import BlogArticle from "../../../../components/blogArticle/blogArticle";
 import { blogArticles } from "../../../../mocks/BlogArticles";
 
 import { ArrowLeftIcon } from "../../../../assets/script/blogPage/ArrowLeft";
+
+import Footer from "../../../../pageComponents/homeLayout/footer/footer";
 
 import style from "./blogPage.module.scss";
 

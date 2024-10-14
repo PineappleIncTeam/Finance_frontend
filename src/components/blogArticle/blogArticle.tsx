@@ -27,7 +27,7 @@ export default function BlogArticle({ image, date, title, articleContent, id }: 
 	};
 
 	const clickShare = () => {
-		shared(id);
+		shared(id || "");
 		tooltip();
 	};
 

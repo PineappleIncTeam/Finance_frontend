@@ -9,8 +9,6 @@ import { blogArticles } from "../../../../mocks/BlogArticles";
 
 import { ArrowLeftIcon } from "../../../../assets/script/blogPage/ArrowLeft";
 
-import Footer from "../../../../pageComponents/homeLayout/footer/footer";
-
 import style from "./blogPage.module.scss";
 
 export default function BlogPage() {

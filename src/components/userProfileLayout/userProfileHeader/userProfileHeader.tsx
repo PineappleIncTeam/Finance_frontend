@@ -1,13 +1,13 @@
 "use client";
 
 import { useEffect, useState } from "react";
-
-
 import Image from "next/image";
 import Link from "next/link";
 import cn from "classnames";
 
 import { ICurrentRate } from "../../../types/common/ComponentsProps";
+import { LastTwoDigits } from "../../../helpers/lastTwoDigits";
+
 import cryptoIcon from "../../../assets/components/userProfile/crypto.svg";
 import cryptoBlackIcon from "../../../assets/components/userProfile/cryptoBlack.svg";
 import infoIcon from "../../../assets/components/userProfile/infoIcon.svg";
@@ -16,18 +16,16 @@ import style from "./userProfileHeader.module.scss";
 
 const UserProfileHeader = ({ dollar, euro, crypto }: ICurrentRate) => {
 	const [currentDate, setCurrentDate] = useState<string>("");
-	const LAST_TWO_DIGITS = -2;
 
 	useEffect(() => {
 		const today = new Date();
 		const day = today.getDate().toString().padStart(2, "0");
 		const month = (today.getMonth() + 1).toString().padStart(2, "0");
-		const year = today.getFullYear().toString().slice(LAST_TWO_DIGITS);
+		const year = today.getFullYear().toString().slice(LastTwoDigits.LAST_TWO_DIGITS);
 
 		const formattedDate = `${day}.${month}.${year}`;
 		setCurrentDate(formattedDate); // eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []); 
-
+	}, []);
 
 	return (
 		<div className={style.userProfileHeaderWrap}>

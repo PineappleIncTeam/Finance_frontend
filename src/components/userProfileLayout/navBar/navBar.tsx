@@ -7,6 +7,8 @@ import { Dispatch, RefObject, SetStateAction, useEffect, useRef, useState } from
 import cn from "classnames";
 
 import { MainPath, UserProfilePath } from "../../../services/router/routes";
+import { INavBar } from "../../../types/common/ComponentsProps";
+import { COLORS } from "../../../helpers/color";
 
 import logo from "../../../assets/components/logo.png";
 import IncomeIcon from "../../../assets/script/privateProfileNavBar/IncomeIcon";
@@ -17,10 +19,6 @@ import CalculatorIcon from "../../../assets/script/privateProfileNavBar/Calculat
 import borderIcon from "../../../assets/components/navBar/border.svg";
 import infoIcon from "../../../assets/components/navBar/infoIcon.svg";
 import crossIcon from "../../../assets/components/navBar/crossIcon.svg";
-
-import { INavBar } from "../../../types/common/ComponentsProps";
-
-import { COLORS } from "../../../helpers/color";
 
 import styles from "./navBar.module.scss";
 

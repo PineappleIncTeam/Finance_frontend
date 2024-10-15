@@ -5,7 +5,7 @@ import NavBar from "../../components/userProfileLayout/navBar/navBar";
 import UserProfileHeader from "../../components/userProfileLayout/userProfileHeader/userProfileHeader";
 import UserProfile from "../../components/userProfileLayout/userProfileSidebar/userProfileSidebar";
 
-import styles from "./privateProfile.module.scss"
+import styles from "./privateProfile.module.scss";
 
 import type { Metadata } from "next";
 

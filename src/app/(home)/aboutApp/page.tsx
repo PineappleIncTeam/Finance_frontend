@@ -6,6 +6,8 @@ import { useRouter } from "next/navigation";
 
 import Footer from "../../../pageComponents/homeLayout/footer/footer";
 
+import { transitionGoogleStore } from "../../../mocks/AboutApp";
+
 import registration from "../../../assets/pages/aboutApp/registration.png";
 import expensesIncome from "../../../assets/pages/aboutApp/expensesIncome.png";
 import analyze from "../../../assets/pages/aboutApp/analyze.png";
@@ -16,8 +18,6 @@ import style from "./aboutAppPage.module.scss";
 
 export default function AboutApp() {
 	const router = useRouter();
-
-	const transitionGoogleStore = "https://play.google.com/store/apps";
 
 	const handleClick = (event: React.MouseEvent<HTMLElement>) => {
 		event.preventDefault();
@@ -31,7 +31,7 @@ export default function AboutApp() {
 					<h1 className={style.aboutAppHeader}>Используйте Freenance с лёгкостью</h1>
 					<button className={style.googlePlayButton} onClick={handleClick}>
 						<GooglePlayIcon classNames={style.googlePlayIcon} />
-						<div className={style.googlePlayButton__text}>доступно в Google Play</div>
+						<p className={style.googlePlayButton__text}>доступно в Google Play</p>
 					</button>
 				</div>
 				<div className={style.aboutAppPageInstructionWrapper}>

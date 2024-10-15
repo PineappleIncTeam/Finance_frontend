@@ -1,6 +1,6 @@
-import { IVisibilityOffIconProps } from "../../../types/pages/Password";
+import { IIconsProps } from "../../../types/common/PagesProps";
 
-export const VisibilityOffIcon = ({ classNames }: IVisibilityOffIconProps) => {
+export const VisibilityOffIcon = ({ classNames }: IIconsProps) => {
 	return (
 		<svg
 			className={classNames}

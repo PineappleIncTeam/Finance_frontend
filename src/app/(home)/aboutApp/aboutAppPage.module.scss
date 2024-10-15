@@ -51,7 +51,7 @@
 .aboutAppHeaderWrapper {
 	width: 618px;
 	height: 660px;
-	background-color: rgba(218, 231, 222, 1);
+	background-color: var(--color-light-spring-green);
 	border-radius: 20px;
 
 	@media(max-width: 1520) {
@@ -137,7 +137,7 @@
 	display: flex;
 	width: 196px;
 	height: 58px;
-	background-color: rgba(23, 25, 26, 1);
+	background-color: var(--color-eerie-black);
 	border-radius: 8px;
 	border: 1px solid grey;
 	margin-top: 66%;
@@ -273,7 +273,7 @@
 		height: 250px;
 		overflow: hidden;
         border-radius: 12px;
-		border: 1px solid rgba(241, 241, 242, 1);
+		border: 1px solid var(--color-light-grayish-blue);
 
 		&:nth-child(1) {
 			> div:nth-child(1) {
@@ -337,7 +337,7 @@
 		font-weight: 400;
 		line-height: 30rem;
 		font-style: italic;
-		color: rgba(237, 242, 239, 1);
+		color: var(--color-light-grayish-cyan);
 
 		@media (max-width: 1440) {
 			& {

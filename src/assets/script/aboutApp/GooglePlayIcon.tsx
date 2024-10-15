@@ -1,4 +1,4 @@
-import { IIconsProps } from "../../../types/pages/AboutApp";
+import { IIconsProps } from "../../../types/common/PagesProps";
 
 export const GooglePlayIcon = ({ classNames }: IIconsProps) => {
 	return (

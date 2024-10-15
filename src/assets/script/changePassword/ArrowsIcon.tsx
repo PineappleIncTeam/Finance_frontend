@@ -1,4 +1,4 @@
-import { IIconsProps } from "../../../types/pages/Password";
+import { IIconsProps } from "../../../types/common/PagesProps";
 
 export const ArrowsIcon = ({ classNames }: IIconsProps) => {
 	return (

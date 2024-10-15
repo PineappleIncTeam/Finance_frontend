@@ -1,3 +1,4 @@
+/* eslint-disable sonarjs/no-duplicate-string */
 import { IBlogArticle } from "../types/common/ComponentsProps";
 
 import moneyFlower from "../assets/pages/blogArticle/moneyFlower.png";
@@ -6,7 +7,7 @@ import workEnvironment from "../assets/pages/blog/workEnvironment.png";
 
 export const blogArticles: IBlogArticle[] = [
 	{
-		image: moneyFlower,
+		image: moneyFlower as unknown as string,
 		date: "10 июня 2024",
 		title: "5 шагов к успешному управлению личными финансами с помощью приложения",
 		articleContent: [
@@ -21,7 +22,7 @@ export const blogArticles: IBlogArticle[] = [
 		id: "15",
 	},
 	{
-		image: notebook,
+		image: notebook as unknown as string,
 		date: "11 июня 2024",
 		title: "Плюсы и минусы автоматизации учета финансов при помощи приложений",
 		articleContent: [
@@ -36,7 +37,7 @@ export const blogArticles: IBlogArticle[] = [
 		id: "2",
 	},
 	{
-		image: workEnvironment,
+		image: workEnvironment as unknown as string,
 		date: "12 июня 2024",
 		title: "Какие ошибки чаще всего допускают пользователи при использовании приложений",
 		articleContent: [

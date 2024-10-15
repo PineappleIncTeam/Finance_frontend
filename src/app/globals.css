@@ -10,10 +10,12 @@ button {
 :root {
 	--color-pure-light: #ffffff;
 	--color-silver-gray: #f8f8f8;
+	--color-ghost-white: #f1f1f2;
 	--color-anti-flash-white: rgba(241, 241, 242, 0.9);
 	--color-dark-sea-green: #90b89e;
 	--color-dark-spring-green: #21703c;
 	--color-cal-poly-pomona-green: #1a572e;
+	--color-light-green: #a3c0bb;
 	--color-jasmine: #ffde82;
 	--color-mustard: #ffd45c;
 	--color-sandy-drown: #f0a956;
@@ -25,7 +27,9 @@ button {
 	--color-chinese-silver: #ccc;
 	--color-ash-grey: #bbbbbb;
 	--color-star-dust: #9c9d9d;
+	--color-dark-cyan-blue: #434546;
 	--color-eerie-black: #17191a;
+	--color-black-light: #ffffff1a;
 	--color-eerie-black-opacity: rgba(23, 25, 26, 0.35);
 	--color-gray-umber-light: #2b2d331f;
 	--color-black-eight-part: #0000001f;

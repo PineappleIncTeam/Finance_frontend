@@ -21,6 +21,22 @@ export interface IBlogCard {
 	id?: string;
 }
 
+export interface IUserProfileSidebar {
+	avatar?: string;
+	balance?: string;
+	name?: string;
+}
+
+export interface ICurrentRate {
+	dollar?: string;
+	euro?: string;
+	crypto?: string;
+}
+
+export interface INavBar {
+	onClick?: () => void;
+}
+
 export interface IBlogArticle {
 	image?: string;
 	date: string;

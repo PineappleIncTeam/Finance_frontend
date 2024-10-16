@@ -17,7 +17,7 @@
 
 	@media (max-width: 490) {
 		& {
-			height: 1090px
+			height: 1090px;
 		}
 	}
 }  
@@ -87,7 +87,7 @@
 
 	@media (max-width: 490) {
 		width: 322px;
-		margin-top: -20px;
+		margin-top: -30px;
 	}
 }
 
@@ -139,7 +139,7 @@
 	height: 58px;
 	background-color: var(--color-eerie-black);
 	border-radius: 8px;
-	border: 1px solid grey;
+	border: 1px solid var(--color-silver-gray);
 	margin-top: 66%;
 	margin-left: 6%;
 	cursor: pointer;
@@ -170,7 +170,7 @@
 
 	&__text {
 		width: 100px;
-		font-family: Manrope;
+		font-family: Manrope, Verdana, Tahoma, sans-serif;
 		font-size: large;
 		color: white;
 		margin-left: 10px;

@@ -12,6 +12,11 @@ import analyze from "../../../assets/pages/aboutApp/analyze.png";
 import calculate from "../../../assets/pages/aboutApp/calculate.png";
 import { GooglePlayIcon } from "../../../assets/script/aboutApp/GooglePlayIcon";
 
+import { OneNumIcon } from "../../../assets/script/aboutApp/OneNumIcon";
+import { TwoNumIcon } from "../../../assets/script/aboutApp/TwoNumIcon";
+import { ThreeNumIcon } from "../../../assets/script/aboutApp/ThreeNumIcon";
+import { FourNumIcon } from "../../../assets/script/aboutApp/FourNumIcon";
+
 import style from "./aboutAppPage.module.scss";
 
 export default function AboutApp() {
@@ -29,6 +34,7 @@ export default function AboutApp() {
 					<div className={style.aboutAppPageInstructionContainer}>
 						<div className={style.aboutAppPageInstructionContainer__item}>
 							<div className={style.aboutAppPageInstructionContainer__item__orderNum}>1</div>
+							<OneNumIcon classNames={style.instructionNumber} />
 							<div className={style.aboutAppPageInstructionContainer__item__imageHelpWrapper}>
 								<Image className={style.aboutAppPageInstructionImage} src={registration} alt="registration" />
 								<p className={style.aboutAppPageInstructionContainer__item__imageHelpText}>
@@ -38,6 +44,7 @@ export default function AboutApp() {
 						</div>
 						<div className={style.aboutAppPageInstructionContainer__item}>
 							<div className={style.aboutAppPageInstructionContainer__item__orderNum}>2</div>
+							<TwoNumIcon classNames={style.instructionNumber} />
 							<div className={style.aboutAppPageInstructionContainer__item__imageHelpWrapper}>
 								<Image className={style.aboutAppPageInstructionImage} src={expensesIncome} alt="expenses and income" />
 								<p className={style.aboutAppPageInstructionContainer__item__imageHelpText}>
@@ -47,6 +54,7 @@ export default function AboutApp() {
 						</div>
 						<div className={style.aboutAppPageInstructionContainer__item}>
 							<div className={style.aboutAppPageInstructionContainer__item__orderNum}>3</div>
+							<ThreeNumIcon classNames={style.instructionNumber} />
 							<div className={style.aboutAppPageInstructionContainer__item__imageHelpWrapper}>
 								<Image
 									className={style.aboutAppPageInstructionImage}
@@ -60,6 +68,7 @@ export default function AboutApp() {
 						</div>
 						<div className={style.aboutAppPageInstructionContainer__item}>
 							<div className={style.aboutAppPageInstructionContainer__item__orderNum}>4</div>
+							<FourNumIcon classNames={style.instructionNumber} />
 							<div className={style.aboutAppPageInstructionContainer__item__imageHelpWrapper}>
 								<Image className={style.aboutAppPageInstructionImage} src={analyze} alt="analyze expenses and income" />
 								<p className={style.aboutAppPageInstructionContainer__item__imageHelpText}>

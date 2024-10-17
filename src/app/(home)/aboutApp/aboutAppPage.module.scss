@@ -205,7 +205,6 @@
 		& {
 			width: 30px;
 			margin-top: -6px;
-			
 		}
 	}
 }
@@ -229,7 +228,6 @@
 	@media(max-width: 1200) {
 		& {
 			width: 928px;
-			
 			grid-template-columns: 453 454;
 			grid-column-gap: 18px;
 			grid-row-gap: 12px;
@@ -287,8 +285,6 @@
 					padding-left: 38px;
 				}
 			}
-
-			
 		}
 
 		@media(max-width: 1440) {
@@ -371,6 +367,12 @@
 		@media (max-width: 560) {
 			& {
 				right: 78px;
+			}
+		}
+
+		@media (max-width: 490) {
+			& {
+				display: none;
 			}
 		}
 	}
@@ -498,6 +500,7 @@
 	@media (max-width: 490) {
 		& {
 			width: 220px;
+			margin-top: -140px;
 		}
 	}	
 }
@@ -597,6 +600,18 @@
 			font-size: 1.6rem;	
 			line-height: 2.2rem;
 			margin-left: 70px;
+		}
+	}
+}
+
+.instructionNumber {
+	display: none;
+
+	@media (max-width: 490) {
+		& {
+			display: block;
+			width: 60px;
+			height: 170px;
 		}
 	}
 }

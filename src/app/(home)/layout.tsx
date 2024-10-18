@@ -2,7 +2,7 @@ import "../reset.css";
 import "../globals.css";
 
 import MainHeader from "../../components/mainLayout/mainHeader/mainHeader";
-import CookiePopupWindowPage from "../../pageComponents/homeLayout/cookiePopupWindowPage/cookiePopupWindowPage";
+import CookiePopupWindowPage from "../../pageElements/homeLayout/cookiePopupWindowPage/cookiePopupWindowPage";
 
 import type { Metadata } from "next";
 

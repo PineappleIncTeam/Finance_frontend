@@ -1,1 +1,1 @@
-export const transitionGoogleStore = "https://play.google.com/store/apps";
+export const transitionGoogleStore = "https://play.google.com/store/apps"; // asd

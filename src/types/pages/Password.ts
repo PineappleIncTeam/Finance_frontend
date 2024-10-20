@@ -6,11 +6,3 @@ export interface IChangePassword {
 export interface INewPassword {
 	enterEmail: string;
 }
-
-export interface IIconsProps {
-	classNames?: string;
-}
-
-export interface IVisibilityOffIconProps {
-	classNames?: string;
-}

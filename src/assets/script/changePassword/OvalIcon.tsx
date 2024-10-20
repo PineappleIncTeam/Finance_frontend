@@ -1,8 +1,6 @@
-interface IOvalIconProps {
-	classNames?: string;
-}
+import { IIconsProps } from "../../../types/common/PagesProps";
 
-export const OvalIcon = ({ classNames }: IOvalIconProps) => {
+export const OvalIcon = ({ classNames }: IIconsProps) => {
 	return (
 		<svg
 			className={classNames}

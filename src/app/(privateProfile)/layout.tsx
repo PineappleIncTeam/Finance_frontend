@@ -1,7 +1,11 @@
 import "../reset.css";
 import "../globals.css";
 
-import UserProfileHeader1 from "../../components/userProfileLayout/userProfileHeader/userProfileHeader";
+import NavBar from "../../components/userProfileLayout/navBar/navBar";
+import UserProfileHeader from "../../components/userProfileLayout/userProfileHeader/userProfileHeader";
+import UserProfile from "../../components/userProfileLayout/userProfileSidebar/userProfileSidebar";
+
+import styles from "./privateProfile.module.scss";
 
 import type { Metadata } from "next";
 
@@ -18,8 +22,23 @@ export default function RootLayout({
 	return (
 		<html lang="en">
 			<body>
-				<UserProfileHeader1 />
-				{children}
+				<div className={styles.privateProfileWrap}>
+					<div className={styles.privateProfileWrap__navBar}>
+						<NavBar />
+					</div>
+					<div className={styles.privateProfileContent}>
+						<div className={styles.privateProfileHeader}>
+							<UserProfileHeader />
+						</div>
+						<div className={styles.privateProfileUserInterface}>
+							<UserProfile />
+							<div className={styles.privateProfileHeader__adaptive}>
+								<UserProfileHeader />
+							</div>
+							{children}
+						</div>
+					</div>
+				</div>
 			</body>
 		</html>
 	);

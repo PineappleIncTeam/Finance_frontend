@@ -62,7 +62,7 @@ const MainHeader = () => {
 						О нас
 					</p>
 				</Link>
-				<Link href={MainPath.ChangePassword}>
+				<Link href={MainPath.AboutApp}>
 					<p className={cn(styles.navigationLink, { [styles.navigationActiveLink]: pathname === MainPath.AboutApp })}>
 						О приложении
 					</p>

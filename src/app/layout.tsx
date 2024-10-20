@@ -1,6 +1,8 @@
 import "./reset.css";
 import "./globals.css";
 
+import ProviderList from "../services/redux/provider";
+
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -15,7 +17,9 @@ export default function RootLayout({
 }>) {
 	return (
 		<html lang="en">
-			<body>{children}</body>
+			<body>
+				<ProviderList>{children}</ProviderList>
+			</body>
 		</html>
 	);
 }

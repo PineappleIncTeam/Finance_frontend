@@ -1,0 +1,150 @@
+.userProfileHeaderWrap {
+	width: 100%;
+	height: 120px;
+	line-height: 12rem;
+	@media (max-width: 1100px) {
+		& {
+			background: var(--color-ghost-white);
+			height: 80px;
+			line-height: 8rem;
+			border-radius: 12px;
+		}
+	}
+	@media (max-width: 768px) {
+		& {
+			display: flex;
+			justify-content: flex-start;
+			align-items: center;
+			line-height: normal;
+		}
+	}
+	@media (max-width: 420px) {
+		& {
+			height: 65px;
+		}
+	}
+}
+.userProfileHeaderContainer {
+	width: 95%;
+	margin: 0 auto;
+}
+
+.currencyRateWrap {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.currencyRateWrap__titles {
+	font-size: 2.6rem;
+	font-weight: 400;
+	color: var(--color-star-dust);
+
+	@media (max-width: 1440px) {
+		& {
+			font-size: 2rem;
+		}
+	}
+	@media (max-width: 420px) {
+		& {
+			font-size: 1.3rem;
+		}
+	}
+}
+.currencyRateWrap__titles_valuta {
+	flex: 1;
+	margin-left: 15px;
+	@media (max-width: 768px) {
+		& {
+			flex: auto;
+			margin-left: 0;
+			display: flex;
+			align-items: center;
+			color: var(--color-dark-cyan-blue);
+		}
+	}
+}
+.currencyRateWrap__titles_color {
+	@media (max-width: 768px) {
+		& {
+			color: var(--color-dark-cyan-blue);
+		}
+	}
+}
+
+.cryptoWrap {
+	display: flex;
+	align-items: center;
+	margin-right: 10px;
+}
+.cryptoWrap__icon {
+	@media (max-width: 768px) {
+		& {
+			display: none;
+		}
+	}
+}
+.cryptoWrap__iconBlack {
+	display: none;
+	@media (max-width: 768px) {
+		& {
+			display: block;
+		}
+	}
+	@media (max-width: 420px) {
+		& {
+			width: 14px;
+			height: 14px;
+		}
+	}
+}
+
+.navigationWrap {
+	display: flex;
+	align-items: center;
+	gap: 53px;
+	@media (max-width: 1440px) {
+		& {
+			gap: 40px;
+		}
+	}
+	@media (max-width: 1100px) {
+		& {
+			display: none;
+		}
+	}
+}
+
+.navigationWrap__link {
+	font-size: 2.6rem;
+	font-weight: 400;
+	color: var(--color-dark-spring-green);
+	@media (max-width: 1440px) {
+		& {
+			font-size: 2rem;
+		}
+	}
+}
+
+.currencyRateContainer {
+	width: 100%;
+	max-width: 830px;
+	display: flex;
+	justify-content: space-between;
+	@media (max-width: 1440px) {
+		& {
+			max-width: 660px;
+		}
+	}
+	@media (max-width: 768px) {
+		& {
+			max-width: 320px;
+			flex-wrap: wrap;
+		}
+	}
+	@media (max-width: 420px) {
+		& {
+			max-width: 200px;
+		}
+	}
+}

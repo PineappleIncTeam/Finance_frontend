@@ -1,0 +1,50 @@
+.BlogArticleShareTooltipContainer {
+	width: 432px;
+	height: 92px;
+	border-radius: 12px;
+	margin-left: 932px;
+	border: 1px solid transparent;
+	box-shadow: 0px 4px 20px 0px var(--color-black-eight-part);
+
+	@media (max-width: 1440) {
+		& {
+			margin-left: 690px;
+		}
+	}
+
+	@media (max-width: 1024) {
+		& {
+			margin-left: 450px;
+		}
+	}
+
+	@media (max-width: 768) {
+		& {
+			margin-left: 230px;
+		}
+	}
+
+	@media (max-width: 400) {
+		& {
+			width: 282px;
+			height: 54px;
+			margin-left: 48px;
+		}
+	}
+}
+
+.BlogArticleShareTooltipContent {
+	margin-top: 26px;
+	text-align: center;
+	font-size: 2rem;
+	line-height: 2.8rem;
+	font-weight: 400;
+
+	@media (max-width: 400) {
+		& {
+			margin-top: 14px;
+			font-size: 1.6rem;
+			line-height: 2.2rem;
+		}
+	}
+}

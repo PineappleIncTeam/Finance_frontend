@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation";
 
-import Footer from "../../../pageElements/homeLayout/footer/footer";
+import Footer from "../../../components/mainLayout/footer/footer";
 import BlogCard from "../../../components/mainLayout/blogCard/blogCard";
 
 import moneyFlower from "../../../assets/pages/blog/moneyFlower.png";

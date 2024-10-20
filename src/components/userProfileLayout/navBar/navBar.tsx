@@ -8,7 +8,7 @@ import cn from "classnames";
 
 import { MainPath, UserProfilePath } from "../../../services/router/routes";
 import { INavBar } from "../../../types/common/ComponentsProps";
-import { COLORS } from "../../../helpers/color";
+import { COLORS } from "../../../helpers/colorSet";
 
 import logo from "../../../assets/components/logo.png";
 import IncomeIcon from "../../../assets/script/privateProfileNavBar/IncomeIcon";

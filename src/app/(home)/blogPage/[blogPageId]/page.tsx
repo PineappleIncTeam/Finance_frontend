@@ -2,7 +2,7 @@
 
 import { useParams, useRouter } from "next/navigation";
 
-import Footer from "../../../../pageElements/homeLayout/footer/footer";
+import Footer from "../../../../components/mainLayout/footer/footer";
 
 import BlogArticle from "../../../../components/blogArticle/blogArticle";
 import { blogArticles } from "../../../../mocks/BlogArticles";

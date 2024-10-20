@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 
-import Footer from "../../../pageElements/homeLayout/footer/footer";
+import Footer from "../../../components/mainLayout/footer/footer";
 
 import { transitionGoogleStore } from "../../../mocks/AboutApp";
 

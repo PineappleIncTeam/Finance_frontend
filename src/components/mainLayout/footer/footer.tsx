@@ -7,6 +7,7 @@ import styles from "./footer.module.scss";
 const Footer = () => {
 	const actualDate: Date = new Date();
 	const copyrightYear: number = actualDate.getFullYear();
+
 	return (
 		<div className={styles.footerContainer}>
 			<p className={styles.footerContainer__copyright}>Copyright © {copyrightYear} freenance | All Rights Reserved</p>

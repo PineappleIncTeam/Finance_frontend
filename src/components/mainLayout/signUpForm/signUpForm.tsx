@@ -1,8 +1,9 @@
+/* eslint-disable import/named */
 "use client";
 
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
-import { AxiosError } from "axios";
+import { AxiosError, HttpStatusCode } from "axios";
 
 import { ISignUpForm } from "../../../types/components/ComponentsTypes";
 import Button from "../../../ui/button/button";
@@ -14,6 +15,7 @@ import { InputType } from "../../../helpers/Input";
 import { registration } from "../../../services/api/auth/Registration";
 import { MainPath } from "../../../services/router/routes";
 import { ApiResponseCode } from "../../../helpers/apiResponseCode";
+import { vkLink } from "../../../mocks/linkSetup";
 
 import styles from "./signUpForm.module.scss";
 
@@ -58,7 +60,7 @@ const SignUpForm = () => {
 				isAxiosError(error) &&
 				error.response &&
 				error.response.status &&
-				error.response.status >= ApiResponseCode.SERVER_ERROR_STATUS_MIN &&
+				error.response.status >= HttpStatusCode.InternalServerError &&
 				error.response.status < ApiResponseCode.SERVER_ERROR_STATUS_MAX
 			) {
 				return router.push(MainPath.ServerError);
@@ -113,11 +115,7 @@ const SignUpForm = () => {
 				</div>
 				<p className={styles.signUpFormContainer__auth}>
 					Войти через{" "}
-					<a
-						href="https://vk.com/"
-						rel="nofollow noreferrer"
-						target="_blank"
-						className={styles.signUpFormContainer__auth_link}>
+					<a href={vkLink} rel="nofollow noreferrer" target="_blank" className={styles.signUpFormContainer__auth_link}>
 						Вконтакте
 					</a>
 				</p>

@@ -2,16 +2,16 @@
 
 import { useParams, useRouter } from "next/navigation";
 
+import BlogArticle from "../../../../components/mainLayout/blogArticle/blogArticle";
 import Footer from "../../../../components/mainLayout/footer/footer";
-
-import BlogArticle from "../../../../components/blogArticle/blogArticle";
-import { blogArticles } from "../../../../mocks/BlogArticles";
 
 import { ArrowLeftIcon } from "../../../../assets/script/blogPage/ArrowLeft";
 
+import { blogArticles } from "../../../../mocks/BlogArticles";
+
 import style from "./blogPage.module.scss";
 
-export default function BlogPage() {
+function BlogPage() {
 	const router = useRouter();
 	const params = useParams();
 
@@ -40,3 +40,5 @@ export default function BlogPage() {
 		</div>
 	);
 }
+
+export default BlogPage;

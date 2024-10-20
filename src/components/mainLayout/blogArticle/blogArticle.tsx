@@ -3,18 +3,19 @@
 import Image from "next/image";
 import { useState } from "react";
 
-import useCurrentLinkCard from "../../hooks/useCurrentLinkCard";
+import useCurrentLinkCard from "../../../hooks/useCurrentLinkCard";
 
-import { IBlogArticle } from "../../types/common/ComponentsProps";
+import { IBlogArticle } from "../../../types/common/ComponentsProps";
 import { BlogArticleShareTooltip } from "../blogArticleShareTooltip/blogArticleShareTooltip";
 
-import { ShareIcon } from "../../assets/script/blogArticle/ShareIcon";
-import mockImage from "../../mocks/images/blogArticleMock.jpg";
+import { ShareIcon } from "../../../assets/script/blogArticle/ShareIcon";
+
+import mockImage from "../../../mocks/images/blogArticleMock.jpg";
 
 import style from "./blogArticle.module.scss";
 
 export default function BlogArticle({ image, date, title, articleContent, id }: IBlogArticle) {
-	const [isArticleShareTooltipShown, setIsArticleShareTooltipShown] = useState(false);
+	const [isArticleShareTooltipShown, setIsArticleShareTooltipShown] = useState<boolean>(false);
 
 	const shared = useCurrentLinkCard();
 

@@ -9,7 +9,7 @@ import useAppDispatch from "../../../hooks/useAppDispatch";
 import Button from "../../../ui/button/button";
 import cookieStatusSelector from "../../../services/redux/features/cookieStatus/cookieStatusSelector";
 import { setCookieStatus } from "../../../services/redux/features/cookieStatus/cookieStatusSlice";
-import { cookieLinkTitle } from "../../../mocks/cookiePopupWindow";
+import { cookieLinkTitle } from "../../../mocks/linkSetup";
 
 import styles from "./cookiePopupWindowPage.module.scss";
 

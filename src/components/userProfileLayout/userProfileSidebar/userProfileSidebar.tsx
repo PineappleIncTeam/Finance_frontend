@@ -1,12 +1,13 @@
 "use client";
 
 import { useEffect, useState } from "react";
-
 import Image from "next/image";
 import Link from "next/link";
 
+import { LastTwoDigits } from "../../../helpers/lastTwoDigits";
+
 import arrowRightIcon from "../../../assets/components/userProfile/arrowRight.svg";
-import { IUserProfileSidebar } from "../../../types/common/ComponentsProps";
+import { IUserProfileSidebar, TCommonFunction } from "../../../types/common/ComponentsProps";
 import navigationArrowIcon from "../../../assets/components/userProfile/navigationArrow.svg";
 import userAvatar from "../../../assets/components/userProfile/userPhoto.svg";
 import { MainPath } from "../../../services/router/routes";
@@ -14,13 +15,11 @@ import burgerIcon from "../../../assets/components/userProfile/burger.svg";
 import NavBar from "../navBar/navBar";
 import editProfileIcon from "../../../assets/components/userProfile/editProfile.svg";
 
-import { LastTwoDigits } from "../../../helpers/lastTwoDigits";
-
 import style from "./userProfileSidebar.module.scss";
 
 const UserProfileSidebar = ({ avatar, name, balance }: IUserProfileSidebar) => {
 	const [currentDate, setCurrentDate] = useState<string>("");
-	const [isOpen, setIsOpen] = useState(false);
+	const [isOpen, setIsOpen] = useState<boolean>(false);
 
 	useEffect(() => {
 		const today = new Date();
@@ -32,7 +31,7 @@ const UserProfileSidebar = ({ avatar, name, balance }: IUserProfileSidebar) => {
 		setCurrentDate(formattedDate); // eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
-	const renderProfileFunctions = (title: string, onClick?: any) => {
+	const renderProfileFunctions = (title: string, onClick?: TCommonFunction) => {
 		return (
 			<button className={style.profileFunctionsWrap} onClick={onClick}>
 				<p className={style.profileFunctionsWrap__title}>{title}</p>

@@ -1,4 +1,4 @@
-import { IBlogArticleShareTooltip } from "../../types/common/ComponentsProps";
+import { IBlogArticleShareTooltip } from "../../../types/common/ComponentsProps";
 
 import style from "./blogArticleShareTooltip.module.scss";
 

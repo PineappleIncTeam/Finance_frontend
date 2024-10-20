@@ -50,3 +50,5 @@ export interface IBlogArticleShareTooltip {
 	open: boolean;
 	toggle?: () => void;
 }
+
+export type TCommonFunction = () => void;

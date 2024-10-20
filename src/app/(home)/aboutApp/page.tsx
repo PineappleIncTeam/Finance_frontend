@@ -1,17 +1,14 @@
-"use client";
-
 import Image from "next/image";
 
 import Footer from "../../../components/mainLayout/footer/footer";
 
-import { transitionGoogleStore } from "../../../mocks/AboutApp";
+import { transitionGoogleStore } from "../../../mocks/linkSetup";
 
 import registration from "../../../assets/pages/aboutApp/registration.png";
 import expensesIncome from "../../../assets/pages/aboutApp/expensesIncome.png";
 import analyze from "../../../assets/pages/aboutApp/analyze.png";
 import calculate from "../../../assets/pages/aboutApp/calculate.png";
 import { GooglePlayIcon } from "../../../assets/script/aboutApp/GooglePlayIcon";
-
 import { OneNumIcon } from "../../../assets/script/aboutApp/OneNumIcon";
 import { TwoNumIcon } from "../../../assets/script/aboutApp/TwoNumIcon";
 import { ThreeNumIcon } from "../../../assets/script/aboutApp/ThreeNumIcon";
@@ -19,7 +16,7 @@ import { FourNumIcon } from "../../../assets/script/aboutApp/FourNumIcon";
 
 import style from "./aboutAppPage.module.scss";
 
-export default function AboutApp() {
+function AboutApp() {
 	return (
 		<div className={style.aboutAppWrap}>
 			<div className={style.aboutAppContainer}>
@@ -89,3 +86,5 @@ export default function AboutApp() {
 		</div>
 	);
 }
+
+export default AboutApp;

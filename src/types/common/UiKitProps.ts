@@ -17,7 +17,7 @@ export interface IInputProps extends UseControllerProps<ISignUpForm | ISignInFor
 	placeholder?: string;
 	autoComplete?: string;
 	subtitle?: string;
-	error?: string | FieldError | Merge<FieldError, FieldErrorsImpl<any>>;
+	error?: string | FieldError | Merge<FieldError, FieldErrorsImpl<any>> | null;
 }
 
 export interface ITitle {

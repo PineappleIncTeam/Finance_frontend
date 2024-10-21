@@ -4,6 +4,8 @@ import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import { AxiosError } from "axios";
 
+import Link from "next/link";
+
 import { ISignInForm } from "../../../types/components/ComponentsTypes";
 import Button from "../../../ui/button/button";
 import Input from "../../../ui/input/Input";
@@ -14,10 +16,10 @@ import { InputType } from "../../../helpers/Input";
 import { MainPath, UserProfilePath } from "../../../services/router/routes";
 import { ApiResponseCode } from "../../../helpers/apiResponseCode";
 
-import styles from "./signInForm.module.scss";
-import Link from "next/link";
 import CustomCheckbox from "../../../ui/checkBox/checkBox";
 import { loginUser } from "../../../services/api/auth/Login";
+
+import styles from "./signInForm.module.scss";
 
 const SignInForm = () => {
 	const {

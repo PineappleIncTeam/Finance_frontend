@@ -1,6 +1,8 @@
 import axios from "axios";
-import { baseURL, signInEndpoint } from "./apiConstants";
+
 import { ISignInForm } from "../../../types/components/ComponentsTypes";
+
+import { baseURL, signInEndpoint } from "./apiConstants";
 
 export const loginUser = async (loginData: ISignInForm) => {
 	return await axios(`${baseURL}/${signInEndpoint}`, {

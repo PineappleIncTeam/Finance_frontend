@@ -1,5 +1,5 @@
-import React, { ReactNode, useState } from "react";
-import { FieldError, useController } from "react-hook-form";
+import React, { useState } from "react";
+import { useController } from "react-hook-form";
 import cn from "classnames";
 import Image from "next/image";
 
@@ -34,9 +34,7 @@ const Input = ({ label, type, placeholder, autoComplete, subtitle, error, ...pro
 					</button>
 				)}
 			</div>
-			{fieldState.error && (
-				<p className={styles.inputWrap__error}>{fieldState.error.message || (error as string)}</p>
-			)}
+			{fieldState.error && <p className={styles.inputWrap__error}>{fieldState.error.message || (error as string)}</p>}
 			{subtitle && !error && <p className={styles.inputWrap__subtitle}>{subtitle}</p>}
 		</div>
 	);

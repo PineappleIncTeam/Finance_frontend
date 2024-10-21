@@ -1,8 +1,8 @@
 import Image from "next/image";
 
-import mainPagePicture from "../../../assets/pages/mainPage/mainPagePicture.png";
-import mainPagePictureTablet from "../../../assets/pages/mainPage/mainPagePictureTablet.png";
-import mainPagePictureMobile from "../../../assets/pages/mainPage/mainPagePictureMobile.png";
+import mainPagePicture from "../../../assets/pages/mainPage/mainPagePicture.webp";
+import mainPagePictureTablet from "../../../assets/pages/mainPage/mainPagePictureTablet.webp";
+import mainPagePictureMobile from "../../../assets/pages/mainPage/mainPagePictureMobile.webp";
 import listPoint from "../../../assets/pages/mainPage/listPoint.svg";
 
 import styles from "./service.module.scss";
@@ -44,6 +44,7 @@ function Service() {
 				</div>
 				<Image
 					className={styles.mainPageContainer__mainPicture}
+					priority={true}
 					src={mainPagePicture}
 					alt="Главная картинка с денежным деревом, калькулятором и графиками"
 				/>
@@ -51,11 +52,13 @@ function Service() {
 			<div className={styles.mobileMainPageContainer}>
 				<Image
 					src={mainPagePictureTablet}
+					priority={true}
 					alt="Главная картинка с денежным деревом, калькулятором и графиками"
 					className={styles.mobileMainPageContainer__mainPictureTablet}
 				/>
 				<Image
 					src={mainPagePictureMobile}
+					priority={true}
 					alt="Главная картинка с денежным деревом, калькулятором и графиками"
 					className={styles.mobileMainPageContainer__mainPictureMobile}
 				/>

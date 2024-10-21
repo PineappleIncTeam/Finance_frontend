@@ -9,3 +9,8 @@ export interface ISignUpForm {
 	password: string;
 	re_password: string;
 }
+
+export interface ISignInForm {
+	email: string;
+	password: string;
+}

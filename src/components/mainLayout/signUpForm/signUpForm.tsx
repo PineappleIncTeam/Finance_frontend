@@ -25,7 +25,7 @@ const SignUpForm = () => {
 		control,
 		watch,
 		handleSubmit,
-	} = useForm<ISignUpForm>({
+	} = useForm<ISignUpForm | any>({
 		defaultValues: {
 			email: "",
 			password: "",

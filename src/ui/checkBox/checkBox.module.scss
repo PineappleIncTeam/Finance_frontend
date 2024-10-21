@@ -1,0 +1,22 @@
+.hiddenCheckbox {
+	display: none;
+}
+
+.checkbox {
+	width: 22px;
+	height: 22px;
+	border: 1.5px solid var(--color-ash-grey);
+	border-radius: 4px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	transition:
+		background-color 0.3s ease,
+		border-color 0.3s ease;
+	background-color: transparent;
+}
+
+.checked {
+	background-color: var(--color-dark-spring-green);
+	border: 1.5px solid var(--color-dark-spring-green);
+}

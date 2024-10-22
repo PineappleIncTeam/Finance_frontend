@@ -1,8 +1,8 @@
 import { ReactNode } from "react";
 
-import { UseControllerProps } from "react-hook-form";
+import { FieldError, FieldErrorsImpl, Merge, UseControllerProps } from "react-hook-form";
 
-import { ISignUpForm } from "../components/ComponentsTypes";
+import { ISignInForm, ISignUpForm } from "../components/ComponentsTypes";
 
 export interface IButton {
 	content: string | ReactNode;
@@ -11,13 +11,13 @@ export interface IButton {
 	type?: "button" | "submit";
 }
 
-export interface IInputProps extends UseControllerProps<ISignUpForm> {
+export interface IInputProps extends UseControllerProps<ISignUpForm | ISignInForm> {
 	label: string;
 	type: string;
 	placeholder?: string;
 	autoComplete?: string;
 	subtitle?: string;
-	error?: string | null;
+	error?: string | FieldError | Merge<FieldError, FieldErrorsImpl<any>> | null;
 }
 
 export interface ITitle {

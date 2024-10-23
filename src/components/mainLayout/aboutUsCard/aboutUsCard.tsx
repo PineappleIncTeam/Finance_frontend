@@ -4,15 +4,15 @@ import { IAboutUsCard } from "../../../types/common/ComponentsProps";
 
 import style from "./aboutUsCards.module.scss";
 
-const AboutUsCard = ({ image, descriptionImage, vacancy }: IAboutUsCard) => {
+const AboutUsCard = ({ photo, teamRole }: IAboutUsCard) => {
 	return (
 		<div className={style.aboutUsCard}>
 			<div className={style.aboutUsCardPictureWrap}>
-				<Image src={image} alt={`${descriptionImage}`} className={style.aboutUsCardPicture} />
+				<Image src={photo} alt={`${teamRole}`} className={style.aboutUsCardPicture} fill={true} />
 			</div>
 			<div className={style.aboutUsCardInfo}>
 				<div className={style.aboutUsCardInfoLine} />
-				<div className={style.aboutUsCardInfoVacancy}>{vacancy}</div>
+				<div className={style.aboutUsCardInfoVacancy}>{teamRole}</div>
 			</div>
 		</div>
 	);

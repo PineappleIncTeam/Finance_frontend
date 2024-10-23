@@ -1,0 +1,16 @@
+{
+	"team": [
+		{
+			"teamRole": "Product owner",
+			"photo": "/teamImages/Analitic.jpeg"
+		},
+		{
+			"teamRole": "Product manager",
+			"photo": "/teamImages/Product-manager.jpeg"
+		},
+		{
+			"teamRole": "Analitic",
+			"photo": "/teamImages/Product-owner.jpeg"
+		}
+	]
+}

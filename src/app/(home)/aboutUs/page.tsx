@@ -1,8 +1,10 @@
 import Footer from "../../../components/mainLayout/footer/footer";
 
-import defoltUser from "../../../assets/pages/aboutUs/defolt-profile.svg";
-
 import AboutUsCard from "../../../components/mainLayout/aboutUsCard/aboutUsCard";
+
+import teamList from "../../../mocks/team.json";
+
+import { IAboutUsCard } from "../../../types/common/ComponentsProps";
 
 import style from "./aboutUs.module.scss";
 
@@ -13,7 +15,13 @@ function AboutUs() {
 				<div className={style.aboutUsMain}>
 					<div className={style.aboutUsTitle}>Классные ребята с горящими глазами.</div>
 					<div className={style.aboutUsCards}>
-						<AboutUsCard image={defoltUser} descriptionImage={"defoltUser"} vacancy={"Product owner"} />
+						{teamList && teamList?.team.length ? (
+							teamList.team.map(({ teamRole, photo }: IAboutUsCard) => (
+								<AboutUsCard photo={photo} teamRole={teamRole} key={teamRole} />
+							))
+						) : (
+							<div>Команда скоро вернётся</div>
+						)}
 					</div>
 				</div>
 				<Footer />

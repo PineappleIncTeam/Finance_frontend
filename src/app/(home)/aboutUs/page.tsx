@@ -1,8 +1,8 @@
-import Image from "next/image";
-
 import Footer from "../../../components/mainLayout/footer/footer";
 
 import defoltUser from "../../../assets/pages/aboutUs/defolt-profile.svg";
+
+import AboutUsCard from "../../../components/mainLayout/aboutUsCard/aboutUsCard";
 
 import style from "./aboutUs.module.scss";
 
@@ -13,15 +13,7 @@ function AboutUs() {
 				<div className={style.aboutUsMain}>
 					<div className={style.aboutUsTitle}>Классные ребята с горящими глазами.</div>
 					<div className={style.aboutUsCards}>
-						<div className={style.aboutUsCard}>
-							<div className={style.aboutUsCardPictureWrap}>
-								<Image src={defoltUser} alt={`${defoltUser}`} className={style.aboutUsCardPicture} />
-							</div>
-							<div className={style.aboutUsCardInfo}>
-								<div className={style.aboutUsCardInfoLine} />
-								<div className={style.aboutUsCardInfoVacancy}>Product owner</div>
-							</div>
-						</div>
+						<AboutUsCard image={defoltUser} descriptionImage={"defoltUser"} vacancy={"Product owner"} />
 					</div>
 				</div>
 				<Footer />

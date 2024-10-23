@@ -20,7 +20,7 @@ function AboutUs() {
 								<AboutUsCard photo={photo} teamRole={teamRole} key={teamRole} />
 							))
 						) : (
-							<div>Команда скоро вернётся</div>
+							<div className={style.aboutUsTitle}>Команда скоро вернётся</div>
 						)}
 					</div>
 				</div>

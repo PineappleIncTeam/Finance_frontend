@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import { AxiosError } from "axios";
@@ -12,6 +13,7 @@ import Input from "../../../ui/input/Input";
 import Title from "../../../ui/title/Title";
 import { emailPattern, passwordPattern } from "../../../helpers/authConstants";
 import { formHelpers } from "../../../utils/formHelpers";
+import { getCorrectBaseUrl } from "../../../utils/baseUrlConverter";
 import { InputType } from "../../../helpers/Input";
 import { MainPath, UserProfilePath } from "../../../services/router/routes";
 import { ApiResponseCode } from "../../../helpers/apiResponseCode";
@@ -22,6 +24,7 @@ import { loginUser } from "../../../services/api/auth/Login";
 import styles from "./signInForm.module.scss";
 
 const SignInForm = () => {
+	const [baseUrl, setBaseUrl] = useState<string>();
 	const {
 		formState: { errors },
 		control,
@@ -37,14 +40,22 @@ const SignInForm = () => {
 
 	const router = useRouter();
 
+	useEffect(() => {
+		setBaseUrl(getCorrectBaseUrl());
+	}, []);
+
 	const isAxiosError = (error: unknown): error is AxiosError => {
 		return (error as AxiosError).isAxiosError !== undefined;
 	};
 
 	const onSubmit = async (data: ISignInForm) => {
 		try {
-			await loginUser(data);
-			router.push(UserProfilePath.Profit);
+			if (baseUrl) {
+				await loginUser(baseUrl, data);
+				router.push(UserProfilePath.Profit);
+			} else {
+				return router.push(MainPath.ServerError);
+			}
 		} catch (error) {
 			if (
 				isAxiosError(error) &&

@@ -2,7 +2,7 @@ import Footer from "../../../components/mainLayout/footer/footer";
 
 import AboutUsCard from "../../../components/mainLayout/aboutUsCard/aboutUsCard";
 
-import teamList from "../../../mocks/team.json";
+import teamList from "../../../mocks/AboutUsTeam.json";
 
 import { IAboutUsCard } from "../../../types/common/ComponentsProps";
 

@@ -58,20 +58,24 @@
 	justify-content: space-between;
 	align-items: flex-start;
 	flex-direction: column;
-	width: 93%;
+	width: 84%;
 	height: 100%;
 	margin: 0 auto;
 
+	@media (max-width: 1440px) {
+		& {
+			width: 93%;
+		}
+	}
+
 	@media (max-width: 1024px) {
 		& {
-			justify-content: start;
 			margin-top: 50px;
 		}
 	}
 
 	@media (max-width: 360px) {
 		& {
-			justify-content: left;
 			margin-top: 0;
 		}
 	}

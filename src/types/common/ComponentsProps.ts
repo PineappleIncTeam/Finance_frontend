@@ -57,3 +57,12 @@ export interface IAboutUsCard {
 	photo: string | StaticImageData;
 	teamRole: string;
 }
+
+export interface ITeamMember {
+	teamRole: string;
+	photo: string;
+}
+
+export interface ITeamList {
+	team: ITeamMember[];
+}

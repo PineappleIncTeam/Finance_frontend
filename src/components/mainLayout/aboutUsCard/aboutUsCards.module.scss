@@ -79,13 +79,13 @@
 	font-weight: 400;
 	line-height: 22px;
 	text-align: center;
-	padding-top: 15px;
+	padding-top: 16px;
 
 	@media (max-width: 360px) {
 		& {
 			padding-top: 8px;
-			font-size: 11px;
-			line-height: 13px;
+			font-size: 12px;
+			line-height: 14px;
 		}
 	}
 }

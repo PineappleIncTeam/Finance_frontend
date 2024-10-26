@@ -8,17 +8,16 @@ import { IAboutUsCard, ITeamList } from "../../../types/common/ComponentsProps";
 
 import style from "./aboutUs.module.scss";
 
-function cardsList(teamList: ITeamList) {
-	return teamList && teamList?.team.length ? (
-		teamList.team.map(({ teamRole, photo }: IAboutUsCard) => (
-			<AboutUsCard photo={photo} teamRole={teamRole} key={teamRole} />
-		))
-	) : (
-		<div className={style.aboutUsTitle}>Команда скоро вернётся</div>
-	);
-}
-
 function AboutUs() {
+	function cardsList(teamList: ITeamList) {
+		return teamList && teamList?.team.length ? (
+			teamList.team.map(({ teamRole, photo }: IAboutUsCard) => (
+				<AboutUsCard photo={photo} teamRole={teamRole} key={teamRole} />
+			))
+		) : (
+			<div className={style.aboutUsTitle}>Команда скоро вернётся</div>
+		);
+	}
 	return (
 		<div className={style.aboutUsWrap}>
 			<div className={style.aboutUsContainer}>

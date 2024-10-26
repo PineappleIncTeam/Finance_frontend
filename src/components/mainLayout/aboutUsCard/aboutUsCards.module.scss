@@ -1,0 +1,91 @@
+.aboutUsCard {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	position: relative;
+	width: 170px;
+
+	@media (max-width: 1024px) {
+		& {
+			width: 160px;
+		}
+	}
+
+	@media (max-width: 360px) {
+		& {
+			width: 100px;
+		}
+	}
+}
+
+.aboutUsCardPictureWrap {
+	position: absolute;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	overflow: hidden;
+	width: 100%;
+	width: 96px;
+	height: 96px;
+	border-radius: 50%;
+
+	@media (max-width: 360px) {
+		& {
+			width: 70px;
+			height: 70px;
+		}
+	}
+}
+
+.aboutUsCardPicture {
+	width: 100%;
+	object-fit: cover;
+	object-position: center;
+}
+
+.aboutUsCardInfo {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	width: 100%;
+	margin-top: 34px;
+	border-radius: 12px;
+	height: 160px;
+	background-color: var(--color-pure-light);
+	border: 1px solid var(--color-ghost-white);
+
+	@media (max-width: 360px) {
+		& {
+			height: 100px;
+		}
+	}
+}
+
+.aboutUsCardInfoLine {
+	height: 2px;
+	width: 40px;
+	margin-top: 96px;
+	background-color: var(--color-light-green);
+
+	@media (max-width: 360px) {
+		& {
+			margin-top: 60px;
+		}
+	}
+}
+
+.aboutUsCardInfoVacancy {
+	font-size: 16px;
+	font-weight: 400;
+	line-height: 22px;
+	text-align: center;
+	padding-top: 16px;
+
+	@media (max-width: 360px) {
+		& {
+			padding-top: 8px;
+			font-size: 12px;
+			line-height: 14px;
+		}
+	}
+}

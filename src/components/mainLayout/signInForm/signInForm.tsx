@@ -57,8 +57,8 @@ const SignInForm = () => {
 			setErrorMessage("");
 			if (baseUrl) {
 				await loginUser(baseUrl, data);
-				setIsOpen(true); 
-			} 
+				setIsOpen(true);
+			}
 		} catch (error) {
 			if (
 				isAxiosError(error) &&
@@ -73,10 +73,9 @@ const SignInForm = () => {
 		}
 	};
 
-
 	const handleModalClose = () => {
-		setIsOpen(false); 
-		router.push(UserProfilePath.Profile); 
+		setIsOpen(false);
+		router.push(UserProfilePath.Profile);
 	};
 
 	return (

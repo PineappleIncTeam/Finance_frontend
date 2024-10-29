@@ -10,7 +10,7 @@ const InviteModal = ({ isOpen, onClose }: IInviteModal) => {
 	return (
 		<>
 			{isOpen && (
-				<div className={styles.overlay} onClick={onClose}>
+				<div className={styles.overlay} onClick={onClose} role="alert">
 					<div className={styles.modal}>
 						<Image src={inviteLogo} alt={"logo"} className={styles.modalLogo} />
 						<h2 className={styles.modalTitle}>Добро пожаловать!</h2>

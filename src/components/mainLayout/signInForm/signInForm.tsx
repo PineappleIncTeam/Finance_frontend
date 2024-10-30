@@ -21,10 +21,14 @@ import { ApiResponseCode } from "../../../helpers/apiResponseCode";
 import CustomCheckbox from "../../../ui/checkBox/checkBox";
 import { loginUser } from "../../../services/api/auth/Login";
 
+import InviteModal from "../inviteModal/inviteModal";
+
 import styles from "./signInForm.module.scss";
 
 const SignInForm = () => {
 	const [baseUrl, setBaseUrl] = useState<string>();
+	const [errorMessage, setErrorMessage] = useState<string>("");
+	const [isOpen, setIsOpen] = useState(false);
 	const {
 		formState: { errors },
 		control,
@@ -50,11 +54,10 @@ const SignInForm = () => {
 
 	const onSubmit = async (data: ISignInForm) => {
 		try {
+			setErrorMessage("");
 			if (baseUrl) {
 				await loginUser(baseUrl, data);
-				router.push(UserProfilePath.Profit);
-			} else {
-				return router.push(MainPath.ServerError);
+				setIsOpen(true);
 			}
 		} catch (error) {
 			if (
@@ -66,8 +69,13 @@ const SignInForm = () => {
 			) {
 				return router.push(MainPath.ServerError);
 			}
-			return router.push(MainPath.NotFound);
+			setErrorMessage("Введены некорректный email или пароль");
 		}
+	};
+
+	const handleModalClose = () => {
+		setIsOpen(false);
+		router.push(UserProfilePath.Profile);
 	};
 
 	return (
@@ -101,6 +109,7 @@ const SignInForm = () => {
 						Забыли пароль?
 					</Link>
 				</div>
+				{errorMessage && <p className={styles.errorMessage}>{errorMessage}</p>}
 				<Button content="Вход" styleName="big buttonForLogin" type="submit" />
 				<div className={styles.dividerWrap}>
 					<div className={styles.dividerWrap__line} />
@@ -118,6 +127,7 @@ const SignInForm = () => {
 					</a>
 				</p>
 			</div>
+			{isOpen && <InviteModal isOpen={isOpen} onClose={handleModalClose} />}
 		</form>
 	);
 };

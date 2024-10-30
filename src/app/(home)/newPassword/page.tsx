@@ -1,7 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
+import { AxiosError } from "axios";
 
 import { INewPassword } from "../../../types/pages/Password";
 import NewPasswordModal from "../../../components/mainLayout/newPasswordModal/newPasswordModal";
@@ -16,11 +18,20 @@ import { EmailIcon } from "../../../assets/script/changePassword/EmailIcon";
 import { OvalIcon } from "../../../assets/script/changePassword/OvalIcon";
 import { ManIcon } from "../../../assets/script/changePassword/ManIcon";
 
+import { getCorrectBaseUrl } from "../../../utils/baseUrlConverter";
+
+import { ResetPassword } from "../../../services/api/auth/ResetPassword";
+
+import { MainPath } from "../../../services/router/routes";
+
+import { ApiResponseCode } from "../../../helpers/apiResponseCode";
+
 import style from "./newPassword.module.scss";
 
 export default function NewPassword() {
 	const [isNewPasswordModalShown, setIsNewPasswordModalShown] = useState(false);
 	const [email, setEmail] = useState("");
+	const [baseUrl, setBaseUrl] = useState<string>();
 
 	const {
 		control,
@@ -30,9 +41,12 @@ export default function NewPassword() {
 	} = useForm<INewPassword>({ mode: "onBlur" });
 
 	const onSubmit = (data: INewPassword) => {
-		setEmail(data?.enterEmail);
-		handleNewPasswordModal();
-		reset();
+		if (data) {
+			setEmail(data?.email);
+			restoreButtonClick(data);
+			handleNewPasswordModal();
+			reset();
+		}
 	};
 
 	const handleNewPasswordModal = () => {
@@ -46,6 +60,35 @@ export default function NewPassword() {
 	const emailRules = {
 		required: { value: true, message: "Поле обязательно для заполнения" },
 		pattern: { value: emailRegex, message: "Значение не соответствует формату email" },
+	};
+
+	useEffect(() => {
+		setBaseUrl(getCorrectBaseUrl());
+	}, []);
+
+	const router = useRouter();
+
+	const isAxiosError = (error: unknown): error is AxiosError => {
+		return (error as AxiosError).isAxiosError !== undefined;
+	};
+
+	const restoreButtonClick = async (data: INewPassword) => {
+		try {
+			if (baseUrl) {
+				await ResetPassword(baseUrl, data);
+				router.push(MainPath.ChangePassword);
+			} else {
+				return router.push(MainPath.ServerError);
+			}
+		} catch (error) {
+			if (
+				isAxiosError(error) &&
+				error?.response?.status >= ApiResponseCode.SERVER_ERROR_STATUS_MIN &&
+				error?.response?.status < ApiResponseCode.SERVER_ERROR_STATUS_MAX
+			) {
+				return router.push(MainPath.ServerError);
+			}
+		}
 	};
 
 	return (
@@ -65,19 +108,19 @@ export default function NewPassword() {
 						<h1 className={style.newPasswordContainer__form__title}>Восстановление пароля</h1>
 						<form onSubmit={handleSubmit(onSubmit)}>
 							<NewPasswordModal email={email} open={isNewPasswordModalShown} toggle={closeNewPasswordModal} />
-							<label htmlFor="enterEmail" className={style.formWrap__emailTitle}>
+							<label htmlFor="email" className={style.formWrap__emailTitle}>
 								Введите почту
 							</label>
 							<Controller
-								name="enterEmail"
+								name="email"
 								control={control}
 								rules={emailRules}
 								defaultValue=""
 								render={({ field }) => (
-									<input id="enterEmail" className={style.newPasswordRow} placeholder="_@_._" {...field} />
+									<input id="email" className={style.newPasswordRow} placeholder="_@_._" {...field} />
 								)}
 							/>
-							{errors?.enterEmail && <span role="alert">{errors.enterEmail.message}</span>}
+							{errors?.email && <span role="alert">{errors.email.message}</span>}
 							<div className={style.newPassword__modal__buttons}>
 								<input className={style.backButton} type="submit" value="Назад" />
 								<input className={style.restoreButton} type="submit" value="Восстановить" />

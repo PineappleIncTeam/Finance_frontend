@@ -1,7 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
+import { useRouter } from "next/navigation";
+import { AxiosError } from "axios";
 
 import { IChangePassword } from "../../../types/pages/Password";
 import ChangePasswordModal from "../../../components/mainLayout/changePasswordModal/changePasswordModal";
@@ -17,9 +19,51 @@ import { OvalIcon } from "../../../assets/script/changePassword/OvalIcon";
 import { ManIcon } from "../../../assets/script/changePassword/ManIcon";
 import { VisibilityOffIcon } from "../../../assets/script/changePassword/VisibilityOffIcon";
 
+import { getCorrectBaseUrl } from "../../../utils/baseUrlConverter";
+
+import { SetPassword } from "../../../services/api/auth/SetPassword";
+
+import { MainPath } from "../../../services/router/routes";
+
+import { ApiResponseCode } from "../../../helpers/apiResponseCode";
+
 import style from "./changePassword.module.scss";
 
 export default function ChangePassword() {
+	const [baseUrl, setBaseUrl] = useState<string>();
+	const [isNewPasswordShown, setIsEnterNewPasswordShown] = useState(false);
+	const [isCurrentPasswordShown, setIsReenterNewPasswordShown] = useState(false);
+	const [isChangePasswordModalShown, setIsChangePasswordModalShown] = useState(false);
+
+	useEffect(() => {
+		setBaseUrl(getCorrectBaseUrl());
+	}, []);
+
+	const router = useRouter();
+
+	const isAxiosError = (error: unknown): error is AxiosError => {
+		return (error as AxiosError).isAxiosError !== undefined;
+	};
+
+	const saveButtonClick = async (data: IChangePassword) => {
+		try {
+			if (baseUrl) {
+				await SetPassword(baseUrl, data);
+				router.push(MainPath.Login);
+			} else {
+				return router.push(MainPath.ServerError);
+			}
+		} catch (error) {
+			if (
+				isAxiosError(error) &&
+				error?.response?.status >= ApiResponseCode.SERVER_ERROR_STATUS_MIN &&
+				error?.response?.status < ApiResponseCode.SERVER_ERROR_STATUS_MAX
+			) {
+				return router.push(MainPath.ServerError);
+			}
+		}
+	};
+
 	const {
 		control,
 		handleSubmit,
@@ -29,21 +73,17 @@ export default function ChangePassword() {
 	} = useForm<IChangePassword>({ mode: "onBlur" });
 
 	const onSubmit = (data: IChangePassword) => {
-		alert(JSON.stringify(data));
+		saveButtonClick(data);
 		handleChangePasswordModal();
 		reset();
 	};
 
-	const [isEnterNewPasswordShown, setIsEnterNewPasswordShown] = useState(false);
-	const [isReenterNewPasswordShown, setIsReenterNewPasswordShown] = useState(false);
-	const [isChangePasswordModalShown, setIsChangePasswordModalShown] = useState(false);
-
-	const toggleEnterPasswordVisibility = () => {
-		setIsEnterNewPasswordShown(isEnterNewPasswordShown ? false : true);
+	const toggleNewPasswordVisibility = () => {
+		setIsEnterNewPasswordShown(isNewPasswordShown ? false : true);
 	};
 
-	const toggleReenterPasswordVisibility = () => {
-		setIsReenterNewPasswordShown(isReenterNewPasswordShown ? false : true);
+	const toggleCurrentPasswordVisibility = () => {
+		setIsReenterNewPasswordShown(isCurrentPasswordShown ? false : true);
 	};
 
 	const handleChangePasswordModal = () => {
@@ -53,7 +93,7 @@ export default function ChangePassword() {
 	};
 
 	const validatePasswords = (value: string) => {
-		if (watch("enterNewPassword") !== value) {
+		if (watch("current_password") !== value) {
 			return "Ваши пароли не совпадают";
 		}
 	};
@@ -80,54 +120,56 @@ export default function ChangePassword() {
 						<h1 className={style.changePasswordContainer__form__title}>Изменение пароля</h1>
 						<form onSubmit={handleSubmit(onSubmit)}>
 							<ChangePasswordModal open={isChangePasswordModalShown} />
-							<label htmlFor="enterNewPassword" className={style.formWrap_passwordTitle}>
+							<label htmlFor="new_password" className={style.formWrap_passwordTitle}>
 								Введите новый пароль
 							</label>
 							<Controller
-								name="enterNewPassword"
+								name="new_password"
 								control={control}
 								rules={passwordRules}
 								defaultValue=""
 								render={({ field }) => (
 									<input
-										id="enterNewPassword"
+										id="new_password"
 										className={style.changePasswordRow}
-										type={isEnterNewPasswordShown ? "text" : "password"}
+										type={isNewPasswordShown ? "text" : "password"}
 										placeholder="Пароль"
 										{...field}
+										autoComplete="on"
 									/>
 								)}
 							/>
-							<button type="button" onClick={toggleEnterPasswordVisibility}>
+							<button type="button" onClick={toggleNewPasswordVisibility}>
 								<VisibilityOffIcon classNames={style.visibilityOffIcon} />
 							</button>
-							{errors?.enterNewPassword && <span role="alert">{errors.enterNewPassword.message}</span>}
+							{errors?.new_password && <span role="alert">{errors?.new_password?.message}</span>}
 							<p className={style.changePasswordHelper}>
 								Пароль должен состоять из 6 и более символов, среди которых хотя бы одна буква верхнего регистра и хотя
 								бы одна цифра
 							</p>
-							<label htmlFor="reenterNewPassword" className={style.formWrap_passwordTitle}>
+							<label htmlFor="current_password" className={style.formWrap_passwordTitle}>
 								Повторите пароль
 							</label>
 							<Controller
-								name="reenterNewPassword"
+								name="current_password"
 								control={control}
 								rules={{ ...passwordRules, validate: validatePasswords }}
 								defaultValue=""
 								render={({ field }) => (
 									<input
-										id="reenterNewPassword"
+										id="current_password"
 										className={style.changePasswordRow}
-										type={isReenterNewPasswordShown ? "text" : "password"}
+										type={isCurrentPasswordShown ? "text" : "password"}
 										placeholder="Пароль"
 										{...field}
+										autoComplete="on"
 									/>
 								)}
 							/>
-							<button type="button" onClick={toggleReenterPasswordVisibility}>
+							<button type="button" onClick={toggleCurrentPasswordVisibility}>
 								<VisibilityOffIcon classNames={style.visibilityOffIcon2} />
 							</button>
-							{errors?.reenterNewPassword?.message}
+							{errors?.current_password?.message}
 							<input className={style.saveButton} type="submit" value="Сохранить" />
 						</form>
 					</div>

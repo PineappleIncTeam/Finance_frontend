@@ -1,8 +1,8 @@
 export interface IChangePassword {
-	enterNewPassword: string;
-	reenterNewPassword: string;
+	new_password: string;
+	current_password: string;
 }
 
 export interface INewPassword {
-	enterEmail: string;
+	email: string;
 }

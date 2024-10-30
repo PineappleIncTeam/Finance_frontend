@@ -9,11 +9,15 @@ const Footer = () => {
 	const copyrightYear: number = actualDate.getFullYear();
 
 	return (
-		<div className={styles.footerContainer}>
-			<p className={styles.footerContainer__copyright}>Copyright © {copyrightYear} freenance | All Rights Reserved</p>
-			<Link href={MainPath.UserAgreement} className={styles.footerContainer__link}>
-				Пользовательское соглашение
-			</Link>
+		<div className={styles.footerWrap}>
+			<div className={styles.footerContainer}>
+				<p className={styles.footerContainer__copyright}>
+					Copyright © {copyrightYear} freenance | All Rights Reserved
+				</p>
+				<Link href={MainPath.UserAgreement} className={styles.footerContainer__link}>
+					Пользовательское соглашение
+				</Link>
+			</div>
 		</div>
 	);
 };

@@ -9,37 +9,52 @@ function AgreementPage() {
 		<div className={style.AgreementPageWrap}>
 			<div className={style.AgreementPageContainer}>
 				<div className={style.AgreementPageContent}>
-					<h1 className={style.AgreementArticleTitle}>Привет</h1>
-					{agreement.userAgreement.management}
-					{agreement.userAgreement.management}
-					{agreement.userAgreement.management}
-					{agreement.userAgreement.management}
-					{agreement.userAgreement.management}
-					{agreement.userAgreement.management}
-					Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nostrum vel dicta cumque beatae laborum laboriosam
-					assumenda nisi vitae ullam earum, perspiciatis deserunt molestias velit repellendus iste eaque, aperiam
-					excepturi dolorum! Lorem, ipsum dolor sit amet consectetur adipisicing elit. Totam natus vitae perspiciatis
-					asperiores obcaecati! Repellendus labore delectus quae fugit tenetur dignissimos ab laboriosam blanditiis
-					dicta saepe, officia id quisquam sit. Ea ratione nemo omnis modi atque ullam tempore, aspernatur libero illo
-					assumenda ipsum fugit temporibus aperiam labore commodi alias incidunt beatae, odio corrupti impedit eos
-					voluptatibus eaque doloribus iusto? Voluptatibus? Dolore adipisci tempore debitis odio officia nam eligendi
-					voluptatum quidem dolorum. Quo odio perspiciatis, dolorem reprehenderit aut explicabo nemo earum ea? Sint
-					doloribus atque expedita magni eaque debitis quae aspernatur! Distinctio repellendus consequuntur assumenda
-					eligendi iure ea, sunt doloribus numquam nostrum, quaerat perspiciatis praesentium? Veniam repellat excepturi
-					consectetur cumque id officiis veritatis, quibusdam, ad nemo labore ex fugit qui corrupti! Libero autem iure
-					asperiores aliquam optio earum esse nesciunt molestias deleniti, explicabo dignissimos architecto, ex amet
-					vitae beatae maxime porro ratione neque unde deserunt ipsum commodi impedit consequatur qui? Incidunt? Ullam
-					obcaecati nam dolorem excepturi veritatis ipsum asperiores ut optio odio. Id est sunt earum quos, ipsa error
-					provident accusamus quod tenetur neque et accusantium, deserunt omnis, doloribus illum explicabo. Ratione
-					deserunt voluptatibus amet, incidunt quis minima accusantium ipsam labore quas eum, corrupti doloribus cumque
-					atque quo facilis nobis facere voluptas repellat assumenda eaque excepturi tenetur inventore rem ducimus!
-					Quia? Harum sit corrupti nemo id sed velit eum rem incidunt iure, cumque dolor. Laboriosam quisquam esse sunt,
-					veniam vero explicabo, suscipit quo hic consectetur possimus cum odio quod sint fugit? Repellat dolorem
-					ducimus voluptatum ratione ipsam? Quidem ipsam vero voluptatem dolor qui quisquam perferendis. Nisi quae fugit
-					temporibus voluptate cupiditate, doloremque velit unde sapiente fugiat, et, explicabo delectus eos nobis.
-					Animi necessitatibus culpa voluptatibus voluptatem temporibus provident labore numquam in odio placeat amet
-					porro exercitationem, nulla eos reiciendis officiis perferendis quasi magnam asperiores natus facilis ut
-					assumenda deserunt quidem? Magni!
+					<h1 className={style.AgreementArticleTitle}>Пользовательское соглашение</h1>
+					<p>Дата вступления в силу: {agreement.userAgreement.dateEffective}</p>
+					<h2 className={style.AgreementArticleTitle}>1. Введение</h2>
+					<p>{agreement.userAgreement.introduction}</p>
+					<h2 className={style.AgreementArticleTitle}>2. Регистрация и учетная запись</h2>
+					<p>2.1. {agreement.userAgreement.registration.description}</p>
+					<p>2.2. {agreement.userAgreement.registration.responsibility}</p>
+					<p>2.3. {agreement.userAgreement.registration.security}</p>
+					<h2 className={style.AgreementArticleTitle}>3. Описание Сервисов</h2>
+					<p>{agreement.userAgreement.servicesDescription}</p>
+					<h2 className={style.AgreementArticleTitle}>4. Права и обязанности Пользователя</h2>
+					<p>Пользователь обязуется:</p>
+					{agreement.userAgreement.userObligations.map((text: string, index: number) => {
+						return (
+							<p key={text}>
+								4.{index + 1}. {text}
+							</p>
+						);
+					})}
+					<h2 className={style.AgreementArticleTitle}>5. Права и обязанности Администрации</h2>
+					<p>Администрация вправе:</p>
+					{agreement.userAgreement.administrationRights.map((text: string, index: number) => {
+						return (
+							<p key={text}>
+								5.{index + 1}. {text}
+							</p>
+						);
+					})}
+					<h2 className={style.AgreementArticleTitle}>6. Конфиденциальность и защита персональных данных</h2>
+					<p>{agreement.userAgreement.confidentiality.userRights}</p>
+					<p>{agreement.userAgreement.confidentiality.personalDataPolicy}</p>
+					<h2 className={style.AgreementArticleTitle}>7. Использование файлов cookie</h2>
+					<p>{agreement.userAgreement.cookiesUsage}</p>
+					<h2 className={style.AgreementArticleTitle}>8. Ограничение ответственности</h2>
+					<p>{agreement.userAgreement.limitationOfLiability}</p>
+
+					<h2 className={style.AgreementArticleTitle}>9. Изменения в Соглашении</h2>
+					<p>{agreement.userAgreement.changesToAgreement}</p>
+					<h2 className={style.AgreementArticleTitle}>10. Заключительные положения</h2>
+					<p>{agreement.userAgreement.finalProvisions.governingLaw}</p>
+					<p>{agreement.userAgreement.finalProvisions.disputeResolution}</p>
+					<p>
+						<span className={style.AgreementArticleStrong}>Контактная информация:</span>{" "}
+						{agreement.userAgreement.contactInformation.note}{" "}
+						<span className={style.AgreementArticleStrong}>{agreement.userAgreement.contactInformation.email}</span>
+					</p>
 				</div>
 			</div>
 		</div>

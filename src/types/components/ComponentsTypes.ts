@@ -19,3 +19,7 @@ export interface IInviteModal {
 	isOpen: boolean;
 	onClose: () => void;
 }
+
+export interface IYoutubeEmbed {
+	embedId: string;
+}

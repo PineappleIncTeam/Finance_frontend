@@ -21,7 +21,7 @@ import { VisibilityOffIcon } from "../../../assets/script/changePassword/Visibil
 
 import { getCorrectBaseUrl } from "../../../utils/baseUrlConverter";
 
-import { SetPassword } from "../../../services/api/auth/SetPassword";
+import { SetPassword } from "../../../services/api/auth/ResetPasswordConfirm";
 
 import { MainPath } from "../../../services/router/routes";
 
@@ -31,8 +31,8 @@ import style from "./changePassword.module.scss";
 
 export default function ChangePassword() {
 	const [baseUrl, setBaseUrl] = useState<string>();
-	const [isNewPasswordShown, setIsEnterNewPasswordShown] = useState(false);
-	const [isCurrentPasswordShown, setIsReenterNewPasswordShown] = useState(false);
+	const [isNewPasswordShown, setIsNewPasswordShown] = useState(false);
+	const [isReNewPasswordShown, setIsReNewPasswordShown] = useState(false);
 	const [isChangePasswordModalShown, setIsChangePasswordModalShown] = useState(false);
 
 	useEffect(() => {
@@ -79,11 +79,11 @@ export default function ChangePassword() {
 	};
 
 	const toggleNewPasswordVisibility = () => {
-		setIsEnterNewPasswordShown(isNewPasswordShown ? false : true);
+		setIsNewPasswordShown(isNewPasswordShown ? false : true);
 	};
 
-	const toggleCurrentPasswordVisibility = () => {
-		setIsReenterNewPasswordShown(isCurrentPasswordShown ? false : true);
+	const toggleReNewPasswordVisibility = () => {
+		setIsReNewPasswordShown(isReNewPasswordShown ? false : true);
 	};
 
 	const handleChangePasswordModal = () => {
@@ -93,7 +93,7 @@ export default function ChangePassword() {
 	};
 
 	const validatePasswords = (value: string) => {
-		if (watch("current_password") !== value) {
+		if (watch("re_new_password") !== value) {
 			return "Ваши пароли не совпадают";
 		}
 	};
@@ -147,29 +147,29 @@ export default function ChangePassword() {
 								Пароль должен состоять из 6 и более символов, среди которых хотя бы одна буква верхнего регистра и хотя
 								бы одна цифра
 							</p>
-							<label htmlFor="current_password" className={style.formWrap_passwordTitle}>
+							<label htmlFor="re_new_password" className={style.formWrap_passwordTitle}>
 								Повторите пароль
 							</label>
 							<Controller
-								name="current_password"
+								name="re_new_password"
 								control={control}
 								rules={{ ...passwordRules, validate: validatePasswords }}
 								defaultValue=""
 								render={({ field }) => (
 									<input
-										id="current_password"
+										id="re_new_password"
 										className={style.changePasswordRow}
-										type={isCurrentPasswordShown ? "text" : "password"}
+										type={isReNewPasswordShown ? "text" : "password"}
 										placeholder="Пароль"
 										{...field}
 										autoComplete="on"
 									/>
 								)}
 							/>
-							<button type="button" onClick={toggleCurrentPasswordVisibility}>
+							<button type="button" onClick={toggleReNewPasswordVisibility}>
 								<VisibilityOffIcon classNames={style.visibilityOffIcon2} />
 							</button>
-							{errors?.current_password?.message}
+							{errors?.re_new_password?.message}
 							<input className={style.saveButton} type="submit" value="Сохранить" />
 						</form>
 					</div>

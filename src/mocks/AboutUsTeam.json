@@ -2,15 +2,15 @@
 	"team": [
 		{
 			"teamRole": "Product owner",
-			"photo": "/teamImages/Analitic.jpeg"
+			"photo": "/teamImages/Product-owner.webp"
 		},
 		{
 			"teamRole": "Product manager",
-			"photo": "/teamImages/Product-manager.jpeg"
+			"photo": "/teamImages/Product-manager.webp"
 		},
 		{
 			"teamRole": "Analitic",
-			"photo": "/teamImages/Product-owner.jpeg"
+			"photo": "/teamImages/Analitic.webp"
 		}
 	]
 }

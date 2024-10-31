@@ -32,6 +32,18 @@
 	width: 54%;
 	background-color: var(--color-pure-light);
 	border-radius: 20px;
+
+	@media (max-width: 1440px) {
+		width: 62%;
+	}
+
+	@media (max-width: 1024px) {
+		width: 90%;
+	}
+
+	@media (max-width: 768px) {
+		width: 92%;
+	}
 }
 
 .AgreementPageContent {
@@ -52,32 +64,29 @@
 		margin-bottom: 16px;
 	}
 
-	// @media (max-width: 1024) {
-	// 	& {
-	// 		width: calc(100vw - 18%);
-	// 	}
-	// }
+	@media (max-width: 768px) {
+		font-size: 16px;
+		line-height: 22px;
+	}
 
-	// @media (max-width: 810) {
-	// 	& {
-	// 		overflow-x: hidden;
-	// 	}
-	// }
-
-	// @media (max-width: 460) {
-	// 	& {
-	// 		height: 600px;
-	// 	}
-	// }
+	@media (max-width: 360px) {
+		font-size: 13px;
+		line-height: 18px;
+	}
 }
 
 .AgreementArticleTitle {
-	font-family: Rubik;
 	font-size: 24px;
 	font-weight: 500;
 	line-height: 32px;
 	text-align: left;
 	margin-bottom: 16px;
+
+	@media (max-width: 360px) {
+		font-size: 20px;
+		font-weight: 400;
+		line-height: 28px;
+	}
 }
 
 .AgreementArticleStrong {

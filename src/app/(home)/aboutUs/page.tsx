@@ -2,16 +2,16 @@ import Footer from "../../../components/mainLayout/footer/footer";
 
 import AboutUsCard from "../../../components/mainLayout/aboutUsCard/aboutUsCard";
 
-import teamList from "../../../mocks/AboutUsTeam.json";
+import { IAboutUsCard, ITeamMember } from "../../../types/common/ComponentsProps";
 
-import { IAboutUsCard, ITeamList } from "../../../types/common/ComponentsProps";
+import { AboutUsTeam } from "../../../mocks/AboutUsTeam";
 
 import style from "./aboutUs.module.scss";
 
 function AboutUs() {
-	function cardsList(teamList: ITeamList) {
-		return teamList && teamList?.team.length ? (
-			teamList.team.map(({ teamRole, photo }: IAboutUsCard) => (
+	function cardsList(AboutUsTeam: ITeamMember[]) {
+		return AboutUsTeam.length ? (
+			AboutUsTeam.map(({ teamRole, photo }: IAboutUsCard) => (
 				<AboutUsCard photo={photo} teamRole={teamRole} key={teamRole} />
 			))
 		) : (
@@ -23,7 +23,7 @@ function AboutUs() {
 			<div className={style.aboutUsContainer}>
 				<div className={style.aboutUsMain}>
 					<div className={style.aboutUsTitle}>Классные ребята с горящими глазами.</div>
-					<div className={style.aboutUsCards}>{cardsList(teamList)}</div>
+					<div className={style.aboutUsCards}>{cardsList(AboutUsTeam)}</div>
 				</div>
 				<Footer />
 			</div>

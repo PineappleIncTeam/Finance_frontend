@@ -63,6 +63,4 @@ export interface ITeamMember {
 	photo: string;
 }
 
-export interface ITeamList {
-	team: ITeamMember[];
-}
+

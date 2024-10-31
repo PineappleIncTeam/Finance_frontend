@@ -3,13 +3,14 @@
 import { useState } from "react";
 import cn from "classnames";
 
+import Link from "next/link";
+
 import useAppSelector from "../../../hooks/useAppSelector";
 import useAppDispatch from "../../../hooks/useAppDispatch";
 
 import Button from "../../../ui/button/button";
 import cookieStatusSelector from "../../../services/redux/features/cookieStatus/cookieStatusSelector";
 import { setCookieStatus } from "../../../services/redux/features/cookieStatus/cookieStatusSlice";
-import { cookieLinkTitle } from "../../../mocks/linkSetup";
 
 import styles from "./cookiePopupWindowPage.module.scss";
 
@@ -36,9 +37,9 @@ const CookiePopupWindowPage = () => {
 				</div>
 				<div className={styles.textContentBlock__subtitle}>
 					Все на сайте — для вас,{" "}
-					<a href={cookieLinkTitle} target="_blank" rel="noreferrer" className={styles.textContentBlock__link}>
+					<Link href={"/agreement"} className={styles.textContentBlock__link} onClick={handleClick}>
 						«cookies»
-					</a>{" "}
+					</Link>{" "}
 					— для нас. Собираем их, чтобы сделать наш сайт еще удобнее. Ограничить или настроить их можно в браузере.
 				</div>
 				<Button

@@ -12,3 +12,21 @@
     width: 100%;
     position: absolute;
 }
+
+.fallbackImageWrapper {
+    position: relative;
+    text-align: center;
+}
+
+.fallbackImage {
+    width: 700px;
+    height: 500px;
+
+    &__Text {
+        position: absolute;
+        width: 300px;
+        top: 10%;
+        left: 38%;
+    }
+    
+}

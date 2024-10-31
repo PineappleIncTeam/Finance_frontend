@@ -1,4 +1,4 @@
-.AgreementPageWrap {
+.agreementPageWrap {
 	width: 100%;
 	height: calc(100vh - 156px);
 	background-color: var(--color-silver-gray);
@@ -22,7 +22,7 @@
 	}
 }
 
-.AgreementPageContainer {
+.agreementPageContainer {
 	padding-top: 40px;
 	padding-right: 50px;
 	padding-bottom: 40px;
@@ -46,7 +46,7 @@
 	}
 }
 
-.AgreementPageContent {
+.agreementPageContent {
 	overflow-y: scroll;
 	overflow-x: hidden;
 	scrollbar-width: thin;
@@ -75,7 +75,7 @@
 	}
 }
 
-.AgreementArticleTitle {
+.agreementArticleTitle {
 	font-size: 24px;
 	font-weight: 500;
 	line-height: 32px;
@@ -89,6 +89,6 @@
 	}
 }
 
-.AgreementArticleStrong {
+.agreementArticleStrong {
 	font-weight: 600;
 }

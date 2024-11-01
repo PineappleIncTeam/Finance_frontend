@@ -35,7 +35,7 @@ export default function BlogArticle({ image, date, title, articleContent, id }: 
 		<div className={style.BlogArticleContainer}>
 			<div className={style.BlogArticleContent}>
 				<div className={style.BlogArticleHeaderWrapper}>
-					<Image className={style.BlogArticleImage} src={image ?? mockImage} alt="descriptionImage" />
+					<Image className={style.BlogArticleImage} src={image ?? mockImage} alt="descriptionImage" priority={true} />
 					<div className={style.BlogArticleTitleWrapper}>
 						<p className={style.BlogArticleDate}>{date}</p>
 						<button

@@ -53,7 +53,7 @@ export default function Blog() {
 						descriptionImage="money flower"
 						text="5 шагов к успешному управлению личными финансами с помощью приложения"
 						blogAction={transitionList.firstTransition}
-						id="12"
+						id="1"
 					/>
 					<BlogCard
 						image={notebook}
@@ -61,7 +61,7 @@ export default function Blog() {
 						descriptionImage="notebook"
 						text={"Плюсы и минусы автоматизации учета финансов при помощи приложений"}
 						blogAction={transitionList.secondTransition}
-						id="123"
+						id="2"
 					/>
 					<BlogCard
 						image={workEnvironment}
@@ -69,7 +69,7 @@ export default function Blog() {
 						descriptionImage="wok environment"
 						text="Какие ошибки чаще всего допускают пользователи при использовании приложений для учета финансов и как их избежать"
 						blogAction={transitionList.thirdTransition}
-						id="1234"
+						id="3"
 					/>
 				</div>
 				<Footer />

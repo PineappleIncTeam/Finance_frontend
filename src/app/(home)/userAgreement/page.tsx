@@ -2,9 +2,9 @@
 
 import agreement from "../../../mocks/Agreement.json";
 
-import style from "./agreement.module.scss";
+import style from "./userAgreement.module.scss";
 
-function AgreementPage() {
+function UserAgreementPage() {
 	const AgreementItems = (array: string[], itemNumber: number) => {
 		return array.map((text: string, index: number) => {
 			return (
@@ -14,7 +14,7 @@ function AgreementPage() {
 			);
 		});
 	};
-	const AgreementArticle = () => {
+	const UserAgreementArticle = () => {
 		return (
 			<>
 				<h1 className={style.agreementArticleTitle}>Пользовательское соглашение</h1>
@@ -53,10 +53,10 @@ function AgreementPage() {
 	return (
 		<div className={style.agreementPageWrap}>
 			<div className={style.agreementPageContainer}>
-				<div className={style.agreementPageContent}>{AgreementArticle()}</div>
+				<div className={style.agreementPageContent}>{UserAgreementArticle()}</div>
 			</div>
 		</div>
 	);
 }
 
-export default AgreementPage;
+export default UserAgreementPage;

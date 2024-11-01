@@ -39,7 +39,7 @@ const CookiePopupWindowPage = () => {
 				</div>
 				<div className={styles.textContentBlock__subtitle}>
 					Все на сайте — для вас,{" "}
-					<Link href={MainPath.Agreement} className={styles.textContentBlock__link} onClick={handleClick}>
+					<Link href={MainPath.UserAgreement} className={styles.textContentBlock__link} onClick={handleClick}>
 						«cookies»
 					</Link>{" "}
 					— для нас. Собираем их, чтобы сделать наш сайт еще удобнее. Ограничить или настроить их можно в браузере.

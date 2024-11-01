@@ -19,7 +19,7 @@ export const blogArticles: IBlogArticle[] = [
 			"4. Используйте статистику ",
 			"5. Пользуйтесь советами финансового помощника",
 		],
-		id: "15",
+		id: "1",
 	},
 	{
 		image: notebook as unknown as string,

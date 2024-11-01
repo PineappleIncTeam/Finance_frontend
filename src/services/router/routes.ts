@@ -8,7 +8,7 @@ export enum MainPath {
 	Blog = "/blog",
 	ChangePassword = "/changePassword",
 	NewPassword = "/newPassword",
-	UserAgreement = "/userAgreement",
+	Agreement = "/agreement",
 	NotFound = "/notfound",
 	BlogPage = "/blogPage",
 }

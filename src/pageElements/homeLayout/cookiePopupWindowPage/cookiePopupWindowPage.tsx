@@ -12,6 +12,8 @@ import Button from "../../../ui/button/button";
 import cookieStatusSelector from "../../../services/redux/features/cookieStatus/cookieStatusSelector";
 import { setCookieStatus } from "../../../services/redux/features/cookieStatus/cookieStatusSlice";
 
+import { MainPath } from "../../../services/router/routes";
+
 import styles from "./cookiePopupWindowPage.module.scss";
 
 const CookiePopupWindowPage = () => {
@@ -37,7 +39,7 @@ const CookiePopupWindowPage = () => {
 				</div>
 				<div className={styles.textContentBlock__subtitle}>
 					Все на сайте — для вас,{" "}
-					<Link href={"/agreement"} className={styles.textContentBlock__link} onClick={handleClick}>
+					<Link href={MainPath.Agreement} className={styles.textContentBlock__link} onClick={handleClick}>
 						«cookies»
 					</Link>{" "}
 					— для нас. Собираем их, чтобы сделать наш сайт еще удобнее. Ограничить или настроить их можно в браузере.

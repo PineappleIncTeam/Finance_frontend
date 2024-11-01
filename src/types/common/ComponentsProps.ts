@@ -60,9 +60,7 @@ export interface IAboutUsCard {
 
 export interface ITeamMember {
 	teamRole: string;
-	photo: string;
+	photo: StaticImageData;
 }
 
-export interface ITeamList {
-	team: ITeamMember[];
-}
+

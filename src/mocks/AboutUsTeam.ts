@@ -5,17 +5,16 @@ import productManager from "./teamImages/Product-manager.webp";
 import analitic from "./teamImages/Analitic.webp";
 
 export const AboutUsTeam: ITeamMember[] = [
-
 	{
 		teamRole: "Product owner",
-		photo: productOwner
+		photo: productOwner,
 	},
 	{
 		teamRole: "Product manager",
-		photo: productManager
+		photo: productManager,
 	},
 	{
 		teamRole: "Analitic",
-		photo: analitic
-	}
-]
+		photo: analitic,
+	},
+];

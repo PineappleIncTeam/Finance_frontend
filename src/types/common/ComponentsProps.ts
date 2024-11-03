@@ -62,5 +62,3 @@ export interface ITeamMember {
 	teamRole: string;
 	photo: StaticImageData;
 }
-
-

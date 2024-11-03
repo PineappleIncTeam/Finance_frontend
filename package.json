@@ -32,7 +32,7 @@
 		"react-redux": "^9.1.2",
 		"redux-persist": "^6.0.0",
 		"sass": "^1.80.6",
-		"sass-embedded": "^1.80.6",
+		"sass-loader": "^16.0.3",
 		"sharp": "^0.33.5"
 	},
 	"devDependencies": {

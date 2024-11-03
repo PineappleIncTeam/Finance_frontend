@@ -4,16 +4,16 @@ import cn from "classnames";
 import Image from "next/image";
 
 import { IInputProps } from "../../types/common/UiKitProps";
-import { ISignUpForm } from "../../types/components/ComponentsTypes";
+import { ISignInForm, ISignUpForm } from "../../types/components/ComponentsTypes";
 import { InputType } from "../../helpers/Input";
 
 import showPassword from "../../assets/pages/signUp/showPassword.svg";
 
-import styles from "./Input.module.css";
+import styles from "./Input.module.scss";
 
 const Input = ({ label, type, placeholder, autoComplete, subtitle, error, ...props }: IInputProps) => {
-	const { field, fieldState } = useController<ISignUpForm>(props);
-	const [passwordType, setPasswordType] = useState(InputType.Password);
+	const { field, fieldState } = useController<ISignUpForm | ISignInForm>(props);
+	const [passwordType, setPasswordType] = useState<InputType>(InputType.Password);
 	const togglePasswordVisibility = () =>
 		setPasswordType(passwordType === InputType.Password ? InputType.Text : InputType.Password);
 
@@ -34,7 +34,7 @@ const Input = ({ label, type, placeholder, autoComplete, subtitle, error, ...pro
 					</button>
 				)}
 			</div>
-			{fieldState.error && <p className={styles.inputWrap__error}>{fieldState.error.message || error}</p>}
+			{fieldState.error && <p className={styles.inputWrap__error}>{fieldState.error.message || (error as string)}</p>}
 			{subtitle && !error && <p className={styles.inputWrap__subtitle}>{subtitle}</p>}
 		</div>
 	);

@@ -1,3 +1,22 @@
+.footerWrap {
+	width: 84%;
+	margin: 0 auto;
+	padding-bottom: 40px;
+	flex: 0 0 auto;
+
+	@media (max-width: 1440px) {
+		& {
+			width: 92%;
+		}
+	}
+
+	@media (max-width: 1024px) {
+		& {
+			padding-bottom: 30px;
+		}
+	}
+}
+
 .footerContainer {
 	display: flex;
 	flex-direction: column;

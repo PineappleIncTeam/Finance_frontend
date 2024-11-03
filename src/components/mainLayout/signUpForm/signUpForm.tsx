@@ -1,6 +1,7 @@
 /* eslint-disable import/named */
 "use client";
 
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import { AxiosError, HttpStatusCode } from "axios";
@@ -14,18 +15,20 @@ import { formHelpers } from "../../../utils/formHelpers";
 import { InputType } from "../../../helpers/Input";
 import { registration } from "../../../services/api/auth/Registration";
 import { MainPath } from "../../../services/router/routes";
+import { getCorrectBaseUrl } from "../../../utils/baseUrlConverter";
 import { ApiResponseCode } from "../../../helpers/apiResponseCode";
 import { vkLink } from "../../../mocks/linkSetup";
 
 import styles from "./signUpForm.module.scss";
 
 const SignUpForm = () => {
+	const [baseUrl, setBaseUrl] = useState<string>();
 	const {
 		formState: { errors },
 		control,
 		watch,
 		handleSubmit,
-	} = useForm<ISignUpForm>({
+	} = useForm<ISignUpForm | any>({
 		defaultValues: {
 			email: "",
 			password: "",
@@ -37,6 +40,10 @@ const SignUpForm = () => {
 	});
 
 	const router = useRouter();
+
+	useEffect(() => {
+		setBaseUrl(getCorrectBaseUrl());
+	}, []);
 
 	const validateRepeatPassword = (value: string) => {
 		const password = watch(InputType.Password);
@@ -53,8 +60,12 @@ const SignUpForm = () => {
 
 	const onSubmit = async (data: ISignUpForm) => {
 		try {
-			await registration(data);
-			router.push(MainPath.Login);
+			if (baseUrl) {
+				await registration(baseUrl, data);
+				router.push(MainPath.Login);
+			} else {
+				return router.push(MainPath.ServerError);
+			}
 		} catch (error) {
 			if (
 				isAxiosError(error) &&

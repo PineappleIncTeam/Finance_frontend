@@ -1,0 +1,136 @@
+.signInFormWrap {
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+	width: 550px;
+	background-color: var(--color-pure-light);
+	box-shadow: 0px 4px 20px 0px var(--color-black-eight-part);
+	border-radius: 12px;
+
+	@media (max-width: 550px) {
+		& {
+			width: 332px;
+		}
+	}
+}
+
+.signInFormContainer {
+	max-width: 420px;
+	padding: 62px 0;
+
+	@media (max-width: 550px) {
+		& {
+			max-width: 300px;
+			padding: 24px 0 32px 0;
+		}
+	}
+}
+
+.dividerWrap {
+	display: flex;
+	align-items: center;
+	margin: 30px 0 20px 0;
+}
+
+.dividerWrap__line {
+	flex-grow: 1;
+	height: 2px;
+	background-color: var(--color-gainsboro);
+	z-index: 10;
+	width: 170px;
+
+	@media (max-width: 550px) {
+		& {
+			width: 110px;
+		}
+	}
+}
+
+.dividerWrap__subtitle {
+	padding: 0 20px;
+	white-space: nowrap;
+	font-size: 2.2rem;
+	font-weight: 400;
+	color: var(--color-eerie-black);
+
+	@media (max-width: 550px) {
+		& {
+			font-size: 1.6rem;
+		}
+	}
+}
+
+.signInFormContainer__auth {
+	font-size: 1.6rem;
+	font-weight: 400;
+	color: var(--color-eerie-black);
+	text-align: center;
+
+	@media (max-width: 550px) {
+		& {
+			font-size: 1.3rem;
+		}
+	}
+}
+
+.signInFormContainer__auth_link {
+	color: var(--color-dark-spring-green);
+	cursor: pointer;
+}
+
+.actionWrap {
+	width: 100%;
+	margin: 15px 0 32px 0;
+	display: flex;
+	justify-content: space-between;
+
+	@media (max-width: 550px) {
+		& {
+			margin: 10px 0 20px 0;
+		}
+	}
+}
+
+.additionalFunctionsWrap {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	margin-bottom: 3.2rem;
+}
+
+.additionalFunctionsWrap__checkbox {
+	display: flex;
+	align-items: center;
+	gap: 14px;
+	@media (max-width: 550px) {
+		gap: 12px;
+	}
+}
+
+.checkBoxText {
+	font-size: 1.6rem;
+	font-weight: 400;
+	color: var(--color-eerie-black);
+	@media (max-width: 550px) {
+		font-size: 1.3rem;
+	}
+}
+
+.forgetPassword {
+	font-size: 1.6rem;
+	font-weight: 400;
+	color: var(--color-dark-spring-green);
+	@media (max-width: 550px) {
+		font-size: 1.3rem;
+	}
+}
+
+.errorMessage {
+	font-size: 1.6rem;
+	color: var(--color-bright-maroon);
+	font-weight: 400;
+	margin-bottom: 3.2rem;
+	@media (max-width: 550px) {
+		font-size: 1.3rem;
+	}
+}

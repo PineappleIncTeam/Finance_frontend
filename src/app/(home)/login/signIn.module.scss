@@ -1,0 +1,39 @@
+.signInWrap {
+	max-width: 100%;
+	height: 100vh;
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+	justify-content: center;
+	background-image: url("../../../assets/pages/signUp/background.png");
+	background-repeat: no-repeat;
+	background-position: center 30%;
+	background-color: var(--color-silver-gray);
+	
+	@media (max-width: 1440px) {
+		background-image: url("../../../assets/pages/signUp/backgroundForTablet.png");
+	}
+
+	@media (max-width: 1240px) {
+		background-size: 1100px 800px;
+	}
+
+	@media (max-width: 1120px) {
+		background-image: url("../../../assets/pages/signUp/backgroundForTabletMini.png");
+		background-position: center;
+		background-size: auto;
+		justify-content: center;
+		align-items: flex-start;
+		padding-left: 80px;
+	}
+
+	@media (max-width: 910px) {
+		background-image: url("../../../assets/pages/signUp/backgroundForPhone.png");
+		padding: 0;
+		align-items: center;
+	}
+
+	@media (max-width: 550px) {
+		background-image: none;
+	}
+}

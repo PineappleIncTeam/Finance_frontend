@@ -52,3 +52,13 @@ export interface IBlogArticleShareTooltip {
 }
 
 export type TCommonFunction = () => void;
+
+export interface IAboutUsCard {
+	photo: string | StaticImageData;
+	teamRole: string;
+}
+
+export interface ITeamMember {
+	teamRole: string;
+	photo: StaticImageData;
+}

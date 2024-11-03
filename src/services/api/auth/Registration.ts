@@ -2,10 +2,10 @@ import axios from "axios";
 
 import { ISignUpForm } from "../../../types/components/ComponentsTypes";
 
-import { baseURL, signupEndpoint } from "./apiConstants";
+import { signupEndpoint } from "./apiConstants";
 
-export const registration = async (userData: ISignUpForm) => {
-	return await axios(`${baseURL}/${signupEndpoint}`, {
+export const registration = async (baseUrl: string, userData: ISignUpForm) => {
+	return await axios(`${baseUrl}/${signupEndpoint}`, {
 		method: "POST",
 		data: userData,
 		headers: {

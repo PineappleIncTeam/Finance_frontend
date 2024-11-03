@@ -3,16 +3,28 @@
 }
 
 .headerContainer {
-	width: 93%;
+	width: 84%;
 	display: flex;
 	justify-content: space-between;
 	padding: 46px 0;
 	margin: 0 auto;
 	align-items: center;
 
-	@media (max-width: 1445px) {
+	@media (max-width: 1440px) {
 		& {
-			padding: 30px 0;
+			width: 92%;
+		}
+	}
+
+	@media (max-width: 1024px) {
+		& {
+			padding: 40px 0;
+		}
+	}
+
+	@media (max-width: 768px) {
+		& {
+			padding: 36px 0;
 		}
 	}
 
@@ -57,7 +69,7 @@
 
 .navigationWrap {
 	display: flex;
-	max-width: 660px;
+	max-width: 630px;
 	width: 100%;
 	justify-content: space-between;
 
@@ -303,4 +315,3 @@
 .navigationLink:hover::before {
 	width: 100%;
 }
-

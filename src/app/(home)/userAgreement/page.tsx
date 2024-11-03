@@ -5,6 +5,13 @@ import agreement from "../../../mocks/Agreement.json";
 import style from "./userAgreement.module.scss";
 
 function UserAgreementPage() {
+	const itemNumberList = {
+		fourth: 4,
+		fifth: 5,
+		sixth: 6,
+		tenth: 10,
+	};
+
 	const AgreementItems = (array: string[], itemNumber: number) => {
 		return array.map((text: string, index: number) => {
 			return (
@@ -14,6 +21,7 @@ function UserAgreementPage() {
 			);
 		});
 	};
+
 	const UserAgreementArticle = () => {
 		return (
 			<>
@@ -27,12 +35,12 @@ function UserAgreementPage() {
 				<p>{agreement.userAgreement.servicesDescription}</p>
 				<h2 className={style.agreementArticleTitle}>4. Права и обязанности Пользователя</h2>
 				<p>Пользователь обязуется:</p>
-				{AgreementItems(agreement.userAgreement.userObligations, 4)}
+				{AgreementItems(agreement.userAgreement.userObligations, itemNumberList.fourth)}
 				<h2 className={style.agreementArticleTitle}>5. Права и обязанности Администрации</h2>
 				<p>Администрация вправе:</p>
-				{AgreementItems(agreement.userAgreement.administrationRights, 5)}
+				{AgreementItems(agreement.userAgreement.administrationRights, itemNumberList.fifth)}
 				<h2 className={style.agreementArticleTitle}>6. Конфиденциальность и защита персональных данных</h2>
-				{AgreementItems(agreement.userAgreement.confidentiality, 6)}
+				{AgreementItems(agreement.userAgreement.confidentiality, itemNumberList.sixth)}
 				<h2 className={style.agreementArticleTitle}>7. Использование файлов cookie</h2>
 				<p>{agreement.userAgreement.cookiesUsage}</p>
 				<h2 className={style.agreementArticleTitle}>8. Ограничение ответственности</h2>
@@ -41,7 +49,7 @@ function UserAgreementPage() {
 				<h2 className={style.agreementArticleTitle}>9. Изменения в Соглашении</h2>
 				<p>{agreement.userAgreement.changesToAgreement}</p>
 				<h2 className={style.agreementArticleTitle}>10. Заключительные положения</h2>
-				{AgreementItems(agreement.userAgreement.finalProvisions, 10)}
+				{AgreementItems(agreement.userAgreement.finalProvisions, itemNumberList.tenth)}
 				<p>
 					<span className={style.agreementArticleStrong}>Контактная информация:</span>{" "}
 					{agreement.userAgreement.contactInformation.note}{" "}

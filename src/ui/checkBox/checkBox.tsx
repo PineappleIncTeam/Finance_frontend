@@ -7,7 +7,7 @@ import checkBoxIcon from "../../assets/pages/signIn/checkBox.svg";
 import styles from "./checkBox.module.scss";
 
 const CustomCheckbox = () => {
-	const [isChecked, setIsChecked] = useState(false);
+	const [isChecked, setIsChecked] = useState<boolean>(false);
 
 	const handleCheckboxChange = () => {
 		setIsChecked(!isChecked);

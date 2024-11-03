@@ -19,8 +19,8 @@ import { ManIcon } from "../../../assets/script/changePassword/ManIcon";
 import style from "./newPassword.module.scss";
 
 export default function NewPassword() {
-	const [isNewPasswordModalShown, setIsNewPasswordModalShown] = useState(false);
-	const [email, setEmail] = useState("");
+	const [isNewPasswordModalShown, setIsNewPasswordModalShown] = useState<boolean>(false);
+	const [email, setEmail] = useState<string>("");
 
 	const {
 		control,

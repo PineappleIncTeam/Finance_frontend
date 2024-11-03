@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import cn from "classnames";
-
 import Link from "next/link";
 
 import useAppSelector from "../../../hooks/useAppSelector";
@@ -11,7 +10,6 @@ import useAppDispatch from "../../../hooks/useAppDispatch";
 import Button from "../../../ui/button/button";
 import cookieStatusSelector from "../../../services/redux/features/cookieStatus/cookieStatusSelector";
 import { setCookieStatus } from "../../../services/redux/features/cookieStatus/cookieStatusSlice";
-
 import { MainPath } from "../../../services/router/routes";
 
 import styles from "./cookiePopupWindowPage.module.scss";
@@ -20,7 +18,6 @@ const CookiePopupWindowPage = () => {
 	const [isOpen, setIsOpen] = useState<boolean>(true);
 
 	const dispatch = useAppDispatch();
-
 	const { status } = useAppSelector(cookieStatusSelector);
 
 	const handleClick = () => {

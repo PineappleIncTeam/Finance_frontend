@@ -13,7 +13,7 @@ import styles from "./Input.module.scss";
 
 const Input = ({ label, type, placeholder, autoComplete, subtitle, error, ...props }: IInputProps) => {
 	const { field, fieldState } = useController<ISignUpForm | ISignInForm>(props);
-	const [passwordType, setPasswordType] = useState(InputType.Password);
+	const [passwordType, setPasswordType] = useState<InputType>(InputType.Password);
 	const togglePasswordVisibility = () =>
 		setPasswordType(passwordType === InputType.Password ? InputType.Text : InputType.Password);
 

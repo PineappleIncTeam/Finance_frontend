@@ -1,6 +1,8 @@
 .blogWrap {
 	display: flex;
 	justify-content: center;
+	align-items: center;
+	flex-direction: column;
 	width: 100vw;
 	height: 1080px;
 	background-color: var(--color-silver-gray);
@@ -29,6 +31,7 @@
 			height: 896px;
 			overflow: hidden;
 			justify-content: flex-start;
+			align-items: flex-start;
 		}
 	}
 
@@ -53,10 +56,12 @@
 }
 
 .blogContainer {
+	flex: 1 0 auto;
 	display: flex;
-	justify-content: center;
+	justify-content: flex-start;
 	flex-direction: column;
 	margin-left: 10px;
+	padding-top: 32px;
 
 	@media (width: 1024px) {
 		& {
@@ -68,6 +73,7 @@
 	@media (width: 360px) {
 		& {
 			justify-content: left;
+			padding-top: 24px;
 		}
 	}
 }

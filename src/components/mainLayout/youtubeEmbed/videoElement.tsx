@@ -1,15 +1,17 @@
+"use client";
+
 import { useState } from "react";
 
 import Image from "next/image";
 
-import { IYoutubeEmbed } from "../../../types/components/ComponentsTypes";
+import { IVideoElement } from "../../../types/components/ComponentsTypes";
 
 import fallback from "../../../assets/components/youtubeEmbed/fallback.png";
 
-import style from "./youtubeEmbed.module.scss";
+import style from "./videoElement.module.scss";
 
-const YoutubeEmbed = ({ embedId }: IYoutubeEmbed) => {
-	const [hasError, setHasError] = useState(true);
+const VideoElement = ({ videoId }: IVideoElement) => {
+	const [hasError, setHasError] = useState(false);
 
 	return (
 		<div className={style.videoResponsive}>
@@ -22,7 +24,7 @@ const YoutubeEmbed = ({ embedId }: IYoutubeEmbed) => {
 				<iframe
 					width="854"
 					height="480"
-					src={`https://www.youtube.com/embed/${embedId}`}
+					src={`https://www.youtube.com/embed/${videoId}`}
 					allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
 					allowFullScreen
 					title="Embedded youtube"
@@ -33,4 +35,4 @@ const YoutubeEmbed = ({ embedId }: IYoutubeEmbed) => {
 	);
 };
 
-export default YoutubeEmbed;
+export default VideoElement;

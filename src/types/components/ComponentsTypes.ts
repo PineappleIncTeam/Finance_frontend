@@ -20,6 +20,6 @@ export interface IInviteModal {
 	onClose: () => void;
 }
 
-export interface IYoutubeEmbed {
-	embedId: string;
+export interface IVideoElement {
+	videoId: string;
 }

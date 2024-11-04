@@ -1,35 +1,37 @@
 .BlogPageWrap {
-	width: calc(100vw - 20px);
+	width: 100%;
 	height: 876px;
-	margin-top: 10px;
-	margin-left: 6px;
-	padding-left: 60px;
+
 	background-color: var(--color-silver-gray);
-	
+
 	@media (max-width: 1024) {
 		& {
 			height: 1222px;
-			padding-left: 0px;
 		}
 	}
 
 	@media (max-width: 810) {
 		& {
-			width: 100vw;
 			height: 894px;
-			margin-left: 0px;
 		}
 	}
 
 	@media (max-width: 460) {
 		& {
-			height: 720px;			
+			height: 720px;
 		}
 	}
 }
 
 .BlogPageContainer {
-	margin-bottom: 30px;
+	width: 84%;
+	margin: 10px auto 30px;
+
+	@media (max-width: 1440px) {
+		& {
+			width: 92%;
+		}
+	}
 
 	@media (max-width: 400) {
 		& {
@@ -42,7 +44,6 @@
 .BlogPageButtonLeftWrapper {
 	padding-top: 20px;
 	margin-bottom: 40px;
-	margin-left: 40px;
 
 	@media (max-width: 768) {
 		& {

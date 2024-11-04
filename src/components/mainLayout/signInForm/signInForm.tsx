@@ -4,31 +4,28 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import { AxiosError } from "axios";
-
 import Link from "next/link";
 
 import { ISignInForm } from "../../../types/components/ComponentsTypes";
 import Button from "../../../ui/button/button";
 import Input from "../../../ui/input/Input";
 import Title from "../../../ui/title/Title";
+import CustomCheckbox from "../../../ui/checkBox/checkBox";
+import InviteModal from "../inviteModal/inviteModal";
 import { emailPattern, passwordPattern } from "../../../helpers/authConstants";
 import { formHelpers } from "../../../utils/formHelpers";
 import { getCorrectBaseUrl } from "../../../utils/baseUrlConverter";
 import { InputType } from "../../../helpers/Input";
 import { MainPath, UserProfilePath } from "../../../services/router/routes";
 import { ApiResponseCode } from "../../../helpers/apiResponseCode";
-
-import CustomCheckbox from "../../../ui/checkBox/checkBox";
 import { loginUser } from "../../../services/api/auth/Login";
-
-import InviteModal from "../inviteModal/inviteModal";
 
 import styles from "./signInForm.module.scss";
 
 const SignInForm = () => {
 	const [baseUrl, setBaseUrl] = useState<string>();
 	const [errorMessage, setErrorMessage] = useState<string>("");
-	const [isOpen, setIsOpen] = useState(false);
+	const [isOpen, setIsOpen] = useState<boolean>(false);
 	const {
 		formState: { errors },
 		control,

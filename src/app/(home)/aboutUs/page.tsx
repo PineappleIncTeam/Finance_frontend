@@ -1,8 +1,6 @@
-import Footer from "../../../components/mainLayout/footer/footer";
-
-import AboutUsCard from "../../../components/mainLayout/aboutUsCard/aboutUsCard";
-
 import { IAboutUsCard, ITeamMember } from "../../../types/common/ComponentsProps";
+import Footer from "../../../components/mainLayout/footer/footer";
+import AboutUsCard from "../../../components/mainLayout/aboutUsCard/aboutUsCard";
 
 import { AboutUsTeam } from "../../../mocks/AboutUsTeam";
 

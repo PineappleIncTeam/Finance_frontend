@@ -34,9 +34,9 @@ export default function ChangePassword() {
 		reset();
 	};
 
-	const [isEnterNewPasswordShown, setIsEnterNewPasswordShown] = useState(false);
-	const [isReenterNewPasswordShown, setIsReenterNewPasswordShown] = useState(false);
-	const [isChangePasswordModalShown, setIsChangePasswordModalShown] = useState(false);
+	const [isEnterNewPasswordShown, setIsEnterNewPasswordShown] = useState<boolean>(false);
+	const [isReenterNewPasswordShown, setIsReenterNewPasswordShown] = useState<boolean>(false);
+	const [isChangePasswordModalShown, setIsChangePasswordModalShown] = useState<boolean>(false);
 
 	const toggleEnterPasswordVisibility = () => {
 		setIsEnterNewPasswordShown(isEnterNewPasswordShown ? false : true);

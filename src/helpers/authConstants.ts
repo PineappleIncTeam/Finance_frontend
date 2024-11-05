@@ -1,6 +1,6 @@
 export const emailPattern = /^\s*(?=.{8,30}$)(?!.*\.\.)[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9]+\s*$/i;
 export const passwordPattern =
-	/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*[^a-zA-Z\d!#/='<>{}@,.$%[\]^&*()~:;+?^-])[^\s]{6,50}$/;
+	/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*[^a-zA-Z\d!#/\\='"<>{}@,.$%[\]^&*()~_|:;+?^-])[^\s]{6,50}$/;
 
 export const errorDefault = "";
 export const errorRequiredField = "Не заполнено обязательное поле";

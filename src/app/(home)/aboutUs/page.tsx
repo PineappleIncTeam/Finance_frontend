@@ -24,7 +24,7 @@ function AboutUs() {
 					<div className={style.aboutUsCards}>{cardsList(AboutUsTeam)}</div>
 				</div>
 			</div>
-			<Footer />
+			<Footer />	
 		</div>
 	);
 }

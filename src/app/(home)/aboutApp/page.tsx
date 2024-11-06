@@ -1,3 +1,7 @@
+"use client";
+
+import { useState } from "react";
+
 import Image from "next/image";
 
 import Footer from "../../../components/mainLayout/footer/footer";
@@ -14,9 +18,19 @@ import { TwoNumIcon } from "../../../assets/script/aboutApp/TwoNumIcon";
 import { ThreeNumIcon } from "../../../assets/script/aboutApp/ThreeNumIcon";
 import { FourNumIcon } from "../../../assets/script/aboutApp/FourNumIcon";
 
+import VideoElement from "../../../components/mainLayout/videoElement/videoElement";
+
+import { videoId } from "../../../mocks/VideoId";
+
 import style from "./aboutAppPage.module.scss";
 
 function AboutApp() {
+	const [isVideoElementStart, setIsVideoElementStart] = useState<boolean>(false);
+
+	const onButtonWatchVideoClick = () => {
+		setIsVideoElementStart(true);
+	};
+
 	return (
 		<div className={style.aboutAppWrap}>
 			<div className={style.aboutAppContainer}>
@@ -78,7 +92,12 @@ function AboutApp() {
 						<p className={style.aboutAppPageInstructionVideoContainer__header}>
 							Пошаговая инструкция об использовании приложения
 						</p>
-						<button className={style.aboutAppPageInstructionVideoContainer__button}>Смотреть видео</button>
+						<button className={style.aboutAppPageInstructionVideoContainer__button} onClick={onButtonWatchVideoClick}>
+							Смотреть видео
+						</button>
+					</div>
+					<div className={style.videoElementWrapper}>
+						<VideoElement open={isVideoElementStart} videoId={videoId} />
 					</div>
 				</div>
 			</div>

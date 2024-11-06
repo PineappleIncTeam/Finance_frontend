@@ -31,6 +31,10 @@ function AboutApp() {
 		setIsVideoElementStart(true);
 	};
 
+	const onCloseCrossClick = () => {
+		setIsVideoElementStart(false);
+	};
+
 	return (
 		<div className={style.aboutAppWrap}>
 			<div className={style.aboutAppContainer}>
@@ -96,9 +100,11 @@ function AboutApp() {
 							Смотреть видео
 						</button>
 					</div>
-					<div className={style.videoElementWrapper}>
-						<VideoElement open={isVideoElementStart} videoId={videoId} />
-					</div>
+					{isVideoElementStart && (
+						<div className={style.videoElementWrapper}>
+							<VideoElement close={onCloseCrossClick} videoId={videoId} />
+						</div>
+					)}
 				</div>
 			</div>
 			<Footer />

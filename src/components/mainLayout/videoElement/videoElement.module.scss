@@ -1,45 +1,123 @@
+.backgroundVideo {
+	position: fixed;
+	background: var(--color-black-two-of-third);
+	width: 100%;
+	height: 100vh;
+	top: 0;
+	left: 0;
+	z-index: 20;
+	padding-top: 182px;
+}
+
 .videoWrap {
-    width: 1254px;
-    height: 714px;
-    border: 2px solid black;
-    background-color: rgba (23, 25, 26, 0.35);
+    position: relative;
+    bottom: 170px;
+	width: 1254px;
+	height: 700px;
+	margin: auto;
+
+	@media (max-width: 1200) {
+		& {
+			width: 750px;
+			height: 428px;
+            bottom: -170px;
+		}
+	}
+
+	@media (max-width: 765) {
+		& {
+			width: 480px;
+			height: 300px;
+            bottom: -80px;
+		}
+	}
+
+	@media (max-width: 490) {
+		& {
+			width: 300px;
+			height: 198px;
+            bottom: -20px;
+		}
+	}
 }
 
 .crossIconClose {
-    border: 2px solid green;
-    background-color: black;
-    margin-left: 1208px;
+	margin-left: 1212px;
+
+	@media (max-width: 1200) {
+		& {
+			margin-left: 700px;
+		}
+	}
+
+	@media (max-width: 765) {
+		& {
+			width: 36px;
+			height: 36px;
+			margin-left: 442px;
+		}
+	}
+
+	@media (max-width: 490) {
+		& {
+			width: 24px;
+			height: 24px;
+			margin-left: 276px;
+		}
+	}
 }
 
 .videoResponsive {
-    width: 1200px;
-    height: 626px;
-    overflow: hidden;
-    position: relative;
-    top: 12%;  
+	width: 1200px;
+	height: 626px;
+	overflow: hidden;
+	position: relative;
+	top: 4.6%;
+
+	@media (max-width: 1200) {
+		& {
+			width: 700px;
+			height: 392px;
+		}
+	}
+
+	@media (max-width: 765) {
+		& {
+			width: 430px;
+			height: 266px;
+			top: -2%;
+		}
+	}
+
+	@media (max-width: 490) {
+		& {
+			width: 300px;
+			height: 170px;
+		}
+	}
 }
 
 .videoResponsive iframe {
-    left: 0;
-    top: 0;
-    height: 100%;
-    width: 100%;
-    position: absolute;
+	left: 0;
+	top: 0;
+	height: 100%;
+	width: 100%;
+	position: absolute;
 }
 
 .fallbackImageWrapper {
-    position: relative;
-    text-align: center;
+	position: relative;
+	text-align: center;
 }
 
 .fallbackImage {
-    width: 700px;
-    height: 500px;
+	width: 700px;
+	height: 500px;
 
-    &__Text {
-        position: absolute;
-        width: 300px;
-        top: 10%;
-        left: 38%;
-    }
+	&__Text {
+		position: absolute;
+		width: 300px;
+		top: 10%;
+		left: 38%;
+	}
 }

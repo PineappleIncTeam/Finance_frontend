@@ -22,5 +22,5 @@ export interface IInviteModal {
 
 export interface IVideoElement {
 	videoId: string;
-	open?: boolean;
+	close?: () => void;
 }

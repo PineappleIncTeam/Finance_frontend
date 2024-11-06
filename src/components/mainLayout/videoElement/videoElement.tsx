@@ -12,17 +12,19 @@ import crossIcon from "../../../assets/components/youtubeEmbed/crossIcon.png";
 
 import style from "./videoElement.module.scss";
 
-const VideoElement = ({ videoId, open }: IVideoElement) => {
+const VideoElement = ({ videoId, close }: IVideoElement) => {
 	const [hasError, setHasError] = useState(false);
 
 	return (
-		<details open={open}>
+		<div className={style.backgroundVideo}>
 			<div className={style.videoWrap}>
-				<Image className={style.crossIconClose} src={crossIcon} alt="закрыть" />
+				<button onClick={close}>
+					<Image className={style.crossIconClose} src={crossIcon} alt="close cross" />
+				</button>
 				<div className={style.videoResponsive}>
 					{hasError ? (
 						<div className={style.fallbackImageWrapper}>
-							<Image className={style.fallbackImage} src={fallback} alt="видео отсутствует" />
+							<Image className={style.fallbackImage} src={fallback} alt="no video" />
 							<h1 className={style.fallbackImage__Text}>Приносим извинения. Данное видео отсутствует.</h1>
 						</div>
 					) : (
@@ -38,7 +40,7 @@ const VideoElement = ({ videoId, open }: IVideoElement) => {
 					)}
 				</div>
 			</div>
-		</details>
+		</div>
 	);
 };
 

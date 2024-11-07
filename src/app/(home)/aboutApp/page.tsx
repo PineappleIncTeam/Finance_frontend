@@ -27,12 +27,8 @@ import style from "./aboutAppPage.module.scss";
 function AboutApp() {
 	const [isVideoElementStart, setIsVideoElementStart] = useState<boolean>(false);
 
-	const onButtonWatchVideoClick = () => {
-		setIsVideoElementStart(true);
-	};
-
-	const onCloseCrossClick = () => {
-		setIsVideoElementStart(false);
+	const buttonAction = (prop: boolean) => {
+		setIsVideoElementStart(prop);
 	};
 
 	return (
@@ -96,13 +92,13 @@ function AboutApp() {
 						<p className={style.aboutAppPageInstructionVideoContainer__header}>
 							Пошаговая инструкция об использовании приложения
 						</p>
-						<button className={style.aboutAppPageInstructionVideoContainer__button} onClick={onButtonWatchVideoClick}>
+						<button className={style.aboutAppPageInstructionVideoContainer__button} onClick={() => buttonAction(true)}>
 							Смотреть видео
 						</button>
 					</div>
 					{isVideoElementStart && (
 						<div className={style.videoElementWrapper}>
-							<VideoElement close={onCloseCrossClick} videoId={videoId} />
+							<VideoElement close={() => buttonAction(false)} videoId={videoId} />
 						</div>
 					)}
 				</div>

@@ -7,6 +7,13 @@
 	left: 0;
 	z-index: 20;
 	padding-top: 182px;
+
+	@media (max-width: 490) {
+		& {
+			height: 610px;
+			padding-top: 0px;
+		}
+	} 
 }
 
 .videoWrap {
@@ -36,34 +43,31 @@
 		& {
 			width: 300px;
 			height: 198px;
-            bottom: -20px;
+            bottom: -210px;
 		}
 	}
 }
 
-.crossIconClose {
-	margin-left: 1212px;
+.closeActionWrapper {
+	display: flex;
+	align-items: center;
+	justify-content: right;
+}
 
-	@media (max-width: 1200) {
-		& {
-			margin-left: 700px;
-		}
-	}
+.closeActionElement {
+	width: 36px;
+	height: 36px;
+	background: url("../../../assets/components/videoElement/crossIcon.png") center center no-repeat;
+	cursor: pointer;
 
 	@media (max-width: 765) {
-		& {
-			width: 36px;
-			height: 36px;
-			margin-left: 442px;
-		}
+		width: 36px;
+		width: 36px;
 	}
 
 	@media (max-width: 490) {
-		& {
-			width: 24px;
-			height: 24px;
-			margin-left: 276px;
-		}
+		width: 24px;
+		height: 24px;
 	}
 }
 

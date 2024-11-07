@@ -6,9 +6,7 @@ import Image from "next/image";
 
 import { IVideoElement } from "../../../types/components/ComponentsTypes";
 
-import fallback from "../../../assets/components/youtubeEmbed/fallback.png";
-
-import crossIcon from "../../../assets/components/youtubeEmbed/crossIcon.png";
+import fallback from "../../../assets/components/videoElement/fallback.png";
 
 import style from "./videoElement.module.scss";
 
@@ -18,9 +16,9 @@ const VideoElement = ({ videoId, close }: IVideoElement) => {
 	return (
 		<div className={style.backgroundVideo}>
 			<div className={style.videoWrap}>
-				<button onClick={close}>
-					<Image className={style.crossIconClose} src={crossIcon} alt="close cross" />
-				</button>
+				<div className={style.closeActionWrapper}>
+					<button onClick={close} className={style.closeActionElement} />
+				</div>
 				<div className={style.videoResponsive}>
 					{hasError ? (
 						<div className={style.fallbackImageWrapper}>

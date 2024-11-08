@@ -18,6 +18,7 @@
 	@media (max-width: 490) {
 		& {
 			height: 1090px;
+			margin-top: -34px;
 		}
 	}
 }  
@@ -87,7 +88,6 @@
 
 	@media (max-width: 490) {
 		width: 322px;
-		margin-top: -30px;
 	}
 }
 
@@ -119,6 +119,7 @@
 	}
 
 	@media (max-width: 685) {
+		width: 460px;
 		margin-left: 20px;
 	}
 
@@ -131,6 +132,10 @@
 		font-size: 2rem;
 		line-height: 2.8rem;
 	}
+}
+
+.aboutAppPageInstructionWrapper {
+	position: relative;
 }
 
 .googlePlayButton {
@@ -577,6 +582,7 @@
 		border-radius: 16px;
 		border: 3px solid var(--color-dark-spring-green);
 		color: var(--color-eerie-black);
+		cursor: pointer;
 
 		@media (max-width: 1200) {
 			margin-right: 134px;
@@ -604,6 +610,11 @@
 	}
 }
 
+.videoElementWrapper {
+	position: absolute;
+	right: 20%;
+	bottom: 0.8%;
+}
 .instructionNumber {
 	display: none;
 

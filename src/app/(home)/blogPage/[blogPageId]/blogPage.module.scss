@@ -27,6 +27,7 @@
 .BlogPageContainer {
 	width: 84%;
 	margin: 10px auto 30px;
+	max-width: 1606px;
 
 	@media (max-width: 1440px) {
 		& {

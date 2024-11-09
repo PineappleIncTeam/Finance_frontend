@@ -14,8 +14,8 @@ import styles from "./footer.module.scss";
 
 const Footer = () => {
 	const pathname = usePathname();
-	const windowWidth = useWindowWidth();
-	const currentWindowWidth = 1024;
+	const currentWindowWidth = useWindowWidth();
+	const windowWidth = 1024;
 	const actualDate: Date = new Date();
 	const copyrightYear: number = actualDate.getFullYear();
 
@@ -23,7 +23,7 @@ const Footer = () => {
 		<div className={styles.footerWrap}>
 			<div
 				className={cn(styles.footerContainer, {
-					[styles.footerContainer__AboutAppPage]: pathname === MainPath.AboutApp && windowWidth > currentWindowWidth,
+					[styles.footerContainer__AboutAppPage]: pathname === MainPath.AboutApp && currentWindowWidth > windowWidth,
 				})}>
 				<p className={styles.footerContainer__copyright}>
 					Copyright © {copyrightYear} freenance | All Rights Reserved

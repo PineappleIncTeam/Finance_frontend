@@ -30,6 +30,8 @@
 	flex-direction: column;
 	margin-left: 10px;
 	padding-top: 32px;
+	max-width: 1606px;
+	margin: 0 auto;
 
 	@media (width: 1024px) {
 		& {

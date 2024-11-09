@@ -19,3 +19,8 @@ export interface IInviteModal {
 	isOpen: boolean;
 	onClose: () => void;
 }
+
+export interface IVideoElement {
+	videoId: string;
+	close?: () => void;
+}

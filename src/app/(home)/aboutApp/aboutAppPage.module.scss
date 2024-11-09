@@ -1,35 +1,35 @@
 .aboutAppWrap {
-    width: calc(100vw - 20px);
-    height: 876px;
-    margin: auto;
-    background-color: var(--color-pure-light);
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	width: 100%;
+	height: calc(100vh - 156px);
+	background-color: var(--color-pure-light);
 
-	@media(max-width: 1200) {
-		width: 100vw;
-		height: 1222px;
+	@media (max-width: 1440px) {
+		height: calc(100vh - 144px);
 	}
 
-	@media (max-width: 920) {
-		& {
-			height: 896px;
-		}
+	@media (max-width: 1024px) {
+		height: calc(100vh - 136px);
 	}
 
-	@media (max-width: 490) {
-		& {
-			height: 1090px;
-			margin-top: -34px;
-		}
+	@media (max-width: 768px) {
+		height: calc(100vh - 128px);
 	}
-}  
+
+	@media (max-width: 490px) {
+		height: calc(100vh - 86px);
+	}
+}
 
 .aboutAppContainer {
 	display: flex;
-    justify-content: center;
-    gap: 30px;
-    margin: 40px 0;
+	justify-content: center;
+	gap: 30px;
+	margin: 40px 0;
 
-	@media(max-width: 1200) {
+	@media (max-width: 1200) {
 		& {
 			flex-direction: column;
 			gap: 10px;
@@ -55,21 +55,21 @@
 	background-color: var(--color-light-spring-green);
 	border-radius: 20px;
 
-	@media(max-width: 1520) {
+	@media (max-width: 1520) {
 		& {
 			width: 504px;
 			height: 658px;
 		}
 	}
 
-	@media(max-width: 1200) {
+	@media (max-width: 1200) {
 		& {
 			width: 928px;
 			height: 168px;
 			margin: auto;
 		}
 	}
-	
+
 	@media (max-width: 930) {
 		& {
 			width: 684px;
@@ -222,7 +222,7 @@
 	grid-column-gap: 32px;
 	grid-row-gap: 24px;
 
-	@media(max-width: 1440) {
+	@media (max-width: 1440) {
 		& {
 			width: 740px;
 			height: 534px;
@@ -230,7 +230,7 @@
 		}
 	}
 
-	@media(max-width: 1200) {
+	@media (max-width: 1200) {
 		& {
 			width: 928px;
 			grid-template-columns: 453 454;
@@ -263,7 +263,7 @@
 		grid-template-columns: 232 232;
 		grid-column-gap: 4px;
 	}
- 
+
 	@media (max-width: 490) {
 		width: 322px;
 		height: 754px;
@@ -275,7 +275,7 @@
 	&__item {
 		height: 250px;
 		overflow: hidden;
-        border-radius: 12px;
+		border-radius: 12px;
 		border: 1px solid var(--color-light-grayish-blue);
 
 		&:nth-child(1) {
@@ -292,13 +292,13 @@
 			}
 		}
 
-		@media(max-width: 1440) {
+		@media (max-width: 1440) {
 			& {
 				height: 254px;
 			}
 		}
 
-		@media(max-width: 1200) {
+		@media (max-width: 1200) {
 			& {
 				height: 260px;
 			}
@@ -388,12 +388,12 @@
 		margin-left: 130px;
 		margin-top: -20px;
 
-		@media(max-width: 1440) {
+		@media (max-width: 1440) {
 			margin-left: 80px;
 			margin-top: 0;
 		}
 
-		@media(max-width: 1200) {
+		@media (max-width: 1200) {
 			& {
 				margin-left: 120;
 			}
@@ -430,8 +430,8 @@
 		font-weight: 400;
 		font-size: 1.6rem;
 		line-height: 2.2rem;
-		
-		@media(max-width: 1440) {
+
+		@media (max-width: 1440) {
 			& {
 				width: 216px;
 			}
@@ -462,21 +462,21 @@
 				width: 218px;
 			}
 		}
- 	}
+	}
 }
 
 .aboutAppPageInstructionImage {
 	width: 300px;
 	height: 166px;
 
-	@media(max-width: 1440) {
+	@media (max-width: 1440) {
 		& {
 			width: 232px;
 			height: 128px;
 		}
 	}
 
-	@media(max-width: 1200) {
+	@media (max-width: 1200) {
 		& {
 			width: 300px;
 			height: 166px;
@@ -507,7 +507,7 @@
 			width: 220px;
 			margin-top: -140px;
 		}
-	}	
+	}
 }
 
 .aboutAppPageInstructionVideoContainer {
@@ -602,8 +602,8 @@
 		@media (max-width: 490) {
 			width: 188px;
 			height: 36px;
-			border-radius: 8px;	
-			font-size: 1.6rem;	
+			border-radius: 8px;
+			font-size: 1.6rem;
 			line-height: 2.2rem;
 			margin-left: 70px;
 		}

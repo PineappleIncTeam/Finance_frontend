@@ -2,10 +2,20 @@
 	display: flex;
 	position: relative;
 	color: var(--color-eerie-black);
+	max-width: 1606px;
+	padding-top: 80px;
+	margin: 0 auto;
+	width: 84%;
 
 	@media (width < 1920px) {
 		& {
 			padding-top: 40px;
+		}
+	}
+
+	@media (max-width: 1440px) {
+		& {
+			width: 92%;
 		}
 	}
 

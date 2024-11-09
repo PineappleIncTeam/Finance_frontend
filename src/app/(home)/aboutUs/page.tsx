@@ -23,8 +23,8 @@ function AboutUs() {
 					<div className={style.aboutUsTitle}>Классные ребята с горящими глазами.</div>
 					<div className={style.aboutUsCards}>{cardsList(AboutUsTeam)}</div>
 				</div>
-				<Footer />
 			</div>
+			<Footer />	
 		</div>
 	);
 }

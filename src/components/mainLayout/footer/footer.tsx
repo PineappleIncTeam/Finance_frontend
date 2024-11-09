@@ -6,13 +6,18 @@ import { MainPath } from "../../../services/router/routes";
 
 import styles from "./footer.module.scss";
 
-const Footer = () => {
+interface IFooterProps {
+	isMainPage?: boolean;
+}
+
+const Footer = ({ isMainPage }: IFooterProps) => {
 	const actualDate: Date = new Date();
 	const copyrightYear: number = actualDate.getFullYear();
+	console.log(isMainPage);
 
 	return (
 		<div className={styles.footerWrap}>
-			<div className={styles.footerContainer}>
+			<div className={`${styles.footerContainer} ${isMainPage ? styles.footerContainer__mainPage : ""}`}>
 				<p className={styles.footerContainer__copyright}>
 					Copyright © {copyrightYear} freenance | All Rights Reserved
 				</p>

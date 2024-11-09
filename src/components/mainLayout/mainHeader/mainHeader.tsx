@@ -83,7 +83,7 @@ const MainHeader = () => {
 					<div className={styles.modalWindowContainer}>
 						<div className={styles.menuWrap}>
 							<p className={styles.menuWrap__title}>Меню</p>
-							<button className={styles.logoButton} onClick={() => setOpen(false)}>
+							<button onClick={() => setOpen(false)}>
 								<Image src={closeElement} alt="Крестик" width={24} height={24} />
 							</button>
 						</div>
@@ -105,7 +105,7 @@ const MainHeader = () => {
 	return (
 		<header className={styles.headerWrap}>
 			<div className={styles.headerContainer}>
-				<Link href={MainPath.Main}>
+				<Link href={MainPath.Main} className={styles.logoLink}>
 					<Image src={logo} alt="Логотип" width={284} height={56} className={styles.headerContainer__img} />
 				</Link>
 				<button onClick={() => setOpen(!open)}>

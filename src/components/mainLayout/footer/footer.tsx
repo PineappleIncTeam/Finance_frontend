@@ -2,22 +2,21 @@
 
 import Link from "next/link";
 
+import cn from "classnames";
+
 import { MainPath } from "../../../services/router/routes";
+
+import { IFooter } from "../../../types/common/ComponentsProps";
 
 import styles from "./footer.module.scss";
 
-interface IFooterProps {
-	isMainPage?: boolean;
-}
-
-const Footer = ({ isMainPage }: IFooterProps) => {
+const Footer = ({ isMainPage }: IFooter) => {
 	const actualDate: Date = new Date();
 	const copyrightYear: number = actualDate.getFullYear();
-	console.log(isMainPage);
 
 	return (
 		<div className={styles.footerWrap}>
-			<div className={`${styles.footerContainer} ${isMainPage ? styles.footerContainer__mainPage : ""}`}>
+			<div className={cn(styles.footerContainer, { [styles.footerContainer__mainPage]: isMainPage })}>
 				<p className={styles.footerContainer__copyright}>
 					Copyright © {copyrightYear} freenance | All Rights Reserved
 				</p>

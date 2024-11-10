@@ -2,29 +2,21 @@
 
 import Link from "next/link";
 
-import { useWindowWidth } from "@react-hook/window-size";
-
 import cn from "classnames";
-
-import { usePathname } from "next/navigation";
 
 import { MainPath } from "../../../services/router/routes";
 
+import { IFooter } from "../../../types/common/ComponentsProps";
+
 import styles from "./footer.module.scss";
 
-const Footer = () => {
-	const pathname = usePathname();
-	const currentWindowWidth = useWindowWidth();
-	const windowWidth = 1024;
+const Footer = ({ isMainPage }: IFooter) => {
 	const actualDate: Date = new Date();
 	const copyrightYear: number = actualDate.getFullYear();
 
 	return (
 		<div className={styles.footerWrap}>
-			<div
-				className={cn(styles.footerContainer, {
-					[styles.footerContainer__AboutAppPage]: pathname === MainPath.AboutApp && currentWindowWidth > windowWidth,
-				})}>
+			<div className={cn(styles.footerContainer, { [styles.footerContainer__mainPage]: isMainPage })}>
 				<p className={styles.footerContainer__copyright}>
 					Copyright © {copyrightYear} freenance | All Rights Reserved
 				</p>

@@ -102,7 +102,7 @@ const SignInForm = () => {
 						<CustomCheckbox />
 						<p className={styles.checkBoxText}>Запомнить меня</p>
 					</div>
-					<Link href={""} className={styles.forgetPassword}>
+					<Link href={MainPath.NewPassword} className={styles.forgetPassword}>
 						Забыли пароль?
 					</Link>
 				</div>

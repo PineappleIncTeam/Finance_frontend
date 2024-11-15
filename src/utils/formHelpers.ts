@@ -2,6 +2,7 @@ import { FieldErrors } from "react-hook-form";
 
 import {
 	errorDefault,
+	errorPasswordIncorrect,
 	errorEmailIncorrect,
 	errorPasswordLength,
 	errorPasswordNumber,
@@ -25,7 +26,7 @@ class FormHelpers {
 			case ErrorTypes.PATTERN:
 				return this.constructPasswordMessage(password);
 			default:
-				return errorDefault;
+				return errorPasswordIncorrect;
 		}
 	};
 

@@ -10,4 +10,4 @@ export const errorPasswordIncorrect = "Не верный пароль";
 export const errorPasswordRules = "Пароль не соответствует требованиям безопасности";
 export const errorPasswordLength = "Пароль должен содержать не менее 6 знаков";
 export const errorPasswordNumber = "Пароль должен содержать хотя бы одну цифру";
-export const errorPasswordRepeat = "Введенный пароль не совпадает";
+export const errorPasswordRepeat = "Введенный пароль не совпадает" as string;

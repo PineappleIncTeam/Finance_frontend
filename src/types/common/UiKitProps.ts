@@ -12,7 +12,9 @@ export interface IButton {
 	type?: "button" | "submit";
 }
 
-export interface IInputProps extends UseControllerProps<ISignUpForm | ISignInForm | INewPassword> {
+export type IInputFormProps = ISignUpForm | ISignInForm | INewPassword;
+
+export interface IInputProps extends UseControllerProps<IInputFormProps> {
 	label: string;
 	type: string;
 	placeholder?: string;

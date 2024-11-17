@@ -72,7 +72,7 @@ const SignInForm = () => {
 
 	const handleModalClose = () => {
 		setIsOpen(false);
-		router.push(UserProfilePath.Profile);
+		router.push(UserProfilePath.Profit);
 	};
 
 	return (

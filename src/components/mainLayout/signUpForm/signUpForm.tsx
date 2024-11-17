@@ -45,7 +45,7 @@ const SignUpForm = () => {
 		setBaseUrl(getCorrectBaseUrl());
 	}, []);
 
-	const validateRepeatPassword = (value: string) => {
+	const validateRepeatPassword = (value: string | undefined) => {
 		const password = watch(InputType.Password);
 		return value === password || errorPasswordRepeat;
 	};

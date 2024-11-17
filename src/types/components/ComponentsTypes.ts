@@ -6,13 +6,13 @@ export interface IUser {
 
 export interface ISignUpForm {
 	email: string;
-	password: string;
-	re_password: string;
+	password?: string;
+	re_password?: string;
 }
 
 export interface ISignInForm {
 	email: string;
-	password: string;
+	password?: string;
 }
 
 export interface IInviteModal {

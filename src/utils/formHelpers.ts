@@ -2,12 +2,13 @@ import { FieldErrors } from "react-hook-form";
 
 import {
 	errorDefault,
+	errorPasswordIncorrect,
 	errorEmailIncorrect,
 	errorPasswordLength,
 	errorPasswordNumber,
-	errorPasswordRules,
 	errorRequiredField,
 	passwordPattern,
+	errorPasswordRules,
 } from "../helpers/authConstants";
 
 enum ErrorTypes {
@@ -25,7 +26,7 @@ class FormHelpers {
 			case ErrorTypes.PATTERN:
 				return this.constructPasswordMessage(password);
 			default:
-				return errorDefault;
+				return errorPasswordIncorrect;
 		}
 	};
 
@@ -34,7 +35,7 @@ class FormHelpers {
 		const minPasswordLength = 6;
 		if (password.length < minPasswordLength) {
 			messages.push(errorPasswordLength);
-		} else if (password.length > minPasswordLength && !/(?=.*\d)/.test(password)) {
+		} else if (password.length >= minPasswordLength && !/(?=.*\d)/.test(password)) {
 			messages.push(errorPasswordNumber);
 		} else if (!passwordPattern.test(password)) {
 			messages.push(errorPasswordRules);

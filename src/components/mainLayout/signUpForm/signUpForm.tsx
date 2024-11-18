@@ -111,7 +111,7 @@ const SignUpForm = () => {
 						validate: validateRepeatPassword,
 					}}
 				/>
-				<Button content="Регистрация" styleName="big buttonForLogin" type="submit" />
+				<Button content="Зарегистрироваться" styleName="big buttonForLogin" type="submit" />
 				<div className={styles.dividerWrap}>
 					<div className={styles.dividerWrap__line} />
 					<span className={styles.dividerWrap__subtitle}>или</span>

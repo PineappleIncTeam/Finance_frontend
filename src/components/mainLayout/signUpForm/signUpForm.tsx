@@ -50,10 +50,6 @@ const SignUpForm = () => {
 		return value === password || errorPasswordRepeat;
 	};
 
-	const goBack = () => {
-		router.back();
-	};
-
 	const isAxiosError = (error: unknown): error is AxiosError => {
 		return (error as AxiosError).isAxiosError !== undefined;
 	};
@@ -115,10 +111,7 @@ const SignUpForm = () => {
 						validate: validateRepeatPassword,
 					}}
 				/>
-				<div className={styles.actionWrap}>
-					<Button content="Отменить" styleName="small buttonForRegistration" onClick={goBack} />
-					<Button content="Вход" styleName="small buttonForLogin" type="submit" />
-				</div>
+				<Button content="Зарегистрироваться" styleName="big buttonForLogin" type="submit" />
 				<div className={styles.dividerWrap}>
 					<div className={styles.dividerWrap__line} />
 					<span className={styles.dividerWrap__subtitle}>или</span>

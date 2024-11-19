@@ -18,7 +18,7 @@ const Footer = ({ isMainPage }: IFooter) => {
 		<div className={styles.footerWrap}>
 			<div className={cn(styles.footerContainer, { [styles.footerContainer__mainPage]: isMainPage })}>
 				<p className={styles.footerContainer__copyright}>
-					Copyright © {copyrightYear} freenance | All Rights Reserved
+					Copyright © {copyrightYear} Freenance | All Rights Reserved
 				</p>
 				<Link href={MainPath.UserAgreement} className={styles.footerContainer__link}>
 					Пользовательское соглашение

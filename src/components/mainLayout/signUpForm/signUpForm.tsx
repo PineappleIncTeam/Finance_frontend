@@ -118,11 +118,11 @@ const SignUpForm = () => {
 						<CustomCheckbox />
 						<p className={styles.securityPolicyWrapper__Text}>
 							Я соглашаюсь с{" "}
-							<Link className={styles.securityPolicyWrapper__Link} href={""}>
+							<Link className={styles.securityPolicyWrapper__Link} href={MainPath.UserAgreement}>
 								политикой конфиденциальности
 							</Link>{" "}
 							и даю{" "}
-							<Link className={styles.securityPolicyWrapper__Link} href={""}>
+							<Link className={styles.securityPolicyWrapper__Link} href={MainPath.UserAgreement}>
 								согласие на обработку и хранения персональных данных
 							</Link>{" "}
 						</p>

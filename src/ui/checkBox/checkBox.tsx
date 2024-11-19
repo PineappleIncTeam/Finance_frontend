@@ -17,7 +17,9 @@ const CustomCheckbox = () => {
 		<label className={styles.customCheckbox}>
 			<input type="checkbox" className={styles.hiddenCheckbox} checked={isChecked} onChange={handleCheckboxChange} />
 			<span className={`${styles.checkbox} ${isChecked ? styles.checked : ""}`}>
-				{isChecked && <Image src={checkBoxIcon.src} alt="Checkbox icon" className={styles.checkboxIcon} />}
+				{isChecked && (
+					<Image src={checkBoxIcon.src} width={22} height={22} alt="Checkbox icon" className={styles.checkboxIcon} />
+				)}
 			</span>
 		</label>
 	);

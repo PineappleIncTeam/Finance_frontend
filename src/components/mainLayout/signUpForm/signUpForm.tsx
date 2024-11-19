@@ -25,6 +25,7 @@ import styles from "./signUpForm.module.scss";
 
 const SignUpForm = () => {
 	const [baseUrl, setBaseUrl] = useState<string>();
+	const [agreement, setAgreement] = useState<boolean>(false);
 	const {
 		formState: { errors },
 		control,
@@ -115,7 +116,7 @@ const SignUpForm = () => {
 				/>
 				<div className={styles.securityPolicyWrapper}>
 					<div className={styles.securityPolicyWrapper__Checkbox}>
-						<CustomCheckbox />
+						<CustomCheckbox isChecked={agreement} setIsChecked={setAgreement} />
 						<p className={styles.securityPolicyWrapper__Text}>
 							Я соглашаюсь с{" "}
 							<Link className={styles.securityPolicyWrapper__Link} href={MainPath.UserAgreement}>

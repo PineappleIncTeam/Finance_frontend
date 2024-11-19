@@ -6,8 +6,8 @@ const initialState: ICookieStatus = {
 	status: "pending",
 };
 
-const cookieStatus = createSlice({
-	name: "cookieStatus",
+const userStorageSettings = createSlice({
+	name: "userStorageSettings",
 	initialState,
 	reducers: {
 		setCookieStatus(state: ICookieStatus, action: PayloadAction<CookieStatusList>) {
@@ -16,6 +16,6 @@ const cookieStatus = createSlice({
 	},
 });
 
-export const { setCookieStatus } = cookieStatus.actions;
+export const { setCookieStatus } = userStorageSettings.actions;
 
-export default cookieStatus.reducer;
+export default userStorageSettings.reducer;

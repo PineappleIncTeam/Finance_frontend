@@ -8,8 +8,8 @@ import useAppSelector from "../../../hooks/useAppSelector";
 import useAppDispatch from "../../../hooks/useAppDispatch";
 
 import Button from "../../../ui/button/button";
-import cookieStatusSelector from "../../../services/redux/features/cookieStatus/cookieStatusSelector";
-import { setCookieStatus } from "../../../services/redux/features/cookieStatus/cookieStatusSlice";
+import cookieStatusSelector from "../../../services/redux/features/userStorageSettings/userStorageSettingsSelector";
+import { setCookieStatus } from "../../../services/redux/features/userStorageSettings/userStorageSettingsSlice";
 import { MainPath } from "../../../services/router/routes";
 
 import styles from "./cookiePopupWindowPage.module.scss";

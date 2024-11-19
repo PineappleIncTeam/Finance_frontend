@@ -3,7 +3,7 @@ import { persistStore, persistReducer, FLUSH, PAUSE, PERSIST, PURGE, REGISTER, R
 import storage from "redux-persist/lib/storage";
 
 import dataReducer from "./features/infoPart/InfoPartSlice";
-import statusReducer from "./features/cookieStatus/cookieStatusSlice";
+import userStorageSettingsReducer from "./features/userStorageSettings/userStorageSettingsSlice";
 
 const persistConfig = {
 	key: "root",
@@ -11,7 +11,7 @@ const persistConfig = {
 	whitelist: ["status"],
 };
 
-const persistedStatusReducer = persistReducer(persistConfig, statusReducer);
+const persistedStatusReducer = persistReducer(persistConfig, userStorageSettingsReducer);
 
 const store = configureStore({
 	reducer: {

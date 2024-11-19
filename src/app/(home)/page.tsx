@@ -9,7 +9,7 @@ function MainPage() {
 		<>
 			<main className={styles.mainPageWrap}>
 				<Service />
-				<Footer />
+				<Footer isMainPage={true} />
 			</main>
 		</>
 	);

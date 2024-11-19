@@ -4,5 +4,5 @@ export interface IChangePassword {
 }
 
 export interface INewPassword {
-	enterEmail: string;
+	email: string;
 }

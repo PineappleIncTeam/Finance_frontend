@@ -11,7 +11,7 @@
 		}
 	}
 
-	@media (max-width: 360px) {
+	@media (max-width: 490px) {
 		& {
 			width: 100px;
 		}
@@ -29,7 +29,7 @@
 	height: 96px;
 	border-radius: 50%;
 
-	@media (max-width: 360px) {
+	@media (max-width: 490px) {
 		& {
 			width: 70px;
 			height: 70px;
@@ -54,7 +54,7 @@
 	background-color: var(--color-pure-light);
 	border: 1px solid var(--color-ghost-white);
 
-	@media (max-width: 360px) {
+	@media (max-width: 490px) {
 		& {
 			height: 100px;
 		}
@@ -67,7 +67,7 @@
 	margin-top: 96px;
 	background-color: var(--color-light-green);
 
-	@media (max-width: 360px) {
+	@media (max-width: 490px) {
 		& {
 			margin-top: 60px;
 		}
@@ -81,7 +81,7 @@
 	text-align: center;
 	padding-top: 16px;
 
-	@media (max-width: 360px) {
+	@media (max-width: 490px) {
 		& {
 			padding-top: 8px;
 			font-size: 12px;

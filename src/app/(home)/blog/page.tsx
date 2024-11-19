@@ -72,8 +72,8 @@ export default function Blog() {
 						id="3"
 					/>
 				</div>
-				<Footer />
 			</div>
+			<Footer />
 		</div>
 	);
 }

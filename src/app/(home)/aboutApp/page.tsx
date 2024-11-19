@@ -1,3 +1,7 @@
+"use client";
+
+import { useState } from "react";
+
 import Image from "next/image";
 
 import Footer from "../../../components/mainLayout/footer/footer";
@@ -9,14 +13,24 @@ import expensesIncome from "../../../assets/pages/aboutApp/expensesIncome.png";
 import analyze from "../../../assets/pages/aboutApp/analyze.png";
 import calculate from "../../../assets/pages/aboutApp/calculate.png";
 import { GooglePlayIcon } from "../../../assets/script/aboutApp/GooglePlayIcon";
-import { OneNumIcon } from "../../../assets/script/aboutApp/OneNumIcon";
-import { TwoNumIcon } from "../../../assets/script/aboutApp/TwoNumIcon";
-import { ThreeNumIcon } from "../../../assets/script/aboutApp/ThreeNumIcon";
-import { FourNumIcon } from "../../../assets/script/aboutApp/FourNumIcon";
+import OneNumIcon from "../../../assets/script/aboutApp/OneNumIcon.svg";
+import TwoNumIcon from "../../../assets/script/aboutApp/TwoNumIcon.svg";
+import ThreeNumIcon from "../../../assets/script/aboutApp/ThreeNumIcon.svg";
+import FourNumIcon from "../../../assets/script/aboutApp/FourNumIcon.svg";
+
+import VideoElement from "../../../components/mainLayout/videoElement/videoElement";
+
+import { videoId } from "../../../mocks/VideoId";
 
 import style from "./aboutAppPage.module.scss";
 
 function AboutApp() {
+	const [isVideoElementStart, setIsVideoElementStart] = useState<boolean>(false);
+
+	const buttonAction = (prop: boolean) => {
+		setIsVideoElementStart(prop);
+	};
+
 	return (
 		<div className={style.aboutAppWrap}>
 			<div className={style.aboutAppContainer}>
@@ -31,7 +45,7 @@ function AboutApp() {
 					<div className={style.aboutAppPageInstructionContainer}>
 						<div className={style.aboutAppPageInstructionContainer__item}>
 							<div className={style.aboutAppPageInstructionContainer__item__orderNum}>1</div>
-							<OneNumIcon classNames={style.instructionNumber} />
+							<Image className={style.instructionNumber} width={56} height={154} src={OneNumIcon} alt="number one" />
 							<div className={style.aboutAppPageInstructionContainer__item__imageHelpWrapper}>
 								<Image className={style.aboutAppPageInstructionImage} src={registration} alt="registration" />
 								<p className={style.aboutAppPageInstructionContainer__item__imageHelpText}>
@@ -41,7 +55,7 @@ function AboutApp() {
 						</div>
 						<div className={style.aboutAppPageInstructionContainer__item}>
 							<div className={style.aboutAppPageInstructionContainer__item__orderNum}>2</div>
-							<TwoNumIcon classNames={style.instructionNumber} />
+							<Image className={style.instructionNumber} width={56} height={156} src={TwoNumIcon} alt="number two" />
 							<div className={style.aboutAppPageInstructionContainer__item__imageHelpWrapper}>
 								<Image className={style.aboutAppPageInstructionImage} src={expensesIncome} alt="expenses and income" />
 								<p className={style.aboutAppPageInstructionContainer__item__imageHelpText}>
@@ -51,7 +65,13 @@ function AboutApp() {
 						</div>
 						<div className={style.aboutAppPageInstructionContainer__item}>
 							<div className={style.aboutAppPageInstructionContainer__item__orderNum}>3</div>
-							<ThreeNumIcon classNames={style.instructionNumber} />
+							<Image
+								className={style.instructionNumber}
+								width={58}
+								height={156}
+								src={ThreeNumIcon}
+								alt="number three"
+							/>
 							<div className={style.aboutAppPageInstructionContainer__item__imageHelpWrapper}>
 								<Image
 									className={style.aboutAppPageInstructionImage}
@@ -65,7 +85,7 @@ function AboutApp() {
 						</div>
 						<div className={style.aboutAppPageInstructionContainer__item}>
 							<div className={style.aboutAppPageInstructionContainer__item__orderNum}>4</div>
-							<FourNumIcon classNames={style.instructionNumber} />
+							<Image className={style.instructionNumber} width={46} height={156} src={FourNumIcon} alt="number four" />
 							<div className={style.aboutAppPageInstructionContainer__item__imageHelpWrapper}>
 								<Image className={style.aboutAppPageInstructionImage} src={analyze} alt="analyze expenses and income" />
 								<p className={style.aboutAppPageInstructionContainer__item__imageHelpText}>
@@ -78,8 +98,15 @@ function AboutApp() {
 						<p className={style.aboutAppPageInstructionVideoContainer__header}>
 							Пошаговая инструкция об использовании приложения
 						</p>
-						<button className={style.aboutAppPageInstructionVideoContainer__button}>Смотреть видео</button>
+						<button className={style.aboutAppPageInstructionVideoContainer__button} onClick={() => buttonAction(true)}>
+							Смотреть видео
+						</button>
 					</div>
+					{isVideoElementStart && (
+						<div className={style.videoElementWrapper}>
+							<VideoElement close={() => buttonAction(false)} videoId={videoId} />
+						</div>
+					)}
 				</div>
 			</div>
 			<Footer />

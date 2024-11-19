@@ -105,7 +105,7 @@ const MainHeader = () => {
 	return (
 		<header className={styles.headerWrap}>
 			<div className={styles.headerContainer}>
-				<Link href={MainPath.Main}>
+				<Link href={MainPath.Main} className={styles.logoLink}>
 					<Image src={logo} alt="Логотип" width={284} height={56} className={styles.headerContainer__img} />
 				</Link>
 				<button onClick={() => setOpen(!open)}>

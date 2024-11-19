@@ -1,24 +1,12 @@
 .mainPageWrap {
 	display: flex;
 	flex-direction: column;
+	justify-content: space-between;
+	height: calc(100vh - 156px);
 	gap: 62px;
 	background: var(--color-pure-light);
 	width: 100%;
-	max-width: 1760px;
-	padding: 56px 0px;
-	margin: 0px auto;
-	
-	@media (width < 1920px) {
-		& {
-			max-width: 1344px;
-			padding: 48px 0px;
-			gap: 140px;
-		}
-	}
-
-	@media (width < 1440px) {
-		max-width: 1190px;
-	}
+	margin: 0 auto;
 
 	@media (width < 1280px) {
 		& {
@@ -31,5 +19,21 @@
 		& {
 			padding: 0px 0px 20px;
 		}
+	}
+
+	@media (max-width: 1440px) {
+		height: calc(100vh - 144px);
+	}
+
+	@media (max-width: 1024px) {
+		height: calc(100vh - 136px);
+	}
+
+	@media (max-width: 768px) {
+		height: calc(100vh - 128px);
+	}
+
+	@media (max-width: 490px) {
+		height: calc(100vh - 86px);
 	}
 }

@@ -62,3 +62,7 @@ export interface ITeamMember {
 	teamRole: string;
 	photo: StaticImageData;
 }
+
+export interface IFooter {
+	isMainPage?: boolean;
+}

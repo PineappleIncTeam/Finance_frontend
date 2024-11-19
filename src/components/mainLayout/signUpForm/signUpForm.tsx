@@ -4,6 +4,7 @@
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 import { AxiosError, HttpStatusCode } from "axios";
 
 import { ISignUpForm } from "../../../types/components/ComponentsTypes";
@@ -18,6 +19,7 @@ import { MainPath } from "../../../services/router/routes";
 import { getCorrectBaseUrl } from "../../../utils/baseUrlConverter";
 import { ApiResponseCode } from "../../../helpers/apiResponseCode";
 import { vkLink } from "../../../mocks/linkSetup";
+import CustomCheckbox from "../../../ui/checkBox/checkBox";
 
 import styles from "./signUpForm.module.scss";
 
@@ -45,13 +47,9 @@ const SignUpForm = () => {
 		setBaseUrl(getCorrectBaseUrl());
 	}, []);
 
-	const validateRepeatPassword = (value: string) => {
+	const validateRepeatPassword = (value: string | undefined) => {
 		const password = watch(InputType.Password);
 		return value === password || errorPasswordRepeat;
-	};
-
-	const goBack = () => {
-		router.back();
 	};
 
 	const isAxiosError = (error: unknown): error is AxiosError => {
@@ -115,10 +113,22 @@ const SignUpForm = () => {
 						validate: validateRepeatPassword,
 					}}
 				/>
-				<div className={styles.actionWrap}>
-					<Button content="Отменить" styleName="small buttonForRegistration" onClick={goBack} />
-					<Button content="Вход" styleName="small buttonForLogin" type="submit" />
+				<div className={styles.securityPolicyWrapper}>
+					<div className={styles.securityPolicyWrapper__Checkbox}>
+						<CustomCheckbox />
+						<p className={styles.securityPolicyWrapper__Text}>
+							Я соглашаюсь с{" "}
+							<Link className={styles.securityPolicyWrapper__Link} href={MainPath.UserAgreement}>
+								политикой конфиденциальности
+							</Link>{" "}
+							и даю{" "}
+							<Link className={styles.securityPolicyWrapper__Link} href={MainPath.UserAgreement}>
+								согласие на обработку и хранения персональных данных
+							</Link>{" "}
+						</p>
+					</div>
 				</div>
+				<Button content="Зарегистрироваться" styleName="big buttonForLogin" type="submit" />
 				<div className={styles.dividerWrap}>
 					<div className={styles.dividerWrap__line} />
 					<span className={styles.dividerWrap__subtitle}>или</span>

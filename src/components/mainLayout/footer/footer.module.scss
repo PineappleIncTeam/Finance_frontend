@@ -95,7 +95,7 @@
 .footerContainer__link {
 	font-size: 1.6rem;
 	line-height: 2.2rem;
-	color: #21703c;
+	color: var(--color-dark-spring-green);
 	cursor: pointer;
 
 	@media (width < 1280px) {

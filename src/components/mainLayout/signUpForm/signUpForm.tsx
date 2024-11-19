@@ -19,12 +19,13 @@ import { MainPath } from "../../../services/router/routes";
 import { getCorrectBaseUrl } from "../../../utils/baseUrlConverter";
 import { ApiResponseCode } from "../../../helpers/apiResponseCode";
 import { vkLink } from "../../../mocks/linkSetup";
-import CustomCheckbox from "../../../ui/checkBox/checkBox";
 
 import styles from "./signUpForm.module.scss";
 
 const SignUpForm = () => {
 	const [baseUrl, setBaseUrl] = useState<string>();
+	const [isRegistrationButtonActive, setIsRegistrationButtonActive] = useState<boolean>(false);
+
 	const {
 		formState: { errors },
 		control,
@@ -78,6 +79,10 @@ const SignUpForm = () => {
 		}
 	};
 
+	const handleCheckboxChange = () => {
+		return isRegistrationButtonActive ? setIsRegistrationButtonActive(false) : setIsRegistrationButtonActive(true);
+	};
+
 	return (
 		<form className={styles.signUpFormWrap} onSubmit={handleSubmit(onSubmit)}>
 			<div className={styles.signUpFormContainer}>
@@ -115,7 +120,9 @@ const SignUpForm = () => {
 				/>
 				<div className={styles.securityPolicyWrapper}>
 					<div className={styles.securityPolicyWrapper__Checkbox}>
-						<CustomCheckbox />
+						<p className={styles.privacyCheckbox}>
+							<input type="checkbox" name="privacy" onChange={handleCheckboxChange} />
+						</p>
 						<p className={styles.securityPolicyWrapper__Text}>
 							Я соглашаюсь с{" "}
 							<Link className={styles.securityPolicyWrapper__Link} href={MainPath.UserAgreement}>
@@ -128,7 +135,12 @@ const SignUpForm = () => {
 						</p>
 					</div>
 				</div>
-				<Button content="Зарегистрироваться" styleName="big buttonForLogin" type="submit" />
+				<Button
+					content="Зарегистрироваться"
+					styleName={isRegistrationButtonActive ? "big buttonForLogin" : "big__disabled buttonForLogin"}
+					type="submit"
+					disabled={isRegistrationButtonActive}
+				/>
 				<div className={styles.dividerWrap}>
 					<div className={styles.dividerWrap__line} />
 					<span className={styles.dividerWrap__subtitle}>или</span>

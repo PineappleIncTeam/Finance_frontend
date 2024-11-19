@@ -4,7 +4,7 @@ import { IButton } from "../../types/common/UiKitProps";
 
 import styles from "./button.module.scss";
 
-const Button = ({ content, styleName, onClick, type }: IButton) => {
+const Button = ({ content, styleName, onClick, type, disabled }: IButton) => {
 	function getCorrectStyleName(styleName: string): string {
 		if (styleName.includes(" ")) {
 			const styleClassPair: string[] = styleName.split(" ");
@@ -14,7 +14,7 @@ const Button = ({ content, styleName, onClick, type }: IButton) => {
 	}
 
 	return (
-		<button className={getCorrectStyleName(styleName)} onClick={onClick} type={type}>
+		<button className={getCorrectStyleName(styleName)} onClick={onClick} type={type} disabled={disabled}>
 			{content}
 		</button>
 	);

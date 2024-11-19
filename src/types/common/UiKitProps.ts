@@ -10,6 +10,7 @@ export interface IButton {
 	styleName: string;
 	onClick?: () => void;
 	type?: "button" | "submit";
+	disabled?: boolean;
 }
 
 export type IInputFormProps = ISignUpForm | ISignInForm | INewPassword;

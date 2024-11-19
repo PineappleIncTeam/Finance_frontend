@@ -1,4 +1,4 @@
-import { RootState } from "../..";
+import { RootState } from "../../";
 
 const userStorageSettingsSelector = (state: RootState) => {
 	return state.status;

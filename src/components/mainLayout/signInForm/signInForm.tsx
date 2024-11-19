@@ -20,12 +20,20 @@ import { MainPath, UserProfilePath } from "../../../services/router/routes";
 import { ApiResponseCode } from "../../../helpers/apiResponseCode";
 import { loginUser } from "../../../services/api/auth/Login";
 
+import useAppDispatch from "../../../hooks/useAppDispatch";
+
+import { setAutoLoginStatus } from "../../../services/redux/features/userStorageSettings/userStorageSettingsSlice";
+
 import styles from "./signInForm.module.scss";
 
 const SignInForm = () => {
 	const [baseUrl, setBaseUrl] = useState<string>();
 	const [errorMessage, setErrorMessage] = useState<string>("");
 	const [isOpen, setIsOpen] = useState<boolean>(false);
+	const [isAuth, setAuth] = useState<boolean>(false);
+
+	const dispatch = useAppDispatch();
+
 	const {
 		formState: { errors },
 		control,
@@ -55,6 +63,7 @@ const SignInForm = () => {
 			if (baseUrl) {
 				await loginUser(baseUrl, data);
 				setIsOpen(true);
+				dispatch(setAutoLoginStatus(isAuth));
 			}
 		} catch (error) {
 			if (
@@ -99,7 +108,7 @@ const SignInForm = () => {
 				/>
 				<div className={styles.additionalFunctionsWrap}>
 					<div className={styles.additionalFunctionsWrap__checkbox}>
-						<CustomCheckbox />
+						<CustomCheckbox isChecked={isAuth} setIsChecked={setAuth} />
 						<p className={styles.checkBoxText}>Запомнить меня</p>
 					</div>
 					<Link href={MainPath.NewPassword} className={styles.forgetPassword}>

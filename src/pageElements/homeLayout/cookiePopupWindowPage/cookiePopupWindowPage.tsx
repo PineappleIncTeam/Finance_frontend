@@ -8,9 +8,12 @@ import useAppSelector from "../../../hooks/useAppSelector";
 import useAppDispatch from "../../../hooks/useAppDispatch";
 
 import Button from "../../../ui/button/button";
-import cookieStatusSelector from "../../../services/redux/features/userStorageSettings/userStorageSettingsSelector";
-import { setCookieStatus } from "../../../services/redux/features/userStorageSettings/userStorageSettingsSlice";
+
 import { MainPath } from "../../../services/router/routes";
+
+import { setCookieStatus } from "../../../services/redux/features/userStorageSettings/userStorageSettingsSlice";
+
+import userStorageSettingsSelector from "../../../services/redux/features/userStorageSettings/userStorageSettingsSelector";
 
 import styles from "./cookiePopupWindowPage.module.scss";
 
@@ -18,7 +21,7 @@ const CookiePopupWindowPage = () => {
 	const [isOpen, setIsOpen] = useState<boolean>(true);
 
 	const dispatch = useAppDispatch();
-	const { status } = useAppSelector(cookieStatusSelector);
+	const { cookieStatus } = useAppSelector(userStorageSettingsSelector);
 
 	const handleClick = () => {
 		setIsOpen(false);
@@ -27,7 +30,9 @@ const CookiePopupWindowPage = () => {
 
 	return (
 		<div
-			className={cn(styles.popupContainer, { [styles.popupContainer_hidden]: status === "confirmed" || !isOpen })}
+			className={cn(styles.popupContainer, {
+				[styles.popupContainer_hidden]: cookieStatus === "confirmed" || !isOpen,
+			})}
 			onClick={handleClick}
 			role="button">
 			<div className={styles.textContentBlock} onClick={(e) => e.stopPropagation()} role="button">

@@ -2,24 +2,25 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 import { CookieStatusList, IUserStorageSettings } from "../../../../types/redux/StoreTypes";
 
-const initialState: IUserStorageSettings = {
-	status: "pending",
-	login: false,
+
+const initialState = {
+	cookieStatus: "pending",
+	loginStatus: false,
 };
 
-const userStorageSettings = createSlice({
+const statusReducer = createSlice({
 	name: "userStorageSettings",
 	initialState,
 	reducers: {
 		setCookieStatus(state: IUserStorageSettings, action: PayloadAction<CookieStatusList>) {
-			state.status = action.payload;
+			state.cookieStatus = action.payload;
 		},
-		isAutoLogin(state: IUserStorageSettings, action: PayloadAction<boolean>) {
-			state.login = action.payload;
-		}
+		setAutoLoginStatus(state: IUserStorageSettings, action: PayloadAction<boolean>) {
+			state.loginStatus = action.payload;
+		},
 	},
 });
 
-export const { setCookieStatus, isAutoLogin } = userStorageSettings.actions;
+export const { setCookieStatus, setAutoLoginStatus } = statusReducer.actions;
 
-export default userStorageSettings.reducer;
+export default statusReducer.reducer;

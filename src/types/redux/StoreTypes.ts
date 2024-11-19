@@ -7,6 +7,6 @@ export interface IProviderList {
 export type CookieStatusList = "pending" | "confirmed" | "rejected";
 
 export interface IUserStorageSettings {
-	status: CookieStatusList;
-	login: boolean;
+	cookieStatus: CookieStatusList;
+	loginStatus: boolean;
 }

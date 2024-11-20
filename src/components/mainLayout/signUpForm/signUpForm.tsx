@@ -19,17 +19,18 @@ import { MainPath } from "../../../services/router/routes";
 import { getCorrectBaseUrl } from "../../../utils/baseUrlConverter";
 import { ApiResponseCode } from "../../../helpers/apiResponseCode";
 import { vkLink } from "../../../mocks/linkSetup";
-import CustomCheckbox from "../../../ui/checkBox/checkBox";
 
 import styles from "./signUpForm.module.scss";
 
 const SignUpForm = () => {
 	const [baseUrl, setBaseUrl] = useState<string>();
+
 	const {
-		formState: { errors },
+		formState: { isValid, errors },
 		control,
 		watch,
 		handleSubmit,
+		register,
 	} = useForm<ISignUpForm | any>({
 		defaultValues: {
 			email: "",
@@ -115,7 +116,9 @@ const SignUpForm = () => {
 				/>
 				<div className={styles.securityPolicyWrapper}>
 					<div className={styles.securityPolicyWrapper__Checkbox}>
-						<CustomCheckbox />
+						<p className={styles.privacyCheckbox}>
+							<input type="checkbox" {...register("agreementField", { required: true })} />
+						</p>
 						<p className={styles.securityPolicyWrapper__Text}>
 							Я соглашаюсь с{" "}
 							<Link className={styles.securityPolicyWrapper__Link} href={MainPath.UserAgreement}>
@@ -128,7 +131,11 @@ const SignUpForm = () => {
 						</p>
 					</div>
 				</div>
-				<Button content="Зарегистрироваться" styleName="big buttonForLogin" type="submit" />
+				<Button
+					content="Зарегистрироваться"
+					styleName={isValid ? "big buttonForLogin" : "big__disabled buttonForLogin"}
+					type="submit"
+				/>
 				<div className={styles.dividerWrap}>
 					<div className={styles.dividerWrap__line} />
 					<span className={styles.dividerWrap__subtitle}>или</span>

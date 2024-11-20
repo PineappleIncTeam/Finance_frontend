@@ -117,7 +117,7 @@ const SignUpForm = () => {
 				<div className={styles.securityPolicyWrapper}>
 					<div className={styles.securityPolicyWrapper__Checkbox}>
 						<p className={styles.privacyCheckbox}>
-							<input type="checkbox" name="privacy" {...register("agreementField", { required: true })} />
+							<input type="checkbox" {...register("agreementField", { required: true })} />
 						</p>
 						<p className={styles.securityPolicyWrapper__Text}>
 							Я соглашаюсь с{" "}

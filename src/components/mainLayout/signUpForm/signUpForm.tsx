@@ -24,13 +24,13 @@ import styles from "./signUpForm.module.scss";
 
 const SignUpForm = () => {
 	const [baseUrl, setBaseUrl] = useState<string>();
-	const [isRegistrationButtonActive, setIsRegistrationButtonActive] = useState<boolean>(false);
 
 	const {
-		formState: { errors },
+		formState: { isValid, errors },
 		control,
 		watch,
 		handleSubmit,
+		register,
 	} = useForm<ISignUpForm | any>({
 		defaultValues: {
 			email: "",
@@ -79,10 +79,6 @@ const SignUpForm = () => {
 		}
 	};
 
-	const handleCheckboxChange = () => {
-		return isRegistrationButtonActive ? setIsRegistrationButtonActive(false) : setIsRegistrationButtonActive(true);
-	};
-
 	return (
 		<form className={styles.signUpFormWrap} onSubmit={handleSubmit(onSubmit)}>
 			<div className={styles.signUpFormContainer}>
@@ -121,7 +117,7 @@ const SignUpForm = () => {
 				<div className={styles.securityPolicyWrapper}>
 					<div className={styles.securityPolicyWrapper__Checkbox}>
 						<p className={styles.privacyCheckbox}>
-							<input type="checkbox" name="privacy" onChange={handleCheckboxChange} />
+							<input type="checkbox" name="privacy" {...register("agreementField", { required: true })} />
 						</p>
 						<p className={styles.securityPolicyWrapper__Text}>
 							Я соглашаюсь с{" "}
@@ -137,9 +133,8 @@ const SignUpForm = () => {
 				</div>
 				<Button
 					content="Зарегистрироваться"
-					styleName={isRegistrationButtonActive ? "big buttonForLogin" : "big__disabled buttonForLogin"}
+					styleName={isValid ? "big buttonForLogin" : "big__disabled buttonForLogin"}
 					type="submit"
-					disabled={isRegistrationButtonActive}
 				/>
 				<div className={styles.dividerWrap}>
 					<div className={styles.dividerWrap__line} />

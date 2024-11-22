@@ -228,14 +228,14 @@
 		& {
 			width: 740px;
 			height: 534px;
-			grid-template-columns: 354 354;
+			grid-template-columns: 354px 354px;
 		}
 	}
 
 	@media (max-width: 1200px) {
 		& {
 			width: 928px;
-			grid-template-columns: 453 454;
+			grid-template-columns: 453px 454px;
 			grid-column-gap: 18px;
 			grid-row-gap: 12px;
 			margin: auto;
@@ -246,7 +246,7 @@
 		& {
 			width: 684px;
 			height: 460px;
-			grid-template-columns: 334 334;
+			grid-template-columns: 334px 334px;
 			grid-column-gap: 14px;
 			grid-row-gap: 10px;
 		}
@@ -255,21 +255,21 @@
 	@media (max-width: 684px) {
 		width: 540px;
 		height: 440px;
-		grid-template-columns: 264 264;
+		grid-template-columns: 264px 264px;
 		grid-column-gap: 10px;
 	}
 
 	@media (max-width: 560px) {
 		width: 470px;
 		height: 434px;
-		grid-template-columns: 232 232;
+		grid-template-columns: 232px 232px;
 		grid-column-gap: 4px;
 	}
 
 	@media (max-width: 490px) {
 		width: 322px;
 		height: 754px;
-		grid-template-columns: 322;
+		grid-template-columns: 322px;
 		grid-column-gap: 0;
 		grid-row-gap: 4px;
 	}
@@ -397,7 +397,7 @@
 
 		@media (max-width: 1200px) {
 			& {
-				margin-left: 120;
+				margin-left: 120px;
 			}
 		}
 

@@ -59,77 +59,83 @@ const NavBar = ({ onClick }: INavBar) => {
 	const renderNavigationElements = () => {
 		return (
 			<div className={styles.navigationLinksWrap}>
-				<Link href={UserProfilePath.Profit}>
+				<Link href={UserProfilePath.Income}>
 					<div
 						className={cn(
 							styles.navigationLinkWrap,
-							{ [styles.active]: pathname === UserProfilePath.Profit },
+							{ [styles.active]: pathname === UserProfilePath.Income },
 							styles.border,
 						)}>
-						{pathname === UserProfilePath.Profit && (
+						{pathname === UserProfilePath.Income && (
 							<Image src={borderIcon} alt={"borderIcon"} className={styles.borderTop} />
 						)}
-						<IncomeIcon color={pathname === UserProfilePath.Profit ? COLORS.primary : COLORS.white} />
-						<p className={cn(styles.navigationLink, { [styles.activeLinkWrap]: pathname === UserProfilePath.Profit })}>
+						<IncomeIcon color={pathname === UserProfilePath.Income ? COLORS.primary : COLORS.white} />
+						<p className={cn(styles.navigationLink, { [styles.activeLinkWrap]: pathname === UserProfilePath.Income })}>
 							Доходы
 						</p>
-						{pathname === UserProfilePath.Profit && (
+						{pathname === UserProfilePath.Income && (
 							<Image src={borderIcon} alt={"borderIconBottom"} className={styles.borderBottom} />
 						)}
 					</div>
 				</Link>
-				<Link href={UserProfilePath.Profit}>
-					<div className={cn(styles.navigationLinkWrap, { [styles.active]: pathname === UserProfilePath.Profit })}>
-						{pathname === UserProfilePath.Profit && (
+				<Link href={UserProfilePath.Сosts}>
+					<div className={cn(styles.navigationLinkWrap, { [styles.active]: pathname === UserProfilePath.Сosts })}>
+						{pathname === UserProfilePath.Сosts && (
 							<Image src={borderIcon} alt={"borderIcon"} className={styles.borderTop} />
 						)}
-						<ExpensesIcon color={pathname === UserProfilePath.Profit ? COLORS.primary : COLORS.white} />
-						<p className={cn(styles.navigationLink, { [styles.activeLinkWrap]: pathname === UserProfilePath.Profit })}>
+						<ExpensesIcon color={pathname === UserProfilePath.Сosts ? COLORS.primary : COLORS.white} />
+						<p className={cn(styles.navigationLink, { [styles.activeLinkWrap]: pathname === UserProfilePath.Сosts })}>
 							Расходы
 						</p>
-						{pathname === UserProfilePath.Profit && (
+						{pathname === UserProfilePath.Сosts && (
 							<Image src={borderIcon} alt={"borderIconBottom"} className={styles.borderBottom} />
 						)}
 					</div>
 				</Link>
-				<Link href={UserProfilePath.Profit}>
-					<div className={cn(styles.navigationLinkWrap, { [styles.active]: pathname === UserProfilePath.Profit })}>
-						{pathname === UserProfilePath.Profit && (
+				<Link href={UserProfilePath.Savings}>
+					<div className={cn(styles.navigationLinkWrap, { [styles.active]: pathname === UserProfilePath.Savings })}>
+						{pathname === UserProfilePath.Savings && (
 							<Image src={borderIcon} alt={"borderIcon"} className={styles.borderTop} />
 						)}
-						<AccumulationIcon color={pathname === UserProfilePath.Profit ? COLORS.primary : COLORS.white} />
-						<p className={cn(styles.navigationLink, { [styles.activeLinkWrap]: pathname === UserProfilePath.Profit })}>
+						<AccumulationIcon color={pathname === UserProfilePath.Savings ? COLORS.primary : COLORS.white} />
+						<p className={cn(styles.navigationLink, { [styles.activeLinkWrap]: pathname === UserProfilePath.Savings })}>
 							Накопления
 						</p>
-						{pathname === UserProfilePath.Profit && (
+						{pathname === UserProfilePath.Savings && (
 							<Image src={borderIcon} alt={"borderIconBottom"} className={styles.borderBottom} />
 						)}
 					</div>
 				</Link>
-				<Link href={UserProfilePath.Profit}>
-					<div className={cn(styles.navigationLinkWrap, { [styles.active]: pathname === UserProfilePath.Profit })}>
-						{pathname === UserProfilePath.Profit && (
+				<Link href={UserProfilePath.Analytics}>
+					<div className={cn(styles.navigationLinkWrap, { [styles.active]: pathname === UserProfilePath.Analytics })}>
+						{pathname === UserProfilePath.Analytics && (
 							<Image src={borderIcon} alt={"borderIcon"} className={styles.borderTop} />
 						)}
-						<AnalyticsIcon color={pathname === UserProfilePath.Profit ? COLORS.primary : COLORS.white} />
-						<p className={cn(styles.navigationLink, { [styles.activeLinkWrap]: pathname === UserProfilePath.Profit })}>
+						<AnalyticsIcon color={pathname === UserProfilePath.Analytics ? COLORS.primary : COLORS.white} />
+						<p
+							className={cn(styles.navigationLink, {
+								[styles.activeLinkWrap]: pathname === UserProfilePath.Analytics,
+							})}>
 							Аналитика
 						</p>
-						{pathname === UserProfilePath.Profit && (
+						{pathname === UserProfilePath.Analytics && (
 							<Image src={borderIcon} alt={"borderIconBottom"} className={styles.borderBottom} />
 						)}
 					</div>
 				</Link>
-				<Link href={UserProfilePath.Profit}>
-					<div className={cn(styles.navigationLinkWrap, { [styles.active]: pathname === UserProfilePath.Profit })}>
-						{pathname === UserProfilePath.Profit && (
+				<Link href={UserProfilePath.Calculator}>
+					<div className={cn(styles.navigationLinkWrap, { [styles.active]: pathname === UserProfilePath.Calculator })}>
+						{pathname === UserProfilePath.Calculator && (
 							<Image src={borderIcon} alt={"borderIcon"} className={styles.borderTop} />
 						)}
-						<CalculatorIcon color={pathname === UserProfilePath.Profit ? COLORS.primary : COLORS.white} />
-						<p className={cn(styles.navigationLink, { [styles.activeLinkWrap]: pathname === UserProfilePath.Profit })}>
+						<CalculatorIcon color={pathname === UserProfilePath.Calculator ? COLORS.primary : COLORS.white} />
+						<p
+							className={cn(styles.navigationLink, {
+								[styles.activeLinkWrap]: pathname === UserProfilePath.Calculator,
+							})}>
 							Калькулятор
 						</p>
-						{pathname === UserProfilePath.Profit && (
+						{pathname === UserProfilePath.Calculator && (
 							<Image src={borderIcon} alt={"borderIconBottom"} className={styles.borderBottom} />
 						)}
 					</div>

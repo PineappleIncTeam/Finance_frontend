@@ -72,7 +72,7 @@ const SignInForm = () => {
 
 	const handleModalClose = () => {
 		setIsOpen(false);
-		router.push(UserProfilePath.Income);
+		router.push(UserProfilePath.ProfitMoney);
 	};
 
 	return (

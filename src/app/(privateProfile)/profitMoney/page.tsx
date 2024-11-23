@@ -1,9 +1,9 @@
-function Income() {
+function ProfitMoney() {
 	return (
 		<>
-			<div>Income</div>
+			<div>ProfitMoney</div>
 		</>
 	);
 }
 
-export default Income;
+export default ProfitMoney;

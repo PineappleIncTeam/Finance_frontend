@@ -8,7 +8,6 @@ import {
 	errorPasswordNumber,
 	errorRequiredField,
 	passwordPattern,
-	errorPasswordRules,
 } from "../helpers/authConstants";
 
 enum ErrorTypes {
@@ -26,7 +25,7 @@ class FormHelpers {
 			case ErrorTypes.PATTERN:
 				return this.constructPasswordMessage(password);
 			default:
-				return errorPasswordIncorrect;
+				return errorDefault;
 		}
 	};
 
@@ -38,7 +37,7 @@ class FormHelpers {
 		} else if (password.length >= minPasswordLength && !/(?=.*\d)/.test(password)) {
 			messages.push(errorPasswordNumber);
 		} else if (!passwordPattern.test(password)) {
-			messages.push(errorPasswordRules);
+			messages.push(errorPasswordIncorrect);
 		}
 		if (messages.length === 0) {
 			return null;

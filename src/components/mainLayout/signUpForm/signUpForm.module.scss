@@ -38,14 +38,14 @@
 	&__Text {
 		font-size: 1.3rem;
 		line-height: 1.8rem;
-		margin: 0px 12px 28px;
+		margin: 0px 8px 28px;
 		color: var(--color-star-dust);
 
 		@media (max-width: 550) {
 			& {
 				font-size: 1.1rem;
 				line-height: 1.3rem;
-				margin: 0px 8px 16px;
+				margin: 0px 10px 16px;
 			}
 		}
 	}
@@ -53,6 +53,10 @@
 	&__Link {
 		color: var(--color-dark-spring-green);
 	}
+}
+
+.privacyCheckbox {
+	margin-top: 6px;
 }
 
 .dividerWrap {

@@ -50,12 +50,14 @@ const MainHeader = () => {
 			if (baseUrl) {
 				validateToken(baseUrl).then(() => {
 					if (loginStatus) {
-						return router.push(UserProfilePath.Profit);
+						return router.push(UserProfilePath.ProfitMoney);
 					}
 				});
 			}
 		} catch (error) {
-			return router.push(MainPath.Main);
+			if (loginStatus) {
+				return router.push(MainPath.Login);
+			}
 		}
 	}, [baseUrl, loginStatus, router]);
 

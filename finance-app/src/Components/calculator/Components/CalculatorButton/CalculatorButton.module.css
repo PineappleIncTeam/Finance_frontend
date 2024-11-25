@@ -2,19 +2,20 @@
   cursor: pointer;
   width: 264px;
   height: 60px;
-  border: 1px solid rgb(206, 229, 160);
+  border: 1px solid var(--color-primary);
   color: white;
   font-family: "Monserrat-Regular";
   font-weight: 600;
   font-size: 20px;
-  background-color: rgb(206, 229, 160);
+  background-color: var(--color-primary);
   border-radius: 24px;
+  transition: var(--transition);
 }
 
 .button:hover {
-  background-color: rgb(206, 229, 160);
+  background-color: var(--color-primary);
   cursor: pointer;
-  box-shadow: 0px 2px 5px 1px rgb(158, 176, 123);
+  box-shadow: 0px 2px 5px 1px var(--color-primary);
   transform: translateY(-1px);
 }
 
@@ -32,5 +33,4 @@
   }
 }
 @media (max-width: 1024px) {
-
 }

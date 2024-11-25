@@ -1,38 +1,38 @@
-import CalculatorInput from "./Components/CalculatorInput/CalculatorInput"
-import { useEffect, useState } from "react"
-import style from "./Calculator.module.css"
-import CalculatorButton from "./Components/CalculatorButton/CalculatorButton"
-import CalculationResult from "./Components/CalculationResult/CalculationResult"
-import PercentButtonBlock from "./Components/PercentButtonBlock/PercentButtonBlock"
-import CreditTermRateButtonBlock from "./Components/CreditTermRateButtonBlock/CreditTermRateButtonBlock"
-import ChoiceButton from "./Components/ChoiceButton/ChoiceButton"
-import ExchangeRates from "./Components/ExchangeRates/ExchangeRates"
+import CalculatorInput from "./Components/CalculatorInput/CalculatorInput";
+import { useEffect, useState } from "react";
+import style from "./Calculator.module.css";
+import CalculatorButton from "./Components/CalculatorButton/CalculatorButton";
+import CalculationResult from "./Components/CalculationResult/CalculationResult";
+import PercentButtonBlock from "./Components/PercentButtonBlock/PercentButtonBlock";
+import CreditTermRateButtonBlock from "./Components/CreditTermRateButtonBlock/CreditTermRateButtonBlock";
+import ChoiceButton from "./Components/ChoiceButton/ChoiceButton";
+import ExchangeRates from "./Components/ExchangeRates/ExchangeRates";
 
 function Calculator({ setCheckMainField, setCheckCalculator }) {
   useEffect(() => {
-    setCheckMainField(false)
-    setCheckCalculator(true)
-  })
-  const [totalCost, setTotalCost] = useState(0)
-  const [anInitialFee, setAnInitialFee] = useState(0)
-  const [creditTerm, setCreditTerm] = useState(0)
-  const [creditRate, setCreditRate] = useState(0)
-  const [result, setResult] = useState()
-  const [realEstate, setRealEstate] = useState(true)
-  const [exchangeRates, setExchangeRates] = useState()
-  const [currencyType, setCurrencyType] = useState("rub")
-  const data = [totalCost, anInitialFee, creditTerm, creditRate]
-  const creditTermData = [1, 3, 5, 7]
-  const mortgageTermData = [5, 10, 15, 20]
-  const creditRateData = [5.5, 7.5, 7.9, 11.4, 13.5]
+    setCheckMainField(false);
+    setCheckCalculator(true);
+  });
+  const [totalCost, setTotalCost] = useState(0);
+  const [anInitialFee, setAnInitialFee] = useState(0);
+  const [creditTerm, setCreditTerm] = useState(0);
+  const [creditRate, setCreditRate] = useState(0);
+  const [result, setResult] = useState();
+  const [realEstate, setRealEstate] = useState(true);
+  const [exchangeRates, setExchangeRates] = useState();
+  const [currencyType, setCurrencyType] = useState("rub");
+  const data = [totalCost, anInitialFee, creditTerm, creditRate];
+  const creditTermData = [1, 3, 5, 7];
+  const mortgageTermData = [5, 10, 15, 20];
+  const creditRateData = [5.5, 7.5, 7.9, 11.4, 13.5];
 
-  const USD = exchangeRates && exchangeRates.Valute.USD.Value.toFixed(2)
-  const EUR = exchangeRates && exchangeRates.Valute.EUR.Value.toFixed(2)
-  const inputMaxValueDivisor = { 'rub': 1, 'usd': USD, 'eur': EUR  }
+  const USD = exchangeRates && exchangeRates.Valute.USD.Value.toFixed(2);
+  const EUR = exchangeRates && exchangeRates.Valute.EUR.Value.toFixed(2);
+  const inputMaxValueDivisor = { rub: 1, usd: USD, eur: EUR };
 
   useEffect(() => {
-    setResult()
-  }, [realEstate])
+    setResult();
+  }, [realEstate]);
 
   return (
     <div className={style.calculator_main_page}>
@@ -70,7 +70,11 @@ function Calculator({ setCheckMainField, setCheckCalculator }) {
             <CalculatorInput
               label={realEstate ? "Стоимость недвижимости" : "Сумма Кредита"}
               min={0}
-              max={exchangeRates ? 99999999 / inputMaxValueDivisor[currencyType] : 99999999}
+              max={
+                exchangeRates
+                  ? 99999999 / inputMaxValueDivisor[currencyType]
+                  : 99999999
+              }
               value={totalCost}
               setValue={setTotalCost}
               unformatted={false}
@@ -84,20 +88,23 @@ function Calculator({ setCheckMainField, setCheckCalculator }) {
                 <CalculatorInput
                   label={"Первоначальный взнос"}
                   min={0}
-                  max={exchangeRates ? 99999999 / inputMaxValueDivisor[currencyType] : 99999999}
+                  max={
+                    exchangeRates
+                      ? 99999999 / inputMaxValueDivisor[currencyType]
+                      : 99999999
+                  }
                   value={anInitialFee}
                   setValue={setAnInitialFee}
                   unformatted={false}
                   currencyType={currencyType}
                   exchangeRates={exchangeRates}
                 />
-              </div>
-              <div className={style.percent_button_block}>
                 <PercentButtonBlock
                   totalCost={totalCost}
                   setAnInitialFee={setAnInitialFee}
                 />
               </div>
+              <div className={style.percent_button_block}></div>
             </>
           )}
           <div className={style.input_block}>
@@ -110,14 +117,13 @@ function Calculator({ setCheckMainField, setCheckCalculator }) {
               unformatted={true}
               currencyType={currencyType}
             />
-          </div>
-          <div className={style.percent_button_block}>
             <CreditTermRateButtonBlock
               data={realEstate ? mortgageTermData : creditTermData}
               content={"лет"}
               setData={setCreditTerm}
             />
           </div>
+          <div className={style.percent_button_block}></div>
           <div className={style.input_block}>
             <CalculatorInput
               label={"Процентная ставка (%)"}
@@ -129,14 +135,13 @@ function Calculator({ setCheckMainField, setCheckCalculator }) {
               unformatted={true}
               currencyType={currencyType}
             />
-          </div>
-          <div className={style.percent_button_block}>
             <CreditTermRateButtonBlock
               data={creditRateData}
               content={"%"}
               setData={setCreditRate}
             />
           </div>
+          <div className={style.percent_button_block}></div>
           <div className={style.calculator_button}>
             <CalculatorButton
               setResult={setResult}
@@ -164,7 +169,7 @@ function Calculator({ setCheckMainField, setCheckCalculator }) {
         </div>
       </div>
     </div>
-  )
+  );
 }
 
-export default Calculator
+export default Calculator;

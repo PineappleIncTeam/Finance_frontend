@@ -1,6 +1,9 @@
 .root {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 30px;
+  height: 100%;
 }
 
 .input::placeholder {
@@ -8,17 +11,12 @@
   color: #b7b7b7;
 }
 
-.logo {
-  text-align: left;
-  padding-left: 120px;
-}
-
 .regist {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-top: 157px;
+  margin-top: 40px;
 }
 .regist h1 {
   font-family: "Monserrat-medium";
@@ -29,7 +27,7 @@
   /* letter-spacing: 0.06em; */
   /* text-transform: capitalize; */
   margin-bottom: 48px;
-  color: #125b50;
+  color: var(--color-primary);
 }
 .registFon {
   position: relative;
@@ -79,7 +77,7 @@
   outline: none;
   margin-bottom: 5px;
 }
-.error, 
+.error,
 .only_lat_message {
   color: red;
   max-width: 400px;
@@ -88,7 +86,7 @@
 
 .btn {
   margin-top: 76px;
-  background: #125b50;
+  background: var(--color-primary);
   border-radius: 60px;
   padding: 12px 20px;
   font-family: "Monserrat-Regular";
@@ -112,9 +110,9 @@
 }
 
 .btn:hover {
-  background-color: #125b50;
+  background-color: var(--color-primary);
   cursor: pointer;
-  box-shadow: 0px 2px 5px 1px #0c4139;
+  box-shadow: 0px 2px 5px 1px var(--color-primary);
   transform: translateY(-1px);
 }
 
@@ -136,7 +134,7 @@
   font-weight: 600;
   font-size: 16px;
   line-height: 29px;
-  color: #125B50;
+  color: var(--color-primary);
   text-decoration: none;
   margin-top: 40px;
 }
@@ -146,7 +144,7 @@
   font-weight: 600;
   font-size: 16px;
   line-height: 16px;
-  color: #125B50;
+  color: var(--color-primary);
   text-decoration: none;
   width: 400px;
   /* margin-top: 40px; */
@@ -173,13 +171,7 @@
     height: 768px;
     background-size: cover;
   }
-  .logo {
-    text-align: center;
-    padding-left: 0px;
-  }
-  .regist {
-    margin-top: 110px;
-  }
+
   .regist h1 {
     font-size: 24px;
   }
@@ -244,11 +236,6 @@
 }
 
 @media screen and (max-width: 720px) {
-  .root {
-    display: flex;
-    flex-direction: column-reverse;
-  }
-
   .registFon {
     background-position-x: 20px;
     max-width: 255px;

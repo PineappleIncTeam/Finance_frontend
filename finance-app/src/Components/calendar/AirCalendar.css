@@ -105,7 +105,6 @@
   .air-datepicker-nav--title {
     font-size: 16px;
   }
-  
 }
 @media screen and (max-width: 840px) {
   .air-datepicker-nav {
@@ -114,7 +113,7 @@
   .air-datepicker-nav--action {
     width: 140px;
   }
-  
+
   .air-datepicker-timepicker {
     width: 140px;
   }
@@ -125,7 +124,6 @@
     width: 140px;
   }
   .air-datepicker {
-    
     width: 170px;
   }
   .air-datepicker-nav--title {
@@ -143,17 +141,15 @@
   .input {
     font-size: 14px;
   }
-  
 }
 @media screen and (max-width: 376px) {
-  
   .air-datepicker-nav {
     width: 130px;
   }
   .air-datepicker-nav--action {
     width: 110px;
   }
-  
+
   .air-datepicker-timepicker {
     width: 110px;
   }
@@ -197,6 +193,7 @@
     right: -20px;
   }
   .input {
+    box-sizing: border-box;
     font-size: 10px;
     width: 125px;
   }

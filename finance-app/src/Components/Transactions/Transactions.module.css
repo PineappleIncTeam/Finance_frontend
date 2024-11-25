@@ -24,7 +24,7 @@
 
 .root hr {
   border: 1px solid rgba(84, 120, 43, 0.15);
-  box-shadow: 0px -3px 24px rgba(84, 120, 43, 0.5);
+  box-shadow: 0px -3px 24px var(--color-primary);
   transform: rotate(-0.04deg);
 }
 
@@ -68,7 +68,7 @@
 }
 .operation_list_icon1:hover,
 .operation_list_icon2:hover {
-  box-shadow: 0px 2px 5px 1px #0c4139;
+  box-shadow: 0px 2px 5px 1px var(--color-primary);
   transform: translateY(-2px);
 }
 .icon_button {
@@ -101,7 +101,7 @@
   }
   .operation_list_icon1:hover,
   .operation_list_icon2:hover {
-    box-shadow: 0px 2px 5px 1px #0c4139;
+    box-shadow: 0px 2px 5px 1px var(--color-primary);
     transform: translateY(-2px);
   }
   .icons {
@@ -191,6 +191,4 @@
   .text {
     font-size: 14px;
   }
-  
-  
 }

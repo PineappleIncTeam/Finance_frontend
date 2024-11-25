@@ -26,9 +26,15 @@
   padding: 0;
 }
 body {
-  font-family: "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell",
-    "Fira Sans", "Droid Sans", "Helvetica Neue", "Playfair Display" sans-serif,
-    "Montserrat", "Montserrat-Medium";
+  font-family: "Montserrat", sans-serif;
+}
+:root {
+  --color-primary: #018180;
+  --color-primary-dark: #006666;
+  --color-white: #ffffff;
+  --color-background: #e4ebf0;
+  --font-family: "Montserrat";
+  --transition: 0.5s;
 }
 *::-webkit-scrollbar {
   width: 5px;

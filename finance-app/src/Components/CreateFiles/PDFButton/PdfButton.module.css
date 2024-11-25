@@ -3,13 +3,13 @@
   cursor: pointer;
   width: 264px;
   height: 60px;
-  border: 1px solid #125b50;
+  border: 1px solid var(--color-primary);
   color: white;
   font-family: "Monserrat-Regular";
   font-weight: 600;
   font-size: 20px;
   margin: 0px 42px 0px;
-  background-color: #125b50;
+  background-color: var(--color-primary);
   border-radius: 24px;
 }
 .button_mini {
@@ -17,9 +17,9 @@
 }
 .button:hover,
 .button_mini:hover {
-  background-color: #125b50;
+  background-color: var(--color-primary);
   cursor: pointer;
-  box-shadow: 0px 2px 5px 1px #0c4139;
+  box-shadow: 0px 2px 5px 1px var(--color-primary);
   transform: translateY(-1px);
 }
 
@@ -46,13 +46,12 @@
     display: block;
     align-self: flex-end;
     width: 45px;
-    border: 1px solid #125b50;
+    border: 1px solid var(--color-primary);
     color: white;
     font-family: "Monserrat-Regular";
     font-weight: 600;
     font-size: 12px;
-    background-color: #125b50;
+    background-color: var(--color-primary);
     border-radius: 50%;
-    
   }
 }

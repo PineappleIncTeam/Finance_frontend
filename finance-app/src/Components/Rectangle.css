@@ -1,14 +1,15 @@
 .rectangle {
   height: 100%;
+  min-height: 100vh;
   display: flex;
-  background: rgba(250, 245, 228, 0.2);
 }
 
 .main {
   display: grid;
   width: 100%;
   min-height: 768px;
-  /* grid-template-rows: 1fr 200px; */
+
+  height: 100%;
 }
 .transactions {
   align-self: flex-end;
@@ -16,21 +17,22 @@
 
 .mainField {
   display: grid;
-  grid-template-columns: 1fr minmax(150px, 400px);
+  grid-template-columns: 1fr minmax(150px, 300px);
+  height: 100%;
 }
 
 .mainFieldBlock {
-  padding-top: 171px;
+  padding-top: 30px;
+  display: flex;
+  flex-direction: column;
+  margin: 0 30px;
+  align-items: flex-start;
+  height: 100%;
 }
 .mobile_burg {
   display: none;
 }
 
-@media screen and (max-width: 1919px) {
-  .mainFieldBlock {
-    padding-top: 167px;
-  }
-}
 @media screen and (max-width: 1024px) {
   .aside {
     position: absolute;
@@ -83,8 +85,5 @@
   }
   .aside {
     position: absolute;
-  }
-  .mainFieldBlock {
-    padding-top: 67px;
   }
 }

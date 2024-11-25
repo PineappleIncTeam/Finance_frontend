@@ -1,12 +1,8 @@
 .root {
-  display: grid;
-
-  grid-template-columns: 1fr 1fr;
-}
-
-.logo {
-  text-align: left;
-  padding-left: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
 }
 
 .regist {
@@ -17,15 +13,15 @@
   margin-top: 126px;
 }
 .regist h1 {
-  font-family: "Monserrat-Medium";
+  font-family: var(--font-family);
   font-style: normal;
   font-weight: 800;
   font-size: 36px;
   line-height: 48px;
-  letter-spacing: 0.06em;
+
   text-transform: capitalize;
 
-  color: #125b50;
+  color: var(--color-primary);
 }
 
 .form {
@@ -36,12 +32,12 @@
 
 .form label {
   box-sizing: border-box;
-  font-family: "Monserrat-Medium";
+  font-family: var(--font-family);
   font-style: normal;
   font-weight: 400;
   font-size: 21px;
   line-height: 29px;
-  letter-spacing: -0.01em;
+
   text-align: left;
   color: #b7b7b7;
 }
@@ -50,12 +46,12 @@
   justify-content: space-between;
 }
 .recovery {
-  font-family: "Monserrat-Medium";
+  font-family: var(--font-family);
   font-style: normal;
   font-weight: 600;
   font-size: 16px;
   line-height: 29px;
-  color: #125B50;
+  color: var(--color-primary);
   text-decoration: none;
 }
 
@@ -79,15 +75,15 @@
 .only_lat_message {
   color: red;
   max-width: 400px;
-  font-family: "Monserrat-Medium";
+  font-family: var(--font-family);
 }
 
 .btn {
   margin-top: 60px;
-  background: #125b50;
+  background: var(--color-primary);
   border-radius: 60px;
   padding: 12px 20px;
-  font-family: "Monserrat-Regular";
+  font-family: var(--font-family);
   font-style: normal;
   font-weight: 700;
   font-size: 32px;
@@ -97,12 +93,13 @@
   color: #faf5e4;
   cursor: pointer;
   appearance: "primary";
+  transition: var(--transition);
 }
 
 .btn:hover {
-  background-color: #125b50;
+  background-color: var(--color-primary-dark);
   cursor: pointer;
-  box-shadow: 0px 2px 5px 1px #0c4139;
+  box-shadow: 0px 2px 5px 1px var(--color-primary-dark);
   transform: translateY(-1px);
 }
 
@@ -135,7 +132,6 @@
   font-weight: 700;
   font-size: 58px;
   line-height: 77px;
-  letter-spacing: 0.1em;
 
   color: #faf5e4;
 }
@@ -145,18 +141,17 @@
   font-weight: 600;
   font-size: 24px;
   line-height: 32px;
-  letter-spacing: 0.1em;
 
   color: #faf5e4;
 }
 
 .textReg {
-  font-family: "Monserrat-Medium";
+  font-family: var(--font-family);
   font-style: normal;
   font-weight: 400;
   font-size: 20px;
   line-height: 24px;
-  letter-spacing: 0.09em;
+
   opacity: 0.8;
   color: #000000;
 }
@@ -164,28 +159,12 @@
 .reg {
   font-size: 20px;
   text-decoration: none;
-  color: teal;
+  color: var(--color-primary);
+  transition: var(--transition);
 }
 .reg:hover {
-  font-weight: bold;
-  color: teal;
+  color: var(--color-primary-dark);
 }
-
-/* .reg:hover {
-  font-weight: bold;
-  color: teal;
-  text-shadow: 0 1px 0 teal, 0 2px 0 teal, 0 3px 0 #bbb, 0 4px 0 #b9b9b9,
-    0 5px 0 teal, 0 6px 1px rgba(0, 0, 0, 0.1), 0 0 5px rgba(0, 0, 0, 0.1),
-    0 1px 3px rgba(0, 0, 0, 0.3), 0 3px 5px rgba(0, 0, 0, 0.2),
-    0 5px 10px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.2),
-    0 20px 20px rgba(0, 0, 0, 0.15);
-  font-size: 18px;
-  line-height: 18px;
-  letter-spacing: 1px;
-  display: inline-block;
-  color: rgb(58, 112, 112);
-  font-family: "Russo One", sans-serif;
-} */
 
 .reply {
   font: italic 20px/25px Arial;
@@ -201,6 +180,7 @@
   right: 10px;
   top: 10px;
   opacity: 0.5;
+  transition: var(--transition);
 }
 
 .icon:hover {
@@ -215,10 +195,7 @@
     height: 768px;
     background-size: cover;
   }
-  .logo {
-    text-align: center;
-    padding-left: 0px;
-  }
+
   .regist {
     margin-top: 110px;
   }
@@ -232,7 +209,7 @@
   .input {
     width: 290px;
     height: 40px;
-    font: 16px/16px "Monserrat-Medium";
+    font-family: var(--font-family);
   }
   .error,
   .only_lat_message,
@@ -282,11 +259,6 @@
 }
 
 @media screen and (max-width: 720px) {
-  .root {
-    display: flex;
-    flex-direction: column-reverse;
-  }
-
   .registFon {
     background-position-x: 20px;
     max-width: 255px;

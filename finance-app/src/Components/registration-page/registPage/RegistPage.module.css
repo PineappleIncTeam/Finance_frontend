@@ -1,6 +1,8 @@
 .root {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 30px;
 }
 
 .input::placeholder {
@@ -8,17 +10,12 @@
   color: #b7b7b7;
 }
 
-.logo {
-  text-align: left;
-  padding-left: 120px;
-}
-
 .regist {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-top: 70px;
+  margin-top: 40px;
 }
 .regist h1 {
   font-family: "Monserrat-medium";
@@ -29,7 +26,7 @@
   letter-spacing: 0.06em;
   text-transform: capitalize;
   margin-bottom: 20px;
-  color: #125B50;
+  color: var(--color-primary);
 }
 
 .form {
@@ -72,7 +69,7 @@
   outline: none;
 }
 
-.error, 
+.error,
 .only_lat_message {
   color: red;
   max-width: 400px;
@@ -84,7 +81,7 @@
 
 .btn {
   margin-top: 60px;
-  background: #125B50;
+  background: var(--color-primary);
   border-radius: 60px;
   padding: 12px 20px;
   font-family: "Monserrat-Regular";
@@ -96,13 +93,13 @@
   text-transform: capitalize;
   color: #faf5e4;
   cursor: pointer;
+  transition: var(--transition);
 }
 
 .btn:hover {
-  background-color: #125B50;
+  background-color: var(--color-primary-dark);
   cursor: pointer;
-  box-shadow: 0px 2px 5px 1px #0c4139;
-  transform: translateY(-1px);
+  box-shadow: 0px 2px 5px 1px var(--color-primary-dark);
 }
 
 .btn[disabled="disabled"],
@@ -168,17 +165,17 @@
 
 .reg {
   text-decoration: none;
-  color: teal;
+  color: var(--color-primary);
+  transition: var(--transition);
 }
 
 .reg:hover {
-  font-weight: bold;
-  color: teal;
+  color: var(--color-primary-dark);
 }
 
 .reply {
   font: italic 20px/25px Arial;
-  color: teal;
+  color: var(--color-primary);
   margin-top: 10px;
   max-width: 400px;
 }
@@ -201,19 +198,6 @@
 }
 
 @media screen and (max-width: 1919px) {
-  .registFon {
-    height: 768px;
-    background-size: cover;
-
-    background-repeat: no-repeat; /* Do not repeat the image */
-  }
-  .logo {
-    text-align: center;
-    padding-left: 0px;
-  }
-  .regist {
-    margin-top: 35px;
-  }
   .regist h1 {
     font-size: 24px;
   }

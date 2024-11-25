@@ -1,31 +1,30 @@
-import { useState } from "react"
-import { Formik, Form, Field } from "formik"
-import { useNavigate } from "react-router"
-import { Link, useLocation } from "react-router-dom"
-import { URLS } from "../../../urls/urlsAndDates"
-import axios from "axios"
-import queryString from "query-string"
-import Logo from "../../Logo"
-import passNo from "./../../../Images/passNo.png"
-import passYes from "./../../../Images/passYes.png"
-import style from "./RecoveryPass.module.css"
-
+import { useState } from "react";
+import { Formik, Form, Field } from "formik";
+import { useNavigate } from "react-router";
+import { Link, useLocation } from "react-router-dom";
+import { URLS } from "../../../urls/urlsAndDates";
+import axios from "axios";
+import queryString from "query-string";
+import Logo from "../../Logo";
+import passNo from "./../../../Images/passNo.png";
+import passYes from "./../../../Images/passYes.png";
+import style from "./RecoveryPass.module.css";
 
 const NewPass = () => {
-  const [message, setMessage] = useState("")
+  const [message, setMessage] = useState("");
   const [passwordType, setPasswordType] = useState({
     eye: passNo,
     type: "password",
-  })
+  });
   const [confirmType, setConfirmType] = useState({
     eye: passNo,
     type: "password",
-  })
+  });
 
-  const navigate = useNavigate()
-  const location = useLocation()
-  const { uid, token } = queryString.parse(location.search)
-  console.log(location)
+  const navigate = useNavigate();
+  const location = useLocation();
+  const { uid, token } = queryString.parse(location.search);
+  console.log(location);
 
   const changePassword = async (values) => {
     const data = {
@@ -33,42 +32,42 @@ const NewPass = () => {
       token: token,
       new_password: values.password,
       re_new_password: values.confirmPassword,
-    }
+    };
     try {
-      const response = await axios.post(URLS.resetPasswordConfirm, data)
-      console.log(response)
+      const response = await axios.post(URLS.resetPasswordConfirm, data);
+      console.log(response);
       if (response.status === 204) {
-        setMessage("Ваш пароль успешно изменен")
-        setTimeout(() => navigate("/"), 3000)
+        setMessage("Ваш пароль успешно изменен");
+        setTimeout(() => navigate("/"), 3000);
       }
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  }
+  };
 
   const togglePassInput = () => {
     if (passwordType.eye === passNo) {
-      setPasswordType({ eye: passYes, type: "text" })
+      setPasswordType({ eye: passYes, type: "text" });
     } else if (passwordType.eye === passYes) {
-      setPasswordType({ eye: passNo, type: "password" })
+      setPasswordType({ eye: passNo, type: "password" });
     }
-  }
+  };
 
   const toggleConfirmInput = () => {
     if (confirmType.eye === passNo) {
-      setConfirmType({ eye: passYes, type: "text" })
+      setConfirmType({ eye: passYes, type: "text" });
     } else if (confirmType.eye === passYes) {
-      setConfirmType({ eye: passNo, type: "password" })
+      setConfirmType({ eye: passNo, type: "password" });
     }
-  }
+  };
 
   function validatePass(value) {
-    if (!value) return "Обязательно"
+    if (!value) return "Обязательно";
   }
 
   function validateConfirmPass(password, value) {
-    if (!value) return "Обязательно"
-    if (password !== value) return "Пароли не совпадают"
+    if (!value) return "Обязательно";
+    if (password !== value) return "Пароли не совпадают";
   }
 
   return (
@@ -148,9 +147,8 @@ const NewPass = () => {
           </Link>
         </div>
       </div>
-      <div className={style.registFon}></div>
     </div>
-  )
-}
+  );
+};
 
-export default NewPass
+export default NewPass;

@@ -36,8 +36,6 @@
   overflow: auto;
   background-color: #fffefa;
   z-index: 1;
-
-  
 }
 .dropdown-menu::-webkit-scrollbar {
   width: 5px;
@@ -63,11 +61,11 @@
 }
 
 .dropdown-item:hover {
-  background-color: rgba(209, 241, 172, 0.5);
+  background-color: var(--color-primary);
 }
 
 .dropdown-item.selected {
-  background-color: rgba(134, 171, 91, 1);
+  background-color: var(--color-primary);
   color: #fff;
 }
 .delete-icon {
@@ -77,7 +75,7 @@
   align-items: center;
 }
 .delete-icon:hover {
-  background-color: rgba(55, 93, 10, 1);
+  background-color: var(--color-primary);
 }
 .search-box {
   padding: 5px;
@@ -124,7 +122,7 @@
     font-size: 13px;
   }
 }
-@media screen and (max-width: 376px){
+@media screen and (max-width: 376px) {
   .dropdown-container {
     width: 110px;
     height: 32px;

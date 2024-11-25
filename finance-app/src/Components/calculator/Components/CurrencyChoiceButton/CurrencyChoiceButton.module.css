@@ -5,21 +5,21 @@
   cursor: pointer;
   width: 40px;
   height: 40px;
-  border: 1px solid rgb(206, 229, 160);
+  border: 1px solid var(--color-primary);
   color: white;
-  background-color: rgb(206, 229, 160);
+  background-color: var(--color-primary);
   border-radius: 24px;
-  
+  transition: var(--transition);
 }
 
 .button:hover {
-  background-color: rgb(206, 229, 160);
+  background-color: var(--color-primary);
   cursor: pointer;
-  box-shadow: 0px 2px 5px 1px rgb(158, 176, 123);
+  box-shadow: 0px 2px 5px 1px var(--color-primary);
   transform: translateY(-3px);
 }
 .active:hover {
-  background-color: rgb(121, 162, 41);
+  background-color: var(--color-primary);
   transform: none;
   box-shadow: none;
 }
@@ -30,5 +30,5 @@
   cursor: auto;
 }
 .active {
-  background-color: rgb(121, 162, 41);
+  background-color: var(--color-primary);
 }

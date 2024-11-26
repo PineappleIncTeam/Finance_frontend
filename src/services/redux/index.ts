@@ -8,6 +8,7 @@ import statusReducer from "./features/userStorageSettings/userStorageSettingsSli
 const persistConfig = {
 	key: "root",
 	storage,
+	whitelist: ["status"]
 };
 
 const rootReducer = combineReducers({

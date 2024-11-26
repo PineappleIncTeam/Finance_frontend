@@ -6,6 +6,9 @@ import { usePathname, useRouter } from "next/navigation";
 import { Dispatch, RefObject, SetStateAction, useEffect, useRef, useState } from "react";
 import cn from "classnames";
 
+// eslint-disable-next-line import/named
+import { AxiosResponse, HttpStatusCode } from "axios";
+
 import { MainPath, UserProfilePath } from "../../../services/router/routes";
 import Button from "../../../ui/button/button";
 
@@ -20,6 +23,8 @@ import userStorageSettingsSelector from "../../../services/redux/features/userSt
 import { validateToken } from "../../../services/api/auth/validateToken";
 import useAppSelector from "../../../hooks/useAppSelector";
 
+import { IValidateTokenResponse } from "../../../types/api/Auth";
+
 import styles from "./mainHeader.module.scss";
 
 const MainHeader = () => {
@@ -29,7 +34,7 @@ const MainHeader = () => {
 	const modalRef = useRef<HTMLDivElement | null>(null);
 	const router = useRouter();
 
-	const { loginStatus } = useAppSelector(userStorageSettingsSelector);
+	const { isAutoLogin } = useAppSelector(userStorageSettingsSelector);
 
 	const handleClickOutside = (
 		event: MouseEvent,
@@ -48,18 +53,18 @@ const MainHeader = () => {
 	useEffect(() => {
 		try {
 			if (baseUrl) {
-				validateToken(baseUrl).then(() => {
-					if (loginStatus) {
+				validateToken(baseUrl).then((response: AxiosResponse<IValidateTokenResponse>) => {
+					if (isAutoLogin && response.status === HttpStatusCode.Ok) {
 						return router.push(UserProfilePath.ProfitMoney);
 					}
 				});
 			}
 		} catch (error) {
-			if (loginStatus) {
+			if (isAutoLogin) {
 				return router.push(MainPath.Login);
 			}
 		}
-	}, [baseUrl, loginStatus, router]);
+	}, [baseUrl, isAutoLogin, router]);
 
 	useEffect(() => {
 		const handleDocumentClick = (event: MouseEvent) => {

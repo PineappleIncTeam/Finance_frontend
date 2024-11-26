@@ -5,7 +5,7 @@ import { CookieStatusList, IUserStorageSettings } from "../../../../types/redux/
 
 const initialState: IUserStorageSettings = {
 	cookieStatus: "pending",
-	loginStatus: false,
+	isAutoLogin: false,
 };
 
 const statusReducer = createSlice({
@@ -16,7 +16,7 @@ const statusReducer = createSlice({
 			state.cookieStatus = action.payload;
 		},
 		setAutoLoginStatus(state: IUserStorageSettings, action: PayloadAction<boolean>) {
-			state.loginStatus = action.payload;
+			state.isAutoLogin = action.payload;
 		},
 	},
 });

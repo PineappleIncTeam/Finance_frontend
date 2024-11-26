@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 
 import Image from "next/image";
 
@@ -6,9 +6,12 @@ import checkBoxIcon from "../../assets/pages/signIn/checkBox.svg";
 
 import styles from "./checkBox.module.scss";
 
-const CustomCheckbox = () => {
-	const [isChecked, setIsChecked] = useState<boolean>(false);
+interface ICustomCheckbox {
+	isChecked: boolean;
+	setIsChecked: React.Dispatch<React.SetStateAction<boolean>>;
+}
 
+const CustomCheckbox = ({ isChecked, setIsChecked }: ICustomCheckbox) => {
 	const handleCheckboxChange = () => {
 		setIsChecked(!isChecked);
 	};

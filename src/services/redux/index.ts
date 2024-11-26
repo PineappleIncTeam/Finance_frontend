@@ -1,4 +1,4 @@
-import { combineReducers, configureStore } from "@reduxjs/toolkit";
+import { configureStore } from "@reduxjs/toolkit";
 import { persistStore, persistReducer, FLUSH, PAUSE, PERSIST, PURGE, REGISTER, REHYDRATE } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 
@@ -11,15 +11,13 @@ const persistConfig = {
 	whitelist: ["status"]
 };
 
-const rootReducer = combineReducers({
-	data: dataReducer,
-	status: statusReducer,
-})
-
-const persistedReducer = persistReducer(persistConfig, rootReducer)
+const persistedStatusReducer = persistReducer(persistConfig, statusReducer);
 
 const store = configureStore({
-	reducer: persistedReducer,
+	reducer: {
+		data: dataReducer,
+		status: persistedStatusReducer,
+	},
 	middleware: (getDefaultMiddleware) =>
 		getDefaultMiddleware({
 			serializableCheck: { ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER] },

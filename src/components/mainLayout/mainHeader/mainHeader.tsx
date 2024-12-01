@@ -5,25 +5,21 @@ import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 import { Dispatch, RefObject, SetStateAction, useEffect, useRef, useState } from "react";
 import cn from "classnames";
-
 // eslint-disable-next-line import/named
 import { AxiosResponse, HttpStatusCode } from "axios";
 
-import { MainPath, UserProfilePath } from "../../../services/router/routes";
+import useAppSelector from "../../../hooks/useAppSelector";
+
+import { IValidateTokenResponse } from "../../../types/api/Auth";
 import Button from "../../../ui/button/button";
+import { getCorrectBaseUrl } from "../../../utils/baseUrlConverter";
+import autoLoginSelector from "../../../services/redux/features/autoLogin/autoLoginSelector";
+import { validateToken } from "../../../services/api/auth/validateToken";
+import { MainPath, UserProfilePath } from "../../../services/router/routes";
 
 import logo from "../../../assets/layouts/main/logo.png";
 import burger from "../../../assets/layouts/main/burger.svg";
 import closeElement from "../../../assets/layouts/main/closeElement.svg";
-
-import { getCorrectBaseUrl } from "../../../utils/baseUrlConverter";
-
-import userStorageSettingsSelector from "../../../services/redux/features/userStorageSettings/userStorageSettingsSelector";
-
-import { validateToken } from "../../../services/api/auth/validateToken";
-import useAppSelector from "../../../hooks/useAppSelector";
-
-import { IValidateTokenResponse } from "../../../types/api/Auth";
 
 import styles from "./mainHeader.module.scss";
 
@@ -34,7 +30,7 @@ const MainHeader = () => {
 	const modalRef = useRef<HTMLDivElement | null>(null);
 	const router = useRouter();
 
-	const { isAutoLogin } = useAppSelector(userStorageSettingsSelector);
+	const { isAutoLogin } = useAppSelector(autoLoginSelector);
 
 	const handleClickOutside = (
 		event: MouseEvent,

@@ -11,7 +11,7 @@ import fallback from "../../../assets/components/videoElement/fallback.png";
 import style from "./videoElement.module.scss";
 
 const VideoElement = ({ videoId, close }: IVideoElement) => {
-	const [hasError, setHasError] = useState(false);
+	const [hasError, setHasError] = useState<boolean>(false);
 
 	return (
 		<div className={style.backgroundVideo}>

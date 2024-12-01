@@ -3,19 +3,18 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { CookieStatusList, ICookieStatus } from "../../../../types/redux/StoreTypes";
 
 const initialState: ICookieStatus = {
-	status: "pending",
+	cookieStatus: "pending",
 };
 
-const cookieStatus = createSlice({
+const cookieStatusSlice = createSlice({
 	name: "cookieStatus",
 	initialState,
 	reducers: {
 		setCookieStatus(state: ICookieStatus, action: PayloadAction<CookieStatusList>) {
-			state.status = action.payload;
+			state.cookieStatus = action.payload;
 		},
 	},
 });
 
-export const { setCookieStatus } = cookieStatus.actions;
-
-export default cookieStatus.reducer;
+export const { setCookieStatus } = cookieStatusSlice.actions;
+export default cookieStatusSlice.reducer;

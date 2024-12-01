@@ -26,3 +26,8 @@ export interface IInputProps extends UseControllerProps<IInputFormProps> {
 export interface ITitle {
 	title: string;
 }
+
+export interface ICustomCheckbox {
+	isChecked: boolean;
+	setIsChecked: React.Dispatch<React.SetStateAction<boolean>>;
+}

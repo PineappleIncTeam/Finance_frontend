@@ -10,3 +10,11 @@ export interface IUserStorageSettings {
 	cookieStatus: CookieStatusList;
 	isAutoLogin: boolean;
 }
+
+export interface ICookieStatus {
+	cookieStatus: CookieStatusList;
+}
+
+export interface IAutoLoginState {
+	isAutoLogin: boolean;
+}

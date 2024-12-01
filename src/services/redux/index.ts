@@ -2,12 +2,15 @@ import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { persistStore, persistReducer, FLUSH, PAUSE, PERSIST, PURGE, REGISTER, REHYDRATE } from "redux-persist";
 
 import dataReducer from "./features/infoPart/InfoPartSlice";
-import statusReducer from "./features/userStorageSettings/userStorageSettingsSlice";
+import cookieStatusSlice from "./features/cookieStatus/cookieStatusSlice";
+import autoLoginSlice from "./features/autoLogin/autoLoginSlice";
+
 import persistConfig from "./persist/persistConfig";
 
 const RootReducer = combineReducers({
 	data: dataReducer,
-	status: statusReducer,
+	cookieStatus: cookieStatusSlice,
+	autoLogin: autoLoginSlice,
 });
 
 const persistedRootReducer = persistReducer(persistConfig, RootReducer);

@@ -8,12 +8,9 @@ import useAppSelector from "../../../hooks/useAppSelector";
 import useAppDispatch from "../../../hooks/useAppDispatch";
 
 import Button from "../../../ui/button/button";
-
 import { MainPath } from "../../../services/router/routes";
-
-import { setCookieStatus } from "../../../services/redux/features/userStorageSettings/userStorageSettingsSlice";
-
-import userStorageSettingsSelector from "../../../services/redux/features/userStorageSettings/userStorageSettingsSelector";
+import { setCookieStatus } from "../../../services/redux/features/cookieStatus/cookieStatusSlice";
+import cookieStatusSelector from "../../../services/redux/features/cookieStatus/cookieStatusSelector";
 
 import styles from "./cookiePopupWindowPage.module.scss";
 
@@ -21,7 +18,7 @@ const CookiePopupWindowPage = () => {
 	const [isOpen, setIsOpen] = useState<boolean>(true);
 
 	const dispatch = useAppDispatch();
-	const { cookieStatus } = useAppSelector(userStorageSettingsSelector);
+	const { cookieStatus } = useAppSelector(cookieStatusSelector);
 
 	const handleClick = () => {
 		setIsOpen(false);

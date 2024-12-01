@@ -6,6 +6,8 @@ import { useRouter } from "next/navigation";
 import { AxiosError } from "axios";
 import Link from "next/link";
 
+import useAppDispatch from "../../../hooks/useAppDispatch";
+
 import { ISignInForm } from "../../../types/components/ComponentsTypes";
 import Button from "../../../ui/button/button";
 import Input from "../../../ui/input/Input";
@@ -19,10 +21,7 @@ import { InputType } from "../../../helpers/Input";
 import { MainPath, UserProfilePath } from "../../../services/router/routes";
 import { ApiResponseCode } from "../../../helpers/apiResponseCode";
 import { loginUser } from "../../../services/api/auth/Login";
-
-import useAppDispatch from "../../../hooks/useAppDispatch";
-
-import { setAutoLoginStatus } from "../../../services/redux/features/userStorageSettings/userStorageSettingsSlice";
+import { setAutoLoginStatus } from "../../../services/redux/features/autoLogin/autoLoginSlice";
 
 import styles from "./signInForm.module.scss";
 

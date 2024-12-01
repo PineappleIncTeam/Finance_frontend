@@ -90,7 +90,7 @@ const SignInForm = () => {
 				<Input
 					control={control}
 					label={"Введите почту"}
-					type="email"
+					type={InputType.Email}
 					placeholder="_@_._"
 					name={"email"}
 					error={formHelpers.getEmailError(errors)}

@@ -4,12 +4,12 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 
 import { INewPassword } from "../../../types/pages/Password";
-import NewPasswordModal from "../../../components/mainLayout/newPasswordModal/newPasswordModal";
-
 import Input from "../../../ui/input/Input";
 import Title from "../../../ui/title/Title";
+import NewPasswordModal from "../../../components/mainLayout/newPasswordModal/newPasswordModal";
 import { formHelpers } from "../../../utils/formHelpers";
 import { emailPattern } from "../../../helpers/authConstants";
+import { InputType } from "../../../helpers/Input";
 
 import style from "./newPassword.module.scss";
 
@@ -53,15 +53,15 @@ export default function NewPassword() {
 					<Input
 						control={control}
 						label="Введите почту"
-						type="email"
+						type={InputType.Email}
 						placeholder="_@_._"
 						name="email"
 						error={formHelpers.getEmailError(errors)}
 						rules={{ required: true, pattern: emailPattern }}
 					/>
 					<div className={style.newPasswordFormContainer__buttons}>
-						<input className={style.backButton} type="submit" value="Назад" />
-						<input className={style.restoreButton} type="submit" value="Восстановить" />
+						<input className={style.backButton} type={InputType.Submit} value="Назад" />
+						<input className={style.restoreButton} type={InputType.Submit} value="Восстановить" />
 					</div>
 				</div>
 			</form>

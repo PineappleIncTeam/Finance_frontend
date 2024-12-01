@@ -1,15 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { persistStore, persistReducer, FLUSH, PAUSE, PERSIST, PURGE, REGISTER, REHYDRATE } from "redux-persist";
-import storage from "redux-persist/lib/storage";
 
 import dataReducer from "./features/infoPart/InfoPartSlice";
 import statusReducer from "./features/userStorageSettings/userStorageSettingsSlice";
-
-const persistConfig = {
-	key: "root",
-	storage,
-	whitelist: ["status"]
-};
+import persistConfig from "./persist/persistConfig";
 
 const persistedStatusReducer = persistReducer(persistConfig, statusReducer);
 

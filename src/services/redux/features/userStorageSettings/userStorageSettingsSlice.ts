@@ -2,7 +2,6 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 import { CookieStatusList, IUserStorageSettings } from "../../../../types/redux/StoreTypes";
 
-
 const initialState: IUserStorageSettings = {
 	cookieStatus: "pending",
 	isAutoLogin: false,

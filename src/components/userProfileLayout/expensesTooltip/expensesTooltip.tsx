@@ -8,7 +8,7 @@ export const ExpensesTooltip = ({ open }: ITooltip) => {
 		<dialog open={open} className={style.expensesTooltipWrap}>
 			<div onMouseMove={(e) => e.stopPropagation()} role="textbox" className={style.expensesTooltip}>
 				<div className={style.expensesTooltipContainer}>
-					<p className={style.expensesTooltipContainer__Text}>Редактировать</p>
+					<p className={style.expensesTooltipContainer__text}>Редактировать</p>
 				</div>
 				<Trigon classNames={style.trigonIcon} />
 			</div>

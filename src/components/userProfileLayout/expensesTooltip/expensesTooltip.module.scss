@@ -5,32 +5,32 @@
     margin-top: -4%;
     border: none;
 
-    @media (max-width: 1630) {
+    @media (max-width: 1630px) {
         & {
             margin-left: 65%;
         }
     }
 
-    @media (max-width: 950) {
+    @media (max-width: 950px) {
         & {
             margin-top: -8%;
             margin-left: 68%;
         }
     }
 
-    @media (max-width: 685) {
+    @media (max-width: 685px) {
         & {
             margin-left: 73%;
         }
     }
 
-    @media (max-width: 540) {
+    @media (max-width: 540px) {
         & {
             margin-left: 65%;
         }
     }
 
-    @media (max-width: 400) {
+    @media (max-width: 400px) {
         & {
             margin-left: 61%;
         }
@@ -45,7 +45,7 @@
     background-color: var(--color-pure-light);
     box-shadow: 0 4 20px 0px rgba(0, 0, 0, 0.08);
 
-    &__Text{
+    &__text{
         font-size: 1.3rem;
         line-height: 1.8rem;
         color: var(--color-eerie-black);

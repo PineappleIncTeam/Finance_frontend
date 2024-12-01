@@ -16,7 +16,7 @@ export default function ExpensesTransaction({ date1, date2, purpose, sum }: IExp
 			<p className={style.transactionData}>{date2}</p>
 			<p className={style.transactionData}>{purpose}</p>
 			<p className={style.transactionData}>{sum}</p>
-			<div className={style.expensesTransactionContainer__ActionsWrapper}>
+			<div className={style.expensesTransactionContainer__actionsWrapper}>
 				<DeleteIcon classNames={style.deleteIcon} />
 				<div
 					className={style.editIconWrapper}

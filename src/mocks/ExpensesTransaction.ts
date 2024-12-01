@@ -1,3 +1,4 @@
+/* eslint-disable sonarjs/no-duplicate-string */
 import { IExpenseTransaction } from "../types/components/ComponentsTypes";
 
 export const expensesTransactions: IExpenseTransaction[] = [

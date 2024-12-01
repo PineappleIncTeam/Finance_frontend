@@ -16,16 +16,16 @@ export default function Expenses() {
 				<h1 className={style.headerTitle}>Расходы</h1>
 				<div className={style.expensesByDateContainer}>
 					<div className={style.totalMonthlyWrapper}>
-						<p className={style.totalMonthlyWrapper__Month}>Общий расход за Январь</p>
-						<p className={style.totalMonthlyWrapper__Sum}>283 000 ₽</p>
+						<p className={style.totalMonthlyWrapper__month}>Общий расход за Январь</p>
+						<p className={style.totalMonthlyWrapper__sum}>283 000 ₽</p>
 					</div>
 					<div className={style.dateSelectionWrapper}>
-						<p className={style.dateSelectionWrapper__Text}>Выбор даты</p>
-						<input className={style.dateSelectionWrapper__Date} type="date" id="dateExpenses" />
+						<p className={style.dateSelectionWrapper__text}>Выбор даты</p>
+						<input className={style.dateSelectionWrapper__date} type="date" id="dateExpenses" />
 					</div>
 				</div>
 				<div className={style.expensesDetailsContainer}>
-					<div className={style.expensesDetailsContainer__Category}>
+					<div className={style.expensesDetailsContainer__category}>
 						<label className={style.expensesDescription} htmlFor="Category">
 							Постоянные
 						</label>
@@ -34,33 +34,33 @@ export default function Expenses() {
 							<option value="Salary">Зарплата</option>
 						</select>
 					</div>
-					<div className={style.expensesDetailsContainer__Sum}>
+					<div className={style.expensesDetailsContainer__sum}>
 						<label className={style.expensesDescription} htmlFor="Sum">
 							Сумма
 						</label>
-						<input className={style.expensesSum} type="text" id="sum" placeholder="0.00 ₽"></input>
+						<input className={style.expensesSum} type="text" id="sum" placeholder="0.00 ₽" />
 					</div>
 					<button className={style.addButton} type="submit">
-						<p className={style.addButton__Text}>Добавить</p>
-						<PlusIcon classNames={style.addButton__PlusIcon} />{" "}
+						<p className={style.addButton__text}>Добавить</p>
+						<PlusIcon classNames={style.addButton__plusIcon} />{" "}
 					</button>
 				</div>
 				<div className={style.expensesDetailsContainer}>
-					<div className={style.expensesDetailsContainer__Category}>
+					<div className={style.expensesDetailsContainer__category}>
 						<label className={style.expensesDescription} htmlFor="Category">
 							Временные
 						</label>
-						<select className={style.expenseItem} id="Category"></select>
+						<select className={style.expenseItem} id="Category" />
 					</div>
-					<div className={style.expensesDetailsContainer__Sum}>
+					<div className={style.expensesDetailsContainer__sum}>
 						<label className={style.expensesDescription} htmlFor="Sum">
 							Сумма
 						</label>
-						<input type="text" id="sum" className={style.expensesSum} placeholder="0.00 ₽"></input>
+						<input type="text" id="sum" className={style.expensesSum} placeholder="0.00 ₽" />
 					</div>
-					<button className={style.addButton__Disabled} type="submit">
-						<p className={style.addButton__Text}>Добавить</p>
-						<PlusIcon classNames={style.addButton__PlusIcon} />{" "}
+					<button className={style.addButton__disabled} type="submit">
+						<p className={style.addButton__text}>Добавить</p>
+						<PlusIcon classNames={style.addButton__plusIcon} />{" "}
 					</button>
 				</div>
 			</div>

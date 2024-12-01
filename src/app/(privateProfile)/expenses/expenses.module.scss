@@ -6,13 +6,13 @@
 	margin: auto;
     background-color: var(--color-silver-gray);
 
-	@media (max-width: 1440) {
+	@media (max-width: 1440px) {
 		& {
 			width: 55%;
 		}
 	}
 
-	@media (max-width: 1024) {
+	@media (max-width: 1024px) {
 		& {
 			width: 92%;
 		}
@@ -24,7 +24,7 @@
 	border-radius: 20px;
     background-color: var(--color-pure-light);
 
-    @media (max-width: 490) {
+    @media (max-width: 490px) {
         height: 292px;
     }
 }
@@ -35,7 +35,7 @@
 	line-height: 4.4rem;
 	margin: 16px 34px;
 
-    @media (max-width: 490) {
+    @media (max-width: 490px) {
         margin: 16px 0px;
     }
 }
@@ -45,13 +45,13 @@
     height: 118px;
     gap: 30px;
 
-    @media (max-width: 1440) {
+    @media (max-width: 1440px) {
         & {
             gap: 16px;
         }
     }
 
-    @media (max-width: 490) {
+    @media (max-width: 490px) {
         & {
             height: 82px;
             gap: 14px;
@@ -68,13 +68,13 @@
 	padding-left: 20px;
 	border-radius: 12px;
 
-	&__Month {
+	&__month {
 		font-size: 2rem;
 		line-height: 2.8rem;
 		color: var(--color-pure-light);
 	}
 
-	&__Sum {
+	&__sum {
 		font-weight: 500;
 		font-size: 2.4rem;
 		line-height: 3.2px;
@@ -82,33 +82,32 @@
 		margin-top: 20px;
 	}
 
-	@media (max-width: 1440) {
+	@media (max-width: 1440px) {
 		& {
 			width: 42%;
             margin-left: 14px;
 		}
 	}
 
-    @media (max-width: 1024) {
+    @media (max-width: 1024px) {
 		& {
 			width: 38%;
 		}
 	}
 
-	@media (max-width: 800) {
+	@media (max-width: 800px) {
 		& {
 			width: 45%;
-			
 		}
 	}
 
-    @media (max-width: 550) {
+    @media (max-width: 550px) {
         & {
             margin-left: 8px;
         }
     }
 
-    @media (max-width: 490) {
+    @media (max-width: 490px) {
 
         & {
             width: 49%;
@@ -116,13 +115,13 @@
             padding-top: 10px;
         }
 
-        &__Month {
+        &__month {
             width: 78%;
             font-size: 1.3rem;
             line-height: 1.8rem;    
         }
 
-        &__Sum {
+        &__sum {
             font-size: 1.6rem;
             line-height: 2.2rem;
             font-weight: 400;
@@ -139,48 +138,48 @@
 	padding-left: 20px;
 	border-radius: 12px;
 
-	&__Text {
+	&__text {
 		font-size: 2rem;
 		line-height: 2.8rem;
 	}
 
-	&__Date {
+	&__date {
 		width: 92%;
 		height: 52px;
 		margin-top: 4px;
 	}
 
-	@media (max-width: 1440) {
+	@media (max-width: 1440px) {
 		& {
 			width: 46%;
 		}
 	}
 
-    @media (max-width: 1024) {
+    @media (max-width: 1024px) {
 		& {
 			width: 38%;
 		}
 	}
 
-	@media (max-width: 800) {
+	@media (max-width: 800px) {
 		& {
 			width: 48%;
 			margin: 0;
 		}
 	}
 
-    @media (max-width: 490) {
+    @media (max-width: 490px) {
         & {
             width: 49%;
             padding-top: 10px;
         }
 
-        &__Text {
+        &__text {
             font-size: 1.3rem;
             line-height: 1.8rem;
         }
 
-        &__Date {
+        &__date {
             width: 87%;
             height: 36px;
         }
@@ -194,62 +193,62 @@
     height: 88px;
     margin-top: 30px;
 
-	&__Category {
+	&__category {
 		display: flex;
 		flex-direction: column;
         width: 37%;
         margin-left: 34px;
 	}
 
-	&__Sum {
+	&__sum {
 		display: flex;
 		flex-direction: column;
         width: 37%;
 	}
 
-    @media (max-width: 1440) {
+    @media (max-width: 1440px) {
         &{
             gap: 20px
         }
-        &__Category {
+        &__category {
             width: 42%;
             margin-left: 14px;
         }
 
-        &__Sum {
+        &__sum {
             width: 31%;
         }
     }
 
-    @media (max-width: 1024) {
-        &__Category {
+    @media (max-width: 1024px) {
+        &__category {
             width: 38%;
         }
 
-        &__Sum {
+        &__sum {
             width: 38%; 
         }
     }
 
-    @media (max-width: 800) {
-        &__Category {
+    @media (max-width: 800px) {
+        &__category {
             width: 45%;
         }
     }
 
-    @media (max-width: 650) {
-        &__Category {
+    @media (max-width: 650px) {
+        &__category {
             width: 38%;
         }
     }
 
-    @media (max-width: 490) {
+    @media (max-width: 490px) {
         & {
             height: 38px;
             margin-top: 20px;
         }
 
-        &__Category {
+        &__category {
             margin-left: 2px;
         }
     }
@@ -260,7 +259,7 @@
 	line-height: 2.8rem;
 	color: var(--color-very-dark-grayish-blue);
 	
-    @media (max-width: 490) {
+    @media (max-width: 490px) {
         & {
             display: none;
         }
@@ -273,7 +272,7 @@
 	border-radius: 8px;
 	border: 1.5px solid var(--color-gainsboro);
 	
-	@media (max-width: 490) {
+	@media (max-width: 490px) {
 		& {
 			height: 38px;
 		}
@@ -286,7 +285,7 @@
 	border-radius: 8px;
 	border: 1.5px solid var(--color-gainsboro);
 	
-    @media (max-width: 490) {
+    @media (max-width: 490px) {
 		& {
 			height: 38px;
 		}
@@ -305,7 +304,7 @@
 	margin: 34px auto;
 	cursor: pointer;
 
-	&__Disabled {
+	&__disabled {
 		max-width: 244px;
 		height: 52px;
 		font-size: 2rem;
@@ -318,68 +317,68 @@
 		cursor: not-allowed;
 	}
 
-    &__PlusIcon {
+    &__plusIcon {
         display: none;
     }
 
-    @media (max-width: 1440) {
+    @media (max-width: 1440px) {
         & {
             width: 18%;
         }
 
-        &__Disabled {
+        &__disabled {
             width: 18%;
         }
     }
 
-    @media (max-width: 1024) {
+    @media (max-width: 1024px) {
         & {
             width: 15%;
         }
 
-        &__Disabled {
+        &__disabled {
             width: 15%;
         }
     }
 
-	@media (max-width: 800) {
+	@media (max-width: 800px) {
 		& {
 			width: 8%;
 		}
 
-		&__Disabled {
+		&__disabled {
 			width: 8%;
 		}
 
-        &__Text {
+        &__text {
             display: none;
         }
 
-        &__PlusIcon {
+        &__plusIcon {
             display: inline;
             width: 24px;
             height: 24px;
         }
 	}
 
-    @media (max-width: 550) {
+    @media (max-width: 550px) {
         & {
             height: 50%;
         }
 
-        &__Disabled {
+        &__disabled {
             height: 50%;
         }
     }
 
-    @media (max-width: 490) {
+    @media (max-width: 490px) {
         & {
             width: 11%;
             height: 100%;
             margin: 0px 0px;
         }
 
-        &__Disabled {
+        &__disabled {
             width: 11%;
             height: 100%;
             margin: 0px 0px;
@@ -393,7 +392,7 @@
 	border-radius: 20px;
     background-color: var(--color-pure-light);
 
-    @media (max-width: 490) {
+    @media (max-width: 490px) {
         height: 214px;
         border-radius: 0;
     }
@@ -405,7 +404,7 @@
     font-weight: 500;
 	margin: 16px 24px;
 
-    @media (max-width: 490) {
+    @media (max-width: 490px) {
         & {
             font-size: 1.6rem;
             line-height: 2.2rem;
@@ -423,35 +422,35 @@
 	height: 40px;
 	padding-left: 18px;
 
-	&__ActionsWrapper {
+	&__actionsWrapper {
 		display: flex;
 		margin: 8px 40px;
 	}
-    @media (max-width: 1440) {
+    @media (max-width: 1440px) {
         & {
             padding-left: 0;
         }
-        &__ActionsWrapper {
+        &__actionsWrapper {
             margin: 8px 10px;
         }
     }
 
-    @media (max-width: 800) {
+    @media (max-width: 800px) {
         & {
             padding-left: 0;
         }
 
-        &__ActionsWrapper {
+        &__actionsWrapper {
             margin: 8px 4px;
         }
     }
 
-    @media (max-width: 490) {
+    @media (max-width: 490px) {
         & {
             height: 36px;
         }
 
-        &__ActionsWrapper {
+        &__actionsWrapper {
             margin: 8px 0;
         }
     }
@@ -472,14 +471,14 @@
 		text-align: left;
 	}
 
-    @media (max-width: 1440) {
+    @media (max-width: 1440px) {
 
         &:nth-child(3){
             width: 38%;
         }
     }
 
-    @media (max-width: 800) {
+    @media (max-width: 800px) {
         &:nth-child(-n+3) {
             width: 26%;
             overflow: hidden;
@@ -492,14 +491,14 @@
         }
     }
 
-    @media (max-width: 650) {
+    @media (max-width: 650px) {
         & {
             font-size: 1.3rem;
             line-break: 1.8rem;
         }
     }
 
-    @media (max-width: 500) {
+    @media (max-width: 500px) {
         & {
             font-size: 1.1rem;
             line-height: 1.3rem;
@@ -520,7 +519,7 @@
 	height: 24px;
 	margin-right: 8px;
 
-    @media (max-width: 490) {
+    @media (max-width: 490px) {
         & {
             margin-left: 20px;
         }

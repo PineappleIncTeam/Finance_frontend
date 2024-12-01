@@ -1,0 +1,533 @@
+.expensesPageWrap {
+	display: flex;
+	flex-direction: column;
+	width: 57%;
+	height: 82%;
+	margin: auto;
+    background-color: var(--color-silver-gray);
+
+	@media (max-width: 1440) {
+		& {
+			width: 55%;
+		}
+	}
+
+	@media (max-width: 1024) {
+		& {
+			width: 92%;
+		}
+	}
+}
+
+.expensesContentWrapper {
+	height: 572px;
+	border-radius: 20px;
+    background-color: var(--color-pure-light);
+
+    @media (max-width: 490) {
+        height: 292px;
+    }
+}
+
+.headerTitle {
+	font-weight: 500;
+	font-size: 3.6rem;
+	line-height: 4.4rem;
+	margin: 16px 34px;
+
+    @media (max-width: 490) {
+        margin: 16px 0px;
+    }
+}
+
+.expensesByDateContainer {
+	display: flex;
+    height: 118px;
+    gap: 30px;
+
+    @media (max-width: 1440) {
+        & {
+            gap: 16px;
+        }
+    }
+
+    @media (max-width: 490) {
+        & {
+            height: 82px;
+            gap: 14px;
+        }
+    }
+}
+
+.totalMonthlyWrapper {
+	max-width: 420px;
+	background-color: var(--color-dark-sea-green);
+	width: 37%;
+	margin-left: 34px;
+	padding-top: 16px;
+	padding-left: 20px;
+	border-radius: 12px;
+
+	&__Month {
+		font-size: 2rem;
+		line-height: 2.8rem;
+		color: var(--color-pure-light);
+	}
+
+	&__Sum {
+		font-weight: 500;
+		font-size: 2.4rem;
+		line-height: 3.2px;
+		color: var(--color-pure-light);
+		margin-top: 20px;
+	}
+
+	@media (max-width: 1440) {
+		& {
+			width: 42%;
+            margin-left: 14px;
+		}
+	}
+
+    @media (max-width: 1024) {
+		& {
+			width: 38%;
+		}
+	}
+
+	@media (max-width: 800) {
+		& {
+			width: 45%;
+			
+		}
+	}
+
+    @media (max-width: 550) {
+        & {
+            margin-left: 8px;
+        }
+    }
+
+    @media (max-width: 490) {
+
+        & {
+            width: 49%;
+            margin-left: 0;
+            padding-top: 10px;
+        }
+
+        &__Month {
+            width: 78%;
+            font-size: 1.3rem;
+            line-height: 1.8rem;    
+        }
+
+        &__Sum {
+            font-size: 1.6rem;
+            line-height: 2.2rem;
+            font-weight: 400;
+            margin-top: 6px;
+        }
+    }
+}
+
+.dateSelectionWrapper {
+	max-width: 400px;
+	background-color: var(--color-light-grayish-green);
+	width: 37%;
+	padding-top: 16px;
+	padding-left: 20px;
+	border-radius: 12px;
+
+	&__Text {
+		font-size: 2rem;
+		line-height: 2.8rem;
+	}
+
+	&__Date {
+		width: 92%;
+		height: 52px;
+		margin-top: 4px;
+	}
+
+	@media (max-width: 1440) {
+		& {
+			width: 46%;
+		}
+	}
+
+    @media (max-width: 1024) {
+		& {
+			width: 38%;
+		}
+	}
+
+	@media (max-width: 800) {
+		& {
+			width: 48%;
+			margin: 0;
+		}
+	}
+
+    @media (max-width: 490) {
+        & {
+            width: 49%;
+            padding-top: 10px;
+        }
+
+        &__Text {
+            font-size: 1.3rem;
+            line-height: 1.8rem;
+        }
+
+        &__Date {
+            width: 87%;
+            height: 36px;
+        }
+    }
+}
+
+.expensesDetailsContainer {
+	display: flex;
+	flex-direction: row;
+    gap: 30px;
+    height: 88px;
+    margin-top: 30px;
+
+	&__Category {
+		display: flex;
+		flex-direction: column;
+        width: 37%;
+        margin-left: 34px;
+	}
+
+	&__Sum {
+		display: flex;
+		flex-direction: column;
+        width: 37%;
+	}
+
+    @media (max-width: 1440) {
+        &{
+            gap: 20px
+        }
+        &__Category {
+            width: 42%;
+            margin-left: 14px;
+        }
+
+        &__Sum {
+            width: 31%;
+        }
+    }
+
+    @media (max-width: 1024) {
+        &__Category {
+            width: 38%;
+        }
+
+        &__Sum {
+            width: 38%; 
+        }
+    }
+
+    @media (max-width: 800) {
+        &__Category {
+            width: 45%;
+        }
+    }
+
+    @media (max-width: 650) {
+        &__Category {
+            width: 38%;
+        }
+    }
+
+    @media (max-width: 490) {
+        & {
+            height: 38px;
+            margin-top: 20px;
+        }
+
+        &__Category {
+            margin-left: 2px;
+        }
+    }
+}
+
+.expensesDescription {
+	font-size: 2rem;
+	line-height: 2.8rem;
+	color: var(--color-very-dark-grayish-blue);
+	
+    @media (max-width: 490) {
+        & {
+            display: none;
+        }
+    }
+}
+
+.expenseItem {
+	width: 100%;
+	height: 52px;
+	border-radius: 8px;
+	border: 1.5px solid var(--color-gainsboro);
+	
+	@media (max-width: 490) {
+		& {
+			height: 38px;
+		}
+	}
+}
+
+.expensesSum {
+	width: 99%;
+	height: 52px;
+	border-radius: 8px;
+	border: 1.5px solid var(--color-gainsboro);
+	
+    @media (max-width: 490) {
+		& {
+			height: 38px;
+		}
+	}
+}
+
+.addButton {
+	max-width: 244px;
+	height: 52px;
+	font-size: 2rem;
+	line-height: 2rem;
+	border-radius: 10px;
+	width: 14%;
+	color: var(--color-pure-light);
+	background-color: var(--color-dark-spring-green);
+	margin: 34px auto;
+	cursor: pointer;
+
+	&__Disabled {
+		max-width: 244px;
+		height: 52px;
+		font-size: 2rem;
+		line-height: 2rem;
+		border-radius: 10px;
+		width: 14%;
+		color: var(--color-pure-light);
+		background-color: #bbbbbb;
+		margin: 34px auto;
+		cursor: not-allowed;
+	}
+
+    &__PlusIcon {
+        display: none;
+    }
+
+    @media (max-width: 1440) {
+        & {
+            width: 18%;
+        }
+
+        &__Disabled {
+            width: 18%;
+        }
+    }
+
+    @media (max-width: 1024) {
+        & {
+            width: 15%;
+        }
+
+        &__Disabled {
+            width: 15%;
+        }
+    }
+
+	@media (max-width: 800) {
+		& {
+			width: 8%;
+		}
+
+		&__Disabled {
+			width: 8%;
+		}
+
+        &__Text {
+            display: none;
+        }
+
+        &__PlusIcon {
+            display: inline;
+            width: 24px;
+            height: 24px;
+        }
+	}
+
+    @media (max-width: 550) {
+        & {
+            height: 50%;
+        }
+
+        &__Disabled {
+            height: 50%;
+        }
+    }
+
+    @media (max-width: 490) {
+        & {
+            width: 11%;
+            height: 100%;
+            margin: 0px 0px;
+        }
+
+        &__Disabled {
+            width: 11%;
+            height: 100%;
+            margin: 0px 0px;
+        }
+    }
+}
+
+.expensesTransactionsWrapper {
+	height: 296px;
+	margin-top: 20px;
+	border-radius: 20px;
+    background-color: var(--color-pure-light);
+
+    @media (max-width: 490) {
+        height: 214px;
+        border-radius: 0;
+    }
+}
+
+.expensesTransactionHeader {
+	font-size: 2.4rem;
+	line-height: 3.2rem;
+    font-weight: 500;
+	margin: 16px 24px;
+
+    @media (max-width: 490) {
+        & {
+            font-size: 1.6rem;
+            line-height: 2.2rem;
+            font-weight: 400;
+            margin: 0;    
+        }
+    }
+}
+
+.transactionsContainer {
+	display: flex;
+	text-align: center;
+	justify-content: space-between;
+	width: 100%;
+	height: 40px;
+	padding-left: 18px;
+
+	&__ActionsWrapper {
+		display: flex;
+		margin: 8px 40px;
+	}
+    @media (max-width: 1440) {
+        & {
+            padding-left: 0;
+        }
+        &__ActionsWrapper {
+            margin: 8px 10px;
+        }
+    }
+
+    @media (max-width: 800) {
+        & {
+            padding-left: 0;
+        }
+
+        &__ActionsWrapper {
+            margin: 8px 4px;
+        }
+    }
+
+    @media (max-width: 490) {
+        & {
+            height: 36px;
+        }
+
+        &__ActionsWrapper {
+            margin: 8px 0;
+        }
+    }
+}
+
+.transactionData {
+	font-size: 1.6rem;
+	line-height: 2.2rem;
+	margin-top: 8px;
+	color: var(--color-dark-cyan-blue);
+
+    &:nth-child(2) {
+        display: none;
+    }
+
+	&:nth-child(3) {
+		width: 43%;
+		text-align: left;
+	}
+
+    @media (max-width: 1440) {
+
+        &:nth-child(3){
+            width: 38%;
+        }
+    }
+
+    @media (max-width: 800) {
+        &:nth-child(-n+3) {
+            width: 26%;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+    
+        &:nth-child(4) {
+            width: 24%;
+        }
+    }
+
+    @media (max-width: 650) {
+        & {
+            font-size: 1.3rem;
+            line-break: 1.8rem;
+        }
+    }
+
+    @media (max-width: 500) {
+        & {
+            font-size: 1.1rem;
+            line-height: 1.3rem;
+        }
+
+        &:nth-child(1) {
+            display: none;
+        }
+
+        &:nth-child(2) {
+            display: inline;
+        }
+    }
+}
+
+.deleteIcon {
+	width: 24px;
+	height: 24px;
+	margin-right: 8px;
+
+    @media (max-width: 490) {
+        & {
+            margin-left: 20px;
+        }
+    }
+}
+
+.editIcon {
+	width: 24px;
+	height: 24px;
+}

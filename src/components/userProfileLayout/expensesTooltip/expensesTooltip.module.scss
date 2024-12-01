@@ -1,0 +1,66 @@
+.expensesTooltipWrap {
+    width: 120px;
+    height: 40px;
+    margin-left: 70%;
+    margin-top: -4%;
+    border: none;
+
+    @media (max-width: 1630) {
+        & {
+            margin-left: 65%;
+        }
+    }
+
+    @media (max-width: 950) {
+        & {
+            margin-top: -8%;
+            margin-left: 68%;
+        }
+    }
+
+    @media (max-width: 685) {
+        & {
+            margin-left: 73%;
+        }
+    }
+
+    @media (max-width: 540) {
+        & {
+            margin-left: 65%;
+        }
+    }
+
+    @media (max-width: 400) {
+        & {
+            margin-left: 61%;
+        }
+    }
+}
+
+.expensesTooltipContainer{
+    height: 34px;
+    text-align: center;
+    border-radius: 6px;
+    padding: 10px;
+    background-color: var(--color-pure-light);
+    box-shadow: 0 4 20px 0px rgba(0, 0, 0, 0.08);
+
+    &__Text{
+        font-size: 1.3rem;
+        line-height: 1.8rem;
+        color: var(--color-eerie-black);
+    }
+}
+
+.expensesTooltip{
+    height: 100%;
+}
+
+.trigonIcon {
+    width: 14px;
+    height: 6px;
+    box-shadow: 0 4 20px 0px rgba(0, 0, 0, 0.08);
+    margin-bottom: 14px;
+    margin-left: 30px;
+    border-top: 1px solid var(--color-pure-light);    
+}

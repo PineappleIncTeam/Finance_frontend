@@ -24,3 +24,10 @@ export interface IVideoElement {
 	videoId: string;
 	close?: () => void;
 }
+
+export interface IExpenseTransaction {
+	date1: string;
+	date2?: string;
+	purpose: string;
+	sum: string;
+}

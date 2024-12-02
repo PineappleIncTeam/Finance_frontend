@@ -68,8 +68,8 @@ export interface IFooter {
 }
 
 export interface IExpensesTransaction {
-	dateFormat1: string;
-	dateFormat2?: string;
+	firstDateFormat: string;
+	secondDateFormat?: string;
 	purpose: string;
 	sum: string;
 }

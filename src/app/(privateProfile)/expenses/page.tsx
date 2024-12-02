@@ -69,8 +69,8 @@ export default function Expenses() {
 				{expensesTransactions.map((expensesData, index: Key) => (
 					<li key={index}>
 						<ExpensesTransaction
-							date1={expensesData.date1}
-							date2={expensesData.date2}
+							firstDate={expensesData.firstDate}
+							secondDate={expensesData.secondDate}
 							purpose={expensesData.purpose}
 							sum={expensesData.sum}
 						/>

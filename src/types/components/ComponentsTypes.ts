@@ -26,8 +26,8 @@ export interface IVideoElement {
 }
 
 export interface IExpenseTransaction {
-	date1: string;
-	date2?: string;
+	firstDate: string;
+	secondDate: string;
 	purpose: string;
 	sum: string;
 }

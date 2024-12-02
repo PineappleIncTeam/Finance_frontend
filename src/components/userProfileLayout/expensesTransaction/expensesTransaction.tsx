@@ -7,13 +7,13 @@ import { ExpensesTooltip } from "../expensesTooltip/expensesTooltip";
 
 import style from "./expensesTransaction.module.scss";
 
-export default function ExpensesTransaction({ date1, date2, purpose, sum }: IExpenseTransaction) {
+export default function ExpensesTransaction({ firstDate, secondDate, purpose, sum }: IExpenseTransaction) {
 	const [isTooltipShown, setIsTooltipShown] = useState<boolean>(false);
 
 	return (
 		<div className={style.expensesTransactionContainer}>
-			<p className={style.transactionData}>{date1}</p>
-			<p className={style.transactionData}>{date2}</p>
+			<p className={style.transactionData}>{firstDate}</p>
+			<p className={style.transactionData}>{secondDate}</p>
 			<p className={style.transactionData}>{purpose}</p>
 			<p className={style.transactionData}>{sum}</p>
 			<div className={style.expensesTransactionContainer__actionsWrapper}>

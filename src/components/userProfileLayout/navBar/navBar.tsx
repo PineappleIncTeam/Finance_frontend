@@ -92,7 +92,7 @@ const NavBar = ({ onClick }: INavBar) => {
 					</div>
 					<div
 						className={cn(styles.linkBackground, {
-							[styles.linkBackground__active]: pathname === UserProfilePath.Сosts,
+							[styles.linkBackground__active]: pathname === UserProfilePath.Costs,
 						})}
 					/>
 				</Link>

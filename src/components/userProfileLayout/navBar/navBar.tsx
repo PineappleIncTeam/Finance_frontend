@@ -16,7 +16,6 @@ import ExpensesIcon from "../../../assets/script/privateProfileNavBar/ExpensesIc
 import AccumulationIcon from "../../../assets/script/privateProfileNavBar/AccumulationIcon";
 import AnalyticsIcon from "../../../assets/script/privateProfileNavBar/AnalyticsIcon";
 import CalculatorIcon from "../../../assets/script/privateProfileNavBar/CalculatorIcon";
-import borderIcon from "../../../assets/components/navBar/border.svg";
 import infoIcon from "../../../assets/components/navBar/infoIcon.svg";
 import crossIcon from "../../../assets/components/navBar/crossIcon.svg";
 
@@ -58,83 +57,103 @@ const NavBar = ({ onClick }: INavBar) => {
 
 	const renderNavigationElements = () => {
 		return (
-			<div className={styles.navigationLinksWrap}>
-				<Link href={UserProfilePath.Profit}>
+			<>
+				<Link href={UserProfilePath.ProfitMoney} className={styles.navigationLink}>
 					<div
-						className={cn(
-							styles.navigationLinkWrap,
-							{ [styles.active]: pathname === UserProfilePath.Profit },
-							styles.border,
-						)}>
-						{pathname === UserProfilePath.Profit && (
-							<Image src={borderIcon} alt={"borderIcon"} className={styles.borderTop} />
-						)}
-						<IncomeIcon color={pathname === UserProfilePath.Profit ? COLORS.primary : COLORS.white} />
-						<p className={cn(styles.navigationLink, { [styles.activeLinkWrap]: pathname === UserProfilePath.Profit })}>
+						className={cn(styles.navigationLinkWrap, {
+							[styles.navigationLinkWrapBoder__hide]: pathname === UserProfilePath.ProfitMoney,
+						})}>
+						<IncomeIcon color={pathname === UserProfilePath.ProfitMoney ? COLORS.primary : COLORS.white} />
+						<p
+							className={cn(styles.navigationLinkTitle, {
+								[styles.activeLinkTitle]: pathname === UserProfilePath.ProfitMoney,
+							})}>
 							Доходы
 						</p>
-						{pathname === UserProfilePath.Profit && (
-							<Image src={borderIcon} alt={"borderIconBottom"} className={styles.borderBottom} />
-						)}
 					</div>
+					<div
+						className={cn(styles.linkBackground, {
+							[styles.linkBackground__active]: pathname === UserProfilePath.ProfitMoney,
+						})}
+					/>
 				</Link>
-				<Link href={UserProfilePath.Profit}>
-					<div className={cn(styles.navigationLinkWrap, { [styles.active]: pathname === UserProfilePath.Profit })}>
-						{pathname === UserProfilePath.Profit && (
-							<Image src={borderIcon} alt={"borderIcon"} className={styles.borderTop} />
-						)}
-						<ExpensesIcon color={pathname === UserProfilePath.Profit ? COLORS.primary : COLORS.white} />
-						<p className={cn(styles.navigationLink, { [styles.activeLinkWrap]: pathname === UserProfilePath.Profit })}>
+				<Link href={UserProfilePath.Сosts} className={styles.navigationLink}>
+					<div
+						className={cn(styles.navigationLinkWrap, {
+							[styles.navigationLinkWrapBoder__hide]: pathname === UserProfilePath.Сosts,
+						})}>
+						<ExpensesIcon color={pathname === UserProfilePath.Сosts ? COLORS.primary : COLORS.white} />
+						<p
+							className={cn(styles.navigationLinkTitle, {
+								[styles.activeLinkTitle]: pathname === UserProfilePath.Сosts,
+							})}>
 							Расходы
 						</p>
-						{pathname === UserProfilePath.Profit && (
-							<Image src={borderIcon} alt={"borderIconBottom"} className={styles.borderBottom} />
-						)}
 					</div>
+					<div
+						className={cn(styles.linkBackground, {
+							[styles.linkBackground__active]: pathname === UserProfilePath.Сosts,
+						})}
+					/>
 				</Link>
-				<Link href={UserProfilePath.Profit}>
-					<div className={cn(styles.navigationLinkWrap, { [styles.active]: pathname === UserProfilePath.Profit })}>
-						{pathname === UserProfilePath.Profit && (
-							<Image src={borderIcon} alt={"borderIcon"} className={styles.borderTop} />
-						)}
-						<AccumulationIcon color={pathname === UserProfilePath.Profit ? COLORS.primary : COLORS.white} />
-						<p className={cn(styles.navigationLink, { [styles.activeLinkWrap]: pathname === UserProfilePath.Profit })}>
+				<Link href={UserProfilePath.Savings} className={styles.navigationLink}>
+					<div
+						className={cn(styles.navigationLinkWrap, {
+							[styles.navigationLinkWrapBoder__hide]: pathname === UserProfilePath.Savings,
+						})}>
+						<AccumulationIcon color={pathname === UserProfilePath.Savings ? COLORS.primary : COLORS.white} />
+						<p
+							className={cn(styles.navigationLinkTitle, {
+								[styles.activeLinkTitle]: pathname === UserProfilePath.Savings,
+							})}>
 							Накопления
 						</p>
-						{pathname === UserProfilePath.Profit && (
-							<Image src={borderIcon} alt={"borderIconBottom"} className={styles.borderBottom} />
-						)}
 					</div>
+					<div
+						className={cn(styles.linkBackground, {
+							[styles.linkBackground__active]: pathname === UserProfilePath.Savings,
+						})}
+					/>
 				</Link>
-				<Link href={UserProfilePath.Profit}>
-					<div className={cn(styles.navigationLinkWrap, { [styles.active]: pathname === UserProfilePath.Profit })}>
-						{pathname === UserProfilePath.Profit && (
-							<Image src={borderIcon} alt={"borderIcon"} className={styles.borderTop} />
-						)}
-						<AnalyticsIcon color={pathname === UserProfilePath.Profit ? COLORS.primary : COLORS.white} />
-						<p className={cn(styles.navigationLink, { [styles.activeLinkWrap]: pathname === UserProfilePath.Profit })}>
+				<Link href={UserProfilePath.Analytics} className={styles.navigationLink}>
+					<div
+						className={cn(styles.navigationLinkWrap, {
+							[styles.navigationLinkWrapBoder__hide]: pathname === UserProfilePath.Analytics,
+						})}>
+						<AnalyticsIcon color={pathname === UserProfilePath.Analytics ? COLORS.primary : COLORS.white} />
+						<p
+							className={cn(styles.navigationLinkTitle, {
+								[styles.activeLinkTitle]: pathname === UserProfilePath.Analytics,
+							})}>
 							Аналитика
 						</p>
-						{pathname === UserProfilePath.Profit && (
-							<Image src={borderIcon} alt={"borderIconBottom"} className={styles.borderBottom} />
-						)}
 					</div>
+					<div
+						className={cn(styles.linkBackground, {
+							[styles.linkBackground__active]: pathname === UserProfilePath.Analytics,
+						})}
+					/>
 				</Link>
-				<Link href={UserProfilePath.Profit}>
-					<div className={cn(styles.navigationLinkWrap, { [styles.active]: pathname === UserProfilePath.Profit })}>
-						{pathname === UserProfilePath.Profit && (
-							<Image src={borderIcon} alt={"borderIcon"} className={styles.borderTop} />
-						)}
-						<CalculatorIcon color={pathname === UserProfilePath.Profit ? COLORS.primary : COLORS.white} />
-						<p className={cn(styles.navigationLink, { [styles.activeLinkWrap]: pathname === UserProfilePath.Profit })}>
+				<Link href={UserProfilePath.Calculator} className={styles.navigationLink}>
+					<div
+						className={cn(styles.navigationLinkWrap, {
+							[styles.navigationLinkWrapBoder__hide]: pathname === UserProfilePath.Calculator,
+						})}>
+						<CalculatorIcon color={pathname === UserProfilePath.Calculator ? COLORS.primary : COLORS.white} />
+						<p
+							className={cn(styles.navigationLinkTitle, {
+								[styles.activeLinkTitle]: pathname === UserProfilePath.Calculator,
+							})}>
 							Калькулятор
 						</p>
-						{pathname === UserProfilePath.Profit && (
-							<Image src={borderIcon} alt={"borderIconBottom"} className={styles.borderBottom} />
-						)}
 					</div>
+					<div
+						className={cn(styles.linkBackground, {
+							[styles.linkBackground__active]: pathname === UserProfilePath.Calculator,
+						})}
+					/>
 				</Link>
-			</div>
+			</>
 		);
 	};
 
@@ -149,7 +168,9 @@ const NavBar = ({ onClick }: INavBar) => {
 						<Image src={crossIcon} alt="Cross" />
 					</button>
 				</div>
-				<nav className={styles.navigationWrap}>{renderNavigationElements()}</nav>
+			</div>
+			<nav className={styles.navigationWrap}>{renderNavigationElements()}</nav>
+			<div className={styles.navBarContainer}>
 				<div className={styles.supportWrap}>
 					<Link href={""}>
 						<p className={styles.supportWrap__link}>FAQ</p>

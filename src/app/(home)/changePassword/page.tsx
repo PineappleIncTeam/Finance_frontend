@@ -6,6 +6,7 @@ import { Controller, useForm } from "react-hook-form";
 import { IChangePassword } from "../../../types/pages/Password";
 import ChangePasswordModal from "../../../components/mainLayout/changePasswordModal/changePasswordModal";
 import { passwordRegex } from "../../../helpers/password";
+import { InputType } from "../../../helpers/Input";
 
 import { LetterIcon } from "../../../assets/script/changePassword/LetterIcon";
 import { PaperAirLineIcon } from "../../../assets/script/changePassword/PaperAirLineIcon";
@@ -92,7 +93,7 @@ export default function ChangePassword() {
 									<input
 										id="enterNewPassword"
 										className={style.changePasswordRow}
-										type={isEnterNewPasswordShown ? "text" : "password"}
+										type={isEnterNewPasswordShown ? InputType.Text : InputType.Password}
 										placeholder="Пароль"
 										{...field}
 									/>
@@ -118,7 +119,7 @@ export default function ChangePassword() {
 									<input
 										id="reenterNewPassword"
 										className={style.changePasswordRow}
-										type={isReenterNewPasswordShown ? "text" : "password"}
+										type={isReenterNewPasswordShown ? InputType.Text : InputType.Password}
 										placeholder="Пароль"
 										{...field}
 									/>
@@ -128,7 +129,7 @@ export default function ChangePassword() {
 								<VisibilityOffIcon classNames={style.visibilityOffIcon2} />
 							</button>
 							{errors?.reenterNewPassword?.message}
-							<input className={style.saveButton} type="submit" value="Сохранить" />
+							<input className={style.saveButton} type={InputType.Submit} value="Сохранить" />
 						</form>
 					</div>
 				</div>

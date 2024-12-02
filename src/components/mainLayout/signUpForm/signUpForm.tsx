@@ -86,7 +86,7 @@ const SignUpForm = () => {
 				<Input
 					control={control}
 					label={"Введите почту"}
-					type="email"
+					type={InputType.Email}
 					placeholder="_@_._"
 					name={"email"}
 					error={formHelpers.getEmailError(errors)}
@@ -117,7 +117,7 @@ const SignUpForm = () => {
 				<div className={styles.securityPolicyWrapper}>
 					<div className={styles.securityPolicyWrapper__Checkbox}>
 						<p className={styles.privacyCheckbox}>
-							<input type="checkbox" {...register("agreementField", { required: true })} />
+							<input type={InputType.Checkbox} {...register("agreementField", { required: true })} />
 						</p>
 						<p className={styles.securityPolicyWrapper__Text}>
 							Я соглашаюсь с{" "}

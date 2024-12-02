@@ -2,12 +2,20 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { Dispatch, RefObject, SetStateAction, useEffect, useRef, useState } from "react";
 import cn from "classnames";
+// eslint-disable-next-line import/named
+import { AxiosResponse, HttpStatusCode } from "axios";
 
-import { MainPath } from "../../../services/router/routes";
+import useAppSelector from "../../../hooks/useAppSelector";
+
+import { IValidateTokenResponse } from "../../../types/api/Auth";
 import Button from "../../../ui/button/button";
+import { getCorrectBaseUrl } from "../../../utils/baseUrlConverter";
+import autoLoginSelector from "../../../services/redux/features/autoLogin/autoLoginSelector";
+import { validateToken } from "../../../services/api/auth/validateToken";
+import { MainPath, UserProfilePath } from "../../../services/router/routes";
 
 import logo from "../../../assets/layouts/main/logo.png";
 import burger from "../../../assets/layouts/main/burger.svg";
@@ -18,7 +26,11 @@ import styles from "./mainHeader.module.scss";
 const MainHeader = () => {
 	const pathname = usePathname();
 	const [open, setOpen] = useState<boolean>(false);
+	const [baseUrl, setBaseUrl] = useState<string>();
 	const modalRef = useRef<HTMLDivElement | null>(null);
+	const router = useRouter();
+
+	const { isAutoLogin } = useAppSelector(autoLoginSelector);
 
 	const handleClickOutside = (
 		event: MouseEvent,
@@ -29,6 +41,26 @@ const MainHeader = () => {
 			setOpen(false);
 		}
 	};
+
+	useEffect(() => {
+		setBaseUrl(getCorrectBaseUrl());
+	}, []);
+
+	useEffect(() => {
+		try {
+			if (baseUrl) {
+				validateToken(baseUrl).then((response: AxiosResponse<IValidateTokenResponse>) => {
+					if (isAutoLogin && response.status === HttpStatusCode.Ok) {
+						return router.push(UserProfilePath.ProfitMoney);
+					}
+				});
+			}
+		} catch (error) {
+			if (isAutoLogin) {
+				return router.push(MainPath.Login);
+			}
+		}
+	}, [baseUrl, isAutoLogin, router]);
 
 	useEffect(() => {
 		const handleDocumentClick = (event: MouseEvent) => {

@@ -1,7 +1,7 @@
 import { RootState } from "../..";
 
 const cookieStatusSelector = (state: RootState) => {
-	return state.status;
+	return state.cookieStatus;
 };
 
 export default cookieStatusSelector;

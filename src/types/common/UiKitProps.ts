@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 
-import { FieldError, FieldErrorsImpl, Merge, UseControllerProps } from "react-hook-form";
+import { Control, FieldError, FieldErrorsImpl, Merge, UseControllerProps } from "react-hook-form";
 
 import { ISignInForm, ISignUpForm } from "../components/ComponentsTypes";
 import { INewPassword } from "../pages/Password";
@@ -28,6 +28,7 @@ export interface ITitle {
 }
 
 export interface ICustomCheckbox {
-	isChecked: boolean;
-	setIsChecked: React.Dispatch<React.SetStateAction<boolean>>;
+	control: Control<any>;
+	name: string;
+	rules?: any;
 }

@@ -29,7 +29,6 @@ const SignInForm = () => {
 	const [baseUrl, setBaseUrl] = useState<string>();
 	const [errorMessage, setErrorMessage] = useState<string>("");
 	const [isOpen, setIsOpen] = useState<boolean>(false);
-	const [isAuth, setAuth] = useState<boolean>(false);
 
 	const dispatch = useAppDispatch();
 
@@ -41,6 +40,7 @@ const SignInForm = () => {
 		defaultValues: {
 			email: "",
 			password: "",
+			isAuth: false,
 		},
 		mode: "all",
 		delayError: 200,
@@ -62,7 +62,7 @@ const SignInForm = () => {
 			if (baseUrl) {
 				await loginUser(baseUrl, data);
 				setIsOpen(true);
-				dispatch(setAutoLoginStatus(isAuth));
+				dispatch(setAutoLoginStatus(data.isAuth));
 			}
 		} catch (error) {
 			if (
@@ -107,7 +107,7 @@ const SignInForm = () => {
 				/>
 				<div className={styles.additionalFunctionsWrap}>
 					<div className={styles.additionalFunctionsWrap__checkbox}>
-						<CustomCheckbox isChecked={isAuth} setIsChecked={setAuth} />
+						<CustomCheckbox control={control} name={"isAuth"} />
 						<p className={styles.checkBoxText}>Запомнить меня</p>
 					</div>
 					<Link href={MainPath.NewPassword} className={styles.forgetPassword}>

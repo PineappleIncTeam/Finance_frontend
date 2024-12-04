@@ -8,13 +8,13 @@ export interface ISignUpForm {
 	email: string;
 	password?: string;
 	re_password?: string;
-	agreementField: boolean;
+	agreementField?: boolean;
 }
 
 export interface ISignInForm {
 	email: string;
 	password?: string;
-	isAuth: boolean;
+	isAuth?: boolean;
 }
 
 export interface IInviteModal {

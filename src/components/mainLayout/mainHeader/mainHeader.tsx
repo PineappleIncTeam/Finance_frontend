@@ -16,6 +16,7 @@ import { getCorrectBaseUrl } from "../../../utils/baseUrlConverter";
 import autoLoginSelector from "../../../services/redux/features/autoLogin/autoLoginSelector";
 import { validateToken } from "../../../services/api/auth/validateToken";
 import { MainPath, UserProfilePath } from "../../../services/router/routes";
+import { mockLocalhostStr, mockLocalhostUrl } from "../../../services/api/auth/apiConstants";
 
 import logo from "../../../assets/layouts/main/logo.png";
 import burger from "../../../assets/layouts/main/burger.svg";
@@ -48,7 +49,10 @@ const MainHeader = () => {
 
 	useEffect(() => {
 		try {
-			if (baseUrl) {
+			const isLocalhost =
+				window.location.hostname.includes(mockLocalhostStr) || window.location.hostname.includes(mockLocalhostUrl);
+
+			if (baseUrl && !isLocalhost) {
 				validateToken(baseUrl).then((response: AxiosResponse<IValidateTokenResponse>) => {
 					if (isAutoLogin && response.status === HttpStatusCode.Ok) {
 						return router.push(UserProfilePath.ProfitMoney);

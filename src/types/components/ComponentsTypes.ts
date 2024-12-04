@@ -11,10 +11,15 @@ export interface ISignUpForm {
 	agreementField?: boolean;
 }
 
+export interface ICorrectSignInForm {
+	email: string;
+	password: string;
+}
+
 export interface ISignInForm {
 	email: string;
 	password?: string;
-	isAuth?: boolean;
+	isAutoAuth?: boolean;
 }
 
 export interface IInviteModal {

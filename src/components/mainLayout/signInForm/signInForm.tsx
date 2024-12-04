@@ -8,7 +8,7 @@ import Link from "next/link";
 
 import useAppDispatch from "../../../hooks/useAppDispatch";
 
-import { ISignInForm } from "../../../types/components/ComponentsTypes";
+import { ICorrectSignInForm, ISignInForm } from "../../../types/components/ComponentsTypes";
 import Button from "../../../ui/button/button";
 import Input from "../../../ui/input/Input";
 import Title from "../../../ui/title/Title";
@@ -40,7 +40,7 @@ const SignInForm = () => {
 		defaultValues: {
 			email: "",
 			password: "",
-			isAuth: false,
+			isAutoAuth: false,
 		},
 		mode: "all",
 		delayError: 200,
@@ -60,9 +60,13 @@ const SignInForm = () => {
 		try {
 			setErrorMessage("");
 			if (baseUrl) {
-				await loginUser(baseUrl, data);
+				const correctUserData: ICorrectSignInForm = {
+					email: data.email,
+					password: data.password,
+				};
+				await loginUser(baseUrl, correctUserData);
 				setIsOpen(true);
-				if (data.isAuth) dispatch(setAutoLoginStatus(data.isAuth));
+				if (data.isAutoAuth) dispatch(setAutoLoginStatus(data.isAutoAuth));
 			}
 		} catch (error) {
 			if (

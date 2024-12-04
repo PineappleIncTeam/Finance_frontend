@@ -59,7 +59,7 @@ const SignInForm = () => {
 	const onSubmit = async (data: ISignInForm) => {
 		try {
 			setErrorMessage("");
-			if (baseUrl) {
+			if (baseUrl && data.password) {
 				const correctUserData: ICorrectSignInForm = {
 					email: data.email,
 					password: data.password,

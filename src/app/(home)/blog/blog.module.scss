@@ -129,11 +129,11 @@
 	height: 630px;
 	width: 100%;
 
-	@media (width <=800px) {
+	@media (max-width: 800px) {
 		height: 540px;
 	}
 
-	@media (width <=600px) {
+	@media (max-width: 600px) {
 		height: 462px;
 	}
 }

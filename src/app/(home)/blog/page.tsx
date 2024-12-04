@@ -47,30 +47,32 @@ export default function Blog() {
 					</div>
 				</div>
 				<div className={style.blogCardsContainer}>
-					<BlogCard
-						image={moneyFlower}
-						date="06 июня 2024"
-						descriptionImage="money flower"
-						text="5 шагов к успешному управлению личными финансами с помощью приложения"
-						blogAction={transitionList.firstTransition}
-						id="1"
-					/>
-					<BlogCard
-						image={notebook}
-						date="06 июня 2024"
-						descriptionImage="notebook"
-						text={"Плюсы и минусы автоматизации учета финансов при помощи приложений"}
-						blogAction={transitionList.secondTransition}
-						id="2"
-					/>
-					<BlogCard
-						image={workEnvironment}
-						date="04 июня 2024"
-						descriptionImage="wok environment"
-						text="Какие ошибки чаще всего допускают пользователи при использовании приложений для учета финансов и как их избежать"
-						blogAction={transitionList.thirdTransition}
-						id="3"
-					/>
+					<div className={style.blogCardsSlider}>
+						<BlogCard
+							image={moneyFlower}
+							date="06 июня 2024"
+							descriptionImage="money flower"
+							text="5 шагов к успешному управлению личными финансами с помощью приложения"
+							blogAction={transitionList.firstTransition}
+							id="1"
+						/>
+						<BlogCard
+							image={notebook}
+							date="06 июня 2024"
+							descriptionImage="notebook"
+							text={"Плюсы и минусы автоматизации учета финансов при помощи приложений"}
+							blogAction={transitionList.secondTransition}
+							id="2"
+						/>
+						<BlogCard
+							image={workEnvironment}
+							date="04 июня 2024"
+							descriptionImage="wok environment"
+							text="Какие ошибки чаще всего допускают пользователи при использовании приложений для учета финансов и как их избежать"
+							blogAction={transitionList.thirdTransition}
+							id="3"
+						/>
+					</div>
 				</div>
 			</div>
 			<Footer />

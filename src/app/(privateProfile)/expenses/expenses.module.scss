@@ -254,6 +254,11 @@
 			margin-top: 6px;
 		}
 	}
+
+	@media (max-width: 490px) {
+		width: 14px;
+		height: 14px;
+	}
 }
 
 .expensesTransactionsWrapper {

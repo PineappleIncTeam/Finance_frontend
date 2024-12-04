@@ -49,7 +49,7 @@ const SignUpForm = () => {
 		setBaseUrl(getCorrectBaseUrl());
 	}, []);
 
-	const validateRepeatPassword = (value: string | undefined) => {
+	const validateRepeatPassword = (value: string | boolean | undefined) => {
 		const password = watch(InputType.Password);
 		return value === password || errorPasswordRepeat;
 	};

@@ -35,7 +35,7 @@
         }
 
         &__actionsWrapper {
-            margin: 8px 0;
+            margin: 6px 0;
         }
     }
 }
@@ -54,7 +54,7 @@
 		text-align: left;
 	}
 
-    @media (max-width: 1440px) {
+    @media (max-width: 1700px) {
 
         &:nth-child(3){
             width: 38%;
@@ -104,6 +104,8 @@
 
     @media (max-width: 490px) {
         & {
+            width: 16px;
+            height: 16px;
             margin-left: 20px;
         }
     }
@@ -112,4 +114,11 @@
 .editIcon {
 	width: 24px;
 	height: 24px;
+
+    @media (max-width: 490px) {
+        & {
+            width: 16px;
+            height: 16px;
+        }
+    }
 }

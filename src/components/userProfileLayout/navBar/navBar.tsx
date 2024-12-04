@@ -77,22 +77,22 @@ const NavBar = ({ onClick }: INavBar) => {
 						})}
 					/>
 				</Link>
-				<Link href={UserProfilePath.Costs} className={styles.navigationLink}>
+				<Link href={UserProfilePath.Expenses} className={styles.navigationLink}>
 					<div
 						className={cn(styles.navigationLinkWrap, {
-							[styles.navigationLinkWrapBoder__hide]: pathname === UserProfilePath.Costs,
+							[styles.navigationLinkWrapBoder__hide]: pathname === UserProfilePath.Expenses,
 						})}>
-						<ExpensesIcon color={pathname === UserProfilePath.Costs ? COLORS.primary : COLORS.white} />
+						<ExpensesIcon color={pathname === UserProfilePath.Expenses ? COLORS.primary : COLORS.white} />
 						<p
 							className={cn(styles.navigationLinkTitle, {
-								[styles.activeLinkTitle]: pathname === UserProfilePath.Costs,
+								[styles.activeLinkTitle]: pathname === UserProfilePath.Expenses,
 							})}>
 							Расходы
 						</p>
 					</div>
 					<div
 						className={cn(styles.linkBackground, {
-							[styles.linkBackground__active]: pathname === UserProfilePath.Costs,
+							[styles.linkBackground__active]: pathname === UserProfilePath.Expenses,
 						})}
 					/>
 				</Link>

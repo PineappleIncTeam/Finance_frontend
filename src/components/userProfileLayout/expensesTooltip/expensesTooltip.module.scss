@@ -1,20 +1,13 @@
 .expensesTooltipWrap {
     width: 120px;
     height: 40px;
-    margin-left: 70%;
+    margin-left: 50%;
     margin-top: -4%;
     border: none;
 
-    @media (max-width: 1630px) {
+    @media (max-width: 1250px) {
         & {
-            margin-left: 65%;
-        }
-    }
-
-    @media (max-width: 950px) {
-        & {
-            margin-top: -8%;
-            margin-left: 68%;
+            margin-top: -6%;
         }
     }
 

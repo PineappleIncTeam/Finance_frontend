@@ -22,7 +22,7 @@ export default function NewPassword() {
 		control,
 		handleSubmit,
 		reset,
-	} = useForm<INewPassword>({
+	} = useForm<INewPassword | any>({
 		defaultValues: {
 			email: "",
 		},

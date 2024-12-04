@@ -1,31 +1,40 @@
 .expensesPageWrap {
-	display: flex;
-	flex-direction: column;
-	width: 57%;
-	height: 82%;
-    background-color: var(--color-silver-gray);
+	padding: 10px;
+	width: 66%;
+	height: 93%;
+	background-color: var(--color-silver-gray);
 
-	@media (max-width: 1440px) {
+	@media (max-width: 1210) {
 		& {
-			width: 55%;
+			width: 63%;
 		}
 	}
-
-	@media (max-width: 1024px) {
+	@media (max-width: 1100px) {
 		& {
-			width: 92%;
+			width: 100%;
 		}
 	}
 }
 
-.expensesContentWrapper {
+.expensesPageContainer {
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+	background-color: var(--color-silver-gray);
+}
+
+.expensesFormContentWrapper {
 	height: 572px;
 	border-radius: 20px;
-    background-color: var(--color-pure-light);
+	background-color: var(--color-pure-light);
 
-    @media (max-width: 490px) {
-        height: 292px;
-    }
+	@media (max-width: 1100px) {
+		height: 500px;
+	}
+
+	@media (max-width: 490px) {
+		height: 292px;
+	}
 }
 
 .headerTitle {
@@ -34,28 +43,28 @@
 	line-height: 4.4rem;
 	margin: 16px 34px;
 
-    @media (max-width: 490px) {
-        margin: 16px 0px;
-    }
+	@media (max-width: 490px) {
+		margin: 16px 0px;
+	}
 }
 
 .expensesByDateContainer {
 	display: flex;
-    height: 118px;
-    gap: 30px;
+	height: 118px;
+	gap: 30px;
 
-    @media (max-width: 1440px) {
-        & {
-            gap: 16px;
-        }
-    }
+	@media (max-width: 1440px) {
+		& {
+			gap: 16px;
+		}
+	}
 
-    @media (max-width: 490px) {
-        & {
-            height: 82px;
-            gap: 14px;
-        }
-    }
+	@media (max-width: 490px) {
+		& {
+			height: 82px;
+			gap: 14px;
+		}
+	}
 }
 
 .totalMonthlyWrapper {
@@ -84,11 +93,11 @@
 	@media (max-width: 1440px) {
 		& {
 			width: 42%;
-            margin-left: 14px;
+			margin-left: 14px;
 		}
 	}
 
-    @media (max-width: 1024px) {
+	@media (max-width: 1100px) {
 		& {
 			width: 38%;
 		}
@@ -100,52 +109,46 @@
 		}
 	}
 
-    @media (max-width: 550px) {
-        & {
-            margin-left: 8px;
-        }
-    }
+	@media (max-width: 550px) {
+		& {
+			margin-left: 8px;
+		}
+	}
 
-    @media (max-width: 490px) {
+	@media (max-width: 490px) {
+		& {
+			width: 49%;
+			margin-left: 0;
+			padding-top: 10px;
+		}
 
-        & {
-            width: 49%;
-            margin-left: 0;
-            padding-top: 10px;
-        }
+		&__month {
+			width: 78%;
+			font-size: 1.3rem;
+			line-height: 1.8rem;
+		}
 
-        &__month {
-            width: 78%;
-            font-size: 1.3rem;
-            line-height: 1.8rem;    
-        }
-
-        &__sum {
-            font-size: 1.6rem;
-            line-height: 2.2rem;
-            font-weight: 400;
-            margin-top: 6px;
-        }
-    }
+		&__sum {
+			font-size: 1.6rem;
+			line-height: 2.2rem;
+			font-weight: 400;
+			margin-top: 6px;
+		}
+	}
 }
 
 .dateSelectionWrapper {
 	max-width: 400px;
 	background-color: var(--color-light-grayish-green);
 	width: 37%;
-	padding-top: 16px;
-	padding-left: 20px;
+	padding: 16px;
 	border-radius: 12px;
 
-	&__text {
-		font-size: 2rem;
-		line-height: 2.8rem;
-	}
-
-	&__date {
-		width: 92%;
-		height: 52px;
-		margin-top: 4px;
+	&__description {
+		font-size: 1.3rem;
+		line-height: 1.8rem;
+		color: var(--color-very-dark-grayish-blue);
+		display: none;
 	}
 
 	@media (max-width: 1440px) {
@@ -154,7 +157,7 @@
 		}
 	}
 
-    @media (max-width: 1024px) {
+	@media (max-width: 1100px) {
 		& {
 			width: 38%;
 		}
@@ -167,250 +170,118 @@
 		}
 	}
 
-    @media (max-width: 490px) {
-        & {
-            width: 49%;
-            padding-top: 10px;
-        }
+	@media (max-width: 490px) {
+		& {
+			width: 49%;
+			padding-top: 10px;
+			
+		}
 
-        &__text {
-            font-size: 1.3rem;
-            line-height: 1.8rem;
-        }
-
-        &__date {
-            width: 87%;
-            height: 36px;
-        }
-    }
+		&__description {
+			display: inline;
+			margin-left: 10px;
+		}
+	}
 }
 
 .expensesDetailsContainer {
 	display: flex;
 	flex-direction: row;
-    gap: 30px;
-    height: 88px;
-    margin-top: 30px;
+	gap: 20px;
+	height: 88px;
+	margin-top: 30px;
 
 	&__category {
 		display: flex;
 		flex-direction: column;
-        width: 37%;
-        margin-left: 34px;
+		width: 37%;
+		margin-left: 34px;
 	}
 
 	&__sum {
 		display: flex;
 		flex-direction: column;
-        width: 37%;
+		width: 37%;
 	}
 
-    @media (max-width: 1440px) {
-        &{
-            gap: 20px
-        }
-        &__category {
-            width: 42%;
-            margin-left: 14px;
-        }
+	@media (max-width: 1440px) {
+		&__category {
+			width: 42%;
+			margin-left: 14px;
+		}
 
-        &__sum {
-            width: 31%;
-        }
-    }
+		&__sum {
+			width: 31%;
+		}
+	}
 
-    @media (max-width: 1024px) {
-        &__category {
-            width: 38%;
-        }
+	@media (max-width: 1100px) {
+		&__category {
+			width: 38%;
+		}
 
-        &__sum {
-            width: 38%; 
-        }
-    }
+		&__sum {
+			width: 38%;
+		}
+	}
 
-    @media (max-width: 800px) {
-        &__category {
-            width: 45%;
-        }
-    }
+	@media (max-width: 800px) {
+		&__category {
+			width: 45%;
+		}
+	}
 
-    @media (max-width: 650px) {
-        &__category {
-            width: 38%;
-        }
-    }
-
-    @media (max-width: 490px) {
-        & {
-            height: 38px;
-            margin-top: 20px;
-        }
-
-        &__category {
-            margin-left: 2px;
-        }
-    }
-}
-
-.expensesDescription {
-	font-size: 2rem;
-	line-height: 2.8rem;
-	color: var(--color-very-dark-grayish-blue);
-	
-    @media (max-width: 490px) {
-        & {
-            display: none;
-        }
-    }
-}
-
-.expenseItem {
-	width: 100%;
-	height: 52px;
-	border-radius: 8px;
-	border: 1.5px solid var(--color-gainsboro);
-	
 	@media (max-width: 490px) {
 		& {
 			height: 38px;
+			margin-top: 20px;
+		}
+
+		&__category {
+			margin-left: 2px;
 		}
 	}
 }
 
-.expensesSum {
-	width: 99%;
-	height: 52px;
-	border-radius: 8px;
-	border: 1.5px solid var(--color-gainsboro);
-	
-    @media (max-width: 490px) {
-		& {
-			height: 38px;
-		}
-	}
-}
-
-.addButton {
-	max-width: 244px;
-	height: 52px;
-	font-size: 2rem;
-	line-height: 2rem;
-	border-radius: 10px;
-	width: 14%;
-	color: var(--color-pure-light);
-	background-color: var(--color-dark-spring-green);
-	margin: 34px auto;
-	cursor: pointer;
-
-	&__disabled {
-		max-width: 244px;
-		height: 52px;
-		font-size: 2rem;
-		line-height: 2rem;
-		border-radius: 10px;
-		width: 14%;
-		color: var(--color-pure-light);
-		background-color: #bbbbbb;
-		margin: 34px auto;
-		cursor: not-allowed;
-	}
-
-    &__plusIcon {
-        display: none;
-    }
-
-    @media (max-width: 1440px) {
-        & {
-            width: 18%;
-        }
-
-        &__disabled {
-            width: 18%;
-        }
-    }
-
-    @media (max-width: 1024px) {
-        & {
-            width: 15%;
-        }
-
-        &__disabled {
-            width: 15%;
-        }
-    }
+.addButtonIcon {
+	display: none;
 
 	@media (max-width: 800px) {
 		& {
-			width: 8%;
+			display: inline;
+			width: 18px;
+			height: 18px;
+			margin-top: 6px;
 		}
-
-		&__disabled {
-			width: 8%;
-		}
-
-        &__text {
-            display: none;
-        }
-
-        &__plusIcon {
-            display: inline;
-            width: 24px;
-            height: 24px;
-        }
 	}
-
-    @media (max-width: 550px) {
-        & {
-            height: 50%;
-        }
-
-        &__disabled {
-            height: 50%;
-        }
-    }
-
-    @media (max-width: 490px) {
-        & {
-            width: 11%;
-            height: 100%;
-            margin: 0px 0px;
-        }
-
-        &__disabled {
-            width: 11%;
-            height: 100%;
-            margin: 0px 0px;
-        }
-    }
 }
 
 .expensesTransactionsWrapper {
 	height: 296px;
 	margin-top: 20px;
 	border-radius: 20px;
-    background-color: var(--color-pure-light);
+	background-color: var(--color-pure-light);
 
-    @media (max-width: 490px) {
-        height: 214px;
-        border-radius: 0;
-    }
+	@media (max-width: 490px) {
+		height: 214px;
+		border-radius: 0;
+	}
 }
 
 .expensesTransactionHeader {
 	font-size: 2.4rem;
 	line-height: 3.2rem;
-    font-weight: 500;
-	margin: 16px 24px;
+	font-weight: 500;
+	margin: 16px 10px;
 
-    @media (max-width: 490px) {
-        & {
-            font-size: 1.6rem;
-            line-height: 2.2rem;
-            font-weight: 400;
-            margin: 0;    
-        }
-    }
+	@media (max-width: 490px) {
+		& {
+			font-size: 1.6rem;
+			line-height: 2.2rem;
+			font-weight: 400;
+			margin: 0 16px;
+		}
+	}
 }
 
 .transactionsContainer {
@@ -421,111 +292,21 @@
 	height: 40px;
 	padding-left: 18px;
 
-	&__actionsWrapper {
-		display: flex;
-		margin: 8px 40px;
-	}
-    @media (max-width: 1440px) {
-        & {
-            padding-left: 0;
-        }
-        &__actionsWrapper {
-            margin: 8px 10px;
-        }
-    }
-
-    @media (max-width: 800px) {
-        & {
-            padding-left: 0;
-        }
-
-        &__actionsWrapper {
-            margin: 8px 4px;
-        }
-    }
-
-    @media (max-width: 490px) {
-        & {
-            height: 36px;
-        }
-
-        &__actionsWrapper {
-            margin: 8px 0;
-        }
-    }
-}
-
-.transactionData {
-	font-size: 1.6rem;
-	line-height: 2.2rem;
-	margin-top: 8px;
-	color: var(--color-dark-cyan-blue);
-
-    &:nth-child(2) {
-        display: none;
-    }
-
-	&:nth-child(3) {
-		width: 43%;
-		text-align: left;
+	@media (max-width: 1440px) {
+		& {
+			padding-left: 0;
+		}
 	}
 
-    @media (max-width: 1440px) {
+	@media (max-width: 800px) {
+		& {
+			padding-left: 0;
+		}
+	}
 
-        &:nth-child(3){
-            width: 38%;
-        }
-    }
-
-    @media (max-width: 800px) {
-        &:nth-child(-n+3) {
-            width: 26%;
-            overflow: hidden;
-            white-space: nowrap;
-            text-overflow: ellipsis;
-        }
-    
-        &:nth-child(4) {
-            width: 24%;
-        }
-    }
-
-    @media (max-width: 650px) {
-        & {
-            font-size: 1.3rem;
-            line-break: 1.8rem;
-        }
-    }
-
-    @media (max-width: 500px) {
-        & {
-            font-size: 1.1rem;
-            line-height: 1.3rem;
-        }
-
-        &:nth-child(1) {
-            display: none;
-        }
-
-        &:nth-child(2) {
-            display: inline;
-        }
-    }
-}
-
-.deleteIcon {
-	width: 24px;
-	height: 24px;
-	margin-right: 8px;
-
-    @media (max-width: 490px) {
-        & {
-            margin-left: 20px;
-        }
-    }
-}
-
-.editIcon {
-	width: 24px;
-	height: 24px;
+	@media (max-width: 490px) {
+		& {
+			height: 36px;
+		}
+	}
 }

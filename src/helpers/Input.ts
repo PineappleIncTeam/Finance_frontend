@@ -4,4 +4,6 @@ export enum InputType {
 	Submit = "submit",
 	Email = "email",
 	Checkbox = "checkbox",
+	Number = "number",
+	Date = "date",
 }

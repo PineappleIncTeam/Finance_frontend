@@ -1,18 +1,20 @@
-import { ReactNode } from "react";
+import { ReactElement, ReactNode } from "react";
 
 import { FieldError, FieldErrorsImpl, Merge, UseControllerProps } from "react-hook-form";
 
 import { ISignInForm, ISignUpForm } from "../components/ComponentsTypes";
 import { INewPassword } from "../pages/Password";
+import { IExpensesInputForm, IExpensesSelectForm } from "../pages/Expenses";
 
 export interface IButton {
 	content: string | ReactNode;
 	styleName: string;
 	onClick?: () => void;
 	type?: "button" | "submit";
+	children?: ReactElement;
 }
 
-export type IInputFormProps = ISignUpForm | ISignInForm | INewPassword;
+export type IInputFormProps = ISignUpForm | ISignInForm | INewPassword | IExpensesInputForm;
 
 export interface IInputProps extends UseControllerProps<IInputFormProps> {
 	label: string;
@@ -30,4 +32,12 @@ export interface ITitle {
 export interface ICustomCheckbox {
 	isChecked: boolean;
 	setIsChecked: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+export type ISelectFormProps = IExpensesSelectForm;
+
+export interface ISelectProps extends UseControllerProps<ISelectFormProps> {
+	label?: string;
+	options?: string[];
+	disabled?: boolean;
 }

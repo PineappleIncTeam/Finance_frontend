@@ -188,3 +188,93 @@
 .buttonConfirmCookies:hover {
 	color: var(--color-cal-poly-pomona-green);
 }
+
+.buttonForExpenses {
+	max-width: 244px;
+	height: 52px;
+	border-radius: 10px;
+	width: 15%;
+	color: var(--color-pure-light);
+	background-color: var(--color-dark-spring-green);
+	font-size: 2rem;
+	line-height: 2.8rem;
+	margin-top: 30px;
+    margin-right: 8px;
+	cursor: pointer;
+
+	&__disabled {
+		max-width: 244px;
+		height: 52px;
+		border-radius: 10px;
+		width: 15%;
+		color: var(--color-pure-light);
+		font-size: 2rem;
+		line-height: 2.8rem;
+		background-color: #bbbbbb;
+		margin-top: 30px;
+        margin-right: 8px;
+		cursor: not-allowed;
+	}
+
+	@media (max-width: 1440px) {
+		& {
+			width: 21%;
+		}
+
+		&__disabled {
+			width: 21%;
+		}
+	}
+
+	@media (max-width: 1100px) {
+		& {
+			width: 15%;
+		}
+
+		&__disabled {
+			width: 15%;
+		}
+	}
+
+	@media (max-width: 800px) {
+		& {
+			width: 8%;
+		}
+		&__disabled {
+			width: 8%;
+
+			&__buttonName {
+				display: none;
+			}
+		}
+
+		&__buttonName {
+			display: none;
+		}
+
+	}
+
+	@media (max-width: 550px) {
+		& {
+			height: 50%;
+		}
+
+		&__disabled {
+			height: 50%;
+		}
+	}
+
+	@media (max-width: 490px) {
+		& {
+			width: 11%;
+			height: 100%;
+			margin: 0px 0px;
+		}
+
+		&__disabled {
+			width: 11%;
+			height: 100%;
+			margin: 0px 0px;
+		}
+	}
+}

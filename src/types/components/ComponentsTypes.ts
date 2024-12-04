@@ -5,13 +5,13 @@ export interface IUser {
 }
 
 export interface ISignUpForm {
-	email: string;
+	email?: string;
 	password?: string;
 	re_password?: string;
 }
 
 export interface ISignInForm {
-	email: string;
+	email?: string;
 	password?: string;
 }
 

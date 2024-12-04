@@ -62,7 +62,7 @@ const SignInForm = () => {
 			if (baseUrl) {
 				await loginUser(baseUrl, data);
 				setIsOpen(true);
-				dispatch(setAutoLoginStatus(data.isAuth));
+				if (data.isAuth) dispatch(setAutoLoginStatus(data.isAuth));
 			}
 		} catch (error) {
 			if (

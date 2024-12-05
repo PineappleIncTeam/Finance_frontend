@@ -32,4 +32,9 @@ export interface IVideoElement {
 	close?: () => void;
 }
 
+export interface IUserActivation {
+	uid: string | string[];
+	token: string | string[];
+}
+
 export type TMessageModal = "success" | "warning";

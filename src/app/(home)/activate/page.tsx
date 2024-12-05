@@ -7,6 +7,7 @@ import Image from "next/image";
 import { AxiosResponse, HttpStatusCode, isAxiosError } from "axios";
 
 import { useRouter } from "next/navigation";
+import { useRouter as useUrlRoute } from "next/router";
 
 import logo from "../../../assets/pages/activate/logo.png";
 import warning from "../../../assets/pages/activate/warning.svg";
@@ -32,11 +33,13 @@ const Activate = () => {
 	const [message, setMessage] = useState<TMessageModal>("success");
 	const [load, setLoad] = useState<boolean>(false);
 	const router = useRouter();
+	const urlRouter = useUrlRoute();
 	const interval = 1000;
 	const successMessageTitle = "Добро пожаловать!";
 	const successMessageDescrition = "Начните планировать свои финансы с нами прямо сейчас.";
 	const warningMessageTitle = "Неверный код активации";
 	const warningMessageDescription = "Попробуйте зарегистрироваться еще раз";
+	const { uid, token } = urlRouter.query;
 
 	useEffect(() => {
 		setBaseUrl(getCorrectBaseUrl());
@@ -48,8 +51,12 @@ const Activate = () => {
 				window.location.hostname.includes(mockLocalhostStr) || window.location.hostname.includes(mockLocalhostUrl);
 
 			if (baseUrl && !isLocalhost) {
+				const userData = {
+					uid: uid,
+					token: token,
+				};
 				setLoad(true);
-				userActivation(baseUrl).then((response: AxiosResponse<IUserValidationResponse>) => {
+				userActivation(baseUrl, userData).then((response: AxiosResponse<IUserValidationResponse>) => {
 					setLoad(false);
 					if (response.status === HttpStatusCode.Ok) {
 						setMessage("success");
@@ -80,7 +87,7 @@ const Activate = () => {
 				return router.push(MainPath.ServerError);
 			}
 		}
-	}, [baseUrl, router]);
+	}, [baseUrl, router, token, uid]);
 
 	const messageElement = () => {
 		return (

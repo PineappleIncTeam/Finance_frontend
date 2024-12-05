@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 
+// eslint-disable-next-line import/named
 import { AxiosResponse, HttpStatusCode } from "axios";
 
 import { useRouter } from "next/navigation";

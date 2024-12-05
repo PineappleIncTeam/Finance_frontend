@@ -31,3 +31,5 @@ export interface IVideoElement {
 	videoId: string;
 	close?: () => void;
 }
+
+export type messageModal = "success" | "warning";

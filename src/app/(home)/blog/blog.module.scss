@@ -29,10 +29,16 @@
 	display: flex;
 	justify-content: flex-start;
 	flex-direction: column;
-	margin-left: 10px;
 	padding-top: 32px;
 	max-width: 1606px;
+	width: 84%;
 	margin: 0 auto;
+
+	@media (max-width: 1440px) {
+		& {
+			width: 92%;
+		}
+	}
 
 	@media (width: 1024px) {
 		& {
@@ -66,15 +72,9 @@
 	align-items: flex-end;
 	gap: 20px;
 
-	@media (width < 1400px) {
+	@media (width < 500px) {
 		& {
-			margin-right: 40px;
-		}
-	}
-
-	@media (width < 370px) {
-		& {
-			margin-left: 40px;
+			display: none;
 		}
 	}
 }
@@ -88,45 +88,30 @@
 }
 
 .blogHeaderWrap__title {
-	width: 1014px;
-	height: 88px;
+	max-width: 1014px;
+
 	font-size: 3.6rem;
 	font-weight: 400;
 	line-height: 4.4rem;
-	margin-left: 70px;
 
-	@media (width < 1920px) {
-		& {
-			margin-left: 40px;
-		}
-	}
-
-	@media (width < 1030px) {
+	@media (width < 1024px) {
 		& {
 			width: 832px;
-			height: 132px;
-			margin-left: 610px;
 		}
 	}
 
 	@media (width < 800px) {
 		& {
 			width: 590px;
-			height: 114px;
 			font-size: 2.6rem;
 			line-height: 3.8rem;
-			margin-top: 30px;
-			margin-left: 20px;
 		}
 	}
 
 	@media (width < 600px) {
 		& {
-			width: 322px;
-			height: 112px;
 			font-size: 2rem;
 			line-height: 2.8rem;
-			margin-top: 0px;
 		}
 	}
 
@@ -138,50 +123,27 @@
 }
 
 .blogCardsContainer {
+	margin: 30px 0;
+	position: relative;
+	overflow: hidden;
+	height: 630px;
+	width: 100%;
+
+	@media (max-width: 800px) {
+		height: 540px;
+	}
+
+	@media (max-width: 600px) {
+		height: 462px;
+	}
+}
+
+.blogCardsSlider {
+	position: absolute;
+	left: 0;
+	top: 0;
 	display: flex;
-	justify-content: space-evenly;
-	width: 1600px;
-	height: 570px;
-	margin-top: 70px;
-	margin-bottom: 70px;
-	gap: 100px;
-
-	@media (width < 1920px) {
-		& {
-			width: 1280px;
-			margin-left: 40px;
-			gap: 50px;
-		}
-	}
-
-	@media (width < 1030px) {
-		& {
-			width: 1524px;
-			margin-bottom: 250px;
-			margin-left: 610px;
-			gap: 30px;
-		}
-	}
-
-	@media (width < 800px) {
-		& {
-			width: 1280px;
-			margin: 24px;
-			gap: 10px;
-		}
-	}
-
-	@media (width < 600px) {
-		& {
-			width: 916px;
-			height: 462px;
-			margin-bottom: 20px;
-		}
-	}
-
-	@media (width < 370px) {
-		& {
-			margin: 18px 4px;
-		}
-	}
+	justify-content: space-between;
+	width: 100%;
+	gap: 18px;
 }

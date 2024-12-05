@@ -77,12 +77,12 @@ const Activate = () => {
 				}
 				if (
 					error &&
-					(error as AxiosError).response?.status >= HttpStatusCode.BadRequest &&
-					(error as AxiosError).response?.status <= HttpStatusCode.UnavailableForLegalReasons
+					isAxiosError(error) &&
+					error.response &&
+					(error as AxiosError).response.status >= HttpStatusCode.BadRequest &&
+					(error as AxiosError).response.status <= HttpStatusCode.UnavailableForLegalReasons
 				) {
 					setMessage("warning");
-				} else if (error && (error as AxiosError).response?.status >= HttpStatusCode.InternalServerError) {
-					router.push(MainPath.ServerError);
 				}
 			}
 		};

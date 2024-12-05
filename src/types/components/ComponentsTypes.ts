@@ -32,4 +32,4 @@ export interface IVideoElement {
 	close?: () => void;
 }
 
-export type messageModal = "success" | "warning";
+export type TMessageModal = "success" | "warning";

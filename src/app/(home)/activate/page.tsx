@@ -19,15 +19,18 @@ import { IUserValidationResponse } from "../../../types/api/Auth";
 
 import { MainPath } from "../../../services/router/routes";
 
-import { messageModal } from "../../../types/components/ComponentsTypes";
+import { TMessageModal } from "../../../types/components/ComponentsTypes";
 
 import { ApiResponseCode } from "../../../helpers/apiResponseCode";
+
+import Spinner from "../../../ui/spinner/spinner";
 
 import style from "./activate.module.scss";
 
 const Activate = () => {
 	const [baseUrl, setBaseUrl] = useState<string>();
-	const [message, setMessage] = useState<messageModal>("success");
+	const [message, setMessage] = useState<TMessageModal>("success");
+	const [load, setLoad] = useState<boolean>(false);
 	const router = useRouter();
 	const interval = 1000;
 	const successMessageTitle = "Добро пожаловать!";
@@ -45,9 +48,12 @@ const Activate = () => {
 				window.location.hostname.includes(mockLocalhostStr) || window.location.hostname.includes(mockLocalhostUrl);
 
 			if (baseUrl && !isLocalhost) {
+				setLoad(true);
 				userActivation(baseUrl).then((response: AxiosResponse<IUserValidationResponse>) => {
+					setLoad(false);
 					if (response.status === HttpStatusCode.Ok) {
 						setMessage("success");
+
 						setTimeout(() => {
 							router.push(MainPath.Login);
 						}, interval);
@@ -76,19 +82,23 @@ const Activate = () => {
 		}
 	}, [baseUrl, router]);
 
-	return (
-		<div className={style.wrapper}>
-			<div className={style.messageWrapper}>
-				<div className={style.message}>
-					<div className={style.logo}>
-						<Image src={message === "success" ? logo : warning} alt="иконка" className={style.icon} />
-					</div>
-					<div className={style.title}>{message === "success" ? successMessageTitle : warningMessageTitle}</div>
-					<div className={style.description}>
-						{message === "success" ? successMessageDescrition : warningMessageDescription}
-					</div>
+	const messageElement = () => {
+		return (
+			<div className={style.message}>
+				<div className={style.logo}>
+					<Image src={message === "success" ? logo : warning} alt="иконка" className={style.icon} />
+				</div>
+				<div className={style.title}>{message === "success" ? successMessageTitle : warningMessageTitle}</div>
+				<div className={style.description}>
+					{message === "success" ? successMessageDescrition : warningMessageDescription}
 				</div>
 			</div>
+		);
+	};
+
+	return (
+		<div className={style.wrapper}>
+			<div className={style.messageWrapper}>{load ? <Spinner /> : messageElement()}</div>
 		</div>
 	);
 };

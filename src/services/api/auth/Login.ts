@@ -1,10 +1,10 @@
 import axios from "axios";
 
-import { ISignInForm } from "../../../types/components/ComponentsTypes";
+import { ICorrectSignInForm } from "../../../types/components/ComponentsTypes";
 
 import { signInEndpoint } from "./apiConstants";
 
-export const loginUser = async (baseURL: string, loginData: ISignInForm) => {
+export const loginUser = async (baseURL: string, loginData: ICorrectSignInForm) => {
 	return await axios(`${baseURL}/${signInEndpoint}`, {
 		method: "POST",
 		data: loginData,

@@ -8,7 +8,7 @@ import Link from "next/link";
 
 import useAppDispatch from "../../../hooks/useAppDispatch";
 
-import { ISignInForm } from "../../../types/components/ComponentsTypes";
+import { ICorrectSignInForm, ISignInForm } from "../../../types/components/ComponentsTypes";
 import Button from "../../../ui/button/button";
 import Input from "../../../ui/input/Input";
 import Title from "../../../ui/title/Title";
@@ -29,7 +29,6 @@ const SignInForm = () => {
 	const [baseUrl, setBaseUrl] = useState<string>();
 	const [errorMessage, setErrorMessage] = useState<string>("");
 	const [isOpen, setIsOpen] = useState<boolean>(false);
-	const [isAuth, setAuth] = useState<boolean>(false);
 
 	const dispatch = useAppDispatch();
 
@@ -41,6 +40,7 @@ const SignInForm = () => {
 		defaultValues: {
 			email: "",
 			password: "",
+			isAutoAuth: false,
 		},
 		mode: "all",
 		delayError: 200,
@@ -59,10 +59,14 @@ const SignInForm = () => {
 	const onSubmit = async (data: ISignInForm) => {
 		try {
 			setErrorMessage("");
-			if (baseUrl) {
-				await loginUser(baseUrl, data);
+			if (baseUrl && data.password) {
+				const correctUserData: ICorrectSignInForm = {
+					email: data.email,
+					password: data.password,
+				};
+				await loginUser(baseUrl, correctUserData);
 				setIsOpen(true);
-				dispatch(setAutoLoginStatus(isAuth));
+				if (data.isAutoAuth) dispatch(setAutoLoginStatus(data.isAutoAuth));
 			}
 		} catch (error) {
 			if (
@@ -107,7 +111,7 @@ const SignInForm = () => {
 				/>
 				<div className={styles.additionalFunctionsWrap}>
 					<div className={styles.additionalFunctionsWrap__checkbox}>
-						<CustomCheckbox isChecked={isAuth} setIsChecked={setAuth} />
+						<CustomCheckbox control={control} name={"isAuth"} />
 						<p className={styles.checkBoxText}>Запомнить меня</p>
 					</div>
 					<Link href={MainPath.NewPassword} className={styles.forgetPassword}>

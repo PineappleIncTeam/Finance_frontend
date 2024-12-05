@@ -36,7 +36,7 @@ const SignInForm = () => {
 		formState: { errors },
 		control,
 		handleSubmit,
-	} = useForm<ISignInForm>({
+	} = useForm<ISignInForm | any>({
 		defaultValues: {
 			email: "",
 			password: "",

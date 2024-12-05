@@ -15,7 +15,7 @@ export enum MainPath {
 
 export enum UserProfilePath {
 	ProfitMoney = "/profitMoney",
-	Сosts = "/costs",
+	Expenses = "/expenses",
 	Savings = "/savings",
 	Analytics = "/analytics",
 	Calculator = "/calculator",

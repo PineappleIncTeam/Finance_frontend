@@ -11,6 +11,7 @@ export enum MainPath {
 	UserAgreement = "/userAgreement",
 	NotFound = "/notfound",
 	BlogPage = "/blogPage",
+	ActivationPage = "/activate",
 }
 
 export enum UserProfilePath {

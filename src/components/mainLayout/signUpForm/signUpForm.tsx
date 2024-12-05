@@ -19,6 +19,7 @@ import { MainPath } from "../../../services/router/routes";
 import { getCorrectBaseUrl } from "../../../utils/baseUrlConverter";
 import { ApiResponseCode } from "../../../helpers/apiResponseCode";
 import { vkLink } from "../../../mocks/linkSetup";
+import CustomCheckbox from "../../../ui/checkBox/checkBox";
 
 import styles from "./signUpForm.module.scss";
 
@@ -30,13 +31,13 @@ const SignUpForm = () => {
 		control,
 		watch,
 		handleSubmit,
-		register,
 	} = useForm<ISignUpForm | any>({
 		defaultValues: {
 			email: "",
 			password: "",
 			// eslint-disable-next-line camelcase
 			re_password: "",
+			agreementField: false,
 		},
 		mode: "all",
 		delayError: 200,
@@ -48,7 +49,7 @@ const SignUpForm = () => {
 		setBaseUrl(getCorrectBaseUrl());
 	}, []);
 
-	const validateRepeatPassword = (value: string | undefined) => {
+	const validateRepeatPassword = (value: string | boolean | undefined) => {
 		const password = watch(InputType.Password);
 		return value === password || errorPasswordRepeat;
 	};
@@ -116,9 +117,7 @@ const SignUpForm = () => {
 				/>
 				<div className={styles.securityPolicyWrapper}>
 					<div className={styles.securityPolicyWrapper__Checkbox}>
-						<p className={styles.privacyCheckbox}>
-							<input type={InputType.Checkbox} {...register("agreementField", { required: true })} />
-						</p>
+						<CustomCheckbox control={control} name={"agreementField"} rules={{ required: true }} />
 						<p className={styles.securityPolicyWrapper__Text}>
 							Я соглашаюсь с{" "}
 							<Link className={styles.securityPolicyWrapper__Link} href={MainPath.UserAgreement}>

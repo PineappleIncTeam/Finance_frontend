@@ -17,6 +17,8 @@ const Input = ({ label, type, placeholder, autoComplete, subtitle, error, ...pro
 	const togglePasswordVisibility = () =>
 		setPasswordType(passwordType === InputType.Password ? InputType.Text : InputType.Password);
 
+	const value = typeof field.value === "boolean" ? String(field.value) : field.value;
+
 	return (
 		<div className={styles.inputWrap}>
 			<label className={styles.inputWrap__label}>{label}</label>
@@ -27,6 +29,7 @@ const Input = ({ label, type, placeholder, autoComplete, subtitle, error, ...pro
 					placeholder={placeholder}
 					className={styles.inputWrap__input}
 					autoComplete={autoComplete}
+					value={value}
 				/>
 				{type === InputType.Password && (
 					<button onClick={togglePasswordVisibility} className={styles.inputWrap__passwordEye} type="button">

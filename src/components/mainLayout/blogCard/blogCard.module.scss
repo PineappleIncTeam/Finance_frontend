@@ -1,51 +1,62 @@
 .blogCardContainer {
-	width: 478px;
-	height: 570px;
+	flex: 1 1;
+	display: flex;
+	flex-direction: column;
+	max-width: 478px;
+	max-height: 570px;
 	background-color: var(--color-pure-light);
 	border-radius: 20px;
 	padding: 24px;
 
-	@media (width < 1920px) {
-		& {
-			width: 414px;
-			height: 540px;
-			padding: 28px;
-		}
+	@media (max-width: 1024px) {
+		flex: 1 0 auto;
+		width: 416px;
+		height: 540px;
 	}
 
-	@media (width < 1030px) {
-		& {
-			width: 478px;
-			height: 630px;
-		}
+	@media (max-width: 500px) {
+		width: 300px;
+		height: 462px;
 	}
+}
 
-	@media (width < 800px) {
-		& {
-			width: 416px;
-			height: 541px;
-		}
-	}
+.blogCardPicture {
+	flex: 0 0 auto;
+	position: relative;
+	width: 100%;
+	height: 278px;
+	margin-bottom: 20px;
+	border-radius: 16px;
+	overflow: hidden;
+
 	@media (width < 600px) {
-		& {
-			width: 300px;
-			height: 462px;
-			padding: 16px;
-		}
+		height: 240px;
 	}
 }
 
 .blogCardImage {
 	width: 100%;
-	height: 278px;
-	padding: 6px 0px;
+	height: 100%;
+	object-fit: cover;
+	object-position: center;
+}
 
-	@media (width < 600px) {
-		& {
-			width: 268px;
-			height: 240px;
-		}
-	}
+.blogCardInfo {
+	flex: 1 0 auto;
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+}
+
+.blogCardShareButton {
+	position: absolute;
+	width: 24px;
+	height: 24px;
+	top: 24px;
+	right: 24px;
+	border-radius: 50%;
+	cursor: pointer;
+	background-color: var(--color-black-light);
 }
 
 .blogCardDate {
@@ -53,7 +64,6 @@
 	font-weight: 400;
 	line-height: 2.2rem;
 	color: var(--color-dark-sea-green);
-	margin-top: -8px;
 	margin-bottom: 8px;
 
 	@media (width < 600px) {
@@ -65,7 +75,7 @@
 }
 
 .blogCardText {
-	width: 432px;
+	flex: 1 0 auto;
 	font-size: 2.6rem;
 	font-weight: 400;
 	line-height: 3.8rem;
@@ -77,24 +87,17 @@
 	-webkit-line-clamp: 3;
 	-webkit-box-orient: vertical;
 
-	@media (width < 1920px) {
+	@media (width < 1440px) {
 		& {
 			font-size: 2rem;
 			line-height: 2.8rem;
-			width: 378px;
-			height: 84px;
-			margin-bottom: 14px;
 		}
 	}
-	@media (width < 1030px) {
+
+	@media (width < 1024px) {
 		& {
-			font-size: 2.6rem;
-			line-height: 3.8rem;
-			width: 420px;
-			height: 142px;
-			line-clamp: 5;
-			-webkit-line-clamp: 5;
-			margin-bottom: 34px;
+			line-clamp: 4;
+			-webkit-line-clamp: 4;
 		}
 	}
 
@@ -102,8 +105,6 @@
 		& {
 			font-size: 2rem;
 			line-height: 2.8rem;
-			width: 368px;
-			height: 84px;
 		}
 	}
 
@@ -119,70 +120,43 @@
 
 .blogCardButtonWrap {
 	display: flex;
+	flex-direction: row;
 	justify-content: flex-end;
 	gap: 20px;
 	padding-top: 20px;
 	border-top: 1px solid var(--color-cambridge-blue);
-
-	@media (width < 1920px) {
-		& {
-			padding-top: 18px;
-		}
-	}
-
-	@media (width < 600px) {
-		& {
-			padding-top: 16px;
-		}
-	}
 }
 
 .blogCardButton {
-	width: 428px;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
 	font-size: 2rem;
 	font-weight: 400;
 	line-height: 2.8rem;
 	text-align: right;
 	cursor: pointer;
+	gap: 10px;
 
 	@media (width < 600px) {
 		& {
 			font-size: 1.6rem;
 			line-height: 2.2rem;
 			text-align: left;
-		}
-	}
-
-	@media (width < 370px) {
-		& {
-			width: 268px;
+			width: 100%;
+			justify-content: space-between;
 		}
 	}
 }
 
 .blogCardArrow {
-	padding-top: 12px;
-	padding-left: 12px;
-
-	@media (width < 370px) {
-		& {
-			margin-left: 146px;
-		}
-	}
+	width: 18px;
+	height: 12px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
 
-.blogCardShareButton {
-	width: 24px;
-	height: 24px;
-	border-radius: 50px;
-	position: relative;
-	bottom: 254px;
-	left: 384px;
-	cursor: pointer;
-
-	@media (width < 1920px) {
-		& {
-			left: 316px;
-		}
-	}
+.blogArrow {
+	width: 100%;
 }

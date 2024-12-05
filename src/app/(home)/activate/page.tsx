@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 
 // eslint-disable-next-line import/named
-import { AxiosResponse, HttpStatusCode, isAxiosError } from "axios";
+import { AxiosError, AxiosResponse, HttpStatusCode, isAxiosError } from "axios";
 
 import { useRouter, useSearchParams } from "next/navigation";
 
@@ -75,9 +75,12 @@ const Activate = () => {
 				) {
 					return router.push(MainPath.ServerError);
 				}
-				if (error.status >= HttpStatusCode.BadRequest && error.status <= HttpStatusCode.UnavailableForLegalReasons) {
+				if (
+					(error as AxiosError).response?.status >= HttpStatusCode.BadRequest &&
+					(error as AxiosError).response?.status <= HttpStatusCode.UnavailableForLegalReasons
+				) {
 					setMessage("warning");
-				} else if (error.status >= HttpStatusCode.InternalServerError) {
+				} else if ((error as AxiosError).response?.status >= HttpStatusCode.InternalServerError) {
 					router.push(MainPath.ServerError);
 				}
 			}

@@ -10,6 +10,6 @@ export interface IValidateTokenResponse {
 }
 
 export interface IUserValidationResponse {
-	uid: "string",
-	token: "string"
+	uid: string;
+	token: string;
 }

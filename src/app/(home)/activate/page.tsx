@@ -6,8 +6,7 @@ import Image from "next/image";
 // eslint-disable-next-line import/named
 import { AxiosResponse, HttpStatusCode, isAxiosError } from "axios";
 
-import { useRouter } from "next/navigation";
-import { useRouter as useUrlRoute } from "next/router";
+import { useRouter, useSearchParams } from "next/navigation";
 
 import logo from "../../../assets/pages/activate/logo.png";
 import warning from "../../../assets/pages/activate/warning.svg";
@@ -33,13 +32,14 @@ const Activate = () => {
 	const [message, setMessage] = useState<TMessageModal>("success");
 	const [load, setLoad] = useState<boolean>(false);
 	const router = useRouter();
-	const urlRouter = useUrlRoute();
+	const searchParams = useSearchParams();
 	const interval = 1000;
 	const successMessageTitle = "Добро пожаловать!";
 	const successMessageDescrition = "Начните планировать свои финансы с нами прямо сейчас.";
 	const warningMessageTitle = "Неверный код активации";
 	const warningMessageDescription = "Попробуйте зарегистрироваться еще раз";
-	const { uid, token } = urlRouter.query;
+	const uid = searchParams.get("uid");
+	const token = searchParams.get("token");
 
 	useEffect(() => {
 		setBaseUrl(getCorrectBaseUrl());

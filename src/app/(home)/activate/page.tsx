@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 
 // eslint-disable-next-line import/named
-import { AxiosError, AxiosResponse, HttpStatusCode, isAxiosError } from "axios";
+import { AxiosResponse, HttpStatusCode, isAxiosError } from "axios";
 
 import { useRouter, useSearchParams } from "next/navigation";
 
@@ -79,8 +79,8 @@ const Activate = () => {
 					error &&
 					isAxiosError(error) &&
 					error.response &&
-					(error as AxiosError).response.status >= HttpStatusCode.BadRequest &&
-					(error as AxiosError).response.status <= HttpStatusCode.UnavailableForLegalReasons
+					error.response.status >= HttpStatusCode.BadRequest &&
+					error.response.status <= HttpStatusCode.UnavailableForLegalReasons
 				) {
 					setMessage("warning");
 				}

@@ -46,47 +46,44 @@ const Activate = () => {
 	}, []);
 
 	useEffect(() => {
-		try {
-			const isLocalhost =
-				window.location.hostname.includes(mockLocalhostStr) || window.location.hostname.includes(mockLocalhostUrl);
+		const activateUser = async () => {
+			try {
+				const isLocalhost =
+					window.location.hostname.includes(mockLocalhostStr) || window.location.hostname.includes(mockLocalhostUrl);
 
-			if (baseUrl && !isLocalhost && uid && token) {
-				const userData = {
-					uid: uid,
-					token: token,
-				};
-				setLoad(true);
-				userActivation(baseUrl, userData).then((response: AxiosResponse<IUserValidationResponse>) => {
+				if (baseUrl && !isLocalhost && uid && token) {
+					const userData = { uid, token };
+					setLoad(true);
+					const response: AxiosResponse<IUserValidationResponse> = await userActivation(baseUrl, userData);
 					setLoad(false);
+
 					if (response.status === HttpStatusCode.Ok) {
 						setMessage("success");
-
 						setTimeout(() => {
 							router.push(MainPath.Login);
 						}, interval);
-					}
-					if (
+					} else if (
 						response.status >= HttpStatusCode.BadRequest &&
 						response.status <= HttpStatusCode.UnavailableForLegalReasons
 					) {
 						setMessage("warning");
-					}
-					if (response.status >= HttpStatusCode.InternalServerError) {
+					} else if (response.status >= HttpStatusCode.InternalServerError) {
 						router.push(MainPath.ServerError);
 					}
-				});
+				}
+			} catch (error) {
+				if (
+					isAxiosError(error) &&
+					error.response &&
+					error.response.status &&
+					error.response.status >= ApiResponseCode.SERVER_ERROR_STATUS_MIN &&
+					error.response.status < ApiResponseCode.SERVER_ERROR_STATUS_MAX
+				) {
+					return router.push(MainPath.ServerError);
+				}
 			}
-		} catch (error) {
-			if (
-				isAxiosError(error) &&
-				error.response &&
-				error.response.status &&
-				error.response.status >= ApiResponseCode.SERVER_ERROR_STATUS_MIN &&
-				error.response.status < ApiResponseCode.SERVER_ERROR_STATUS_MAX
-			) {
-				return router.push(MainPath.ServerError);
-			}
-		}
+		};
+		activateUser();
 	}, [baseUrl, router, token, uid]);
 
 	const messageElement = () => {

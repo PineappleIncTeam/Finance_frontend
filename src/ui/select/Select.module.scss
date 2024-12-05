@@ -21,17 +21,23 @@
 	border-radius: 8px;
 	border: 1.5px solid var(--color-gainsboro);
     padding-left: 14px;
-    font-size: 2rem;
-
-	@media (max-width: 490px) {
-		& {
-			height: 38px;
-		}
-	}
+    font-size: 2rem;	
     }
 
     &__optionValue {
         font-size: 2rem;
         line-height: 2.8rem;
     }
+
+    @media (max-width: 490px) {
+		&__item {
+			height: 38px;
+            font-size: 1.3rem;
+		}
+
+        &__optionValue {
+            font-size: 1.3rem;
+            line-height: 1.8rem;
+        }
+	}
 }

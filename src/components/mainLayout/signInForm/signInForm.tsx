@@ -61,7 +61,7 @@ const SignInForm = () => {
 			setErrorMessage("");
 			if (baseUrl && data.password) {
 				const correctUserData: ICorrectSignInForm = {
-					email: data.email,
+					email: data.email ?? "",
 					password: data.password,
 				};
 				await loginUser(baseUrl, correctUserData);

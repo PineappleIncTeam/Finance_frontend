@@ -30,7 +30,7 @@ import style from "./activate.module.scss";
 const Activate = () => {
 	const [baseUrl, setBaseUrl] = useState<string>();
 	const [message, setMessage] = useState<TMessageModal>("success");
-	const [load, setLoad] = useState<boolean>(false);
+	const [load, setLoad] = useState<boolean>(true);
 	const router = useRouter();
 	const searchParams = useSearchParams();
 	const interval = 1000;
@@ -62,16 +62,10 @@ const Activate = () => {
 						setTimeout(() => {
 							router.push(MainPath.Login);
 						}, interval);
-					} else if (
-						response.status >= HttpStatusCode.BadRequest &&
-						response.status <= HttpStatusCode.UnavailableForLegalReasons
-					) {
-						setMessage("warning");
-					} else if (response.status >= HttpStatusCode.InternalServerError) {
-						router.push(MainPath.ServerError);
 					}
 				}
 			} catch (error) {
+				setLoad(false);
 				if (
 					isAxiosError(error) &&
 					error.response &&
@@ -80,6 +74,11 @@ const Activate = () => {
 					error.response.status < ApiResponseCode.SERVER_ERROR_STATUS_MAX
 				) {
 					return router.push(MainPath.ServerError);
+				}
+				if (error.status >= HttpStatusCode.BadRequest && error.status <= HttpStatusCode.UnavailableForLegalReasons) {
+					setMessage("warning");
+				} else if (error.status >= HttpStatusCode.InternalServerError) {
+					router.push(MainPath.ServerError);
 				}
 			}
 		};

@@ -40,6 +40,11 @@
 	line-height: 2.8rem;
 }
 
+.inputWrap__input[type='number']::-webkit-outer-spin-button,
+.inputWrap__input[type='number']::-webkit-inner-spin-button {
+	-webkit-appearance: none;
+}
+
 .inputWrap__input::placeholder {
 	color: var(--color-ash-grey);
 }

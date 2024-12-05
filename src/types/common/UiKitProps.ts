@@ -34,9 +34,7 @@ export interface ICustomCheckbox {
 	setIsChecked: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export type ISelectFormProps = IExpensesSelectForm;
-
-export interface ISelectProps extends UseControllerProps<ISelectFormProps> {
+export interface ISelectProps extends UseControllerProps<IExpensesSelectForm> {
 	label?: string;
 	options?: string[];
 	disabled?: boolean;

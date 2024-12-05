@@ -20,6 +20,8 @@
 	height: 52px;
 	border-radius: 8px;
 	border: 1.5px solid var(--color-gainsboro);
+    padding-left: 14px;
+    font-size: 2rem;
 
 	@media (max-width: 490px) {
 		& {

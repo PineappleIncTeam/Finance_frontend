@@ -45,7 +45,7 @@ export default function Expenses() {
 							<Select name={"expenses"} label={"Постоянные"} options={["Продукты", "Зарплата"]} />
 						</div>
 						<div className={style.expensesDetailsContainer__sum}>
-							<Input control={control} label={"Сумма"} type={InputType.Text} name={"number"} placeholder={"0.00 ₽"} />
+							<Input control={control} label={"Сумма"} type={InputType.Number} name={"number"} placeholder={"0.00 ₽"} />
 						</div>
 						<Button content={"Добавить"} styleName={"buttonForExpenses"}>
 							<PlusIcon classNames={style.addButtonIcon} />
@@ -56,7 +56,7 @@ export default function Expenses() {
 							<Select name={"expenses"} label={"Временные"} options={[""]} />
 						</div>
 						<div className={style.expensesDetailsContainer__sum}>
-							<Input control={control} label={"Сумма"} type={InputType.Text} name={"number"} placeholder="0.00 ₽" />
+							<Input control={control} label={"Сумма"} type={InputType.Number} name={"number"} placeholder="0.00 ₽" />
 						</div>
 						<Button content={"Добавить"} styleName={"buttonForExpenses__disabled"}>
 							<PlusIcon classNames={style.addButtonIcon} />

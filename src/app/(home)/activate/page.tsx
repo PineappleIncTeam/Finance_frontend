@@ -30,16 +30,22 @@ import style from "./activate.module.scss";
 const Activate = () => {
 	const [baseUrl, setBaseUrl] = useState<string>();
 	const [message, setMessage] = useState<TMessageModal>("success");
-	const [load, setLoad] = useState<boolean>(true);
+	const [load, setLoad] = useState<boolean>(false);
 	const router = useRouter();
 	const searchParams = useSearchParams();
 	const interval = 1000;
 	const successMessageTitle = "Добро пожаловать!";
-	const successMessageDescrition = "Начните планировать свои финансы с нами прямо сейчас.";
+	const successMessageDescrition = "Начните планировать свои финансы с нами прямо сейчас";
 	const warningMessageTitle = "Неверный код активации";
 	const warningMessageDescription = "Попробуйте зарегистрироваться еще раз";
+	const notificationMessageTitle = "Ваша запись уже активирована";
+	const notificationMessageDescription = "Вы можете продолжить работу в приложении";
 	const uid = searchParams.get("uid");
 	const token = searchParams.get("token");
+
+	const [messageTitle, setMessageTitle] = useState<string>(successMessageTitle);
+	const [messageDescription, setMessageDescription] = useState<string>(successMessageDescrition);
+	const [messageLogo, setMessageLogo] = useState(logo);
 
 	useEffect(() => {
 		setBaseUrl(getCorrectBaseUrl());
@@ -75,30 +81,49 @@ const Activate = () => {
 				) {
 					return router.push(MainPath.ServerError);
 				}
-				if (
-					error &&
-					isAxiosError(error) &&
-					error.response &&
+
+				if (error && isAxiosError(error) && error.response && error.response.status === HttpStatusCode.Forbidden) {
+					getMessage("warning");
+				} else if (
 					error.response.status >= HttpStatusCode.BadRequest &&
 					error.response.status <= HttpStatusCode.UnavailableForLegalReasons
 				) {
-					setMessage("warning");
+					setMessage("notification");
 				}
 			}
+			getMessage(message);
 		};
 		activateUser();
-	}, [baseUrl, router, token, uid]);
+	}, [baseUrl, message, router, token, uid]);
+
+	const getMessage = (message: TMessageModal) => {
+		switch (message) {
+			case "success":
+				setMessageLogo(logo);
+				setMessageTitle(successMessageTitle);
+				setMessageDescription(successMessageDescrition);
+				break;
+			case "warning":
+				setMessageLogo(warning);
+				setMessageTitle(warningMessageTitle);
+				setMessageDescription(warningMessageDescription);
+				break;
+			case "notification":
+				setMessageLogo(logo);
+				setMessageTitle(notificationMessageTitle);
+				setMessageDescription(notificationMessageDescription);
+				break;
+		}
+	};
 
 	const messageElement = () => {
 		return (
 			<div className={style.message}>
 				<div className={style.logo}>
-					<Image src={message === "success" ? logo : warning} alt="иконка" className={style.icon} />
+					<Image src={messageLogo} alt="иконка" className={style.icon} />
 				</div>
-				<div className={style.title}>{message === "success" ? successMessageTitle : warningMessageTitle}</div>
-				<div className={style.description}>
-					{message === "success" ? successMessageDescrition : warningMessageDescription}
-				</div>
+				<div className={style.title}>{messageTitle}</div>
+				<div className={style.description}>{messageDescription}</div>
 			</div>
 		);
 	};

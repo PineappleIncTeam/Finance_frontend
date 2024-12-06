@@ -37,4 +37,4 @@ export interface IUserActivation {
 	token: string | string[];
 }
 
-export type TMessageModal = "success" | "warning";
+export type TMessageModal = "success" | "warning" | "notification";

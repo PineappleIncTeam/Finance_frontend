@@ -2,10 +2,8 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
-
 // eslint-disable-next-line import/named
 import { AxiosResponse, HttpStatusCode, isAxiosError } from "axios";
-
 import { useRouter, useSearchParams } from "next/navigation";
 
 import logo from "../../../assets/pages/activate/logo.png";
@@ -85,6 +83,8 @@ const Activate = () => {
 				if (error && isAxiosError(error) && error.response && error.response.status === HttpStatusCode.Forbidden) {
 					getMessage("warning");
 				} else if (
+					isAxiosError(error) &&
+					error.response &&
 					error.response.status >= HttpStatusCode.BadRequest &&
 					error.response.status <= HttpStatusCode.UnavailableForLegalReasons
 				) {

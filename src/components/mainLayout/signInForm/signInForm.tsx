@@ -36,7 +36,7 @@ const SignInForm = () => {
 		formState: { errors },
 		control,
 		handleSubmit,
-	} = useForm<ISignInForm>({
+	} = useForm<ISignInForm | any>({
 		defaultValues: {
 			email: "",
 			password: "",
@@ -61,7 +61,7 @@ const SignInForm = () => {
 			setErrorMessage("");
 			if (baseUrl && data.password) {
 				const correctUserData: ICorrectSignInForm = {
-					email: data.email,
+					email: data.email ?? "",
 					password: data.password,
 				};
 				await loginUser(baseUrl, correctUserData);

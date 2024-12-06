@@ -22,7 +22,7 @@ export default function NewPassword() {
 		control,
 		handleSubmit,
 		reset,
-	} = useForm<INewPassword>({
+	} = useForm<INewPassword | any>({
 		defaultValues: {
 			email: "",
 		},
@@ -31,7 +31,7 @@ export default function NewPassword() {
 	});
 
 	const onSubmit = (data: INewPassword) => {
-		setEmail(data?.email);
+		setEmail(data?.email ?? "");
 		newPasswordModalVisible(true);
 		reset();
 	};

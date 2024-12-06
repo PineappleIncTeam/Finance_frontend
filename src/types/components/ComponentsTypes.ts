@@ -5,7 +5,7 @@ export interface IUser {
 }
 
 export interface ISignUpForm {
-	email: string;
+	email?: string;
 	password?: string;
 	re_password?: string;
 	agreementField?: boolean;
@@ -17,7 +17,7 @@ export interface ICorrectSignInForm {
 }
 
 export interface ISignInForm {
-	email: string;
+	email?: string;
 	password?: string;
 	isAutoAuth?: boolean;
 }
@@ -35,6 +35,13 @@ export interface IVideoElement {
 export interface IUserActivation {
 	uid: string | string[];
 	token: string | string[];
+}
+
+export interface IExpenseTransaction {
+	firstDate: string;
+	secondDate: string;
+	purpose: string;
+	sum: string;
 }
 
 export type TMessageModal = "success" | "warning" | "notification";

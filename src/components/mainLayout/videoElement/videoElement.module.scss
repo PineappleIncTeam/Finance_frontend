@@ -8,7 +8,7 @@
 	z-index: 20;
 	padding-top: 182px;
 
-	@media (max-width: 490) {
+	@media (max-width: 490px) {
 		& {
 			height: 610px;
 			padding-top: 0px;
@@ -18,32 +18,24 @@
 
 .videoWrap {
     position: relative;
-    bottom: 170px;
-	width: 1254px;
+    bottom: 44px;
+	width: 65%;
 	height: 700px;
 	margin: auto;
 
-	@media (max-width: 1200) {
+	@media (max-width: 1100px) {
 		& {
-			width: 750px;
-			height: 428px;
-            bottom: -170px;
+			width: 73%;
+			height: 60%;
+			bottom: -160px;	
 		}
 	}
 
-	@media (max-width: 765) {
+	@media (max-width: 400px) {
 		& {
-			width: 480px;
-			height: 300px;
-            bottom: -80px;
-		}
-	}
-
-	@media (max-width: 490) {
-		& {
-			width: 300px;
-			height: 198px;
-            bottom: -210px;
+			width: 83%;
+			height: 28%;
+			bottom: -230px;
 		}
 	}
 }
@@ -60,43 +52,37 @@
 	background: url("../../../assets/components/videoElement/crossIcon.png") center center no-repeat;
 	cursor: pointer;
 
-	@media (max-width: 765) {
+	@media (max-width: 765px) {
 		width: 36px;
 		width: 36px;
 	}
 
-	@media (max-width: 490) {
+	@media (max-width: 490px) {
 		width: 24px;
 		height: 24px;
 	}
 }
 
 .videoResponsive {
-	width: 1200px;
-	height: 626px;
+	width: 98%;
+	height: 90%;
+	margin: auto;
 	overflow: hidden;
 	position: relative;
 	top: 4.6%;
 
-	@media (max-width: 1200) {
+	@media (max-width: 1100px) {
 		& {
-			width: 700px;
-			height: 392px;
+			top: 2%;
+			width: 96%;
+			height: 88%;
 		}
 	}
 
-	@media (max-width: 765) {
+	@media (max-width: 400px) {
 		& {
-			width: 430px;
-			height: 266px;
-			top: -2%;
-		}
-	}
-
-	@media (max-width: 490) {
-		& {
-			width: 300px;
-			height: 170px;
+			width: 99.8%;
+			height: 83%;
 		}
 	}
 }

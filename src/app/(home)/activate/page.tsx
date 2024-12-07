@@ -17,7 +17,7 @@ import { IUserValidationResponse } from "../../../types/api/Auth";
 
 import { MainPath } from "../../../services/router/routes";
 
-import { TMessageModal } from "../../../types/components/ComponentsTypes";
+import { EMessageModal, TMessageModal } from "../../../types/components/ComponentsTypes";
 
 import { ApiResponseCode } from "../../../helpers/apiResponseCode";
 
@@ -27,7 +27,6 @@ import style from "./activate.module.scss";
 
 const Activate = () => {
 	const [baseUrl, setBaseUrl] = useState<string>();
-	const [message, setMessage] = useState<TMessageModal>("success");
 	const [load, setLoad] = useState<boolean>(false);
 	const router = useRouter();
 	const searchParams = useSearchParams();
@@ -62,7 +61,7 @@ const Activate = () => {
 					setLoad(false);
 
 					if (response.status === HttpStatusCode.Ok) {
-						setMessage("success");
+						getMessage(EMessageModal.success);
 						setTimeout(() => {
 							router.push(MainPath.Login);
 						}, interval);
@@ -70,6 +69,18 @@ const Activate = () => {
 				}
 			} catch (error) {
 				setLoad(false);
+
+				if (error && isAxiosError(error) && error.response && error.response.status === HttpStatusCode.Forbidden) {
+					getMessage(EMessageModal.notification);
+				} else if (
+					isAxiosError(error) &&
+					error.response &&
+					error.response.status >= HttpStatusCode.BadRequest &&
+					error.response.status <= HttpStatusCode.UnavailableForLegalReasons &&
+					error.response.status !== HttpStatusCode.Forbidden
+				) {
+					getMessage(EMessageModal.warning);
+				}
 				if (
 					isAxiosError(error) &&
 					error.response &&
@@ -79,22 +90,10 @@ const Activate = () => {
 				) {
 					return router.push(MainPath.ServerError);
 				}
-
-				if (error && isAxiosError(error) && error.response && error.response.status === HttpStatusCode.Forbidden) {
-					getMessage("warning");
-				} else if (
-					isAxiosError(error) &&
-					error.response &&
-					error.response.status >= HttpStatusCode.BadRequest &&
-					error.response.status <= HttpStatusCode.UnavailableForLegalReasons
-				) {
-					setMessage("notification");
-				}
 			}
-			getMessage(message);
 		};
 		activateUser();
-	}, [baseUrl, message, router, token, uid]);
+	}, [baseUrl, router, token, uid]);
 
 	const getMessage = (message: TMessageModal) => {
 		switch (message) {

@@ -38,3 +38,5 @@ export interface IUserActivation {
 }
 
 export type TMessageModal = "success" | "warning" | "notification";
+
+export enum EMessageModal { success = "success", warning = "warning", notification = "notification" };

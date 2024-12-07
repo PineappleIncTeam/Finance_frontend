@@ -1,27 +1,22 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import Image from "next/image";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
 // eslint-disable-next-line import/named
 import { AxiosResponse, HttpStatusCode, isAxiosError } from "axios";
-import { useRouter, useSearchParams } from "next/navigation";
+
+import { TMessageModal } from "../../../types/components/ComponentsTypes";
+import { IUserValidationResponse } from "../../../types/api/Auth";
+import Spinner from "../../../ui/spinner/spinner";
+import { getCorrectBaseUrl } from "../../../utils/baseUrlConverter";
+import { mockLocalhostStr, mockLocalhostUrl } from "../../../services/api/auth/apiConstants";
+import { userActivation } from "../../../services/api/auth/userActivation";
+import { MainPath } from "../../../services/router/routes";
+import { ApiResponseCode } from "../../../helpers/apiResponseCode";
 
 import logo from "../../../assets/pages/activate/logo.png";
 import warning from "../../../assets/pages/activate/warning.svg";
-
-import { getCorrectBaseUrl } from "../../../utils/baseUrlConverter";
-
-import { mockLocalhostStr, mockLocalhostUrl } from "../../../services/api/auth/apiConstants";
-import { userActivation } from "../../../services/api/auth/userActivation";
-import { IUserValidationResponse } from "../../../types/api/Auth";
-
-import { MainPath } from "../../../services/router/routes";
-
-import { EMessageModal, TMessageModal } from "../../../types/components/ComponentsTypes";
-
-import { ApiResponseCode } from "../../../helpers/apiResponseCode";
-
-import Spinner from "../../../ui/spinner/spinner";
 
 import style from "./activate.module.scss";
 
@@ -30,19 +25,27 @@ const Activate = () => {
 	const [load, setLoad] = useState<boolean>(false);
 	const router = useRouter();
 	const searchParams = useSearchParams();
+
+	const uid = searchParams.get("uid");
+	const token = searchParams.get("token");
+
 	const interval = 1000;
 	const successMessageTitle = "Добро пожаловать!";
-	const successMessageDescrition = "Начните планировать свои финансы с нами прямо сейчас";
+	const successMessageDescription = "Начните планировать свои финансы с нами прямо сейчас";
 	const warningMessageTitle = "Неверный код активации";
 	const warningMessageDescription = "Попробуйте зарегистрироваться еще раз";
 	const notificationMessageTitle = "Ваша запись уже активирована";
 	const notificationMessageDescription = "Вы можете продолжить работу в приложении";
-	const uid = searchParams.get("uid");
-	const token = searchParams.get("token");
 
 	const [messageTitle, setMessageTitle] = useState<string>(successMessageTitle);
-	const [messageDescription, setMessageDescription] = useState<string>(successMessageDescrition);
+	const [messageDescription, setMessageDescription] = useState<string>(successMessageDescription);
 	const [messageLogo, setMessageLogo] = useState(logo);
+
+	enum ModalMessageTypes {
+		success = "success",
+		warning = "warning",
+		notification = "notification",
+	}
 
 	useEffect(() => {
 		setBaseUrl(getCorrectBaseUrl());
@@ -61,7 +64,7 @@ const Activate = () => {
 					setLoad(false);
 
 					if (response.status === HttpStatusCode.Ok) {
-						getMessage(EMessageModal.success);
+						getMessage(ModalMessageTypes.success);
 						setTimeout(() => {
 							router.push(MainPath.Login);
 						}, interval);
@@ -71,7 +74,7 @@ const Activate = () => {
 				setLoad(false);
 
 				if (error && isAxiosError(error) && error.response && error.response.status === HttpStatusCode.Forbidden) {
-					getMessage(EMessageModal.notification);
+					getMessage(ModalMessageTypes.notification);
 				} else if (
 					isAxiosError(error) &&
 					error.response &&
@@ -79,7 +82,7 @@ const Activate = () => {
 					error.response.status <= HttpStatusCode.UnavailableForLegalReasons &&
 					error.response.status !== HttpStatusCode.Forbidden
 				) {
-					getMessage(EMessageModal.warning);
+					getMessage(ModalMessageTypes.warning);
 				}
 				if (
 					isAxiosError(error) &&
@@ -93,6 +96,7 @@ const Activate = () => {
 			}
 		};
 		activateUser();
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [baseUrl, router, token, uid]);
 
 	const getMessage = (message: TMessageModal) => {
@@ -100,7 +104,7 @@ const Activate = () => {
 			case "success":
 				setMessageLogo(logo);
 				setMessageTitle(successMessageTitle);
-				setMessageDescription(successMessageDescrition);
+				setMessageDescription(successMessageDescription);
 				break;
 			case "warning":
 				setMessageLogo(warning);

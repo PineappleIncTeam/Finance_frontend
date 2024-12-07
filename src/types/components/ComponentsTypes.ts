@@ -32,6 +32,13 @@ export interface IVideoElement {
 	close?: () => void;
 }
 
+export interface IUserActivation {
+	uid: string | string[];
+	token: string | string[];
+}
+
+export type TMessageModal = "success" | "warning" | "notification";
+
 export interface IExpenseTransaction {
 	firstDate: string;
 	secondDate: string;

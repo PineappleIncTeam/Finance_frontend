@@ -5,7 +5,7 @@ export interface IUser {
 }
 
 export interface ISignUpForm {
-	email: string;
+	email?: string;
 	password?: string;
 	re_password?: string;
 	agreementField?: boolean;
@@ -17,7 +17,7 @@ export interface ICorrectSignInForm {
 }
 
 export interface ISignInForm {
-	email: string;
+	email?: string;
 	password?: string;
 	isAutoAuth?: boolean;
 }
@@ -40,3 +40,10 @@ export interface IUserActivation {
 export type TMessageModal = "success" | "warning" | "notification";
 
 export enum EMessageModal { success = "success", warning = "warning", notification = "notification" };
+
+export interface IExpenseTransaction {
+	firstDate: string;
+	secondDate: string;
+	purpose: string;
+	sum: string;
+}

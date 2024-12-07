@@ -26,15 +26,13 @@ function BlogPage() {
 						Все статьи
 					</button>
 				</div>
-				<div>
-					<BlogArticle
-						image={blogArticleData.image}
-						date={blogArticleData.date}
-						title={blogArticleData.title}
-						articleContent={blogArticleData.articleContent}
-						id={blogArticleData.id}
-					/>
-				</div>
+				<BlogArticle
+					image={blogArticleData.image}
+					date={blogArticleData.date}
+					title={blogArticleData.title}
+					articleContent={blogArticleData.articleContent}
+					id={blogArticleData.id}
+				/>
 			</div>
 			<Footer />
 		</div>

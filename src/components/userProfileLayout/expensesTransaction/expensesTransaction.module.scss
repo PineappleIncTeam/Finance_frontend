@@ -5,9 +5,9 @@
 	height: 40px;
 
 	&__actionsWrapper {
+		padding: 8px 10px;
 		display: flex;
 		justify-content: right;
-		margin-top: 6px;
 	}
 	@media (max-width: 1440px) {
 		& {
@@ -31,12 +31,9 @@
 .transactionData {
 	font-size: 1.6rem;
 	line-height: 2.2rem;
-	margin-top: 8px;
-	color: var(--color-dark-cyan-blue);
+	padding: 8px 10px;
 
-	&:nth-child(1) {
-		margin-left: 16px;
-	}
+	color: var(--color-dark-cyan-blue);
 
 	&:nth-child(2) {
 		display: none;
@@ -46,20 +43,9 @@
 		text-align: right;
 	}
 
-	@media(max-width: 1440px) {
-		& {
-			&:nth-child(1), &:nth-child(3) {
-				margin-left: 6px;
-			}
-		}
-	}
-
 	@media (max-width: 1210px) {
 		& {
 			font-size: 1.3rem;
-		}
-		&:nth-child(1) {
-			margin-left: 16px;
 		}
 	}
 

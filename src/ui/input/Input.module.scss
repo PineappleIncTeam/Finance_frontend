@@ -2,7 +2,7 @@
 	display: flex;
 	flex-direction: column;
 	width: 100%;
-	margin-bottom: 20px;
+	gap: 8px;
 }
 
 .inputWrap__element {
@@ -13,7 +13,7 @@
 	padding: 15px;
 	border-radius: 8px;
 	border: 1.5px solid var(--color-gainsboro);
-	
+
 	@media (max-width: 550px) {
 		padding: 10px 15px;
 	}
@@ -40,8 +40,8 @@
 	line-height: 2.8rem;
 }
 
-.inputWrap__input[type='number']::-webkit-outer-spin-button,
-.inputWrap__input[type='number']::-webkit-inner-spin-button {
+.inputWrap__input[type="number"]::-webkit-outer-spin-button,
+.inputWrap__input[type="number"]::-webkit-inner-spin-button {
 	-webkit-appearance: none;
 }
 
@@ -51,7 +51,6 @@
 
 .inputWrap__label {
 	font-size: 2rem;
-	margin-bottom: 8px;
 	font-weight: 400;
 	color: var(--color-dark-cyan-blue);
 }
@@ -73,10 +72,6 @@
 }
 
 @media screen and (max-width: 550px) {
-	.inputWrap {
-		margin-bottom: 12px;
-	}
-
 	.inputWrap__label {
 		font-size: 1.6rem;
 	}

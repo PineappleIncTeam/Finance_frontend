@@ -12,10 +12,10 @@ export default function ExpensesTransaction({ firstDate, secondDate, purpose, su
 
 	return (
 		<div className={style.expensesTransactionContainer}>
-			<p className={style.transactionData}>{firstDate}</p>
-			<p className={style.transactionData}>{secondDate}</p>
-			<p className={style.transactionData}>{purpose}</p>
-			<p className={style.transactionData}>{sum}</p>
+			<div className={style.transactionData}>{firstDate}</div>
+			<div className={style.transactionData}>{secondDate}</div>
+			<div className={style.transactionData}>{purpose}</div>
+			<div className={style.transactionData}>{sum}</div>
 			<div className={style.expensesTransactionContainer__actionsWrapper}>
 				<DeleteIcon classNames={style.deleteIcon} />
 				<div

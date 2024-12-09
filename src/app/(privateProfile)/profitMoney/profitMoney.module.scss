@@ -1,13 +1,8 @@
-.expensesPageWrap {
+.pageWrap {
 	width: 100%;
 	height: 100%;
 	background-color: var(--color-silver-gray);
 
-	@media (max-width: 1210px) {
-		& {
-			width: 63%;
-		}
-	}
 	@media (max-width: 1100px) {
 		& {
 			width: 100%;
@@ -15,7 +10,7 @@
 	}
 }
 
-.expensesPageContainer {
+.pageContainer {
 	display: flex;
 	flex-direction: column;
 	gap: 20px;
@@ -23,7 +18,7 @@
 	background-color: var(--color-silver-gray);
 }
 
-.expensesFormContentWrapper {
+.formContentWrapper {
 	flex: 1 0 auto;
 	height: 572px;
 	border-radius: 20px;
@@ -38,7 +33,7 @@
 	}
 }
 
-.expensesContainer {
+.container {
 	padding: 24px 36px;
 	display: flex;
 	flex-direction: column;
@@ -67,7 +62,7 @@
 	}
 }
 
-.expensesByDateContainer {
+.byDateContainer {
 	display: flex;
 	max-height: 118px;
 	gap: 40px;
@@ -154,7 +149,7 @@
 .dateSelectionWrapper {
 	max-width: 400px;
 	background-color: var(--color-light-grayish-green);
-	width: 37%;
+	width: 58%;
 	padding: 16px 20px;
 	border-radius: 12px;
 
@@ -197,13 +192,13 @@
 	}
 }
 
-.DetailsContainers {
+.detailsContainers {
 	display: flex;
 	flex-direction: column;
 	gap: 20px;
 }
 
-.expensesDetailsContainer {
+.detailsContainer {
 	display: flex;
 	flex-direction: row;
 	align-items: flex-end;
@@ -214,25 +209,50 @@
 	&__category {
 		display: flex;
 		flex-direction: column;
-		max-width: 420px;
+		width: 420px;
 		width: 37%;
+	}
+
+	&__rightSide {
+		display: flex;
+		flex-direction: row;
+		align-items: flex-end;
+		gap: 40px;
+		width: 58%;
+
+		@media (max-width: 1440px) {
+			& {
+				width: 55%;
+				gap: 28px;
+			}
+		}
+
+		@media (max-width: 800px) {
+			& {
+				gap: 16px;
+				width: 48%;
+			}
+		}
+
+		@media (max-width: 490px) {
+			& {
+				gap: 14px;
+				width: 49%;
+			}
+		}
 	}
 
 	&__sum {
 		display: flex;
 		flex-direction: column;
 		max-width: 400px;
-		width: 37%;
+		width: 100%;
 	}
 
 	@media (max-width: 1440px) {
 		gap: 28px;
 		&__category {
 			width: 42%;
-		}
-
-		&__sum {
-			width: 31%;
 		}
 	}
 
@@ -241,10 +261,6 @@
 			width: 38%;
 			gap: 24px;
 		}
-
-		&__sum {
-			width: 38%;
-		}
 	}
 
 	@media (max-width: 800px) {
@@ -252,10 +268,17 @@
 			width: 45%;
 			gap: 16px;
 		}
+		&__sum {
+			width: auto;
+		}
 	}
 
 	@media (max-width: 490px) {
+		&__category {
+			width: 49%;
+		}
 		& {
+			gap: 14px;
 			height: 38px;
 		}
 
@@ -283,7 +306,7 @@
 	}
 }
 
-.expensesTransactionsWrapper {
+.transactionsWrapper {
 	max-height: 300px;
 	border-radius: 20px;
 	padding: 24px 36px;
@@ -300,7 +323,7 @@
 	}
 }
 
-.expensesTransactionHeader {
+.transactionHeader {
 	font-size: 2.4rem;
 	line-height: 3.2rem;
 	font-weight: 500;
@@ -316,7 +339,7 @@
 	}
 }
 
-.expensesTransactions {
+.transactions {
 	display: flex;
 	flex-direction: column;
 	width: 100%;

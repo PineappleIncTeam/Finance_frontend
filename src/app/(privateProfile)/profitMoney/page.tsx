@@ -5,14 +5,16 @@ import { useForm } from "react-hook-form";
 
 import { PlusIcon } from "../../../assets/script/expenses/PlusIcon";
 
-import ExpensesTransaction from "../../../components/userProfileLayout/expensesTransaction/expensesTransaction";
-import { expensesTransactions } from "../../../mocks/ExpensesTransaction";
-
 import Input from "../../../ui/input/Input";
 import { InputType } from "../../../helpers/Input";
 import { IExpensesInputForm } from "../../../types/pages/Expenses";
 import { Select } from "../../../ui/select/Select";
 import Button from "../../../ui/button/button";
+
+import IncomeTransaction from "../../../components/userProfileLayout/incomeTranstaction/incomeTransaction";
+import { incomeTransactions } from "../../../mocks/IncomeTransaction";
+
+import { formatMoney } from "../../../utils/formatMoney";
 
 import style from "./profitMoney.module.scss";
 
@@ -24,72 +26,73 @@ function ProfitMoney() {
 		mode: "all",
 		delayError: 200,
 	});
+
+	const incomeMoney = 200000;
 	return (
-		<div className={style.expensesPageWrap}>
-			<div className={style.expensesPageContainer}>
-				<form className={style.expensesFormContentWrapper}>
-					<div className={style.expensesContainer}>
+		<div className={style.pageWrap}>
+			<div className={style.pageContainer}>
+				<form className={style.formContentWrapper}>
+					<div className={style.container}>
 						<h1 className={style.headerTitle}>Доходы</h1>
-						<div className={style.expensesByDateContainer}>
+						<div className={style.byDateContainer}>
 							<div className={style.totalMonthlyWrapper}>
-								<div className={style.totalMonthlyWrapper__month}>Общий доход за Январь</div>
-								<div className={style.totalMonthlyWrapper__sum}>283 000 ₽</div>
+								<p className={style.totalMonthlyWrapper__month}>Общий доход за Январь</p>
+								<p className={style.totalMonthlyWrapper__sum}>{formatMoney(incomeMoney, 0)}</p>
 							</div>
 							<div className={style.dateSelectionWrapper}>
-								<div className={style.dateSelectionWrapper__description}>Выбор даты</div>
+								<p className={style.dateSelectionWrapper__description}>Выбор даты</p>
 								<Input control={control} label={"Выбор даты"} type={InputType.Date} name={"date"} />
 							</div>
 						</div>
-						<div className={style.DetailsContainers}>
-							<div className={style.expensesDetailsContainer}>
-								<div className={style.expensesDetailsContainer__category}>
+						<div className={style.detailsContainers}>
+							<div className={style.detailsContainer}>
+								<div className={style.detailsContainer__category}>
 									<Select name={"expenses"} label={"Категория"} options={["Продукты", "Зарплата"]} />
 								</div>
-								<div className={style.expensesDetailsContainer__sum}>
-									<Input
-										control={control}
-										label={"Сумма"}
-										type={InputType.Number}
-										name={"number"}
-										placeholder={"0.00 ₽"}
-									/>
+								<div className={style.detailsContainer__rightSide}>
+									<div className={style.detailsContainer__sum}>
+										<Input
+											control={control}
+											label={"Сумма"}
+											type={InputType.Number}
+											name={"number"}
+											placeholder="0.00 ₽"
+										/>
+									</div>
+									<Button content={"Добавить"} styleName={"buttonForIncome__disabled"}>
+										<PlusIcon classNames={style.addButtonIcon} />
+									</Button>
 								</div>
-								<Button content={"Добавить"} styleName={"buttonForExpenses"}>
-									<PlusIcon classNames={style.addButtonIcon} />
-								</Button>
 							</div>
-							<div className={style.expensesDetailsContainer}>
-								<div className={style.expensesDetailsContainer__category}>
+							<div className={style.detailsContainer}>
+								<div className={style.detailsContainer__category}>
 									<Select name={"expenses"} label={"Временные"} options={[""]} />
 								</div>
-								<div className={style.expensesDetailsContainer__sum}>
-									<Input
-										control={control}
-										label={"Сумма"}
-										type={InputType.Number}
-										name={"number"}
-										placeholder="0.00 ₽"
-									/>
+								<div className={style.detailsContainer__rightSide}>
+									<div className={style.detailsContainer__sum}>
+										<Input
+											control={control}
+											label={"Сумма"}
+											type={InputType.Number}
+											name={"number"}
+											placeholder="0.00 ₽"
+										/>
+									</div>
+									<Button content={"Добавить"} styleName={"buttonForIncome__disabled"}>
+										<PlusIcon classNames={style.addButtonIcon} />
+									</Button>
 								</div>
-								<Button content={"Добавить"} styleName={"buttonForExpenses__disabled"}>
-									<PlusIcon classNames={style.addButtonIcon} />
-								</Button>
 							</div>
 						</div>
 					</div>
 				</form>
-				<div className={style.expensesTransactionsWrapper}>
-					<h1 className={style.expensesTransactionHeader}>Последние операции по расходам</h1>
-					<div className={style.expensesTransactions}>
-						{expensesTransactions &&
-							expensesTransactions.map((expensesData, index: Key) => (
+				<div className={style.transactionsWrapper}>
+					<h1 className={style.transactionHeader}>Последние операции по расходам</h1>
+					<div className={style.transactions}>
+						{incomeTransactions &&
+							incomeTransactions.map((incomeDate, index: Key) => (
 								<li key={index}>
-									<ExpensesTransaction
-										firstDate={expensesData.firstDate}
-										secondDate={expensesData.secondDate}
-										purpose={expensesData.purpose}
-										sum={expensesData.sum}
-									/>
+									<IncomeTransaction date={incomeDate.date} purpose={incomeDate.purpose} sum={incomeDate.sum} />
 								</li>
 							))}
 					</div>

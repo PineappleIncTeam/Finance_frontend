@@ -275,3 +275,56 @@
 		}
 	}
 }
+
+.buttonForIncome {
+	max-width: 144px;
+	height: 50px;
+	border-radius: 10px;
+	color: var(--color-pure-light);
+	background-color: var(--color-dark-spring-green);
+	font-size: 2rem;
+	line-height: 2.8rem;
+
+	cursor: pointer;
+
+	&__disabled {
+		max-width: 144px;
+		height: 50px;
+		border-radius: 10px;
+		width: 100%;
+		color: var(--color-pure-light);
+		font-size: 2rem;
+		line-height: 2.8rem;
+		background-color: var(--color-ash-grey);
+
+		cursor: not-allowed;
+	}
+
+	@media (max-width: 800px) {
+		flex: 1 0 auto;
+		width: 50px;
+		&__disabled {
+			flex: 1 0 auto;
+			width: 50px;
+			&__buttonName {
+				display: none;
+			}
+		}
+
+		&__buttonName {
+			display: none;
+		}
+	}
+
+	@media (max-width: 490px) {
+		& {
+			width: 38px;
+			height: 38px;
+		}
+
+		&__disabled {
+			width: 38px;
+			height: 38px;
+		}
+	}
+}

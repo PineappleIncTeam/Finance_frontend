@@ -23,15 +23,50 @@
 	@media (max-width: 550px) {
 		& {
 			max-width: 300px;
-			padding: 24px 0 32px 0;
+			padding: 24px 0 16px 0;
 		}
 	}
+}
+
+.securityPolicyWrapper {
+	width: 100%;
+
+	&__Checkbox {
+		display: flex;
+	}
+
+	&__Text {
+		font-size: 1.3rem;
+		line-height: 1.8rem;
+		margin: 0px 8px 28px;
+		color: var(--color-star-dust);
+
+		@media (max-width: 550) {
+			& {
+				font-size: 1.1rem;
+				line-height: 1.3rem;
+				margin: 0px 10px 16px;
+			}
+		}
+	}
+
+	&__Link {
+		color: var(--color-dark-spring-green);
+	}
+}
+
+.privacyCheckbox {
+	margin-top: 6px;
 }
 
 .dividerWrap {
 	display: flex;
 	align-items: center;
-	margin-bottom: 20px;
+	margin: 30px 0 20px;
+
+	@media (max-width: 550) {
+		margin: 20px 0 20px;
+	}
 }
 
 .dividerWrap__line {
@@ -78,17 +113,4 @@
 .signUpFormContainer__auth_link {
 	color: var(--color-dark-spring-green);
 	cursor: pointer;
-}
-
-.actionWrap {
-	width: 100%;
-	margin: 15px 0 32px 0;
-	display: flex;
-	justify-content: space-between;
-
-	@media (max-width: 550px) {
-		& {
-			margin: 10px 0 20px 0;
-		}
-	}
 }

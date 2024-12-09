@@ -16,16 +16,23 @@ const BlogCard = ({ image, date, descriptionImage, text, blogAction, id }: IBlog
 
 	return (
 		<div className={style.blogCardContainer}>
-			<Image className={style.blogCardImage} src={image} alt={descriptionImage} />
-			<button type="button" onClick={() => shared(id ?? "")}>
-				<ShareIcon classNames={style.blogCardShareButton} />
-			</button>
-			<p className={style.blogCardDate}>{date}</p>
-			<p className={style.blogCardText}>{text}</p>
-			<div className={style.blogCardButtonWrap}>
-				<button className={style.blogCardButton} type="button" onClick={blogAction}>
-					Подробнее <ArrowRightSmallIcon classNames={style.blogCardArrow} />
+			<div className={style.blogCardPicture}>
+				<Image className={style.blogCardImage} src={image} alt={descriptionImage} />
+				<button type="button" onClick={() => shared(id ?? "")} className={style.blogCardShareButton}>
+					<ShareIcon classNames={style.blogCardShareButtonIcon} />
 				</button>
+			</div>
+			<div className={style.blogCardInfo}>
+				<div className={style.blogCardDate}>{date}</div>
+				<div className={style.blogCardText}>{text}</div>
+				<div className={style.blogCardButtonWrap}>
+					<button className={style.blogCardButton} type="button" onClick={blogAction}>
+						<div>Подробнее</div>
+						<div className={style.blogCardArrow}>
+							<ArrowRightSmallIcon classNames={style.blogArrow} />
+						</div>
+					</button>
+				</div>
 			</div>
 		</div>
 	);

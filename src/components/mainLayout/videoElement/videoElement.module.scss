@@ -1,0 +1,113 @@
+.backgroundVideo {
+	position: fixed;
+	background: var(--color-black-two-of-third);
+	width: 100%;
+	height: 100vh;
+	top: 0;
+	left: 0;
+	z-index: 20;
+	padding-top: 182px;
+
+	@media (max-width: 490px) {
+		& {
+			height: 610px;
+			padding-top: 0px;
+		}
+	} 
+}
+
+.videoWrap {
+    position: relative;
+    bottom: 44px;
+	width: 65%;
+	height: 700px;
+	margin: auto;
+
+	@media (max-width: 1100px) {
+		& {
+			width: 73%;
+			height: 60%;
+			bottom: -160px;	
+		}
+	}
+
+	@media (max-width: 400px) {
+		& {
+			width: 83%;
+			height: 28%;
+			bottom: -230px;
+		}
+	}
+}
+
+.closeActionWrapper {
+	display: flex;
+	align-items: center;
+	justify-content: right;
+}
+
+.closeActionElement {
+	width: 36px;
+	height: 36px;
+	background: url("../../../assets/components/videoElement/crossIcon.png") center center no-repeat;
+	cursor: pointer;
+
+	@media (max-width: 765px) {
+		width: 36px;
+		width: 36px;
+	}
+
+	@media (max-width: 490px) {
+		width: 24px;
+		height: 24px;
+	}
+}
+
+.videoResponsive {
+	width: 98%;
+	height: 90%;
+	margin: auto;
+	overflow: hidden;
+	position: relative;
+	top: 4.6%;
+
+	@media (max-width: 1100px) {
+		& {
+			top: 2%;
+			width: 96%;
+			height: 88%;
+		}
+	}
+
+	@media (max-width: 400px) {
+		& {
+			width: 99.8%;
+			height: 83%;
+		}
+	}
+}
+
+.videoResponsive iframe {
+	left: 0;
+	top: 0;
+	height: 100%;
+	width: 100%;
+	position: absolute;
+}
+
+.fallbackImageWrapper {
+	position: relative;
+	text-align: center;
+}
+
+.fallbackImage {
+	width: 700px;
+	height: 500px;
+
+	&__Text {
+		position: absolute;
+		width: 300px;
+		top: 10%;
+		left: 38%;
+	}
+}

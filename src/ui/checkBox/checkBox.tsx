@@ -1,25 +1,34 @@
-import React, { useState } from "react";
+import React from "react";
 
-import Image from "next/image";
+import { useController } from "react-hook-form";
 
-import checkBoxIcon from "../../assets/pages/signIn/checkBox.svg";
+import { ICustomCheckbox } from "../../types/common/UiKitProps";
+import { InputType } from "../../helpers/Input";
 
 import styles from "./checkBox.module.scss";
 
-const CustomCheckbox = () => {
-	const [isChecked, setIsChecked] = useState(false);
-
-	const handleCheckboxChange = () => {
-		setIsChecked(!isChecked);
-	};
+const CustomCheckbox = ({ control, name, rules }: ICustomCheckbox) => {
+	const {
+		field: { onChange, value, ref },
+	} = useController({
+		name,
+		control,
+		defaultValue: false,
+		rules,
+	});
 
 	return (
-		<label className={styles.customCheckbox}>
-			<input type="checkbox" className={styles.hiddenCheckbox} checked={isChecked} onChange={handleCheckboxChange} />
-			<span className={`${styles.checkbox} ${isChecked ? styles.checked : ""}`}>
-				{isChecked && <Image src={checkBoxIcon.src} alt="Checkbox icon" className={styles.checkboxIcon} />}
-			</span>
-		</label>
+		<>
+			<input
+				type={InputType.Checkbox}
+				className={styles.hiddenCheckbox}
+				onChange={onChange}
+				checked={value}
+				ref={ref}
+				id={`checkbox ${name}`}
+			/>
+			<label className={styles.checkbox} htmlFor={`checkbox ${name}`} />
+		</>
 	);
 };
 

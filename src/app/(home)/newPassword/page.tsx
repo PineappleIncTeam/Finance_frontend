@@ -2,21 +2,16 @@
 
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { Controller, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { AxiosError } from "axios";
 
 import { INewPassword } from "../../../types/pages/Password";
+import Input from "../../../ui/input/Input";
+import Title from "../../../ui/title/Title";
 import NewPasswordModal from "../../../components/mainLayout/newPasswordModal/newPasswordModal";
-import { emailRegex } from "../../../helpers/password";
-
-import { LetterIcon } from "../../../assets/script/changePassword/LetterIcon";
-import { PaperAirLineIcon } from "../../../assets/script/changePassword/PaperAirLineIcon";
-import { OpenLetterIcon } from "../../../assets/script/changePassword/OpenLetterIcon";
-import { ArrowsIcon } from "../../../assets/script/changePassword/ArrowsIcon";
-import { QuestionIcon } from "../../../assets/script/changePassword/QuestionIcon";
-import { EmailIcon } from "../../../assets/script/changePassword/EmailIcon";
-import { OvalIcon } from "../../../assets/script/changePassword/OvalIcon";
-import { ManIcon } from "../../../assets/script/changePassword/ManIcon";
+import { formHelpers } from "../../../utils/formHelpers";
+import { emailPattern } from "../../../helpers/authConstants";
+import { InputType } from "../../../helpers/Input";
 
 import { getCorrectBaseUrl } from "../../../utils/baseUrlConverter";
 
@@ -29,37 +24,33 @@ import { ApiResponseCode } from "../../../helpers/apiResponseCode";
 import style from "./newPassword.module.scss";
 
 export default function NewPassword() {
+
 	const [isNewPasswordModalShown, setIsNewPasswordModalShown] = useState(false);
-	const [email, setEmail] = useState("");
+	const [email, setEmail] = useState<string>("");
 	const [baseUrl, setBaseUrl] = useState<string>();
 
 	const {
+		formState: { errors },
 		control,
 		handleSubmit,
 		reset,
-		formState: { errors },
-	} = useForm<INewPassword>({ mode: "onBlur" });
+	} = useForm<INewPassword | any>({
+		defaultValues: {
+			email: "",
+		},
+		mode: "all",
+		delayError: 200,
+	});
 
 	const onSubmit = (data: INewPassword) => {
-		if (data) {
-			setEmail(data?.email);
-			restoreButtonClick(data);
-			handleNewPasswordModal();
-			reset();
-		}
+		setEmail(data?.email ?? "");
+		restoreButtonClick(data);
+		newPasswordModalVisible(true);
+		reset();
 	};
 
-	const handleNewPasswordModal = () => {
-		setIsNewPasswordModalShown(true);
-	};
-
-	const closeNewPasswordModal = () => {
-		setIsNewPasswordModalShown(false);
-	};
-
-	const emailRules = {
-		required: { value: true, message: "Поле обязательно для заполнения" },
-		pattern: { value: emailRegex, message: "Значение не соответствует формату email" },
+	const newPasswordModalVisible = (prop: boolean) => {
+		setIsNewPasswordModalShown(prop);
 	};
 
 	useEffect(() => {
@@ -93,42 +84,29 @@ export default function NewPassword() {
 
 	return (
 		<div className={style.newPasswordWrap}>
-			<div className={style.newPasswordContainer}>
-				<OvalIcon classNames={style.ovalIcon} />
-				<QuestionIcon classNames={style.questionIcon} />
-				<EmailIcon classNames={style.emailIcon} />
-				<ArrowsIcon classNames={style.arrowsIcon} />
-				<LetterIcon classNames={style.letterIcon} />
-				<OpenLetterIcon classNames={style.openLetterIcon} />
-				<ManIcon classNames={style.manIcon} />
-				<PaperAirLineIcon classNames={style.paperAirLineIcon} />
-				<OpenLetterIcon classNames={style.secondOpenLetterIcon} />
-				<div className={style.newPasswordContainer__modal}>
-					<div className={style.newPasswordContainer__modal__content}>
-						<h1 className={style.newPasswordContainer__form__title}>Восстановление пароля</h1>
-						<form onSubmit={handleSubmit(onSubmit)}>
-							<NewPasswordModal email={email} open={isNewPasswordModalShown} toggle={closeNewPasswordModal} />
-							<label htmlFor="email" className={style.formWrap__emailTitle}>
-								Введите почту
-							</label>
-							<Controller
-								name="email"
-								control={control}
-								rules={emailRules}
-								defaultValue=""
-								render={({ field }) => (
-									<input id="email" className={style.newPasswordRow} placeholder="_@_._" {...field} />
-								)}
-							/>
-							{errors?.email && <span role="alert">{errors.email.message}</span>}
-							<div className={style.newPassword__modal__buttons}>
-								<input className={style.backButton} type="submit" value="Назад" />
-								<input className={style.restoreButton} type="submit" value="Восстановить" />
-							</div>
-						</form>
+			<form className={style.newPasswordFormContainer} onSubmit={handleSubmit(onSubmit)}>
+				<div className={style.newPasswordFormContainer__Content}>
+					<Title title={"Восстановление пароля"} />
+					<NewPasswordModal
+						email={email}
+						open={isNewPasswordModalShown}
+						toggle={() => newPasswordModalVisible(false)}
+					/>
+					<Input
+						control={control}
+						label="Введите почту"
+						type={InputType.Email}
+						placeholder="_@_._"
+						name="email"
+						error={formHelpers.getEmailError(errors)}
+						rules={{ required: true, pattern: emailPattern }}
+					/>
+					<div className={style.newPasswordFormContainer__buttons}>
+						<input className={style.backButton} type={InputType.Submit} value="Назад" />
+						<input className={style.restoreButton} type={InputType.Submit} value="Восстановить" />
 					</div>
 				</div>
-			</div>
+			</form>
 		</div>
 	);
 }

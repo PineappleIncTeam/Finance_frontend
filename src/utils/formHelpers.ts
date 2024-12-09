@@ -2,10 +2,10 @@ import { FieldErrors } from "react-hook-form";
 
 import {
 	errorDefault,
+	errorPasswordIncorrect,
 	errorEmailIncorrect,
 	errorPasswordLength,
 	errorPasswordNumber,
-	errorPasswordRules,
 	errorRequiredField,
 	passwordPattern,
 } from "../helpers/authConstants";
@@ -34,10 +34,10 @@ class FormHelpers {
 		const minPasswordLength = 6;
 		if (password.length < minPasswordLength) {
 			messages.push(errorPasswordLength);
-		} else if (password.length > minPasswordLength && !/(?=.*\d)/.test(password)) {
+		} else if (password.length >= minPasswordLength && !/(?=.*\d)/.test(password)) {
 			messages.push(errorPasswordNumber);
 		} else if (!passwordPattern.test(password)) {
-			messages.push(errorPasswordRules);
+			messages.push(errorPasswordIncorrect);
 		}
 		if (messages.length === 0) {
 			return null;

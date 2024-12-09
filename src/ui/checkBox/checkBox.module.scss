@@ -1,22 +1,24 @@
-.hiddenCheckbox {
-	display: none;
-}
-
 .checkbox {
+	min-width: 22px;
+	min-height: 22px;
 	width: 22px;
 	height: 22px;
 	border: 1.5px solid var(--color-ash-grey);
 	border-radius: 4px;
-	display: flex;
-	align-items: center;
-	justify-content: center;
+	cursor: pointer;
 	transition:
 		background-color 0.3s ease,
 		border-color 0.3s ease;
 	background-color: transparent;
 }
 
-.checked {
-	background-color: var(--color-dark-spring-green);
+.hiddenCheckbox {
+	display: none;
+}
+
+.hiddenCheckbox:checked + .checkbox {
+	background:
+		center / contain no-repeat url("../../assets/pages/signIn/checkBox.svg"),
+		var(--color-dark-spring-green);
 	border: 1.5px solid var(--color-dark-spring-green);
 }

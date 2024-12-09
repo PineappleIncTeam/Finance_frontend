@@ -6,5 +6,5 @@ export interface IChangePassword {
 }
 
 export interface INewPassword {
-	email: string;
+	email?: string;
 }

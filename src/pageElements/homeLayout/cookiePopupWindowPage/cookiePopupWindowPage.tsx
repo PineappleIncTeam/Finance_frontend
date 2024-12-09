@@ -2,14 +2,15 @@
 
 import { useState } from "react";
 import cn from "classnames";
+import Link from "next/link";
 
 import useAppSelector from "../../../hooks/useAppSelector";
 import useAppDispatch from "../../../hooks/useAppDispatch";
 
 import Button from "../../../ui/button/button";
-import cookieStatusSelector from "../../../services/redux/features/cookieStatus/cookieStatusSelector";
+import { MainPath } from "../../../services/router/routes";
 import { setCookieStatus } from "../../../services/redux/features/cookieStatus/cookieStatusSlice";
-import { cookieLinkTitle } from "../../../mocks/linkSetup";
+import cookieStatusSelector from "../../../services/redux/features/cookieStatus/cookieStatusSelector";
 
 import styles from "./cookiePopupWindowPage.module.scss";
 
@@ -17,8 +18,7 @@ const CookiePopupWindowPage = () => {
 	const [isOpen, setIsOpen] = useState<boolean>(true);
 
 	const dispatch = useAppDispatch();
-
-	const { status } = useAppSelector(cookieStatusSelector);
+	const { cookieStatus } = useAppSelector(cookieStatusSelector);
 
 	const handleClick = () => {
 		setIsOpen(false);
@@ -27,7 +27,9 @@ const CookiePopupWindowPage = () => {
 
 	return (
 		<div
-			className={cn(styles.popupContainer, { [styles.popupContainer_hidden]: status === "confirmed" || !isOpen })}
+			className={cn(styles.popupContainer, {
+				[styles.popupContainer_hidden]: cookieStatus === "confirmed" || !isOpen,
+			})}
 			onClick={handleClick}
 			role="button">
 			<div className={styles.textContentBlock} onClick={(e) => e.stopPropagation()} role="button">
@@ -36,9 +38,9 @@ const CookiePopupWindowPage = () => {
 				</div>
 				<div className={styles.textContentBlock__subtitle}>
 					Все на сайте — для вас,{" "}
-					<a href={cookieLinkTitle} target="_blank" rel="noreferrer" className={styles.textContentBlock__link}>
+					<Link href={MainPath.UserAgreement} className={styles.textContentBlock__link} onClick={handleClick}>
 						«cookies»
-					</a>{" "}
+					</Link>{" "}
 					— для нас. Собираем их, чтобы сделать наш сайт еще удобнее. Ограничить или настроить их можно в браузере.
 				</div>
 				<Button

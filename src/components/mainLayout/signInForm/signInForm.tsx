@@ -4,39 +4,43 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import { AxiosError } from "axios";
-
 import Link from "next/link";
 
-import { ISignInForm } from "../../../types/components/ComponentsTypes";
+import useAppDispatch from "../../../hooks/useAppDispatch";
+
+import { ICorrectSignInForm, ISignInForm } from "../../../types/components/ComponentsTypes";
 import Button from "../../../ui/button/button";
 import Input from "../../../ui/input/Input";
 import Title from "../../../ui/title/Title";
+import CustomCheckbox from "../../../ui/checkBox/checkBox";
+import InviteModal from "../inviteModal/inviteModal";
 import { emailPattern, passwordPattern } from "../../../helpers/authConstants";
 import { formHelpers } from "../../../utils/formHelpers";
 import { getCorrectBaseUrl } from "../../../utils/baseUrlConverter";
 import { InputType } from "../../../helpers/Input";
 import { MainPath, UserProfilePath } from "../../../services/router/routes";
 import { ApiResponseCode } from "../../../helpers/apiResponseCode";
-
-import CustomCheckbox from "../../../ui/checkBox/checkBox";
 import { loginUser } from "../../../services/api/auth/Login";
-
-import InviteModal from "../inviteModal/inviteModal";
+import { setAutoLoginStatus } from "../../../services/redux/features/autoLogin/autoLoginSlice";
 
 import styles from "./signInForm.module.scss";
 
 const SignInForm = () => {
 	const [baseUrl, setBaseUrl] = useState<string>();
 	const [errorMessage, setErrorMessage] = useState<string>("");
-	const [isOpen, setIsOpen] = useState(false);
+	const [isOpen, setIsOpen] = useState<boolean>(false);
+
+	const dispatch = useAppDispatch();
+
 	const {
 		formState: { errors },
 		control,
 		handleSubmit,
-	} = useForm<ISignInForm>({
+	} = useForm<ISignInForm | any>({
 		defaultValues: {
 			email: "",
 			password: "",
+			isAutoAuth: false,
 		},
 		mode: "all",
 		delayError: 200,
@@ -55,9 +59,14 @@ const SignInForm = () => {
 	const onSubmit = async (data: ISignInForm) => {
 		try {
 			setErrorMessage("");
-			if (baseUrl) {
-				await loginUser(baseUrl, data);
+			if (baseUrl && data.password) {
+				const correctUserData: ICorrectSignInForm = {
+					email: data.email ?? "",
+					password: data.password,
+				};
+				await loginUser(baseUrl, correctUserData);
 				setIsOpen(true);
+				if (data.isAutoAuth) dispatch(setAutoLoginStatus(data.isAutoAuth));
 			}
 		} catch (error) {
 			if (
@@ -75,7 +84,7 @@ const SignInForm = () => {
 
 	const handleModalClose = () => {
 		setIsOpen(false);
-		router.push(UserProfilePath.Profile);
+		router.push(UserProfilePath.ProfitMoney);
 	};
 
 	return (
@@ -85,7 +94,7 @@ const SignInForm = () => {
 				<Input
 					control={control}
 					label={"Введите почту"}
-					type="email"
+					type={InputType.Email}
 					placeholder="_@_._"
 					name={"email"}
 					error={formHelpers.getEmailError(errors)}
@@ -102,7 +111,7 @@ const SignInForm = () => {
 				/>
 				<div className={styles.additionalFunctionsWrap}>
 					<div className={styles.additionalFunctionsWrap__checkbox}>
-						<CustomCheckbox />
+						<CustomCheckbox control={control} name={"isAuth"} />
 						<p className={styles.checkBoxText}>Запомнить меня</p>
 					</div>
 					<Link href={MainPath.NewPassword} className={styles.forgetPassword}>

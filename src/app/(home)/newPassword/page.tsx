@@ -43,7 +43,7 @@ export default function NewPassword() {
 	});
 
 	const onSubmit = async (data: INewPassword) => {
-		if (data) {
+		if (data.email) {
 			setEmail(data?.email);
 			await restoreButtonClick(data);
 			newPasswordModalVisionToggle();
@@ -76,8 +76,10 @@ export default function NewPassword() {
 		} catch (error) {
 			if (
 				isAxiosError(error) &&
-				error?.response?.status >= ApiResponseCode.SERVER_ERROR_STATUS_MIN &&
-				error?.response?.status < ApiResponseCode.SERVER_ERROR_STATUS_MAX
+				error.response &&
+				error.response.status &&
+				error.response.status >= ApiResponseCode.SERVER_ERROR_STATUS_MIN &&
+				error.response.status < ApiResponseCode.SERVER_ERROR_STATUS_MAX
 			) {
 				return router.push(MainPath.ServerError);
 			}

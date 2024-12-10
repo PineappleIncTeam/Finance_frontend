@@ -51,9 +51,11 @@ export default function ChangePassword() {
 			}
 		} catch (error) {
 			if (
-				isAxiosError(error) &&
-				error?.response?.status >= ApiResponseCode.SERVER_ERROR_STATUS_MIN &&
-				error?.response?.status < ApiResponseCode.SERVER_ERROR_STATUS_MAX
+			isAxiosError(error) &&
+			error.response &&
+			error.response.status &&
+			error.response.status >= ApiResponseCode.SERVER_ERROR_STATUS_MIN &&
+			error.response.status < ApiResponseCode.SERVER_ERROR_STATUS_MAX
 			) {
 				return router.push(MainPath.ServerError);
 			}

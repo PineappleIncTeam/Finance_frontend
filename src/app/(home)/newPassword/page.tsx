@@ -1,21 +1,33 @@
 "use client";
 
-import { useState } from "react";
-import { useForm } from "react-hook-form";
+import { useEffect, useState } from "react";
+import { Controller, useForm } from "react-hook-form";
+import { AxiosError } from "axios";
+import { useRouter } from "next/navigation";
 
 import { INewPassword } from "../../../types/pages/Password";
-import Input from "../../../ui/input/Input";
-import Title from "../../../ui/title/Title";
 import NewPasswordModal from "../../../components/mainLayout/newPasswordModal/newPasswordModal";
-import { formHelpers } from "../../../utils/formHelpers";
+import { getCorrectBaseUrl } from "../../../utils/baseUrlConverter";
+import { ResetPassword } from "../../../services/api/auth/ResetPassword";
+import { MainPath } from "../../../services/router/routes";
+import { ApiResponseCode } from "../../../helpers/apiResponseCode";
 import { emailPattern } from "../../../helpers/authConstants";
-import { InputType } from "../../../helpers/Input";
+
+import { ArrowsIcon } from "../../../assets/script/changePassword/ArrowsIcon";
+import { EmailIcon } from "../../../assets/script/changePassword/EmailIcon";
+import { LetterIcon } from "../../../assets/script/changePassword/LetterIcon";
+import { ManIcon } from "../../../assets/script/changePassword/ManIcon";
+import { OpenLetterIcon } from "../../../assets/script/changePassword/OpenLetterIcon";
+import { OvalIcon } from "../../../assets/script/changePassword/OvalIcon";
+import { PaperAirLineIcon } from "../../../assets/script/changePassword/PaperAirLineIcon";
+import { QuestionIcon } from "../../../assets/script/changePassword/QuestionIcon";
 
 import style from "./newPassword.module.scss";
 
 export default function NewPassword() {
 	const [isNewPasswordModalShown, setIsNewPasswordModalShown] = useState<boolean>(false);
 	const [email, setEmail] = useState<string>("");
+	const [baseUrl, setBaseUrl] = useState<string>();
 
 	const {
 		formState: { errors },
@@ -30,41 +42,86 @@ export default function NewPassword() {
 		delayError: 200,
 	});
 
-	const onSubmit = (data: INewPassword) => {
-		setEmail(data?.email ?? "");
-		newPasswordModalVisible(true);
-		reset();
+	const onSubmit = async (data: INewPassword) => {
+		if (data) {
+			setEmail(data?.email);
+			await restoreButtonClick(data);
+			newPasswordModalVisionToggle();
+			reset();
+		}
 	};
 
-	const newPasswordModalVisible = (prop: boolean) => {
-		setIsNewPasswordModalShown(prop);
+	const newPasswordModalVisionToggle = () => {
+		setIsNewPasswordModalShown(!isNewPasswordModalShown);
+	};
+
+	useEffect(() => {
+		setBaseUrl(getCorrectBaseUrl());
+	}, []);
+
+	const router = useRouter();
+
+	const isAxiosError = (error: unknown): error is AxiosError => {
+		return (error as AxiosError).isAxiosError !== undefined;
+	};
+
+	const restoreButtonClick = async (data: INewPassword) => {
+		try {
+			if (baseUrl) {
+				await ResetPassword(baseUrl, data);
+				router.push(MainPath.ChangePassword);
+			} else {
+				return router.push(MainPath.ServerError);
+			}
+		} catch (error) {
+			if (
+				isAxiosError(error) &&
+				error?.response?.status >= ApiResponseCode.SERVER_ERROR_STATUS_MIN &&
+				error?.response?.status < ApiResponseCode.SERVER_ERROR_STATUS_MAX
+			) {
+				return router.push(MainPath.ServerError);
+			}
+		}
 	};
 
 	return (
 		<div className={style.newPasswordWrap}>
-			<form className={style.newPasswordFormContainer} onSubmit={handleSubmit(onSubmit)}>
-				<div className={style.newPasswordFormContainer__Content}>
-					<Title title={"Восстановление пароля"} />
-					<NewPasswordModal
-						email={email}
-						open={isNewPasswordModalShown}
-						toggle={() => newPasswordModalVisible(false)}
-					/>
-					<Input
-						control={control}
-						label="Введите почту"
-						type={InputType.Email}
-						placeholder="_@_._"
-						name="email"
-						error={formHelpers.getEmailError(errors)}
-						rules={{ required: true, pattern: emailPattern }}
-					/>
-					<div className={style.newPasswordFormContainer__buttons}>
-						<input className={style.backButton} type={InputType.Submit} value="Назад" />
-						<input className={style.restoreButton} type={InputType.Submit} value="Восстановить" />
+			<div className={style.newPasswordContainer}>
+				<OvalIcon classNames={style.ovalIcon} />
+				<QuestionIcon classNames={style.questionIcon} />
+				<EmailIcon classNames={style.emailIcon} />
+				<ArrowsIcon classNames={style.arrowsIcon} />
+				<LetterIcon classNames={style.letterIcon} />
+				<OpenLetterIcon classNames={style.openLetterIcon} />
+				<ManIcon classNames={style.manIcon} />
+				<PaperAirLineIcon classNames={style.paperAirLineIcon} />
+				<OpenLetterIcon classNames={style.secondOpenLetterIcon} />
+				<div className={style.newPasswordContainer__modal}>
+					<div className={style.newPasswordContainer__modal__content}>
+						<h1 className={style.newPasswordContainer__form__title}>Восстановление пароля</h1>
+						<form onSubmit={handleSubmit(onSubmit)}>
+							<NewPasswordModal email={email} open={isNewPasswordModalShown} toggle={newPasswordModalVisionToggle} />
+							<label htmlFor="email" className={style.formWrap__emailTitle}>
+								Введите почту
+							</label>
+							<Controller
+								name="email"
+								control={control}
+								rules={{ required: true, pattern: emailPattern }}
+								defaultValue=""
+								render={({ field }) => (
+									<input id="email" className={style.newPasswordRow} placeholder="_@_._" {...field} />
+								)}
+							/>
+							{errors?.email && <span role="alert">{errors.email.message as string}</span>}
+							<div className={style.newPassword__modal__buttons}>
+								<input className={style.backButton} type="submit" value="Назад" />
+								<input className={style.restoreButton} type="submit" value="Восстановить" />
+							</div>
+						</form>
 					</div>
 				</div>
-			</form>
+			</div>
 		</div>
 	);
 }

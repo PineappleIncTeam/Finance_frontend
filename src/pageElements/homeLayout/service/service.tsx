@@ -37,7 +37,7 @@ function Service() {
 							</li>
 							<li className={styles.featuresListContainer__featureElement}>
 								<Image className={styles.featuresListContainer__listPoint} src={listPoint} alt="пункт списка" />
-								позаботься о завтра сегодня
+								позаботиться о завтра сегодня
 							</li>
 						</ul>
 					</div>

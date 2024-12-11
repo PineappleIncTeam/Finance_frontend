@@ -22,6 +22,7 @@ import { MainPath, UserProfilePath } from "../../../services/router/routes";
 import { ApiResponseCode } from "../../../helpers/apiResponseCode";
 import { loginUser } from "../../../services/api/auth/Login";
 import { setAutoLoginStatus } from "../../../services/redux/features/autoLogin/autoLoginSlice";
+import { sendMailToRecover } from "../../../services/api/auth/sendMailToRecover";
 
 import styles from "./signInForm.module.scss";
 
@@ -87,57 +88,69 @@ const SignInForm = () => {
 		router.push(UserProfilePath.ProfitMoney);
 	};
 
+	async function qwerty() {
+		await sendMailToRecover(baseUrl);
+	}
+
 	return (
-		<form className={styles.signInFormWrap} onSubmit={handleSubmit(onSubmit)}>
-			<div className={styles.signInFormContainer}>
-				<Title title={"Вход"} />
-				<Input
-					control={control}
-					label={"Введите почту"}
-					type={InputType.Email}
-					placeholder="_@_._"
-					name={"email"}
-					error={formHelpers.getEmailError(errors)}
-					rules={{ required: true, pattern: emailPattern }}
-				/>
-				<Input
-					label={"Введите пароль"}
-					type={InputType.Password}
-					placeholder="Пароль"
-					error={formHelpers.getPasswordError(errors, control._formValues.password)}
-					name={"password"}
-					control={control}
-					rules={{ required: true, pattern: passwordPattern }}
-				/>
-				<div className={styles.additionalFunctionsWrap}>
-					<div className={styles.additionalFunctionsWrap__checkbox}>
-						<CustomCheckbox control={control} name={"isAuth"} />
-						<p className={styles.checkBoxText}>Запомнить меня</p>
+		<div>
+			<form className={styles.signInFormWrap} onSubmit={handleSubmit(onSubmit)}>
+				<div className={styles.signInFormContainer}>
+					<Title title={"Вход"} />
+					<Input
+						control={control}
+						label={"Введите почту"}
+						type={InputType.Email}
+						placeholder="_@_._"
+						name={"email"}
+						error={formHelpers.getEmailError(errors)}
+						rules={{ required: true, pattern: emailPattern }}
+					/>
+					<Input
+						label={"Введите пароль"}
+						type={InputType.Password}
+						placeholder="Пароль"
+						error={formHelpers.getPasswordError(errors, control._formValues.password)}
+						name={"password"}
+						control={control}
+						rules={{ required: true, pattern: passwordPattern }}
+					/>
+					<div className={styles.additionalFunctionsWrap}>
+						<div className={styles.additionalFunctionsWrap__checkbox}>
+							<CustomCheckbox control={control} name={"isAuth"} />
+							<p className={styles.checkBoxText}>Запомнить меня</p>
+						</div>
+						<Link href={MainPath.NewPassword} className={styles.forgetPassword}>
+							Забыли пароль?
+						</Link>
 					</div>
-					<Link href={MainPath.NewPassword} className={styles.forgetPassword}>
-						Забыли пароль?
-					</Link>
+					{errorMessage && <p className={styles.errorMessage}>{errorMessage}</p>}
+					<Button content="Вход" styleName="big buttonForLogin" type="submit" />
+					<div className={styles.dividerWrap}>
+						<div className={styles.dividerWrap__line} />
+						<span className={styles.dividerWrap__subtitle}>или</span>
+						<div className={styles.dividerWrap__line} />
+					</div>
+					<p className={styles.signInFormContainer__auth}>
+						Войти через{" "}
+						<a
+							href="https://vk.com/"
+							rel="nofollow noreferrer"
+							target="_blank"
+							className={styles.signInFormContainer__auth_link}>
+							Вконтакте
+						</a>
+					</p>
 				</div>
-				{errorMessage && <p className={styles.errorMessage}>{errorMessage}</p>}
-				<Button content="Вход" styleName="big buttonForLogin" type="submit" />
-				<div className={styles.dividerWrap}>
-					<div className={styles.dividerWrap__line} />
-					<span className={styles.dividerWrap__subtitle}>или</span>
-					<div className={styles.dividerWrap__line} />
-				</div>
-				<p className={styles.signInFormContainer__auth}>
-					Войти через{" "}
-					<a
-						href="https://vk.com/"
-						rel="nofollow noreferrer"
-						target="_blank"
-						className={styles.signInFormContainer__auth_link}>
-						Вконтакте
-					</a>
-				</p>
+				{isOpen && <InviteModal isOpen={isOpen} onClose={handleModalClose} />}
+			</form>
+
+			<div>
+				<button type="button" onClick={qwerty}>
+					send mail
+				</button>
 			</div>
-			{isOpen && <InviteModal isOpen={isOpen} onClose={handleModalClose} />}
-		</form>
+		</div>
 	);
 };
 

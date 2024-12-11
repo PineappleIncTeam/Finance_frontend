@@ -89,7 +89,9 @@ const SignInForm = () => {
 	};
 
 	async function qwerty() {
-		await sendMailToRecover(baseUrl);
+		if(baseUrl) {
+			await sendMailToRecover(baseUrl);
+		}
 	}
 
 	return (

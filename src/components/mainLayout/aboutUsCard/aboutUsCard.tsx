@@ -11,7 +11,7 @@ import fallback from "../../../assets/components/aboutUs/photoNotAvailable.png";
 import style from "./aboutUsCards.module.scss";
 
 const AboutUsCard = ({ photo, teamRole }: IAboutUsCard) => {
-	const [hasError, setHasError] = useState<boolean>(true);
+	const [hasError, setHasError] = useState<boolean>(false);
 
 	return (
 		<div className={style.aboutUsCard}>

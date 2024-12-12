@@ -45,3 +45,9 @@ export interface IExpenseTransaction {
 	purpose: string;
 	sum: string;
 }
+
+export interface IIncomeTransaction {
+	date: string;
+	purpose: string;
+	sum: number;
+}

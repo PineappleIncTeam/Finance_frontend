@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useRouter, useSearchParams } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 // eslint-disable-next-line import/named
 import { AxiosResponse, HttpStatusCode, isAxiosError } from "axios";
@@ -47,6 +47,9 @@ const Activate = () => {
 		notification = "notification",
 	}
 
+	const pathname = usePathname();
+	const isActivationPage = !!(MainPath.ActivationPage || pathname);
+
 	useEffect(() => {
 		setBaseUrl(getCorrectBaseUrl());
 	}, []);
@@ -56,8 +59,7 @@ const Activate = () => {
 			try {
 				const isLocalhost =
 					window.location.hostname.includes(mockLocalhostStr) || window.location.hostname.includes(mockLocalhostUrl);
-
-				if (baseUrl && !isLocalhost && uid && token) {
+				if (baseUrl && !isLocalhost && uid && token && !isActivationPage) {
 					const userData = { uid, token };
 					setLoad(true);
 					const response: AxiosResponse<IUserValidationResponse> = await userActivation(baseUrl, userData);

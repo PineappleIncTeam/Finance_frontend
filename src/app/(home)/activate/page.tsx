@@ -48,7 +48,7 @@ const Activate = () => {
 	}
 
 	const pathname = usePathname();
-	const isActivationPage = !!(MainPath.ActivationPage || pathname);
+	const isActivationPage = MainPath.ActivationPage === pathname;
 
 	useEffect(() => {
 		setBaseUrl(getCorrectBaseUrl());

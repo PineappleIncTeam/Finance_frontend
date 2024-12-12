@@ -142,7 +142,14 @@ const MainHeader = () => {
 		<header className={styles.headerWrap}>
 			<div className={styles.headerContainer}>
 				<Link href={MainPath.Main} className={styles.logoLink}>
-					<Image src={logo} alt="Логотип" width={284} height={56} className={styles.headerContainer__img} />
+					<Image
+						src={logo}
+						alt="Логотип"
+						width={284}
+						height={56}
+						className={styles.headerContainer__img}
+						priority={true}
+					/>
 				</Link>
 				<button onClick={() => setOpen(!open)}>
 					<Image src={burger} alt="Бургер" width={74} height={30} className={styles.headerContainer__burger} />

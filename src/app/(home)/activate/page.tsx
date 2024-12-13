@@ -56,6 +56,7 @@ const Activate = () => {
 			try {
 				const isLocalhost =
 					window.location.hostname.includes(mockLocalhostStr) || window.location.hostname.includes(mockLocalhostUrl);
+				
 				if (baseUrl && !isLocalhost && uid && token) {
 					const userData = { uid, token };
 					setLoad(true);

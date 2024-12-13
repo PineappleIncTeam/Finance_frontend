@@ -52,7 +52,9 @@ const MainHeader = () => {
 			const isLocalhost =
 				window.location.hostname.includes(mockLocalhostStr) || window.location.hostname.includes(mockLocalhostUrl);
 
-			if (baseUrl && !isLocalhost) {
+			const isActivationPage = MainPath.ActivationPage === pathname;
+
+			if (baseUrl && !isLocalhost && !isActivationPage) {
 				validateToken(baseUrl).then((response: AxiosResponse<IValidateTokenResponse>) => {
 					if (isAutoLogin && response.status === HttpStatusCode.Ok) {
 						return router.push(UserProfilePath.ProfitMoney);

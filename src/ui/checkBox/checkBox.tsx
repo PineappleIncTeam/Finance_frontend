@@ -3,7 +3,7 @@ import React from "react";
 import { useController } from "react-hook-form";
 
 import { ICustomCheckbox } from "../../types/common/UiKitProps";
-import { InputType } from "../../helpers/Input";
+import { InputTypeList } from "../../helpers/Input";
 
 import styles from "./checkBox.module.scss";
 
@@ -20,7 +20,7 @@ const CustomCheckbox = ({ control, name, rules }: ICustomCheckbox) => {
 	return (
 		<>
 			<input
-				type={InputType.Checkbox}
+				type={InputTypeList.Checkbox}
 				className={styles.hiddenCheckbox}
 				onChange={onChange}
 				checked={value}

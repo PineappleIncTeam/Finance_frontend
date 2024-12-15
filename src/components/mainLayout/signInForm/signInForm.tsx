@@ -10,14 +10,14 @@ import useAppDispatch from "../../../hooks/useAppDispatch";
 
 import { ICorrectSignInForm, ISignInForm } from "../../../types/components/ComponentsTypes";
 import Button from "../../../ui/button/button";
-import Input from "../../../ui/input/Input";
+import AuthInput from "../../../ui/authInput/AuthInput";
 import Title from "../../../ui/title/Title";
 import CustomCheckbox from "../../../ui/checkBox/checkBox";
 import InviteModal from "../inviteModal/inviteModal";
 import { emailPattern, passwordPattern } from "../../../helpers/authConstants";
 import { formHelpers } from "../../../utils/formHelpers";
 import { getCorrectBaseUrl } from "../../../utils/baseUrlConverter";
-import { InputType } from "../../../helpers/Input";
+import { InputTypeList } from "../../../helpers/Input";
 import { MainPath, UserProfilePath } from "../../../services/router/routes";
 import { ApiResponseCode } from "../../../helpers/apiResponseCode";
 import { loginUser } from "../../../services/api/auth/Login";
@@ -36,7 +36,7 @@ const SignInForm = () => {
 		formState: { errors },
 		control,
 		handleSubmit,
-	} = useForm<ISignInForm | any>({
+	} = useForm<ISignInForm>({
 		defaultValues: {
 			email: "",
 			password: "",
@@ -87,18 +87,18 @@ const SignInForm = () => {
 		<form className={styles.signInFormWrap} onSubmit={handleSubmit(onSubmit)}>
 			<div className={styles.signInFormContainer}>
 				<Title title={"Вход"} />
-				<Input
+				<AuthInput
 					control={control}
 					label={"Введите почту"}
-					type={InputType.Email}
+					type={InputTypeList.Email}
 					placeholder="_@_._"
 					name={"email"}
 					error={formHelpers.getEmailError(errors)}
 					rules={{ required: true, pattern: emailPattern }}
 				/>
-				<Input
+				<AuthInput
 					label={"Введите пароль"}
-					type={InputType.Password}
+					type={InputTypeList.Password}
 					placeholder="Пароль"
 					error={formHelpers.getPasswordError(errors, control._formValues.password)}
 					name={"password"}

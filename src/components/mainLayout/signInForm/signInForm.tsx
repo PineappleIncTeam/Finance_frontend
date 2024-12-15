@@ -3,21 +3,21 @@
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
-import { AxiosError } from "axios";
+import axios from "axios";
 import Link from "next/link";
 
 import useAppDispatch from "../../../hooks/useAppDispatch";
 
-import { ISignInForm } from "../../../types/components/ComponentsTypes";
+import { ICorrectSignInForm, ISignInForm } from "../../../types/components/ComponentsTypes";
 import Button from "../../../ui/button/button";
-import Input from "../../../ui/input/Input";
+import AuthInput from "../../../ui/authInput/AuthInput";
 import Title from "../../../ui/title/Title";
 import CustomCheckbox from "../../../ui/checkBox/checkBox";
 import InviteModal from "../inviteModal/inviteModal";
 import { emailPattern, passwordPattern } from "../../../helpers/authConstants";
 import { formHelpers } from "../../../utils/formHelpers";
 import { getCorrectBaseUrl } from "../../../utils/baseUrlConverter";
-import { InputType } from "../../../helpers/Input";
+import { InputTypeList } from "../../../helpers/Input";
 import { MainPath, UserProfilePath } from "../../../services/router/routes";
 import { ApiResponseCode } from "../../../helpers/apiResponseCode";
 import { loginUser } from "../../../services/api/auth/Login";
@@ -29,7 +29,6 @@ const SignInForm = () => {
 	const [baseUrl, setBaseUrl] = useState<string>();
 	const [errorMessage, setErrorMessage] = useState<string>("");
 	const [isOpen, setIsOpen] = useState<boolean>(false);
-	const [isAuth, setAuth] = useState<boolean>(false);
 
 	const dispatch = useAppDispatch();
 
@@ -41,6 +40,7 @@ const SignInForm = () => {
 		defaultValues: {
 			email: "",
 			password: "",
+			isAutoAuth: false,
 		},
 		mode: "all",
 		delayError: 200,
@@ -52,24 +52,24 @@ const SignInForm = () => {
 		setBaseUrl(getCorrectBaseUrl());
 	}, []);
 
-	const isAxiosError = (error: unknown): error is AxiosError => {
-		return (error as AxiosError).isAxiosError !== undefined;
-	};
-
 	const onSubmit = async (data: ISignInForm) => {
 		try {
 			setErrorMessage("");
-			if (baseUrl) {
-				await loginUser(baseUrl, data);
+			if (baseUrl && data.password) {
+				const correctUserData: ICorrectSignInForm = {
+					email: data.email ?? "",
+					password: data.password,
+				};
+				await loginUser(baseUrl, correctUserData);
 				setIsOpen(true);
-				dispatch(setAutoLoginStatus(isAuth));
+				if (data.isAutoAuth) dispatch(setAutoLoginStatus(data.isAutoAuth));
 			}
 		} catch (error) {
 			if (
-				isAxiosError(error) &&
+				axios.isAxiosError(error) &&
 				error.response &&
 				error.response.status &&
-				error.response.status >= ApiResponseCode.SERVER_ERROR_STATUS_MIN &&
+				error.response.status >= axios.HttpStatusCode.InternalServerError &&
 				error.response.status < ApiResponseCode.SERVER_ERROR_STATUS_MAX
 			) {
 				return router.push(MainPath.ServerError);
@@ -87,18 +87,18 @@ const SignInForm = () => {
 		<form className={styles.signInFormWrap} onSubmit={handleSubmit(onSubmit)}>
 			<div className={styles.signInFormContainer}>
 				<Title title={"Вход"} />
-				<Input
+				<AuthInput
 					control={control}
 					label={"Введите почту"}
-					type={InputType.Email}
+					type={InputTypeList.Email}
 					placeholder="_@_._"
 					name={"email"}
 					error={formHelpers.getEmailError(errors)}
 					rules={{ required: true, pattern: emailPattern }}
 				/>
-				<Input
+				<AuthInput
 					label={"Введите пароль"}
-					type={InputType.Password}
+					type={InputTypeList.Password}
 					placeholder="Пароль"
 					error={formHelpers.getPasswordError(errors, control._formValues.password)}
 					name={"password"}
@@ -107,7 +107,7 @@ const SignInForm = () => {
 				/>
 				<div className={styles.additionalFunctionsWrap}>
 					<div className={styles.additionalFunctionsWrap__checkbox}>
-						<CustomCheckbox isChecked={isAuth} setIsChecked={setAuth} />
+						<CustomCheckbox control={control} name={"isAuth"} />
 						<p className={styles.checkBoxText}>Запомнить меня</p>
 					</div>
 					<Link href={MainPath.NewPassword} className={styles.forgetPassword}>

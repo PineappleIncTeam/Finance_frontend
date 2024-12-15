@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 import { Dispatch, RefObject, SetStateAction, useEffect, useRef, useState } from "react";
 import cn from "classnames";
 
-import { MainPath, UserProfilePath } from "../../../services/router/routes";
+import { UserProfilePath } from "../../../services/router/routes";
 import { INavBar } from "../../../types/common/ComponentsProps";
 import { COLORS } from "../../../helpers/colorSet";
 
@@ -77,22 +77,22 @@ const NavBar = ({ onClick }: INavBar) => {
 						})}
 					/>
 				</Link>
-				<Link href={UserProfilePath.Сosts} className={styles.navigationLink}>
+				<Link href={UserProfilePath.Expenses} className={styles.navigationLink}>
 					<div
 						className={cn(styles.navigationLinkWrap, {
-							[styles.navigationLinkWrapBoder__hide]: pathname === UserProfilePath.Сosts,
+							[styles.navigationLinkWrapBoder__hide]: pathname === UserProfilePath.Expenses,
 						})}>
-						<ExpensesIcon color={pathname === UserProfilePath.Сosts ? COLORS.primary : COLORS.white} />
+						<ExpensesIcon color={pathname === UserProfilePath.Expenses ? COLORS.primary : COLORS.white} />
 						<p
 							className={cn(styles.navigationLinkTitle, {
-								[styles.activeLinkTitle]: pathname === UserProfilePath.Сosts,
+								[styles.activeLinkTitle]: pathname === UserProfilePath.Expenses,
 							})}>
 							Расходы
 						</p>
 					</div>
 					<div
 						className={cn(styles.linkBackground, {
-							[styles.linkBackground__active]: pathname === UserProfilePath.Сosts,
+							[styles.linkBackground__active]: pathname === UserProfilePath.Expenses,
 						})}
 					/>
 				</Link>
@@ -161,7 +161,7 @@ const NavBar = ({ onClick }: INavBar) => {
 		<header className={styles.nawBarWrap}>
 			<div className={styles.navBarContainer}>
 				<div className={styles.navBarHeader}>
-					<Link href={MainPath.Main}>
+					<Link href={UserProfilePath.ProfitMoney}>
 						<Image src={logo} alt="Логотип" className={styles.navBarHeader__img} />
 					</Link>
 					<button className={styles.closeAction} onClick={onClick}>

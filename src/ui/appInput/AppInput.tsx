@@ -3,19 +3,21 @@ import { useController } from "react-hook-form";
 import cn from "classnames";
 import Image from "next/image";
 
-import { IInputFormProps, IInputProps } from "../../types/common/UiKitProps";
+import { TAppInputForm, IAppInput } from "../../types/common/UiKitProps";
 
-import { InputType } from "../../helpers/Input";
+import { InputTypeList } from "../../helpers/Input";
 
 import showPassword from "../../assets/pages/signUp/showPassword.svg";
 
-import styles from "./Input.module.scss";
+import styles from "./AppInput.module.scss";
 
-const Input = ({ label, type, placeholder, autoComplete, subtitle, error, ...props }: IInputProps) => {
-	const { field, fieldState } = useController<IInputFormProps>(props);
-	const [passwordType, setPasswordType] = useState<InputType>(InputType.Password);
+const AppInput = ({ label, type, placeholder, autoComplete, subtitle, error, ...props }: IAppInput) => {
+	const { field, fieldState } = useController<TAppInputForm>(props);
+	const [passwordType, setPasswordType] = useState<InputTypeList>(InputTypeList.Password);
 	const togglePasswordVisibility = () =>
-		setPasswordType(passwordType === InputType.Password ? InputType.Text : InputType.Password);
+		setPasswordType(passwordType === InputTypeList.Password ? InputTypeList.Text : InputTypeList.Password);
+
+	const value = typeof field.value === "boolean" ? String(field.value) : field.value;
 
 	return (
 		<div className={styles.inputWrap}>
@@ -23,12 +25,13 @@ const Input = ({ label, type, placeholder, autoComplete, subtitle, error, ...pro
 			<div className={cn(styles.inputWrap__element, { [styles.inputWrap__element_error]: error })}>
 				<input
 					{...field}
-					type={type === InputType.Password ? passwordType : type}
+					type={type === InputTypeList.Password ? passwordType : type}
 					placeholder={placeholder}
 					className={styles.inputWrap__input}
 					autoComplete={autoComplete}
+					value={value}
 				/>
-				{type === InputType.Password && (
+				{type === InputTypeList.Password && (
 					<button onClick={togglePasswordVisibility} className={styles.inputWrap__passwordEye} type="button">
 						<Image src={showPassword} alt="Toggle visibility" />
 					</button>
@@ -40,4 +43,4 @@ const Input = ({ label, type, placeholder, autoComplete, subtitle, error, ...pro
 	);
 };
 
-export default Input;
+export default AppInput;

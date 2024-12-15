@@ -46,7 +46,7 @@ export interface IBlogArticle {
 	id: string;
 }
 
-export interface IBlogArticleShareTooltip {
+export interface ITooltip {
 	open: boolean;
 	toggle?: () => void;
 }
@@ -65,4 +65,11 @@ export interface ITeamMember {
 
 export interface IFooter {
 	isMainPage?: boolean;
+}
+
+export interface IExpensesTransaction {
+	firstDateFormat: string;
+	secondDateFormat?: string;
+	purpose: string;
+	sum: string;
 }

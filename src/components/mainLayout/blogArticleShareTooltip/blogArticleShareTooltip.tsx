@@ -1,8 +1,8 @@
-import { IBlogArticleShareTooltip } from "../../../types/common/ComponentsProps";
+import { ITooltip } from "../../../types/common/ComponentsProps";
 
 import style from "./blogArticleShareTooltip.module.scss";
 
-export const BlogArticleShareTooltip = ({ open }: IBlogArticleShareTooltip) => {
+export const BlogArticleShareTooltip = ({ open }: ITooltip) => {
 	return (
 		<dialog open={open} className={style.BlogArticleShareTooltipContainer}>
 			<div onClick={(e) => e.stopPropagation()} role="textbox">

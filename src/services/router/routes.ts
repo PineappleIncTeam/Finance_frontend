@@ -11,11 +11,12 @@ export enum MainPath {
 	UserAgreement = "/userAgreement",
 	NotFound = "/notfound",
 	BlogPage = "/blogPage",
+	ActivationPage = "/activate",
 }
 
 export enum UserProfilePath {
 	ProfitMoney = "/profitMoney",
-	Сosts = "/costs",
+	Expenses = "/expenses",
 	Savings = "/savings",
 	Analytics = "/analytics",
 	Calculator = "/calculator",

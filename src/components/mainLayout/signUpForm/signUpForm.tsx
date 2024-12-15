@@ -1,24 +1,24 @@
-/* eslint-disable import/named */
 "use client";
 
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { AxiosError, HttpStatusCode } from "axios";
+import axios, { AxiosError } from "axios";
 
 import { ISignUpForm } from "../../../types/components/ComponentsTypes";
 import Button from "../../../ui/button/button";
-import Input from "../../../ui/input/Input";
+import AuthInput from "../../../ui/authInput/AuthInput";
 import Title from "../../../ui/title/Title";
 import { emailPattern, errorPasswordRepeat, passwordPattern } from "../../../helpers/authConstants";
 import { formHelpers } from "../../../utils/formHelpers";
-import { InputType } from "../../../helpers/Input";
+import { InputTypeList } from "../../../helpers/Input";
 import { registration } from "../../../services/api/auth/Registration";
 import { MainPath } from "../../../services/router/routes";
 import { getCorrectBaseUrl } from "../../../utils/baseUrlConverter";
 import { ApiResponseCode } from "../../../helpers/apiResponseCode";
 import { vkLink } from "../../../mocks/linkSetup";
+import CustomCheckbox from "../../../ui/checkBox/checkBox";
 
 import styles from "./signUpForm.module.scss";
 
@@ -30,13 +30,13 @@ const SignUpForm = () => {
 		control,
 		watch,
 		handleSubmit,
-		register,
-	} = useForm<ISignUpForm | any>({
+	} = useForm<ISignUpForm>({
 		defaultValues: {
 			email: "",
 			password: "",
 			// eslint-disable-next-line camelcase
 			re_password: "",
+			agreementField: false,
 		},
 		mode: "all",
 		delayError: 200,
@@ -48,8 +48,8 @@ const SignUpForm = () => {
 		setBaseUrl(getCorrectBaseUrl());
 	}, []);
 
-	const validateRepeatPassword = (value: string | undefined) => {
-		const password = watch(InputType.Password);
+	const validateRepeatPassword = (value: string | boolean | undefined) => {
+		const password = watch(InputTypeList.Password);
 		return value === password || errorPasswordRepeat;
 	};
 
@@ -70,7 +70,7 @@ const SignUpForm = () => {
 				isAxiosError(error) &&
 				error.response &&
 				error.response.status &&
-				error.response.status >= HttpStatusCode.InternalServerError &&
+				error.response.status >= axios.HttpStatusCode.InternalServerError &&
 				error.response.status < ApiResponseCode.SERVER_ERROR_STATUS_MAX
 			) {
 				return router.push(MainPath.ServerError);
@@ -83,18 +83,18 @@ const SignUpForm = () => {
 		<form className={styles.signUpFormWrap} onSubmit={handleSubmit(onSubmit)}>
 			<div className={styles.signUpFormContainer}>
 				<Title title={"Регистрация"} />
-				<Input
+				<AuthInput
 					control={control}
 					label={"Введите почту"}
-					type={InputType.Email}
+					type={InputTypeList.Email}
 					placeholder="_@_._"
 					name={"email"}
 					error={formHelpers.getEmailError(errors)}
 					rules={{ required: true, pattern: emailPattern }}
 				/>
-				<Input
+				<AuthInput
 					label={"Введите пароль"}
-					type={InputType.Password}
+					type={InputTypeList.Password}
 					placeholder="Пароль"
 					subtitle="Пароль должен состоять из 6 и более символов, среди которых хотя бы одна буква верхнего регистра и хотя бы одна цифра"
 					error={formHelpers.getPasswordError(errors, control._formValues.password)}
@@ -102,9 +102,9 @@ const SignUpForm = () => {
 					control={control}
 					rules={{ required: true, pattern: passwordPattern }}
 				/>
-				<Input
+				<AuthInput
 					label={"Повторите пароль"}
-					type={InputType.Password}
+					type={InputTypeList.Password}
 					placeholder="Пароль"
 					control={control}
 					name={"re_password"}
@@ -116,9 +116,7 @@ const SignUpForm = () => {
 				/>
 				<div className={styles.securityPolicyWrapper}>
 					<div className={styles.securityPolicyWrapper__Checkbox}>
-						<p className={styles.privacyCheckbox}>
-							<input type={InputType.Checkbox} {...register("agreementField", { required: true })} />
-						</p>
+						<CustomCheckbox control={control} name={"agreementField"} rules={{ required: true }} />
 						<p className={styles.securityPolicyWrapper__Text}>
 							Я соглашаюсь с{" "}
 							<Link className={styles.securityPolicyWrapper__Link} href={MainPath.UserAgreement}>

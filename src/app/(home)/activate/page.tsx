@@ -3,8 +3,7 @@
 import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
-// eslint-disable-next-line import/named
-import { AxiosResponse, HttpStatusCode, isAxiosError } from "axios";
+import axios, { AxiosResponse } from "axios";
 
 import { TMessageModal } from "../../../types/components/ComponentsTypes";
 import { IUserValidationResponse } from "../../../types/api/Auth";
@@ -63,7 +62,7 @@ const Activate = () => {
 					const response: AxiosResponse<IUserValidationResponse> = await userActivation(baseUrl, userData);
 					setLoad(false);
 
-					if (response.status === HttpStatusCode.Ok) {
+					if (response.status === axios.HttpStatusCode.Ok) {
 						getMessage(ModalMessageTypes.success);
 						setTimeout(() => {
 							router.push(MainPath.Login);
@@ -73,22 +72,27 @@ const Activate = () => {
 			} catch (error) {
 				setLoad(false);
 
-				if (error && isAxiosError(error) && error.response && error.response.status === HttpStatusCode.Forbidden) {
+				if (
+					error &&
+					axios.isAxiosError(error) &&
+					error.response &&
+					error.response.status === axios.HttpStatusCode.Forbidden
+				) {
 					getMessage(ModalMessageTypes.notification);
 				} else if (
-					isAxiosError(error) &&
+					axios.isAxiosError(error) &&
 					error.response &&
-					error.response.status >= HttpStatusCode.BadRequest &&
-					error.response.status <= HttpStatusCode.UnavailableForLegalReasons &&
-					error.response.status !== HttpStatusCode.Forbidden
+					error.response.status >= axios.HttpStatusCode.BadRequest &&
+					error.response.status <= axios.HttpStatusCode.UnavailableForLegalReasons &&
+					error.response.status !== axios.HttpStatusCode.Forbidden
 				) {
 					getMessage(ModalMessageTypes.warning);
 				}
 				if (
-					isAxiosError(error) &&
+					axios.isAxiosError(error) &&
 					error.response &&
 					error.response.status &&
-					error.response.status >= ApiResponseCode.SERVER_ERROR_STATUS_MIN &&
+					error.response.status >= axios.HttpStatusCode.InternalServerError &&
 					error.response.status < ApiResponseCode.SERVER_ERROR_STATUS_MAX
 				) {
 					return router.push(MainPath.ServerError);

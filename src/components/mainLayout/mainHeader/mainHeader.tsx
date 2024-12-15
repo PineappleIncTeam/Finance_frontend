@@ -5,8 +5,7 @@ import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 import { Dispatch, RefObject, SetStateAction, useEffect, useRef, useState } from "react";
 import cn from "classnames";
-// eslint-disable-next-line import/named
-import { AxiosResponse, HttpStatusCode } from "axios";
+import axios, { AxiosResponse } from "axios";
 
 import useAppSelector from "../../../hooks/useAppSelector";
 
@@ -56,7 +55,7 @@ const MainHeader = () => {
 
 			if (baseUrl && !isLocalhost && !isActivationPage) {
 				validateToken(baseUrl).then((response: AxiosResponse<IValidateTokenResponse>) => {
-					if (isAutoLogin && response.status === HttpStatusCode.Ok) {
+					if (isAutoLogin && response.status === axios.HttpStatusCode.Ok) {
 						return router.push(UserProfilePath.ProfitMoney);
 					}
 				});
@@ -66,6 +65,7 @@ const MainHeader = () => {
 				return router.push(MainPath.Login);
 			}
 		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [baseUrl, isAutoLogin, router]);
 
 	useEffect(() => {

@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
-import { AxiosError } from "axios";
+import axios from "axios";
 import Link from "next/link";
 
 import useAppDispatch from "../../../hooks/useAppDispatch";
@@ -52,10 +52,6 @@ const SignInForm = () => {
 		setBaseUrl(getCorrectBaseUrl());
 	}, []);
 
-	const isAxiosError = (error: unknown): error is AxiosError => {
-		return (error as AxiosError).isAxiosError !== undefined;
-	};
-
 	const onSubmit = async (data: ISignInForm) => {
 		try {
 			setErrorMessage("");
@@ -70,10 +66,10 @@ const SignInForm = () => {
 			}
 		} catch (error) {
 			if (
-				isAxiosError(error) &&
+				axios.isAxiosError(error) &&
 				error.response &&
 				error.response.status &&
-				error.response.status >= ApiResponseCode.SERVER_ERROR_STATUS_MIN &&
+				error.response.status >= axios.HttpStatusCode.InternalServerError &&
 				error.response.status < ApiResponseCode.SERVER_ERROR_STATUS_MAX
 			) {
 				return router.push(MainPath.ServerError);

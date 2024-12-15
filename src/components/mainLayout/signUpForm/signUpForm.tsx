@@ -1,11 +1,10 @@
-/* eslint-disable import/named */
 "use client";
 
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { AxiosError, HttpStatusCode } from "axios";
+import axios, { AxiosError } from "axios";
 
 import { ISignUpForm } from "../../../types/components/ComponentsTypes";
 import Button from "../../../ui/button/button";
@@ -71,7 +70,7 @@ const SignUpForm = () => {
 				isAxiosError(error) &&
 				error.response &&
 				error.response.status &&
-				error.response.status >= HttpStatusCode.InternalServerError &&
+				error.response.status >= axios.HttpStatusCode.InternalServerError &&
 				error.response.status < ApiResponseCode.SERVER_ERROR_STATUS_MAX
 			) {
 				return router.push(MainPath.ServerError);

@@ -6,7 +6,7 @@ import Image from "next/image";
 
 import { IAboutUsCard } from "../../../types/common/ComponentsProps";
 
-import fallback from "../../../assets/components/aboutUs/photoNotAvailable.png";
+import fallback from "../../../assets/components/aboutUs/photoNotAvailable.webp";
 
 import style from "./aboutUsCards.module.scss";
 

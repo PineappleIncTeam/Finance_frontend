@@ -2,7 +2,7 @@ import Image from "next/image";
 
 import { IInviteModal } from "../../../types/components/ComponentsTypes";
 
-import inviteLogo from "../../../assets/components/inviteModal/inviteIcon.png";
+import inviteLogo from "../../../assets/components/inviteModal/inviteIcon.webp";
 
 import styles from "./inviteModal.module.scss";
 

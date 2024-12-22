@@ -3,21 +3,21 @@
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
-import { AxiosError } from "axios";
+import axios from "axios";
 import Link from "next/link";
 
 import useAppDispatch from "../../../hooks/useAppDispatch";
 
 import { ICorrectSignInForm, ISignInForm } from "../../../types/components/ComponentsTypes";
 import Button from "../../../ui/button/button";
-import Input from "../../../ui/input/Input";
+import AuthInput from "../../../ui/authInput/AuthInput";
 import Title from "../../../ui/title/Title";
 import CustomCheckbox from "../../../ui/checkBox/checkBox";
 import InviteModal from "../inviteModal/inviteModal";
 import { emailPattern, passwordPattern } from "../../../helpers/authConstants";
 import { formHelpers } from "../../../utils/formHelpers";
 import { getCorrectBaseUrl } from "../../../utils/baseUrlConverter";
-import { InputType } from "../../../helpers/Input";
+import { InputTypeList } from "../../../helpers/Input";
 import { MainPath, UserProfilePath } from "../../../services/router/routes";
 import { ApiResponseCode } from "../../../helpers/apiResponseCode";
 import { loginUser } from "../../../services/api/auth/Login";
@@ -36,7 +36,7 @@ const SignInForm = () => {
 		formState: { errors },
 		control,
 		handleSubmit,
-	} = useForm<ISignInForm | any>({
+	} = useForm<ISignInForm>({
 		defaultValues: {
 			email: "",
 			password: "",
@@ -52,10 +52,6 @@ const SignInForm = () => {
 		setBaseUrl(getCorrectBaseUrl());
 	}, []);
 
-	const isAxiosError = (error: unknown): error is AxiosError => {
-		return (error as AxiosError).isAxiosError !== undefined;
-	};
-
 	const onSubmit = async (data: ISignInForm) => {
 		try {
 			setErrorMessage("");
@@ -70,10 +66,10 @@ const SignInForm = () => {
 			}
 		} catch (error) {
 			if (
-				isAxiosError(error) &&
+				axios.isAxiosError(error) &&
 				error.response &&
 				error.response.status &&
-				error.response.status >= ApiResponseCode.SERVER_ERROR_STATUS_MIN &&
+				error.response.status >= axios.HttpStatusCode.InternalServerError &&
 				error.response.status < ApiResponseCode.SERVER_ERROR_STATUS_MAX
 			) {
 				return router.push(MainPath.ServerError);
@@ -91,18 +87,18 @@ const SignInForm = () => {
 		<form className={styles.signInFormWrap} onSubmit={handleSubmit(onSubmit)}>
 			<div className={styles.signInFormContainer}>
 				<Title title={"Вход"} />
-				<Input
+				<AuthInput
 					control={control}
 					label={"Введите почту"}
-					type={InputType.Email}
+					type={InputTypeList.Email}
 					placeholder="_@_._"
 					name={"email"}
 					error={formHelpers.getEmailError(errors)}
 					rules={{ required: true, pattern: emailPattern }}
 				/>
-				<Input
+				<AuthInput
 					label={"Введите пароль"}
-					type={InputType.Password}
+					type={InputTypeList.Password}
 					placeholder="Пароль"
 					error={formHelpers.getPasswordError(errors, control._formValues.password)}
 					name={"password"}

@@ -1,10 +1,10 @@
 import { Key } from "react";
 
-import { ISelectProps } from "../../types/common/UiKitProps";
+import { ISelect } from "../../types/common/UiKitProps";
 
 import style from "./Select.module.scss";
 
-export const Select = ({ options, label }: ISelectProps) => {
+export const Select = ({ options, label }: ISelect) => {
 	return (
 		<div className={style.selectContainer}>
 			<label className={style.selectContainer__description}>{label}</label>

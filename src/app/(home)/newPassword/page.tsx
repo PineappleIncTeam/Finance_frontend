@@ -6,12 +6,12 @@ import { useForm } from "react-hook-form";
 import { AxiosError } from "axios";
 
 import { INewPassword } from "../../../types/pages/Password";
-import Input from "../../../ui/input/Input";
+import AuthInput from "../../../ui/authInput/AuthInput";
 import Title from "../../../ui/title/Title";
 import NewPasswordModal from "../../../components/mainLayout/newPasswordModal/newPasswordModal";
 import { formHelpers } from "../../../utils/formHelpers";
 import { emailPattern } from "../../../helpers/authConstants";
-import { InputType } from "../../../helpers/Input";
+import { InputTypeList } from "../../../helpers/Input";
 
 import { getCorrectBaseUrl } from "../../../utils/baseUrlConverter";
 
@@ -34,7 +34,7 @@ export default function NewPassword() {
 		control,
 		handleSubmit,
 		reset,
-	} = useForm<INewPassword | any>({
+	} = useForm<INewPassword>({
 		defaultValues: {
 			email: "",
 		},
@@ -92,18 +92,18 @@ export default function NewPassword() {
 						open={isNewPasswordModalShown}
 						toggle={() => newPasswordModalVisible(false)}
 					/>
-					<Input
+					<AuthInput
 						control={control}
 						label="Введите почту"
-						type={InputType.Email}
+						type={InputTypeList.Email}
 						placeholder="_@_._"
 						name="email"
 						error={formHelpers.getEmailError(errors)}
 						rules={{ required: true, pattern: emailPattern }}
 					/>
 					<div className={style.newPasswordFormContainer__buttons}>
-						<input className={style.backButton} type={InputType.Submit} value="Назад" />
-						<input className={style.restoreButton} type={InputType.Submit} value="Восстановить" />
+						<input className={style.backButton} type={InputTypeList.Submit} value="Назад" />
+						<input className={style.restoreButton} type={InputTypeList.Submit} value="Восстановить" />
 					</div>
 				</div>
 			</form>

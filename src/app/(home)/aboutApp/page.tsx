@@ -8,10 +8,10 @@ import Footer from "../../../components/mainLayout/footer/footer";
 
 import { transitionGoogleStore } from "../../../mocks/linkSetup";
 
-import registration from "../../../assets/pages/aboutApp/registration.png";
-import expensesIncome from "../../../assets/pages/aboutApp/expensesIncome.png";
-import analyze from "../../../assets/pages/aboutApp/analyze.png";
-import calculate from "../../../assets/pages/aboutApp/calculate.png";
+import registration from "../../../assets/pages/aboutApp/registration.webp";
+import expensesIncome from "../../../assets/pages/aboutApp/expensesIncome.webp";
+import analyze from "../../../assets/pages/aboutApp/analyze.webp";
+import calculate from "../../../assets/pages/aboutApp/calculate.webp";
 import { GooglePlayIcon } from "../../../assets/script/aboutApp/GooglePlayIcon";
 import OneNumIcon from "../../../assets/script/aboutApp/OneNumIcon.svg";
 import TwoNumIcon from "../../../assets/script/aboutApp/TwoNumIcon.svg";

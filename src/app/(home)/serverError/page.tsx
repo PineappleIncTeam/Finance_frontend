@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-import manHoldingDisconnection from "../../../assets/pages/serverError/manHoldingDisconnection.png";
+import manHoldingDisconnection from "../../../assets/pages/serverError/manHoldingDisconnection.webp";
 
 import style from "./serverError.module.scss";
 

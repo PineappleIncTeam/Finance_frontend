@@ -10,7 +10,7 @@ import { BlogArticleShareTooltip } from "../blogArticleShareTooltip/blogArticleS
 
 import { ShareIcon } from "../../../assets/script/blogArticle/ShareIcon";
 
-import mockImage from "../../../mocks/images/blogArticleMock.jpg";
+import mockImage from "../../../mocks/images/blogArticleMock.webp";
 
 import style from "./blogArticle.module.scss";
 

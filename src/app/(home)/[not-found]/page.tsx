@@ -3,7 +3,7 @@ import Link from "next/link";
 
 import { MainPath } from "../../../services/router/routes";
 
-import meditatingMan from "../../../assets/pages/notFound/meditatingMan.png";
+import meditatingMan from "../../../assets/pages/notFound/meditatingMan.webp";
 
 import styles from "./notFound.module.scss";
 

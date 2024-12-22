@@ -17,7 +17,7 @@ import { validateToken } from "../../../services/api/auth/validateToken";
 import { MainPath, UserProfilePath } from "../../../services/router/routes";
 import { mockLocalhostStr, mockLocalhostUrl } from "../../../services/api/auth/apiConstants";
 
-import logo from "../../../assets/layouts/main/logo.png";
+import logo from "../../../assets/layouts/main/logo.webp";
 import burger from "../../../assets/layouts/main/burger.svg";
 import closeElement from "../../../assets/layouts/main/closeElement.svg";
 

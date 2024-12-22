@@ -6,7 +6,7 @@ import Image from "next/image";
 
 import { IVideoElement } from "../../../types/components/ComponentsTypes";
 
-import fallback from "../../../assets/components/videoElement/fallback.png";
+import fallback from "../../../assets/components/videoElement/fallback.webp";
 
 import style from "./videoElement.module.scss";
 

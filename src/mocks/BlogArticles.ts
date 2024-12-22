@@ -1,9 +1,9 @@
 /* eslint-disable sonarjs/no-duplicate-string */
 import { IBlogArticle } from "../types/common/ComponentsProps";
 
-import moneyFlower from "../assets/pages/blogArticle/moneyFlower.png";
-import notebook from "../assets/pages/blog/notebook.png";
-import workEnvironment from "../assets/pages/blog/workEnvironment.png";
+import moneyFlower from "../assets/pages/blogArticle/moneyFlower.webp";
+import notebook from "../assets/pages/blog/notebook.webp";
+import workEnvironment from "../assets/pages/blog/workEnvironment.webp";
 
 export const blogArticles: IBlogArticle[] = [
 	{

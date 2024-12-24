@@ -5,8 +5,6 @@ import { useForm } from "react-hook-form";
 
 import { PlusIcon } from "../../../assets/script/expenses/PlusIcon";
 
-import Input from "../../../ui/input/Input";
-import { InputType } from "../../../helpers/Input";
 import { IExpensesInputForm } from "../../../types/pages/Expenses";
 import { Select } from "../../../ui/select/Select";
 import Button from "../../../ui/button/button";
@@ -17,9 +15,10 @@ import { incomeTransactions } from "../../../mocks/IncomeTransaction";
 import { formatMoney } from "../../../utils/formatMoney";
 
 import style from "./profitMoney.module.scss";
+import AppInput from "../../../ui/appInput/AppInput";
 
 function ProfitMoney() {
-	const { control } = useForm<IExpensesInputForm | any>({
+	const { control } = useForm<IExpensesInputForm>({
 		defaultValues: {
 			sum: "",
 		},
@@ -41,7 +40,7 @@ function ProfitMoney() {
 							</div>
 							<div className={style.dateSelectionWrapper}>
 								<p className={style.dateSelectionWrapper__description}>Выбор даты</p>
-								<Input control={control} label={"Выбор даты"} type={InputType.Date} name={"date"} />
+								<AppInput control={control} label={"Выбор даты"} type="date" name={"date"} />
 							</div>
 						</div>
 						<div className={style.detailsContainers}>
@@ -51,10 +50,10 @@ function ProfitMoney() {
 								</div>
 								<div className={style.detailsContainer__rightSide}>
 									<div className={style.detailsContainer__sum}>
-										<Input
+										<AppInput
 											control={control}
 											label={"Сумма"}
-											type={InputType.Number}
+											type="number"
 											name={"number"}
 											placeholder="0.00 ₽"
 										/>
@@ -70,10 +69,10 @@ function ProfitMoney() {
 								</div>
 								<div className={style.detailsContainer__rightSide}>
 									<div className={style.detailsContainer__sum}>
-										<Input
+										<AppInput
 											control={control}
 											label={"Сумма"}
-											type={InputType.Number}
+											type="number"
 											name={"number"}
 											placeholder="0.00 ₽"
 										/>

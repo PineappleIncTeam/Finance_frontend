@@ -8,8 +8,8 @@ import { PlusIcon } from "../../../assets/script/expenses/PlusIcon";
 import ExpensesTransaction from "../../../components/userProfileLayout/expensesTransaction/expensesTransaction";
 import { expensesTransactions } from "../../../mocks/ExpensesTransaction";
 
-import Input from "../../../ui/input/Input";
-import { InputType } from "../../../helpers/Input";
+import AppInput from "../../../ui/appInput/AppInput";
+import { InputTypeList } from "../../../helpers/Input";
 import { IExpensesInputForm } from "../../../types/pages/Expenses";
 import { Select } from "../../../ui/select/Select";
 import Button from "../../../ui/button/button";
@@ -17,7 +17,7 @@ import Button from "../../../ui/button/button";
 import style from "./expenses.module.scss";
 
 export default function Expenses() {
-	const { control } = useForm<IExpensesInputForm | any>({
+	const { control } = useForm<IExpensesInputForm>({
 		defaultValues: {
 			sum: "",
 		},
@@ -37,7 +37,7 @@ export default function Expenses() {
 						</div>
 						<div className={style.dateSelectionWrapper}>
 							<p className={style.dateSelectionWrapper__description}>Выбор даты</p>
-							<Input control={control} label={"Выбор даты"} type={InputType.Date} name={"date"} />
+							<AppInput control={control} label={"Выбор даты"} type={InputTypeList.Date} name={"date"} />
 						</div>
 					</div>
 					<div className={style.expensesDetailsContainer}>
@@ -45,7 +45,13 @@ export default function Expenses() {
 							<Select name={"expenses"} label={"Постоянные"} options={["Продукты", "Зарплата"]} />
 						</div>
 						<div className={style.expensesDetailsContainer__sum}>
-							<Input control={control} label={"Сумма"} type={InputType.Number} name={"number"} placeholder={"0.00 ₽"} />
+							<AppInput
+								control={control}
+								label={"Сумма"}
+								type={InputTypeList.Number}
+								name={"number"}
+								placeholder={"0.00 ₽"}
+							/>
 						</div>
 						<Button content={"Добавить"} styleName={"buttonForExpenses"}>
 							<PlusIcon classNames={style.addButtonIcon} />
@@ -56,7 +62,13 @@ export default function Expenses() {
 							<Select name={"expenses"} label={"Временные"} options={[""]} />
 						</div>
 						<div className={style.expensesDetailsContainer__sum}>
-							<Input control={control} label={"Сумма"} type={InputType.Number} name={"number"} placeholder="0.00 ₽" />
+							<AppInput
+								control={control}
+								label={"Сумма"}
+								type={InputTypeList.Number}
+								name={"number"}
+								placeholder="0.00 ₽"
+							/>
 						</div>
 						<Button content={"Добавить"} styleName={"buttonForExpenses__disabled"}>
 							<PlusIcon classNames={style.addButtonIcon} />

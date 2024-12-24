@@ -14,9 +14,20 @@ export interface IButton {
 	children?: ReactElement;
 }
 
-export type IInputFormProps = ISignUpForm | ISignInForm | INewPassword | IExpensesInputForm;
+export type TAuthInputForm = ISignUpForm | ISignInForm | INewPassword;
 
-export interface IInputProps extends UseControllerProps<IInputFormProps> {
+export type TAppInputForm = IExpensesInputForm;
+
+export interface IAuthInput extends UseControllerProps<TAuthInputForm> {
+	label: string;
+	type: string;
+	placeholder?: string;
+	autoComplete?: string;
+	subtitle?: string;
+	error?: string | FieldError | Merge<FieldError, FieldErrorsImpl<any>> | null;
+}
+
+export interface IAppInput extends UseControllerProps<TAppInputForm> {
 	label: string;
 	type: string;
 	placeholder?: string;
@@ -35,7 +46,7 @@ export interface ICustomCheckbox {
 	rules?: any;
 }
 
-export interface ISelectProps extends UseControllerProps<IExpensesSelectForm> {
+export interface ISelect extends UseControllerProps<IExpensesSelectForm> {
 	label?: string;
 	options?: string[];
 	disabled?: boolean;

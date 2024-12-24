@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 import { Dispatch, RefObject, SetStateAction, useEffect, useRef, useState } from "react";
 import cn from "classnames";
 
-import { MainPath, UserProfilePath } from "../../../services/router/routes";
+import { UserProfilePath } from "../../../services/router/routes";
 import { INavBar } from "../../../types/common/ComponentsProps";
 import { COLORS } from "../../../helpers/colorSet";
 
@@ -161,7 +161,7 @@ const NavBar = ({ onClick }: INavBar) => {
 		<header className={styles.nawBarWrap}>
 			<div className={styles.navBarContainer}>
 				<div className={styles.navBarHeader}>
-					<Link href={MainPath.Main}>
+					<Link href={UserProfilePath.ProfitMoney}>
 						<Image src={logo} alt="Логотип" className={styles.navBarHeader__img} />
 					</Link>
 					<button className={styles.closeAction} onClick={onClick}>

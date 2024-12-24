@@ -1,4 +1,4 @@
-.expensesTransactionContainer {
+.incomeTransactionContainer {
 	display: grid;
 	grid-template-columns: 25% 39% 17% 17%;
 	width: 100%;
@@ -91,6 +91,7 @@
 	width: 24px;
 	height: 24px;
 	margin-right: 8px;
+	cursor: pointer;
 
 	@media (max-width: 490px) {
 		& {
@@ -104,6 +105,7 @@
 .editIcon {
 	width: 24px;
 	height: 24px;
+	cursor: pointer;
 
 	@media (max-width: 490px) {
 		& {

@@ -67,8 +67,9 @@ export default function ChangePassword() {
 		} catch (error) {
 			if (
 				isAxiosError(error) &&
-				error?.response?.status >= ApiResponseCode.SERVER_ERROR_STATUS_MIN &&
-				error?.response?.status < ApiResponseCode.SERVER_ERROR_STATUS_MAX
+				error.response &&
+				error.response.status >= ApiResponseCode.SERVER_ERROR_STATUS_MIN &&
+				error.response.status < ApiResponseCode.SERVER_ERROR_STATUS_MAX
 			) {
 				return router.push(MainPath.ServerError);
 			}

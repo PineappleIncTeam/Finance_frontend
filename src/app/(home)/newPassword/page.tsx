@@ -24,10 +24,10 @@ import { ApiResponseCode } from "../../../helpers/apiResponseCode";
 import style from "./newPassword.module.scss";
 
 export default function NewPassword() {
-
 	const [isNewPasswordModalShown, setIsNewPasswordModalShown] = useState(false);
 	const [email, setEmail] = useState<string>("");
 	const [baseUrl, setBaseUrl] = useState<string>();
+	const seconds = 7000;
 
 	const {
 		formState: { errors },
@@ -46,6 +46,7 @@ export default function NewPassword() {
 		setEmail(data?.email ?? "");
 		restoreButtonClick(data);
 		newPasswordModalVisible(true);
+		setTimeout(() => newPasswordModalVisible(false), seconds);
 		reset();
 	};
 
@@ -67,7 +68,6 @@ export default function NewPassword() {
 		try {
 			if (baseUrl) {
 				await ResetPassword(baseUrl, data);
-				router.push(MainPath.ChangePassword);
 			} else {
 				return router.push(MainPath.ServerError);
 			}

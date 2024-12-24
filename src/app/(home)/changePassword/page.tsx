@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { AxiosError } from "axios";
 
 import { IChangePassword } from "../../../types/pages/Password";
@@ -28,6 +28,8 @@ import { MainPath } from "../../../services/router/routes";
 
 import { ApiResponseCode } from "../../../helpers/apiResponseCode";
 
+import { mockLocalhostStr, mockLocalhostUrl } from "../../../services/api/auth/apiConstants";
+
 import style from "./changePassword.module.scss";
 
 export default function ChangePassword() {
@@ -35,6 +37,10 @@ export default function ChangePassword() {
 	const [isNewPasswordShown, setIsNewPasswordShown] = useState(false);
 	const [isReNewPasswordShown, setIsReNewPasswordShown] = useState(false);
 	const [isChangePasswordModalShown, setIsChangePasswordModalShown] = useState(false);
+	const searchParams = useSearchParams();
+
+	const uid = searchParams.get("uid");
+	const token = searchParams.get("token");
 
 	useEffect(() => {
 		setBaseUrl(getCorrectBaseUrl());
@@ -48,7 +54,11 @@ export default function ChangePassword() {
 
 	const saveButtonClick = async (data: IChangePassword) => {
 		try {
-			if (baseUrl) {
+			const isLocalhost =
+				window.location.hostname.includes(mockLocalhostStr) || window.location.hostname.includes(mockLocalhostUrl);
+			if (baseUrl && !isLocalhost && uid && token) {
+				data.uid = uid;
+				data.token = token;
 				await SetPassword(baseUrl, data);
 				router.push(MainPath.Login);
 			} else {
@@ -133,9 +143,7 @@ export default function ChangePassword() {
 									<input
 										id="new_password"
 										className={style.changePasswordRow}
-
 										type={isNewPasswordShown ? InputTypeList.Text : InputTypeList.Password}
-
 										placeholder="Пароль"
 										{...field}
 										autoComplete="on"

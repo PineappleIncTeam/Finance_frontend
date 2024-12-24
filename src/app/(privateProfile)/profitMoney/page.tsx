@@ -14,8 +14,9 @@ import { incomeTransactions } from "../../../mocks/IncomeTransaction";
 
 import { formatMoney } from "../../../utils/formatMoney";
 
-import style from "./profitMoney.module.scss";
 import AppInput from "../../../ui/appInput/AppInput";
+
+import style from "./profitMoney.module.scss";
 
 function ProfitMoney() {
 	const { control } = useForm<IExpensesInputForm>({

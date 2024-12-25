@@ -5,9 +5,7 @@ import { EditIcon } from "../../../assets/script/expenses/EditIcon";
 import { IIncomeTransaction } from "../../../types/components/ComponentsTypes";
 import { ExpensesTooltip } from "../expensesTooltip/expensesTooltip";
 
-import { formatDate } from "../../../utils/formatDate";
-
-import { formatMoney } from "../../../utils/formatMoney";
+import { formatDate, formatMoney } from "../../../utils/formatData";
 
 import style from "./incomeTransaction.module.scss";
 

@@ -3,18 +3,16 @@
 import { Key } from "react";
 import { useForm } from "react-hook-form";
 
-import { PlusIcon } from "../../../assets/script/expenses/PlusIcon";
-
 import { IExpensesInputForm } from "../../../types/pages/Expenses";
 import { Select } from "../../../ui/select/Select";
+import AppInput from "../../../ui/appInput/AppInput";
 import Button from "../../../ui/button/button";
 
 import IncomeTransaction from "../../../components/userProfileLayout/incomeTranstaction/incomeTransaction";
+import { formatMoney } from "../../../utils/formatData";
 import { incomeTransactions } from "../../../mocks/IncomeTransaction";
 
-import { formatMoney } from "../../../utils/formatMoney";
-
-import AppInput from "../../../ui/appInput/AppInput";
+import { PlusIcon } from "../../../assets/script/expenses/PlusIcon";
 
 import style from "./profitMoney.module.scss";
 
@@ -51,13 +49,7 @@ function ProfitMoney() {
 								</div>
 								<div className={style.detailsContainer__rightSide}>
 									<div className={style.detailsContainer__sum}>
-										<AppInput
-											control={control}
-											label={"Сумма"}
-											type="number"
-											name={"number"}
-											placeholder="0.00 ₽"
-										/>
+										<AppInput control={control} label={"Сумма"} type="number" name={"number"} placeholder="0.00 ₽" />
 									</div>
 									<Button content={"Добавить"} styleName={"buttonForIncome__disabled"}>
 										<PlusIcon classNames={style.addButtonIcon} />
@@ -70,13 +62,7 @@ function ProfitMoney() {
 								</div>
 								<div className={style.detailsContainer__rightSide}>
 									<div className={style.detailsContainer__sum}>
-										<AppInput
-											control={control}
-											label={"Сумма"}
-											type="number"
-											name={"number"}
-											placeholder="0.00 ₽"
-										/>
+										<AppInput control={control} label={"Сумма"} type="number" name={"number"} placeholder="0.00 ₽" />
 									</div>
 									<Button content={"Добавить"} styleName={"buttonForIncome__disabled"}>
 										<PlusIcon classNames={style.addButtonIcon} />

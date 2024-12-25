@@ -20,13 +20,13 @@
 
 .footerContainer__mainPage {
 	width: 544px;
-	@media (width < 1920px) {
+	@media (max-width: 1920px) {
 		& {
 			width: 448px;
 		}
 	}
 
-	@media (width < 1440px) {
+	@media (max-width: 1440px) {
 		& {
 			width: 448px;
 		}
@@ -42,14 +42,14 @@
 	color: var(--color-eerie-black);
 	z-index: 1;
 
-	@media (width < 1280px) {
+	@media (max-width: 1280px) {
 		& {
 			width: 728px;
 			margin: 0px auto;
 		}
 	}
 
-	@media (width < 1024px) {
+	@media (max-width: 1024px) {
 		& {
 			width: 512px;
 		}
@@ -59,7 +59,7 @@
 		padding-top: 20px;
 	}
 
-	@media (width < 550px) {
+	@media (max-width: 550px) {
 		& {
 			width: 288px;
 		}
@@ -71,20 +71,20 @@
 	line-height: 2.8rem;
 	margin-bottom: 8px;
 
-	@media (width < 1440px) {
+	@media (max-width: 1440px) {
 		& {
 			font-size: 1.6rem;
 			line-height: 2.2rem;
 		}
 	}
 
-	@media (width < 1280px) {
+	@media (max-width: 1280px) {
 		& {
 			text-align: center;
 		}
 	}
 
-	@media (width < 550px) {
+	@media (max-width: 550px) {
 		& {
 			font-size: 1.1rem;
 			line-height: 1.3rem;
@@ -98,7 +98,7 @@
 	color: var(--color-dark-spring-green);
 	cursor: pointer;
 
-	@media (width < 1280px) {
+	@media (max-width: 1280px) {
 		& {
 			text-align: center;
 			font-size: 1.6rem;
@@ -106,7 +106,7 @@
 		}
 	}
 
-	@media (width < 550px) {
+	@media (max-width: 550px) {
 		& {
 			font-size: 1.1rem;
 			line-height: 1.3rem;

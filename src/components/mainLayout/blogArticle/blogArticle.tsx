@@ -32,27 +32,27 @@ export default function BlogArticle({ image, date, title, articleContent, id }: 
 	};
 
 	return (
-		<div className={style.BlogArticleContainer}>
-			<div className={style.BlogArticleContent}>
-				<div className={style.BlogArticleHeaderWrapper}>
-					<Image className={style.BlogArticleImage} src={image ?? mockImage} alt="descriptionImage" priority={true} />
-					<div className={style.BlogArticleTitleWrapper}>
-						<p className={style.BlogArticleDate}>{date}</p>
+		<div className={style.blogArticleContainer}>
+			<div className={style.blogArticleContent}>
+				<div className={style.blogArticleHeaderWrapper}>
+					<Image className={style.blogArticleImage} src={image ?? mockImage} alt="descriptionImage" priority={true} />
+					<div className={style.blogArticleTitleWrapper}>
+						<p className={style.blogArticleDate}>{date}</p>
 						<button
 							type="button"
-							className={style.BlogArticleShareIconWrap}
+							className={style.blogArticleShareIconWrap}
 							onClick={() => {
 								clickShare();
 							}}>
-							<ShareIcon classNames={style.BlogArticleShareIcon} />
+							<ShareIcon classNames={style.blogArticleShareIcon} />
 						</button>
 						<BlogArticleShareTooltip open={isArticleShareTooltipShown} />
-						<h1 className={style.BlogArticleTitle}>{title}</h1>
+						<h1 className={style.blogArticleTitle}>{title}</h1>
 					</div>
 				</div>
 				{articleContent.map((paragraphContent, index) => (
 					<li key={index}>
-						<p className={style.BlogArticleText}>{paragraphContent}</p>
+						<p className={style.blogArticleText}>{paragraphContent}</p>
 					</li>
 				))}
 			</div>

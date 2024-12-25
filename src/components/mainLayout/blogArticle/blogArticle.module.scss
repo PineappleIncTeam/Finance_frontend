@@ -1,4 +1,4 @@
-.BlogArticleContainer {
+.blogArticleContainer {
 	width: 900px;
 	height: 638px;
 	border-radius: 20px;
@@ -40,7 +40,7 @@
 	}
 }
 
-.BlogArticleContent {
+.blogArticleContent {
 	width: 836px;
 	height: 554px;
 	overflow-y: scroll;
@@ -69,7 +69,7 @@
 	}
 }
 
-.BlogArticleHeaderWrapper {
+.blogArticleHeaderWrapper {
 	display: flex;
 	flex-direction: row;
 
@@ -79,7 +79,7 @@
 	}
 }
 
-.BlogArticleTitleWrapper {
+.blogArticleTitleWrapper {
 	display: flex;
 	flex-direction: column;
 	padding-left: 20px;
@@ -95,7 +95,7 @@
 	}
 }
 
-.BlogArticleTitle {
+.blogArticleTitle {
 	font-size: 2.4rem;
 	font-weight: 500;
 	line-height: 3.2rem;
@@ -130,7 +130,7 @@
 	}
 }
 
-.BlogArticleDate {
+.blogArticleDate {
 	font-size: 2rem;
 	font-weight: 400;
 	line-height: 2.8rem;
@@ -146,7 +146,7 @@
 	}
 }
 
-.BlogArticleText {
+.blogArticleText {
 	font-size: 2rem;
 	font-weight: 400;
 	line-height: 2.8rem;
@@ -170,7 +170,7 @@
 	}
 }
 
-.BlogArticleImage {
+.blogArticleImage {
 	width: 338px;
 	height: 200px;
 
@@ -197,7 +197,7 @@
 	}
 }
 
-.BlogArticleShareIconWrap {
+.blogArticleShareIconWrap {
 	position: relative;
 	width: 32px;
 	height: 32px;
@@ -224,7 +224,7 @@
 	}
 }
 
-.BlogArticleShareIcon {
+.blogArticleShareIcon {
 	position: absolute;
 	width: 32px;
 	height: 32px;

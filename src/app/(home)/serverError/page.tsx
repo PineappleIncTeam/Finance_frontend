@@ -8,7 +8,7 @@ function ServerErrorPage() {
 	return (
 		<div className={style.serverErrorWrap}>
 			<Image className={style.manHoldingDisconnection} src={manHoldingDisconnection} alt="man holding disconnection" />
-			<div className={style.infoContainer}>
+			<div className={style.serverErrorContainer}>
 				<h1 className={style.serverErrorContainer__title}>Ошибка на сервере...</h1>
 				<p className={style.serverErrorContainer__subtitle}>
 					Приложение еще активно разрабатывается и ошибки случаются...

@@ -1,4 +1,4 @@
-.pageWrap {
+.profitMoneyPageWrap {
 	width: 100%;
 	height: 100%;
 	background-color: var(--color-silver-gray);
@@ -10,7 +10,7 @@
 	}
 }
 
-.pageContainer {
+.profitMoneyPageContainer {
 	display: flex;
 	flex-direction: column;
 	gap: 20px;
@@ -33,7 +33,7 @@
 	}
 }
 
-.container {
+.formContentContainer {
 	padding: 24px 36px;
 	display: flex;
 	flex-direction: column;

@@ -1,11 +1,11 @@
 import { useState } from "react";
 
-import { DeleteIcon } from "../../../assets/script/expenses/DeleteIcon";
-import { EditIcon } from "../../../assets/script/expenses/EditIcon";
 import { IIncomeTransaction } from "../../../types/components/ComponentsTypes";
 import { ExpensesTooltip } from "../expensesTooltip/expensesTooltip";
-
 import { formatDate, formatMoney } from "../../../utils/formatData";
+
+import { DeleteIcon } from "../../../assets/script/expenses/DeleteIcon";
+import { EditIcon } from "../../../assets/script/expenses/EditIcon";
 
 import style from "./incomeTransaction.module.scss";
 

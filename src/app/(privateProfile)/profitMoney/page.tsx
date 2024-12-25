@@ -26,11 +26,12 @@ function ProfitMoney() {
 	});
 
 	const incomeMoney = 200000;
+
 	return (
-		<div className={style.pageWrap}>
-			<div className={style.pageContainer}>
+		<div className={style.profitMoneyPageWrap}>
+			<div className={style.profitMoneyPageContainer}>
 				<form className={style.formContentWrapper}>
-					<div className={style.container}>
+					<div className={style.formContentContainer}>
 						<h1 className={style.headerTitle}>Доходы</h1>
 						<div className={style.byDateContainer}>
 							<div className={style.totalMonthlyWrapper}>

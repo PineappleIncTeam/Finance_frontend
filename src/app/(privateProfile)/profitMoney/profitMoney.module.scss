@@ -1,14 +1,8 @@
-.expensesPageWrap {
-	padding: 10px;
-	width: 66%;
-	height: 93%;
+.pageWrap {
+	width: 100%;
+	height: 100%;
 	background-color: var(--color-silver-gray);
 
-	@media (max-width: 1210px) {
-		& {
-			width: 63%;
-		}
-	}
 	@media (max-width: 1100px) {
 		& {
 			width: 100%;
@@ -16,14 +10,16 @@
 	}
 }
 
-.expensesPageContainer {
+.pageContainer {
 	display: flex;
 	flex-direction: column;
+	gap: 20px;
 	height: 100%;
 	background-color: var(--color-silver-gray);
 }
 
-.expensesFormContentWrapper {
+.formContentWrapper {
+	flex: 1 0 auto;
 	height: 572px;
 	border-radius: 20px;
 	background-color: var(--color-pure-light);
@@ -37,25 +33,43 @@
 	}
 }
 
+.container {
+	padding: 24px 36px;
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+	width: 100%;
+	@media (max-width: 1440px) {
+		padding: 20px 28px;
+	}
+
+	@media (max-width: 1024px) {
+		padding: 20px 24px;
+	}
+
+	@media (max-width: 500px) {
+		padding: 0;
+	}
+}
+
 .headerTitle {
 	font-weight: 500;
 	font-size: 3.6rem;
 	line-height: 4.4rem;
-	margin: 16px 34px;
 
 	@media (max-width: 490px) {
-		margin: 16px 0px;
+		margin-bottom: 16px;
 	}
 }
 
-.expensesByDateContainer {
+.byDateContainer {
 	display: flex;
-	height: 118px;
-	gap: 30px;
+	max-height: 118px;
+	gap: 40px;
 
 	@media (max-width: 1440px) {
 		& {
-			gap: 16px;
+			gap: 28px;
 		}
 	}
 
@@ -71,29 +85,31 @@
 	max-width: 420px;
 	background-color: var(--color-dark-sea-green);
 	width: 37%;
-	margin-left: 34px;
-	padding-top: 16px;
-	padding-left: 20px;
+	padding: 16px 20px;
 	border-radius: 12px;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	justify-content: flex-start;
+	gap: 10px;
 
 	&__month {
 		font-size: 2rem;
 		line-height: 2.8rem;
+
 		color: var(--color-pure-light);
 	}
 
 	&__sum {
 		font-weight: 500;
 		font-size: 2.4rem;
-		line-height: 3.2px;
+		line-height: 3.2rem;
 		color: var(--color-pure-light);
-		margin-top: 20px;
 	}
 
 	@media (max-width: 1440px) {
 		& {
 			width: 42%;
-			margin-left: 14px;
 		}
 	}
 
@@ -109,17 +125,11 @@
 		}
 	}
 
-	@media (max-width: 550px) {
-		& {
-			margin-left: 8px;
-		}
-	}
-
 	@media (max-width: 490px) {
 		& {
+			padding: 10px 26px;
 			width: 49%;
-			margin-left: 0;
-			padding-top: 10px;
+			gap: 4px;
 		}
 
 		&__month {
@@ -132,7 +142,6 @@
 			font-size: 1.6rem;
 			line-height: 2.2rem;
 			font-weight: 400;
-			margin-top: 6px;
 		}
 	}
 }
@@ -140,8 +149,8 @@
 .dateSelectionWrapper {
 	max-width: 400px;
 	background-color: var(--color-light-grayish-green);
-	width: 37%;
-	padding: 16px;
+	width: 58%;
+	padding: 16px 20px;
 	border-radius: 12px;
 
 	&__description {
@@ -183,62 +192,98 @@
 	}
 }
 
-.expensesDetailsContainer {
+.detailsContainers {
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+}
+
+.detailsContainer {
 	display: flex;
 	flex-direction: row;
 	align-items: flex-end;
-	gap: 20px;
+
+	gap: 40px;
 	height: 88px;
-	margin-top: 30px;
 
 	&__category {
 		display: flex;
 		flex-direction: column;
+		width: 420px;
 		width: 37%;
-		margin-left: 34px;
+	}
+
+	&__rightSide {
+		display: flex;
+		flex-direction: row;
+		align-items: flex-end;
+		gap: 40px;
+		width: 58%;
+
+		@media (max-width: 1440px) {
+			& {
+				width: 55%;
+				gap: 28px;
+			}
+		}
+
+		@media (max-width: 800px) {
+			& {
+				gap: 16px;
+				width: 48%;
+			}
+		}
+
+		@media (max-width: 490px) {
+			& {
+				gap: 14px;
+				width: 49%;
+			}
+		}
 	}
 
 	&__sum {
 		display: flex;
 		flex-direction: column;
-		width: 37%;
+		max-width: 400px;
+		width: 100%;
 	}
 
 	@media (max-width: 1440px) {
+		gap: 28px;
 		&__category {
 			width: 42%;
-			margin-left: 14px;
-		}
-
-		&__sum {
-			width: 31%;
 		}
 	}
 
 	@media (max-width: 1100px) {
 		&__category {
 			width: 38%;
-		}
-
-		&__sum {
-			width: 38%;
+			gap: 24px;
 		}
 	}
 
 	@media (max-width: 800px) {
 		&__category {
 			width: 45%;
+			gap: 16px;
+		}
+		&__sum {
+			width: auto;
 		}
 	}
 
 	@media (max-width: 490px) {
+		&__category {
+			width: 49%;
+		}
 		& {
+			gap: 14px;
 			height: 38px;
-			margin-top: 20px;
 		}
 
 		&__category {
-			margin-left: 2px;
+			gap: 8px;
 		}
 	}
 }
@@ -261,23 +306,28 @@
 	}
 }
 
-.expensesTransactionsWrapper {
-	height: 296px;
-	margin-top: 20px;
+.transactionsWrapper {
+	max-height: 300px;
 	border-radius: 20px;
+	padding: 24px 36px;
 	background-color: var(--color-pure-light);
 
+	@media (max-width: 1440px) {
+		padding: 20px 24px;
+	}
+
 	@media (max-width: 490px) {
-		height: 214px;
+		max-height: 214px;
 		border-radius: 0;
+		padding: 0;
 	}
 }
 
-.expensesTransactionHeader {
+.transactionHeader {
 	font-size: 2.4rem;
 	line-height: 3.2rem;
 	font-weight: 500;
-	margin: 12px;
+	margin-bottom: 20px;
 
 	@media (max-width: 490px) {
 		& {
@@ -287,6 +337,12 @@
 			margin: 0 16px;
 		}
 	}
+}
+
+.transactions {
+	display: flex;
+	flex-direction: column;
+	width: 100%;
 }
 
 .transactionsContainer {

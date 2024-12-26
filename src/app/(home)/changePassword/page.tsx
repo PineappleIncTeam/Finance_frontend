@@ -55,7 +55,7 @@ export default function ChangePassword() {
 			}
 		} catch (error) {
 			if (
-				axios.isAxiosError &&
+				axios.isAxiosError(error) &&
 				error.response &&
 				error.response.status >= ApiResponseCode.SERVER_ERROR_STATUS_MIN &&
 				error.response.status < ApiResponseCode.SERVER_ERROR_STATUS_MAX

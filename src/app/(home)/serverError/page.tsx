@@ -7,8 +7,13 @@ import style from "./serverError.module.scss";
 function ServerErrorPage() {
 	return (
 		<div className={style.serverErrorWrap}>
-			<Image className={style.manHoldingDisconnection} src={manHoldingDisconnection} alt="man holding disconnection" />
-			<div className={style.serverErrorContainer}>
+			<Image
+				className={style.manHoldingDisconnection}
+				src={manHoldingDisconnection}
+				priority={true}
+				alt="man holding disconnection"
+			/>
+			<div className={style.infoContainer}>
 				<h1 className={style.serverErrorContainer__title}>Ошибка на сервере...</h1>
 				<p className={style.serverErrorContainer__subtitle}>
 					Приложение еще активно разрабатывается и ошибки случаются...

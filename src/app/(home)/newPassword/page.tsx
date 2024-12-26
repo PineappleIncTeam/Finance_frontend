@@ -15,7 +15,7 @@ import { InputTypeList } from "../../../helpers/Input";
 
 import { getCorrectBaseUrl } from "../../../utils/baseUrlConverter";
 
-import { ResetPassword } from "../../../services/api/auth/ResetPassword";
+import { ResetPasswordWithEmail } from "../../../services/api/auth/ResetPasswordWithEmail";
 
 import { MainPath } from "../../../services/router/routes";
 
@@ -66,7 +66,7 @@ export default function NewPassword() {
 	const restoreButtonClick = async (data: INewPassword) => {
 		try {
 			if (baseUrl) {
-				await ResetPassword(baseUrl, data);
+				await ResetPasswordWithEmail(baseUrl, data);
 			} else {
 				return router.push(MainPath.ServerError);
 			}

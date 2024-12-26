@@ -4,7 +4,6 @@ import cn from "classnames";
 import Image from "next/image";
 
 import { TAppInputForm, IAppInput } from "../../types/common/UiKitProps";
-
 import { InputTypeList } from "../../helpers/Input";
 
 import showPassword from "../../assets/pages/signUp/showPassword.svg";
@@ -12,12 +11,13 @@ import showPassword from "../../assets/pages/signUp/showPassword.svg";
 import styles from "./AppInput.module.scss";
 
 const AppInput = ({ label, type, placeholder, autoComplete, subtitle, error, ...props }: IAppInput) => {
-	const { field, fieldState } = useController<TAppInputForm>(props);
 	const [passwordType, setPasswordType] = useState<InputTypeList>(InputTypeList.Password);
-	const togglePasswordVisibility = () =>
-		setPasswordType(passwordType === InputTypeList.Password ? InputTypeList.Text : InputTypeList.Password);
+	const { field, fieldState } = useController<TAppInputForm>(props);
 
 	const value = typeof field.value === "boolean" ? String(field.value) : field.value;
+
+	const togglePasswordVisibility = () =>
+		setPasswordType(passwordType === InputTypeList.Password ? InputTypeList.Text : InputTypeList.Password);
 
 	return (
 		<div className={styles.inputWrap}>

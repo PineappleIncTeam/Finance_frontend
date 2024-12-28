@@ -29,7 +29,7 @@ const UserProfileSidebar = ({ avatar, name, balance }: IUserProfileSidebar) => {
 		const year = today.getFullYear().toString().slice(LastTwoDigits.LAST_TWO_DIGITS);
 
 		const formattedDate = `${day}.${month}.${year}`;
-		setCurrentDate(formattedDate); // eslint-disable-next-line react-hooks/exhaustive-deps
+		setCurrentDate(formattedDate);
 	}, []);
 
 	const renderProfileFunctions = (title: string, onClick?: TCommonFunction) => {
@@ -55,14 +55,16 @@ const UserProfileSidebar = ({ avatar, name, balance }: IUserProfileSidebar) => {
 	return (
 		<>
 			<div className={style.userProfileWrap}>
-				<div className={style.navigationWrap}>
+				<div className={style.header}>
 					<Link href={""}>
-						<p className={style.navigationWrap__link}>FAQ</p>
+						<p className={style.header__link}>FAQ</p>
 					</Link>
 					<Link href={""}>
-						<p className={style.navigationWrap__link}>Поддержка</p>
+						<p className={style.header__link}>Поддержка</p>
 					</Link>
-					<Image src={infoIcon} alt={"info"} />
+					<Link href={""}>
+						<Image src={infoIcon} alt={"info"} />
+					</Link>
 				</div>
 				<div className={style.userProfileContainer}>
 					<div className={style.userInformationWrap}>

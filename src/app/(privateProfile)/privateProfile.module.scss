@@ -3,6 +3,7 @@
 	justify-content: space-between;
 	background-color: var(--color-silver-gray);
 	gap: 20px;
+	min-height: 100vh;
 }
 
 .privateProfile__navBar {
@@ -30,11 +31,6 @@
 .privateProfile__sideBar {
 	flex: 1 0 auto;
 	max-width: 400px;
-	// @media (max-width: 1100px) {
-	// 	& {
-	// 		display: none;
-	// 	}
-	// }
 }
 
 .privateProfileHeader {

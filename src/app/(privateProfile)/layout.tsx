@@ -3,7 +3,7 @@ import "../globals.css";
 
 import NavBar from "../../components/userProfileLayout/navBar/navBar";
 import UserProfileHeader from "../../components/userProfileLayout/userProfileHeader/userProfileHeader";
-import UserProfile from "../../components/userProfileLayout/userProfileSidebar/userProfileSidebar";
+import UserProfileSidebar from "../../components/userProfileLayout/userProfileSidebar/userProfileSidebar";
 
 import styles from "./privateProfile.module.scss";
 
@@ -27,16 +27,11 @@ export default function RootLayout({
 						<NavBar />
 					</div>
 					<div className={styles.privateProfileContent}>
-						<div className={styles.privateProfileHeader}>
-							<UserProfileHeader />
-						</div>
-						<div className={styles.privateProfileUserInterface}>
-							<UserProfile />
-							<div className={styles.privateProfileHeader__adaptive}>
-								<UserProfileHeader />
-							</div>
-							{children}
-						</div>
+						<UserProfileHeader />
+						{children}
+					</div>
+					<div className={styles.privateProfileWrap__sideBar}>
+						<UserProfileSidebar />
 					</div>
 				</div>
 			</body>

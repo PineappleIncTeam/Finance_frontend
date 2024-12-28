@@ -2,43 +2,12 @@
 	display: flex;
 	justify-content: space-between;
 	background-color: var(--color-silver-gray);
-}
-
-.privateProfileContent {
-	display: flex;
-	flex-direction: column;
-	flex: 1;
-	align-items: flex-end;
-	position: relative;
-	@media (max-width: 1100px) {
-		& {
-			gap: 16px;
-		}
-	}
-}
-
-.privateProfileUserInterface {
-	display: flex;
-	justify-content: space-between;
-	padding-left: 20px;
-	margin-bottom: 20px;
-	width: 100%;
-	height: calc(100% - 120px);
-	flex-direction: row-reverse;
 	gap: 20px;
-	@media (max-width: 1100px) {
-		& {
-			flex-direction: column;
-			padding: 50px 17px 0;
-			gap: 16px;
-		}
-	}
-	@media (max-width: 420px) {
-		gap: 20px;
-	}
 }
 
 .privateProfileWrap__navBar {
+	flex: 1 0 auto;
+	max-width: 400px;
 	@media (max-width: 1100px) {
 		& {
 			display: none;
@@ -46,14 +15,23 @@
 	}
 }
 
-.privateProfileHeader__adaptive {
-	display: none;
-	@media (max-width: 1100px) {
-		& {
-			display: inline;
-		}
-	}
+.privateProfileContent {
+	display: flex;
+	flex-direction: column;
+	flex: 1;
+	position: relative;
 }
+
+.privateProfileWrap__sideBar {
+	flex: 1 0 auto;
+	max-width: 400px;
+	// @media (max-width: 1100px) {
+	// 	& {
+	// 		display: none;
+	// 	}
+	// }
+}
+
 .privateProfileHeader {
 	display: block;
 	width: 100%;
@@ -63,3 +41,12 @@
 		}
 	}
 }
+
+// .privateProfileHeader__adaptive {
+// 	display: none;
+// 	@media (max-width: 1100px) {
+// 		& {
+// 			display: inline;
+// 		}
+// 	}
+// }

@@ -14,6 +14,7 @@ import { MainPath } from "../../../services/router/routes";
 import burgerIcon from "../../../assets/components/userProfile/burger.svg";
 import NavBar from "../navBar/navBar";
 import editProfileIcon from "../../../assets/components/userProfile/editProfile.svg";
+import infoIcon from "../../../assets/components/userProfile/infoIcon.svg";
 
 import style from "./userProfileSidebar.module.scss";
 
@@ -54,6 +55,15 @@ const UserProfileSidebar = ({ avatar, name, balance }: IUserProfileSidebar) => {
 	return (
 		<>
 			<div className={style.userProfileWrap}>
+				<div className={style.navigationWrap}>
+					<Link href={""}>
+						<p className={style.navigationWrap__link}>FAQ</p>
+					</Link>
+					<Link href={""}>
+						<p className={style.navigationWrap__link}>Поддержка</p>
+					</Link>
+					<Image src={infoIcon} alt={"info"} />
+				</div>
 				<div className={style.userProfileContainer}>
 					<div className={style.userInformationWrap}>
 						<div className={style.userInformationWrap_images}>

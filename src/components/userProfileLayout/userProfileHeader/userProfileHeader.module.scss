@@ -111,35 +111,6 @@
 	}
 }
 
-.navigationWrap {
-	display: flex;
-	align-items: center;
-	gap: 53px;
-
-	@media (max-width: 1440px) {
-		& {
-			gap: 40px;
-		}
-	}
-	@media (max-width: 1100px) {
-		& {
-			display: none;
-		}
-	}
-}
-
-.navigationWrap__link {
-	font-size: 2.6rem;
-	font-weight: 400;
-	color: var(--color-dark-spring-green);
-
-	@media (max-width: 1440px) {
-		& {
-			font-size: 2rem;
-		}
-	}
-}
-
 .currencyRateContainer {
 	width: 100%;
 	max-width: 830px;
@@ -151,7 +122,7 @@
 			max-width: 660px;
 		}
 	}
-	
+
 	@media (max-width: 768px) {
 		& {
 			max-width: 320px;

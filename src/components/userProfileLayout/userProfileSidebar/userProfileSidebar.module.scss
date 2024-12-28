@@ -1,3 +1,32 @@
+.navigationWrap {
+	display: flex;
+	align-items: center;
+	gap: 53px;
+
+	@media (max-width: 1440px) {
+		& {
+			gap: 40px;
+		}
+	}
+	@media (max-width: 1100px) {
+		& {
+			display: none;
+		}
+	}
+}
+
+.navigationWrap__link {
+	font-size: 2.6rem;
+	font-weight: 400;
+	color: var(--color-dark-spring-green);
+
+	@media (max-width: 1440px) {
+		& {
+			font-size: 2rem;
+		}
+	}
+}
+
 .userProfileWrap {
 	width: 350px;
 	background: var(--color-pure-light);
@@ -224,7 +253,7 @@
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-	
+
 	@media (max-width: 1100px) {
 		& {
 			display: none;

@@ -1,41 +1,13 @@
 .userProfileHeaderWrap {
+	padding-top: 50px;
+	padding-bottom: 30px;
 	width: 100%;
-	height: 120px;
-	line-height: 12rem;
-
-	@media (max-width: 1100px) {
-		& {
-			background: var(--color-ghost-white);
-			height: 80px;
-			line-height: 8rem;
-			border-radius: 12px;
-		}
-	}
-
-	@media (max-width: 768px) {
-		& {
-			display: flex;
-			justify-content: flex-start;
-			align-items: center;
-			line-height: normal;
-		}
-	}
-
-	@media (max-width: 420px) {
-		& {
-			height: 65px;
-		}
-	}
 }
 .userProfileHeaderContainer {
 	width: 95%;
 	margin: 0 auto;
-}
-
-.currencyRateWrap {
 	display: flex;
-	align-items: center;
-	justify-content: space-between;
+	flex-direction: row;
 }
 
 .currencyRateWrap__titles {
@@ -55,7 +27,7 @@
 		}
 	}
 }
-.currencyRateWrap__titles_valuta {
+.currencyRateWrap__exchange {
 	flex: 1;
 	margin-left: 15px;
 
@@ -75,64 +47,6 @@
 	@media (max-width: 768px) {
 		& {
 			color: var(--color-dark-cyan-blue);
-		}
-	}
-}
-
-.cryptoWrap {
-	display: flex;
-	align-items: center;
-	margin-right: 10px;
-}
-
-.cryptoWrap__icon {
-	display: block;
-
-	@media (max-width: 768px) {
-		& {
-			display: none;
-		}
-	}
-}
-.cryptoWrap__iconBlack {
-	display: none;
-
-	@media (max-width: 768px) {
-		& {
-			display: block;
-		}
-	}
-
-	@media (max-width: 420px) {
-		& {
-			width: 14px;
-			height: 14px;
-		}
-	}
-}
-
-.currencyRateContainer {
-	width: 100%;
-	max-width: 830px;
-	display: flex;
-	justify-content: space-between;
-
-	@media (max-width: 1440px) {
-		& {
-			max-width: 660px;
-		}
-	}
-
-	@media (max-width: 768px) {
-		& {
-			max-width: 320px;
-			flex-wrap: wrap;
-		}
-	}
-
-	@media (max-width: 420px) {
-		& {
-			max-width: 200px;
 		}
 	}
 }

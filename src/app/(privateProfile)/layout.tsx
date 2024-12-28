@@ -23,14 +23,14 @@ export default function RootLayout({
 		<html lang="en">
 			<body>
 				<div className={styles.privateProfileWrap}>
-					<div className={styles.privateProfileWrap__navBar}>
+					<div className={styles.privateProfile__navBar}>
 						<NavBar />
 					</div>
-					<div className={styles.privateProfileContent}>
+					<div className={styles.privateProfile__main}>
 						<UserProfileHeader />
-						{children}
+						<div className={styles.privateProfileContent}>{children}</div>
 					</div>
-					<div className={styles.privateProfileWrap__sideBar}>
+					<div className={styles.privateProfile__sideBar}>
 						<UserProfileSidebar />
 					</div>
 				</div>

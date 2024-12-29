@@ -10,6 +10,19 @@
 			padding: 50px 30px;
 		}
 	}
+
+	@media (max-width: 768px) {
+		& {
+			padding: 36px;
+		}
+	}
+
+	@media (max-width: 420px) {
+		& {
+			padding: 48px 16px 40px;
+			background-color: var(--color-pure-light);
+		}
+	}
 }
 
 .privateProfile__navBar {
@@ -51,6 +64,19 @@
 	@media (max-width: 1100px) {
 		& {
 			gap: 30px;
+			min-width: 100%;
+		}
+	}
+
+	@media (max-width: 768px) {
+		& {
+			gap: 16px;
+		}
+	}
+
+	@media (max-width: 420px) {
+		& {
+			gap: 20px;
 		}
 	}
 }

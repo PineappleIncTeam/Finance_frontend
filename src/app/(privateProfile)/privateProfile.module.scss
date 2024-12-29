@@ -4,6 +4,12 @@
 	background-color: var(--color-silver-gray);
 	gap: 20px;
 	min-height: 100vh;
+
+	@media (max-width: 1100px) {
+		& {
+			padding: 50px 30px;
+		}
+	}
 }
 
 .privateProfile__navBar {
@@ -41,11 +47,22 @@
 			min-width: 560px;
 		}
 	}
+
+	@media (max-width: 1100px) {
+		& {
+			gap: 30px;
+		}
+	}
 }
 
 .privateProfileContent {
 	margin-bottom: 14px;
 	height: 100%;
+	@media (max-width: 1100px) {
+		& {
+			margin-bottom: 0;
+		}
+	}
 }
 
 .privateProfile__sideBar {
@@ -58,14 +75,20 @@
 			max-width: 290px;
 		}
 	}
-}
-
-.privateProfileHeader {
-	display: block;
-	width: 100%;
 	@media (max-width: 1100px) {
 		& {
 			display: none;
+		}
+	}
+}
+
+.mobileMenu {
+	display: none;
+	width: 100%;
+
+	@media (max-width: 1100px) {
+		& {
+			display: flex;
 		}
 	}
 }

@@ -3,6 +3,13 @@
 	flex-direction: column;
 	max-width: 350px;
 	height: 100%;
+
+	@media (max-width: 1100px) {
+		& {
+			max-width: 100%;
+			width: 100%;
+		}
+	}
 }
 
 .header {
@@ -12,6 +19,12 @@
 	padding-bottom: 30px;
 	width: 95%;
 	margin: 0 auto;
+
+	@media (max-width: 1100px) {
+		& {
+			display: none;
+		}
+	}
 }
 
 .header__link {
@@ -32,6 +45,15 @@
 	margin-bottom: 14px;
 	border-radius: 20px;
 	height: 100%;
+
+	@media (max-width: 1100px) {
+		& {
+			padding: 20px 24px;
+			margin: 0;
+			border-radius: 12px;
+			background-color: var(--color-dark-spring-green);
+		}
+	}
 }
 
 .userProfileContainer {
@@ -50,6 +72,7 @@
 	@media (max-width: 1100px) {
 		& {
 			max-width: 100%;
+			width: 100%;
 			margin: 0;
 			flex-direction: row;
 			justify-content: space-between;
@@ -138,11 +161,15 @@
 	line-height: 3.5rem;
 	font-weight: 400;
 	color: var(--color-star-dust);
+	display: flex;
+	flex-direction: column;
 
 	@media (max-width: 1100px) {
 		& {
 			font-size: 1.6rem;
 			line-height: 1;
+			flex-direction: row;
+			gap: 0.5rem;
 		}
 	}
 
@@ -160,6 +187,7 @@
 
 	@media (max-width: 1100px) {
 		& {
+			padding-top: 0;
 			color: var(--color-pure-light);
 			border-bottom: 1px solid var(--color-pure-light);
 		}

@@ -77,8 +77,10 @@ const UserProfileSidebar = ({ avatar, name, balance }: IUserProfileSidebar) => {
 							</div>
 							<p className={style.userInformationWrap__name}>{name || "Имя"}</p>
 							<div className={style.userInformationWrap__adaptive}>
-								<p className={style.userInformationWrap__date}>Ваш баланс на</p>
-								<p className={style.userInformationWrap__date}>{currentDate}</p>
+								<div className={style.userInformationWrap__date}>
+									<p>Ваш баланс на</p>
+									<p>{currentDate}</p>
+								</div>
 								<p className={style.userInformationWrap__balance}>{balance || 0} ₽</p>
 							</div>
 						</div>

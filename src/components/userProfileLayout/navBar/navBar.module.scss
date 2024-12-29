@@ -1,6 +1,6 @@
 .nawBarWrap {
 	padding-top: 50px;
-	min-width: 395px;
+	max-width: 400px;
 	background: var(--color-dark-sea-green);
 	overflow: hidden;
 	display: flex;
@@ -8,11 +8,7 @@
 	position: relative;
 	left: 0;
 	height: 100%;
-	@media (max-width: 1440px) {
-		& {
-			min-width: 320px;
-		}
-	}
+
 	@media (max-width: 1100px) {
 		& {
 			min-width: 465px;

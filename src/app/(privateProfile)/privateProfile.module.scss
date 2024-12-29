@@ -7,8 +7,19 @@
 }
 
 .privateProfile__navBar {
-	flex: 1 0 auto;
+	flex: 1 1 auto;
 	max-width: 400px;
+
+	width: 100%;
+
+	@media (max-width: 1440px) {
+		& {
+			flex-shrink: 1;
+			max-width: 320px;
+			min-width: 260px;
+		}
+	}
+
 	@media (max-width: 1100px) {
 		& {
 			display: none;
@@ -19,8 +30,17 @@
 .privateProfile__main {
 	display: flex;
 	flex-direction: column;
-	flex: 1;
+	flex: 1 1 auto;
 	position: relative;
+	min-width: 790px;
+
+	@media (max-width: 1440px) {
+		& {
+			flex-shrink: 1;
+			min-width: auto;
+			min-width: 560px;
+		}
+	}
 }
 
 .privateProfileContent {
@@ -29,8 +49,15 @@
 }
 
 .privateProfile__sideBar {
-	flex: 1 0 auto;
+	flex: 1 1 auto;
 	max-width: 400px;
+	width: 100%;
+
+	@media (max-width: 1440px) {
+		& {
+			max-width: 290px;
+		}
+	}
 }
 
 .privateProfileHeader {

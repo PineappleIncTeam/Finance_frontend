@@ -10,6 +10,8 @@
 	justify-content: space-between;
 	padding-top: 50px;
 	padding-bottom: 30px;
+	width: 95%;
+	margin: 0 auto;
 }
 
 .header__link {
@@ -24,15 +26,26 @@
 	}
 }
 
+.userProfileMain {
+	background-color: var(--color-pure-light);
+	padding-top: 50px;
+	margin-bottom: 14px;
+	border-radius: 20px;
+	height: 100%;
+}
+
 .userProfileContainer {
 	display: flex;
 	flex-direction: column;
-	background-color: var(--color-pure-light);
-	padding: 50px 30px 0;
-	margin-bottom: 14px;
-	border-radius: 20px;
 	gap: 32px;
-	height: 100%;
+	margin: 0 30px;
+
+	@media (max-width: 1440px) {
+		& {
+			width: 86%;
+			margin: 0 auto;
+		}
+	}
 
 	@media (max-width: 1100px) {
 		& {
@@ -140,6 +153,7 @@
 	}
 }
 .userInformationWrap__balance {
+	padding-top: 16px;
 	font-size: 2.6rem;
 	font-weight: 400;
 	color: var(--color-eerie-black);
@@ -173,13 +187,13 @@
 .userProfileFunctions {
 	display: flex;
 	flex-direction: column;
-	gap: 12px;
+	gap: 14px;
 }
 
 .userProfileNavigation {
 	display: flex;
 	flex-direction: column;
-	gap: 12px;
+	gap: 14px;
 
 	@media (max-width: 1100px) {
 		& {

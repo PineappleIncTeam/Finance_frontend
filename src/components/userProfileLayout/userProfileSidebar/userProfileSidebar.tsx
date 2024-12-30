@@ -28,7 +28,7 @@ const UserProfileSidebar = ({ avatar, name, balance }: IUserProfileSidebar) => {
 		const year = today.getFullYear().toString().slice(LastTwoDigits.LAST_TWO_DIGITS);
 
 		const formattedDate = `${day}.${month}.${year}`;
-		setCurrentDate(formattedDate); // eslint-disable-next-line react-hooks/exhaustive-deps
+		setCurrentDate(formattedDate);
 	}, []);
 
 	const renderProfileFunctions = (title: string, onClick?: TCommonFunction) => {

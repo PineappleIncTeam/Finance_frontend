@@ -25,7 +25,6 @@ const UserProfileHeader = ({ dollar, euro, crypto }: ICurrentRate) => {
 
 		const formattedDate = `${day}.${month}.${year}`;
 		setCurrentDate(formattedDate);
-		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	return (

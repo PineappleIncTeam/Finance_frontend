@@ -2,7 +2,7 @@
 
 import { ITitle } from "../../types/common/UiKitProps";
 
-import styles from "./Title.module.css";
+import styles from "./Title.module.scss";
 
 const Title = ({ title }: ITitle) => {
 	return <h1 className={styles.titleWrap}>{title}</h1>;

@@ -15,7 +15,7 @@ function BlogPage() {
 	const router = useRouter();
 	const params = useParams();
 
-	const blogArticleData = blogArticles[+params.blogPageId - 1];
+	const blogArticleData = blogArticles[+(params?.blogPageId ?? 2) - 1];
 
 	return (
 		<div className={style.BlogPageWrap}>

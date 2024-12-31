@@ -49,7 +49,7 @@
 .closeActionElement {
 	width: 36px;
 	height: 36px;
-	background: url("../../../assets/components/videoElement/crossIcon.png") center center no-repeat;
+	background: url("../../../assets/components/videoElement/crossIcon.webp") center center no-repeat;
 	cursor: pointer;
 
 	@media (max-width: 765px) {
@@ -104,7 +104,7 @@
 	width: 700px;
 	height: 500px;
 
-	&__Text {
+	&__text {
 		position: absolute;
 		width: 300px;
 		top: 10%;

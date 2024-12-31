@@ -6,7 +6,7 @@ import Image from "next/image";
 
 import { IVideoElement } from "../../../types/components/ComponentsTypes";
 
-import fallback from "../../../assets/components/videoElement/fallback.png";
+import fallback from "../../../assets/components/videoElement/fallback.webp";
 
 import style from "./videoElement.module.scss";
 
@@ -23,7 +23,7 @@ const VideoElement = ({ videoId, close }: IVideoElement) => {
 					{hasError ? (
 						<div className={style.fallbackImageWrapper}>
 							<Image className={style.fallbackImage} src={fallback} alt="no video" />
-							<h1 className={style.fallbackImage__Text}>Приносим извинения. Данное видео отсутствует.</h1>
+							<h1 className={style.fallbackImage__text}>Приносим извинения. Данное видео отсутствует.</h1>
 						</div>
 					) : (
 						<iframe

@@ -3,11 +3,13 @@
 	background: var(--color-pure-light);
 	height: 100vh;
 	padding-top: 50px;
+
 	@media (max-width: 1440px) {
 		& {
 			width: 290px;
 		}
 	}
+
 	@media (max-width: 1100px) {
 		& {
 			width: 100%;
@@ -17,6 +19,7 @@
 			border-radius: 12px;
 		}
 	}
+
 	@media (max-width: 420px) {
 		& {
 			padding: 8px 12px;
@@ -30,6 +33,7 @@
 	flex-direction: column;
 	margin: 0 auto;
 	gap: 32px;
+
 	@media (max-width: 1100px) {
 		& {
 			max-width: 100%;
@@ -45,12 +49,14 @@
 	width: 110px;
 	height: 110px;
 	object-fit: cover;
+
 	@media (max-width: 1100px) {
 		& {
 			width: 50px;
 			height: 50px;
 		}
 	}
+
 	@media (max-width: 420px) {
 		& {
 			width: 32px;
@@ -68,24 +74,31 @@
 	right: 30%;
 	opacity: 0;
 }
+
 .userInformationWrap_images_action {
 	border: none;
 	background-color: transparent;
 }
+
 .userInformationWrap_images_action:hover + .userInformationWrap__edit {
 	opacity: 1;
 }
+
 .userInformationWrap__name {
 	font-size: 2.2rem;
 	font-weight: 400;
 	color: var(--color-eerie-black);
+
 	@media (max-width: 1100px) {
 		& {
 			display: none;
 		}
 	}
 }
+
 .userInformationWrap__adaptive {
+	display: block;
+
 	@media (max-width: 1100px) {
 		& {
 			display: flex;
@@ -96,6 +109,7 @@
 }
 .burgerActionWrap {
 	display: none;
+
 	@media (max-width: 1100px) {
 		& {
 			display: block;
@@ -109,12 +123,14 @@
 	line-height: 3.5rem;
 	font-weight: 400;
 	color: var(--color-star-dust);
+
 	@media (max-width: 1100px) {
 		& {
 			font-size: 1.6rem;
 			line-height: 1;
 		}
 	}
+
 	@media (max-width: 420px) {
 		& {
 			font-size: 1.1rem;
@@ -125,6 +141,7 @@
 	font-size: 2.6rem;
 	font-weight: 400;
 	color: var(--color-eerie-black);
+
 	@media (max-width: 1100px) {
 		& {
 			color: var(--color-pure-light);
@@ -140,6 +157,9 @@
 }
 
 .burgerActionWrap_icon {
+	width: auto;
+	height: auto;
+
 	@media (max-width: 420px) {
 		& {
 			width: 29px;
@@ -147,39 +167,46 @@
 		}
 	}
 }
+
 .userProfileFunctions {
 	display: flex;
 	flex-direction: column;
 	gap: 12px;
 }
+
 .userProfileNavigation {
 	display: flex;
 	flex-direction: column;
 	gap: 12px;
+
 	@media (max-width: 1100px) {
 		& {
 			display: none;
 		}
 	}
 }
+
 .userInformationWrap {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	text-align: center;
 	gap: 16px;
+
 	@media (max-width: 1100px) {
 		& {
 			flex-direction: row;
 		}
 	}
 }
+
 .profileFunctionsWrap {
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
 	background: transparent;
 	border: none;
+
 	@media (max-width: 1100px) {
 		& {
 			display: none;
@@ -197,6 +224,7 @@
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
+	
 	@media (max-width: 1100px) {
 		& {
 			display: none;

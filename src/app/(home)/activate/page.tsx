@@ -14,7 +14,7 @@ import { userActivation } from "../../../services/api/auth/userActivation";
 import { MainPath } from "../../../services/router/routes";
 import { ApiResponseCode } from "../../../helpers/apiResponseCode";
 
-import logo from "../../../assets/pages/activate/logo.png";
+import logo from "../../../assets/pages/activate/logo.webp";
 import warning from "../../../assets/pages/activate/warning.svg";
 
 import style from "./activate.module.scss";
@@ -136,7 +136,7 @@ const Activate = () => {
 	};
 
 	return (
-		<div className={style.wrapper}>
+		<div className={style.activationPageWrapper}>
 			<div className={style.messageWrapper}>{load ? <Spinner /> : messageElement()}</div>
 		</div>
 	);

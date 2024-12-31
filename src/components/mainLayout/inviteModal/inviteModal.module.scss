@@ -1,18 +1,18 @@
-.overlay {
+.overlayContainer {
 	position: fixed;
 	overflow-y: hidden;
 	top: 0;
 	left: 0;
 	width: 100%;
 	height: 100%;
-	background: rgba(0, 0, 0, 0.3);
+	background: var(--color-black-third-part);
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	z-index: 300;
 }
 
-.modal {
+.modalWrap {
 	display: flex;
 	flex-direction: column;
 	gap: 32px;

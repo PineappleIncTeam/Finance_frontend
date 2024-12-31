@@ -31,14 +31,14 @@ const NavBar = ({ onClick }: INavBar) => {
 		modalRef: RefObject<HTMLDivElement>,
 		setOpen: Dispatch<SetStateAction<boolean>>,
 	) => {
-		if (modalRef.current && !modalRef.current.contains(event.target as Node)) {
+		if (modalRef && modalRef.current && !modalRef.current.contains(event.target as Node)) {
 			setOpen(false);
 		}
 	};
 
 	useEffect(() => {
 		const handleDocumentClick = (event: MouseEvent) => {
-			handleClickOutside(event, modalRef, setOpen);
+			handleClickOutside(event, modalRef as any, setOpen);
 		};
 		if (open) {
 			document.addEventListener("mousedown", handleDocumentClick);

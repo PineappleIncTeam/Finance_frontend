@@ -5,9 +5,9 @@ import { useRouter } from "next/navigation";
 import Footer from "../../../components/mainLayout/footer/footer";
 import BlogCard from "../../../components/mainLayout/blogCard/blogCard";
 
-import moneyFlower from "../../../assets/pages/blog/moneyFlower.png";
-import notebook from "../../../assets/pages/blog/notebook.png";
-import workEnvironment from "../../../assets/pages/blog/workEnvironment.png";
+import moneyFlower from "../../../assets/pages/blog/moneyFlower.webp";
+import notebook from "../../../assets/pages/blog/notebook.webp";
+import workEnvironment from "../../../assets/pages/blog/workEnvironment.webp";
 import { ArrowRightIcon } from "../../../assets/script/blog/ArrowRightIcon";
 import { ArrowLeftIcon } from "../../../assets/script/blog/ArrowLeftIcon";
 

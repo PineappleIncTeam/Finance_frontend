@@ -61,7 +61,9 @@ const UserProfileSidebar = ({ avatar, name, balance }: IUserProfileSidebar) => {
 	};
 
 	const handleLogout = async () => {
-		await logoutUser(baseUrl);
+		if (baseUrl) {
+			await logoutUser(baseUrl);
+		}
 	};
 
 	return (

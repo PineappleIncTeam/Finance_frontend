@@ -6,6 +6,8 @@ import Link from "next/link";
 
 import { useRouter } from "next/navigation";
 
+import axios from "axios";
+
 import { LastTwoDigits } from "../../../helpers/lastTwoDigits";
 
 import arrowRightIcon from "../../../assets/components/userProfile/arrowRight.svg";
@@ -20,6 +22,8 @@ import infoIcon from "../../../assets/components/userProfile/infoIcon.svg";
 
 import { logoutUser } from "../../../services/api/auth/Logout";
 import { getCorrectBaseUrl } from "../../../utils/baseUrlConverter";
+
+import { ApiResponseCode } from "../../../helpers/apiResponseCode";
 
 import style from "./userProfileSidebar.module.scss";
 
@@ -71,7 +75,15 @@ const UserProfileSidebar = ({ avatar, name, balance }: IUserProfileSidebar) => {
 				router.push(MainPath.Main);
 			}
 		} catch (error) {
-			console.log(error.message);
+			if (
+				axios.isAxiosError(error) &&
+				error.response &&
+				error.response.status &&
+				error.response.status >= axios.HttpStatusCode.InternalServerError &&
+				error.response.status < ApiResponseCode.SERVER_ERROR_STATUS_MAX
+			) {
+				return router.push(MainPath.ServerError);
+			}
 		}
 	};
 

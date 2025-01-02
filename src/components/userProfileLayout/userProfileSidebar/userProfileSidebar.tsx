@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
+import { useRouter } from "next/navigation";
+
 import { LastTwoDigits } from "../../../helpers/lastTwoDigits";
 
 import arrowRightIcon from "../../../assets/components/userProfile/arrowRight.svg";
@@ -25,6 +27,8 @@ const UserProfileSidebar = ({ avatar, name, balance }: IUserProfileSidebar) => {
 	const [currentDate, setCurrentDate] = useState<string>("");
 	const [isOpen, setIsOpen] = useState<boolean>(false);
 	const [baseUrl, setBaseUrl] = useState<string>();
+
+	const router = useRouter();
 
 	useEffect(() => {
 		const today = new Date();
@@ -61,8 +65,13 @@ const UserProfileSidebar = ({ avatar, name, balance }: IUserProfileSidebar) => {
 	};
 
 	const handleLogout = async () => {
-		if (baseUrl) {
-			await logoutUser(baseUrl);
+		try {
+			if (baseUrl) {
+				await logoutUser(baseUrl);
+				router.push(MainPath.Main);
+			}
+		} catch (error) {
+			console.log(error.message);
 		}
 	};
 
@@ -76,9 +85,9 @@ const UserProfileSidebar = ({ avatar, name, balance }: IUserProfileSidebar) => {
 					<Link href={""}>
 						<p className={style.header__link}>Поддержка</p>
 					</Link>
-					<Link href={MainPath.Main} onClick={handleLogout}>
+					<div onClick={handleLogout} className={style.exit}>
 						<Image src={infoIcon} alt={"info"} />
-					</Link>
+					</div>
 				</div>
 				<div className={style.userProfileMain}>
 					<div className={style.userProfileContainer}>

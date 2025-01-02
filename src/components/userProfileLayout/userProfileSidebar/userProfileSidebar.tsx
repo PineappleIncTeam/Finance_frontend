@@ -16,11 +16,15 @@ import NavBar from "../navBar/navBar";
 import editProfileIcon from "../../../assets/components/userProfile/editProfile.svg";
 import infoIcon from "../../../assets/components/userProfile/infoIcon.svg";
 
+import { logoutUser } from "../../../services/api/auth/Logout";
+import { getCorrectBaseUrl } from "../../../utils/baseUrlConverter";
+
 import style from "./userProfileSidebar.module.scss";
 
 const UserProfileSidebar = ({ avatar, name, balance }: IUserProfileSidebar) => {
 	const [currentDate, setCurrentDate] = useState<string>("");
 	const [isOpen, setIsOpen] = useState<boolean>(false);
+	const [baseUrl, setBaseUrl] = useState<string>();
 
 	useEffect(() => {
 		const today = new Date();
@@ -30,6 +34,10 @@ const UserProfileSidebar = ({ avatar, name, balance }: IUserProfileSidebar) => {
 
 		const formattedDate = `${day}.${month}.${year}`;
 		setCurrentDate(formattedDate);
+	}, []);
+
+	useEffect(() => {
+		setBaseUrl(getCorrectBaseUrl());
 	}, []);
 
 	const renderProfileFunctions = (title: string, onClick?: TCommonFunction) => {
@@ -52,6 +60,10 @@ const UserProfileSidebar = ({ avatar, name, balance }: IUserProfileSidebar) => {
 		);
 	};
 
+	const handleLogout = async () => {
+		await logoutUser(baseUrl);
+	};
+
 	return (
 		<>
 			<div className={style.userProfileWrap}>
@@ -62,7 +74,7 @@ const UserProfileSidebar = ({ avatar, name, balance }: IUserProfileSidebar) => {
 					<Link href={""}>
 						<p className={style.header__link}>Поддержка</p>
 					</Link>
-					<Link href={""}>
+					<Link href={MainPath.Main} onClick={handleLogout}>
 						<Image src={infoIcon} alt={"info"} />
 					</Link>
 				</div>

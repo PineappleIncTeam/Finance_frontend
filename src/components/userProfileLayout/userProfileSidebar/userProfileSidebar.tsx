@@ -101,7 +101,7 @@ const UserProfileSidebar = ({ avatar, name, balance }: IUserProfileSidebar) => {
 					<Link href={""}>
 						<p className={style.header__link}>Поддержка</p>
 					</Link>
-					<div onClick={handleLogout} className={style.exit}>
+					<div role="button" onClick={handleLogout} className={style.exit}>
 						<Image src={infoIcon} alt={"info"} />
 					</div>
 				</div>

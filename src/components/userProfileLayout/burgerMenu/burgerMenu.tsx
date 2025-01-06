@@ -17,13 +17,15 @@ export const BurgerMenu = ({ children, showMenu, setShowMenu }: IBurgerMenu) => 
 			className={cn(styles.wrapper, {
 				[styles.wrapper__show]: showMenu,
 			})}
-			onClick={closeMenu}>
+			onClick={closeMenu}
+			role="button">
 			<div
+				role="menubar"
 				className={cn(styles.slide, {
 					[styles.slide__show]: showMenu,
 				})}
 				onClick={(e) => e.stopPropagation()}>
-				<div className={styles.cross} onClick={closeMenu}>
+				<div className={styles.cross} onClick={closeMenu} role="button">
 					<Image src={crossIcon} alt={"crossIcon"} />
 				</div>
 				<div>{children}</div>

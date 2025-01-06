@@ -25,12 +25,15 @@ import { getCorrectBaseUrl } from "../../../utils/baseUrlConverter";
 
 import { ApiResponseCode } from "../../../helpers/apiResponseCode";
 
+import { BurgerMenu } from "../burgerMenu/burgerMenu";
+
 import style from "./userProfileSidebar.module.scss";
 
 const UserProfileSidebar = ({ avatar, name, balance }: IUserProfileSidebar) => {
 	const [currentDate, setCurrentDate] = useState<string>("");
 	const [isOpen, setIsOpen] = useState<boolean>(false);
 	const [baseUrl, setBaseUrl] = useState<string>();
+	const [showMenu, setShowMenu] = useState<boolean>(false);
 
 	const router = useRouter();
 
@@ -47,6 +50,10 @@ const UserProfileSidebar = ({ avatar, name, balance }: IUserProfileSidebar) => {
 	useEffect(() => {
 		setBaseUrl(getCorrectBaseUrl());
 	}, []);
+
+	const openSlideMenu = () => {
+		setShowMenu(true);
+	};
 
 	const renderProfileFunctions = (title: string, onClick?: TCommonFunction) => {
 		return (
@@ -89,6 +96,9 @@ const UserProfileSidebar = ({ avatar, name, balance }: IUserProfileSidebar) => {
 
 	return (
 		<>
+			<BurgerMenu showMenu={showMenu} setShowMenu={setShowMenu}>
+				<div>slider</div>
+			</BurgerMenu>
 			<div className={style.userProfileWrap}>
 				<div className={style.header}>
 					<Link href={""}>
@@ -120,10 +130,10 @@ const UserProfileSidebar = ({ avatar, name, balance }: IUserProfileSidebar) => {
 							</div>
 						</div>
 						<div className={style.userProfileFunctions}>
-							{renderProfileFunctions("Личные данные")}
-							{renderProfileFunctions("Сменить пароль")}
-							{renderProfileFunctions("Настройки")}
-							{renderProfileFunctions("Архив")}
+							{renderProfileFunctions("Личные данные", openSlideMenu)}
+							{renderProfileFunctions("Сменить пароль", openSlideMenu)}
+							{renderProfileFunctions("Настройки", openSlideMenu)}
+							{renderProfileFunctions("Архив", openSlideMenu)}
 						</div>
 						<div className={style.userProfileNavigation}>
 							{renderNavigationElements("О приложении", MainPath.AboutUs)}

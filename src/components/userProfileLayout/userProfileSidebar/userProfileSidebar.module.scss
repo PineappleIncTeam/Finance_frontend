@@ -102,7 +102,6 @@
 }
 .userInformationWrap_images {
 	position: relative;
-	cursor: pointer;
 }
 
 .userInformationWrap__edit {
@@ -116,6 +115,7 @@
 .userInformationWrap_images_action {
 	border: none;
 	background-color: transparent;
+	cursor: pointer;
 }
 
 .userInformationWrap_images_action:hover + .userInformationWrap__edit {
@@ -263,6 +263,7 @@
 	font-size: 20px;
 	font-weight: 400;
 	color: var(--color-dark-spring-green);
+	cursor: pointer;
 }
 
 .navigationElementsWrap {

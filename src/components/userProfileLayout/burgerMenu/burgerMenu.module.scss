@@ -1,0 +1,42 @@
+.wrapper {
+	visibility: hidden;
+	opacity: 0;
+	display: flex;
+	position: fixed;
+	top: 0;
+	left: 0;
+	height: 100vh;
+	width: 100%;
+	background-color: var(--color-black-two-of-third);
+	z-index: 1000;
+	justify-content: flex-end;
+	transition: 0.5s;
+}
+
+.wrapper__show {
+	visibility: visible;
+	opacity: 1;
+}
+
+.slide {
+	position: relative;
+	width: 100%;
+	max-width: 500px;
+	background-color: var(--color-pure-light);
+	height: 100%;
+	transform: translate(100%);
+	transition: 0.5s;
+}
+
+.slide__show {
+	transform: translate(0);
+}
+
+.cross {
+	position: absolute;
+	top: 60px;
+	right: 40px;
+	width: 24px;
+	height: 24px;
+	cursor: pointer;
+}

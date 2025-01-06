@@ -1,15 +1,17 @@
 .blogArticleShareTooltipContainer {
+	display: flex;
+	justify-content: center;
+	align-items: center;
 	width: 23%;
 	height: 92px;
 	border-radius: 12px;
-	margin-left: 850px;
+	margin: auto;
 	border: 1px solid transparent;
 	box-shadow: 0px 4px 20px 0px var(--color-black-eight-part);
 
 	@media (max-width: 1480px) {
 		& {
 			width: 31%;
-			margin-left: 620px;
 		}
 	}
 
@@ -17,14 +19,12 @@
 		& {
 			width: 44%;
 			height: 15%;
-			margin-left: 380px;
 		}
 	}
 
 	@media (max-width: 740px) {
 		& {
 			height: 10%;
-			margin-left: 280px;
 		}
 	}
 
@@ -32,28 +32,22 @@
 		& {
 			width: 55%;
 			height: 8%;
-			margin-left: 180px;
 		}
 	}
 
 	@media (max-width: 460px) {
 		& {
-			width: 75%;
-			margin-left: 48px;
+			width: 73%;
 		}
 	}
 }
 
 .blogArticleShareTooltipContent {
-	margin-top: 26px;
-	text-align: center;
 	font-size: 2rem;
 	line-height: 2.8rem;
 	font-weight: 400;
-
 	@media (max-width: 740px) {
 		& {
-			margin-top: 14px;
 			font-size: 1.6rem;
 			line-height: 2.2rem;
 		}

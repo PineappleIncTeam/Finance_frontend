@@ -16,6 +16,7 @@ import autoLoginSelector from "../../../services/redux/features/autoLogin/autoLo
 import { validateToken } from "../../../services/api/auth/validateToken";
 import { MainPath, UserProfilePath } from "../../../services/router/routes";
 import { mockLocalhostStr, mockLocalhostUrl } from "../../../services/api/auth/apiConstants";
+import { ApiResponseCode } from "../../../helpers/apiResponseCode";
 
 import logo from "../../../assets/layouts/main/logo.webp";
 import burger from "../../../assets/layouts/main/burger.svg";
@@ -27,7 +28,7 @@ const MainHeader = () => {
 	const pathname = usePathname();
 	const [open, setOpen] = useState<boolean>(false);
 	const [baseUrl, setBaseUrl] = useState<string>();
-	const modalRef = useRef<HTMLDivElement | null>(null);
+	const modalRef = useRef<any>(null);
 	const router = useRouter();
 
 	const { isAutoLogin } = useAppSelector(autoLoginSelector);
@@ -61,6 +62,15 @@ const MainHeader = () => {
 				});
 			}
 		} catch (error) {
+			if (
+				axios.isAxiosError(error) &&
+				error.response &&
+				error.response.status &&
+				error.response.status >= axios.HttpStatusCode.InternalServerError &&
+				error.response.status < ApiResponseCode.SERVER_ERROR_STATUS_MAX
+			) {
+				return router.push(MainPath.ServerError);
+			}
 			if (isAutoLogin) {
 				return router.push(MainPath.Login);
 			}

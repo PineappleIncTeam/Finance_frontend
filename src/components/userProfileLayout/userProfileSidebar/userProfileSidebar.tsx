@@ -8,7 +8,7 @@ import { useRouter } from "next/navigation";
 
 import axios from "axios";
 
-import { LastTwoDigits } from "../../../helpers/lastTwoDigits";
+import { format } from "date-fns";
 
 import arrowRightIcon from "../../../assets/components/userProfile/arrowRight.svg";
 import { IUserProfileSidebar, TCommonFunction } from "../../../types/common/ComponentsProps";
@@ -38,13 +38,7 @@ const UserProfileSidebar = ({ avatar, name, balance }: IUserProfileSidebar) => {
 	const router = useRouter();
 
 	useEffect(() => {
-		const today = new Date();
-		const day = today.getDate().toString().padStart(2, "0");
-		const month = (today.getMonth() + 1).toString().padStart(2, "0");
-		const year = today.getFullYear().toString().slice(LastTwoDigits.LAST_TWO_DIGITS);
-
-		const formattedDate = `${day}.${month}.${year}`;
-		setCurrentDate(formattedDate);
+		setCurrentDate(format(new Date(), "dd.MM.yyyy"));
 	}, []);
 
 	useEffect(() => {

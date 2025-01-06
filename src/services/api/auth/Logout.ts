@@ -8,5 +8,6 @@ export const logoutUser = async (baseURL: string) => {
 		headers: {
 			"Content-Type": "application/json",
 		},
+		withCredentials: true,
 	});
 };

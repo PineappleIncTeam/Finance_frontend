@@ -1,6 +1,6 @@
 import { ReactElement, ReactNode } from "react";
 
-import { Control, FieldError, FieldErrorsImpl, Merge, Path, UseControllerProps } from "react-hook-form";
+import { Control, FieldError, FieldErrorsImpl, FieldValues, Merge, Path, UseControllerProps } from "react-hook-form";
 
 import { ISignInForm, ISignUpForm } from "../components/ComponentsTypes";
 import { INewPassword } from "../pages/Password";
@@ -25,7 +25,7 @@ export interface IAuthInput extends UseControllerProps<TAuthInputForm> {
 	error?: string | FieldError | Merge<FieldError, FieldErrorsImpl<any>> | null;
 }
 
-export interface IAppInput<T> {
+export interface IAppInput<T extends FieldValues> {
 	label: string;
 	type: string;
 	placeholder?: string;

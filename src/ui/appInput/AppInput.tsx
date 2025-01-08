@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useController } from "react-hook-form";
+import { FieldValues, useController } from "react-hook-form";
 import cn from "classnames";
 import Image from "next/image";
 
@@ -10,7 +10,7 @@ import showPassword from "../../assets/pages/signUp/showPassword.svg";
 
 import styles from "./AppInput.module.scss";
 
-const AppInput = <T,>({
+const AppInput = <T extends FieldValues>({
 	label,
 	type,
 	placeholder,

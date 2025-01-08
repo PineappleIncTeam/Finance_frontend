@@ -23,7 +23,7 @@ import { mockLocalhostStr, mockLocalhostUrl } from "../../../services/api/auth/a
 
 import { formHelpers } from "../../../utils/formHelpers";
 import { passwordPattern } from "../../../helpers/authConstants";
-import ChangePassInput from "../../../ui/changePassInput/ChangePassInput";
+import ChangePassInput from "../../../components/mainLayout/changePassInput/ChangePassInput";
 import Title from "../../../ui/title/Title";
 
 import style from "./changePassword.module.scss";
@@ -36,6 +36,13 @@ export default function ChangePassword() {
 	const token = searchParams.get("token");
 	const router = useRouter();
 	const mSeconds = 4000;
+
+	const {
+		control,
+		handleSubmit,
+		reset,
+		formState: { errors },
+	} = useForm<IChangePassword>({ mode: "onBlur" });
 
 	useEffect(() => {
 		setBaseUrl(getCorrectBaseUrl());
@@ -65,15 +72,8 @@ export default function ChangePassword() {
 		}
 	};
 
-	const {
-		control,
-		handleSubmit,
-		reset,
-		formState: { errors },
-	} = useForm<IChangePassword>({ mode: "onBlur" });
-
-	const onSubmit = (data: IChangePassword) => {
-		saveButtonClick(data);
+	const onSubmit = async (data: IChangePassword) => {
+		await saveButtonClick(data);
 		handleChangePasswordModal();
 		reset();
 	};

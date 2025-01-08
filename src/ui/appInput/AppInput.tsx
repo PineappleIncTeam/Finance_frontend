@@ -3,16 +3,28 @@ import { useController } from "react-hook-form";
 import cn from "classnames";
 import Image from "next/image";
 
-import { TAppInputForm, IAppInput } from "../../types/common/UiKitProps";
+import { IAppInput } from "../../types/common/UiKitProps";
 import { InputTypeList } from "../../helpers/Input";
 
 import showPassword from "../../assets/pages/signUp/showPassword.svg";
 
 import styles from "./AppInput.module.scss";
 
-const AppInput = ({ label, type, placeholder, autoComplete, subtitle, error, ...props }: IAppInput) => {
+const AppInput = <T,>({
+	label,
+	type,
+	placeholder,
+	autoComplete,
+	subtitle,
+	error,
+	control,
+	name,
+	rules,
+	disabled,
+	...props
+}: IAppInput<T>) => {
 	const [passwordType, setPasswordType] = useState<InputTypeList>(InputTypeList.Password);
-	const { field, fieldState } = useController<TAppInputForm>(props);
+	const { field, fieldState } = useController({ name, control, rules, disabled, ...props });
 
 	const value = typeof field.value === "boolean" ? String(field.value) : field.value;
 
@@ -29,7 +41,9 @@ const AppInput = ({ label, type, placeholder, autoComplete, subtitle, error, ...
 					placeholder={placeholder}
 					className={styles.inputWrap__input}
 					autoComplete={autoComplete}
-					value={value}
+					value={value as string | number | readonly string[] | undefined}
+					disabled={disabled}
+					{...props}
 				/>
 				{type === InputTypeList.Password && (
 					<button onClick={togglePasswordVisibility} className={styles.inputWrap__passwordEye} type="button">

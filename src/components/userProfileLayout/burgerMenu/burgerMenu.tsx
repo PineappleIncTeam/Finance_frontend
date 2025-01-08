@@ -5,7 +5,7 @@ import cn from "classnames";
 import crossIcon from "../../../assets/components/userProfile/crossIcon.svg";
 import { IBurgerMenu } from "../../../types/components/ComponentsTypes";
 
-import styles from "./burgerMenu.module.scss";
+import style from "./burgerMenu.module.scss";
 
 export const BurgerMenu = ({ children, showMenu, setShowMenu }: IBurgerMenu) => {
 	const closeMenu = () => {
@@ -14,21 +14,25 @@ export const BurgerMenu = ({ children, showMenu, setShowMenu }: IBurgerMenu) => 
 
 	return (
 		<div
-			className={cn(styles.wrapper, {
-				[styles.wrapper__show]: showMenu,
-			})}
-			onClick={closeMenu}
-			role="button">
+			className={cn(style.burgerMenuWrapper, {
+				[style.burgerMenuWrapper__show]: showMenu,
+			})}>
+			<div
+				className={cn(style.wrapper, {
+					[style.wrapper__show]: showMenu,
+				})}
+				onClick={closeMenu}
+				role="button"></div>
 			<div
 				role="menubar"
-				className={cn(styles.slide, {
-					[styles.slide__show]: showMenu,
+				className={cn(style.slide, {
+					[style.slide__show]: showMenu,
 				})}
 				onClick={(e) => e.stopPropagation()}>
-				<div className={styles.cross} onClick={closeMenu} role="button">
+				<div className={style.cross} onClick={closeMenu} role="button">
 					<Image src={crossIcon} alt={"crossIcon"} />
 				</div>
-				<div>{children}</div>
+				<div className={style.content}>{children}</div>
 			</div>
 		</div>
 	);

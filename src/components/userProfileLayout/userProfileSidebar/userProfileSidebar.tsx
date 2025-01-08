@@ -27,6 +27,8 @@ import { ApiResponseCode } from "../../../helpers/apiResponseCode";
 
 import { BurgerMenu } from "../burgerMenu/burgerMenu";
 
+import { PrivateData } from "../userProfileSettings/userProfileSettings";
+
 import style from "./userProfileSidebar.module.scss";
 
 const UserProfileSidebar = ({ avatar, name, balance }: IUserProfileSidebar) => {
@@ -91,7 +93,7 @@ const UserProfileSidebar = ({ avatar, name, balance }: IUserProfileSidebar) => {
 	return (
 		<>
 			<BurgerMenu showMenu={showMenu} setShowMenu={setShowMenu}>
-				<div>slider</div>
+				<PrivateData />
 			</BurgerMenu>
 			<div className={style.userProfileWrap}>
 				<div className={style.header}>

@@ -1,0 +1,90 @@
+.wrapper {
+	padding: 50px 40px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	height: 100%;
+}
+
+.title {
+	font-size: 2.6rem;
+	line-height: 3.8rem;
+	color: var(--color-eerie-black);
+	margin-bottom: 30px;
+	align-self: flex-start;
+}
+
+.form {
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+	align-items: center;
+}
+
+.saveButton {
+	margin-top: 16px;
+}
+
+.userProfileNavigation {
+	display: flex;
+	flex-direction: column;
+	gap: 14px;
+
+	@media (max-width: 1100px) {
+		& {
+			display: none;
+		}
+	}
+}
+
+.navigationElementsWrap {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+
+	@media (max-width: 1100px) {
+		& {
+			display: none;
+		}
+	}
+}
+
+.navigationElements__title {
+	color: var(--color-dark-cyan-blue);
+	font-size: 20px;
+	font-weight: 400;
+}
+
+.userProfileFunctions {
+	display: flex;
+	flex-direction: column;
+	gap: 14px;
+}
+
+.profileFunctionsWrap {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	background: transparent;
+	border: none;
+
+	@media (max-width: 1100px) {
+		& {
+			display: none;
+		}
+	}
+}
+
+.profileFunctionsWrap__title {
+	font-size: 20px;
+	font-weight: 400;
+	color: var(--color-dark-spring-green);
+	cursor: pointer;
+}
+
+.sidebarNav {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	gap: 32px;
+}

@@ -7,7 +7,7 @@ import Image from "next/image";
 
 import { IChangePassInput, TChangePassForm } from "../../../types/common/UiKitProps";
 import { InputTypeList } from "../../../helpers/Input";
-import showPassword from "../../assets/pages/signUp/showPassword.svg";
+import showPassword from "../../../assets/pages/signUp/showPassword.svg";
 
 import styles from "./ChangePassInput.module.scss";
 

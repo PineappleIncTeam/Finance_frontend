@@ -27,9 +27,9 @@ export default function RootLayout({
 						<NavBar />
 					</div>
 					<div className={styles.privateProfile__main}>
-						<div className={styles.mobileMenu}>
+						{/* <div className={styles.mobileMenu}>
 							<UserProfileSidebar />
-						</div>
+						</div> */}
 						<UserProfileHeader />
 						<div className={styles.privateProfileContent}>{children}</div>
 					</div>

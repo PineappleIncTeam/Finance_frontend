@@ -7,3 +7,9 @@ export interface IPrivateDataFrom {
 }
 
 type TGender = "male" | "female";
+
+export interface IChangePasswordForm {
+  oldPassword: string,
+  newPassword: string,
+  repeatPassword: string,
+}

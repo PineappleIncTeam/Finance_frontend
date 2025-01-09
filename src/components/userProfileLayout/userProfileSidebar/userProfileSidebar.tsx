@@ -11,7 +11,7 @@ import axios from "axios";
 import { format } from "date-fns";
 
 import arrowRightIcon from "../../../assets/components/userProfile/arrowRight.svg";
-import { IUserProfileSidebar, TCommonFunction } from "../../../types/common/ComponentsProps";
+import { IUserProfileSidebar } from "../../../types/common/ComponentsProps";
 import navigationArrowIcon from "../../../assets/components/userProfile/navigationArrow.svg";
 import userAvatar from "../../../assets/components/userProfile/userPhoto.svg";
 import { MainPath } from "../../../services/router/routes";
@@ -27,7 +27,7 @@ import { ApiResponseCode } from "../../../helpers/apiResponseCode";
 
 import { BurgerMenu } from "../burgerMenu/burgerMenu";
 
-import { PrivateData } from "../userProfileSettings/userProfileSettings";
+import { ChangePassword, PrivateData } from "../userProfileSettings/userProfileSettings";
 
 import style from "./userProfileSidebar.module.scss";
 
@@ -36,8 +36,16 @@ const UserProfileSidebar = ({ avatar, name, balance }: IUserProfileSidebar) => {
 	const [isOpen, setIsOpen] = useState<boolean>(false);
 	const [baseUrl, setBaseUrl] = useState<string>();
 	const [showMenu, setShowMenu] = useState<boolean>(false);
+	const [selectedMenuItem, setSelectedMenuItem] = useState<string>("Личные данные");
 
 	const router = useRouter();
+
+	const sidebarNavMenu = [
+		{ title: "Личные данные", content: PrivateData },
+		{ title: "Сменить пароль", content: ChangePassword },
+		// { title: "Настройки", content: PrivateData },
+		// { title: "Архив", content: PrivateData },
+	];
 
 	useEffect(() => {
 		setCurrentDate(format(new Date(), "dd.MM.yyyy"));
@@ -47,13 +55,13 @@ const UserProfileSidebar = ({ avatar, name, balance }: IUserProfileSidebar) => {
 		setBaseUrl(getCorrectBaseUrl());
 	}, []);
 
-	const openSlideMenu = () => {
-		setShowMenu(true);
-	};
-
-	const renderProfileFunctions = (title: string, onClick?: TCommonFunction) => {
+	const renderProfileFunctions = (title: string) => {
+		const handleClick = () => {
+			setShowMenu(true);
+			setSelectedMenuItem(title);
+		};
 		return (
-			<button className={style.profileFunctionsWrap} onClick={onClick}>
+			<button className={style.profileFunctionsWrap} onClick={handleClick} key={title}>
 				<p className={style.profileFunctionsWrap__title}>{title}</p>
 				<Image src={arrowRightIcon} alt={""} />
 			</button>
@@ -90,10 +98,18 @@ const UserProfileSidebar = ({ avatar, name, balance }: IUserProfileSidebar) => {
 		}
 	};
 
+	const renderSelectedMenuItem = () => {
+		const selectedMenu = sidebarNavMenu.find((el) => el.title === selectedMenuItem);
+		if (selectedMenu) {
+			const SelectedComponent = selectedMenu.content;
+			return <SelectedComponent />;
+		}
+	};
+
 	return (
 		<>
 			<BurgerMenu showMenu={showMenu} setShowMenu={setShowMenu}>
-				<PrivateData />
+				{renderSelectedMenuItem()}
 			</BurgerMenu>
 			<div className={style.userProfileWrap}>
 				<div className={style.header}>
@@ -126,10 +142,7 @@ const UserProfileSidebar = ({ avatar, name, balance }: IUserProfileSidebar) => {
 							</div>
 						</div>
 						<div className={style.userProfileFunctions}>
-							{renderProfileFunctions("Личные данные", openSlideMenu)}
-							{renderProfileFunctions("Сменить пароль", openSlideMenu)}
-							{renderProfileFunctions("Настройки", openSlideMenu)}
-							{renderProfileFunctions("Архив", openSlideMenu)}
+							{sidebarNavMenu.map((el) => renderProfileFunctions(el.title))}
 						</div>
 						<div className={style.userProfileNavigation}>
 							{renderNavigationElements("О приложении", MainPath.AboutUs)}

@@ -53,3 +53,11 @@ export interface ISelect extends UseControllerProps<IExpensesSelectForm> {
 	options?: string[];
 	disabled?: boolean;
 }
+
+
+export interface IRadioButton {
+	control: Control<any>;
+	name: string;
+	value: string;
+	label: string;
+}

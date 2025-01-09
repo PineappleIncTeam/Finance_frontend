@@ -27,8 +27,7 @@ export const BurgerMenu = ({ children, showMenu, setShowMenu }: IBurgerMenu) => 
 				role="menubar"
 				className={cn(style.slide, {
 					[style.slide__show]: showMenu,
-				})}
-				onClick={(e) => e.stopPropagation()}>
+				})}>
 				<div className={style.cross} onClick={closeMenu} role="button">
 					<Image src={crossIcon} alt={"crossIcon"} />
 				</div>

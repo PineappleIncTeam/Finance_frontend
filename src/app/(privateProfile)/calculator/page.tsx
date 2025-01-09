@@ -1,9 +1,13 @@
-function Calculator() {
+import style from "./calculator.module.scss"
+
+export default function Calculator() {
 	return (
-		<>
-			<div>Calculator</div>
-		</>
+		<div className={style.calculatorPageWrap}>
+			<div className={style.calculatorPageContainer}>
+				<form className={style.calculatorFormContentWrapper}>
+					<h1>Калькулятор</h1>
+				</form>
+			</div>
+		</div>
 	);
 }
-
-export default Calculator;

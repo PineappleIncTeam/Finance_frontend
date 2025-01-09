@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 
 import Footer from "../../../components/mainLayout/footer/footer";
 import BlogCard from "../../../components/mainLayout/blogCard/blogCard";
+import { InputTypeList } from "../../../helpers/Input";
 
 import moneyFlower from "../../../assets/pages/blog/moneyFlower.webp";
 import notebook from "../../../assets/pages/blog/notebook.webp";
@@ -38,10 +39,10 @@ export default function Blog() {
 						Здесь вы найдете свежие новости о нашем приложении и интересные статьи по учету собственных финансов
 					</h1>
 					<div className={style.buttonsArrowsWrap}>
-						<button className={style.buttonsArrow} type="button">
+						<button className={style.buttonsArrow} type={InputTypeList.Button}>
 							<ArrowLeftIcon classNames={style.buttonsArrowIcon} />
 						</button>
-						<button className={style.buttonsArrow} type="button">
+						<button className={style.buttonsArrow} type={InputTypeList.Button}>
 							<ArrowRightIcon classNames={style.buttonsArrowIcon} />
 						</button>
 					</div>

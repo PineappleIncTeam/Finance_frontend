@@ -99,7 +99,7 @@ export default function ChangePassword() {
 									/>
 								)}
 							/>
-							<button type="button" onClick={toggleEnterPasswordVisibility}>
+							<button type={InputTypeList.Button} onClick={toggleEnterPasswordVisibility}>
 								<VisibilityOffIcon classNames={style.visibilityOffIcon} />
 							</button>
 							{errors?.enterNewPassword && <span role="alert">{errors.enterNewPassword.message}</span>}
@@ -125,7 +125,7 @@ export default function ChangePassword() {
 									/>
 								)}
 							/>
-							<button type="button" onClick={toggleReenterPasswordVisibility}>
+							<button type={InputTypeList.Button} onClick={toggleReenterPasswordVisibility}>
 								<VisibilityOffIcon classNames={style.visibilityOffIcon2} />
 							</button>
 							{errors?.reenterNewPassword?.message}

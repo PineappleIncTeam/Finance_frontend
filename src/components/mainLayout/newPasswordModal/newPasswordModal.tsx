@@ -5,6 +5,7 @@ import { useEffect } from "react";
 import { useScrollLock } from "../../../hooks/useScrollLock";
 
 import { INewPasswordModal } from "../../../types/common/ComponentsProps";
+import { InputTypeList } from "../../../helpers/Input";
 
 import style from "./newPasswordModal.module.scss";
 
@@ -27,7 +28,7 @@ const NewPasswordModal = ({ email, open, toggle }: INewPasswordModal) => {
 						<p className={style.newPasswordResponseModalContainer__subtitle}>
 							В случае, если не нашли письма, проверьте папку «Спам» и правильность введенного адреса.
 						</p>
-						<button className={style.repeatSendButton} type="button" onClick={toggle}>
+						<button className={style.repeatSendButton} type={InputTypeList.Button} onClick={toggle}>
 							Повторить отправку
 						</button>
 					</div>

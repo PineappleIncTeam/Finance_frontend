@@ -7,6 +7,7 @@ import useCurrentLinkCard from "../../../hooks/useCurrentLinkCard";
 
 import { IBlogArticle } from "../../../types/common/ComponentsProps";
 import { BlogArticleShareTooltip } from "../blogArticleShareTooltip/blogArticleShareTooltip";
+import { InputTypeList } from "../../../helpers/Input";
 
 import { ShareIcon } from "../../../assets/script/blogArticle/ShareIcon";
 
@@ -37,16 +38,18 @@ export default function BlogArticle({ image, date, title, articleContent, id }: 
 				<div className={style.blogArticleHeaderWrapper}>
 					<Image className={style.blogArticleImage} src={image ?? mockImage} alt="descriptionImage" priority={true} />
 					<div className={style.blogArticleTitleWrapper}>
-						<p className={style.blogArticleDate}>{date}</p>
-						<button
-							type="button"
-							className={style.blogArticleShareIconWrap}
-							onClick={() => {
-								clickShare();
-							}}>
-							<ShareIcon classNames={style.blogArticleShareIcon} />
-						</button>
-						<BlogArticleShareTooltip open={isArticleShareTooltipShown} />
+						<div className={style.blogArticleDateShareLinkWrapper}>
+							<p className={style.blogArticleDate}>{date}</p>
+							{isArticleShareTooltipShown && <BlogArticleShareTooltip open={isArticleShareTooltipShown} />}
+							<button
+								type={InputTypeList.Button}
+								className={style.blogArticleShareIconWrap}
+								onClick={() => {
+									clickShare();
+								}}>
+								<ShareIcon classNames={style.blogArticleShareIcon} />
+							</button>
+						</div>
 						<h1 className={style.blogArticleTitle}>{title}</h1>
 					</div>
 				</div>

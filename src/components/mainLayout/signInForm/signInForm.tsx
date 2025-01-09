@@ -115,7 +115,7 @@ const SignInForm = () => {
 					</Link>
 				</div>
 				{errorMessage && <p className={styles.errorMessage}>{errorMessage}</p>}
-				<Button content="Вход" styleName="big buttonForLogin" type="submit" />
+				<Button content="Вход" styleName="big buttonForLogin" type={InputTypeList.Submit} />
 				<div className={styles.dividerWrap}>
 					<div className={styles.dividerWrap__line} />
 					<span className={styles.dividerWrap__subtitle}>или</span>

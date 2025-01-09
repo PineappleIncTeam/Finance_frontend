@@ -7,6 +7,7 @@ import useCurrentLinkCard from "../../../hooks/useCurrentLinkCard";
 
 import { IBlogArticle } from "../../../types/common/ComponentsProps";
 import { BlogArticleShareTooltip } from "../blogArticleShareTooltip/blogArticleShareTooltip";
+import { InputTypeList } from "../../../helpers/Input";
 
 import { ShareIcon } from "../../../assets/script/blogArticle/ShareIcon";
 
@@ -41,7 +42,7 @@ export default function BlogArticle({ image, date, title, articleContent, id }: 
 							<p className={style.blogArticleDate}>{date}</p>
 							{isArticleShareTooltipShown && <BlogArticleShareTooltip open={isArticleShareTooltipShown} />}
 							<button
-								type="button"
+								type={InputTypeList.Button}
 								className={style.blogArticleShareIconWrap}
 								onClick={() => {
 									clickShare();

@@ -22,7 +22,7 @@ import { ApiResponseCode } from "../../../helpers/apiResponseCode";
 import { mockLocalhostStr, mockLocalhostUrl } from "../../../services/api/auth/apiConstants";
 
 import { formHelpers } from "../../../utils/formHelpers";
-import { passwordPattern } from "../../../helpers/authConstants";
+import { errorPasswordRepeat, passwordPattern } from "../../../helpers/authConstants";
 import ChangePassInput from "../../../components/mainLayout/changePassInput/ChangePassInput";
 import Title from "../../../ui/title/Title";
 
@@ -38,15 +38,30 @@ export default function ChangePassword() {
 	const mSeconds = 4000;
 
 	const {
+		formState: { errors },
 		control,
 		handleSubmit,
+		watch,
 		reset,
-		formState: { errors },
-	} = useForm<IChangePassword>({ mode: "onBlur" });
+	} = useForm<IChangePassword>({
+		defaultValues: {
+			// eslint-disable-next-line camelcase
+			new_password: "",
+			// eslint-disable-next-line camelcase
+			re_new_password: "",
+		},
+		mode: "all",
+		delayError: 200,
+	});
 
 	useEffect(() => {
 		setBaseUrl(getCorrectBaseUrl());
 	}, []);
+
+	const validateRepeatPassword = (value: string) => {
+		const password = watch("new_password");
+		return value === password || errorPasswordRepeat;
+	};
 
 	const saveButtonClick = async (data: IChangePassword) => {
 		try {
@@ -90,25 +105,26 @@ export default function ChangePassword() {
 					<Title title={"Изменение пароля"} />
 					<ChangePasswordModal open={isChangePasswordModalShown} />
 					<ChangePassInput
+						control={control}
 						label={"Введите новый пароль"}
 						type={InputTypeList.Password}
 						placeholder="Пароль"
 						subtitle="Пароль должен состоять из 6 и более символов, среди которых хотя бы одна буква верхнего регистра и хотя бы одна цифра"
 						error={formHelpers.getPasswordError(errors, control._formValues.password)}
-						name={"new_password"}
-						control={control}
+						name="new_password"
 						rules={{ required: true, pattern: passwordPattern }}
+						autoComplete="off"
 					/>
 					<ChangePassInput
+						control={control}
 						label={"Повторите пароль"}
 						type={InputTypeList.Password}
 						placeholder="Пароль"
 						error={formHelpers.getPasswordError(errors, control._formValues.password)}
-						name={"re_new_password"}
-						control={control}
-						rules={{ required: true, pattern: passwordPattern }}
+						name="re_new_password"
+						rules={{ required: true, validate: validateRepeatPassword }}
+						autoComplete="off"
 					/>
-					{errors?.re_new_password?.message}
 					<input className={style.saveButton} type={InputTypeList.Submit} value="Сохранить" />
 				</div>
 			</form>

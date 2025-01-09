@@ -8,7 +8,7 @@ import { Select } from "../../../ui/select/Select";
 import AppInput from "../../../ui/appInput/AppInput";
 import Button from "../../../ui/button/button";
 
-import IncomeTransaction from "../../../components/userProfileLayout/incomeTranstaction/incomeTransaction";
+import IncomeTransaction from "../../../components/userProfileLayout/incomeTransaction/incomeTransaction";
 import { formatMoney } from "../../../utils/formatData";
 import { incomeTransactions } from "../../../mocks/IncomeTransaction";
 

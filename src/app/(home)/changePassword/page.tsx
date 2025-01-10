@@ -93,8 +93,8 @@ export default function ChangePassword() {
 			new_password: data.password,
 			// eslint-disable-next-line camelcase
 			re_new_password: data.re_password,
-			token: token,
-			uid: uid,
+			token: token ?? "",
+			uid: uid ?? "",
 		};
 		await saveButtonClick(apiData);
 		handleChangePasswordModal();

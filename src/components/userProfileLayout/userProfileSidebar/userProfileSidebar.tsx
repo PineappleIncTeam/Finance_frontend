@@ -27,7 +27,7 @@ import { ApiResponseCode } from "../../../helpers/apiResponseCode";
 
 import { BurgerMenu } from "../burgerMenu/burgerMenu";
 
-import { ChangePassword, PrivateData } from "../userProfileSettings/userProfileSettings";
+import { Archive, ChangePassword, PrivateData } from "../userProfileSettings/userProfileSettings";
 
 import style from "./userProfileSidebar.module.scss";
 
@@ -44,7 +44,7 @@ const UserProfileSidebar = ({ avatar, name, balance }: IUserProfileSidebar) => {
 		{ title: "Личные данные", content: PrivateData },
 		{ title: "Сменить пароль", content: ChangePassword },
 		// { title: "Настройки", content: PrivateData },
-		// { title: "Архив", content: PrivateData },
+		{ title: "Архив", content: Archive },
 	];
 
 	useEffect(() => {

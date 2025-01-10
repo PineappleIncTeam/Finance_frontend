@@ -2,6 +2,8 @@ import { useForm } from "react-hook-form";
 import Image from "next/image";
 import Link from "next/link";
 
+import { useState } from "react";
+
 import Button from "../../../ui/button/button";
 import { IChangePasswordForm, IPrivateDataFrom } from "../../../types/pages/userProfileSettings";
 import AppInput from "../../../ui/appInput/AppInput";
@@ -11,6 +13,11 @@ import { MainPath } from "../../../services/router/routes";
 import { TCommonFunction } from "../../../types/common/ComponentsProps";
 
 import { RadioButton } from "../../../ui/radio/radioButton";
+
+import { DeleteIcon } from "../../../assets/script/expenses/DeleteIcon";
+import ResetIcon from "../../../assets/script/privateProfileNavBar/ResetIcon";
+import { archiveList } from "../../../mocks/PrivateProfileArchive";
+import { Tooltip } from "../tooltip/tooltip";
 
 import style from "./userProfileSettings.module.scss";
 
@@ -64,6 +71,41 @@ export const ChangePassword = () => {
 				<AppInput label={"Подтвердить пароль"} type={"password"} name={"repeatPassword"} control={control} />
 				<Button content={"Сохранить"} styleName={"buttonPrivateProfileSidebar"} type={"submit"} />
 			</form>
+			<SidebarMenu />
+		</div>
+	);
+};
+
+const ArchiveItem = ({ value, key }: { value: string; key: number }) => {
+	const [isTooltipShown, setIsTooltipShown] = useState<boolean>(false);
+	return (
+		<div className={style.archiveItem} key={key}>
+			<p className={style.archiveItem__title}>{value}</p>
+			<div className={style.archiveItem__icons}>
+				<DeleteIcon classNames={style.archiveItem__icon} />
+				<div
+					onMouseMove={() => setIsTooltipShown(true)}
+					onMouseOut={() => setIsTooltipShown(false)}
+					className={style.resetWrapper}>
+					<ResetIcon classNames={style.archiveItem__icon} color={"var(--color-very-dark-grayish-blue)"} />
+					<Tooltip open={isTooltipShown} text={"Восстановить"} />
+				</div>
+			</div>
+		</div>
+	);
+};
+
+export const Archive = () => {
+	return (
+		<div className={style.wrapper}>
+			<div className={style.form}>
+				<div className={style.title}>Архив</div>
+				<div className={style.archive__items}>
+					{archiveList.map((el, index) => {
+						return <ArchiveItem value={el} key={index} />;
+					})}
+				</div>
+			</div>
 			<SidebarMenu />
 		</div>
 	);

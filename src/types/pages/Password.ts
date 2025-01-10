@@ -5,6 +5,11 @@ export interface IChangePassword {
 	uid: string;
 }
 
+export interface IChangePasswordForm {
+	password: string;
+	re_password: string;
+}
+
 export interface INewPassword {
 	email?: string;
 }

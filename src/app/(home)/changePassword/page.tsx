@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import { useSearchParams, useRouter } from "next/navigation";
 import axios from "axios";
 
-import { IChangePassword } from "../../../types/pages/Password";
+import { IChangePassword, IChangePasswordForm } from "../../../types/pages/Password";
 
 import ChangePasswordModal from "../../../components/mainLayout/changePasswordModal/changePasswordModal";
 
@@ -43,12 +43,12 @@ export default function ChangePassword() {
 		handleSubmit,
 		watch,
 		reset,
-	} = useForm<IChangePassword>({
+	} = useForm<IChangePasswordForm>({
 		defaultValues: {
 			// eslint-disable-next-line camelcase
-			new_password: "",
+			password: "",
 			// eslint-disable-next-line camelcase
-			re_new_password: "",
+			re_password: "",
 		},
 		mode: "all",
 		delayError: 200,
@@ -59,7 +59,7 @@ export default function ChangePassword() {
 	}, []);
 
 	const validateRepeatPassword = (value: string) => {
-		const password = watch("new_password");
+		const password = watch("password");
 		return value === password || errorPasswordRepeat;
 	};
 
@@ -87,8 +87,16 @@ export default function ChangePassword() {
 		}
 	};
 
-	const onSubmit = async (data: IChangePassword) => {
-		await saveButtonClick(data);
+	const onSubmit = async (data: IChangePasswordForm) => {
+		const apiData: IChangePassword = {
+			// eslint-disable-next-line camelcase
+			new_password: data.password,
+			// eslint-disable-next-line camelcase
+			re_new_password: data.re_password,
+			token: token,
+			uid: uid,
+		};
+		await saveButtonClick(apiData);
 		handleChangePasswordModal();
 		reset();
 	};
@@ -111,7 +119,7 @@ export default function ChangePassword() {
 						placeholder="Пароль"
 						subtitle="Пароль должен состоять из 6 и более символов, среди которых хотя бы одна буква верхнего регистра и хотя бы одна цифра"
 						error={formHelpers.getPasswordError(errors, control._formValues.password)}
-						name="new_password"
+						name="password"
 						rules={{ required: true, pattern: passwordPattern }}
 						autoComplete="off"
 					/>
@@ -120,8 +128,8 @@ export default function ChangePassword() {
 						label={"Повторите пароль"}
 						type={InputTypeList.Password}
 						placeholder="Пароль"
-						error={formHelpers.getPasswordError(errors, control._formValues.password)}
-						name="re_new_password"
+						error={errors.re_password?.message}
+						name="re_password"
 						rules={{ required: true, validate: validateRepeatPassword }}
 						autoComplete="off"
 					/>

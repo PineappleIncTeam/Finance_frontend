@@ -3,7 +3,7 @@ import { ReactElement, ReactNode } from "react";
 import { Control, FieldError, FieldErrorsImpl, Merge, UseControllerProps } from "react-hook-form";
 
 import { ISignInForm, ISignUpForm } from "../components/ComponentsTypes";
-import { IChangePassword, INewPassword } from "../pages/Password";
+import { IChangePasswordForm, INewPassword } from "../pages/Password";
 import { IExpensesInputForm, IExpensesSelectForm } from "../pages/Expenses";
 
 export interface IButton {
@@ -18,7 +18,7 @@ export type TAuthInputForm = ISignUpForm | ISignInForm | INewPassword;
 
 export type TAppInputForm = IExpensesInputForm;
 
-export type TChangePassForm = IChangePassword;
+export type TChangePassForm = IChangePasswordForm;
 
 export interface IAuthInput extends UseControllerProps<TAuthInputForm> {
 	label: string;

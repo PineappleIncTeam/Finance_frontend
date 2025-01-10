@@ -3,4 +3,68 @@
     height: 100%;
 	background-color: var(--color-pure-light);
     border-radius: 20px;
+    padding: 24px 36px;
+}
+
+.headerTitle {
+    font-size: 3.6rem;
+    font-weight: 500;
+    line-height: 4.4rem;
+}
+
+.currencySelectionWrapper {
+    display: flex;
+    margin-top: 20px;
+    &__description{
+        font-size: 2rem;
+        font-weight: 400;
+        line-height: 2.8rem;
+    }
+}
+
+.currencySelectionRadioGroup {
+    display: flex;
+    gap: 16px;
+    margin-left: 32px;
+
+    &__input {
+        display: none;
+    }
+
+    &__label {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid var(--color-star-dust);
+        border-radius: 16px;
+        cursor: pointer;
+        transition: border-color 0.3s ease;
+    }
+
+    .currencySelectionRadioGroup__input:checked + .currencySelectionRadioGroup__label {
+        border-color: var(--color-dark-spring-green);
+    }
+
+    &__text {
+        color: var(--color-star-dust);
+        font-size: 1.6rem;
+        font-weight: 400;
+        padding: 5px 20px 4px 20px;
+        transition: color 0.3s ease;
+    }
+
+    .currencySelectionRadioGroup__input:checked + .currencySelectionRadioGroup__label .currencySelectionRadioGroup__text {
+        color: var(--color-dark-spring-green);
+    }
+
+    @media (min-width: 1025px) {
+
+        &__label:hover {
+            border-color: var(--color-dark-spring-green);
+        }
+
+        &__text:hover {
+            color: var(--color-dark-spring-green);
+        }
+    }
 }

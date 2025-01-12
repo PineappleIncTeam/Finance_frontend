@@ -51,3 +51,10 @@ export interface IIncomeTransaction {
 	purpose: string;
 	sum: number;
 }
+
+export interface ISavingsTransaction {
+	firstDate: string;
+	secondDate: string;
+	purpose: string;
+	sum: string;
+}

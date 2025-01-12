@@ -1,7 +1,12 @@
 "use client";
+
+import { Key } from "react";
 import { useForm } from "react-hook-form";
 
 import { PlusIcon } from "../../../assets/script/expenses/PlusIcon";
+
+import SavingsTransaction from "../../../components/userProfileLayout/savingsTransaction/savingsTransaction";
+import { savingsTransactions } from "../../../mocks/SavingsTransaction";
 
 import AppInput from "../../../ui/appInput/AppInput";
 import { InputTypeList } from "../../../helpers/Input";
@@ -59,7 +64,24 @@ function Savings() {
 							<PlusIcon classNames={style.addButtonIcon} />
 						</Button>
 					</div>
+					<div>Категория, цель---</div>
 				</form>
+				<div className={style.savingsTransactionWrapper}>
+					<h1 className={style.savingsTransactionHeader}>Последние операции по накоплениям</h1>
+					<ul className={style.savingsTransaction}>
+						{savingsTransactions &&
+							savingsTransactions.map((savingsData, index: Key) => (
+								<li key={index}>
+									<SavingsTransaction
+										firstDate={savingsData.firstDate}
+										secondDate={savingsData.secondDate}
+										purpose={savingsData.purpose}
+										sum={savingsData.sum}
+									/>
+								</li>
+							))}
+					</ul>
+				</div>
 			</div>
 		</div>
 	);

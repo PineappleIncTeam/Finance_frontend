@@ -5,7 +5,6 @@
 
 	@media (max-width: 500px) {
 		background-color: var(--color-pure-light);
-
 	}
 }
 
@@ -18,31 +17,40 @@
 .savingsFormContentWrapper {
 	display: flex;
 	flex-direction: column;
-	gap: 20px;
 	border-radius: 20px;
 	background-color: var(--color-pure-light);
 	padding: 24px 36px;
+	gap: 20px;
 
 	@media (max-width: 1440px) {
 		padding: 20px 28px;
 	}
 
-	@media (max-width: 1024px) {
+	@media (max-width: 1150px) {
 		padding: 24px 24px;
 	}
 
-	@media (max-width: 500px) {
+	@media (max-width: 426px) {
 		padding: 0px;
-		display: none;
 	}
-
-
 }
 
 .headerTitle {
 	font-weight: 500;
 	font-size: 3.6rem;
 	line-height: 4.4rem;
+
+	@media (max-width: 490px) {
+		font-size: 2.4rem;
+		line-height: 3.2rem;
+	}
+}
+
+.savingsFormContentWrapperContainer {
+	max-width: 1092px;
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
 }
 
 .savingsByDateConteiner {
@@ -50,6 +58,18 @@
 	gap: 40px;
 	height: 118px;
 	width: 100%;
+	@media (max-width: 1440px) {
+		gap: 28px;
+	}
+	@media (max-width: 1200px) {
+		gap: 24px;
+	}
+	@media (max-width: 426px) {
+		gap: 8px;
+	}
+	@media (max-width: 550px) {
+		height: 100%;
+	}
 }
 
 .totalAmountWrapper {
@@ -63,13 +83,18 @@
 	@media (max-width: 1440px) {
 		max-width: 310px;
 	}
-
-	
+	@media (max-width: 426px) {
+		padding: 10px 15px;
+	}
 
 	&__savings {
 		font-size: 2rem;
 		font-weight: 400;
 		line-height: 2.8rem;
+		@media (max-width: 490px) {
+			font-size: 1.3rem;
+			line-height: 1.8rem;
+		}
 	}
 
 	&__sum {
@@ -77,6 +102,11 @@
 		font-weight: 500;
 		line-height: 3.2rem;
 		margin-top: 9px;
+		@media (max-width: 490px) {
+			font-size: 1.6rem;
+			font-weight: 400;
+			line-height: 2.2rem;
+		}
 	}
 }
 
@@ -86,48 +116,74 @@
 	background-color: var(--color-light-grayish-green);
 	padding: 15px 20px;
 	border-radius: 12px;
+	margin-right: 180px;
 
 	@media (max-width: 1440px) {
 		max-width: 310px;
+		margin-right: 56px;
 	}
-
+	@media (max-width: 1200px) {
+		margin-right: 0;
+	}
 
 	&__description {
 		font-size: 1.3rem;
 		line-height: 1.8rem;
 		color: var(--color-very-dark-grayish-blue);
 		display: none;
+
+		@media (max-width: 490px) {
+			& {
+				display: block;
+				margin-bottom: 4px;
+			}
+		}
 	}
-
-
 }
-.savingsDetailsContainer{
+.savingsDetailsContainer {
 	display: flex;
 	align-items: flex-end;
 	gap: 40px;
 	width: 100%;
 
-	&__category{
-		width: 100%;
+	@media (max-width: 1440px) {
+		gap: 28px;
 	}
-	&__sum{
-		width: 100%;
+	@media (max-width: 1200px) {
+		gap: 24px;
+	}
+	@media (max-width: 426px) {
+		gap: 8px;
 	}
 
-	
-
-
-
+	&__category {
+		width: 100%;
+		max-width: 400px;
+		@media (max-width: 1440px) {
+			max-width: 310px;
+		}
+	}
+	&__sum {
+		width: 100%;
+		max-width: 400px;
+		@media (max-width: 1440px) {
+			width: 58%;
+		}
+		@media (max-width: 426px) {
+			width: 78%;
+		}
+	}
 }
 .addButtonIcon {
 	display: none;
 
 	@media (max-width: 800px) {
 		& {
-			display: flex;
+			display: inline;
 			align-items: center;
 			justify-content: center;
-			
+			margin-top: 6px;
+
 			width: 18px;
 			height: 18px;
 		}
@@ -139,32 +195,24 @@
 	}
 }
 
-.savingsTransactionWrapper{
+.savingsTransactionWrapper {
 	background-color: var(--color-pure-light);
 	margin-top: 20px;
 	border-radius: 20px;
 	padding: 24px 36px;
 
-	@media (max-width:1440px) {
+	@media (max-width: 1440px) {
 		padding: 20px 28px;
-		
 	}
-	@media (max-width:1024px) {
+	@media (max-width: 1024px) {
 		padding: 24px 24px;
-		
 	}
-	@media (max-width:1024px) {
+	@media (max-width: 769px) {
 		padding: 20px 24px;
-		
 	}
-	@media (max-width:1024px) {
+	@media (max-width: 426px) {
 		padding: 0;
-
-		
 	}
-
-
-
 }
 
 .savingsTransactionHeader {
@@ -175,18 +223,21 @@
 
 	@media (max-width: 1024px) {
 		margin-bottom: 20px;
-
+	}
+	@media (max-width: 769px) {
+		margin-bottom: 16px;
 	}
 	@media (max-width: 490px) {
 		& {
 			font-size: 1.6rem;
 			line-height: 2.2rem;
 			font-weight: 400;
+			margin-bottom: 12px;
 		}
 	}
 }
 
-.savingsTransaction li{
+.savingsTransaction li {
 	border-bottom: 1px solid var(--color-ghost-white);
 
 	&:last-child {

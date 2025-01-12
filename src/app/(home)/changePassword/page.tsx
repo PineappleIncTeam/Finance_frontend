@@ -6,25 +6,17 @@ import { useSearchParams, useRouter } from "next/navigation";
 import axios from "axios";
 
 import { IChangePassword, IChangePasswordForm } from "../../../types/pages/Password";
-
-import { InputTypeList } from "../../../helpers/Input";
-
-import ChangePasswordModal from "../../../components/mainLayout/changePasswordModal/changePasswordModal";
-
-import { getCorrectBaseUrl } from "../../../utils/baseUrlConverter";
-
-import { SetNewPassword } from "../../../services/api/auth/SetNewPassword";
-
-import { MainPath } from "../../../services/router/routes";
-
-import { ApiResponseCode } from "../../../helpers/apiResponseCode";
-
-import { mockLocalhostStr, mockLocalhostUrl } from "../../../services/api/auth/apiConstants";
-
-import { formHelpers } from "../../../utils/formHelpers";
-import { errorPasswordRepeat, passwordPattern } from "../../../helpers/authConstants";
-import ChangePassInput from "../../../ui/changePassInput/changePassInput";
 import Title from "../../../ui/title/Title";
+import ChangePassInput from "../../../components/mainLayout/changePassInput/changePassInput";
+import ChangePasswordModal from "../../../components/mainLayout/changePasswordModal/changePasswordModal";
+import { SetNewPassword } from "../../../services/api/auth/SetNewPassword";
+import { MainPath } from "../../../services/router/routes";
+import { mockLocalhostStr, mockLocalhostUrl } from "../../../services/api/auth/apiConstants";
+import { ApiResponseCode } from "../../../helpers/apiResponseCode";
+import { InputTypeList } from "../../../helpers/Input";
+import { errorPasswordRepeat, passwordPattern } from "../../../helpers/authConstants";
+import { getCorrectBaseUrl } from "../../../utils/baseUrlConverter";
+import { formHelpers } from "../../../utils/formHelpers";
 
 import style from "./changePassword.module.scss";
 
@@ -32,10 +24,12 @@ export default function ChangePassword() {
 	const [baseUrl, setBaseUrl] = useState<string>();
 	const [isChangePasswordModalShown, setIsChangePasswordModalShown] = useState<boolean>(false);
 	const searchParams = useSearchParams();
+	const router = useRouter();
+
 	const uid = searchParams.get("uid");
 	const token = searchParams.get("token");
-	const router = useRouter();
-	const mSeconds = 4000;
+
+	const secondsCount = 4000;
 
 	const {
 		control,
@@ -102,7 +96,7 @@ export default function ChangePassword() {
 
 	const handleChangePasswordModal = () => {
 		setIsChangePasswordModalShown(true);
-		setTimeout(() => setIsChangePasswordModalShown(false), mSeconds);
+		setTimeout(() => setIsChangePasswordModalShown(false), secondsCount);
 	};
 
 	return (

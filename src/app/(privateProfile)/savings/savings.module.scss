@@ -80,7 +80,7 @@
 	padding: 15px 20px 15px 20px;
 	color: var(--color-pure-light);
 
-	@media (max-width: 1440px) {
+	@media (max-width: 1500px) {
 		max-width: 310px;
 	}
 	@media (max-width: 426px) {
@@ -118,8 +118,8 @@
 	border-radius: 12px;
 	margin-right: 180px;
 
-	@media (max-width: 1440px) {
-		max-width: 310px;
+	@media (max-width: 1500px) {
+		max-width: 340px;
 		margin-right: 56px;
 	}
 	@media (max-width: 1200px) {
@@ -159,14 +159,14 @@
 	&__category {
 		width: 100%;
 		max-width: 400px;
-		@media (max-width: 1440px) {
+		@media (max-width: 1500px) {
 			max-width: 310px;
 		}
 	}
 	&__sum {
 		width: 100%;
 		max-width: 400px;
-		@media (max-width: 1440px) {
+		@media (max-width: 1500px) {
 			width: 58%;
 		}
 		@media (max-width: 426px) {

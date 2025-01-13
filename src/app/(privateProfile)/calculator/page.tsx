@@ -18,10 +18,17 @@ export default function Calculator() {
         setValue(newValue);
     };
 
-    const handleRangeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const newValue = event.target.value;
-        setValue(Number(newValue));
-    };
+	const handleRangeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+		const target = event.target as HTMLInputElement;
+		const newValue = Number(target.value);
+		setValue(newValue);
+		
+		const min = target.min ? Number(target.min) : 0;
+		const max = target.max ? Number(target.max) : 10000000;
+		const percentage = ((newValue - min) / (max - min)) * 100; 
+	
+		target.style.setProperty("--percentage", `${percentage}%`);
+	};
 
 	return (
 		<div className={style.calculatorPageWrap}>

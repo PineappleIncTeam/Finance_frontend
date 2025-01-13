@@ -162,6 +162,7 @@
         line-height: 28px;
         border: 1px solid var(--color-gainsboro);
         border-radius: 8px;
+        padding-left: 12px;
 
         &::-webkit-inner-spin-button,
         &::-webkit-outer-spin-button {
@@ -180,7 +181,7 @@
         -webkit-appearance: none;
         appearance: none;
         outline: none;
-        background: var(--color-dark-sea-green);
+        background: linear-gradient(to right, var(--color-dark-sea-green) var(--percentage), rgba(255, 0, 0, 0) var(--percentage));
         border: none;
 
         &::-webkit-slider-thumb {
@@ -191,14 +192,18 @@
             background: var(--color-dark-sea-green);
             border-radius: 50%;
             cursor: pointer;
+            position: relative;
+            z-index: 1;
         }
-
+        
         &::-moz-range-thumb {
             width: 16px;
             height: 16px;
             background: var(--color-dark-sea-green);
             border-radius: 50%;
             cursor: pointer;
+            position: relative;
+            z-index: 1;
         }
     }
 }

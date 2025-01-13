@@ -13,7 +13,7 @@ export default function Calculator() {
     };
 
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const rawValue = event.target.value.replace(/\s+/g, '');
+        const rawValue = event.target.value.replace(/\s+/g, "");
         const newValue = rawValue ? Number(rawValue) : "";
         setValue(newValue);
     };

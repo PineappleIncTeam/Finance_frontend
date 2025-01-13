@@ -6,16 +6,16 @@ import style from "./calculator.module.scss";
 
 export default function Calculator() {
 
-    const [value, setValue] = useState<number>(0); // Указываем, что state – это число
+    const [value, setValue] = useState<number>(0);
 
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const newValue = event.target.value;
-        setValue(Number(newValue)); // Не забудьте преобразовать строку в число
+        setValue(Number(newValue));
     };
 
     const handleRangeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const newValue = event.target.value;
-        setValue(Number(newValue)); // Тоже преобразуем здесь
+        setValue(Number(newValue));
     };
 
 	return (

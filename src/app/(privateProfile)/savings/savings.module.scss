@@ -46,7 +46,7 @@
 	}
 }
 
-.savingsFormContentWrapperContainer {
+.savingsFormContentWrapperChoice {
 	max-width: 1092px;
 	display: flex;
 	flex-direction: column;
@@ -194,6 +194,115 @@
 		height: 14px;
 	}
 }
+
+
+
+
+
+
+.savingsFormContentWrapperList{
+	width: 100%;
+}
+
+
+.wrapperListHeaderBlock{
+	display: flex;
+	width: 100%;
+	background-color: var(    --color-silver-gray);
+	padding: 8;
+
+font-size: 1.6rem;
+font-weight: 400;
+line-height: 2.2rem;
+color: var(--color-eerie-black);
+
+	&__category{
+		width: 31%;
+	}
+	&__target{
+		width: 23%;
+		text-align: end;
+
+	}
+	&__sum{
+		width: 23%;
+		text-align: end;
+
+	}
+	&__status{
+		width: 16%;
+		text-align: center;
+
+	}
+}
+
+
+.wrapperListContentBlock li{
+	display: flex;
+	border-bottom: 1px solid var(--color-ghost-white);
+	padding: 8;
+	width: 100%;
+
+
+font-size: 1.6rem;
+font-weight: 400;
+line-height: 2.2rem;
+color: var(--color-dark-cyan-blue);
+
+}
+
+.wrapperListContentBlock{
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+
+	&__category{
+		width: 31%;
+	}
+	&__target{
+		width: 23%;
+		text-align: end;
+	}
+	&__sum{
+		width: 23%;
+		text-align: end;
+
+	}
+	&__status{
+		width: 16%;
+		text-align: center;
+	}
+	&__btn{
+		width: 7%;
+		text-align: center;
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 .savingsTransactionWrapper {
 	background-color: var(--color-pure-light);

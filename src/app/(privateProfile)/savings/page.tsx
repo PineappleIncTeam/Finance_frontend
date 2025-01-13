@@ -30,7 +30,7 @@ function Savings() {
 			<div className={style.savingsPageContainer}>
 				<form className={style.savingsFormContentWrapper}>
 					<h1 className={style.headerTitle}>Накопления</h1>
-					<div className={style.savingsFormContentWrapperContainer}>
+					<div className={style.savingsFormContentWrapperChoice}>
 						<div className={style.savingsByDateConteiner}>
 							<div className={style.totalAmountWrapper}>
 								<p className={style.totalAmountWrapper__savings}>Общая сумма накоплений </p>
@@ -66,7 +66,80 @@ function Savings() {
 							</Button>
 						</div>
 					</div>
-					<div>Категория, цель---</div>
+					<div className={style.savingsFormContentWrapperList}>
+							<div className={style.wrapperList__header}>
+								<ul className={style.wrapperListHeaderBlock}>
+									<li className={style.wrapperListHeaderBlock__category}>Категория</li>
+									<li className={style.wrapperListHeaderBlock__target}>Цель, ₽</li>
+									<li className={style.wrapperListHeaderBlock__sum}>Сумма, ₽</li>
+									<li className={style.wrapperListHeaderBlock__status}>Статус</li>
+								</ul>
+							</div>
+							<div className={style.wrapperList__content}>
+								<ul className={style.wrapperListContentBlock}>
+									<li>
+										<div className={style.wrapperListContentBlock__category}>
+											<p>Обучение ребенка</p>
+										</div>
+										<div className={style.wrapperListContentBlock__target}>
+											<p>210 000.00</p>
+										</div>
+										<div className={style.wrapperListContentBlock__sum}>
+											<p>200 000.00</p>
+										</div>
+										<div className={style.wrapperListContentBlock__status}>
+											<p>В процессе</p>
+										</div>
+										<div className={style.wrapperListContentBlock__btn}>3</div>
+									</li>
+									<li>
+										<div className={style.wrapperListContentBlock__category}>
+											<p>Машина</p>
+										</div>
+										<div className={style.wrapperListContentBlock__target}>
+											<p>4 000 000.00</p>
+										</div>
+										<div className={style.wrapperListContentBlock__sum}>
+											<p>4 000 000.00</p>
+										</div>
+										<div className={style.wrapperListContentBlock__status}>
+											<p>Достигнута</p>
+										</div>
+										<div className={style.wrapperListContentBlock__btn}>3</div>
+									</li>
+									<li>
+										<div className={style.wrapperListContentBlock__category}>
+											<p>Квартира</p>
+										</div>
+										<div className={style.wrapperListContentBlock__target}>
+											<p>10 000 000.00</p>
+										</div>
+										<div className={style.wrapperListContentBlock__sum}>
+											<p>100 000.00 </p>
+										</div>
+										<div className={style.wrapperListContentBlock__status}>
+											<p>В процессе</p>
+										</div>
+										<div className={style.wrapperListContentBlock__btn}>3</div>
+									</li>
+									<li>
+										<div className={style.wrapperListContentBlock__category}>
+											<p>Отпуск 2024</p>
+										</div>
+										<div className={style.wrapperListContentBlock__target}>
+											<p>300 000.00</p>
+										</div>
+										<div className={style.wrapperListContentBlock__sum}>
+											<p>10 000.00</p>
+										</div>
+										<div className={style.wrapperListContentBlock__status}>
+											<p>В процессе</p>
+										</div>
+										<div className={style.wrapperListContentBlock__btn}>3</div>
+									</li>
+								</ul>
+							</div>
+					</div>
 				</form>
 				<div className={style.savingsTransactionWrapper}>
 					<h1 className={style.savingsTransactionHeader}>Последние операции по накоплениям</h1>

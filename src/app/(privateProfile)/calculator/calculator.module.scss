@@ -176,10 +176,10 @@
         outline: none;
         background: var(--color-dark-sea-green);
     }
-}
-input[type=number]::-webkit-inner-spin-button,
-input[type=number]::-webkit-outer-spin-button {
-    -webkit-appearance: none;
+    input[type=number]::-webkit-inner-spin-button,
+    input[type=number]::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+    }
 }
 .inputRangeFieldConatiner__range::-webkit-slider-thumb {
     -webkit-appearance: none;

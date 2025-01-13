@@ -90,7 +90,7 @@ export default function Calculator() {
 							</div>
 						</div>
 
-						<div>
+						<div className={style.propertyValueContainer}>
 							<label className={style.propertyValueContainer__label} htmlFor="q1">Первоначальный взнос, ₽</label>
 							<div className={style.inputRangeFieldConatiner}>
 								<input

@@ -6,11 +6,16 @@ import style from "./calculator.module.scss";
 
 export default function Calculator() {
 
-    const [value, setValue] = useState<number>(0);
+    const [value, setValue] = useState<number | string>("");
+
+    const formatNumber = (num: number) => {
+        return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+    };
 
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const newValue = event.target.value;
-        setValue(Number(newValue));
+        const rawValue = event.target.value.replace(/\s+/g, '');
+        const newValue = rawValue ? Number(rawValue) : "";
+        setValue(newValue);
     };
 
     const handleRangeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -62,30 +67,51 @@ export default function Calculator() {
 							</label>
 						</div>
 						
-						<div className={style.inputRangeContainer}>
-							<label className={style.inputRangeContainer__labl} htmlFor="q1">Стоимость недвижимости, ₽</label>
-							<div className={style.inputRangeContainer1}>
-								<input 
-									type="number" 
-									value={value} 
-									onChange={handleInputChange} 
-									className={style.appInput1} 
-									min="0" 
-									max="1000000" 
-									id="q1"
-								/>
+						<div className={style.propertyValueContainer}>
+							<label className={style.propertyValueContainer__label} htmlFor="q1">Стоимость недвижимости, ₽</label>
+							<div className={style.inputRangeFieldConatiner}>
+								<input
+                                    type="text"
+                                    value={formatNumber(Number(value))}
+                                    onChange={handleInputChange}
+                                    className={style.inputRangeFieldConatiner__input}
+                                    min="0"
+                                    max="10000000"
+                                    id="q1"
+                                />
 								<input 
 									type="range" 
 									value={value} 
 									onChange={handleRangeChange} 
-									className={style.rangeInput1} 
+									className={style.inputRangeFieldConatiner__range} 
+									min="0" 
+									max="10000000" 
+								/>
+							</div>
+						</div>
+
+						<div>
+							<label className={style.propertyValueContainer__label} htmlFor="q1">Первоначальный взнос, ₽</label>
+							<div className={style.inputRangeFieldConatiner}>
+								<input
+                                    type="text"
+                                    value={formatNumber(Number(value))}
+                                    onChange={handleInputChange}
+                                    className={style.inputRangeFieldConatiner__input}
+                                    min="0"
+                                    max="1000000"
+                                    id="q1"
+                                />
+								<input 
+									type="range" 
+									value={value} 
+									onChange={handleRangeChange} 
+									className={style.inputRangeFieldConatiner__range} 
 									min="0" 
 									max="1000000" 
 								/>
 							</div>
 						</div>
-
-						<div></div>
 
 						<div></div>
 

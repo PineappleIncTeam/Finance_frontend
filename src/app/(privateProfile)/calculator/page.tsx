@@ -69,12 +69,12 @@ export default function Calculator() {
 						
 						<div className={style.propertyValueContainer}>
 							<label className={style.propertyValueContainer__label} htmlFor="q1">Стоимость недвижимости, ₽</label>
-							<div className={style.inputRangeFieldConatiner}>
+							<div className={style.inputRangeFieldContainer}>
 								<input
                                     type="text"
                                     value={formatNumber(Number(value))}
                                     onChange={handleInputChange}
-                                    className={style.inputRangeFieldConatiner__input}
+                                    className={style.inputRangeFieldContainer__input}
                                     min="0"
                                     max="10000000"
                                     id="q1"
@@ -83,7 +83,7 @@ export default function Calculator() {
 									type="range" 
 									value={value} 
 									onChange={handleRangeChange} 
-									className={style.inputRangeFieldConatiner__range} 
+									className={style.inputRangeFieldContainer__range} 
 									min="0" 
 									max="10000000" 
 								/>
@@ -92,12 +92,12 @@ export default function Calculator() {
 
 						<div className={style.propertyValueContainer}>
 							<label className={style.propertyValueContainer__label} htmlFor="q1">Первоначальный взнос, ₽</label>
-							<div className={style.inputRangeFieldConatiner}>
+							<div className={style.inputRangeFieldContainer}>
 								<input
                                     type="text"
                                     value={formatNumber(Number(value))}
                                     onChange={handleInputChange}
-                                    className={style.inputRangeFieldConatiner__input}
+                                    className={style.inputRangeFieldContainer__input}
                                     min="0"
                                     max="1000000"
                                     id="q1"
@@ -106,7 +106,7 @@ export default function Calculator() {
 									type="range" 
 									value={value} 
 									onChange={handleRangeChange} 
-									className={style.inputRangeFieldConatiner__range} 
+									className={style.inputRangeFieldContainer__range} 
 									min="0" 
 									max="1000000" 
 								/>

@@ -75,6 +75,28 @@
 
 .calculatorFormContentWrapper {
     width: 420px;
+
+    &__submitBtn{
+        width: 253px;
+        height: 52px;
+        margin-top: 24px;
+        background: var(--color-dark-spring-green);
+        border-radius: 12px;
+        font-size: 20px;
+        font-weight: 400;
+        line-height: 28px;
+        color: var(--color-pure-light);
+        cursor: pointer;
+        transition: opacity 0.3s ease;
+    }
+
+    @media (min-width: 1025px) {
+
+        &__submitBtn:hover{
+            opacity: 0.7;
+        }
+
+    }
 }
 
 .selectionOfCalculationContainer {
@@ -99,7 +121,7 @@
     }
 
     .selectionOfCalculationContainer__input:checked + .selectionOfCalculationContainer__label {
-        border: none;
+        border-color: var(--color-dark-sea-green);
         background-color: var(--color-dark-sea-green);
     }
 
@@ -117,7 +139,7 @@
     @media (min-width: 1025px) {
 
         &__label:hover {
-            border: none;
+            border-color: var(--color-dark-sea-green);
             background-color: var(--color-dark-sea-green);
             
             .selectionOfCalculationContainer__text {
@@ -133,7 +155,7 @@
 
 
 
-// Необходимо переделать или доделать
+
 .propertyValueContainer {
     margin-top: 20px;
 
@@ -204,6 +226,61 @@
             cursor: pointer;
             position: relative;
             z-index: 1;
+        }
+    }
+}
+
+
+
+
+
+
+.propertyButtonRadioContainer {
+    margin-top: 4px;
+    display: flex;
+    gap: 8px;
+
+    &__input {
+        display: none;
+    }
+
+    &__label {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid var(--color-star-dust);
+        border-radius: 16px;
+        cursor: pointer;
+        transition: background-color 0.3s ease,
+                    border 0.3s ease;
+    }
+
+    .propertyButtonRadioContainer__input:checked + .propertyButtonRadioContainer__label {
+        border-color: var(--color-dark-sea-green);
+        background-color: var(--color-dark-sea-green);
+    }
+
+    &__text {
+        color: var(--color-star-dust);
+        font-size: 1.6rem;
+        font-weight: 400;
+        padding: 4px 12px;
+        transition: color 0.3s ease;
+    }
+
+    .propertyButtonRadioContainer__input:checked + .propertyButtonRadioContainer__label .propertyButtonRadioContainer__text {
+        color: var(--color-pure-light);
+    }
+
+    @media (min-width: 1025px) {
+
+        &__label:hover {
+            border-color: var(--color-dark-sea-green);
+            background-color: var(--color-dark-sea-green);
+        }
+
+        &__text:hover {
+            color: var(--color-pure-light);
         }
     }
 }

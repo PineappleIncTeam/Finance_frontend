@@ -2,6 +2,8 @@
 
 import React, { useState } from "react";
 
+import { AiFillInfoCircle } from "react-icons/ai";
+
 import style from "./calculator.module.scss";
 
 export default function Calculator() {
@@ -238,7 +240,23 @@ export default function Calculator() {
                     </form>
 
                     <div className={style.calculationInfoWrapper}>
+                        <AiFillInfoCircle className={style.calculationInfoWrapper__infoIcon}/>
+                        <p className={style.calculationInfoWrapper__title}>Ежемесячный платеж</p>
+                        <p className={style.calculationInfoWrapper__price}>26 125 ₽</p>
+                        <div className={style.creditInfoWrapper}>
+                            <p className={style.creditInfoWrapper__name}>Кредит</p>
+                            <p className={style.creditInfoWrapper__value}>5 000 000 ₽</p>
+                        </div>
+                        <div className={style.percentInfoWrapper}>
+                            <p className={style.percentInfoWrapper__name}>Проценты</p>
+                            <p className={style.percentInfoWrapper__value}>4 500 000 ₽</p>
+                        </div>
+                        <div className={style.creditAndPercentInfoWrapper}>
+                            <p className={style.creditAndPercentInfoWrapper__name}>Кредит + проценты</p>
+                            <p className={style.creditAndPercentInfoWrapper__value}>9 500 000 ₽</p>
+                        </div>
                     </div>
+
                 </div>
             </div>
         </div>

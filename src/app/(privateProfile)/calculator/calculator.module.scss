@@ -71,6 +71,9 @@
 
 .calculationWrapper {
     margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
 }
 
 .calculatorFormContentWrapper {
@@ -282,5 +285,51 @@
         &__text:hover {
             color: var(--color-pure-light);
         }
+    }
+}
+
+
+
+.calculationInfoWrapper {
+    width: 506px;
+    padding: 30px 32px;
+    background: var(--color-silver-gray);
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+
+    &__infoIcon {
+        width: 22px;
+        height: 22px;
+        color: var(--color-dark-spring-green);
+    }
+
+    &__title, &__price {
+        font-size: 20px;
+        font-weight: 400;
+        line-height: 28px;
+    }
+
+    &__title {
+        margin-top: 16px;
+        margin-bottom: 12px;
+    }
+    
+    .creditInfoWrapper, .percentInfoWrapper, .creditAndPercentInfoWrapper {
+        display: flex;
+        justify-content: space-between;
+        font-size: 20px;
+        font-weight: 400;
+        line-height: 28px;
+        color: var(--color-star-dust);
+    }
+
+    .creditInfoWrapper {
+        margin-top: 16px;
+        margin-bottom: 20px;
+    }
+
+    .creditAndPercentInfoWrapper {
+        margin-top: 20px;
     }
 }

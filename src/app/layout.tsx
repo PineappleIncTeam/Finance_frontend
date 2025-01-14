@@ -3,6 +3,8 @@ import "./globals.css";
 
 import ProviderList from "../services/redux/provider";
 
+import { rubik } from "./fonts";
+
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -17,7 +19,7 @@ export default function RootLayout({
 }>) {
 	return (
 		<html lang="en">
-			<body>
+			<body className={rubik.className}>
 				<ProviderList>{children}</ProviderList>
 			</body>
 		</html>

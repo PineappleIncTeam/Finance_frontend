@@ -239,8 +239,9 @@ color: var(--color-eerie-black);
 
 .wrapperListContentBlock li{
 	display: flex;
+	align-items: center;
 	border-bottom: 1px solid var(--color-ghost-white);
-	padding: 8;
+	padding: 9px;
 	width: 100%;
 
 
@@ -248,6 +249,10 @@ font-size: 1.6rem;
 font-weight: 400;
 line-height: 2.2rem;
 color: var(--color-dark-cyan-blue);
+
+&:hover{
+	background-color: var(--color-light-grayish-green);
+}
 
 }
 
@@ -261,11 +266,15 @@ color: var(--color-dark-cyan-blue);
 	}
 	&__target{
 		width: 23%;
-		text-align: end;
+		display: flex;
+		justify-content: end;
+		
+		
 	}
 	&__sum{
 		width: 23%;
 		text-align: end;
+		
 
 	}
 	&__status{
@@ -276,6 +285,16 @@ color: var(--color-dark-cyan-blue);
 		width: 7%;
 		text-align: center;
 	}
+}
+.editIcon{
+	height: 22px;
+	width: 22px;
+	margin-right: 2px;
+	cursor: pointer;
+	
+}
+.inputEdit{
+	text-align: end;
 }
 
 

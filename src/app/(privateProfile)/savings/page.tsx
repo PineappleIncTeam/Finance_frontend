@@ -1,9 +1,10 @@
 "use client";
 
-import { Key } from "react";
+import { Key, useState } from "react";
 import { useForm } from "react-hook-form";
 
 import { PlusIcon } from "../../../assets/script/expenses/PlusIcon";
+import { EditIcon } from "../../../assets/script/expenses/EditIcon";
 
 import SavingsTransaction from "../../../components/userProfileLayout/savingsTransaction/savingsTransaction";
 import { savingsTransactions } from "../../../mocks/SavingsTransaction";
@@ -24,6 +25,23 @@ function Savings() {
 		mode: "all",
 		delayError: 200,
 	});
+	const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+	const [editIndex, setEditIndex] = useState<number | null>(null);
+	const [editValue, setEditValue] = useState<string>("");
+
+	const items = [
+		{ category: "Обучение ребенка", target: "210 000.00", sum: "200 000.00", status: "В процессe" },
+		{ category: "Машина", target: "4 000 000.00", sum: "4 000 000.00", status: "Достигнута" },
+		{ category: "Квартира", target: "10 000 000.00", sum: "100 000.00", status: "В процессе" },
+		{ category: "Отпуск 2024", target: "300 000.00", sum: "10 000.00", status: "В процессе" },
+	];
+
+	const handleEditClick = (index: number, target: string) => {
+		setEditIndex(index);
+		setEditValue(target);
+	};
+
+
 
 	return (
 		<div className={style.savingsPageWrap}>
@@ -59,7 +77,7 @@ function Savings() {
 								/>
 							</div>
 
-							{/* styleName переделать! */}
+							{/* styleName у Btn заменить?! */}
 
 							<Button content={"Добавить"} styleName={"buttonForIncome__disabled"}>
 								<PlusIcon classNames={style.addButtonIcon} />
@@ -67,78 +85,50 @@ function Savings() {
 						</div>
 					</div>
 					<div className={style.savingsFormContentWrapperList}>
-							<div className={style.wrapperList__header}>
-								<ul className={style.wrapperListHeaderBlock}>
-									<li className={style.wrapperListHeaderBlock__category}>Категория</li>
-									<li className={style.wrapperListHeaderBlock__target}>Цель, ₽</li>
-									<li className={style.wrapperListHeaderBlock__sum}>Сумма, ₽</li>
-									<li className={style.wrapperListHeaderBlock__status}>Статус</li>
-								</ul>
-							</div>
-							<div className={style.wrapperList__content}>
-								<ul className={style.wrapperListContentBlock}>
-									<li>
+						<div className={style.wrapperList__header}>
+							<ul className={style.wrapperListHeaderBlock}>
+								<li className={style.wrapperListHeaderBlock__category}>Категория</li>
+								<li className={style.wrapperListHeaderBlock__target}>Цель, ₽</li>
+								<li className={style.wrapperListHeaderBlock__sum}>Сумма, ₽</li>
+								<li className={style.wrapperListHeaderBlock__status}>Статус</li>
+							</ul>
+						</div>
+						<div className={style.wrapperList__content}>
+							<ul className={style.wrapperListContentBlock}>
+								{items.map((item, index) => (
+									<li
+										key={index}
+										onMouseEnter={() => setHoveredIndex(index)}
+										onMouseLeave={() => setHoveredIndex(null)}>
 										<div className={style.wrapperListContentBlock__category}>
-											<p>Обучение ребенка</p>
+											<p>{item.category}</p>
 										</div>
 										<div className={style.wrapperListContentBlock__target}>
-											<p>210 000.00</p>
+											<div className={style.editIcon} style={{ display: hoveredIndex === index ? "block" : "none" }} onClick={() => handleEditClick(index, item.target)}>
+												<EditIcon  />
+											</div>
+											{editIndex === index ? (
+												<input className={style.inputEdit}
+													type="text"
+													value={editValue}
+													onChange={(e) => setEditValue(e.target.value)}
+													
+												/>
+											) : (
+												<p>{item.target}</p>
+											)}
 										</div>
 										<div className={style.wrapperListContentBlock__sum}>
-											<p>200 000.00</p>
+											<p>{item.sum}</p>
 										</div>
 										<div className={style.wrapperListContentBlock__status}>
-											<p>В процессе</p>
+											<p>{item.status}</p>
 										</div>
 										<div className={style.wrapperListContentBlock__btn}>3</div>
 									</li>
-									<li>
-										<div className={style.wrapperListContentBlock__category}>
-											<p>Машина</p>
-										</div>
-										<div className={style.wrapperListContentBlock__target}>
-											<p>4 000 000.00</p>
-										</div>
-										<div className={style.wrapperListContentBlock__sum}>
-											<p>4 000 000.00</p>
-										</div>
-										<div className={style.wrapperListContentBlock__status}>
-											<p>Достигнута</p>
-										</div>
-										<div className={style.wrapperListContentBlock__btn}>3</div>
-									</li>
-									<li>
-										<div className={style.wrapperListContentBlock__category}>
-											<p>Квартира</p>
-										</div>
-										<div className={style.wrapperListContentBlock__target}>
-											<p>10 000 000.00</p>
-										</div>
-										<div className={style.wrapperListContentBlock__sum}>
-											<p>100 000.00 </p>
-										</div>
-										<div className={style.wrapperListContentBlock__status}>
-											<p>В процессе</p>
-										</div>
-										<div className={style.wrapperListContentBlock__btn}>3</div>
-									</li>
-									<li>
-										<div className={style.wrapperListContentBlock__category}>
-											<p>Отпуск 2024</p>
-										</div>
-										<div className={style.wrapperListContentBlock__target}>
-											<p>300 000.00</p>
-										</div>
-										<div className={style.wrapperListContentBlock__sum}>
-											<p>10 000.00</p>
-										</div>
-										<div className={style.wrapperListContentBlock__status}>
-											<p>В процессе</p>
-										</div>
-										<div className={style.wrapperListContentBlock__btn}>3</div>
-									</li>
-								</ul>
-							</div>
+								))}
+							</ul>
+						</div>
 					</div>
 				</form>
 				<div className={style.savingsTransactionWrapper}>

@@ -5,6 +5,9 @@ import { useForm } from "react-hook-form";
 
 import { PlusIcon } from "../../../assets/script/expenses/PlusIcon";
 import { EditIcon } from "../../../assets/script/expenses/EditIcon";
+import { CheckIcon } from "../../../assets/script/savings/CheckIcon";
+import { MoreIcon } from "../../../assets/script/savings/MoreIcon";
+import { SortIcon } from "../../../assets/script/savings/SortIcon";
 
 import SavingsTransaction from "../../../components/userProfileLayout/savingsTransaction/savingsTransaction";
 import { savingsTransactions } from "../../../mocks/SavingsTransaction";
@@ -26,8 +29,12 @@ function Savings() {
 		delayError: 200,
 	});
 	const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+
+	const [editField, setEditField] = useState<"category" | "target" | null>(null);
 	const [editIndex, setEditIndex] = useState<number | null>(null);
 	const [editValue, setEditValue] = useState<string>("");
+
+	const [openMoreIndex, setOpenMoreIndex] = useState<number | null>(null);
 
 	const items = [
 		{ category: "Обучение ребенка", target: "210 000.00", sum: "200 000.00", status: "В процессe" },
@@ -36,12 +43,20 @@ function Savings() {
 		{ category: "Отпуск 2024", target: "300 000.00", sum: "10 000.00", status: "В процессе" },
 	];
 
-	const handleEditClick = (index: number, target: string) => {
+	const handleEditClick = (index: number, field: "category" | "target", value: string) => {
 		setEditIndex(index);
-		setEditValue(target);
+		setEditField(field);
+		setEditValue(value);
 	};
 
+	const handleSaveClick = () => {
+		setEditIndex(null);
+		setEditField(null);
+	};
 
+	const handleMoreClick = (index: number) => {
+		setOpenMoreIndex(openMoreIndex === index ? null : index);
+	};
 
 	return (
 		<div className={style.savingsPageWrap}>
@@ -88,8 +103,18 @@ function Savings() {
 						<div className={style.wrapperList__header}>
 							<ul className={style.wrapperListHeaderBlock}>
 								<li className={style.wrapperListHeaderBlock__category}>Категория</li>
-								<li className={style.wrapperListHeaderBlock__target}>Цель, ₽</li>
-								<li className={style.wrapperListHeaderBlock__sum}>Сумма, ₽</li>
+								<li className={style.wrapperListHeaderBlock__target}>
+									<div className={style.wrapperListHeaderBlock__targetPosition}>
+										<div>Цель, ₽</div>
+										<SortIcon />
+									</div>
+								</li>
+								<li className={style.wrapperListHeaderBlock__sum}>
+									<div className={style.wrapperListHeaderBlock__sumPosition}>
+										<div>Сумма, ₽</div>
+										<SortIcon />
+									</div>
+								</li>
 								<li className={style.wrapperListHeaderBlock__status}>Статус</li>
 							</ul>
 						</div>
@@ -99,32 +124,82 @@ function Savings() {
 									<li
 										key={index}
 										onMouseEnter={() => setHoveredIndex(index)}
-										onMouseLeave={() => setHoveredIndex(null)}>
+										onMouseLeave={() => setHoveredIndex(null)}
+										className={editIndex === index ? style.activeEditItem : ""}>
 										<div className={style.wrapperListContentBlock__category}>
-											<p>{item.category}</p>
-										</div>
-										<div className={style.wrapperListContentBlock__target}>
-											<div className={style.editIcon} style={{ display: hoveredIndex === index ? "block" : "none" }} onClick={() => handleEditClick(index, item.target)}>
-												<EditIcon  />
+											<div className={style.inputEditWrapper}>
+												{editIndex === index && editField === "category" ? (
+													<input
+														className={style.inputEdit}
+														type="text"
+														value={editValue}
+														onChange={(e) => setEditValue(e.target.value)}
+													/>
+												) : (
+													<p>{item.category}</p>
+												)}
+												<div
+													className={style.editIcon}
+													style={{
+														display: hoveredIndex === index || editIndex === index ? "block" : "none",
+													}}
+													onClick={() =>
+														editIndex === index && editField === "category"
+															? handleSaveClick()
+															: handleEditClick(index, "category", item.category)
+													}
+													role="button">
+													{editIndex === index && editField === "category" ? <CheckIcon /> : <EditIcon />}
+												</div>
 											</div>
-											{editIndex === index ? (
-												<input className={style.inputEdit}
-													type="text"
-													value={editValue}
-													onChange={(e) => setEditValue(e.target.value)}
-													
-												/>
-											) : (
-												<p>{item.target}</p>
-											)}
 										</div>
+
+										<div className={style.wrapperListContentBlock__target}>
+											<div className={style.inputEditWrapper}>
+												<div
+													className={style.editIcon}
+													style={{
+														display: hoveredIndex === index || editIndex === index ? "block" : "none",
+													}}
+													onClick={() =>
+														editIndex === index && editField === "target"
+															? handleSaveClick()
+															: handleEditClick(index, "target", item.target)
+													}
+													role="button">
+													{editIndex === index && editField === "target" ? <CheckIcon /> : <EditIcon />}
+												</div>
+												{editIndex === index && editField === "target" ? (
+													<input
+														className={`${style.inputEdit} ${style.inputEdit__target}`}
+														type="text"
+														value={editValue}
+														onChange={(e) => setEditValue(e.target.value)}
+													/>
+												) : (
+													<p>{item.target}</p>
+												)}
+											</div>
+										</div>
+
 										<div className={style.wrapperListContentBlock__sum}>
 											<p>{item.sum}</p>
 										</div>
 										<div className={style.wrapperListContentBlock__status}>
 											<p>{item.status}</p>
 										</div>
-										<div className={style.wrapperListContentBlock__btn}>3</div>
+										<div
+											className={style.wrapperListContentBlock__btn}
+											onClick={() => handleMoreClick(index)}
+											role="button">
+											<MoreIcon />
+											{openMoreIndex === index && (
+												<div className={style.wrapperListContentMore}>
+													<p className={style.wrapperListContentMore__close}>Закрыть цель</p>
+													<p>Вернуть средства на счет</p>
+												</div>
+											)}
+										</div>
 									</li>
 								))}
 							</ul>

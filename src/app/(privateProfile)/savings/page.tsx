@@ -36,12 +36,15 @@ function Savings() {
 
 	const [openMoreIndex, setOpenMoreIndex] = useState<number | null>(null);
 
-	const items = [
+	const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc");
+	const [sortTargetOrder, setSortTargetOrder] = useState<"asc" | "desc">("asc");
+
+	const [items, setItems] = useState([
 		{ category: "Обучение ребенка", target: "210 000.00", sum: "200 000.00", status: "В процессe" },
 		{ category: "Машина", target: "4 000 000.00", sum: "4 000 000.00", status: "Достигнута" },
 		{ category: "Квартира", target: "10 000 000.00", sum: "100 000.00", status: "В процессе" },
 		{ category: "Отпуск 2024", target: "300 000.00", sum: "10 000.00", status: "В процессе" },
-	];
+	]);
 
 	const handleEditClick = (index: number, field: "category" | "target", value: string) => {
 		setEditIndex(index);
@@ -57,6 +60,28 @@ function Savings() {
 	const handleMoreClick = (index: number) => {
 		setOpenMoreIndex(openMoreIndex === index ? null : index);
 	};
+
+	const handleSortBySum = () => {
+		const sortedItems = [...items].sort((a, b) => {
+		  const sumA = parseFloat(a.sum.replace(/[^0-9.-]+/g, ""));
+		  const sumB = parseFloat(b.sum.replace(/[^0-9.-]+/g, ""));
+		  return sortOrder === "asc" ? sumA - sumB : sumB - sumA;
+		});
+		setItems(sortedItems);
+		setSortOrder(sortOrder === "asc" ? "desc" : "asc");
+	  };
+	
+	  const handleSortByTarget = () => {
+		const sortedItems = [...items].sort((a, b) => {
+		  const targetA = a.target.replace(/[^0-9.-]+/g, "");
+		  const targetB = b.target.replace(/[^0-9.-]+/g, "");
+		  return sortTargetOrder === "asc"
+			? parseFloat(targetA) - parseFloat(targetB)
+			: parseFloat(targetB) - parseFloat(targetA);
+		});
+		setItems(sortedItems);
+		setSortTargetOrder(sortTargetOrder === "asc" ? "desc" : "asc");
+	  };
 
 	return (
 		<div className={style.savingsPageWrap}>
@@ -106,13 +131,17 @@ function Savings() {
 								<li className={style.wrapperListHeaderBlock__target}>
 									<div className={style.wrapperListHeaderBlock__targetPosition}>
 										<div>Цель, ₽</div>
-										<SortIcon />
+										<div className={style.sortIcon} onClick={handleSortByTarget} role="button">
+											<SortIcon />
+										</div>
 									</div>
 								</li>
 								<li className={style.wrapperListHeaderBlock__sum}>
 									<div className={style.wrapperListHeaderBlock__sumPosition}>
 										<div>Сумма, ₽</div>
-										<SortIcon />
+										<div className={style.sortIcon} onClick={handleSortBySum} role="button">
+											<SortIcon />
+										</div>
 									</div>
 								</li>
 								<li className={style.wrapperListHeaderBlock__status}>Статус</li>

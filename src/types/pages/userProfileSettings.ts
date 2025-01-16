@@ -13,3 +13,8 @@ export interface IChangePasswordForm {
   newPassword: string,
   repeatPassword: string,
 }
+
+export interface IUserAvatar {
+  personalAvatar?: string,
+  templateAvatar: string,
+}

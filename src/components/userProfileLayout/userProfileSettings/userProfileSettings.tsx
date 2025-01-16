@@ -1,23 +1,26 @@
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import Image from "next/image";
 import Link from "next/link";
 
-import { useState } from "react";
-
-import Button from "../../../ui/button/button";
-import { IChangePasswordForm, IPrivateDataFrom } from "../../../types/pages/userProfileSettings";
-import AppInput from "../../../ui/appInput/AppInput";
+import { IChangePasswordForm, IPrivateDataFrom, IUserAvatar } from "../../../types/pages/userProfileSettings";
 import arrowRightIcon from "../../../assets/components/userProfile/arrowRight.svg";
 import navigationArrowIcon from "../../../assets/components/userProfile/navigationArrow.svg";
 import { MainPath } from "../../../services/router/routes";
 import { TCommonFunction } from "../../../types/common/ComponentsProps";
 
+import AppInput from "../../../ui/appInput/AppInput";
+import Button from "../../../ui/button/button";
 import { RadioButton } from "../../../ui/radio/radioButton";
 
+import userAvatar from "../../../assets/components/userProfile/userPhoto.svg";
+import editProfileIcon from "../../../assets/components/userProfile/editProfile.svg";
 import { DeleteIcon } from "../../../assets/script/expenses/DeleteIcon";
 import ResetIcon from "../../../assets/script/privateProfileNavBar/ResetIcon";
 import { archiveList } from "../../../mocks/PrivateProfileArchive";
 import { Tooltip } from "../tooltip/tooltip";
+
+import { AvatarTemplates } from "../../../mocks/AvatarTemplates";
 
 import style from "./userProfileSettings.module.scss";
 
@@ -106,6 +109,56 @@ export const Archive = () => {
 					})}
 				</div>
 			</div>
+			<SidebarMenu />
+		</div>
+	);
+};
+
+export const AvatarSettings = () => {
+	const { register } = useForm<IUserAvatar>({
+		mode: "all",
+		delayError: 200,
+	});
+	return (
+		<div className={style.wrapper}>
+			<form className={style.form}>
+				<div className={style.title}>Аватар</div>
+				<div className={style.avatar__wrapper}>
+					<div className={style.avatar__picture}>
+						<Image src={userAvatar} alt={"userAvatar"} className={style.avatar__image} />
+						<div className={style.avatar__editButtonWrapper}>
+							<label htmlFor="userAvatar" className={style.avatar__editButton}>
+								<input
+									type="file"
+									id="userAvatar"
+									name="userAvatar"
+									className={style.avatar__input}
+									{...register("personalAvatar")}
+								/>
+								<Image src={editProfileIcon} alt={"editProfile"} className={style.avatar__editIcon} />
+							</label>
+						</div>
+					</div>
+				</div>
+				<div className={style.avatarTemplates}>
+					{AvatarTemplates.map((avatar, index) => (
+						<div className={style.avatarTemplates__picture} key={index}>
+							<input
+								type="radio"
+								id={`template-avatar-${index}`}
+								name={"template-avatar"}
+								value={avatar}
+								{...register("templateAvatar")}
+								className={style.templateAvatar__input}
+							/>
+							<label htmlFor={`template-avatar-${index}`} className={style.templateAvatar__label}>
+								<Image src={avatar} className={style.avatarTemplates__img} alt={""} />
+							</label>
+						</div>
+					))}
+				</div>
+				<Button content={"Сохранить"} styleName={"buttonPrivateProfileSidebar"} type={"submit"} />
+			</form>
 			<SidebarMenu />
 		</div>
 	);

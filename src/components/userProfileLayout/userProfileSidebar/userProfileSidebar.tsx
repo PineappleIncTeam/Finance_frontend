@@ -17,7 +17,6 @@ import userAvatar from "../../../assets/components/userProfile/userPhoto.svg";
 import { MainPath } from "../../../services/router/routes";
 import burgerIcon from "../../../assets/components/userProfile/burger.svg";
 import NavBar from "../navBar/navBar";
-import editProfileIcon from "../../../assets/components/userProfile/editProfile.svg";
 import infoIcon from "../../../assets/components/userProfile/infoIcon.svg";
 
 import { logoutUser } from "../../../services/api/auth/Logout";
@@ -27,7 +26,7 @@ import { ApiResponseCode } from "../../../helpers/apiResponseCode";
 
 import { BurgerMenu } from "../burgerMenu/burgerMenu";
 
-import { Archive, ChangePassword, PrivateData } from "../userProfileSettings/userProfileSettings";
+import { Archive, AvatarSettings, ChangePassword, PrivateData } from "../userProfileSettings/userProfileSettings";
 
 import style from "./userProfileSidebar.module.scss";
 
@@ -42,8 +41,8 @@ const UserProfileSidebar = ({ avatar, name, balance }: IUserProfileSidebar) => {
 
 	const sidebarNavMenu = [
 		{ title: "Личные данные", content: PrivateData },
+		{ title: "Аватар", content: AvatarSettings },
 		{ title: "Сменить пароль", content: ChangePassword },
-		// { title: "Настройки", content: PrivateData },
 		{ title: "Архив", content: Archive },
 	];
 
@@ -130,7 +129,6 @@ const UserProfileSidebar = ({ avatar, name, balance }: IUserProfileSidebar) => {
 								<button className={style.userInformationWrap_images_action}>
 									<Image src={avatar || userAvatar} alt={"userAvatar"} className={style.userInformationWrap__avatar} />
 								</button>
-								<Image src={editProfileIcon} alt={"editProfile"} className={style.userInformationWrap__edit} />
 							</div>
 							<p className={style.userInformationWrap__name}>{name || "Имя"}</p>
 							<div className={style.userInformationWrap__adaptive}>

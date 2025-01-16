@@ -104,22 +104,9 @@
 	position: relative;
 }
 
-.userInformationWrap__edit {
-	position: absolute;
-	bottom: -10%;
-	right: 30%;
-	opacity: 0;
-	transition: 0.5s;
-}
-
 .userInformationWrap_images_action {
 	border: none;
 	background-color: transparent;
-	cursor: pointer;
-}
-
-.userInformationWrap_images_action:hover + .userInformationWrap__edit {
-	opacity: 1;
 }
 
 .userInformationWrap__name {

@@ -3,7 +3,12 @@ import { useForm } from "react-hook-form";
 import Image from "next/image";
 import Link from "next/link";
 
-import { IChangePasswordForm, IPrivateDataFrom, IUserAvatar } from "../../../types/pages/userProfileSettings";
+import {
+	IChangePasswordForm,
+	IPrivateAppSettings,
+	IPrivateDataFrom,
+	IUserAvatar,
+} from "../../../types/pages/userProfileSettings";
 import arrowRightIcon from "../../../assets/components/userProfile/arrowRight.svg";
 import navigationArrowIcon from "../../../assets/components/userProfile/navigationArrow.svg";
 import { MainPath } from "../../../services/router/routes";
@@ -21,6 +26,8 @@ import { archiveList } from "../../../mocks/PrivateProfileArchive";
 import { Tooltip } from "../tooltip/tooltip";
 
 import { AvatarTemplates } from "../../../mocks/AvatarTemplates";
+
+import { NewSelect } from "../../../ui/newSelect/newSelect";
 
 import style from "./userProfileSettings.module.scss";
 
@@ -151,6 +158,29 @@ export const AvatarSettings = () => {
 					))}
 				</div>
 				<Button content={"Сохранить"} styleName={"buttonPrivateProfileSidebar"} type={"submit"} />
+			</form>
+			<SidebarMenu />
+		</div>
+	);
+};
+
+export const PrivateAppSettings = () => {
+	const { control } = useForm<IPrivateAppSettings>({
+		mode: "all",
+		delayError: 200,
+	});
+	return (
+		<div className={style.wrapper}>
+			<form className={style.form}>
+				<div className={style.title}>Настройки</div>
+				<div className={style.form__settings}>
+					<NewSelect
+						name={"currency"}
+						label="Валюта"
+						options={["Российский рубль", "Американский доллар"]}
+						control={control}
+					/>
+				</div>
 			</form>
 			<SidebarMenu />
 		</div>

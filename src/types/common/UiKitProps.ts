@@ -54,6 +54,14 @@ export interface ISelect extends UseControllerProps<IExpensesSelectForm> {
 	disabled?: boolean;
 }
 
+export interface INewSelect<T extends TAuthInputForm> {
+	label?: string;
+	options?: string[];
+	disabled?: boolean;
+	control?: Control<T>;
+	name: Path<T>;
+}
+
 
 export interface IRadioButton {
 	control: Control<any>;

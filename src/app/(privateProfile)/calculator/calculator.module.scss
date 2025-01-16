@@ -333,3 +333,27 @@
         margin-top: 20px;
     }
 }
+
+
+// Адаптируем
+@media (max-width: 1440px) {
+    .calculationWrapper {
+        gap: 24px;
+    }
+    .calculationInfoWrapper {
+        width: 100%;
+    }
+    .calculatorPageWrap {
+        padding: 20px 28px;
+    }
+}
+
+@media (max-width: 768px) {
+    .calculatorFormContentWrapper {
+        width: 328px;
+    }
+}
+
+@media (max-width: 425px) {
+
+}

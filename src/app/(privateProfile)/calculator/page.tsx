@@ -190,7 +190,7 @@ export default function Calculator() {
 
                         <div className={style.propertyValueContainer}>
 
-							<label className={style.propertyValueContainer__label} htmlFor="initialContribution">Сроки кредита, лет</label>
+							<label className={style.propertyValueContainer__label} htmlFor="initialContribution">Процентная ставка, %</label>
                             <div className={style.inputRangeFieldContainer}>
                                 <input
                                     type="text"

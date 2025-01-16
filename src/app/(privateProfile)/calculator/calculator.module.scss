@@ -16,7 +16,7 @@
     display: flex;
     margin-top: 20px;
     &__description{
-        font-size: 2rem;
+        font-size: 2.0rem;
         font-weight: 400;
         line-height: 2.8rem;
     }
@@ -85,7 +85,7 @@
         margin-top: 24px;
         background: var(--color-dark-spring-green);
         border-radius: 12px;
-        font-size: 20px;
+        font-size: 2.0rem;
         font-weight: 400;
         line-height: 28px;
         color: var(--color-pure-light);
@@ -182,7 +182,7 @@
         width: 100%;
         height: 44px;
         box-sizing: border-box;
-        font-size: 20px;
+        font-size: 2.0rem;
         font-weight: 400;
         line-height: 28px;
         border: 1px solid var(--color-gainsboro);
@@ -305,7 +305,7 @@
     }
 
     &__title, &__price {
-        font-size: 20px;
+        font-size: 2.0rem;
         font-weight: 400;
         line-height: 28px;
     }
@@ -318,7 +318,7 @@
     .creditInfoWrapper, .percentInfoWrapper, .creditAndPercentInfoWrapper {
         display: flex;
         justify-content: space-between;
-        font-size: 20px;
+        font-size: 2.0rem;
         font-weight: 400;
         line-height: 28px;
         color: var(--color-star-dust);
@@ -346,14 +346,76 @@
     .calculatorPageWrap {
         padding: 20px 28px;
     }
+    .creditInfoWrapper, .percentInfoWrapper, .creditAndPercentInfoWrapper {
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 1024px) {
+    .calculatorFormContentWrapper__submitBtn {
+        margin-top: 32px;
+    }
 }
 
 @media (max-width: 768px) {
     .calculatorFormContentWrapper {
         width: 328px;
     }
+    .selectionOfCalculationContainer__label {
+        width: 156px;
+    }
+    .propertyValueContainer__label, 
+    .propertyValueContainer__label, 
+    .propertyValueContainer__label, 
+    .propertyValueContainer__label {
+        font-size: 1.6rem;
+        line-height: 22px;
+    }
+    .inputRangeFieldContainer {
+        height: 42px;
+    
+        &__input {
+            width: 100%;
+            height: 36px;
+            font-size: 1.6rem;
+            line-height: 22px;
+        }
+    }
+    .propertyButtonRadioContainer__text {
+        font-size: 1.0rem;
+        line-height: 13px;
+        padding: 3px 12px;
+    }
+    .calculatorFormContentWrapper__submitBtn {
+        width: 203px;
+        height: 36px;
+        font-size: 1.6rem;
+        line-height: 22px;
+    }
 }
 
 @media (max-width: 425px) {
-
+    .calculationInfoWrapper {
+        display: none;
+    }
+    .calculatorFormContentWrapper {
+        width: 100%;
+    }
+    .calculatorPageWrap {
+        background-color: var(--color-silver-gray);
+        padding: 0;
+    }
+    .headerTitle {
+        font-size: 24px;
+        line-height: 32px;
+    }
+    .currencySelectionWrapper__description {
+        font-size: 16px;
+        line-height: 22px;
+    }
+    .currencySelectionRadioGroup__text {
+        font-size: 13px;
+        line-height: 18px;
+        padding: 3px 16px 2px 16px;
+    }
 }

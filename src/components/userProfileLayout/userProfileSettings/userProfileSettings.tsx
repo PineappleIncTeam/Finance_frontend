@@ -128,13 +128,7 @@ export const AvatarSettings = () => {
 						<Image src={userAvatar} alt={"userAvatar"} className={style.avatar__image} />
 						<div className={style.avatar__editButtonWrapper}>
 							<label htmlFor="userAvatar" className={style.avatar__editButton}>
-								<input
-									type="file"
-									id="userAvatar"
-									name="userAvatar"
-									className={style.avatar__input}
-									{...register("personalAvatar")}
-								/>
+								<input type="file" id="userAvatar" className={style.avatar__input} {...register("personalAvatar")} />
 								<Image src={editProfileIcon} alt={"editProfile"} className={style.avatar__editIcon} />
 							</label>
 						</div>
@@ -146,7 +140,6 @@ export const AvatarSettings = () => {
 							<input
 								type="radio"
 								id={`template-avatar-${index}`}
-								name={"template-avatar"}
 								value={avatar}
 								{...register("templateAvatar")}
 								className={style.templateAvatar__input}

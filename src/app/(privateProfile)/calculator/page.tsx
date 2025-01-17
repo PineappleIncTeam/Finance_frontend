@@ -1,16 +1,46 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import { AiFillInfoCircle } from "react-icons/ai";
+import { CgClose } from "react-icons/cg";
 
 import style from "./calculator.module.scss";
 
 export default function Calculator() {
     const [value, setValue] = useState<number>(0);
+    const [isVisibleInfo, setIsVisibleInfo] = useState(false);
+    const [isMobile, setIsMobile] = useState(window.innerWidth <= 425);
 
     const formatNumber = (num: number) => {
         return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+    };
+    const handleVisibleInfo = () => {
+        setIsVisibleInfo(true);
+    }
+    const handleCloseInfo = () => {
+        setIsVisibleInfo(false);
+    }
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        if (isMobile) {
+            handleVisibleInfo();
+        }
+    };
+
+    useEffect(() => {
+        const handleResize = () => {
+            setIsMobile(window.innerWidth <= 425);
+        };
+
+        window.addEventListener('resize', handleResize);
+
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
+
+    const infoStyle = {
+        transform: isMobile ? `scale(${isVisibleInfo ? 1 : 0})` : 'none',
+        transition: 'transform 0.3s ease',
     };
 
 	const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -235,12 +265,19 @@ export default function Calculator() {
 							</div>
 						</div>
 
-                        <button className={style.calculatorFormContentWrapper__submitBtn} type="submit">Расчитать кредит</button>
+                        <button 
+                            onClick={handleSubmit} 
+                            className={style.calculatorFormContentWrapper__submitBtn} 
+                            type="submit">Расчитать кредит
+                        </button>
 
                     </form>
 
-                    <div className={style.calculationInfoWrapper}>
-                        <AiFillInfoCircle className={style.calculationInfoWrapper__infoIcon}/>
+                    <div className={style.calculationInfoWrapper} style={infoStyle}>
+                        <div className={style.calculationInfoButtonWrapper}>
+                            <AiFillInfoCircle className={style.calculationInfoButtonWrapper__infoIcon}/>
+                            <CgClose onClick={handleCloseInfo} className={style.calculationInfoButtonWrapper__closeIcon}/>
+                        </div>
                         <p className={style.calculationInfoWrapper__title}>Ежемесячный платеж</p>
                         <p className={style.calculationInfoWrapper__price}>26 125 ₽</p>
                         <div className={style.creditInfoWrapper}>

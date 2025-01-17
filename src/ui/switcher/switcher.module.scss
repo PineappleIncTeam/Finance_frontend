@@ -1,8 +1,14 @@
+$mobileSize: 600px;
+
 .switcher {
 	display: flex;
 	flex-direction: row;
 	gap: 12px;
 	align-items: center;
+
+	@media (max-width: $mobileSize) {
+		gap: 8px;
+	}
 }
 
 .title {
@@ -10,6 +16,11 @@
 	line-height: 2.8rem;
 	font-weight: 400;
 	color: var(--color-eerie-black);
+
+	@media (max-width: $mobileSize) {
+		font-size: 1.3rem;
+		line-height: 1.8rem;
+	}
 }
 
 .input {
@@ -24,6 +35,11 @@
 	height: 24px;
 	background-color: var(--color-gainsboro);
 	transition: 0.4s;
+
+	@media (max-width: $mobileSize) {
+		width: 26px;
+		height: 16px;
+	}
 }
 
 .slider:before {
@@ -36,6 +52,13 @@
 	bottom: 5px;
 	background-color: var(--color-pure-light);
 	transition: 0.4s;
+
+	@media (max-width: $mobileSize) {
+		width: 10px;
+		height: 10px;
+		left: 3px;
+		bottom: 3px;
+	}
 }
 
 .input:checked + .slider {
@@ -50,6 +73,12 @@
 	-webkit-transform: translateX(16px);
 	-ms-transform: translateX(16px);
 	transform: translateX(16px);
+
+	@media (max-width: $mobileSize) {
+		-webkit-transform: translateX(10px);
+		-ms-transform: translateX(10px);
+		transform: translateX(10px);
+	}
 }
 
 .input:disabled + .slider:before {

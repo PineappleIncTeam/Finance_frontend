@@ -10,9 +10,7 @@ import axios from "axios";
 
 import { format } from "date-fns";
 
-import arrowRightIcon from "../../../assets/components/userProfile/arrowRight.svg";
 import { IUserProfileSidebar } from "../../../types/common/ComponentsProps";
-import navigationArrowIcon from "../../../assets/components/userProfile/navigationArrow.svg";
 import userAvatar from "../../../assets/components/userProfile/userPhoto.svg";
 import { MainPath } from "../../../services/router/routes";
 import burgerIcon from "../../../assets/components/userProfile/burger.svg";
@@ -32,6 +30,7 @@ import {
 	ChangePassword,
 	PrivateAppSettings,
 	PrivateData,
+	SidebarMenu,
 } from "../userProfileSettings/userProfileSettings";
 
 import style from "./userProfileSidebar.module.scss";
@@ -61,30 +60,6 @@ const UserProfileSidebar = ({ avatar, name, balance }: IUserProfileSidebar) => {
 		setBaseUrl(getCorrectBaseUrl());
 	}, []);
 
-	const renderProfileFunctions = (title: string) => {
-		const handleClick = () => {
-			setShowMenu(true);
-			setSelectedMenuItem(title);
-		};
-		return (
-			<button className={style.profileFunctionsWrap} onClick={handleClick} key={title}>
-				<p className={style.profileFunctionsWrap__title}>{title}</p>
-				<Image src={arrowRightIcon} alt={""} />
-			</button>
-		);
-	};
-
-	const renderNavigationElements = (title: string, link?: string) => {
-		return (
-			<Link href={link || "#"}>
-				<div className={style.navigationElementsWrap}>
-					<p className={style.navigationElements__title}>{title}</p>
-					<Image src={navigationArrowIcon} alt={""} />
-				</div>
-			</Link>
-		);
-	};
-
 	const handleLogout = async () => {
 		try {
 			if (baseUrl) {
@@ -104,6 +79,15 @@ const UserProfileSidebar = ({ avatar, name, balance }: IUserProfileSidebar) => {
 		}
 	};
 
+	const handleOpenItemClick = (title: string) => {
+		setShowMenu(true);
+		setSelectedMenuItem(title);
+	};
+
+	const handleItemClick = (title: string) => {
+		setSelectedMenuItem(title);
+	};
+
 	const renderSelectedMenuItem = () => {
 		const selectedMenu = sidebarNavMenu.find((el) => el.title === selectedMenuItem);
 		if (selectedMenu) {
@@ -115,7 +99,10 @@ const UserProfileSidebar = ({ avatar, name, balance }: IUserProfileSidebar) => {
 	return (
 		<>
 			<BurgerMenu showMenu={showMenu} setShowMenu={setShowMenu}>
-				{renderSelectedMenuItem()}
+				<div className={style.burgerMenu__wrapper}>
+					{renderSelectedMenuItem()}
+					<SidebarMenu handleClick={handleItemClick} />
+				</div>
 			</BurgerMenu>
 			<div className={style.userProfileWrap}>
 				<div className={style.header}>
@@ -146,13 +133,8 @@ const UserProfileSidebar = ({ avatar, name, balance }: IUserProfileSidebar) => {
 								<p className={style.userInformationWrap__balance}>{balance || 0} ₽</p>
 							</div>
 						</div>
-						<div className={style.userProfileFunctions}>
-							{sidebarNavMenu.map((menuItem) => renderProfileFunctions(menuItem.title))}
-						</div>
-						<div className={style.userProfileNavigation}>
-							{renderNavigationElements("О приложении", MainPath.AboutUs)}
-							{renderNavigationElements("Блог", MainPath.Blog)}
-						</div>
+						<SidebarMenu handleClick={handleOpenItemClick} />
+
 						<button onClick={() => setIsOpen(!isOpen)} className={style.burgerActionWrap}>
 							<Image src={burgerIcon} alt={"burger"} className={style.burgerActionWrap_icon} />
 						</button>

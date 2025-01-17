@@ -12,7 +12,6 @@ import {
 import arrowRightIcon from "../../../assets/components/userProfile/arrowRight.svg";
 import navigationArrowIcon from "../../../assets/components/userProfile/navigationArrow.svg";
 import { MainPath } from "../../../services/router/routes";
-import { TCommonFunction } from "../../../types/common/ComponentsProps";
 
 import AppInput from "../../../ui/appInput/AppInput";
 import Button from "../../../ui/button/button";
@@ -44,29 +43,26 @@ export const PrivateData = () => {
 		delayError: 200,
 	});
 	return (
-		<div className={style.wrapper}>
-			<form className={style.form}>
-				<div className={style.title}>Личные данные</div>
-				<div className={style.form__settings}>
-					<AppInput
-						label={"Nickname"}
-						type={"text"}
-						control={control}
-						name="nickname"
-						rules={{ maxLength: 32 }}
-						error={"Не более 32 символов"}
-					/>
-					<div className={style.radioButtons}>
-						<RadioButton control={control} name="gender" value="male" label="Муж." />
-						<RadioButton control={control} name="gender" value="female" label="Жен." />
-					</div>
-					<AppInput label={"Введите страну"} type={"text"} name={"country"} control={control} />
-					<AppInput label={"Email"} type={"text"} name={"email"} control={control} disabled />
+		<form className={style.form}>
+			<div className={style.title}>Личные данные</div>
+			<div className={style.form__settings}>
+				<AppInput
+					label={"Nickname"}
+					type={"text"}
+					control={control}
+					name="nickname"
+					rules={{ maxLength: 32 }}
+					error={"Не более 32 символов"}
+				/>
+				<div className={style.radioButtons}>
+					<RadioButton control={control} name="gender" value="male" label="Муж." />
+					<RadioButton control={control} name="gender" value="female" label="Жен." />
 				</div>
-				<Button content={"Сохранить"} styleName={"outlineButton"} type={"submit"} />
-			</form>
-			<SidebarMenu />
-		</div>
+				<AppInput label={"Введите страну"} type={"text"} name={"country"} control={control} />
+				<AppInput label={"Email"} type={"text"} name={"email"} control={control} disabled />
+			</div>
+			<Button content={"Сохранить"} styleName={"outlineButton"} type={"submit"} />
+		</form>
 	);
 };
 
@@ -76,42 +72,39 @@ export const AvatarSettings = () => {
 		delayError: 200,
 	});
 	return (
-		<div className={style.wrapper}>
-			<form className={style.form}>
-				<div className={style.title}>Аватар</div>
-				<div className={style.form__settings}>
-					<div className={style.avatar__wrapper}>
-						<div className={style.avatar__picture}>
-							<Image src={userAvatar} alt={"userAvatar"} className={style.avatar__image} />
-							<div className={style.avatar__editButtonWrapper}>
-								<label htmlFor="userAvatar" className={style.avatar__editButton}>
-									<input type="file" id="userAvatar" className={style.avatar__input} {...register("personalAvatar")} />
-									<Image src={editProfileIcon} alt={"editProfile"} className={style.avatar__editIcon} />
-								</label>
-							</div>
+		<form className={style.form}>
+			<div className={style.title}>Аватар</div>
+			<div className={style.form__settings}>
+				<div className={style.avatar__wrapper}>
+					<div className={style.avatar__picture}>
+						<Image src={userAvatar} alt={"userAvatar"} className={style.avatar__image} />
+						<div className={style.avatar__editButtonWrapper}>
+							<label htmlFor="userAvatar" className={style.avatar__editButton}>
+								<input type="file" id="userAvatar" className={style.avatar__input} {...register("personalAvatar")} />
+								<Image src={editProfileIcon} alt={"editProfile"} className={style.avatar__editIcon} />
+							</label>
 						</div>
 					</div>
-					<div className={style.avatarTemplates}>
-						{AvatarTemplates.map((avatar, index) => (
-							<div className={style.avatarTemplates__picture} key={index}>
-								<input
-									type="radio"
-									id={`template-avatar-${index}`}
-									value={avatar}
-									{...register("templateAvatar")}
-									className={style.templateAvatar__input}
-								/>
-								<label htmlFor={`template-avatar-${index}`} className={style.templateAvatar__label}>
-									<Image src={avatar} className={style.avatarTemplates__img} alt={""} />
-								</label>
-							</div>
-						))}
-					</div>
 				</div>
-				<Button content={"Сохранить"} styleName={"outlineButton"} type={"submit"} />
-			</form>
-			<SidebarMenu />
-		</div>
+				<div className={style.avatarTemplates}>
+					{AvatarTemplates.map((avatar, index) => (
+						<div className={style.avatarTemplates__picture} key={index}>
+							<input
+								type="radio"
+								id={`template-avatar-${index}`}
+								value={avatar}
+								{...register("templateAvatar")}
+								className={style.templateAvatar__input}
+							/>
+							<label htmlFor={`template-avatar-${index}`} className={style.templateAvatar__label}>
+								<Image src={avatar} className={style.avatarTemplates__img} alt={""} />
+							</label>
+						</div>
+					))}
+				</div>
+			</div>
+			<Button content={"Сохранить"} styleName={"outlineButton"} type={"submit"} />
+		</form>
 	);
 };
 
@@ -121,18 +114,15 @@ export const ChangePassword = () => {
 		delayError: 200,
 	});
 	return (
-		<div className={style.wrapper}>
-			<form className={style.form}>
-				<div className={style.title}>Смена пароля</div>
-				<div className={style.form__settings}>
-					<AppInput label={"Текущий пароль"} type={"password"} control={control} name="oldPassword" />
-					<AppInput label={"Новый пароль"} type={"password"} name={"newPassword"} control={control} />
-					<AppInput label={"Подтвердить пароль"} type={"password"} name={"repeatPassword"} control={control} />
-				</div>
-				<Button content={"Сохранить"} styleName={"outlineButton"} type={"submit"} />
-			</form>
-			<SidebarMenu />
-		</div>
+		<form className={style.form}>
+			<div className={style.title}>Смена пароля</div>
+			<div className={style.form__settings}>
+				<AppInput label={"Текущий пароль"} type={"password"} control={control} name="oldPassword" />
+				<AppInput label={"Новый пароль"} type={"password"} name={"newPassword"} control={control} />
+				<AppInput label={"Подтвердить пароль"} type={"password"} name={"repeatPassword"} control={control} />
+			</div>
+			<Button content={"Сохранить"} styleName={"outlineButton"} type={"submit"} />
+		</form>
 	);
 };
 
@@ -142,34 +132,31 @@ export const PrivateAppSettings = () => {
 		delayError: 200,
 	});
 	return (
-		<div className={style.wrapper}>
-			<form className={style.form}>
-				<div className={style.title}>Настройки</div>
-				<div className={style.form__settings}>
-					<NewSelect
-						name={"currency"}
-						label="Валюта"
-						options={["Российский рубль", "Американский доллар"]}
-						control={control}
-					/>
-					<Switcher control={control} name={"darkTheme"} label={"Темная тема"} />
-					<Switcher control={control} name={"finAssistant"} label={"Финансовый помощник"} />
-					<div className={style.removeButton}>
-						<DeleteIcon classNames={style.removeButton__icon} />
-						<div className={style.removeButton__title}>Удалить аккаунт</div>
-					</div>
+		<form className={style.form}>
+			<div className={style.title}>Настройки</div>
+			<div className={style.form__settings}>
+				<NewSelect
+					name={"currency"}
+					label="Валюта"
+					options={["Российский рубль", "Американский доллар"]}
+					control={control}
+				/>
+				<Switcher control={control} name={"darkTheme"} label={"Темная тема"} />
+				<Switcher control={control} name={"finAssistant"} label={"Финансовый помощник"} />
+				<div className={style.removeButton}>
+					<DeleteIcon classNames={style.removeButton__icon} />
+					<div className={style.removeButton__title}>Удалить аккаунт</div>
 				</div>
-				<Button content={"Сохранить"} styleName={"outlineButton"} type={"submit"} />
-			</form>
-			<SidebarMenu />
-		</div>
+			</div>
+			<Button content={"Сохранить"} styleName={"outlineButton"} type={"submit"} />
+		</form>
 	);
 };
 
-const ArchiveItem = ({ value, key }: { value: string; key: number }) => {
+const ArchiveItem = ({ value }: { value: string }) => {
 	const [isTooltipShown, setIsTooltipShown] = useState<boolean>(false);
 	return (
-		<div className={style.archiveItem} key={key}>
+		<div className={style.archiveItem}>
 			<p className={style.archiveItem__title}>{value}</p>
 			<div className={style.archiveItem__icons}>
 				<DeleteIcon classNames={style.archiveItem__icon} />
@@ -187,30 +174,27 @@ const ArchiveItem = ({ value, key }: { value: string; key: number }) => {
 
 export const Archive = () => {
 	return (
-		<div className={style.wrapper}>
-			<div className={style.form}>
-				<div className={style.title}>Архив</div>
-				<div className={style.archive__items}>
-					{archiveList.map((el, index) => {
-						return <ArchiveItem value={el} key={index} />;
-					})}
-				</div>
+		<div className={style.form}>
+			<div className={style.title}>Архив</div>
+			<div className={style.archive__items}>
+				{archiveList.map((el, index) => {
+					return <ArchiveItem value={el} key={index} />;
+				})}
 			</div>
-			<SidebarMenu />
 		</div>
 	);
 };
 
-const renderProfileFunctions = (title: string, onClick?: TCommonFunction) => {
+const renderProfileItem = (title: string, handleClick: (title: string) => void) => {
 	return (
-		<button className={style.profileFunctionsWrap} onClick={onClick}>
+		<button className={style.profileFunctionsWrap} onClick={() => handleClick(title)} key={title}>
 			<p className={style.profileFunctionsWrap__title}>{title}</p>
 			<Image src={arrowRightIcon} alt={""} />
 		</button>
 	);
 };
 
-const renderNavigationElements = (title: string, link?: string) => {
+const renderNavItem = (title: string, link?: string) => {
 	return (
 		<Link href={link || "#"}>
 			<div className={style.navigationElementsWrap}>
@@ -221,19 +205,23 @@ const renderNavigationElements = (title: string, link?: string) => {
 	);
 };
 
-export const SidebarMenu = () => {
+const sidebarNavMenu = [
+	{ title: "Личные данные", content: PrivateData },
+	{ title: "Аватар", content: AvatarSettings },
+	{ title: "Сменить пароль", content: ChangePassword },
+	{ title: "Настройки", content: PrivateAppSettings },
+	{ title: "Архив", content: Archive },
+];
+
+export const SidebarMenu = ({ handleClick }: { handleClick: (title: string) => void }) => {
 	return (
 		<div className={style.sidebarNav}>
 			<div className={style.userProfileFunctions}>
-				{renderProfileFunctions("Личные данные")}
-				{renderProfileFunctions("Аватар")}
-				{renderProfileFunctions("Сменить пароль")}
-				{renderProfileFunctions("Настройки")}
-				{renderProfileFunctions("Архив")}
+				{sidebarNavMenu.map((menuItem) => renderProfileItem(menuItem.title, handleClick))}
 			</div>
 			<div className={style.userProfileNavigation}>
-				{renderNavigationElements("О приложении", MainPath.AboutUs)}
-				{renderNavigationElements("Блог", MainPath.Blog)}
+				{renderNavItem("О приложении", MainPath.AboutUs)}
+				{renderNavItem("Блог", MainPath.Blog)}
 			</div>
 		</div>
 	);

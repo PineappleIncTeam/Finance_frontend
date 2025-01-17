@@ -274,3 +274,11 @@
 .exit {
 	cursor: pointer;
 }
+
+.burgerMenu__wrapper {
+	padding: 50px 40px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	height: 100%;
+}

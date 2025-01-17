@@ -55,7 +55,7 @@
 .buttonForRegistration {
 	width: 244px;
 	height: 64px;
-	border-radius: 16px;
+	border-radius: 20px;
 	background: transparent;
 	color: var(--color-eerie-black);
 	font-size: 2.8rem;
@@ -326,5 +326,47 @@
 			width: 38px;
 			height: 38px;
 		}
+	}
+}
+
+.outlineButton {
+	font-size: 2.6rem;
+	line-height: 3.8rem;
+	padding: 10px 34px;
+	color: var(--color-eerie-black);
+	border: 3px solid var(--color-dark-spring-green);
+	transition: 0.4s;
+	border-radius: 16px;
+	cursor: pointer;
+
+	&.middle {
+		font-size: 2rem;
+		line-height: 2.8rem;
+		padding: 10px 36px;
+		border-width: 2px;
+	}
+
+	&.small {
+		font-size: 1.6rem;
+		line-height: 2.2rem;
+		padding: 6px 28px;
+		border-width: 1.5px;
+	}
+
+	&.extra-small {
+		font-size: 1.3rem;
+		line-height: 1.8rem;
+		padding: 6px 24px;
+		border-width: 1.5px;
+	}
+
+	&:hover,
+	&:active {
+		color: var(--color-cal-poly-pomona-green);
+		border-color: var(--color-cal-poly-pomona-green);
+	}
+	&:disabled {
+		color: var(--text-secondary);
+		background-color: var(--text-secondary);
 	}
 }

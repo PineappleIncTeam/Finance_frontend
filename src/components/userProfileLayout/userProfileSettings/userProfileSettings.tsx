@@ -63,7 +63,7 @@ export const PrivateData = () => {
 					<AppInput label={"Введите страну"} type={"text"} name={"country"} control={control} />
 					<AppInput label={"Email"} type={"text"} name={"email"} control={control} disabled />
 				</div>
-				<Button content={"Сохранить"} styleName={"buttonForRegistration"} type={"submit"} />
+				<Button content={"Сохранить"} styleName={"outlineButton"} type={"submit"} />
 			</form>
 			<SidebarMenu />
 		</div>
@@ -108,7 +108,7 @@ export const AvatarSettings = () => {
 						))}
 					</div>
 				</div>
-				<Button content={"Сохранить"} styleName={"buttonForRegistration"} type={"submit"} />
+				<Button content={"Сохранить"} styleName={"outlineButton"} type={"submit"} />
 			</form>
 			<SidebarMenu />
 		</div>
@@ -129,7 +129,7 @@ export const ChangePassword = () => {
 					<AppInput label={"Новый пароль"} type={"password"} name={"newPassword"} control={control} />
 					<AppInput label={"Подтвердить пароль"} type={"password"} name={"repeatPassword"} control={control} />
 				</div>
-				<Button content={"Сохранить"} styleName={"buttonForRegistration"} type={"submit"} />
+				<Button content={"Сохранить"} styleName={"outlineButton"} type={"submit"} />
 			</form>
 			<SidebarMenu />
 		</div>
@@ -159,7 +159,7 @@ export const PrivateAppSettings = () => {
 						<div className={style.removeButton__title}>Удалить аккаунт</div>
 					</div>
 				</div>
-				<Button content={"Сохранить"} styleName={"buttonForRegistration"} type={"submit"} />
+				<Button content={"Сохранить"} styleName={"outlineButton"} type={"submit"} />
 			</form>
 			<SidebarMenu />
 		</div>

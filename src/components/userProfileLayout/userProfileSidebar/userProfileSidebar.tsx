@@ -147,7 +147,7 @@ const UserProfileSidebar = ({ avatar, name, balance }: IUserProfileSidebar) => {
 							</div>
 						</div>
 						<div className={style.userProfileFunctions}>
-							{sidebarNavMenu.map((el) => renderProfileFunctions(el.title))}
+							{sidebarNavMenu.map((menuItem) => renderProfileFunctions(menuItem.title))}
 						</div>
 						<div className={style.userProfileNavigation}>
 							{renderNavigationElements("О приложении", MainPath.AboutUs)}

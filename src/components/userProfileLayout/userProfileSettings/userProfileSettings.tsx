@@ -47,21 +47,68 @@ export const PrivateData = () => {
 		<div className={style.wrapper}>
 			<form className={style.form}>
 				<div className={style.title}>Личные данные</div>
-				<AppInput
-					label={"Nickname"}
-					type={"text"}
-					control={control}
-					name="nickname"
-					rules={{ maxLength: 32 }}
-					error={"Не более 32 символов"}
-				/>
-				<div className={style.radioButtons}>
-					<RadioButton control={control} name="gender" value="male" label="Муж." />
-					<RadioButton control={control} name="gender" value="female" label="Жен." />
+				<div className={style.form__settings}>
+					<AppInput
+						label={"Nickname"}
+						type={"text"}
+						control={control}
+						name="nickname"
+						rules={{ maxLength: 32 }}
+						error={"Не более 32 символов"}
+					/>
+					<div className={style.radioButtons}>
+						<RadioButton control={control} name="gender" value="male" label="Муж." />
+						<RadioButton control={control} name="gender" value="female" label="Жен." />
+					</div>
+					<AppInput label={"Введите страну"} type={"text"} name={"country"} control={control} />
+					<AppInput label={"Email"} type={"text"} name={"email"} control={control} disabled />
 				</div>
-				<AppInput label={"Введите страну"} type={"text"} name={"country"} control={control} />
-				<AppInput label={"Email"} type={"text"} name={"email"} control={control} disabled />
-				<Button content={"Сохранить"} styleName={"buttonPrivateProfileSidebar"} type={"submit"} />
+				<Button content={"Сохранить"} styleName={"buttonForRegistration"} type={"submit"} />
+			</form>
+			<SidebarMenu />
+		</div>
+	);
+};
+
+export const AvatarSettings = () => {
+	const { register } = useForm<IUserAvatar>({
+		mode: "all",
+		delayError: 200,
+	});
+	return (
+		<div className={style.wrapper}>
+			<form className={style.form}>
+				<div className={style.title}>Аватар</div>
+				<div className={style.form__settings}>
+					<div className={style.avatar__wrapper}>
+						<div className={style.avatar__picture}>
+							<Image src={userAvatar} alt={"userAvatar"} className={style.avatar__image} />
+							<div className={style.avatar__editButtonWrapper}>
+								<label htmlFor="userAvatar" className={style.avatar__editButton}>
+									<input type="file" id="userAvatar" className={style.avatar__input} {...register("personalAvatar")} />
+									<Image src={editProfileIcon} alt={"editProfile"} className={style.avatar__editIcon} />
+								</label>
+							</div>
+						</div>
+					</div>
+					<div className={style.avatarTemplates}>
+						{AvatarTemplates.map((avatar, index) => (
+							<div className={style.avatarTemplates__picture} key={index}>
+								<input
+									type="radio"
+									id={`template-avatar-${index}`}
+									value={avatar}
+									{...register("templateAvatar")}
+									className={style.templateAvatar__input}
+								/>
+								<label htmlFor={`template-avatar-${index}`} className={style.templateAvatar__label}>
+									<Image src={avatar} className={style.avatarTemplates__img} alt={""} />
+								</label>
+							</div>
+						))}
+					</div>
+				</div>
+				<Button content={"Сохранить"} styleName={"buttonForRegistration"} type={"submit"} />
 			</form>
 			<SidebarMenu />
 		</div>
@@ -77,10 +124,42 @@ export const ChangePassword = () => {
 		<div className={style.wrapper}>
 			<form className={style.form}>
 				<div className={style.title}>Смена пароля</div>
-				<AppInput label={"Текущий пароль"} type={"password"} control={control} name="oldPassword" />
-				<AppInput label={"Новый пароль"} type={"password"} name={"newPassword"} control={control} />
-				<AppInput label={"Подтвердить пароль"} type={"password"} name={"repeatPassword"} control={control} />
-				<Button content={"Сохранить"} styleName={"buttonPrivateProfileSidebar"} type={"submit"} />
+				<div className={style.form__settings}>
+					<AppInput label={"Текущий пароль"} type={"password"} control={control} name="oldPassword" />
+					<AppInput label={"Новый пароль"} type={"password"} name={"newPassword"} control={control} />
+					<AppInput label={"Подтвердить пароль"} type={"password"} name={"repeatPassword"} control={control} />
+				</div>
+				<Button content={"Сохранить"} styleName={"buttonForRegistration"} type={"submit"} />
+			</form>
+			<SidebarMenu />
+		</div>
+	);
+};
+
+export const PrivateAppSettings = () => {
+	const { control } = useForm<IPrivateAppSettings>({
+		mode: "all",
+		delayError: 200,
+	});
+	return (
+		<div className={style.wrapper}>
+			<form className={style.form}>
+				<div className={style.title}>Настройки</div>
+				<div className={style.form__settings}>
+					<NewSelect
+						name={"currency"}
+						label="Валюта"
+						options={["Российский рубль", "Американский доллар"]}
+						control={control}
+					/>
+					<Switcher control={control} name={"darkTheme"} label={"Темная тема"} />
+					<Switcher control={control} name={"finAssistant"} label={"Финансовый помощник"} />
+					<div className={style.removeButton}>
+						<DeleteIcon classNames={style.removeButton__icon} />
+						<div className={style.removeButton__title}>Удалить аккаунт</div>
+					</div>
+				</div>
+				<Button content={"Сохранить"} styleName={"buttonForRegistration"} type={"submit"} />
 			</form>
 			<SidebarMenu />
 		</div>
@@ -117,75 +196,6 @@ export const Archive = () => {
 					})}
 				</div>
 			</div>
-			<SidebarMenu />
-		</div>
-	);
-};
-
-export const AvatarSettings = () => {
-	const { register } = useForm<IUserAvatar>({
-		mode: "all",
-		delayError: 200,
-	});
-	return (
-		<div className={style.wrapper}>
-			<form className={style.form}>
-				<div className={style.title}>Аватар</div>
-				<div className={style.avatar__wrapper}>
-					<div className={style.avatar__picture}>
-						<Image src={userAvatar} alt={"userAvatar"} className={style.avatar__image} />
-						<div className={style.avatar__editButtonWrapper}>
-							<label htmlFor="userAvatar" className={style.avatar__editButton}>
-								<input type="file" id="userAvatar" className={style.avatar__input} {...register("personalAvatar")} />
-								<Image src={editProfileIcon} alt={"editProfile"} className={style.avatar__editIcon} />
-							</label>
-						</div>
-					</div>
-				</div>
-				<div className={style.avatarTemplates}>
-					{AvatarTemplates.map((avatar, index) => (
-						<div className={style.avatarTemplates__picture} key={index}>
-							<input
-								type="radio"
-								id={`template-avatar-${index}`}
-								value={avatar}
-								{...register("templateAvatar")}
-								className={style.templateAvatar__input}
-							/>
-							<label htmlFor={`template-avatar-${index}`} className={style.templateAvatar__label}>
-								<Image src={avatar} className={style.avatarTemplates__img} alt={""} />
-							</label>
-						</div>
-					))}
-				</div>
-				<Button content={"Сохранить"} styleName={"buttonPrivateProfileSidebar"} type={"submit"} />
-			</form>
-			<SidebarMenu />
-		</div>
-	);
-};
-
-export const PrivateAppSettings = () => {
-	const { control } = useForm<IPrivateAppSettings>({
-		mode: "all",
-		delayError: 200,
-	});
-	return (
-		<div className={style.wrapper}>
-			<form className={style.form}>
-				<div className={style.title}>Настройки</div>
-				<div className={style.form__settings}>
-					<NewSelect
-						name={"currency"}
-						label="Валюта"
-						options={["Российский рубль", "Американский доллар"]}
-						control={control}
-					/>
-					<Switcher control={control} name={"darkTheme"} label={"Темная тема"} />
-					<Switcher control={control} name={"finAssistant"} label={"Финансовый помощник"} />
-				</div>
-				<Button content={"Сохранить"} styleName={"buttonPrivateProfileSidebar"} type={"submit"} />
-			</form>
 			<SidebarMenu />
 		</div>
 	);

@@ -55,7 +55,7 @@
 .buttonForRegistration {
 	width: 244px;
 	height: 64px;
-	border-radius: 20px;
+	border-radius: 16px;
 	background: transparent;
 	color: var(--color-eerie-black);
 	font-size: 2.8rem;
@@ -327,32 +327,4 @@
 			height: 38px;
 		}
 	}
-}
-
-.buttonPrivateProfileSidebar {
-	margin-top: 16px;
-	width: 208px;
-	height: 52px;
-	border-radius: 12px;
-	background: transparent;
-	color: var(--color-eerie-black);
-	font-size: 2rem;
-	font-weight: 400;
-	border: 3px solid var(--color-dark-spring-green);
-	cursor: pointer;
-	transition: 0.5s;
-
-	@media (width < 1024px) {
-		& {
-			width: 213px;
-			height: 36px;
-			font-size: 1.6rem;
-			border-radius: 8px;
-		}
-	}
-}
-
-.buttonPrivateProfileSidebar:hover {
-	background-color: var(--color-cal-poly-pomona-green);
-	color: var(--color-pure-light);
 }

@@ -33,14 +33,14 @@ export default function Calculator() {
             setIsMobile(window.innerWidth <= 425);
         };
 
-        window.addEventListener('resize', handleResize);
+        window.addEventListener("resize", handleResize);
 
-        return () => window.removeEventListener('resize', handleResize);
+        return () => window.removeEventListener("resize", handleResize);
     }, []);
 
     const infoStyle = {
-        transform: isMobile ? `scale(${isVisibleInfo ? 1 : 0})` : 'none',
-        transition: 'transform 0.3s ease',
+        transform: isMobile ? `scale(${isVisibleInfo ? 1 : 0})` : "none",
+        transition: "transform 0.3s ease",
     };
 
 	const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {

@@ -1,0 +1,57 @@
+.switcher {
+	display: flex;
+	flex-direction: row;
+	gap: 12px;
+	align-items: center;
+}
+
+.title {
+	font-size: 2rem;
+	line-height: 2.8rem;
+	font-weight: 400;
+	color: var(--color-eerie-black);
+}
+
+.input {
+	display: none;
+}
+
+.slider {
+	position: relative;
+	cursor: pointer;
+	border-radius: 24px;
+	width: 40px;
+	height: 24px;
+	background-color: var(--color-gainsboro);
+	transition: 0.4s;
+}
+
+.slider:before {
+	position: absolute;
+	content: "";
+	height: 14px;
+	width: 14px;
+	border-radius: 50%;
+	left: 5px;
+	bottom: 5px;
+	background-color: var(--color-pure-light);
+	transition: 0.4s;
+}
+
+.input:checked + .slider {
+	background-color: var(--color-dark-spring-green);
+}
+
+.input:focus + .slider {
+	box-shadow: 0 0 1px var(--color-dark-spring-green);
+}
+
+.input:checked + .slider:before {
+	-webkit-transform: translateX(16px);
+	-ms-transform: translateX(16px);
+	transform: translateX(16px);
+}
+
+.input:disabled + .slider:before {
+	background-color: var(--color-star-dust);
+}

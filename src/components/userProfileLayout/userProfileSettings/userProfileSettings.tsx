@@ -28,6 +28,7 @@ import { Tooltip } from "../tooltip/tooltip";
 import { AvatarTemplates } from "../../../mocks/AvatarTemplates";
 
 import { NewSelect } from "../../../ui/newSelect/newSelect";
+import Switcher from "../../../ui/switcher/switcher";
 
 import style from "./userProfileSettings.module.scss";
 
@@ -180,7 +181,10 @@ export const PrivateAppSettings = () => {
 						options={["Российский рубль", "Американский доллар"]}
 						control={control}
 					/>
+					<Switcher control={control} name={"darkTheme"} label={"Темная тема"} />
+					<Switcher control={control} name={"finAssistant"} label={"Финансовый помощник"} />
 				</div>
+				<Button content={"Сохранить"} styleName={"buttonPrivateProfileSidebar"} type={"submit"} />
 			</form>
 			<SidebarMenu />
 		</div>

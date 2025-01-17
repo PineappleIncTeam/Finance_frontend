@@ -69,3 +69,9 @@ export interface IRadioButton {
 	value: string;
 	label: string;
 }
+
+export interface ISwitcher<T extends TAuthInputForm> {
+	control?: Control<T>;
+	name: Path<T>;
+	label: string;
+}

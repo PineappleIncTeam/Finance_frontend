@@ -21,7 +21,7 @@ export default function Calculator() {
     const handleCloseInfo = () => {
         setIsVisibleInfo(false);
     }
-    const handleSubmit = (event) => {
+    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         if (isMobile) {
             handleVisibleInfo();

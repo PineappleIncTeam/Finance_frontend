@@ -8,6 +8,7 @@
 	@media (max-width: 1100px) {
 		& {
 			padding: 50px 30px;
+			flex-direction: column-reverse;
 		}
 	}
 
@@ -103,18 +104,7 @@
 	}
 	@media (max-width: 1100px) {
 		& {
-			display: none;
-		}
-	}
-}
-
-.mobileMenu {
-	display: none;
-	width: 100%;
-
-	@media (max-width: 1100px) {
-		& {
-			display: flex;
+			max-width: none;
 		}
 	}
 }

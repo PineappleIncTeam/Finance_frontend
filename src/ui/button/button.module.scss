@@ -330,14 +330,22 @@
 }
 
 .outlineButton {
-	font-size: 2.6rem;
-	line-height: 3.8rem;
-	padding: 10px 34px;
 	color: var(--color-eerie-black);
-	border: 3px solid var(--color-dark-spring-green);
 	transition: 0.4s;
 	border-radius: 16px;
 	cursor: pointer;
+	// TODO: Remove after fix bug
+	font-size: 2rem;
+	line-height: 2.8rem;
+	padding: 10px 36px;
+	border: 2px solid var(--color-dark-spring-green);
+
+	&.large {
+		font-size: 2.6rem;
+		line-height: 3.8rem;
+		padding: 10px 34px;
+		border-width: 3px;
+	}
 
 	&.middle {
 		font-size: 2rem;

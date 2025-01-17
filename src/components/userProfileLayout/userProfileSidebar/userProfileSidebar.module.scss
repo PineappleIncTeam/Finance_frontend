@@ -156,6 +156,8 @@
 			font-size: 1.6rem;
 			line-height: 1;
 			flex-direction: row;
+			width: 100%;
+			min-width: 200px;
 			gap: 0.5rem;
 			color: var(--color-pure-light);
 		}

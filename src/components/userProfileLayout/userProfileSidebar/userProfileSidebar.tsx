@@ -41,6 +41,7 @@ const UserProfileSidebar = ({ avatar, name, balance }: IUserProfileSidebar) => {
 	const [baseUrl, setBaseUrl] = useState<string>();
 	const [showMenu, setShowMenu] = useState<boolean>(false);
 	const [selectedMenuItem, setSelectedMenuItem] = useState<string>("Личные данные");
+	const laptopWindowSize = 1100;
 
 	const router = useRouter();
 
@@ -88,6 +89,12 @@ const UserProfileSidebar = ({ avatar, name, balance }: IUserProfileSidebar) => {
 		setSelectedMenuItem(title);
 	};
 
+	const handleOpenMenu = () => {
+		if (window.innerWidth <= laptopWindowSize) {
+			setShowMenu(true);
+		}
+	};
+
 	const renderSelectedMenuItem = () => {
 		const selectedMenu = sidebarNavMenu.find((el) => el.title === selectedMenuItem);
 		if (selectedMenu) {
@@ -118,7 +125,7 @@ const UserProfileSidebar = ({ avatar, name, balance }: IUserProfileSidebar) => {
 				</div>
 				<div className={style.userProfileMain}>
 					<div className={style.userProfileContainer}>
-						<div className={style.userInformationWrap}>
+						<div className={style.userInformationWrap} onClick={handleOpenMenu} role="button">
 							<div className={style.userInformationWrap_images}>
 								<button className={style.userInformationWrap_images_action}>
 									<Image src={avatar || userAvatar} alt={"userAvatar"} className={style.userInformationWrap__avatar} />

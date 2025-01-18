@@ -10,28 +10,19 @@ import axios from "axios";
 
 import { format } from "date-fns";
 
-import { IUserProfileSidebar } from "../../../types/common/ComponentsProps";
 import userAvatar from "../../../assets/components/userProfile/userPhoto.svg";
-import { MainPath } from "../../../services/router/routes";
 import burgerIcon from "../../../assets/components/userProfile/burger.svg";
 import NavBar from "../navBar/navBar";
 import infoIcon from "../../../assets/components/userProfile/infoIcon.svg";
 
+import { IUserProfileSidebar } from "../../../types/common/ComponentsProps";
+import { MainPath } from "../../../services/router/routes";
+
 import { logoutUser } from "../../../services/api/auth/Logout";
 import { getCorrectBaseUrl } from "../../../utils/baseUrlConverter";
-
 import { ApiResponseCode } from "../../../helpers/apiResponseCode";
-
 import { BurgerMenu } from "../burgerMenu/burgerMenu";
-
-import {
-	Archive,
-	AvatarSettings,
-	ChangePassword,
-	PrivateAppSettings,
-	PrivateData,
-	SidebarMenu,
-} from "../userProfileSettings/userProfileSettings";
+import { SidebarMenu, sidebarNavMenu } from "../userProfileSidebarMenu/userProfileSidebarMenu";
 
 import style from "./userProfileSidebar.module.scss";
 
@@ -44,14 +35,6 @@ const UserProfileSidebar = ({ avatar, name, balance }: IUserProfileSidebar) => {
 	const laptopWindowSize = 1100;
 
 	const router = useRouter();
-
-	const sidebarNavMenu = [
-		{ title: "Личные данные", content: PrivateData },
-		{ title: "Аватар", content: AvatarSettings },
-		{ title: "Сменить пароль", content: ChangePassword },
-		{ title: "Настройки", content: PrivateAppSettings },
-		{ title: "Архив", content: Archive },
-	];
 
 	useEffect(() => {
 		setCurrentDate(format(new Date(), "dd.MM.yyyy"));

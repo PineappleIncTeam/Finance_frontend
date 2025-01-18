@@ -1,0 +1,58 @@
+$mobileSize: 600px;
+
+.title {
+	font-size: 2.6rem;
+	line-height: 3.8rem;
+	color: var(--color-eerie-black);
+	align-self: flex-start;
+
+	@media (max-width: $mobileSize) {
+		font-size: 2rem;
+		line-height: 2.8rem;
+	}
+}
+
+.form {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 32px;
+
+	@media (max-width: 1440px) {
+		gap: 24px;
+	}
+
+	@media (max-width: $mobileSize) {
+		gap: 20px;
+	}
+}
+
+.form__settings {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+	align-items: flex-start;
+	justify-content: flex-start;
+}
+
+.removeButton {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	gap: 12px;
+	cursor: pointer;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+.removeButton__title {
+	font-size: 2rem;
+	line-height: 2.8rem;
+	color: var(--color-bright-maroon);
+
+	@media (max-width: $mobileSize) {
+		font-size: 1.6rem;
+		line-height: 2.2rem;
+	}
+}

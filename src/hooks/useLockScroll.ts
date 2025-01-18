@@ -15,7 +15,8 @@ export const useLockScroll = (toggle: boolean) => {
 
 
     window.scrollTo(0, position.current)
-  }, [hadScrollBar, scrollbarWidth, toggle])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [scrollbarWidth, toggle])
 }
 
 

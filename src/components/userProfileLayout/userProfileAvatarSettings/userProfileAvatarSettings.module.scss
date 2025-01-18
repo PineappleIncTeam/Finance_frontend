@@ -40,6 +40,10 @@ $mobileSize: 600px;
 	position: relative;
 	margin-bottom: 20px;
 	align-self: center;
+
+	@media (max-width: $mobileSize) {
+		margin-bottom: 10px;
+	}
 }
 
 .avatar__picture {
@@ -49,6 +53,11 @@ $mobileSize: 600px;
 .avatar__image {
 	width: 110px;
 	height: 110px;
+
+	@media (max-width: $mobileSize) {
+		width: 60px;
+		height: 60px;
+	}
 }
 
 .avatar__editButtonWrapper {
@@ -58,17 +67,31 @@ $mobileSize: 600px;
 	align-items: center;
 	justify-content: center;
 	width: 100%;
+
+	@media (max-width: $mobileSize) {
+		bottom: -8px;
+	}
 }
 
 .avatar__editButton {
 	cursor: pointer;
 	width: 36px;
 	height: 36px;
+
+	@media (max-width: $mobileSize) {
+		width: 24px;
+		height: 24px;
+	}
 }
 
 .avatar__editIcon {
 	width: 36px;
 	height: 36px;
+
+	@media (max-width: $mobileSize) {
+		width: 24px;
+		height: 24px;
+	}
 }
 
 .avatar__input {

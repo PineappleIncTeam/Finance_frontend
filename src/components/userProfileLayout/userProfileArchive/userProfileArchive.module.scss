@@ -47,6 +47,10 @@ $mobileSize: 600px;
 
 	scrollbar-width: thin;
 	scrollbar-color: var(--color-light-green) var(--color-light-grayish-green);
+
+	@media (max-width: $mobileSize) {
+		max-height: 300px;
+	}
 }
 
 .archiveItem {
@@ -60,9 +64,14 @@ $mobileSize: 600px;
 
 .archiveItem__title {
 	font-size: 1.6rem;
-	font-weight: 400;
 	line-height: 2.2rem;
+	font-weight: 400;
 	color: var(--color-dark-cyan-blue);
+
+	@media (max-width: $mobileSize) {
+		font-size: 1.3rem;
+		line-height: 1.8rem;
+	}
 }
 
 .archiveItem__icons {
@@ -70,6 +79,9 @@ $mobileSize: 600px;
 	flex-direction: row;
 	gap: 16px;
 	align-items: center;
+	@media (max-width: $mobileSize) {
+		gap: 8px;
+	}
 }
 
 .archiveItem__icon {
@@ -78,6 +90,11 @@ $mobileSize: 600px;
 	justify-content: center;
 	object-fit: contain;
 	cursor: pointer;
+
+	@media (max-width: $mobileSize) {
+		width: 16px;
+		height: 16px;
+	}
 }
 
 .resetWrapper {

@@ -2,64 +2,110 @@
 	display: flex;
 	justify-content: space-between;
 	background-color: var(--color-silver-gray);
+	gap: 20px;
+	min-height: 100vh;
+
+	@media (max-width: 1100px) {
+		& {
+			padding: 50px 30px;
+			flex-direction: column-reverse;
+		}
+	}
+
+	@media (max-width: 768px) {
+		& {
+			padding: 36px;
+		}
+	}
+
+	@media (max-width: 420px) {
+		& {
+			min-height: auto;
+			padding: 48px 16px 40px;
+			background-color: var(--color-pure-light);
+		}
+	}
+}
+
+.privateProfile__navBar {
+	flex: 1 1 auto;
+	max-width: 400px;
+
+	width: 100%;
+
+	@media (max-width: 1440px) {
+		& {
+			flex-shrink: 1;
+			max-width: 320px;
+			min-width: 260px;
+		}
+	}
+
+	@media (max-width: 1100px) {
+		& {
+			display: none;
+		}
+	}
+}
+
+.privateProfile__main {
+	display: flex;
+	flex-direction: column;
+	flex: 1 1 auto;
+	position: relative;
+	min-width: 790px;
+
+	@media (max-width: 1440px) {
+		& {
+			flex-shrink: 1;
+			min-width: auto;
+			min-width: 560px;
+		}
+	}
+
+	@media (max-width: 1100px) {
+		& {
+			gap: 30px;
+			min-width: 100%;
+		}
+	}
+
+	@media (max-width: 768px) {
+		& {
+			gap: 16px;
+		}
+	}
+
+	@media (max-width: 420px) {
+		& {
+			gap: 20px;
+		}
+	}
 }
 
 .privateProfileContent {
-	display: flex;
-	flex-direction: column;
-	flex: 1;
-	align-items: flex-end;
-	position: relative;
+	margin-bottom: 14px;
+	height: 100%;
 	@media (max-width: 1100px) {
 		& {
-			gap: 16px;
+			margin-bottom: 0;
 		}
 	}
 }
 
-.privateProfileUserInterface {
-	display: flex;
-	justify-content: space-between;
-	padding-left: 20px;
-	margin-bottom: 20px;
+.privateProfile__sideBar {
+	flex: 1 1 auto;
+	max-width: 400px;
 	width: 100%;
-	height: calc(100% - 120px);
-	flex-direction: row-reverse;
-	gap: 20px;
-	@media (max-width: 1100px) {
-		& {
-			flex-direction: column;
-			padding: 50px 17px 0;
-			gap: 16px;
-		}
-	}
-	@media (max-width: 420px) {
-		gap: 20px;
-	}
-}
 
-.privateProfileWrap__navBar {
-	@media (max-width: 1100px) {
+	@media (max-width: 1440px) {
 		& {
-			display: none;
+			max-width: 290px;
 		}
 	}
-}
-
-.privateProfileHeader__adaptive {
-	display: none;
 	@media (max-width: 1100px) {
 		& {
-			display: inline;
-		}
-	}
-}
-.privateProfileHeader {
-	display: block;
-	width: 100%;
-	@media (max-width: 1100px) {
-		& {
-			display: none;
+			max-width: none;
 		}
 	}
 }

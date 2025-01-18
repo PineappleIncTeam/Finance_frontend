@@ -49,6 +49,7 @@ export interface IBlogArticle {
 export interface ITooltip {
 	open: boolean;
 	toggle?: () => void;
+	text?: string;
 }
 
 export type TCommonFunction = () => void;

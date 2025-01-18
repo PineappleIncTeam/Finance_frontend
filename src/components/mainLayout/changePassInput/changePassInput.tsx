@@ -1,23 +1,23 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useController } from "react-hook-form";
 import cn from "classnames";
 import Image from "next/image";
 
-import { TAuthInputForm, IAuthInput } from "../../types/common/UiKitProps";
+import { IChangePassInput, TChangePassForm } from "../../../types/common/UiKitProps";
+import { InputTypeList } from "../../../helpers/Input";
 
-import { InputTypeList } from "../../helpers/Input";
+import showPassword from "../../../assets/pages/signUp/showPassword.svg";
 
-import showPassword from "../../assets/pages/signUp/showPassword.svg";
+import styles from "./changePassInput.module.scss";
 
-import styles from "./AuthInput.module.scss";
-
-const AuthInput = ({ label, type, placeholder, autoComplete, subtitle, error, ...props }: IAuthInput) => {
-	const { field, fieldState } = useController<TAuthInputForm>(props);
+const ChangePassInput = ({ label, type, placeholder, autoComplete, subtitle, error, ...props }: IChangePassInput) => {
+	const { field, fieldState } = useController<TChangePassForm>(props);
 	const [passwordType, setPasswordType] = useState<InputTypeList>(InputTypeList.Password);
+
 	const togglePasswordVisibility = () =>
 		setPasswordType(passwordType === InputTypeList.Password ? InputTypeList.Text : InputTypeList.Password);
 
-	const value = typeof field.value === "boolean" ? String(field.value) : field.value;
+	const inputValue = typeof field.value === "boolean" ? String(field.value) : field.value;
 
 	return (
 		<div className={styles.inputWrap}>
@@ -29,13 +29,10 @@ const AuthInput = ({ label, type, placeholder, autoComplete, subtitle, error, ..
 					placeholder={placeholder}
 					className={styles.inputWrap__input}
 					autoComplete={autoComplete}
-					value={value}
+					value={inputValue}
 				/>
 				{type === InputTypeList.Password && (
-					<button
-						onClick={togglePasswordVisibility}
-						className={styles.inputWrap__passwordEye}
-						type={InputTypeList.Button}>
+					<button onClick={togglePasswordVisibility} className={styles.inputWrap__passwordEye} type="button">
 						<Image src={showPassword} alt="Toggle visibility" />
 					</button>
 				)}
@@ -46,4 +43,4 @@ const AuthInput = ({ label, type, placeholder, autoComplete, subtitle, error, ..
 	);
 };
 
-export default AuthInput;
+export default ChangePassInput;

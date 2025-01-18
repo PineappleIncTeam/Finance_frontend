@@ -1,139 +1,134 @@
 "use client";
 
-import { useState } from "react";
-import { Controller, useForm } from "react-hook-form";
+import { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
+import { useSearchParams, useRouter } from "next/navigation";
+import axios from "axios";
 
-import { IChangePassword } from "../../../types/pages/Password";
+import { IChangePassword, IChangePasswordForm } from "../../../types/pages/Password";
+import Title from "../../../ui/title/Title";
+import ChangePassInput from "../../../components/mainLayout/changePassInput/changePassInput";
 import ChangePasswordModal from "../../../components/mainLayout/changePasswordModal/changePasswordModal";
-import { passwordRegex } from "../../../helpers/password";
+import { SetNewPassword } from "../../../services/api/auth/SetNewPassword";
+import { MainPath } from "../../../services/router/routes";
+import { mockLocalhostStr, mockLocalhostUrl } from "../../../services/api/auth/apiConstants";
+import { ApiResponseCode } from "../../../helpers/apiResponseCode";
 import { InputTypeList } from "../../../helpers/Input";
-
-import { LetterIcon } from "../../../assets/script/changePassword/LetterIcon";
-import { PaperAirLineIcon } from "../../../assets/script/changePassword/PaperAirLineIcon";
-import { OpenLetterIcon } from "../../../assets/script/changePassword/OpenLetterIcon";
-import { ArrowsIcon } from "../../../assets/script/changePassword/ArrowsIcon";
-import { QuestionIcon } from "../../../assets/script/changePassword/QuestionIcon";
-import { EmailIcon } from "../../../assets/script/changePassword/EmailIcon";
-import { OvalIcon } from "../../../assets/script/changePassword/OvalIcon";
-import { ManIcon } from "../../../assets/script/changePassword/ManIcon";
-import { VisibilityOffIcon } from "../../../assets/script/changePassword/VisibilityOffIcon";
+import { errorPasswordRepeat, passwordPattern } from "../../../helpers/authConstants";
+import { getCorrectBaseUrl } from "../../../utils/baseUrlConverter";
+import { formHelpers } from "../../../utils/formHelpers";
 
 import style from "./changePassword.module.scss";
 
 export default function ChangePassword() {
+	const [baseUrl, setBaseUrl] = useState<string>();
+	const [isChangePasswordModalShown, setIsChangePasswordModalShown] = useState<boolean>(false);
+	const searchParams = useSearchParams();
+	const router = useRouter();
+
+	const uid = searchParams.get("uid");
+	const token = searchParams.get("token");
+
+	const secondsCount = 4000;
+
 	const {
 		control,
 		handleSubmit,
 		reset,
 		watch,
 		formState: { errors },
-	} = useForm<IChangePassword>({ mode: "onBlur" });
+	} = useForm<IChangePasswordForm>({
+		defaultValues: {
+			password: "",
+			// eslint-disable-next-line camelcase
+			re_password: "",
+		},
+		mode: "all",
+		delayError: 200,
+	});
 
-	const onSubmit = (data: IChangePassword) => {
-		alert(JSON.stringify(data));
+	useEffect(() => {
+		setBaseUrl(getCorrectBaseUrl());
+	}, []);
+
+	const validateRepeatPassword = (value: string) => {
+		const password = watch("password");
+		return value === password || errorPasswordRepeat;
+	};
+
+	const saveButtonClick = async (data: IChangePassword) => {
+		try {
+			const isLocalhost =
+				window.location.hostname.includes(mockLocalhostStr) || window.location.hostname.includes(mockLocalhostUrl);
+			if (baseUrl && !isLocalhost && uid && token) {
+				data.uid = uid;
+				data.token = token;
+				await SetNewPassword(baseUrl, data);
+				router.push(MainPath.Login);
+			} else {
+				return router.push(MainPath.ServerError);
+			}
+		} catch (error) {
+			if (
+				axios.isAxiosError(error) &&
+				error.response &&
+				error.response.status >= ApiResponseCode.SERVER_ERROR_STATUS_MIN &&
+				error.response.status < ApiResponseCode.SERVER_ERROR_STATUS_MAX
+			) {
+				return router.push(MainPath.ServerError);
+			}
+		}
+	};
+
+	const onSubmit = async (data: IChangePasswordForm) => {
+		const apiData: IChangePassword = {
+			// eslint-disable-next-line camelcase
+			new_password: data.password,
+			// eslint-disable-next-line camelcase
+			re_new_password: data.re_password,
+			token: token ?? "",
+			uid: uid ?? "",
+		};
+		await saveButtonClick(apiData);
 		handleChangePasswordModal();
 		reset();
 	};
 
-	const [isEnterNewPasswordShown, setIsEnterNewPasswordShown] = useState<boolean>(false);
-	const [isReenterNewPasswordShown, setIsReenterNewPasswordShown] = useState<boolean>(false);
-	const [isChangePasswordModalShown, setIsChangePasswordModalShown] = useState<boolean>(false);
-
-	const toggleEnterPasswordVisibility = () => {
-		setIsEnterNewPasswordShown(isEnterNewPasswordShown ? false : true);
-	};
-
-	const toggleReenterPasswordVisibility = () => {
-		setIsReenterNewPasswordShown(isReenterNewPasswordShown ? false : true);
-	};
-
 	const handleChangePasswordModal = () => {
-		const numberSeconds = 4000;
 		setIsChangePasswordModalShown(true);
-		setTimeout(() => setIsChangePasswordModalShown(false), numberSeconds);
-	};
-
-	const validatePasswords = (value: string) => {
-		if (watch("enterNewPassword") !== value) {
-			return "Ваши пароли не совпадают";
-		}
-	};
-
-	const passwordRules = {
-		required: { value: true, message: "Поле обязательно для заполнения" },
-		pattern: { value: passwordRegex, message: "Значение не соответствует формату пароля" },
+		setTimeout(() => setIsChangePasswordModalShown(false), secondsCount);
 	};
 
 	return (
 		<div className={style.changePasswordWrap}>
-			<div className={style.changePasswordContainer}>
-				<OvalIcon classNames={style.ovalIcon} />
-				<QuestionIcon classNames={style.questionIcon} />
-				<EmailIcon classNames={style.emailIcon} />
-				<ArrowsIcon classNames={style.arrowsIcon} />
-				<LetterIcon classNames={style.letterIcon} />
-				<OpenLetterIcon classNames={style.openLetterIcon} />
-				<ManIcon classNames={style.manIcon} />
-				<PaperAirLineIcon classNames={style.paperAirLineIcon} />
-				<OpenLetterIcon classNames={style.secondOpenLetterIcon} />
-				<div className={style.changePasswordContainer__modal}>
-					<div className={style.changePasswordContainer__modal__content}>
-						<h1 className={style.changePasswordContainer__form__title}>Изменение пароля</h1>
-						<form onSubmit={handleSubmit(onSubmit)}>
-							<ChangePasswordModal open={isChangePasswordModalShown} />
-							<label htmlFor="enterNewPassword" className={style.formWrap_passwordTitle}>
-								Введите новый пароль
-							</label>
-							<Controller
-								name="enterNewPassword"
-								control={control}
-								rules={passwordRules}
-								defaultValue=""
-								render={({ field }) => (
-									<input
-										id="enterNewPassword"
-										className={style.changePasswordRow}
-										type={isEnterNewPasswordShown ? InputTypeList.Text : InputTypeList.Password}
-										placeholder="Пароль"
-										{...field}
-									/>
-								)}
-							/>
-							<button type="button" onClick={toggleEnterPasswordVisibility}>
-								<VisibilityOffIcon classNames={style.visibilityOffIcon} />
-							</button>
-							{errors?.enterNewPassword && <span role="alert">{errors.enterNewPassword.message}</span>}
-							<p className={style.changePasswordHelper}>
-								Пароль должен состоять из 6 и более символов, среди которых хотя бы одна буква верхнего регистра и хотя
-								бы одна цифра
-							</p>
-							<label htmlFor="reenterNewPassword" className={style.formWrap_passwordTitle}>
-								Повторите пароль
-							</label>
-							<Controller
-								name="reenterNewPassword"
-								control={control}
-								rules={{ ...passwordRules, validate: validatePasswords }}
-								defaultValue=""
-								render={({ field }) => (
-									<input
-										id="reenterNewPassword"
-										className={style.changePasswordRow}
-										type={isReenterNewPasswordShown ? InputTypeList.Text : InputTypeList.Password}
-										placeholder="Пароль"
-										{...field}
-									/>
-								)}
-							/>
-							<button type="button" onClick={toggleReenterPasswordVisibility}>
-								<VisibilityOffIcon classNames={style.visibilityOffIcon2} />
-							</button>
-							{errors?.reenterNewPassword?.message}
-							<input className={style.saveButton} type={InputTypeList.Submit} value="Сохранить" />
-						</form>
-					</div>
+			<form className={style.changePasswordFormContainer} onSubmit={handleSubmit(onSubmit)}>
+				<div className={style.changePasswordFormContainer__content}>
+					<Title title={"Изменение пароля"} />
+					<ChangePasswordModal open={isChangePasswordModalShown} />
+					<ChangePassInput
+						control={control}
+						label={"Введите новый пароль"}
+						type={InputTypeList.Password}
+						placeholder="Пароль"
+						subtitle="Пароль должен состоять из 6 и более символов, среди которых хотя бы одна буква верхнего регистра и хотя бы одна цифра"
+						error={formHelpers.getPasswordError(errors, control._formValues.password)}
+						name="password"
+						rules={{ required: true, pattern: passwordPattern }}
+						autoComplete="off"
+					/>
+					<ChangePassInput
+						control={control}
+						label={"Повторите пароль"}
+						type={InputTypeList.Password}
+						placeholder="Пароль"
+						error={errors.re_password?.message}
+						name="re_password"
+						rules={{ required: true, validate: validateRepeatPassword }}
+						autoComplete="off"
+					/>
+					<input className={style.saveButton} type={InputTypeList.Submit} value="Сохранить" />
 				</div>
-			</div>
+			</form>
 		</div>
 	);
 }

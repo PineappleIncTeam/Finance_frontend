@@ -4,6 +4,7 @@ import { useParams, useRouter } from "next/navigation";
 
 import BlogArticle from "../../../../components/mainLayout/blogArticle/blogArticle";
 import Footer from "../../../../components/mainLayout/footer/footer";
+import { InputTypeList } from "../../../../helpers/Input";
 
 import { ArrowLeftIcon } from "../../../../assets/script/blogPage/ArrowLeft";
 
@@ -21,7 +22,7 @@ function BlogPage() {
 		<div className={style.BlogPageWrap}>
 			<div className={style.BlogPageContainer}>
 				<div className={style.BlogPageButtonLeftWrapper}>
-					<button className={style.BlogPageButtonLeft} type="button" onClick={() => router.back()}>
+					<button className={style.BlogPageButtonLeft} type={InputTypeList.Button} onClick={() => router.back()}>
 						<ArrowLeftIcon classNames={style.BlogPageArrowLeftIcon} />
 						Все статьи
 					</button>

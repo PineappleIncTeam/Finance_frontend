@@ -7,4 +7,5 @@ export enum InputTypeList {
 	Number = "number",
 	Date = "date",
 	Radio = "radio",
+	Button = "button",
 }

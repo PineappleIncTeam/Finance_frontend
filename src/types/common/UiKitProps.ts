@@ -3,8 +3,8 @@ import { ReactElement, ReactNode } from "react";
 import { Control, FieldError, FieldErrorsImpl, FieldValues, Merge, Path, UseControllerProps } from "react-hook-form";
 
 import { ISignInForm, ISignUpForm } from "../components/ComponentsTypes";
-import { INewPassword } from "../pages/Password";
-import { IExpensesSelectForm } from "../pages/Expenses";
+import { IChangePasswordForm, INewPassword } from "../pages/Password";
+import { IExpensesInputForm, IExpensesSelectForm } from "../pages/Expenses";
 
 export interface IButton {
 	content: string | ReactNode;
@@ -15,6 +15,10 @@ export interface IButton {
 }
 
 export type TAuthInputForm = ISignUpForm | ISignInForm | INewPassword;
+
+export type TAppInputForm = IExpensesInputForm;
+
+export type TChangePassForm = IChangePasswordForm;
 
 export interface IAuthInput extends UseControllerProps<TAuthInputForm> {
 	label: string;
@@ -36,6 +40,15 @@ export interface IAppInput<T extends FieldValues> {
 	name: Path<T>;
 	rules?: any;
 	disabled?: boolean;
+}
+
+export interface IChangePassInput extends UseControllerProps<TChangePassForm> {
+	label: string;
+	type: string;
+	placeholder?: string;
+	autoComplete?: string;
+	subtitle?: string;
+	error?: string | FieldError | Merge<FieldError, FieldErrorsImpl<any>> | null;
 }
 
 export interface ITitle {

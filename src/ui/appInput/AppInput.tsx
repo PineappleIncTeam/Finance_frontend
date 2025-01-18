@@ -46,7 +46,10 @@ const AppInput = <T extends FieldValues>({
 					{...props}
 				/>
 				{type === InputTypeList.Password && (
-					<button onClick={togglePasswordVisibility} className={styles.inputWrap__passwordEye} type="button">
+					<button
+						onClick={togglePasswordVisibility}
+						className={styles.inputWrap__passwordEye}
+						type={InputTypeList.Button}>
 						<Image src={showPassword} alt="Toggle visibility" />
 					</button>
 				)}

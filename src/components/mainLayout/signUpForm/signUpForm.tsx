@@ -132,7 +132,7 @@ const SignUpForm = () => {
 				<Button
 					content="Зарегистрироваться"
 					styleName={isValid ? "big buttonForLogin" : "big__disabled buttonForLogin"}
-					type="submit"
+					type={InputTypeList.Submit}
 				/>
 				<div className={styles.dividerWrap}>
 					<div className={styles.dividerWrap__line} />

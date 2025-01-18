@@ -224,6 +224,7 @@
 		height: 184px;
 		// overflow-y: auto;
 		width: 100%;
+		white-space: nowrap;
 	}
 }
 
@@ -252,7 +253,6 @@
 	align-items: center;
 
 	@media (max-width: 690px) {
-
 		font-size: 1.1rem;
 		line-height: 1.3rem;
 	}
@@ -336,20 +336,15 @@
 		font-size: 1.1rem;
 		line-height: 1.3rem;
 	}
-	
+
 	@media (min-width: 426px) {
 		&:hover {
 			background-color: var(--color-light-grayish-green);
-	
 		}
 	}
-
-
-	
 }
 
 .wrapperListContentBlock li.activeEditItem {
-	
 	background-color: var(--color-light-grayish-green);
 }
 
@@ -429,7 +424,6 @@
 		display: flex;
 		align-items: center;
 	}
-
 }
 
 .sortIcon {
@@ -494,12 +488,9 @@
 	// left: 50%;
 	transform: translate(-40%);
 
-	@media (max-width:1100px) {
+	@media (max-width: 1100px) {
 		transform: none;
 		right: 10px;
-
-
-		
 	}
 
 	&__close {

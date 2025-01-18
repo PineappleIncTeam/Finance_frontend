@@ -29,7 +29,7 @@ export const BurgerMenu = ({ children, showMenu, setShowMenu }: IBurgerMenu) => 
 					[style.slide__show]: showMenu,
 				})}>
 				<div className={style.cross} onClick={closeMenu} role="button">
-					<Image src={crossIcon} alt={"crossIcon"} />
+					<Image src={crossIcon} alt={"crossIcon"} className={style.cross__icon} />
 				</div>
 				<div className={style.content}>{children}</div>
 			</div>

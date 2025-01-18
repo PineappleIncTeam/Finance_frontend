@@ -140,7 +140,9 @@ const UserProfileSidebar = ({ avatar, name, balance }: IUserProfileSidebar) => {
 								<p className={style.userInformationWrap__balance}>{balance || 0} ₽</p>
 							</div>
 						</div>
-						<SidebarMenu handleClick={handleOpenItemClick} />
+						<div className={style.sidebarMenuWrapper}>
+							<SidebarMenu handleClick={handleOpenItemClick} />
+						</div>
 
 						<button onClick={() => setIsOpen(!isOpen)} className={style.burgerActionWrap}>
 							<Image src={burgerIcon} alt={"burger"} className={style.burgerActionWrap_icon} />

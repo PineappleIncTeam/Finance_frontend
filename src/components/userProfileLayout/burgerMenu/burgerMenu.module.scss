@@ -1,3 +1,5 @@
+$mobileSize: 600px;
+
 .wrapper {
 	visibility: hidden;
 	opacity: 0;
@@ -9,7 +11,6 @@
 	background-color: var(--color-black-two-of-third);
 	justify-content: flex-end;
 	transition: 0.5s;
-	display: n;
 }
 
 .wrapper__show {
@@ -38,9 +39,26 @@
 	position: absolute;
 	top: 60px;
 	right: 40px;
+	cursor: pointer;
+
+	@media (max-width: 1440px) {
+		top: 40px;
+		right: 40px;
+	}
+
+	@media (max-width: $mobileSize) {
+		top: 24px;
+		right: 20px;
+	}
+}
+
+.cross__icon {
 	width: 24px;
 	height: 24px;
-	cursor: pointer;
+	@media (max-width: $mobileSize) {
+		width: 20px;
+		height: 20px;
+	}
 }
 
 .content {

@@ -5,12 +5,16 @@ import cn from "classnames";
 import crossIcon from "../../../assets/components/userProfile/crossIcon.svg";
 import { IBurgerMenu } from "../../../types/components/ComponentsTypes";
 
+import { useLockScroll } from "../../../hooks/useLockScroll";
+
 import style from "./burgerMenu.module.scss";
 
 export const BurgerMenu = ({ children, showMenu, setShowMenu }: IBurgerMenu) => {
 	const closeMenu = () => {
 		setShowMenu(false);
 	};
+
+	useLockScroll(showMenu);
 
 	return (
 		<div

@@ -42,8 +42,9 @@ function Savings() {
 	const [items, setItems] = useState([
 		{ category: "Обучение ребенка", target: "210 000.00", sum: "200 000.00", status: "В процессe" },
 		{ category: "Машина", target: "4 000 000.00", sum: "4 000 000.00", status: "Достигнута" },
-		{ category: "Квартира", target: "10 000 000.00", sum: "100 000.00", status: "В процессе" },
-		{ category: "Отпуск 2024", target: "300 000.00", sum: "10 000.00", status: "В процессе" },
+		{ category: "Квартира", target: "10 000 000.00", sum: "100 000.00", status: "В процессe" },
+		{ category: "Дом у моря", target: "1 000 000 000.00", sum: "1 000 000.00", status: "В процессе" },
+		{ category: "Дача", target: "5 000 000.00", sum: "115 000.00", status: "В процессе" },
 	]);
 
 	const handleEditClick = (index: number, field: "category" | "target", value: string) => {
@@ -131,8 +132,8 @@ function Savings() {
 								<li className={style.wrapperListHeaderBlock__target}>
 									<div className={style.wrapperListHeaderBlock__targetPosition}>
 										<div>Цель, ₽</div>
-										<div className={style.sortIcon} onClick={handleSortByTarget} role="button">
-											<SortIcon />
+										<div  onClick={handleSortByTarget} role="button">
+											<SortIcon classNames={style.sortIcon} />
 										</div>
 									</div>
 								</li>
@@ -170,7 +171,7 @@ function Savings() {
 												<div
 													className={style.editIcon}
 													style={{
-														display: hoveredIndex === index || editIndex === index ? "block" : "none",
+														display: hoveredIndex === index || editIndex === index ? "flex" : "none",
 													}}
 													onClick={() =>
 														editIndex === index && editField === "category"
@@ -188,7 +189,7 @@ function Savings() {
 												<div
 													className={style.editIcon}
 													style={{
-														display: hoveredIndex === index || editIndex === index ? "block" : "none",
+														display: hoveredIndex === index || editIndex === index ? "flex" : "none",
 													}}
 													onClick={() =>
 														editIndex === index && editField === "target"

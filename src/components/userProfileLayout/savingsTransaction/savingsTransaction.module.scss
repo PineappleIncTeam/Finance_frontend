@@ -1,7 +1,7 @@
 .savingsTransactionContainer {
 	display: flex;
 	justify-content: space-between;
-	align-items: flex-start;
+	align-items: center;
 	width: 100%;
 
 	
@@ -38,16 +38,12 @@
 	}
 
 
-	@media (max-width: 650px) {
+	@media (max-width: 690px) {
 		& {
 			font-size: 1.3rem;
 		}
 	}
-	@media (max-width: 650px) {
-		& {
-			font-size: 1.3rem;
-		}
-	}
+
 
 	@media (max-width: 490px) {
 		& {

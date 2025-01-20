@@ -137,7 +137,9 @@ const Activate = () => {
 
 	return (
 		<div className={styles.activationPageWrapper}>
-			<div className={styles.messageWrapper}>{load ? <Spinner /> : messageElement()}</div>
+			<div className={styles.backgrounWrapper}>
+				<div className={styles.messageWrapper}>{load ? <Spinner /> : messageElement()}</div>
+			</div>
 		</div>
 	);
 };

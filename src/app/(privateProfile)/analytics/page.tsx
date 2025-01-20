@@ -35,12 +35,15 @@ function Analytics() {
 					</div>
 				</div>
 
-				<div className={styles.analyticsDisplay}>
+				<div className={styles.analyticsDisplayWrapper}>
+					<p className={styles.analyticsDisplay_title}>Отображать в:</p>
+					<div className={styles.analyticsDisplay}>
 						<input
 							name="value"
 							type="radio"
 							id="analyticsDisplay__rub"
 							className={styles.analyticsDisplay__input}
+							defaultChecked
 						/>
 						<label htmlFor="analyticsDisplay__rub" className={styles.analyticsDisplay__label}>
 							<p className={styles.analyticsDisplay__text}>В рублях</p>
@@ -50,11 +53,33 @@ function Analytics() {
 							type="radio"
 							id="analyticsDisplay__percent"
 							className={styles.analyticsDisplay__input}
-							defaultChecked
 						/>
 						<label htmlFor="analyticsDisplay__percent" className={styles.analyticsDisplay__label}>
 							<p className={styles.analyticsDisplay__text}>В процентах</p>
 						</label>
+					</div>
+				</div>
+
+				<div className={styles.analyticsDiagramWrapper}>
+
+					<div className={styles.analyticsDiagramInfo}>
+						<p>Общий расход</p>
+						<p>130 000.75 ₽</p>
+						<p>14.09.23 - 20.09.23</p>
+					</div>
+
+					<div className={styles.analyticsDiagram}>
+
+						<div className={styles.diagram}>
+
+						</div>
+
+						<div>
+
+						</div>
+
+					</div>
+
 				</div>
 
 			</div>

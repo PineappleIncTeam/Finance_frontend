@@ -39,4 +39,20 @@ button {
 	--color-black-eight-part: #0000001f;
 	--color-black-two-of-third: #000000b3;
 	--color-pure-black: #000;
+
+	--lavender-blush: #B48DAD;
+	--sage-green: #BFC3A8;
+	--color-light-peach: #EED6CD;
+	--color-burnt-orange: #B83400;
+	--color-soft-tan: #C88B79;
+	--color-peach: #FF9D73;
+
+	--previous-value-1: 1%;
+    --previous-value-2: calc(var(--previous-value-1) + 3%);
+    --previous-value-3: calc(var(--previous-value-2) + 2.5%);
+	--previous-value-4: calc(var(--previous-value-3) + 1.26%);
+	--previous-value-5: calc(var(--previous-value-4) + 2.04%);
+	--previous-value-6: calc(var(--previous-value-5) + 11.70%);
+	--previous-value-7: calc(var(--previous-value-6) + 0.30%);
+	--previous-value-8: calc(var(--previous-value-7) + 0.75%);
 }

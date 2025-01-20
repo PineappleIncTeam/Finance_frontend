@@ -18,7 +18,7 @@ import { errorPasswordRepeat, passwordPattern } from "../../../helpers/authConst
 import { getCorrectBaseUrl } from "../../../utils/baseUrlConverter";
 import { formHelpers } from "../../../utils/formHelpers";
 
-import style from "./changePassword.module.scss";
+import styles from "./changePassword.module.scss";
 
 export default function ChangePassword() {
 	const [baseUrl, setBaseUrl] = useState<string>();
@@ -100,9 +100,9 @@ export default function ChangePassword() {
 	};
 
 	return (
-		<div className={style.changePasswordWrap}>
-			<form className={style.changePasswordFormContainer} onSubmit={handleSubmit(onSubmit)}>
-				<div className={style.changePasswordFormContainer__content}>
+		<div className={styles.changePasswordWrap}>
+			<form className={styles.changePasswordFormContainer} onSubmit={handleSubmit(onSubmit)}>
+				<div className={styles.changePasswordFormContainer__content}>
 					<Title title={"Изменение пароля"} />
 					<ChangePasswordModal open={isChangePasswordModalShown} />
 					<ChangePassInput
@@ -126,7 +126,7 @@ export default function ChangePassword() {
 						rules={{ required: true, validate: validateRepeatPassword }}
 						autoComplete="off"
 					/>
-					<input className={style.saveButton} type={InputTypeList.Submit} value="Сохранить" />
+					<input className={styles.saveButton} type={InputTypeList.Submit} value="Сохранить" />
 				</div>
 			</form>
 		</div>

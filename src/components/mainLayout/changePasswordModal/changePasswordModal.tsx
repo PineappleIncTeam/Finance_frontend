@@ -6,7 +6,7 @@ import { useScrollLock } from "../../../hooks/useScrollLock";
 
 import { IChangePasswordModal } from "../../../types/common/ComponentsProps";
 
-import style from "./changePasswordModal.module.scss";
+import styles from "./changePasswordModal.module.scss";
 
 const ChangePasswordModal = ({ open }: IChangePasswordModal) => {
 	const lockScroll = useScrollLock(open);
@@ -17,11 +17,11 @@ const ChangePasswordModal = ({ open }: IChangePasswordModal) => {
 
 	return (
 		<>
-			<dialog open={open} className={style.backgroundModal}>
-				<div onClick={(e) => e.stopPropagation()} role="textbox" className={style.changePasswordResponseModalWrap}>
-					<div className={style.changePasswordResponseModalContainer}>
-						<h1 className={style.changePasswordResponseModalContainer__title}>Новый пароль успешно сохранен !</h1>
-						<p className={style.changePasswordResponseModalContainer__subtitle}>
+			<dialog open={open} className={styles.backgroundModal}>
+				<div onClick={(e) => e.stopPropagation()} role="textbox" className={styles.changePasswordResponseModalWrap}>
+					<div className={styles.changePasswordResponseModalContainer}>
+						<h1 className={styles.changePasswordResponseModalContainer__title}>Новый пароль успешно сохранен !</h1>
+						<p className={styles.changePasswordResponseModalContainer__subtitle}>
 							Теперь вы можете войти в приложение с использованием своих обновленных учетных данных.
 						</p>
 					</div>

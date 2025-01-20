@@ -14,7 +14,7 @@ import { ArrowLeftIcon } from "../../../assets/script/blog/ArrowLeftIcon";
 
 import { MainPath } from "../../../services/router/routes";
 
-import style from "./blog.module.scss";
+import styles from "./blog.module.scss";
 
 export default function Blog() {
 	const router = useRouter();
@@ -32,23 +32,23 @@ export default function Blog() {
 	};
 
 	return (
-		<div className={style.blogWrap}>
-			<div className={style.blogContainer}>
-				<div className={style.blogHeaderWrap}>
-					<h1 className={style.blogHeaderWrap__title}>
+		<div className={styles.blogWrap}>
+			<div className={styles.blogContainer}>
+				<div className={styles.blogHeaderWrap}>
+					<h1 className={styles.blogHeaderWrap__title}>
 						Здесь вы найдете свежие новости о нашем приложении и интересные статьи по учету собственных финансов
 					</h1>
-					<div className={style.buttonsArrowsWrap}>
-						<button className={style.buttonsArrow} type={InputTypeList.Button}>
-							<ArrowLeftIcon classNames={style.buttonsArrowIcon} />
+					<div className={styles.buttonsArrowsWrap}>
+						<button className={styles.buttonsArrow} type={InputTypeList.Button}>
+							<ArrowLeftIcon classNames={styles.buttonsArrowIcon} />
 						</button>
-						<button className={style.buttonsArrow} type={InputTypeList.Button}>
-							<ArrowRightIcon classNames={style.buttonsArrowIcon} />
+						<button className={styles.buttonsArrow} type={InputTypeList.Button}>
+							<ArrowRightIcon classNames={styles.buttonsArrowIcon} />
 						</button>
 					</div>
 				</div>
-				<div className={style.blogCardsContainer}>
-					<div className={style.blogCardsSlider}>
+				<div className={styles.blogCardsContainer}>
+					<div className={styles.blogCardsSlider}>
 						<BlogCard
 							image={moneyFlower}
 							date="06 июня 2024"

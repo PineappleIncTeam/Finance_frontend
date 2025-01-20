@@ -15,7 +15,7 @@ import burgerIcon from "../../../assets/components/userProfile/burger.svg";
 import NavBar from "../navBar/navBar";
 import editProfileIcon from "../../../assets/components/userProfile/editProfile.svg";
 
-import style from "./userProfileSidebar.module.scss";
+import styles from "./userProfileSidebar.module.scss";
 
 const UserProfileSidebar = ({ avatar, name, balance }: IUserProfileSidebar) => {
 	const [currentDate, setCurrentDate] = useState<string>("");
@@ -33,8 +33,8 @@ const UserProfileSidebar = ({ avatar, name, balance }: IUserProfileSidebar) => {
 
 	const renderProfileFunctions = (title: string, onClick?: TCommonFunction) => {
 		return (
-			<button className={style.profileFunctionsWrap} onClick={onClick}>
-				<p className={style.profileFunctionsWrap__title}>{title}</p>
+			<button className={styles.profileFunctionsWrap} onClick={onClick}>
+				<p className={styles.profileFunctionsWrap__title}>{title}</p>
 				<Image src={arrowRightIcon} alt={""} />
 			</button>
 		);
@@ -43,8 +43,8 @@ const UserProfileSidebar = ({ avatar, name, balance }: IUserProfileSidebar) => {
 	const renderNavigationElements = (title: string, link?: string) => {
 		return (
 			<Link href={link || "#"}>
-				<div className={style.navigationElementsWrap}>
-					<p className={style.navigationElements__title}>{title}</p>
+				<div className={styles.navigationElementsWrap}>
+					<p className={styles.navigationElements__title}>{title}</p>
 					<Image src={navigationArrowIcon} alt={""} />
 				</div>
 			</Link>
@@ -53,33 +53,33 @@ const UserProfileSidebar = ({ avatar, name, balance }: IUserProfileSidebar) => {
 
 	return (
 		<>
-			<div className={style.userProfileWrap}>
-				<div className={style.userProfileContainer}>
-					<div className={style.userInformationWrap}>
-						<div className={style.userInformationWrap_images}>
-							<button className={style.userInformationWrap_images_action}>
-								<Image src={avatar || userAvatar} alt={"userAvatar"} className={style.userInformationWrap__avatar} />
+			<div className={styles.userProfileWrap}>
+				<div className={styles.userProfileContainer}>
+					<div className={styles.userInformationWrap}>
+						<div className={styles.userInformationWrap_images}>
+							<button className={styles.userInformationWrap_images_action}>
+								<Image src={avatar || userAvatar} alt={"userAvatar"} className={styles.userInformationWrap__avatar} />
 							</button>
-							<Image src={editProfileIcon} alt={"editProfile"} className={style.userInformationWrap__edit} />
+							<Image src={editProfileIcon} alt={"editProfile"} className={styles.userInformationWrap__edit} />
 						</div>
-						<p className={style.userInformationWrap__name}>{name || "Имя"}</p>
-						<div className={style.userInformationWrap__adaptive}>
-							<p className={style.userInformationWrap__date}>Ваш баланс на {currentDate}</p>
-							<p className={style.userInformationWrap__balance}>{balance || 0} ₽</p>
+						<p className={styles.userInformationWrap__name}>{name || "Имя"}</p>
+						<div className={styles.userInformationWrap__adaptive}>
+							<p className={styles.userInformationWrap__date}>Ваш баланс на {currentDate}</p>
+							<p className={styles.userInformationWrap__balance}>{balance || 0} ₽</p>
 						</div>
 					</div>
-					<div className={style.userProfileFunctions}>
+					<div className={styles.userProfileFunctions}>
 						{renderProfileFunctions("Личные данные")}
 						{renderProfileFunctions("Сменить пароль")}
 						{renderProfileFunctions("Настройки")}
 						{renderProfileFunctions("Архив")}
 					</div>
-					<div className={style.userProfileNavigation}>
+					<div className={styles.userProfileNavigation}>
 						{renderNavigationElements("О приложении", MainPath.AboutUs)}
 						{renderNavigationElements("Блог", MainPath.Blog)}
 					</div>
-					<button onClick={() => setIsOpen(!isOpen)} className={style.burgerActionWrap}>
-						<Image src={burgerIcon} alt={"burger"} className={style.burgerActionWrap_icon} />
+					<button onClick={() => setIsOpen(!isOpen)} className={styles.burgerActionWrap}>
+						<Image src={burgerIcon} alt={"burger"} className={styles.burgerActionWrap_icon} />
 					</button>
 				</div>
 			</div>

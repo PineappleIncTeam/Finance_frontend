@@ -5,24 +5,24 @@ import { EditIcon } from "../../../assets/script/expenses/EditIcon";
 import { IExpenseTransaction } from "../../../types/components/ComponentsTypes";
 import { ExpensesTooltip } from "../expensesTooltip/expensesTooltip";
 
-import style from "./expensesTransaction.module.scss";
+import styles from "./expensesTransaction.module.scss";
 
 export default function ExpensesTransaction({ firstDate, secondDate, purpose, sum }: IExpenseTransaction) {
 	const [isTooltipShown, setIsTooltipShown] = useState<boolean>(false);
 
 	return (
-		<div className={style.expensesTransactionContainer}>
-			<p className={style.transactionData}>{firstDate}</p>
-			<p className={style.transactionData}>{secondDate}</p>
-			<p className={style.transactionData}>{purpose}</p>
-			<p className={style.transactionData}>{sum}</p>
-			<div className={style.expensesTransactionContainer__actionsWrapper}>
-				<DeleteIcon classNames={style.deleteIcon} />
+		<div className={styles.expensesTransactionContainer}>
+			<p className={styles.transactionData}>{firstDate}</p>
+			<p className={styles.transactionData}>{secondDate}</p>
+			<p className={styles.transactionData}>{purpose}</p>
+			<p className={styles.transactionData}>{sum}</p>
+			<div className={styles.expensesTransactionContainer__actionsWrapper}>
+				<DeleteIcon classNames={styles.deleteIcon} />
 				<div
-					className={style.editIconWrapper}
+					className={styles.editIconWrapper}
 					onMouseMove={() => setIsTooltipShown(true)}
 					onMouseOut={() => setIsTooltipShown(false)}>
-					<EditIcon classNames={style.editIcon} />
+					<EditIcon classNames={styles.editIcon} />
 				</div>
 				<ExpensesTooltip open={isTooltipShown} />
 			</div>

@@ -22,7 +22,7 @@ import VideoElement from "../../../components/mainLayout/videoElement/videoEleme
 
 import { videoId } from "../../../mocks/VideoId";
 
-import style from "./aboutAppPage.module.scss";
+import styles from "./aboutAppPage.module.scss";
 
 function AboutApp() {
 	const [isVideoElementStart, setIsVideoElementStart] = useState<boolean>(false);
@@ -32,78 +32,82 @@ function AboutApp() {
 	};
 
 	return (
-		<div className={style.aboutAppWrap}>
-			<div className={style.aboutAppContainer}>
-				<div className={style.aboutAppHeaderWrapper}>
-					<h1 className={style.aboutAppHeader}>Используйте Freenance с лёгкостью</h1>
-					<a className={style.googlePlayButton} href={transitionGoogleStore} target="_blank" rel="noopener noreferrer">
-						<GooglePlayIcon classNames={style.googlePlayIcon} />
-						<p className={style.googlePlayButton__text}>доступно в Google Play</p>
+		<div className={styles.aboutAppWrap}>
+			<div className={styles.aboutAppContainer}>
+				<div className={styles.aboutAppHeaderWrapper}>
+					<h1 className={styles.aboutAppHeader}>Используйте Freenance с лёгкостью</h1>
+					<a className={styles.googlePlayButton} href={transitionGoogleStore} target="_blank" rel="noopener noreferrer">
+						<GooglePlayIcon classNames={styles.googlePlayIcon} />
+						<p className={styles.googlePlayButton__text}>доступно в Google Play</p>
 					</a>
 				</div>
-				<div className={style.aboutAppPageInstructionWrapper}>
-					<div className={style.aboutAppPageInstructionContainer}>
-						<div className={style.aboutAppPageInstructionContainer__item}>
-							<div className={style.aboutAppPageInstructionContainer__item__orderNum}>1</div>
-							<Image className={style.instructionNumber} width={56} height={154} src={OneNumIcon} alt="number one" />
-							<div className={style.aboutAppPageInstructionContainer__item__imageHelpWrapper}>
-								<Image className={style.aboutAppPageInstructionImage} src={registration} alt="registration" />
-								<p className={style.aboutAppPageInstructionContainer__item__imageHelpText}>
+				<div className={styles.aboutAppPageInstructionWrapper}>
+					<div className={styles.aboutAppPageInstructionContainer}>
+						<div className={styles.aboutAppPageInstructionContainer__item}>
+							<div className={styles.aboutAppPageInstructionContainer__item__orderNum}>1</div>
+							<Image className={styles.instructionNumber} width={56} height={154} src={OneNumIcon} alt="number one" />
+							<div className={styles.aboutAppPageInstructionContainer__item__imageHelpWrapper}>
+								<Image className={styles.aboutAppPageInstructionImage} src={registration} alt="registration" />
+								<p className={styles.aboutAppPageInstructionContainer__item__imageHelpText}>
 									Пройдите простую регистрацию, указав email и пароль
 								</p>
 							</div>
 						</div>
-						<div className={style.aboutAppPageInstructionContainer__item}>
-							<div className={style.aboutAppPageInstructionContainer__item__orderNum}>2</div>
-							<Image className={style.instructionNumber} width={56} height={156} src={TwoNumIcon} alt="number two" />
-							<div className={style.aboutAppPageInstructionContainer__item__imageHelpWrapper}>
-								<Image className={style.aboutAppPageInstructionImage} src={expensesIncome} alt="expenses and income" />
-								<p className={style.aboutAppPageInstructionContainer__item__imageHelpText}>
+						<div className={styles.aboutAppPageInstructionContainer__item}>
+							<div className={styles.aboutAppPageInstructionContainer__item__orderNum}>2</div>
+							<Image className={styles.instructionNumber} width={56} height={156} src={TwoNumIcon} alt="number two" />
+							<div className={styles.aboutAppPageInstructionContainer__item__imageHelpWrapper}>
+								<Image className={styles.aboutAppPageInstructionImage} src={expensesIncome} alt="expenses and income" />
+								<p className={styles.aboutAppPageInstructionContainer__item__imageHelpText}>
 									Заполняйте расходы и доходы, выбирая даты
 								</p>
 							</div>
 						</div>
-						<div className={style.aboutAppPageInstructionContainer__item}>
-							<div className={style.aboutAppPageInstructionContainer__item__orderNum}>3</div>
+						<div className={styles.aboutAppPageInstructionContainer__item}>
+							<div className={styles.aboutAppPageInstructionContainer__item__orderNum}>3</div>
 							<Image
-								className={style.instructionNumber}
+								className={styles.instructionNumber}
 								width={58}
 								height={156}
 								src={ThreeNumIcon}
 								alt="number three"
 							/>
-							<div className={style.aboutAppPageInstructionContainer__item__imageHelpWrapper}>
+							<div className={styles.aboutAppPageInstructionContainer__item__imageHelpWrapper}>
 								<Image
-									className={style.aboutAppPageInstructionImage}
+									className={styles.aboutAppPageInstructionImage}
 									src={calculate}
 									alt="calculate purchases or loans"
 								/>
-								<p className={style.aboutAppPageInstructionContainer__item__imageHelpText}>
+								<p className={styles.aboutAppPageInstructionContainer__item__imageHelpText}>
 									Рассчитывайте покупку недвижимости или кредит
 								</p>
 							</div>
 						</div>
-						<div className={style.aboutAppPageInstructionContainer__item}>
-							<div className={style.aboutAppPageInstructionContainer__item__orderNum}>4</div>
-							<Image className={style.instructionNumber} width={46} height={156} src={FourNumIcon} alt="number four" />
-							<div className={style.aboutAppPageInstructionContainer__item__imageHelpWrapper}>
-								<Image className={style.aboutAppPageInstructionImage} src={analyze} alt="analyze expenses and income" />
-								<p className={style.aboutAppPageInstructionContainer__item__imageHelpText}>
+						<div className={styles.aboutAppPageInstructionContainer__item}>
+							<div className={styles.aboutAppPageInstructionContainer__item__orderNum}>4</div>
+							<Image className={styles.instructionNumber} width={46} height={156} src={FourNumIcon} alt="number four" />
+							<div className={styles.aboutAppPageInstructionContainer__item__imageHelpWrapper}>
+								<Image
+									className={styles.aboutAppPageInstructionImage}
+									src={analyze}
+									alt="analyze expenses and income"
+								/>
+								<p className={styles.aboutAppPageInstructionContainer__item__imageHelpText}>
 									Анализируйте расходы, доходы и копите на мечту
 								</p>
 							</div>
 						</div>
 					</div>
-					<div className={style.aboutAppPageInstructionVideoContainer}>
-						<p className={style.aboutAppPageInstructionVideoContainer__header}>
+					<div className={styles.aboutAppPageInstructionVideoContainer}>
+						<p className={styles.aboutAppPageInstructionVideoContainer__header}>
 							Пошаговая инструкция об использовании приложения
 						</p>
-						<button className={style.aboutAppPageInstructionVideoContainer__button} onClick={() => buttonAction(true)}>
+						<button className={styles.aboutAppPageInstructionVideoContainer__button} onClick={() => buttonAction(true)}>
 							Смотреть видео
 						</button>
 					</div>
 					{isVideoElementStart && (
-						<div className={style.videoElementWrapper}>
+						<div className={styles.videoElementWrapper}>
 							<VideoElement close={() => buttonAction(false)} videoId={videoId} />
 						</div>
 					)}

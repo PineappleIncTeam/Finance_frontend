@@ -13,7 +13,7 @@ import { ShareIcon } from "../../../assets/script/blogArticle/ShareIcon";
 
 import mockImage from "../../../mocks/images/blogArticleMock.webp";
 
-import style from "./blogArticle.module.scss";
+import styles from "./blogArticle.module.scss";
 
 export default function BlogArticle({ image, date, title, articleContent, id }: IBlogArticle) {
 	const [isArticleShareTooltipShown, setIsArticleShareTooltipShown] = useState<boolean>(false);
@@ -33,29 +33,29 @@ export default function BlogArticle({ image, date, title, articleContent, id }: 
 	};
 
 	return (
-		<div className={style.blogArticleContainer}>
-			<div className={style.blogArticleContent}>
-				<div className={style.blogArticleHeaderWrapper}>
-					<Image className={style.blogArticleImage} src={image ?? mockImage} alt="descriptionImage" priority={true} />
-					<div className={style.blogArticleTitleWrapper}>
-						<div className={style.blogArticleDateShareLinkWrapper}>
-							<p className={style.blogArticleDate}>{date}</p>
+		<div className={styles.blogArticleContainer}>
+			<div className={styles.blogArticleContent}>
+				<div className={styles.blogArticleHeaderWrapper}>
+					<Image className={styles.blogArticleImage} src={image ?? mockImage} alt="descriptionImage" priority={true} />
+					<div className={styles.blogArticleTitleWrapper}>
+						<div className={styles.blogArticleDateShareLinkWrapper}>
+							<p className={styles.blogArticleDate}>{date}</p>
 							{isArticleShareTooltipShown && <BlogArticleShareTooltip open={isArticleShareTooltipShown} />}
 							<button
 								type={InputTypeList.Button}
-								className={style.blogArticleShareIconWrap}
+								className={styles.blogArticleShareIconWrap}
 								onClick={() => {
 									clickShare();
 								}}>
-								<ShareIcon classNames={style.blogArticleShareIcon} />
+								<ShareIcon classNames={styles.blogArticleShareIcon} />
 							</button>
 						</div>
-						<h1 className={style.blogArticleTitle}>{title}</h1>
+						<h1 className={styles.blogArticleTitle}>{title}</h1>
 					</div>
 				</div>
 				{articleContent.map((paragraphContent, index) => (
 					<li key={index}>
-						<p className={style.blogArticleText}>{paragraphContent}</p>
+						<p className={styles.blogArticleText}>{paragraphContent}</p>
 					</li>
 				))}
 			</div>

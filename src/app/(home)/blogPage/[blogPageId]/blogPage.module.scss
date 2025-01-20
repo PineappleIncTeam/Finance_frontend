@@ -1,4 +1,4 @@
-.BlogPageWrap {
+.blogPageWrap {
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
@@ -25,7 +25,7 @@
 	}
 }
 
-.BlogPageContainer {
+.blogPageContainer {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
@@ -46,7 +46,7 @@
 	}
 }
 
-.BlogPageButtonLeftWrapper {
+.blogPageButtonLeftWrapper {
 	padding-top: 20px;
 	margin-bottom: 40px;
 
@@ -57,7 +57,7 @@
 	}
 }
 
-.BlogPageButtonLeft {
+.blogPageButtonLeft {
 	width: 158px;
 	height: 28px;
 	font-size: 2rem;
@@ -67,7 +67,7 @@
 	background-color: var(--color-silver-gray);
 }
 
-.BlogPageArrowLeftIcon {
+.blogPageArrowLeftIcon {
 	width: 24px;
 	height: 24px;
 	margin-bottom: -6px;

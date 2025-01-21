@@ -1,10 +1,8 @@
-$mobileSize: 600px;
-
 .sidebar__navItems {
 	display: flex;
 	flex-direction: column;
 	gap: 14px;
-	@media (max-width: $mobileSize) {
+	@media (max-width: 600px) {
 		gap: 8px;
 	}
 }
@@ -20,14 +18,14 @@ $mobileSize: 600px;
 	font-size: 20px;
 	font-weight: 400;
 
-	@media (max-width: $mobileSize) {
+	@media (max-width: 600px) {
 		font-size: 1.3rem;
 		line-height: 1.8rem;
 	}
 }
 
 .navItem__icon {
-	@media (max-width: $mobileSize) {
+	@media (max-width: 600px) {
 		width: 13px;
 		height: 13px;
 	}
@@ -38,7 +36,7 @@ $mobileSize: 600px;
 	flex-direction: column;
 	gap: 14px;
 
-	@media (max-width: $mobileSize) {
+	@media (max-width: 600px) {
 		gap: 8px;
 	}
 }
@@ -58,7 +56,7 @@ $mobileSize: 600px;
 	color: var(--color-dark-spring-green);
 	cursor: pointer;
 
-	@media (max-width: $mobileSize) {
+	@media (max-width: 600px) {
 		font-size: 1.3rem;
 		line-height: 1.8rem;
 	}
@@ -75,7 +73,7 @@ $mobileSize: 600px;
 	flex-direction: column;
 	gap: 32px;
 
-	@media (max-width: $mobileSize) {
+	@media (max-width: 600px) {
 		gap: 20px;
 	}
 }

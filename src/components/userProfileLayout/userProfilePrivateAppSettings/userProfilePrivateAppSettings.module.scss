@@ -1,12 +1,10 @@
-$mobileSize: 600px;
-
 .title {
 	font-size: 2.6rem;
 	line-height: 3.8rem;
 	color: var(--color-eerie-black);
 	align-self: flex-start;
 
-	@media (max-width: $mobileSize) {
+	@media (max-width: 600px) {
 		font-size: 2rem;
 		line-height: 2.8rem;
 	}
@@ -22,7 +20,7 @@ $mobileSize: 600px;
 		gap: 24px;
 	}
 
-	@media (max-width: $mobileSize) {
+	@media (max-width: 600px) {
 		gap: 20px;
 	}
 }
@@ -51,7 +49,7 @@ $mobileSize: 600px;
 	line-height: 2.8rem;
 	color: var(--color-bright-maroon);
 
-	@media (max-width: $mobileSize) {
+	@media (max-width: 600px) {
 		font-size: 1.3rem;
 		line-height: 1.8rem;
 	}

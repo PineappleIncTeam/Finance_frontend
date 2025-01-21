@@ -1,12 +1,10 @@
-$mobileSize: 600px;
-
 .switcher {
 	display: flex;
 	flex-direction: row;
 	gap: 12px;
 	align-items: center;
 
-	@media (max-width: $mobileSize) {
+	@media (max-width: 600px) {
 		gap: 8px;
 	}
 }
@@ -17,7 +15,7 @@ $mobileSize: 600px;
 	font-weight: 400;
 	color: var(--color-eerie-black);
 
-	@media (max-width: $mobileSize) {
+	@media (max-width: 600px) {
 		font-size: 1.3rem;
 		line-height: 1.8rem;
 	}
@@ -36,7 +34,7 @@ $mobileSize: 600px;
 	background-color: var(--color-gainsboro);
 	transition: 0.4s;
 
-	@media (max-width: $mobileSize) {
+	@media (max-width: 600px) {
 		width: 26px;
 		height: 16px;
 	}
@@ -53,7 +51,7 @@ $mobileSize: 600px;
 	background-color: var(--color-pure-light);
 	transition: 0.4s;
 
-	@media (max-width: $mobileSize) {
+	@media (max-width: 600px) {
 		width: 10px;
 		height: 10px;
 		left: 3px;
@@ -74,7 +72,7 @@ $mobileSize: 600px;
 	-ms-transform: translateX(16px);
 	transform: translateX(16px);
 
-	@media (max-width: $mobileSize) {
+	@media (max-width: 600px) {
 		-webkit-transform: translateX(10px);
 		-ms-transform: translateX(10px);
 		transform: translateX(10px);

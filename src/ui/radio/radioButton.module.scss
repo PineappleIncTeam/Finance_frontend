@@ -1,5 +1,3 @@
-$mobileSize: 600px;
-
 .wrapper {
 	width: 100%;
 	display: flex;
@@ -28,7 +26,7 @@ $mobileSize: 600px;
 	color: var(--color-eerie-black);
 	padding-left: 36px;
 
-	@media (max-width: $mobileSize) {
+	@media (max-width: 600px) {
 		font-size: 1.3rem;
 		line-height: 1.8rem;
 		padding-left: 24px;
@@ -51,7 +49,7 @@ $mobileSize: 600px;
 	font-weight: 700;
 	transition: 0.4s;
 
-	@media (max-width: $mobileSize) {
+	@media (max-width: 600px) {
 		height: 16px;
 		width: 16px;
 		border-width: 1px;
@@ -74,7 +72,7 @@ $mobileSize: 600px;
 	font-weight: 700;
 	transition: 0.4s;
 
-	@media (max-width: $mobileSize) {
+	@media (max-width: 600px) {
 		height: 6px;
 		width: 6px;
 		border-width: 1px;

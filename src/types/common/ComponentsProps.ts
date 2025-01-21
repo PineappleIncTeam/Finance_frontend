@@ -46,10 +46,11 @@ export interface IBlogArticle {
 	id: string;
 }
 
-export interface ITooltip {
+export interface ISimpleTooltip {
 	open: boolean;
 	toggle?: () => void;
 	text?: string;
+	className?: string;
 }
 
 export type TCommonFunction = () => void;
@@ -73,4 +74,22 @@ export interface IExpensesTransaction {
 	secondDateFormat?: string;
 	purpose: string;
 	sum: string;
+}
+
+export interface IArchiveItem {
+	archiveItemValue: string;
+}
+
+export interface IRenderProfileItem {
+	title: string;
+	handleClick: (title: string) => void;
+}
+
+export interface IRenderNavItem {
+	title: string;
+	link?: string;
+}
+
+export interface ISidebarMenu {
+	handleClick: (title: string) => void;
 }

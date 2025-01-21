@@ -1,4 +1,4 @@
-.title {
+.archiveTitle {
 	font-size: 2.6rem;
 	line-height: 3.8rem;
 	color: var(--color-eerie-black);
@@ -10,7 +10,7 @@
 	}
 }
 
-.form {
+.archiveForm {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -23,15 +23,6 @@
 	@media (max-width: 600px) {
 		gap: 20px;
 	}
-}
-
-.form__settings {
-	width: 100%;
-	display: flex;
-	flex-direction: column;
-	gap: 16px;
-	align-items: flex-start;
-	justify-content: flex-start;
 }
 
 .archive__items {
@@ -72,7 +63,7 @@
 	}
 }
 
-.archiveItem__icons {
+.archiveItemIconsWrap {
 	display: flex;
 	flex-direction: row;
 	gap: 16px;
@@ -97,4 +88,8 @@
 
 .resetWrapper {
 	position: relative;
+}
+
+.archiveItem__tooltip {
+	left: -48px;
 }

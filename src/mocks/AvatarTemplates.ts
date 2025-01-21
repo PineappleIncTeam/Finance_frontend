@@ -8,6 +8,6 @@ import avatar7 from "./userAvatars/person7.svg";
 import avatar8 from "./userAvatars/person8.svg";
 
 
-export const AvatarTemplates = [
+export const avatarTemplates = [
   avatar1, avatar2, avatar3, avatar4, avatar5, avatar6, avatar7, avatar8
 ];

@@ -3,7 +3,7 @@ import { FieldValues, useController } from "react-hook-form";
 import cn from "classnames";
 import Image from "next/image";
 
-import { IAppInput } from "../../types/common/UiKitProps";
+import { IAppInput, TAppInputValue } from "../../types/common/UiKitProps";
 import { InputTypeList } from "../../helpers/Input";
 
 import showPassword from "../../assets/pages/signUp/showPassword.svg";
@@ -41,7 +41,7 @@ const AppInput = <T extends FieldValues>({
 					placeholder={placeholder}
 					className={styles.inputWrap__input}
 					autoComplete={autoComplete}
-					value={value as string | number | readonly string[] | undefined}
+					value={value as TAppInputValue}
 					disabled={disabled}
 					{...props}
 				/>

@@ -22,20 +22,20 @@ export const BurgerMenu = ({ children, showMenu, setShowMenu }: IBurgerMenu) => 
 				[style.burgerMenuWrapper__show]: showMenu,
 			})}>
 			<div
-				className={cn(style.wrapper, {
-					[style.wrapper__show]: showMenu,
+				className={cn(style.burgerMenuContainer, {
+					[style.burgerMenuContainer__show]: showMenu,
 				})}
 				onClick={closeMenu}
 				role="button"></div>
 			<div
 				role="menubar"
-				className={cn(style.slide, {
-					[style.slide__show]: showMenu,
+				className={cn(style.burgerMenuSlide, {
+					[style.burgerMenuSlide__show]: showMenu,
 				})}>
-				<div className={style.cross} onClick={closeMenu} role="button">
-					<Image src={crossIcon} alt={"crossIcon"} className={style.cross__icon} />
+				<div className={style.burgerMenuCross} onClick={closeMenu} role="button">
+					<Image src={crossIcon} alt={"crossIcon"} className={style.burgerMenuCross__icon} />
 				</div>
-				<div className={style.content}>{children}</div>
+				<div className={style.burgerMenuContent}>{children}</div>
 			</div>
 		</div>
 	);

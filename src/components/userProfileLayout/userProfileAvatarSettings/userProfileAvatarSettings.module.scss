@@ -1,4 +1,4 @@
-.title {
+.avatarTitle {
 	font-size: 2.6rem;
 	line-height: 3.8rem;
 	color: var(--color-eerie-black);
@@ -10,7 +10,7 @@
 	}
 }
 
-.form {
+.avatarForm {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -25,7 +25,7 @@
 	}
 }
 
-.form__settings {
+.avatarForm__settings {
 	width: 100%;
 	display: flex;
 	flex-direction: column;

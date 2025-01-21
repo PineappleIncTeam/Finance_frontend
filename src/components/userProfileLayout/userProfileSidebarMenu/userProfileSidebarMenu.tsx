@@ -9,24 +9,25 @@ import { AvatarSettings } from "../userProfileAvatarSettings/userProfileAvatarSe
 import { ChangePassword } from "../userProfileChangePassword/userProfileChangePassword";
 import { PrivateAppSettings } from "../userProfilePrivateAppSettings/userProfilePrivateAppSettings";
 import { Archive } from "../userProfileArchive/userProfileArchive";
+import { IRenderProfileItem, IRenderNavItem, ISidebarMenu } from "../../../types/common/ComponentsProps";
 
 import style from "./userProfileSidebarMenu.module.scss";
 
-const renderProfileItem = (title: string, handleClick: (title: string) => void) => {
+const renderProfileItem = ({ title, handleClick }: IRenderProfileItem) => {
 	return (
-		<button className={style.profileItem__wrapper} onClick={() => handleClick(title)} key={title}>
-			<p className={style.profileItem__title}>{title}</p>
-			<Image src={arrowRightIcon} alt={""} className={style.profileItem__icon} />
+		<button className={style.sidebarProfileItem__wrapper} onClick={() => handleClick(title)} key={title}>
+			<p className={style.sidebarProfileItem__title}>{title}</p>
+			<Image src={arrowRightIcon} alt={""} className={style.sidebarProfileItem__icon} />
 		</button>
 	);
 };
 
-const renderNavItem = (title: string, link?: string) => {
+const renderNavItem = ({ title, link }: IRenderNavItem) => {
 	return (
 		<Link href={link || "#"}>
-			<div className={style.navItem__wrapper}>
-				<p className={style.navItem__title}>{title}</p>
-				<Image src={navigationArrowIcon} alt={""} className={style.navItem__icon} />
+			<div className={style.sidebarNavItem__wrapper}>
+				<p className={style.sidebarNavItem__title}>{title}</p>
+				<Image src={navigationArrowIcon} alt={""} className={style.sidebarNavItem__icon} />
 			</div>
 		</Link>
 	);
@@ -40,15 +41,15 @@ export const sidebarNavMenu = [
 	{ title: "Архив", content: Archive },
 ];
 
-export const SidebarMenu = ({ handleClick }: { handleClick: (title: string) => void }) => {
+export const SidebarMenu = ({ handleClick }: ISidebarMenu) => {
 	return (
 		<div className={style.sidebar__nav}>
 			<div className={style.sidebar__profileItems}>
-				{sidebarNavMenu.map((menuItem) => renderProfileItem(menuItem.title, handleClick))}
+				{sidebarNavMenu.map((menuItem) => renderProfileItem({ title: menuItem.title, handleClick }))}
 			</div>
 			<div className={style.sidebar__navItems}>
-				{renderNavItem("О приложении", MainPath.AboutUs)}
-				{renderNavItem("Блог", MainPath.Blog)}
+				{renderNavItem({ title: "О приложении", link: MainPath.AboutUs })}
+				{renderNavItem({ title: "Блог", link: MainPath.Blog })}
 			</div>
 		</div>
 	);

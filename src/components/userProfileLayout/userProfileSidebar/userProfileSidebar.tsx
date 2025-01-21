@@ -38,9 +38,6 @@ const UserProfileSidebar = ({ avatar, name, balance }: IUserProfileSidebar) => {
 
 	useEffect(() => {
 		setCurrentDate(format(new Date(), "dd.MM.yyyy"));
-	}, []);
-
-	useEffect(() => {
 		setBaseUrl(getCorrectBaseUrl());
 	}, []);
 
@@ -79,12 +76,12 @@ const UserProfileSidebar = ({ avatar, name, balance }: IUserProfileSidebar) => {
 	};
 
 	const renderSelectedMenuItem = () => {
-		const selectedMenu = sidebarNavMenu.find((el) => el.title === selectedMenuItem);
+		const selectedMenu = sidebarNavMenu.find((sidebarNavMenuItem) => sidebarNavMenuItem.title === selectedMenuItem);
 		if (selectedMenu) {
 			const SelectedComponent = selectedMenu.content;
 			return <SelectedComponent />;
 		} else {
-			return <div></div>;
+			return <></>;
 		}
 	};
 
@@ -97,12 +94,12 @@ const UserProfileSidebar = ({ avatar, name, balance }: IUserProfileSidebar) => {
 				</div>
 			</BurgerMenu>
 			<div className={style.userProfileWrap}>
-				<div className={style.header}>
+				<div className={style.userProfileHeader}>
 					<Link href={""}>
-						<p className={style.header__link}>FAQ</p>
+						<p className={style.userProfileHeader__link}>FAQ</p>
 					</Link>
 					<Link href={""}>
-						<p className={style.header__link}>Поддержка</p>
+						<p className={style.userProfileHeader__link}>Поддержка</p>
 					</Link>
 					<div role="button" onClick={handleLogout} className={style.exit}>
 						<Image src={infoIcon} alt={"info"} />

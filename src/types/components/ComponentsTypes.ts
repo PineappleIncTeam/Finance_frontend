@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch, ReactNode, SetStateAction } from "react";
 
 export interface IUser {
 	age: number;
@@ -55,7 +55,7 @@ export interface IIncomeTransaction {
 }
 
 export interface IBurgerMenu {
-	children: React.ReactNode;
+	children: ReactNode;
 	showMenu: boolean;
 	setShowMenu: Dispatch<SetStateAction<boolean>>;
 }

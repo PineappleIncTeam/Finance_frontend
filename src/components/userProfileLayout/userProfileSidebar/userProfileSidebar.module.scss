@@ -12,7 +12,7 @@
 	}
 }
 
-.header {
+.userProfileHeader {
 	display: flex;
 	justify-content: space-between;
 	padding-top: 50px;
@@ -27,7 +27,7 @@
 	}
 }
 
-.header__link {
+.userProfileHeader__link {
 	font-size: 2.6rem;
 	font-weight: 400;
 	color: var(--color-dark-spring-green);
@@ -301,6 +301,7 @@
 	flex-direction: column;
 	justify-content: space-between;
 	height: 100%;
+	gap: 40px;
 	@media (max-width: 1440px) {
 		padding: 30px 40px;
 	}

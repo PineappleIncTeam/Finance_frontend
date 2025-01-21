@@ -1,4 +1,4 @@
-.wrapper {
+.burgerMenuContainer {
 	visibility: hidden;
 	opacity: 0;
 	position: fixed;
@@ -11,29 +11,32 @@
 	transition: 0.5s;
 }
 
-.wrapper__show {
+.burgerMenuContainer__show {
 	visibility: visible;
 	opacity: 1;
 }
 
-.slide {
+.burgerMenuSlide {
 	position: fixed;
 	top: 0;
 	right: 0;
 	width: 100%;
 	max-width: 500px;
+	overflow-y: auto;
 	background-color: var(--color-pure-light);
 	height: 100%;
 	transform: translate(100%);
 	z-index: 110;
 	transition: transform 0.5s;
+	scrollbar-width: thin;
+	scrollbar-color: var(--color-light-green) var(--color-light-grayish-green);
 }
 
-.slide__show {
+.burgerMenuSlide__show {
 	transform: translate(0);
 }
 
-.cross {
+.burgerMenuCross {
 	position: absolute;
 	top: 60px;
 	right: 40px;
@@ -50,7 +53,7 @@
 	}
 }
 
-.cross__icon {
+.burgerMenuCross__icon {
 	width: 24px;
 	height: 24px;
 	@media (max-width: 600px) {
@@ -59,7 +62,7 @@
 	}
 }
 
-.content {
+.burgerMenuContent {
 	height: 100%;
 	width: 100%;
 }

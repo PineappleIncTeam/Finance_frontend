@@ -8,7 +8,7 @@ import editProfileIcon from "../../../assets/components/userProfile/editProfile.
 import { IUserAvatar } from "../../../types/pages/userProfileSettings";
 import Button from "../../../ui/button/button";
 
-import { AvatarTemplates } from "../../../mocks/AvatarTemplates";
+import { avatarTemplates } from "../../../mocks/AvatarTemplates";
 
 import style from "./userProfileAvatarSettings.module.scss";
 
@@ -18,9 +18,9 @@ export const AvatarSettings = () => {
 		delayError: 200,
 	});
 	return (
-		<form className={style.form}>
-			<div className={style.title}>Аватар</div>
-			<div className={style.form__settings}>
+		<form className={style.avatarForm}>
+			<p className={style.avatarTitle}>Аватар</p>
+			<div className={style.avatarForm__settings}>
 				<div className={style.avatar__wrapper}>
 					<div className={style.avatar__picture}>
 						<Image src={userAvatar} alt={"userAvatar"} className={style.avatar__image} />
@@ -33,7 +33,7 @@ export const AvatarSettings = () => {
 					</div>
 				</div>
 				<div className={style.avatarTemplates}>
-					{AvatarTemplates.map((avatar, index) => (
+					{avatarTemplates.map((avatar, index) => (
 						<div className={style.avatarTemplates__picture} key={index}>
 							<input
 								type="radio"

@@ -15,9 +15,9 @@ export const PrivateAppSettings = () => {
 		delayError: 200,
 	});
 	return (
-		<form className={style.form}>
-			<div className={style.title}>Настройки</div>
-			<div className={style.form__settings}>
+		<form className={style.privateAppSettingsform}>
+			<p className={style.privateAppSettingsTitle}>Настройки</p>
+			<div className={style.privateAppSettingsForm__settings}>
 				<NewSelect
 					name={"currency"}
 					label="Валюта"
@@ -26,9 +26,9 @@ export const PrivateAppSettings = () => {
 				/>
 				<Switcher control={control} name={"darkTheme"} label={"Темная тема"} />
 				<Switcher control={control} name={"finAssistant"} label={"Финансовый помощник"} />
-				<div className={style.removeButton}>
-					<DeleteIcon classNames={style.removeButton__icon} />
-					<div className={style.removeButton__title}>Удалить аккаунт</div>
+				<div className={style.privateAppSettingsRemoveButton}>
+					<DeleteIcon classNames={style.privateAppSettingsRemoveButton__icon} />
+					<div className={style.privateAppSettingsRemoveButton__title}>Удалить аккаунт</div>
 				</div>
 			</div>
 			<Button content={"Сохранить"} styleName={"outlineButton"} type={"submit"} />

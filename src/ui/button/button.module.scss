@@ -334,37 +334,15 @@
 	transition: 0.4s;
 	border-radius: 16px;
 	cursor: pointer;
-	// TODO: Remove after fix bug
 	font-size: 2rem;
 	line-height: 2.8rem;
 	padding: 10px 36px;
 	border: 2px solid var(--color-dark-spring-green);
 
-	&.large {
-		font-size: 2.6rem;
-		line-height: 3.8rem;
-		padding: 10px 34px;
-		border-width: 3px;
-	}
-
-	&.middle {
-		font-size: 2rem;
-		line-height: 2.8rem;
-		padding: 10px 36px;
-		border-width: 2px;
-	}
-
-	&.small {
+	@media (max-width: 600px) {
 		font-size: 1.6rem;
 		line-height: 2.2rem;
-		padding: 6px 28px;
-		border-width: 1.5px;
-	}
-
-	&.extra-small {
-		font-size: 1.3rem;
-		line-height: 1.8rem;
-		padding: 6px 24px;
+		padding: 6px 36px;
 		border-width: 1.5px;
 	}
 

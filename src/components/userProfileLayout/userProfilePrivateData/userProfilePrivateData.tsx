@@ -19,9 +19,9 @@ export const PrivateData = () => {
 		delayError: 200,
 	});
 	return (
-		<form className={style.form}>
-			<div className={style.title}>Личные данные</div>
-			<div className={style.form__settings}>
+		<form className={style.privateDataForm}>
+			<p className={style.privateDataTitle}>Личные данные</p>
+			<div className={style.privateDataForm__settings}>
 				<AppInput
 					label={"Nickname"}
 					type={"text"}
@@ -30,7 +30,7 @@ export const PrivateData = () => {
 					rules={{ maxLength: 32 }}
 					error={"Не более 32 символов"}
 				/>
-				<div className={style.radioButtons}>
+				<div className={style.privateDataRadioButtons}>
 					<RadioButton control={control} name="gender" value="male" label="Муж." />
 					<RadioButton control={control} name="gender" value="female" label="Жен." />
 				</div>

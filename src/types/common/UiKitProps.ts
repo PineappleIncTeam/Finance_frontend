@@ -88,3 +88,5 @@ export interface ISwitcher<T extends TAuthInputForm> {
 	name: Path<T>;
 	label: string;
 }
+
+export type TAppInputValue = string | number | readonly string[] | undefined;

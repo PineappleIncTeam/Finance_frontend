@@ -10,7 +10,7 @@ import style from "./calculator.module.scss";
 export default function Calculator() {
 	const [value, setValue] = useState<number>(0);
 	const [isVisibleInfo, setIsVisibleInfo] = useState(false);
-	const [isMobile, setIsMobile] = useState(window.innerWidth <= 425);
+	const [isMobile, setIsMobile] = useState(window.innerWidth <= 460);
 
 	const formatNumber = (num: number) => {
 		return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");

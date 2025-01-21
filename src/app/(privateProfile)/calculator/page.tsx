@@ -9,8 +9,11 @@ import { formatCalculateNumber } from "../../../utils/formatCalculateNumber";
 
 import style from "./calculator.module.scss";
 
+const MAX_VALUE = 10000000;
+const DEFAULT_VALUE = 0;
+
 export default function Calculator() {
-	const [value, setValue] = useState<number>(0);
+	const [value, setValue] = useState<number>(DEFAULT_VALUE);
 	const [isVisibleInfo, setIsVisibleInfo] = useState(false);
 	const [isMobile, setIsMobile] = useState(window.innerWidth <= 460);
 
@@ -48,8 +51,8 @@ export default function Calculator() {
 		const newValue = Number(target.value);
 		setValue(newValue);
 
-		const min = target.min ? Number(target.min) : 0;
-		const max = target.max ? Number(target.max) : 10000000;
+		const min = target.min ? Number(target.min) : DEFAULT_VALUE;
+		const max = target.max ? Number(target.max) :{MAX_VALUE};
 		const percentage = ((newValue - min) / (max - min)) * 100;
 
 		target.style.setProperty("--percentage", `${percentage}%`);
@@ -137,8 +140,8 @@ export default function Calculator() {
 									value={formatCalculateNumber(value)}
 									onChange={handleInputChange}
 									className={style.inputRangeFieldContainer__input}
-									min="0"
-									max="10000000"
+									min={DEFAULT_VALUE}
+									max={MAX_VALUE}
 									id="propertyValue"
 								/>
 								<input
@@ -146,8 +149,8 @@ export default function Calculator() {
 									value={value}
 									onChange={handleRangeChange}
 									className={style.inputRangeFieldContainer__range}
-									min="0"
-									max="10000000"
+									min={DEFAULT_VALUE}
+									max={MAX_VALUE}
 								/>
 							</div>
 						</div>
@@ -162,8 +165,8 @@ export default function Calculator() {
 									value={formatCalculateNumber(value)}
 									onChange={handleInputChange}
 									className={style.inputRangeFieldContainer__input}
-									min="0"
-									max="10000000"
+									min={DEFAULT_VALUE}
+									max={MAX_VALUE}
 									id="initialContribution"
 								/>
 								<input
@@ -171,8 +174,8 @@ export default function Calculator() {
 									value={value}
 									onChange={handleRangeChange}
 									className={style.inputRangeFieldContainer__range}
-									min="0"
-									max="10000000"
+									min={DEFAULT_VALUE}
+									max={MAX_VALUE}
 								/>
 							</div>
 
@@ -244,8 +247,8 @@ export default function Calculator() {
 									value={formatCalculateNumber(value)}
 									onChange={handleInputChange}
 									className={style.inputRangeFieldContainer__input}
-									min="0"
-									max="10000000"
+									min={DEFAULT_VALUE}
+									max={MAX_VALUE}
 									id="initialContribution"
 								/>
 								<input
@@ -253,8 +256,8 @@ export default function Calculator() {
 									value={value}
 									onChange={handleRangeChange}
 									className={style.inputRangeFieldContainer__range}
-									min="0"
-									max="10000000"
+									min={DEFAULT_VALUE}
+									max={MAX_VALUE}
 								/>
 							</div>
 
@@ -327,8 +330,8 @@ export default function Calculator() {
 									value={formatCalculateNumber(value)}
 									onChange={handleInputChange}
 									className={style.inputRangeFieldContainer__input}
-									min="0"
-									max="10000000"
+									min={DEFAULT_VALUE}
+									max={MAX_VALUE}
 									id="initialContribution"
 								/>
 								<input
@@ -336,8 +339,8 @@ export default function Calculator() {
 									value={value}
 									onChange={handleRangeChange}
 									className={style.inputRangeFieldContainer__range}
-									min="0"
-									max="10000000"
+									min={DEFAULT_VALUE}
+									max={MAX_VALUE}
 								/>
 							</div>
 

@@ -29,18 +29,13 @@ export default function Calculator() {
 
 	useEffect(() => {
 		const handleResize = () => {
-			setIsMobile(window.innerWidth <= 425);
+			setIsMobile(window.innerWidth <= 460);
 		};
 
 		window.addEventListener("resize", handleResize);
 
 		return () => window.removeEventListener("resize", handleResize);
 	}, []);
-
-	const infoStyle = {
-		transform: isMobile ? `scale(${isVisibleInfo ? 1 : 0})` : "none",
-		transition: "transform 0.3s ease",
-	};
 
 	const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		const rawValue = event.target.value.replace(/\s+/g, "");
@@ -58,6 +53,11 @@ export default function Calculator() {
 		const percentage = ((newValue - min) / (max - min)) * 100;
 
 		target.style.setProperty("--percentage", `${percentage}%`);
+	};
+
+	const infoStyle = {
+		transform: isMobile ? `scale(${isVisibleInfo ? 1 : 0})` : "none",
+		transition: "transform 0.3s ease",
 	};
 
 	return (

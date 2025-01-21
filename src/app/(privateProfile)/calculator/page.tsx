@@ -52,7 +52,7 @@ export default function Calculator() {
 		setValue(newValue);
 
 		const min = target.min ? Number(target.min) : DEFAULT_VALUE;
-		const max = target.max ? Number(target.max) :MAX_VALUE;
+		const max = target.max ? Number(target.max) : MAX_VALUE;
 		const percentage = ((newValue - min) / (max - min)) * 100;
 
 		target.style.setProperty("--percentage", `${percentage}%`);

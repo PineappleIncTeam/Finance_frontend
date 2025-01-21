@@ -237,7 +237,7 @@ function Savings() {
 					</div>
 				</form>
 				<div className={style.savingsTransactionWrapper}>
-					<h1 className={style.savingsTransactionHeader}>Последние операции по накоплениям</h1>
+					<h2 className={style.savingsTransactionHeader}>Последние операции по накоплениям</h2>
 					<ul className={style.savingsTransaction}>
 						{savingsTransactions &&
 							savingsTransactions.map((savingsData, index: Key) => (

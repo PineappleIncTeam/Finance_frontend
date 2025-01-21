@@ -219,7 +219,7 @@ function Savings() {
 											<p>{item.status}</p>
 										</div>
 										<div
-											className={style.wrapperListContentBlock__btn}
+											className={style.wrapperListContentBlock__actionElement}
 											onClick={() => handleMoreClick(index)}
 											role="button">
 											<MoreIcon />

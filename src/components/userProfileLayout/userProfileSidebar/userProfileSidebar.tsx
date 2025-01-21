@@ -83,6 +83,8 @@ const UserProfileSidebar = ({ avatar, name, balance }: IUserProfileSidebar) => {
 		if (selectedMenu) {
 			const SelectedComponent = selectedMenu.content;
 			return <SelectedComponent />;
+		} else {
+			return <div></div>;
 		}
 	};
 

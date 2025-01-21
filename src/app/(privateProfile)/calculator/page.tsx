@@ -5,6 +5,8 @@ import React, { useState, useEffect } from "react";
 import { AiFillInfoCircle } from "react-icons/ai";
 import { CgClose } from "react-icons/cg";
 
+import { formatCalculateNumber } from "../../../utils/formatCalculateNumber";
+
 import style from "./calculator.module.scss";
 
 export default function Calculator() {
@@ -12,9 +14,6 @@ export default function Calculator() {
 	const [isVisibleInfo, setIsVisibleInfo] = useState(false);
 	const [isMobile, setIsMobile] = useState(window.innerWidth <= 460);
 
-	const formatNumber = (num: number) => {
-		return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
-	};
 	const handleVisibleInfo = () => {
 		setIsVisibleInfo(true);
 	};
@@ -135,7 +134,7 @@ export default function Calculator() {
 							<div className={style.inputRangeFieldContainer}>
 								<input
 									type="text"
-									value={formatNumber(value)}
+									value={formatCalculateNumber(value)}
 									onChange={handleInputChange}
 									className={style.inputRangeFieldContainer__input}
 									min="0"
@@ -160,7 +159,7 @@ export default function Calculator() {
 							<div className={style.inputRangeFieldContainer}>
 								<input
 									type="text"
-									value={formatNumber(value)}
+									value={formatCalculateNumber(value)}
 									onChange={handleInputChange}
 									className={style.inputRangeFieldContainer__input}
 									min="0"
@@ -242,7 +241,7 @@ export default function Calculator() {
 							<div className={style.inputRangeFieldContainer}>
 								<input
 									type="text"
-									value={formatNumber(value)}
+									value={formatCalculateNumber(value)}
 									onChange={handleInputChange}
 									className={style.inputRangeFieldContainer__input}
 									min="0"
@@ -325,7 +324,7 @@ export default function Calculator() {
 							<div className={style.inputRangeFieldContainer}>
 								<input
 									type="text"
-									value={formatNumber(value)}
+									value={formatCalculateNumber(value)}
 									onChange={handleInputChange}
 									className={style.inputRangeFieldContainer__input}
 									min="0"

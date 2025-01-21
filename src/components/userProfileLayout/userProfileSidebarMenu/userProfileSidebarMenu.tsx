@@ -9,7 +9,7 @@ import { AvatarSettings } from "../userProfileAvatarSettings/userProfileAvatarSe
 import { ChangePassword } from "../userProfileChangePassword/userProfileChangePassword";
 import { PrivateAppSettings } from "../userProfilePrivateAppSettings/userProfilePrivateAppSettings";
 import { Archive } from "../userProfileArchive/userProfileArchive";
-import { IRenderProfileItem, IRenderNavItem, ISidebarMenu } from "../../../types/common/ComponentsProps";
+import { IRenderNavItem, IRenderProfileItem, ISidebarMenu } from "../../../types/common/ComponentsProps";
 
 import style from "./userProfileSidebarMenu.module.scss";
 

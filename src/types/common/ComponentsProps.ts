@@ -85,3 +85,17 @@ export interface ISimpleTooltip {
 	text?: string;
 	className?: string;
 }
+
+export interface IRenderProfileItem {
+	title: string;
+	handleClick: (title: string) => void;
+}
+
+export interface IRenderNavItem {
+	title: string;
+	link?: string;
+}
+
+export interface ISidebarMenu {
+	handleClick: (title: string) => void;
+}

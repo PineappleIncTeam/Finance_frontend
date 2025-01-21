@@ -74,7 +74,28 @@ function Analytics() {
 
 						</div>
 
-						<div>
+						<div className={styles.diagramBlock}>
+
+							<div className={styles.diagramBlockLeft}>
+								<div>
+									<div>
+										<div></div>
+										<p></p>
+									</div>
+									<p></p>
+								</div>
+								<div></div>
+								<div></div>
+								<div></div>
+								<div></div>
+								<div></div>
+								<div></div>
+								<div></div>
+							</div>
+
+							<div className={styles.diagramBlockRight}>
+
+							</div>
 
 						</div>
 

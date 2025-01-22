@@ -45,11 +45,13 @@ function Savings() {
 		{ category: "Квартира", target: "10 000 000.00", sum: "100 000.00", status: "В процессe" },
 		{ category: "Дом у моря", target: "1 000 000 000.00", sum: "1 000 000.00", status: "В процессе" },
 		{ category: "Дача", target: "5 000 000.00", sum: "115 000.00", status: "В процессе" },
-	]
+	];
 
 	const [items, setItems] = useState(initialItems);
 
-	const handleEditClick = (index: number, field: "category" | "target", value: string) => {
+	type TSavingsField = "category" | "target";
+
+	const handleEditClick = (index: number, field: TSavingsField, value: string) => {
 		setEditIndex(index);
 		setEditField(field);
 		setEditValue(value);

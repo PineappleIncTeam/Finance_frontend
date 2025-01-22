@@ -51,7 +51,14 @@ function Savings() {
 
 	type TSavingsField = "category" | "target";
 
-	const handleEditClick = (index: number, field: TSavingsField, value: string) => {
+	interface IEditActionProps {
+		index: number;
+		field: TSavingsField;
+		value: string;
+	}
+
+
+	const handleEditClick = ({ index, field, value }: IEditActionProps) => {
 		setEditIndex(index);
 		setEditField(field);
 		setEditValue(value);
@@ -178,7 +185,7 @@ function Savings() {
 													onClick={() =>
 														editIndex === index && editField === "category"
 															? handleSaveClick()
-															: handleEditClick(index, "category", item.category)
+															: handleEditClick({ index, field: "category", value: item.category })
 													}
 													role="button">
 													{editIndex === index && editField === "category" ? <CheckIcon /> : <EditIcon />}
@@ -196,7 +203,7 @@ function Savings() {
 													onClick={() =>
 														editIndex === index && editField === "target"
 															? handleSaveClick()
-															: handleEditClick(index, "target", item.target)
+															: handleEditClick({index, field: "target", value: item.target})
 													}
 													role="button">
 													{editIndex === index && editField === "target" ? <CheckIcon /> : <EditIcon />}

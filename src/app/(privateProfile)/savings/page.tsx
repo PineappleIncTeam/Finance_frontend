@@ -131,7 +131,7 @@ function Savings() {
 								<li className={style.wrapperListHeaderBlock__category}>Категория</li>
 								<li className={style.wrapperListHeaderBlock__target}>
 									<div className={style.wrapperListHeaderBlock__targetPosition}>
-										<div>Цель, ₽</div>
+										<p>Цель, ₽</p>
 										<div  onClick={handleSortByTarget} role="button">
 											<SortIcon classNames={style.sortIcon} />
 										</div>
@@ -139,7 +139,7 @@ function Savings() {
 								</li>
 								<li className={style.wrapperListHeaderBlock__sum}>
 									<div className={style.wrapperListHeaderBlock__sumPosition}>
-										<div>Сумма, ₽</div>
+										<p>Сумма, ₽</p>
 										<div className={style.sortIcon} onClick={handleSortBySum} role="button">
 											<SortIcon />
 										</div>

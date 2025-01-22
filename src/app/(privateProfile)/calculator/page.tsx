@@ -28,6 +28,10 @@ export default function Calculator() {
 		if (isMobile) {
 			handleVisibleInfo();
 		}
+		return {
+			success: true,
+			message: "Completed successfully",
+		};
 	};
 
 	useEffect(() => {

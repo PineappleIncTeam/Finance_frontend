@@ -16,7 +16,7 @@ export const Archive = () => {
 		left: 0,
 	});
 
-	const scrollableBlockRef = useRef(null);
+	const scrollableBlockRef = useRef<HTMLDivElement>(null);
 
 	const handleMouseEnter: IHandleMouseEnterArchiveItem = (event, content) => {
 		const tooltipWidth = 100;
@@ -25,14 +25,16 @@ export const Archive = () => {
 		const target = event.currentTarget as HTMLDivElement;
 
 		const rect = target.getBoundingClientRect();
-		const scrollableBlock = scrollableBlockRef.current.getBoundingClientRect();
+		const scrollableBlock = scrollableBlockRef.current;
+		if (!scrollableBlock) return;
+		const scrollableBlockRect = scrollableBlock.getBoundingClientRect();
 
-		const top = rect.top - scrollableBlock.top - TOOLTIP_OFFSET;
+		const top = rect.top - scrollableBlockRect.top - TOOLTIP_OFFSET;
 
-		let left = rect.left - scrollableBlock.left;
+		let left = rect.left - scrollableBlockRect.left;
 
-		if (left + tooltipWidth > scrollableBlock.width) {
-			left = scrollableBlock.width - tooltipWidth;
+		if (left + tooltipWidth > scrollableBlockRect.width) {
+			left = scrollableBlockRect.width - tooltipWidth;
 		}
 
 		setTooltip({

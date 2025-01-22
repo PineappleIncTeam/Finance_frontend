@@ -4,10 +4,6 @@
 	align-items: center;
 	width: 100%;
 
-	
-
-
-
 	&__actionsWrapper {
 		display: flex;
 		gap: 8px;
@@ -15,7 +11,6 @@
 		width: 60%;
 		align-self: center;
 	}
-
 }
 
 .transactionData {
@@ -30,13 +25,11 @@
 	}
 	&:nth-child(2) {
 		display: none;
-
 	}
 	&:nth-child(4) {
 		width: 80%;
 		text-align: end;
 	}
-
 
 	@media (max-width: 690px) {
 		& {
@@ -44,13 +37,11 @@
 		}
 	}
 
-
 	@media (max-width: 490px) {
 		& {
 			font-size: 1.1rem;
 			line-height: 1.3rem;
 			padding: 12px 0px;
-
 		}
 
 		&:nth-child(1) {
@@ -60,20 +51,14 @@
 			display: block;
 			width: 80%;
 			margin-right: 6px;
-
-
 		}
 		&:nth-child(4) {
 			width: 100%;
 		}
-		
 	}
-
-
-
-	
 }
-.deleteIcon, .editIcon {
+.deleteIcon,
+.editIcon {
 	width: 24px;
 	height: 24px;
 

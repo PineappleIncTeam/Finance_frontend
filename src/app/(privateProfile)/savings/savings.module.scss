@@ -222,7 +222,6 @@
 
 	&__content {
 		height: 184px;
-		// overflow-y: auto;
 		width: 100%;
 		white-space: nowrap;
 	}
@@ -443,7 +442,6 @@
 	font-weight: 400;
 	line-height: 2.2rem;
 	color: var(--color-dark-cyan-blue);
-	// background-color: transparent;
 	border: none;
 	height: 22px;
 	width: 100%;
@@ -467,7 +465,6 @@
 	width: auto;
 	cursor: pointer;
 	margin: 0 auto;
-	// position: relative;
 }
 
 .wrapperListContentMore {
@@ -485,7 +482,6 @@
 	text-align: left;
 
 	position: absolute;
-	// left: 50%;
 	transform: translate(-40%);
 
 	@media (max-width: 1100px) {

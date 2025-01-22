@@ -64,25 +64,25 @@ function Savings() {
 
 	const handleSortBySum = () => {
 		const sortedItems = [...items].sort((a, b) => {
-		  const sumA = parseFloat(a.sum.replace(/[^0-9.-]+/g, ""));
-		  const sumB = parseFloat(b.sum.replace(/[^0-9.-]+/g, ""));
-		  return sortOrder === "asc" ? sumA - sumB : sumB - sumA;
+			const sumA = parseFloat(a.sum.replace(/[^0-9.-]+/g, ""));
+			const sumB = parseFloat(b.sum.replace(/[^0-9.-]+/g, ""));
+			return sortOrder === "asc" ? sumA - sumB : sumB - sumA;
 		});
 		setItems(sortedItems);
 		setSortOrder(sortOrder === "asc" ? "desc" : "asc");
-	  };
-	
-	  const handleSortByTarget = () => {
+	};
+
+	const handleSortByTarget = () => {
 		const sortedItems = [...items].sort((a, b) => {
-		  const targetA = a.target.replace(/[^0-9.-]+/g, "");
-		  const targetB = b.target.replace(/[^0-9.-]+/g, "");
-		  return sortTargetOrder === "asc"
-			? parseFloat(targetA) - parseFloat(targetB)
-			: parseFloat(targetB) - parseFloat(targetA);
+			const targetA = a.target.replace(/[^0-9.-]+/g, "");
+			const targetB = b.target.replace(/[^0-9.-]+/g, "");
+			return sortTargetOrder === "asc"
+				? parseFloat(targetA) - parseFloat(targetB)
+				: parseFloat(targetB) - parseFloat(targetA);
 		});
 		setItems(sortedItems);
 		setSortTargetOrder(sortTargetOrder === "asc" ? "desc" : "asc");
-	  };
+	};
 
 	return (
 		<div className={style.savingsPageWrap}>
@@ -118,9 +118,7 @@ function Savings() {
 								/>
 							</div>
 
-							{/* styleName у Btn заменить?! */}
-
-							<Button content={"Добавить"} styleName={"buttonForIncome__disabled"}>
+							<Button content={"Добавить"} styleName={"buttonForSavings__disabled"}>
 								<PlusIcon classNames={style.addButtonIcon} />
 							</Button>
 						</div>
@@ -132,7 +130,7 @@ function Savings() {
 								<li className={style.wrapperListHeaderBlock__target}>
 									<div className={style.wrapperListHeaderBlock__targetPosition}>
 										<p>Цель, ₽</p>
-										<div  onClick={handleSortByTarget} role="button">
+										<div onClick={handleSortByTarget} role="button">
 											<SortIcon classNames={style.sortIcon} />
 										</div>
 									</div>

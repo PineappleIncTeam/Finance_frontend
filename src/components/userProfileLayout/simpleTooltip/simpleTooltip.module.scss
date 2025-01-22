@@ -12,6 +12,7 @@
 	font-size: 1.3rem;
 	line-height: 1.8rem;
 	color: var(--color-eerie-black);
+	z-index: 1000;
 
 	&::after {
 		content: "";
@@ -24,11 +25,3 @@
 		box-shadow: 0 4 20px 0px rgba(0, 0, 0, 0.08);
 	}
 }
-
-// .simpleTooltipIcon {
-// 	width: 14px;
-// 	height: 6px;
-// 	margin-bottom: 14px;
-// 	margin-left: 50%;
-// 	border-top: 1px solid var(--color-pure-light);
-// }

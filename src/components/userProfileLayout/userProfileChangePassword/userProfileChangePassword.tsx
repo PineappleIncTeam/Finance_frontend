@@ -8,41 +8,53 @@ import { passwordPattern } from "../../../helpers/authConstants";
 
 import { formHelpers } from "../../../utils/formHelpers";
 
+import { InputTypeList } from "../../../helpers/Input";
+
 import style from "./userProfileChangePassword.module.scss";
 
 export const ChangePassword = () => {
 	const {
 		formState: { errors },
 		control,
+		handleSubmit,
 	} = useForm<IChangePasswordForm>({
+		defaultValues: {
+			oldPassword: "",
+			newPassword: "",
+			repeatPassword: "",
+		},
 		mode: "all",
 		delayError: 200,
 	});
+
+	const onSubmit = async (data: IChangePasswordForm) => {
+		return data;
+	};
+
 	return (
-		<form className={style.changePasswordForm}>
+		<form className={style.changePasswordForm} onSubmit={handleSubmit(onSubmit)}>
 			<p className={style.changePasswordTitle}>Смена пароля</p>
 			<div className={style.changePasswordForm__settings}>
 				<AppInput
 					label={"Текущий пароль"}
-					type={"password"}
 					control={control}
-					name="oldPassword"
-					rules={{ required: true, pattern: passwordPattern }}
-					error={formHelpers.getPasswordError(errors, control._formValues.oldPassword)}
+					type={InputTypeList.Password}
+					name={"oldPassword"}
+					rules={{ required: true }}
 				/>
 				<AppInput
 					label={"Новый пароль"}
-					type={"password"}
-					name={"newPassword"}
 					control={control}
+					type={InputTypeList.Password}
+					name={"newPassword"}
 					rules={{ required: true, pattern: passwordPattern }}
 					error={formHelpers.getPasswordError(errors, control._formValues.newPassword)}
 				/>
 				<AppInput
 					label={"Подтвердить пароль"}
-					type={"password"}
-					name={"repeatPassword"}
 					control={control}
+					type={InputTypeList.Password}
+					name={"repeatPassword"}
 					rules={{ required: true, pattern: passwordPattern }}
 					error={formHelpers.getPasswordError(errors, control._formValues.repeatPassword)}
 				/>

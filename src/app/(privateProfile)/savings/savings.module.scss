@@ -261,7 +261,6 @@
 
 	&__category {
 		width: 31%;
-		padding: 0 8px;
 		@media (max-width: 900px) {
 			min-width: 200px;
 		}
@@ -323,7 +322,7 @@
 	display: flex;
 	align-items: center;
 	border-bottom: 1px solid var(--color-ghost-white);
-	padding: 9px;
+	height: 40px;
 	width: 100%;
 
 	font-size: 1.6rem;
@@ -357,7 +356,6 @@
 		width: 31%;
 		display: flex;
 		justify-content: flex-start;
-		padding: 0 8px;
 		@media (max-width: 900px) {
 			min-width: 200px;
 		}
@@ -369,7 +367,6 @@
 		width: 23%;
 		display: flex;
 		justify-content: flex-end;
-		padding: 0 8px;
 		@media (max-width: 900px) {
 			min-width: 160px;
 		}
@@ -414,7 +411,7 @@
 .editIcon {
 	height: 24px;
 	width: 24px;
-	margin-right: 2px;
+	margin: 0 2px;
 	cursor: pointer;
 	display: none;
 	align-items: center;
@@ -442,11 +439,13 @@
 	font-weight: 400;
 	line-height: 2.2rem;
 	color: var(--color-dark-cyan-blue);
-	border: none;
-	height: 22px;
+	background-color: var(--color-silver-gray);
+	border: 2px solid var(--color-gainsboro);
 	width: 100%;
+	height: 100%;
+	padding: 0 8px;
 
-	@media (max-width: 769px) {
+	@media (max-width: 690px) {
 		font-size: 1.1rem;
 		line-height: 1.3rem;
 	}
@@ -459,6 +458,14 @@
 .inputEditWrapper {
 	display: flex;
 	align-items: center;
+	height: 40px;
+
+	&__textCategory {
+		padding-left: 8px;
+	}
+	&__textTarget {
+		padding-right: 8px;
+	}
 }
 
 .wrapperListContentBlock__actionElement {

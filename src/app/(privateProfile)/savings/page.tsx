@@ -57,7 +57,6 @@ function Savings() {
 		value: string;
 	}
 
-
 	const handleEditClick = ({ index, field, value }: IEditActionProps) => {
 		setEditIndex(index);
 		setEditField(field);
@@ -175,7 +174,7 @@ function Savings() {
 														onChange={(e) => setEditValue(e.target.value)}
 													/>
 												) : (
-													<p>{item.category}</p>
+													<p className={style.inputEditWrapper__textCategory}>{item.category}</p>
 												)}
 												<div
 													className={style.editIcon}
@@ -203,7 +202,7 @@ function Savings() {
 													onClick={() =>
 														editIndex === index && editField === "target"
 															? handleSaveClick()
-															: handleEditClick({index, field: "target", value: item.target})
+															: handleEditClick({ index, field: "target", value: item.target })
 													}
 													role="button">
 													{editIndex === index && editField === "target" ? <CheckIcon /> : <EditIcon />}
@@ -216,7 +215,7 @@ function Savings() {
 														onChange={(e) => setEditValue(e.target.value)}
 													/>
 												) : (
-													<p>{item.target}</p>
+													<p className={style.inputEditWrapper__textTarget}>{item.target}</p>
 												)}
 											</div>
 										</div>

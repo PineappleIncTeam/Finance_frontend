@@ -9,6 +9,18 @@ import { InputTypeList } from "../../../helpers/Input";
 
 import styles from "./analytics.module.scss";
 
+const DiagramBlockItem = () => {
+	return (
+		<div>
+			<div>
+				<div></div>
+				<p></p>
+			</div>
+			<p></p>
+		</div>
+	);
+};
+
 function Analytics() {
 
 	const { control } = useForm<IExpensesInputForm>({
@@ -28,7 +40,7 @@ function Analytics() {
 
 				<div className={styles.analyticsSelectContainer}>
 					<div className={styles.analyticsSelectOperation}>
-						<Select name={"expenses"} label={"Операции"} options={["Расходы", "Доходы"]} />
+						<Select name={"expenses"} label={"Операции"} options={["Расходы", "Доходы", "Анализ доходов и расходов"]} />
 					</div>
 					<div className={styles.analyticsSelectDateAndPeriod}>
 						<AppInput control={control} label={"Выбор даты"} type={InputTypeList.Date} name={"date"} />
@@ -77,20 +89,7 @@ function Analytics() {
 						<div className={styles.diagramBlock}>
 
 							<div className={styles.diagramBlockLeft}>
-								<div>
-									<div>
-										<div></div>
-										<p></p>
-									</div>
-									<p></p>
-								</div>
-								<div></div>
-								<div></div>
-								<div></div>
-								<div></div>
-								<div></div>
-								<div></div>
-								<div></div>
+								<DiagramBlockItem/>
 							</div>
 
 							<div className={styles.diagramBlockRight}>

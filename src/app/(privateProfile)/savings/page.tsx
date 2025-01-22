@@ -39,13 +39,15 @@ function Savings() {
 	const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc");
 	const [sortTargetOrder, setSortTargetOrder] = useState<"asc" | "desc">("asc");
 
-	const [items, setItems] = useState([
+	const initialItems = [
 		{ category: "Обучение ребенка", target: "210 000.00", sum: "200 000.00", status: "В процессe" },
 		{ category: "Машина", target: "4 000 000.00", sum: "4 000 000.00", status: "Достигнута" },
 		{ category: "Квартира", target: "10 000 000.00", sum: "100 000.00", status: "В процессe" },
 		{ category: "Дом у моря", target: "1 000 000 000.00", sum: "1 000 000.00", status: "В процессе" },
 		{ category: "Дача", target: "5 000 000.00", sum: "115 000.00", status: "В процессе" },
-	]);
+	]
+
+	const [items, setItems] = useState(initialItems);
 
 	const handleEditClick = (index: number, field: "category" | "target", value: string) => {
 		setEditIndex(index);

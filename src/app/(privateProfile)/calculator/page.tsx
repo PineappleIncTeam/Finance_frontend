@@ -141,6 +141,7 @@ export default function Calculator() {
 							<div className={style.inputRangeFieldContainer}>
 								<input
 									type="text"
+									inputMode="numeric"
 									value={formatCalculateNumber(value)}
 									onChange={handleInputChange}
 									className={style.inputRangeFieldContainer__input}
@@ -166,6 +167,7 @@ export default function Calculator() {
 							<div className={style.inputRangeFieldContainer}>
 								<input
 									type="text"
+									inputMode="numeric"
 									value={formatCalculateNumber(value)}
 									onChange={handleInputChange}
 									className={style.inputRangeFieldContainer__input}
@@ -248,6 +250,7 @@ export default function Calculator() {
 							<div className={style.inputRangeFieldContainer}>
 								<input
 									type="text"
+									inputMode="numeric"
 									value={formatCalculateNumber(value)}
 									onChange={handleInputChange}
 									className={style.inputRangeFieldContainer__input}
@@ -331,6 +334,7 @@ export default function Calculator() {
 							<div className={style.inputRangeFieldContainer}>
 								<input
 									type="text"
+									inputMode="numeric"
 									value={formatCalculateNumber(value)}
 									onChange={handleInputChange}
 									className={style.inputRangeFieldContainer__input}

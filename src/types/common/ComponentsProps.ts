@@ -1,5 +1,7 @@
 import { StaticImageData } from "next/image";
 
+import { MouseEvent } from "react";
+
 export type CustomLayout = () => Element;
 
 export interface INewPasswordModal {
@@ -77,6 +79,8 @@ export interface IExpensesTransaction {
 
 export interface IArchiveItem {
 	archiveItemValue: string;
+	onMouseEnter: (event: MouseEvent<HTMLDivElement>) => void;
+	onMouseLeave: () => void;
 }
 
 export interface ISimpleTooltip {
@@ -84,6 +88,8 @@ export interface ISimpleTooltip {
 	toggle?: () => void;
 	text?: string;
 	className?: string;
+	top?: number;
+	left?: number;
 }
 
 export interface IRenderProfileItem {
@@ -98,4 +104,8 @@ export interface IRenderNavItem {
 
 export interface ISidebarMenu {
 	handleClick: (title: string) => void;
+}
+
+export interface IHandleMouseEnterArchiveItem {
+	(event: MouseEvent<HTMLDivElement>, content: string): void;
 }

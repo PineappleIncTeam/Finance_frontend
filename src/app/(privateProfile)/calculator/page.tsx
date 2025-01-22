@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, ChangeEvent, MouseEvent } from "react";
 
 import { AiFillInfoCircle } from "react-icons/ai";
 import { CgClose } from "react-icons/cg";
@@ -23,7 +23,7 @@ export default function Calculator() {
 	const handleCloseInfo = () => {
 		setIsVisibleInfo(false);
 	};
-	const handleSubmit = (event: React.MouseEvent<HTMLButtonElement>) => {
+	const handleSubmit = (event: MouseEvent) => {
 		event.preventDefault();
 		if (isMobile) {
 			handleVisibleInfo();
@@ -40,13 +40,13 @@ export default function Calculator() {
 		return () => window.removeEventListener("resize", handleResize);
 	}, []);
 
-	const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+	const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
 		const rawValue = event.target.value.replace(/\s+/g, "");
 		const newValue = rawValue.replace(/[^\d]/g, "");
 		setValue(newValue ? Number(newValue) : 0);
 	};
 
-	const handleRangeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+	const handleRangeChange = (event: ChangeEvent<HTMLInputElement>) => {
 		const target = event.target as HTMLInputElement;
 		const newValue = Number(target.value);
 		setValue(newValue);

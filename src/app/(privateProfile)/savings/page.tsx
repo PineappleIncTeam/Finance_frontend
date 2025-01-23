@@ -1,6 +1,6 @@
 "use client";
 
-import { Key, useState } from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 
 import { PlusIcon } from "../../../assets/script/expenses/PlusIcon";
@@ -19,6 +19,7 @@ import { Select } from "../../../ui/select/Select";
 import Button from "../../../ui/button/button";
 import {
 	IEditActionProps,
+	ISavingsTransaction,
 	SavingsFieldValues,
 	SortOrderStateValue,
 	TIndexState,
@@ -91,6 +92,19 @@ function Savings() {
 		setSortTargetOrder(
 			sortTargetOrder === SortOrderStateValue.asc ? SortOrderStateValue.desc : SortOrderStateValue.asc,
 		);
+	};
+
+	const renderSavingsTransactions = (transactions: ISavingsTransaction[]) => {
+		return transactions.map((savingsData, index) => (
+			<li key={index}>
+				<SavingsTransaction
+					firstDate={savingsData.firstDate}
+					secondDate={savingsData.secondDate}
+					purpose={savingsData.purpose}
+					sum={savingsData.sum}
+				/>
+			</li>
+		));
 	};
 
 	return (
@@ -254,17 +268,7 @@ function Savings() {
 				<div className={style.savingsTransactionWrapper}>
 					<h2 className={style.savingsTransactionHeader}>Последние операции по накоплениям</h2>
 					<ul className={style.savingsTransaction}>
-						{savingsTransactions &&
-							savingsTransactions.map((savingsData, index: Key) => (
-								<li key={index}>
-									<SavingsTransaction
-										firstDate={savingsData.firstDate}
-										secondDate={savingsData.secondDate}
-										purpose={savingsData.purpose}
-										sum={savingsData.sum}
-									/>
-								</li>
-							))}
+						{savingsTransactions && renderSavingsTransactions(savingsTransactions)}
 					</ul>
 				</div>
 			</div>

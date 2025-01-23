@@ -14,6 +14,11 @@
 			width: 100%;
 		}
 	}
+	@media (max-width: 490px) {
+		& {
+			background-color: var(--color-pure-light);
+		}
+	}
 }
 
 .expensesPageContainer {
@@ -21,6 +26,12 @@
 	flex-direction: column;
 	height: 100%;
 	background-color: var(--color-silver-gray);
+
+	@media (max-width: 490px) {
+		& {
+			background-color: var(--color-pure-light);
+		}
+	}
 }
 
 .expensesFormContentWrapper {

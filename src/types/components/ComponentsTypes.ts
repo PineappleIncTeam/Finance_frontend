@@ -58,3 +58,24 @@ export interface ISavingsTransaction {
 	purpose: string;
 	sum: string;
 }
+
+export enum SavingsFieldValues {
+	category = "category",
+	target = "target",
+};
+
+
+export enum SortOrderStateValue {
+	asc = "asc",
+	desc = "desc"
+	}
+	
+export type TSavingsFieldState = SavingsFieldValues | null;
+	
+export type TIndexState = number | null;
+	
+export interface IEditActionProps {
+	index: number;
+	field: SavingsFieldValues;
+	value: string;
+};

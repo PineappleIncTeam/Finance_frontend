@@ -17,6 +17,13 @@ import { InputTypeList } from "../../../helpers/Input";
 import { ISavingsInputForm } from "../../../types/pages/Savings";
 import { Select } from "../../../ui/select/Select";
 import Button from "../../../ui/button/button";
+import {
+	IEditActionProps,
+	SavingsFieldValues,
+	SortOrderStateValue,
+	TIndexState,
+	TSavingsFieldState,
+} from "../../../types/components/ComponentsTypes";
 
 import style from "./savings.module.scss";
 
@@ -28,16 +35,16 @@ function Savings() {
 		mode: "all",
 		delayError: 200,
 	});
-	const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+	const [hoveredIndex, setHoveredIndex] = useState<TIndexState>(null);
 
-	const [editField, setEditField] = useState<"category" | "target" | null>(null);
-	const [editIndex, setEditIndex] = useState<number | null>(null);
+	const [editField, setEditField] = useState<TSavingsFieldState>(null);
+	const [editIndex, setEditIndex] = useState<TIndexState>(null);
 	const [editValue, setEditValue] = useState<string>("");
 
-	const [openMoreIndex, setOpenMoreIndex] = useState<number | null>(null);
+	const [openMoreIndex, setOpenMoreIndex] = useState<TIndexState>(null);
 
-	const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc");
-	const [sortTargetOrder, setSortTargetOrder] = useState<"asc" | "desc">("asc");
+	const [sortOrder, setSortOrder] = useState<SortOrderStateValue>(SortOrderStateValue.asc);
+	const [sortTargetOrder, setSortTargetOrder] = useState<SortOrderStateValue>(SortOrderStateValue.asc);
 
 	const initialItems = [
 		{ category: "Обучение ребенка", target: "210 000.00", sum: "200 000.00", status: "В процессe" },
@@ -48,14 +55,6 @@ function Savings() {
 	];
 
 	const [items, setItems] = useState(initialItems);
-
-	type TSavingsField = "category" | "target";
-
-	interface IEditActionProps {
-		index: number;
-		field: TSavingsField;
-		value: string;
-	}
 
 	const handleEditClick = ({ index, field, value }: IEditActionProps) => {
 		setEditIndex(index);
@@ -76,22 +75,22 @@ function Savings() {
 		const sortedItems = [...items].sort((a, b) => {
 			const sumA = parseFloat(a.sum.replace(/[^0-9.-]+/g, ""));
 			const sumB = parseFloat(b.sum.replace(/[^0-9.-]+/g, ""));
-			return sortOrder === "asc" ? sumA - sumB : sumB - sumA;
+			return sortOrder === SortOrderStateValue.asc ? sumA - sumB : sumB - sumA;
 		});
 		setItems(sortedItems);
-		setSortOrder(sortOrder === "asc" ? "desc" : "asc");
+		setSortOrder(sortOrder === SortOrderStateValue.asc ? SortOrderStateValue.desc : SortOrderStateValue.asc);
 	};
 
 	const handleSortByTarget = () => {
 		const sortedItems = [...items].sort((a, b) => {
-			const targetA = a.target.replace(/[^0-9.-]+/g, "");
-			const targetB = b.target.replace(/[^0-9.-]+/g, "");
-			return sortTargetOrder === "asc"
-				? parseFloat(targetA) - parseFloat(targetB)
-				: parseFloat(targetB) - parseFloat(targetA);
+			const targetA = parseFloat(a.target.replace(/[^0-9.-]+/g, ""));
+			const targetB = parseFloat(b.target.replace(/[^0-9.-]+/g, ""));
+			return sortTargetOrder === SortOrderStateValue.asc ? targetA - targetB : targetB - targetA;
 		});
 		setItems(sortedItems);
-		setSortTargetOrder(sortTargetOrder === "asc" ? "desc" : "asc");
+		setSortTargetOrder(
+			sortTargetOrder === SortOrderStateValue.asc ? SortOrderStateValue.desc : SortOrderStateValue.asc,
+		);
 	};
 
 	return (
@@ -166,7 +165,7 @@ function Savings() {
 										className={editIndex === index ? style.activeEditItem : ""}>
 										<div className={style.wrapperListContentBlock__category}>
 											<div className={style.inputEditWrapper}>
-												{editIndex === index && editField === "category" ? (
+												{editIndex === index && editField === SavingsFieldValues.category ? (
 													<input
 														className={style.inputEdit}
 														type="text"
@@ -182,12 +181,16 @@ function Savings() {
 														display: hoveredIndex === index || editIndex === index ? "flex" : "none",
 													}}
 													onClick={() =>
-														editIndex === index && editField === "category"
+														editIndex === index && editField === SavingsFieldValues.category
 															? handleSaveClick()
-															: handleEditClick({ index, field: "category", value: item.category })
+															: handleEditClick({ index, field: SavingsFieldValues.category, value: item.category })
 													}
 													role="button">
-													{editIndex === index && editField === "category" ? <CheckIcon /> : <EditIcon />}
+													{editIndex === index && editField === SavingsFieldValues.category ? (
+														<CheckIcon />
+													) : (
+														<EditIcon />
+													)}
 												</div>
 											</div>
 										</div>
@@ -200,14 +203,18 @@ function Savings() {
 														display: hoveredIndex === index || editIndex === index ? "flex" : "none",
 													}}
 													onClick={() =>
-														editIndex === index && editField === "target"
+														editIndex === index && editField === SavingsFieldValues.target
 															? handleSaveClick()
-															: handleEditClick({ index, field: "target", value: item.target })
+															: handleEditClick({ index, field: SavingsFieldValues.target, value: item.target })
 													}
 													role="button">
-													{editIndex === index && editField === "target" ? <CheckIcon /> : <EditIcon />}
+													{editIndex === index && editField === SavingsFieldValues.target ? (
+														<CheckIcon />
+													) : (
+														<EditIcon />
+													)}
 												</div>
-												{editIndex === index && editField === "target" ? (
+												{editIndex === index && editField === SavingsFieldValues.target ? (
 													<input
 														className={`${style.inputEdit} ${style.inputEdit__target}`}
 														type="text"

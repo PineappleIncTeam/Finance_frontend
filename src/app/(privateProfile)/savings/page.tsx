@@ -100,7 +100,7 @@ function Savings() {
 				<form className={style.savingsFormContentWrapper}>
 					<h1 className={style.headerTitle}>Накопления</h1>
 					<div className={style.savingsFormContentWrapperChoice}>
-						<div className={style.savingsByDateConteiner}>
+						<div className={style.savingsByDateContainer}>
 							<div className={style.totalAmountWrapper}>
 								<p className={style.totalAmountWrapper__savings}>Общая сумма накоплений </p>
 								<p className={style.totalAmountWrapper__sum}>4 112 500 ₽</p>

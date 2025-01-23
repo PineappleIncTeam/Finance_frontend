@@ -2,6 +2,8 @@
 
 import { useForm } from "react-hook-form";
 
+// import { MoneyIcon } from "../../../assets/script/analytics/MoneyIcon";
+
 import AppInput from "../../../ui/appInput/AppInput";
 import { Select } from "../../../ui/select/Select";
 import { IExpensesInputForm } from "../../../types/pages/Expenses";
@@ -150,86 +152,98 @@ function Analytics() {
 
 				<h1 className={styles.headerTitle}>Аналитика</h1>
 
-				<div className={styles.analyticsSelectContainer}>
-					<div className={styles.analyticsSelectOperation}>
-						<Select name={"expenses"} label={"Операции"} options={["Расходы", "Доходы", "Анализ доходов и расходов"]} />
-					</div>
-					<div className={styles.analyticsSelectDateAndPeriod}>
-						<AppInput control={control} label={"Выбор даты"} type={InputTypeList.Date} name={"date"} />
-					</div>
-				</div>
+				{/* <div className={styles.analyticsBlankPage}>
 
-				<div className={styles.analyticsDisplayWrapper}>
-					<p className={styles.analyticsDisplay_title}>Отображать в:</p>
-					<div className={styles.analyticsDisplay}>
-						<input
-							name="value"
-							type="radio"
-							id="analyticsDisplay__rub"
-							className={styles.analyticsDisplay__input}
-							defaultChecked
-						/>
-						<label htmlFor="analyticsDisplay__rub" className={styles.analyticsDisplay__label}>
-							<p className={styles.analyticsDisplay__text}>В рублях</p>
-						</label>
-						<input
-							name="value"
-							type="radio"
-							id="analyticsDisplay__percent"
-							className={styles.analyticsDisplay__input}
-						/>
-						<label htmlFor="analyticsDisplay__percent" className={styles.analyticsDisplay__label}>
-							<p className={styles.analyticsDisplay__text}>В процентах</p>
-						</label>
-					</div>
-				</div>
+					<p className={styles.analyticsBlankPage__text}>К сожалению, этот раздел пока пуст. Начните вести учет финансов в приложении и сможет воспользоваться этим разделом.</p>
+					
+					<MoneyIcon classNames={styles.analyticsBlankPage__image}/>
 
-				<div className={styles.analyticsDiagramWrapper}>
+				</div> */}
 
-					<div className={styles.analyticsDiagramInfo}>
-						<p className={styles.analyticsDiagramInfo__title}>Общий расход</p>
-						<p className={styles.analyticsDiagramInfo__value}>130 000.75 ₽</p>
-						<p className={styles.analyticsDiagramInfo__date}>14.09.23 - 20.09.23</p>
+				<div className={styles.analyticsPagesContent}>
+
+					<div className={styles.analyticsSelectContainer}>
+						<div className={styles.analyticsSelectOperation}>
+							<Select name={"expenses"} label={"Операции"} options={["Расходы", "Доходы", "Анализ доходов и расходов"]} />
+						</div>
+						<div className={styles.analyticsSelectDateAndPeriod}>
+							<AppInput control={control} label={"Выбор даты"} type={InputTypeList.Date} name={"date"} />
+						</div>
 					</div>
 
-					<div className={styles.analyticsDiagram}>
+					<div className={styles.analyticsDisplayWrapper}>
+						<p className={styles.analyticsDisplay_title}>Отображать в:</p>
+						<div className={styles.analyticsDisplay}>
+							<input
+								name="value"
+								type="radio"
+								id="analyticsDisplay__rub"
+								className={styles.analyticsDisplay__input}
+							/>
+							<label htmlFor="analyticsDisplay__rub" className={styles.analyticsDisplay__label}>
+								<p className={styles.analyticsDisplay__text}>В рублях</p>
+							</label>
+							<input
+								name="value"
+								type="radio"
+								id="analyticsDisplay__percent"
+								className={styles.analyticsDisplay__input}
+								defaultChecked
+							/>
+							<label htmlFor="analyticsDisplay__percent" className={styles.analyticsDisplay__label}>
+								<p className={styles.analyticsDisplay__text}>В процентах</p>
+							</label>
+						</div>
+					</div>
 
-						<div className={styles.diagram}></div>
+					<div className={styles.analyticsDiagramExpensesWrapper}>
 
-						<div className={styles.diagramBlock}>
+						<div className={styles.analyticsDiagramExpensesInfo}>
+							<p className={styles.analyticsDiagramExpensesInfo__title}>Общий расход</p>
+							<p className={styles.analyticsDiagramExpensesInfo__value}>130 000.75 ₽</p>
+							<p className={styles.analyticsDiagramExpensesInfo__date}>14.09.23 - 20.09.23</p>
+						</div>
 
-							<div className={styles.diagramBlockLeft}>
-								<ul className={styles.diagramBlockLeftItems}>
-									{DIAGRAM_ITEMS_DATA.slice(0, 8).map(item => (
-										<li key={item.id} className={styles.diagramBlockLeftItem}>
-											<div className={styles.diagramBlockLeftIconWrapper}>
-												<div className={styles.diagramBlockLeftIconWrapper__circle} style={{background: `var(${item.background})`}}></div>
-												<p className={styles.diagramBlockLeftIconWrapper__text}>{item.title}</p>
-											</div>
-											<p className={styles.diagramBlockLeftItem__value}>{item.value}</p>
-										</li>
-									))}
-								</ul>
-							</div>
+						<div className={styles.analyticsDiagramExpenses}>
 
-							<div className={styles.diagramBlockRight}>
-								<ul className={styles.diagramBlockRightItems}>
-									{DIAGRAM_ITEMS_DATA.slice(8).map(item => (
-										<li key={item.id} className={styles.diagramBlockRightItem}>
-											<div className={styles.diagramBlockRightIconWrapper}>
-												<div className={styles.diagramBlockRightIconWrapper__circle} style={{background: `var(${item.background})`}}></div>
-												<p className={styles.diagramBlockRightIconWrapper__text}>{item.title}</p>
-											</div>
-											<p className={styles.diagramBlockRightItem__value}>{item.value}</p>
-										</li>
-									))}
-								</ul>
+							<div className={styles.diagramExpenses}></div>
+
+							<div className={styles.diagramExpensesBlock}>
+
+								<div className={styles.diagramExpensesBlockLeft}>
+									<ul className={styles.diagramExpensesBlockLeftItems}>
+										{DIAGRAM_ITEMS_DATA.slice(0, 8).map(item => (
+											<li key={item.id} className={styles.diagramExpensesBlockLeftItem}>
+												<div className={styles.diagramExpensesBlockLeftIconWrapper}>
+													<div className={styles.diagramExpensesBlockLeftIconWrapper__circle} style={{background: `var(${item.background})`}}></div>
+													<p className={styles.diagramExpensesBlockLeftIconWrapper__text}>{item.title}</p>
+												</div>
+												<p className={styles.diagramExpensesBlockLeftItem__value}>{item.value}</p>
+											</li>
+										))}
+									</ul>
+								</div>
+
+								<div className={styles.diagramExpensesBlockRight}>
+									<ul className={styles.diagramExpensesBlockRightItems}>
+										{DIAGRAM_ITEMS_DATA.slice(8).map(item => (
+											<li key={item.id} className={styles.diagramExpensesBlockRightItem}>
+												<div className={styles.diagramExpensesBlockRightIconWrapper}>
+													<div className={styles.diagramExpensesBlockRightIconWrapper__circle} style={{background: `var(${item.background})`}}></div>
+													<p className={styles.diagramExpensesBlockRightIconWrapper__text}>{item.title}</p>
+												</div>
+												<p className={styles.diagramExpensesBlockRightItem__value}>{item.value}</p>
+											</li>
+										))}
+									</ul>
+								</div>
+
 							</div>
 
 						</div>
 
 					</div>
-
+					
 				</div>
 
 			</div>

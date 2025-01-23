@@ -9,7 +9,7 @@ import Switcher from "../../../ui/switcher/switcher";
 
 import style from "./userProfilePrivateAppSettings.module.scss";
 
-export const PrivateAppSettings = () => {
+export const UserProfilePrivateAppSettings = () => {
 	const { control } = useForm<IPrivateAppSettings>({
 		mode: "all",
 		delayError: 200,

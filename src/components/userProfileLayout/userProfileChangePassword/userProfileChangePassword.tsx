@@ -12,7 +12,7 @@ import { passwordValidate } from "../../../utils/passwordValidate";
 
 import style from "./userProfileChangePassword.module.scss";
 
-export const ChangePassword = () => {
+export const UserProfileChangePassword = () => {
 	const {
 		formState: { errors },
 		control,

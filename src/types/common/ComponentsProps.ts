@@ -79,8 +79,8 @@ export interface IExpensesTransaction {
 
 export interface IArchiveItem {
 	archiveItemValue: string;
-	onMouseEnter: (event: MouseEvent<HTMLDivElement>) => void;
-	onMouseLeave: () => void;
+	onMouseEnter: undefined | ((event: MouseEvent<HTMLDivElement>) => void);
+	onMouseLeave: undefined | (() => void);
 }
 
 export interface ISimpleTooltip {

@@ -4,7 +4,7 @@ import { IArchiveItem } from "../../../types/common/ComponentsProps";
 
 import style from "./userProfileArchiveItem.module.scss";
 
-export const ArchiveItem = ({ archiveItemValue, onMouseEnter, onMouseLeave }: IArchiveItem) => {
+export const UserProfileArchiveItem = ({ archiveItemValue, onMouseEnter, onMouseLeave }: IArchiveItem) => {
 	return (
 		<div className={style.archiveItem}>
 			<p className={style.archiveItem__title}>{archiveItemValue}</p>

@@ -7,8 +7,11 @@ import { RadioButton } from "../../../ui/radio/radioButton";
 
 import style from "./userProfilePrivateData.module.scss";
 
-export const PrivateData = () => {
-	const { control } = useForm<IPrivateDataFrom>({
+export const UserProfilePrivateData = () => {
+	const {
+		control,
+		formState: { errors },
+	} = useForm<IPrivateDataFrom>({
 		defaultValues: {
 			nickname: "nickname",
 			country: "country",
@@ -27,8 +30,13 @@ export const PrivateData = () => {
 					type={"text"}
 					control={control}
 					name="nickname"
-					rules={{ maxLength: 32 }}
-					error={"Не более 32 символов"}
+					rules={{
+						maxLength: {
+							value: 32,
+							message: "Не более 32 символов",
+						},
+					}}
+					error={errors.nickname?.message}
 				/>
 				<div className={style.privateDataRadioButtons}>
 					<RadioButton control={control} name="gender" value="male" label="Муж." />

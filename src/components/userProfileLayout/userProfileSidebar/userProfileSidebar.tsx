@@ -22,7 +22,9 @@ import { logoutUser } from "../../../services/api/auth/Logout";
 import { getCorrectBaseUrl } from "../../../utils/baseUrlConverter";
 import { ApiResponseCode } from "../../../helpers/apiResponseCode";
 import { BurgerMenu } from "../burgerMenu/burgerMenu";
-import { SidebarMenu, sidebarNavMenu } from "../userProfileSidebarMenu/userProfileSidebarMenu";
+
+import { sidebarNavMenu } from "../../../helpers/sidebarNavMenu";
+import { UserProfileSidebarMenu } from "../userProfileSidebarMenu/userProfileSidebarMenu";
 
 import style from "./userProfileSidebar.module.scss";
 
@@ -90,7 +92,7 @@ const UserProfileSidebar = ({ avatar, name, balance }: IUserProfileSidebar) => {
 			<BurgerMenu showMenu={showMenu} setShowMenu={setShowMenu}>
 				<div className={style.burgerMenu__wrapper}>
 					{renderSelectedMenuItem()}
-					<SidebarMenu handleClick={handleItemClick} />
+					<UserProfileSidebarMenu handleClick={handleItemClick} />
 				</div>
 			</BurgerMenu>
 			<div className={style.userProfileWrap}>
@@ -123,7 +125,7 @@ const UserProfileSidebar = ({ avatar, name, balance }: IUserProfileSidebar) => {
 							</div>
 						</div>
 						<div className={style.sidebarMenuWrapper}>
-							<SidebarMenu handleClick={handleOpenItemClick} />
+							<UserProfileSidebarMenu handleClick={handleOpenItemClick} />
 						</div>
 
 						<button onClick={() => setIsOpen(!isOpen)} className={style.burgerActionWrap}>

@@ -12,7 +12,7 @@ import { avatarTemplates } from "../../../mocks/AvatarTemplates";
 
 import style from "./userProfileAvatarSettings.module.scss";
 
-export const AvatarSettings = () => {
+export const UserProfileAvatarSettings = () => {
 	const { register } = useForm<IUserAvatar>({
 		mode: "all",
 		delayError: 200,

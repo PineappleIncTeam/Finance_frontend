@@ -134,21 +134,137 @@
     );
 }
 
+.analyticsDiagramInfo {
+
+    &__title {
+        font-size: 20px;
+        font-weight: 400;
+        line-height: 28px;
+    }
+
+    &__value {
+        font-size: 26px;
+        font-weight: 400;
+        line-height: 38px;
+    }
+
+    &__date {
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 22px;
+        color: var(--color-star-dust);
+    }
+
+}
+
 .analyticsDiagram {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    height: 280px;
+    margin-top: 28px;
 }
 
 .diagramBlock {
     display: flex;
     gap: 44px;
     padding: 0 12px;
-    background-color: black;
 }
 
 .diagramBlockLeft, .diagramBlockRight {
     width: 273px;
     height: 232px;
-    background-color: greenyellow;
+}
+
+.diagramBlockRight {
+    overflow: auto;
+}
+
+.diagramBlockRight::-webkit-scrollbar {
+    width: 4px;
+    background-color: var(--color-light-grayish-green);
+    border-radius: 10px;
+}
+.diagramBlockRight::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-color: var(--color-light-green);
+}
+.diagramBlockRight::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px var(--color-light-grayish-green);
+    border-radius: 10px;
+    background-color: transparent;
+}
+
+.diagramBlockLeftItems {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.diagramBlockLeftItem {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    &__value {
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 22px;
+    }
+}
+
+.diagramBlockLeftIconWrapper {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    
+    &__circle {
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+    }
+    
+    &__text {
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 22px;
+    }
+}
+
+.diagramBlockRightItems {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+}
+
+.diagramBlockRightItem {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    &__value {
+        margin-right: 12px;
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 22px;
+    }
+}
+
+.diagramBlockRightIconWrapper {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    
+    &__circle {
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+    }
+    
+    &__text {
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 22px;
+    }
 }

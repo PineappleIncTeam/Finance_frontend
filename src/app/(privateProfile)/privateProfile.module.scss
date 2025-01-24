@@ -2,6 +2,12 @@
 	display: flex;
 	justify-content: space-between;
 	background-color: var(--color-silver-gray);
+
+	@media (max-width: 490px) {
+		& {
+			background-color: var(--color-pure-light);
+		}
+	}
 }
 
 .privateProfileContent {

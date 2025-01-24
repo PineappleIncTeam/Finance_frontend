@@ -46,8 +46,15 @@ const UserProfileSidebar = ({ avatar, name, balance }: IUserProfileSidebar) => {
 	const handleLogout = async () => {
 		try {
 			if (baseUrl) {
-				await logoutUser(baseUrl);
-				router.push(MainPath.Main);
+				const response = await logoutUser(baseUrl);
+				if (response.status === axios.HttpStatusCode.Ok) {
+					router.push(MainPath.Main);
+				} else if (
+					response.status >= axios.HttpStatusCode.BadRequest &&
+					response.status < axios.HttpStatusCode.InternalServerError
+				) {
+					router.push(MainPath.Main);
+				}
 			}
 		} catch (error) {
 			if (

@@ -10,7 +10,7 @@ import { ArrowLeftIcon } from "../../../../assets/script/blogPage/ArrowLeft";
 
 import { blogArticles } from "../../../../mocks/BlogArticles";
 
-import style from "./blogPage.module.scss";
+import styles from "./blogPage.module.scss";
 
 function BlogPage() {
 	const router = useRouter();
@@ -19,11 +19,11 @@ function BlogPage() {
 	const blogArticleData = blogArticles[+(params?.blogPageId ?? 2) - 1];
 
 	return (
-		<div className={style.BlogPageWrap}>
-			<div className={style.BlogPageContainer}>
-				<div className={style.BlogPageButtonLeftWrapper}>
-					<button className={style.BlogPageButtonLeft} type={InputTypeList.Button} onClick={() => router.back()}>
-						<ArrowLeftIcon classNames={style.BlogPageArrowLeftIcon} />
+		<div className={styles.blogPageWrap}>
+			<div className={styles.blogPageContainer}>
+				<div className={styles.blogPageButtonLeftWrapper}>
+					<button className={styles.blogPageButtonLeft} type={InputTypeList.Button} onClick={() => router.back()}>
+						<ArrowLeftIcon classNames={styles.blogPageArrowLeftIcon} />
 						Все статьи
 					</button>
 				</div>

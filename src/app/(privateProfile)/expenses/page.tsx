@@ -14,7 +14,7 @@ import { IExpensesInputForm } from "../../../types/pages/Expenses";
 import { Select } from "../../../ui/select/Select";
 import Button from "../../../ui/button/button";
 
-import style from "./expenses.module.scss";
+import styles from "./expenses.module.scss";
 
 export default function Expenses() {
 	const { control } = useForm<IExpensesInputForm>({
@@ -26,25 +26,25 @@ export default function Expenses() {
 	});
 
 	return (
-		<div className={style.expensesPageWrap}>
-			<div className={style.expensesPageContainer}>
-				<form className={style.expensesFormContentWrapper}>
-					<h1 className={style.headerTitle}>Расходы</h1>
-					<div className={style.expensesByDateContainer}>
-						<div className={style.totalMonthlyWrapper}>
-							<p className={style.totalMonthlyWrapper__month}>Общий расход за Январь</p>
-							<p className={style.totalMonthlyWrapper__sum}>283 000 ₽</p>
+		<div className={styles.expensesPageWrap}>
+			<div className={styles.expensesPageContainer}>
+				<form className={styles.expensesFormContentWrapper}>
+					<h1 className={styles.headerTitle}>Расходы</h1>
+					<div className={styles.expensesByDateContainer}>
+						<div className={styles.totalMonthlyWrapper}>
+							<p className={styles.totalMonthlyWrapper__month}>Общий расход за Январь</p>
+							<p className={styles.totalMonthlyWrapper__sum}>283 000 ₽</p>
 						</div>
-						<div className={style.dateSelectionWrapper}>
-							<p className={style.dateSelectionWrapper__description}>Выбор даты</p>
+						<div className={styles.dateSelectionWrapper}>
+							<p className={styles.dateSelectionWrapper__description}>Выбор даты</p>
 							<AppInput control={control} label={"Выбор даты"} type={InputTypeList.Date} name={"date"} />
 						</div>
 					</div>
-					<div className={style.expensesDetailsContainer}>
-						<div className={style.expensesDetailsContainer__category}>
+					<div className={styles.expensesDetailsContainer}>
+						<div className={styles.expensesDetailsContainer__category}>
 							<Select name={"expenses"} label={"Постоянные"} options={["Продукты", "Зарплата"]} />
 						</div>
-						<div className={style.expensesDetailsContainer__sum}>
+						<div className={styles.expensesDetailsContainer__sum}>
 							<AppInput
 								control={control}
 								label={"Сумма"}
@@ -54,14 +54,14 @@ export default function Expenses() {
 							/>
 						</div>
 						<Button content={"Добавить"} styleName={"buttonForExpenses"}>
-							<PlusIcon classNames={style.addButtonIcon} />
+							<PlusIcon classNames={styles.addButtonIcon} />
 						</Button>
 					</div>
-					<div className={style.expensesDetailsContainer}>
-						<div className={style.expensesDetailsContainer__category}>
+					<div className={styles.expensesDetailsContainer}>
+						<div className={styles.expensesDetailsContainer__category}>
 							<Select name={"expenses"} label={"Временные"} options={[""]} />
 						</div>
-						<div className={style.expensesDetailsContainer__sum}>
+						<div className={styles.expensesDetailsContainer__sum}>
 							<AppInput
 								control={control}
 								label={"Сумма"}
@@ -71,12 +71,12 @@ export default function Expenses() {
 							/>
 						</div>
 						<Button content={"Добавить"} styleName={"buttonForExpenses__disabled"}>
-							<PlusIcon classNames={style.addButtonIcon} />
+							<PlusIcon classNames={styles.addButtonIcon} />
 						</Button>
 					</div>
 				</form>
-				<div className={style.expensesTransactionsWrapper}>
-					<h1 className={style.expensesTransactionHeader}>Последние операции по расходам</h1>
+				<div className={styles.expensesTransactionsWrapper}>
+					<h1 className={styles.expensesTransactionHeader}>Последние операции по расходам</h1>
 					{expensesTransactions &&
 						expensesTransactions.map((expensesData, index: Key) => (
 							<li key={index}>

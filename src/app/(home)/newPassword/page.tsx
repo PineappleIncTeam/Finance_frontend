@@ -22,7 +22,7 @@ import { MainPath } from "../../../services/router/routes";
 
 import { ApiResponseCode } from "../../../helpers/apiResponseCode";
 
-import style from "./newPassword.module.scss";
+import styles from "./newPassword.module.scss";
 
 export default function NewPassword() {
 	const [isNewPasswordModalShown, setIsNewPasswordModalShown] = useState<boolean>(false);
@@ -85,9 +85,9 @@ export default function NewPassword() {
 	};
 
 	return (
-		<div className={style.newPasswordWrap}>
-			<form className={style.newPasswordFormContainer} onSubmit={handleSubmit(onSubmit)}>
-				<div className={style.newPasswordFormContainer__Content}>
+		<div className={styles.newPasswordWrap}>
+			<form className={styles.newPasswordFormContainer} onSubmit={handleSubmit(onSubmit)}>
+				<div className={styles.newPasswordFormContainer__Content}>
 					<Title title={"Восстановление пароля"} />
 					<NewPasswordModal
 						email={email}
@@ -103,9 +103,9 @@ export default function NewPassword() {
 						error={formHelpers.getEmailError(errors)}
 						rules={{ required: true, pattern: emailPattern }}
 					/>
-					<div className={style.newPasswordFormContainer__buttons}>
-						<input className={style.backButton} type={InputTypeList.Submit} value="Назад" />
-						<input className={style.restoreButton} type={InputTypeList.Submit} value="Восстановить" />
+					<div className={styles.newPasswordFormContainer__buttons}>
+						<input className={styles.backButton} type={InputTypeList.Submit} value="Назад" />
+						<input className={styles.restoreButton} type={InputTypeList.Submit} value="Восстановить" />
 					</div>
 				</div>
 			</form>

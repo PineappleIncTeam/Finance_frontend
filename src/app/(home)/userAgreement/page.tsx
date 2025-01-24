@@ -2,7 +2,7 @@
 
 import agreement from "../../../mocks/Agreement.json";
 
-import style from "./userAgreement.module.scss";
+import styles from "./userAgreement.module.scss";
 
 function UserAgreementPage() {
 	const itemNumberList = {
@@ -25,43 +25,43 @@ function UserAgreementPage() {
 	const UserAgreementArticle = () => {
 		return (
 			<>
-				<h1 className={style.agreementArticleTitle}>Пользовательское соглашение</h1>
+				<h1 className={styles.agreementArticleTitle}>Пользовательское соглашение</h1>
 				<p>Дата вступления в силу: {agreement.userAgreement.dateEffective}</p>
-				<h2 className={style.agreementArticleTitle}>1. Введение</h2>
+				<h2 className={styles.agreementArticleTitle}>1. Введение</h2>
 				<p>{agreement.userAgreement.introduction}</p>
-				<h2 className={style.agreementArticleTitle}>2. Регистрация и учетная запись</h2>
+				<h2 className={styles.agreementArticleTitle}>2. Регистрация и учетная запись</h2>
 				{AgreementItems(agreement.userAgreement.registration, 2)}
-				<h2 className={style.agreementArticleTitle}>3. Описание Сервисов</h2>
+				<h2 className={styles.agreementArticleTitle}>3. Описание Сервисов</h2>
 				<p>{agreement.userAgreement.servicesDescription}</p>
-				<h2 className={style.agreementArticleTitle}>4. Права и обязанности Пользователя</h2>
+				<h2 className={styles.agreementArticleTitle}>4. Права и обязанности Пользователя</h2>
 				<p>Пользователь обязуется:</p>
 				{AgreementItems(agreement.userAgreement.userObligations, itemNumberList.fourth)}
-				<h2 className={style.agreementArticleTitle}>5. Права и обязанности Администрации</h2>
+				<h2 className={styles.agreementArticleTitle}>5. Права и обязанности Администрации</h2>
 				<p>Администрация вправе:</p>
 				{AgreementItems(agreement.userAgreement.administrationRights, itemNumberList.fifth)}
-				<h2 className={style.agreementArticleTitle}>6. Конфиденциальность и защита персональных данных</h2>
+				<h2 className={styles.agreementArticleTitle}>6. Конфиденциальность и защита персональных данных</h2>
 				{AgreementItems(agreement.userAgreement.confidentiality, itemNumberList.sixth)}
-				<h2 className={style.agreementArticleTitle}>7. Использование файлов cookie</h2>
+				<h2 className={styles.agreementArticleTitle}>7. Использование файлов cookie</h2>
 				<p>{agreement.userAgreement.cookiesUsage}</p>
-				<h2 className={style.agreementArticleTitle}>8. Ограничение ответственности</h2>
+				<h2 className={styles.agreementArticleTitle}>8. Ограничение ответственности</h2>
 				<p>{agreement.userAgreement.limitationOfLiability}</p>
 
-				<h2 className={style.agreementArticleTitle}>9. Изменения в Соглашении</h2>
+				<h2 className={styles.agreementArticleTitle}>9. Изменения в Соглашении</h2>
 				<p>{agreement.userAgreement.changesToAgreement}</p>
-				<h2 className={style.agreementArticleTitle}>10. Заключительные положения</h2>
+				<h2 className={styles.agreementArticleTitle}>10. Заключительные положения</h2>
 				{AgreementItems(agreement.userAgreement.finalProvisions, itemNumberList.tenth)}
 				<p>
-					<span className={style.agreementArticleStrong}>Контактная информация:</span>{" "}
+					<span className={styles.agreementArticleStrong}>Контактная информация:</span>{" "}
 					{agreement.userAgreement.contactInformation.note}{" "}
-					<span className={style.agreementArticleStrong}>{agreement.userAgreement.contactInformation.email}</span>
+					<span className={styles.agreementArticleStrong}>{agreement.userAgreement.contactInformation.email}</span>
 				</p>
 			</>
 		);
 	};
 	return (
-		<div className={style.agreementPageWrap}>
-			<div className={style.agreementPageContainer}>
-				<div className={style.agreementPageContent}>{UserAgreementArticle()}</div>
+		<div className={styles.agreementPageWrap}>
+			<div className={styles.agreementPageContainer}>
+				<div className={styles.agreementPageContent}>{UserAgreementArticle()}</div>
 			</div>
 		</div>
 	);

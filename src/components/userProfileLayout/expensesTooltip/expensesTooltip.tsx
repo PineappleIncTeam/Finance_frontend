@@ -1,16 +1,16 @@
 import { Trigon } from "../../../assets/script/expenses/TrigonIcon";
 import { ITooltip } from "../../../types/common/ComponentsProps";
 
-import style from "./expensesTooltip.module.scss";
+import styles from "./expensesTooltip.module.scss";
 
 export const ExpensesTooltip = ({ open }: ITooltip) => {
 	return (
-		<dialog open={open} className={style.expensesTooltipWrap}>
-			<div onMouseMove={(e) => e.stopPropagation()} role="textbox" className={style.expensesTooltip}>
-				<div className={style.expensesTooltipContainer}>
-					<p className={style.expensesTooltipContainer__text}>Редактировать</p>
+		<dialog open={open} className={styles.expensesTooltipWrap}>
+			<div onMouseMove={(e) => e.stopPropagation()} role="textbox" className={styles.expensesTooltip}>
+				<div className={styles.expensesTooltipContainer}>
+					<p className={styles.expensesTooltipContainer__text}>Редактировать</p>
 				</div>
-				<Trigon classNames={style.trigonIcon} />
+				<Trigon classNames={styles.trigonIcon} />
 			</div>
 		</dialog>
 	);

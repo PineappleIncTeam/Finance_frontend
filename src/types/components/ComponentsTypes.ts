@@ -59,6 +59,13 @@ export interface ISavingsTransaction {
 	sum: string;
 }
 
+export interface ISavingsItem {
+	category: string;
+	target: string;
+	sum: string;
+	status: string;
+  }
+
 export enum SavingsFieldValues {
 	category = "category",
 	target = "target",

@@ -19,6 +19,7 @@ import { Select } from "../../../ui/select/Select";
 import Button from "../../../ui/button/button";
 import {
 	IEditActionProps,
+	ISavingsItem,
 	ISavingsTransaction,
 	SavingsFieldValues,
 	SortOrderStateValue,
@@ -93,6 +94,89 @@ function Savings() {
 			sortTargetOrder === SortOrderStateValue.asc ? SortOrderStateValue.desc : SortOrderStateValue.asc,
 		);
 	};
+
+	const renderSavingsItem = (item: ISavingsItem, index: number) => (
+		<li
+			key={index}
+			onMouseEnter={() => setHoveredIndex(index)}
+			onMouseLeave={() => setHoveredIndex(null)}
+			className={editIndex === index ? style.activeEditItem : ""}>
+			<div className={style.wrapperListContentBlock__category}>
+				<div className={style.inputEditWrapper}>
+					{editIndex === index && editField === SavingsFieldValues.category ? (
+						<input
+							className={style.inputEdit}
+							type="text"
+							value={editValue}
+							onChange={(e) => setEditValue(e.target.value)}
+						/>
+					) : (
+						<p className={style.inputEditWrapper__textCategory}>{item.category}</p>
+					)}
+					<div
+						className={style.editIcon}
+						style={{
+							display: hoveredIndex === index || editIndex === index ? "flex" : "none",
+						}}
+						onClick={() =>
+							editIndex === index && editField === SavingsFieldValues.category
+								? handleSaveClick()
+								: handleEditClick({ index, field: SavingsFieldValues.category, value: item.category })
+						}
+						role="button">
+						{editIndex === index && editField === SavingsFieldValues.category ? <CheckIcon /> : <EditIcon />}
+					</div>
+				</div>
+			</div>
+
+			<div className={style.wrapperListContentBlock__target}>
+				<div className={style.inputEditWrapper}>
+					<div
+						className={style.editIcon}
+						style={{
+							display: hoveredIndex === index || editIndex === index ? "flex" : "none",
+						}}
+						onClick={() =>
+							editIndex === index && editField === SavingsFieldValues.target
+								? handleSaveClick()
+								: handleEditClick({ index, field: SavingsFieldValues.target, value: item.target })
+						}
+						role="button">
+						{editIndex === index && editField === SavingsFieldValues.target ? <CheckIcon /> : <EditIcon />}
+					</div>
+					{editIndex === index && editField === SavingsFieldValues.target ? (
+						<input
+							className={`${style.inputEdit} ${style.inputEdit__target}`}
+							type="text"
+							value={editValue}
+							onChange={(e) => setEditValue(e.target.value)}
+						/>
+					) : (
+						<p className={style.inputEditWrapper__textTarget}>{item.target}</p>
+					)}
+				</div>
+			</div>
+
+			<div className={style.wrapperListContentBlock__sum}>
+				<p>{item.sum}</p>
+			</div>
+			<div className={style.wrapperListContentBlock__status}>
+				<p>{item.status}</p>
+			</div>
+			<div
+				className={style.wrapperListContentBlock__actionElement}
+				onClick={() => handleMoreClick(index)}
+				role="button">
+				<MoreIcon />
+				{openMoreIndex === index && (
+					<div className={style.wrapperListContentMore}>
+						<p className={style.wrapperListContentMore__close}>Закрыть цель</p>
+						<p>Вернуть средства на счет</p>
+					</div>
+				)}
+			</div>
+		</li>
+	);
 
 	const renderSavingsTransactions = (transactions: ISavingsTransaction[]) => {
 		return transactions.map((savingsData, index) => (
@@ -170,98 +254,7 @@ function Savings() {
 							</ul>
 						</div>
 						<div className={style.wrapperList__content}>
-							<ul className={style.wrapperListContentBlock}>
-								{items.map((item, index) => (
-									<li
-										key={index}
-										onMouseEnter={() => setHoveredIndex(index)}
-										onMouseLeave={() => setHoveredIndex(null)}
-										className={editIndex === index ? style.activeEditItem : ""}>
-										<div className={style.wrapperListContentBlock__category}>
-											<div className={style.inputEditWrapper}>
-												{editIndex === index && editField === SavingsFieldValues.category ? (
-													<input
-														className={style.inputEdit}
-														type="text"
-														value={editValue}
-														onChange={(e) => setEditValue(e.target.value)}
-													/>
-												) : (
-													<p className={style.inputEditWrapper__textCategory}>{item.category}</p>
-												)}
-												<div
-													className={style.editIcon}
-													style={{
-														display: hoveredIndex === index || editIndex === index ? "flex" : "none",
-													}}
-													onClick={() =>
-														editIndex === index && editField === SavingsFieldValues.category
-															? handleSaveClick()
-															: handleEditClick({ index, field: SavingsFieldValues.category, value: item.category })
-													}
-													role="button">
-													{editIndex === index && editField === SavingsFieldValues.category ? (
-														<CheckIcon />
-													) : (
-														<EditIcon />
-													)}
-												</div>
-											</div>
-										</div>
-
-										<div className={style.wrapperListContentBlock__target}>
-											<div className={style.inputEditWrapper}>
-												<div
-													className={style.editIcon}
-													style={{
-														display: hoveredIndex === index || editIndex === index ? "flex" : "none",
-													}}
-													onClick={() =>
-														editIndex === index && editField === SavingsFieldValues.target
-															? handleSaveClick()
-															: handleEditClick({ index, field: SavingsFieldValues.target, value: item.target })
-													}
-													role="button">
-													{editIndex === index && editField === SavingsFieldValues.target ? (
-														<CheckIcon />
-													) : (
-														<EditIcon />
-													)}
-												</div>
-												{editIndex === index && editField === SavingsFieldValues.target ? (
-													<input
-														className={`${style.inputEdit} ${style.inputEdit__target}`}
-														type="text"
-														value={editValue}
-														onChange={(e) => setEditValue(e.target.value)}
-													/>
-												) : (
-													<p className={style.inputEditWrapper__textTarget}>{item.target}</p>
-												)}
-											</div>
-										</div>
-
-										<div className={style.wrapperListContentBlock__sum}>
-											<p>{item.sum}</p>
-										</div>
-										<div className={style.wrapperListContentBlock__status}>
-											<p>{item.status}</p>
-										</div>
-										<div
-											className={style.wrapperListContentBlock__actionElement}
-											onClick={() => handleMoreClick(index)}
-											role="button">
-											<MoreIcon />
-											{openMoreIndex === index && (
-												<div className={style.wrapperListContentMore}>
-													<p className={style.wrapperListContentMore__close}>Закрыть цель</p>
-													<p>Вернуть средства на счет</p>
-												</div>
-											)}
-										</div>
-									</li>
-								))}
-							</ul>
+							<ul className={style.wrapperListContentBlock}>{items.map((item, index) => renderSavingsItem(item, index))}</ul>
 						</div>
 					</div>
 				</form>

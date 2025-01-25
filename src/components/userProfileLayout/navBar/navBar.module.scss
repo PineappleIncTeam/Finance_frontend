@@ -8,6 +8,7 @@
 	position: relative;
 	left: 0;
 	height: 100%;
+	z-index: 10;
 	@media (max-width: 1440px) {
 		& {
 			min-width: 320px;

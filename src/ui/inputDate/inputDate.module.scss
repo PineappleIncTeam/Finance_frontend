@@ -58,3 +58,41 @@
 	height: 18px;
 	transition: 0.4s;
 }
+
+.customHeader {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+	gap: 18px;
+	font-size: 2rem;
+	line-height: 2.8rem;
+	text-transform: capitalize;
+	font-weight: 400;
+	background-color: var(--color-pure-light);
+	border-bottom: 1px solid var(--color-ghost-white);
+	padding: 14px 0;
+}
+
+.inputDateSelect {
+	font-size: 2rem;
+	line-height: 2.8rem;
+	text-transform: capitalize;
+	font-weight: 400;
+}
+
+.inputDateSelect__arrow {
+	border-color: var(--color-eerie-black);
+	border-width: 2px 2px 0 0;
+	height: 10px;
+	width: 10px;
+	cursor: pointer;
+}
+
+.inputDateSelect__arrow__prev {
+	transform: rotate(-135deg);
+}
+
+.inputDateSelect__arrow__next {
+	transform: rotate(45deg);
+}

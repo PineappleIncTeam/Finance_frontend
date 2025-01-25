@@ -89,3 +89,13 @@ export interface ISwitcher<T extends TAuthInputForm> {
 }
 
 export type TAppInputValue = string | number | readonly string[] | undefined;
+
+export interface ICustomHeaderInputDate {
+	date: Date;
+	changeYear: (year: number) => void;
+	changeMonth: (month: number) => void;
+	decreaseMonth: () => void;
+	increaseMonth: () => void;
+	prevMonthButtonDisabled: boolean;
+	nextMonthButtonDisabled: boolean;
+}

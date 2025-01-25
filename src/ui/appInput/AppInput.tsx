@@ -1,18 +1,30 @@
 import React, { useState } from "react";
-import { useController } from "react-hook-form";
+import { FieldValues, useController } from "react-hook-form";
 import cn from "classnames";
 import Image from "next/image";
 
-import { TAppInputForm, IAppInput } from "../../types/common/UiKitProps";
+import { IAppInput, TAppInputValue } from "../../types/common/UiKitProps";
 import { InputTypeList } from "../../helpers/Input";
 
 import showPassword from "../../assets/pages/signUp/showPassword.svg";
 
 import styles from "./AppInput.module.scss";
 
-const AppInput = ({ label, type, placeholder, autoComplete, subtitle, error, ...props }: IAppInput) => {
+const AppInput = <T extends FieldValues>({
+	label,
+	type,
+	placeholder,
+	autoComplete,
+	subtitle,
+	error,
+	control,
+	name,
+	rules,
+	disabled,
+	...props
+}: IAppInput<T>) => {
 	const [passwordType, setPasswordType] = useState<InputTypeList>(InputTypeList.Password);
-	const { field, fieldState } = useController<TAppInputForm>(props);
+	const { field, fieldState } = useController({ name, control, rules, disabled, ...props });
 
 	const value = typeof field.value === "boolean" ? String(field.value) : field.value;
 
@@ -29,7 +41,8 @@ const AppInput = ({ label, type, placeholder, autoComplete, subtitle, error, ...
 					placeholder={placeholder}
 					className={styles.inputWrap__input}
 					autoComplete={autoComplete}
-					value={value}
+					value={value as TAppInputValue}
+					disabled={disabled}
 				/>
 				{type === InputTypeList.Password && (
 					<button
@@ -40,7 +53,7 @@ const AppInput = ({ label, type, placeholder, autoComplete, subtitle, error, ...
 					</button>
 				)}
 			</div>
-			{fieldState.error && <p className={styles.inputWrap__error}>{fieldState.error.message || (error as string)}</p>}
+			{fieldState.error?.message && <p className={styles.inputWrap__error}>{fieldState.error.message}</p>}
 			{subtitle && !error && <p className={styles.inputWrap__subtitle}>{subtitle}</p>}
 		</div>
 	);

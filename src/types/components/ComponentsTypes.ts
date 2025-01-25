@@ -1,3 +1,5 @@
+import { Dispatch, ReactNode, SetStateAction } from "react";
+
 export interface IUser {
 	age: number;
 	parentalConsent: boolean;
@@ -50,4 +52,10 @@ export interface IIncomeTransaction {
 	date: string;
 	purpose: string;
 	sum: number;
+}
+
+export interface IBurgerMenu {
+	children: ReactNode;
+	showMenu: boolean;
+	setShowMenu: Dispatch<SetStateAction<boolean>>;
 }

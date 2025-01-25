@@ -4,83 +4,145 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
-import { LastTwoDigits } from "../../../helpers/lastTwoDigits";
+import { useRouter } from "next/navigation";
 
-import arrowRightIcon from "../../../assets/components/userProfile/arrowRight.svg";
-import { IUserProfileSidebar, TCommonFunction } from "../../../types/common/ComponentsProps";
-import navigationArrowIcon from "../../../assets/components/userProfile/navigationArrow.svg";
+import axios from "axios";
+
+import { format } from "date-fns";
+
 import userAvatar from "../../../assets/components/userProfile/userPhoto.svg";
-import { MainPath } from "../../../services/router/routes";
 import burgerIcon from "../../../assets/components/userProfile/burger.svg";
 import NavBar from "../navBar/navBar";
-import editProfileIcon from "../../../assets/components/userProfile/editProfile.svg";
+import infoIcon from "../../../assets/components/userProfile/infoIcon.svg";
 
-import styles from "./userProfileSidebar.module.scss";
+import { IUserProfileSidebar } from "../../../types/common/ComponentsProps";
+import { MainPath } from "../../../services/router/routes";
+
+import { logoutUser } from "../../../services/api/auth/Logout";
+import { getCorrectBaseUrl } from "../../../utils/baseUrlConverter";
+import { ApiResponseCode } from "../../../helpers/apiResponseCode";
+import { BurgerMenu } from "../burgerMenu/burgerMenu";
+
+import { sidebarNavMenu } from "../../../helpers/sidebarNavMenu";
+import { UserProfileSidebarMenu } from "../userProfileSidebarMenu/userProfileSidebarMenu";
+
+import style from "./userProfileSidebar.module.scss";
 
 const UserProfileSidebar = ({ avatar, name, balance }: IUserProfileSidebar) => {
 	const [currentDate, setCurrentDate] = useState<string>("");
 	const [isOpen, setIsOpen] = useState<boolean>(false);
+	const [baseUrl, setBaseUrl] = useState<string>();
+	const [showMenu, setShowMenu] = useState<boolean>(false);
+	const [selectedMenuItem, setSelectedMenuItem] = useState<string>("Личные данные");
+	const laptopWindowSize = 1100;
+
+	const router = useRouter();
 
 	useEffect(() => {
-		const today = new Date();
-		const day = today.getDate().toString().padStart(2, "0");
-		const month = (today.getMonth() + 1).toString().padStart(2, "0");
-		const year = today.getFullYear().toString().slice(LastTwoDigits.LAST_TWO_DIGITS);
-
-		const formattedDate = `${day}.${month}.${year}`;
-		setCurrentDate(formattedDate);
+		setCurrentDate(format(new Date(), "dd.MM.yyyy"));
+		setBaseUrl(getCorrectBaseUrl());
 	}, []);
 
-	const renderProfileFunctions = (title: string, onClick?: TCommonFunction) => {
-		return (
-			<button className={styles.profileFunctionsWrap} onClick={onClick}>
-				<p className={styles.profileFunctionsWrap__title}>{title}</p>
-				<Image src={arrowRightIcon} alt={""} />
-			</button>
-		);
+	const handleLogout = async () => {
+		try {
+			if (baseUrl) {
+				const response = await logoutUser(baseUrl);
+				if (response.status === axios.HttpStatusCode.Ok) {
+					router.push(MainPath.Main);
+				}
+			}
+		} catch (error) {
+			if (
+				axios.isAxiosError(error) &&
+				error.response &&
+				error.response.status &&
+				error.response.status >= axios.HttpStatusCode.BadRequest &&
+				error.response.status < axios.HttpStatusCode.InternalServerError
+			) {
+				router.push(MainPath.Main);
+			}
+			if (
+				axios.isAxiosError(error) &&
+				error.response &&
+				error.response.status &&
+				error.response.status >= axios.HttpStatusCode.InternalServerError &&
+				error.response.status < ApiResponseCode.SERVER_ERROR_STATUS_MAX
+			) {
+				return router.push(MainPath.ServerError);
+			}
+		}
 	};
 
-	const renderNavigationElements = (title: string, link?: string) => {
-		return (
-			<Link href={link || "#"}>
-				<div className={styles.navigationElementsWrap}>
-					<p className={styles.navigationElements__title}>{title}</p>
-					<Image src={navigationArrowIcon} alt={""} />
-				</div>
-			</Link>
-		);
+	const handleOpenItemClick = (title: string) => {
+		setShowMenu(true);
+		setSelectedMenuItem(title);
+	};
+
+	const handleItemClick = (title: string) => {
+		setSelectedMenuItem(title);
+	};
+
+	const handleOpenMenu = () => {
+		if (window.innerWidth <= laptopWindowSize) {
+			setShowMenu(true);
+		}
+	};
+
+	const renderSelectedMenuItem = () => {
+		const selectedMenu = sidebarNavMenu.find((sidebarNavMenuItem) => sidebarNavMenuItem.title === selectedMenuItem);
+		if (selectedMenu) {
+			const SelectedComponent = selectedMenu.content;
+			return <SelectedComponent />;
+		} else {
+			return <></>;
+		}
 	};
 
 	return (
 		<>
-			<div className={styles.userProfileWrap}>
-				<div className={styles.userProfileContainer}>
-					<div className={styles.userInformationWrap}>
-						<div className={styles.userInformationWrap_images}>
-							<button className={styles.userInformationWrap_images_action}>
-								<Image src={avatar || userAvatar} alt={"userAvatar"} className={styles.userInformationWrap__avatar} />
-							</button>
-							<Image src={editProfileIcon} alt={"editProfile"} className={styles.userInformationWrap__edit} />
+			<BurgerMenu showMenu={showMenu} setShowMenu={setShowMenu}>
+				<div className={style.burgerMenu__wrapper}>
+					{renderSelectedMenuItem()}
+					<UserProfileSidebarMenu handleClick={handleItemClick} />
+				</div>
+			</BurgerMenu>
+			<div className={style.userProfileWrap}>
+				<div className={style.userProfileHeader}>
+					<Link href={""}>
+						<p className={style.userProfileHeader__link}>FAQ</p>
+					</Link>
+					<Link href={""}>
+						<p className={style.userProfileHeader__link}>Поддержка</p>
+					</Link>
+					<div role="button" onClick={handleLogout} className={style.exit}>
+						<Image src={infoIcon} alt={"info"} />
+					</div>
+				</div>
+				<div className={style.userProfileMain}>
+					<div className={style.userProfileContainer}>
+						<div className={style.userInformationWrap} onClick={handleOpenMenu} role="button">
+							<div className={style.userInformationWrap_images}>
+								<button className={style.userInformationWrap_images_action}>
+									<Image src={avatar || userAvatar} alt={"userAvatar"} className={style.userInformationWrap__avatar} />
+								</button>
+							</div>
+							<p className={style.userInformationWrap__name}>{name || "Имя"}</p>
+							<div className={style.userInformationWrap__adaptive}>
+								<div className={style.userInformationWrap__date}>
+									<p>Ваш баланс на</p>
+									<p>{currentDate}</p>
+								</div>
+								<p className={style.userInformationWrap__balance}>{balance || 0} ₽</p>
+							</div>
 						</div>
-						<p className={styles.userInformationWrap__name}>{name || "Имя"}</p>
-						<div className={styles.userInformationWrap__adaptive}>
-							<p className={styles.userInformationWrap__date}>Ваш баланс на {currentDate}</p>
-							<p className={styles.userInformationWrap__balance}>{balance || 0} ₽</p>
+						<div className={style.sidebarMenuWrapper}>
+							<UserProfileSidebarMenu handleClick={handleOpenItemClick} />
 						</div>
+
+						<button onClick={() => setIsOpen(!isOpen)} className={style.burgerActionWrap}>
+							<Image src={burgerIcon} alt={"burger"} className={style.burgerActionWrap_icon} />
+						</button>
 					</div>
-					<div className={styles.userProfileFunctions}>
-						{renderProfileFunctions("Личные данные")}
-						{renderProfileFunctions("Сменить пароль")}
-						{renderProfileFunctions("Настройки")}
-						{renderProfileFunctions("Архив")}
-					</div>
-					<div className={styles.userProfileNavigation}>
-						{renderNavigationElements("О приложении", MainPath.AboutUs)}
-						{renderNavigationElements("Блог", MainPath.Blog)}
-					</div>
-					<button onClick={() => setIsOpen(!isOpen)} className={styles.burgerActionWrap}>
-						<Image src={burgerIcon} alt={"burger"} className={styles.burgerActionWrap_icon} />
-					</button>
 				</div>
 			</div>
 			{isOpen && <NavBar onClick={() => setIsOpen(!isOpen)} />}

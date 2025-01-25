@@ -4,9 +4,12 @@ import { IInviteModal } from "../../../types/components/ComponentsTypes";
 
 import inviteLogo from "../../../assets/components/inviteModal/inviteIcon.webp";
 
+import { useLockScroll } from "../../../hooks/useLockScroll";
+
 import styles from "./inviteModal.module.scss";
 
 const InviteModal = ({ isOpen, onClose }: IInviteModal) => {
+	useLockScroll(isOpen);
 	return (
 		<>
 			{isOpen && (

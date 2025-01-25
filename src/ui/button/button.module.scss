@@ -328,3 +328,31 @@
 		}
 	}
 }
+
+.outlineButton {
+	color: var(--color-eerie-black);
+	transition: 0.4s;
+	border-radius: 16px;
+	cursor: pointer;
+	font-size: 2rem;
+	line-height: 2.8rem;
+	padding: 10px 36px;
+	border: 2px solid var(--color-dark-spring-green);
+
+	@media (max-width: 600px) {
+		font-size: 1.6rem;
+		line-height: 2.2rem;
+		padding: 6px 36px;
+		border-width: 1.5px;
+	}
+
+	&:hover,
+	&:active {
+		color: var(--color-cal-poly-pomona-green);
+		border-color: var(--color-cal-poly-pomona-green);
+	}
+	&:disabled {
+		color: var(--color-star-dust);
+		background-color: var(--color-star-dust);
+	}
+}

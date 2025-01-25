@@ -10,5 +10,6 @@ export const errorEmailExist = "Такого адреса не существу�
 export const errorPasswordIncorrect = "Не верный пароль";
 export const errorPasswordRules = "Пароль не соответствует требованиям безопасности";
 export const errorPasswordLength = "Пароль должен содержать не менее 6 знаков";
+export const errorPasswordUppercase = "Пароль должен содержать букву верхнего регистра";
 export const errorPasswordNumber = "Пароль должен содержать хотя бы одну цифру";
 export const errorPasswordRepeat = "Введенный пароль не совпадает";

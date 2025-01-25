@@ -96,6 +96,10 @@ export interface ICustomHeaderInputDate {
 	changeMonth: (month: number) => void;
 	decreaseMonth: () => void;
 	increaseMonth: () => void;
+	decreaseYear: () => void;
+	increaseYear: () => void;
 	prevMonthButtonDisabled: boolean;
 	nextMonthButtonDisabled: boolean;
+	prevYearButtonDisabled: boolean;
+	nextYearButtonDisabled: boolean;
 }

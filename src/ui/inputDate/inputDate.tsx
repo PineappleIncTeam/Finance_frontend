@@ -34,20 +34,35 @@ const InputDate = () => {
 		changeMonth,
 		decreaseMonth,
 		increaseMonth,
+		decreaseYear,
+		increaseYear,
 		prevMonthButtonDisabled,
 		nextMonthButtonDisabled,
+		prevYearButtonDisabled,
+		nextYearButtonDisabled,
 	}: ICustomHeaderInputDate) => (
 		<div className={style.customHeader}>
-			<button
-				type="button"
-				onClick={decreaseMonth}
-				disabled={prevMonthButtonDisabled}
-				className={cn(style.inputDateSelect__arrow, style.inputDateSelect__arrow__prev)}></button>
-			<div>
+			<div className={style.inputDateSelect__arrowButtons}>
+				<button
+					type="button"
+					onClick={decreaseYear}
+					disabled={prevYearButtonDisabled}
+					className={style.inputDateSelect__arrowButton}>
+					<div className={cn(style.inputDateSelect__yearArrow, style.inputDateSelect__arrow__prev)}></div>
+				</button>
+				<button
+					type="button"
+					onClick={decreaseMonth}
+					disabled={prevMonthButtonDisabled}
+					className={style.inputDateSelect__arrowButton}>
+					<div className={cn(style.inputDateSelect__monthArrow, style.inputDateSelect__arrow__prev)}></div>
+				</button>
+			</div>
+			<div className={style.inputDateSelectors}>
 				<select
 					value={date.getMonth()}
 					onChange={({ target: { value } }) => changeMonth(Number(value))}
-					className={style.inputDateSelect}>
+					className={cn(style.inputDateSelect, style.inputDateSelect__month)}>
 					{months.map((month, index) => (
 						<option key={index} value={index}>
 							{month}
@@ -65,11 +80,22 @@ const InputDate = () => {
 					))}
 				</select>
 			</div>
-			<button
-				type="button"
-				onClick={increaseMonth}
-				disabled={nextMonthButtonDisabled}
-				className={cn(style.inputDateSelect__arrow, style.inputDateSelect__arrow__next)}></button>
+			<div className={style.inputDateSelect__arrowButtons}>
+				<button
+					type="button"
+					onClick={increaseMonth}
+					disabled={nextMonthButtonDisabled}
+					className={style.inputDateSelect__arrowButton}>
+					<div className={cn(style.inputDateSelect__monthArrow, style.inputDateSelect__arrow__next)}></div>
+				</button>
+				<button
+					type="button"
+					onClick={increaseYear}
+					disabled={nextYearButtonDisabled}
+					className={style.inputDateSelect__arrowButton}>
+					<div className={cn(style.inputDateSelect__yearArrow, style.inputDateSelect__arrow__next)}></div>
+				</button>
+			</div>
 		</div>
 	);
 

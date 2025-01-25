@@ -63,30 +63,83 @@
 	display: flex;
 	flex-direction: row;
 	align-items: center;
-	justify-content: center;
-	gap: 18px;
+	justify-content: space-between;
 	font-size: 2rem;
 	line-height: 2.8rem;
 	text-transform: capitalize;
 	font-weight: 400;
 	background-color: var(--color-pure-light);
 	border-bottom: 1px solid var(--color-ghost-white);
-	padding: 14px 0;
+	padding: 14px 18px;
+}
+
+.inputDateSelectors {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 8px;
 }
 
 .inputDateSelect {
 	font-size: 2rem;
-	line-height: 2.8rem;
 	text-transform: capitalize;
 	font-weight: 400;
+	appearance: none;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	background: none;
+	border: none;
+	padding: 0;
+	margin: 0;
+	cursor: pointer;
 }
 
-.inputDateSelect__arrow {
+.inputDateSelect__month {
+	text-align: right;
+}
+
+.inputDateSelect__arrowButton {
+	width: 24px;
+	height: 20px;
+}
+
+.inputDateSelect__monthArrow {
 	border-color: var(--color-eerie-black);
 	border-width: 2px 2px 0 0;
+	border-style: solid;
 	height: 10px;
 	width: 10px;
 	cursor: pointer;
+}
+.inputDateSelect__yearArrow {
+	position: relative;
+	height: 16px;
+	width: 16px;
+	cursor: pointer;
+
+	&::before {
+		position: absolute;
+		content: "";
+		top: 6px;
+		right: 6px;
+		border-style: solid;
+		border-color: var(--color-eerie-black);
+		border-width: 2px 2px 0 0;
+		height: 8px;
+		width: 8px;
+	}
+
+	&::after {
+		position: absolute;
+		content: "";
+		top: 0px;
+		right: 0px;
+		border-style: solid;
+		border-color: var(--color-eerie-black);
+		border-width: 2px 2px 0 0;
+		height: 8px;
+		width: 8px;
+	}
 }
 
 .inputDateSelect__arrow__prev {
@@ -95,4 +148,15 @@
 
 .inputDateSelect__arrow__next {
 	transform: rotate(45deg);
+}
+
+.inputDateSelect__arrowButtons {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+}
+.inputDateSelect__arrowButton {
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }

@@ -142,7 +142,7 @@ const Activate = () => {
 	};
 
 	return (
-		<div className={styles.activationPageWrapper} 	style={{ backgroundImage: `url(${backgroundImage})` }}>
+		<div className={styles.activationPageWrapper} style={{ backgroundImage: `url(${backgroundImage})` }}>
 			<div className={styles.backgroundWrapper}>
 				<div className={styles.messageWrapper}>{load ? <Spinner /> : messageElement()}</div>
 			</div>

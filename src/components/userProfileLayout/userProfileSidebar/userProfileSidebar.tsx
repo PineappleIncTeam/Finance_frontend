@@ -49,14 +49,18 @@ const UserProfileSidebar = ({ avatar, name, balance }: IUserProfileSidebar) => {
 				const response = await logoutUser(baseUrl);
 				if (response.status === axios.HttpStatusCode.Ok) {
 					router.push(MainPath.Main);
-				} else if (
-					response.status >= axios.HttpStatusCode.BadRequest &&
-					response.status < axios.HttpStatusCode.InternalServerError
-				) {
-					router.push(MainPath.Main);
 				}
 			}
 		} catch (error) {
+			if (
+				axios.isAxiosError(error) &&
+				error.response &&
+				error.response.status &&
+				error.response.status >= axios.HttpStatusCode.BadRequest &&
+				error.response.status < axios.HttpStatusCode.InternalServerError
+			) {
+				router.push(MainPath.Main);
+			}
 			if (
 				axios.isAxiosError(error) &&
 				error.response &&

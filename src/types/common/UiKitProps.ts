@@ -75,7 +75,6 @@ export interface INewSelect<T extends TAuthInputForm> {
 	name: Path<T>;
 }
 
-
 export interface IRadioButton {
 	control: Control<any>;
 	name: string;

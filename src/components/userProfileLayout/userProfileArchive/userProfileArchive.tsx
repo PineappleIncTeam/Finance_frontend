@@ -1,21 +1,25 @@
 import { useEffect, useRef, useState } from "react";
 
-import { archiveList } from "../../../mocks/PrivateProfileArchive";
-import { SimpleTooltip } from "../simpleTooltip/simpleTooltip";
 import { IHandleMouseEnterArchiveItem } from "../../../types/common/ComponentsProps";
+import { SimpleTooltip } from "../simpleTooltip/simpleTooltip";
 import { UserProfileArchiveItem } from "../userProfileArchiveItem/userProfileArchiveItem";
+
+import { archiveList } from "../../../mocks/PrivateProfileArchive";
 
 import style from "./userProfileArchive.module.scss";
 
 export const UserProfileArchive = () => {
-	const [tooltip, setTooltip] = useState({
+	const tooltipInitialState = {
 		show: false,
 		content: "",
 		top: 0,
 		left: 0,
-	});
-	const [isSmallScreen, setIsSmallScreen] = useState(false);
+	};
+
+	const [tooltip, setTooltip] = useState(tooltipInitialState);
+	const [isSmallScreen, setIsSmallScreen] = useState<boolean>(false);
 	const scrollableBlockRef = useRef<HTMLDivElement>(null);
+
 	const MOBILE_SCREEN_SIZE = 1100;
 	const TOOLTIP_OFFSET_LEFT = 100;
 	const TOOLTIP_OFFSET_TOP = 40;
@@ -24,8 +28,10 @@ export const UserProfileArchive = () => {
 		const handleResize = () => {
 			setIsSmallScreen(window.innerWidth <= MOBILE_SCREEN_SIZE);
 		};
+
 		handleResize();
 		window.addEventListener("resize", handleResize);
+
 		return () => {
 			window.removeEventListener("resize", handleResize);
 		};
@@ -35,7 +41,9 @@ export const UserProfileArchive = () => {
 		const target = event.currentTarget as HTMLDivElement;
 		const rect = target.getBoundingClientRect();
 		const scrollableBlock = scrollableBlockRef.current;
+
 		if (!scrollableBlock) return;
+
 		const scrollableBlockRect = scrollableBlock.getBoundingClientRect();
 
 		const top = rect.top - scrollableBlockRect.top - TOOLTIP_OFFSET_TOP;
@@ -56,6 +64,7 @@ export const UserProfileArchive = () => {
 	const handleMouseLeave = () => {
 		setTooltip({ show: false, content: "", top: 0, left: 0 });
 	};
+
 	return (
 		<div className={style.archiveForm}>
 			<p className={style.archiveTitle}>Архив</p>

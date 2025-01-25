@@ -1,12 +1,12 @@
 import Image from "next/image";
 import Link from "next/link";
 
+import { IRenderNavItem, IRenderProfileItem, ISidebarMenu } from "../../../types/common/ComponentsProps";
+import { MainPath } from "../../../services/router/routes";
+import { sidebarNavMenu } from "../../../helpers/sidebarNavMenu";
+
 import arrowRightIcon from "../../../assets/components/userProfile/arrowRight.svg";
 import navigationArrowIcon from "../../../assets/components/userProfile/navigationArrow.svg";
-import { MainPath } from "../../../services/router/routes";
-import { IRenderNavItem, IRenderProfileItem, ISidebarMenu } from "../../../types/common/ComponentsProps";
-
-import { sidebarNavMenu } from "../../../helpers/sidebarNavMenu";
 
 import style from "./userProfileSidebarMenu.module.scss";
 
@@ -30,6 +30,7 @@ export const UserProfileSidebarMenu = ({ handleClick }: ISidebarMenu) => {
 			</Link>
 		);
 	};
+
 	return (
 		<div className={style.sidebar__nav}>
 			<div className={style.sidebar__profileItems}>

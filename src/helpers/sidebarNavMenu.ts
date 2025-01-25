@@ -5,9 +5,9 @@ import { UserProfilePrivateAppSettings } from "../components/userProfileLayout/u
 import { UserProfilePrivateData } from "../components/userProfileLayout/userProfilePrivateData/userProfilePrivateData";
 
 export const sidebarNavMenu = [
-  { title: "Личные данные", content: UserProfilePrivateData },
-  { title: "Аватар", content: UserProfileAvatarSettings },
-  { title: "Сменить пароль", content: UserProfileChangePassword },
-  { title: "Настройки", content: UserProfilePrivateAppSettings },
-  { title: "Архив", content: UserProfileArchive },
+	{ title: "Личные данные", content: UserProfilePrivateData },
+	{ title: "Аватар", content: UserProfileAvatarSettings },
+	{ title: "Сменить пароль", content: UserProfileChangePassword },
+	{ title: "Настройки", content: UserProfilePrivateAppSettings },
+	{ title: "Архив", content: UserProfileArchive },
 ];

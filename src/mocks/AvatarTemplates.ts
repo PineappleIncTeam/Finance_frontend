@@ -7,7 +7,4 @@ import avatar6 from "./userAvatars/person6.svg";
 import avatar7 from "./userAvatars/person7.svg";
 import avatar8 from "./userAvatars/person8.svg";
 
-
-export const avatarTemplates = [
-  avatar1, avatar2, avatar3, avatar4, avatar5, avatar6, avatar7, avatar8
-];
+export const avatarTemplates = [avatar1, avatar2, avatar3, avatar4, avatar5, avatar6, avatar7, avatar8];

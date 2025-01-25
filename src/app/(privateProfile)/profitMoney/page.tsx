@@ -13,6 +13,7 @@ import { formatMoney } from "../../../utils/formatData";
 import { incomeTransactions } from "../../../mocks/IncomeTransaction";
 
 import { PlusIcon } from "../../../assets/script/expenses/PlusIcon";
+import InputDate from "../../../ui/inputDate/inputDate";
 
 import styles from "./profitMoney.module.scss";
 
@@ -40,7 +41,7 @@ function ProfitMoney() {
 							</div>
 							<div className={styles.dateSelectionWrapper}>
 								<p className={styles.dateSelectionWrapper__description}>Выбор даты</p>
-								<AppInput control={control} label={"Выбор даты"} type="date" name={"date"} />
+								<InputDate />
 							</div>
 						</div>
 						<div className={styles.detailsContainers}>

@@ -1,5 +1,7 @@
 "use client";
 
+import { useState, useEffect } from "react";
+
 import { useForm } from "react-hook-form";
 
 // import { MoneyIcon } from "../../../assets/script/analytics/MoneyIcon";
@@ -145,6 +147,23 @@ function Analytics() {
 		}
 	]
 
+	// const itemsToShow = window.innerWidth <= 1440 ? 0 : 8;
+	const [itemsToShow, setItemsToShow] = useState(8);
+
+    useEffect(() => {
+        const handleResize = () => {
+            setItemsToShow(window.innerWidth <= 1440 ? 0 : 8);
+        };
+
+        handleResize();
+
+        window.addEventListener("resize", handleResize);
+
+        return () => {
+            window.removeEventListener("resize", handleResize);
+        };
+    }, []);
+
 	return (
 		<div className={styles.analyticsPageWrap}>
 
@@ -179,6 +198,7 @@ function Analytics() {
 								type="radio"
 								id="analyticsDisplay__rub"
 								className={styles.analyticsDisplay__input}
+								defaultChecked
 							/>
 							<label htmlFor="analyticsDisplay__rub" className={styles.analyticsDisplay__label}>
 								<p className={styles.analyticsDisplay__text}>В рублях</p>
@@ -188,7 +208,6 @@ function Analytics() {
 								type="radio"
 								id="analyticsDisplay__percent"
 								className={styles.analyticsDisplay__input}
-								defaultChecked
 							/>
 							<label htmlFor="analyticsDisplay__percent" className={styles.analyticsDisplay__label}>
 								<p className={styles.analyticsDisplay__text}>В процентах</p>
@@ -226,7 +245,7 @@ function Analytics() {
 
 								<div className={styles.diagramExpensesBlockRight}>
 									<ul className={styles.diagramExpensesBlockRightItems}>
-										{DIAGRAM_ITEMS_DATA.slice(8).map(item => (
+										{DIAGRAM_ITEMS_DATA.slice(itemsToShow).map(item => (
 											<li key={item.id} className={styles.diagramExpensesBlockRightItem}>
 												<div className={styles.diagramExpensesBlockRightIconWrapper}>
 													<div className={styles.diagramExpensesBlockRightIconWrapper__circle} style={{background: `var(${item.background})`}}></div>

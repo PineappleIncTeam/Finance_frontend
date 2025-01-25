@@ -97,6 +97,12 @@
         cursor: pointer;
         position: relative;
         padding-left: 24px;
+
+        @media (min-width: 1025px) {
+            &:hover::before {
+                border-color: var(--color-dark-spring-green);
+            }
+        }
     }
     &__label::before {
         content: '';
@@ -207,7 +213,8 @@
 }
 
 .diagramExpensesBlockRight {
-    overflow: auto;
+    overflow: hidden;
+    overflow-y: auto;
 }
 
 .diagramExpensesBlockRight::-webkit-scrollbar {
@@ -308,6 +315,20 @@
     .analyticsBlankPage {
         margin-top: 20px;
     }
+    .diagramExpensesBlockLeft {
+        display: none;
+    }
+    .diagramExpensesBlockRight {
+        overflow: hidden;
+        overflow-y: auto;
+    }
+    .analyticsSelectContainer {
+        justify-content: space-between;
+        gap: 28px;
+    }
+    .analyticsSelectOperation {
+        width: calc(100% - 300px);
+    }
 }
 
 @media (max-width: 1024px) {
@@ -319,6 +340,36 @@
 @media (max-width: 768px) {
     .analyticsBlankPage__image {
         margin-bottom: 38px;
+    }
+
+    .diagramExpensesBlockRightIconWrapper__text,
+    .diagramExpensesBlockRightItem__value {
+        font-size: 1.3rem;
+        line-height: 18px;
+    } 
+
+    .diagramExpensesBlockRight {
+        height: 218px;
+    }
+
+    .diagramExpenses {
+        width: 160px;
+        height: 160px;
+    }
+    .analyticsDiagramExpenses {
+        height: 222px;
+        margin-top: 0px;
+    }
+
+    .analyticsSelectContainer {
+        gap: 20px;
+    }
+
+    .analyticsSelectOperation {
+        width: 50%;
+    }
+    .analyticsSelectDateAndPeriod {
+        width: 50%;
     }
 }
 
@@ -337,5 +388,75 @@
     .headerTitle {
         font-size: 2.4rem;
         line-height: 32px;
+    }
+    .analyticsDiagramExpenses {
+        flex-direction: column;
+        height: 400px;
+    }
+    .analyticsPageWrap {
+        padding: 0;
+    }
+    .headerTitle {
+        font-size: 2.4rem;
+        line-height: 32px;
+    }
+    .analyticsSelectContainer {
+        gap: 6px;
+    }
+    .analyticsDisplayWrapper {
+        font-size: 1.3rem;
+        line-height: 18px;
+    }
+    .analyticsDisplay {
+    
+        &__label:last-of-type {
+            margin-left: 32px;
+        }
+    
+        &__text {
+            margin-left: 8px;
+        }
+        &__label::before {
+            width: 16px;
+            height: 16px;
+        }
+        &__label::after {
+            width: 6px;
+            height: 6px;
+            transform: translateX(7px);
+        }
+    }
+    .analyticsDiagramExpensesWrapper {
+        padding: 20px;
+    }
+    .analyticsDiagramExpenses {
+        align-items: start;
+    }
+    .analyticsDiagramExpensesInfo {
+
+        &__title {
+            font-size: 1.6rem;
+            line-height: 22px;
+        }
+
+        &__value {
+            font-size: 2.0rem;
+            line-height: 28px;
+        }
+
+        &__date {
+            font-size: 1.3rem;
+            line-height: 18px;
+        }
+    }
+    .analyticsDiagramExpenses {
+        margin-top: 20px;
+    }
+    .diagramExpensesBlock {
+        padding: 0;
+        width: 100%;
+    }
+    .diagramExpensesBlockRight {
+        width: 100%;
     }
 }

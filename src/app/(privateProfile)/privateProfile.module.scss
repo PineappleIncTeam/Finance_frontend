@@ -63,3 +63,9 @@
 		}
 	}
 }
+
+@media (max-width: 460px) {
+	.privateProfileWrap {
+		background-color: var(--color-pure-light);
+	}
+}

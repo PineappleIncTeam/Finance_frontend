@@ -14,10 +14,12 @@ registerLocale("ru", ru);
 
 const InputDate = () => {
 	const currentDate = new Date();
-	const [startDate, setStartDate] = useState(currentDate);
+	const [startDate, setStartDate] = useState<Date>(currentDate);
 
-	const handleChange = (date) => {
-		setStartDate(date);
+	const handleChange = (date: Date | null) => {
+		if (date) {
+			setStartDate(date);
+		}
 	};
 
 	return (

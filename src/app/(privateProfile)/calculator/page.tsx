@@ -19,6 +19,7 @@ export default function Calculator() {
 	const [value, setValue] = useState<number>(DEFAULT_VALUE);
 	const [isVisibleInfo, setIsVisibleInfo] = useState(false);
 	const [isMobile, setIsMobile] = useState(window.innerWidth <= MOBILE_SCREEN);
+	const [activeButton, setActiveButton] = useState<string | null>("realEstate");
 
 	useEffect(() => {
 		const handleResize = () => {
@@ -63,6 +64,11 @@ export default function Calculator() {
 		const percentage = ((newValue - min) / (max - min)) * FACTOR;
 
 		target.style.setProperty("--percentage", `${percentage}%`);
+	};
+
+	const handleButtonClick = (buttonName: "realEstate" | "credit", event: React.MouseEvent<HTMLButtonElement>) => {
+		event.preventDefault();
+		setActiveButton(buttonName);
 	};
 
 	const infoStyle = {
@@ -112,29 +118,21 @@ export default function Calculator() {
 				<div className={style.calculationWrapper}>
 					<form className={style.calculatorFormContentWrapper}>
 						<div className={style.selectionOfCalculationContainer}>
-							<input
-								name="select-of-calculation"
-								type="radio"
-								id="selectionOfCalculationContainer__real"
-								className={style.selectionOfCalculationContainer__input}
-								defaultChecked
-							/>
-							<label
-								htmlFor="selectionOfCalculationContainer__real"
-								className={style.selectionOfCalculationContainer__label}>
-								<p className={style.selectionOfCalculationContainer__text}>Недвижимость</p>
-							</label>
-							<input
-								name="select-of-calculation"
-								type="radio"
-								id="selectionOfCalculationContainer__credit"
-								className={style.selectionOfCalculationContainer__input}
-							/>
-							<label
-								htmlFor="selectionOfCalculationContainer__credit"
-								className={style.selectionOfCalculationContainer__label}>
-								<p className={style.selectionOfCalculationContainer__text}>Кредит</p>
-							</label>
+
+							<button
+								className={`${style.selectionOfCalculationContainer__button} ${activeButton === "realEstate" ? style.active : ""}`}
+								onClick={(event) => handleButtonClick("realEstate", event)}
+							>
+								Недвижимость
+							</button>
+
+							<button
+								className={`${style.selectionOfCalculationContainer__button} ${activeButton === "credit" ? style.active : ""}`}
+								onClick={(event) => handleButtonClick("credit", event)}
+							>
+								Кредит
+							</button>
+
 						</div>
 
 						<div className={style.propertyValueContainer}>

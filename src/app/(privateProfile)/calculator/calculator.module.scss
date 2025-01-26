@@ -106,58 +106,35 @@
     display: flex;
     gap: 20px;
 
-    &__input {
-        display: none;
-    }
-
-    &__label {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border: 1px solid var(--color-star-dust);
-        border-radius: 24px;
+    &__button {
         width: 200px;
         height: 36px;
+        border: 1px solid var(--color-star-dust);
+        border-radius: 24px;
         cursor: pointer;
-        transition: background-color 0.3s ease,
-                    border 0.3s ease;
-    }
-
-    .selectionOfCalculationContainer__input:checked + .selectionOfCalculationContainer__label {
-        border-color: var(--color-dark-sea-green);
-        background-color: var(--color-dark-sea-green);
-    }
-
-    &__text {
         color: var(--color-star-dust);
         font-size: 1.6rem;
         font-weight: 400;
-        transition: color 0.3s ease;
+        transition: background-color 0.3s ease,
+            border 0.3s ease;
     }
 
-    .selectionOfCalculationContainer__input:checked + .selectionOfCalculationContainer__label .selectionOfCalculationContainer__text {
-        color: var(--color-pure-light);
-    }
+        @media (min-width: 1025px) {
 
-    @media (min-width: 1025px) {
-
-        &__label:hover {
+        &__button:hover {
             border-color: var(--color-dark-sea-green);
             background-color: var(--color-dark-sea-green);
-            
-            .selectionOfCalculationContainer__text {
-                color: var(--color-pure-light);
-            }
+            color: var(--color-pure-light);
+        }
+
+        &__button.active {
+            border-color: var(--color-dark-sea-green);
+            background-color: var(--color-dark-sea-green);
+            color: var(--color-pure-light);
         }
 
     }
 }
-
-
-
-
-
-
 
 .propertyValueContainer {
     margin-top: 20px;
@@ -233,11 +210,6 @@
     }
 }
 
-
-
-
-
-
 .propertyButtonRadioContainer {
     margin-top: 4px;
     display: flex;
@@ -287,8 +259,6 @@
         }
     }
 }
-
-
 
 .calculationInfoWrapper {
     width: 506px;
@@ -346,7 +316,6 @@
     }
 }
 
-
 // Адаптируем
 @media (max-width: 1440px) {
     .calculationWrapper {
@@ -376,7 +345,7 @@
     .selectionOfCalculationContainer {
         gap: 16px;
 
-        &__label {
+        &__button {
             width: 156px;
         }
     }

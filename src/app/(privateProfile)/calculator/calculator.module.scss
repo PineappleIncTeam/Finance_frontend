@@ -104,7 +104,7 @@
 
 .selectionOfCalculationContainer {
     display: flex;
-    justify-content: space-between;
+    gap: 20px;
 
     &__input {
         display: none;
@@ -373,8 +373,12 @@
     .calculatorFormContentWrapper {
         width: 328px;
     }
-    .selectionOfCalculationContainer__label {
-        width: 156px;
+    .selectionOfCalculationContainer {
+        gap: 16px;
+
+        &__label {
+            width: 156px;
+        }
     }
     .propertyValueContainer__label, 
     .propertyValueContainer__label, 

@@ -36,7 +36,7 @@ export default function Calculator() {
 	const handleCloseInfo = () => {
 		setIsVisibleInfo(false);
 	};
-	const handleSubmit = (event: MouseEvent) => {
+	const handleSubmit = (event: MouseEvent<HTMLButtonElement>) => {
 		event.preventDefault();
 		if (isMobile) {
 			handleVisibleInfo();
@@ -414,9 +414,10 @@ export default function Calculator() {
 							</div>
 						</div>
 
-						<button onClick={handleSubmit} className={style.calculatorFormContentWrapper__submitBtn} type="submit">
-							Расчитать кредит
+						<button onClick={handleSubmit} className={style.calculatorFormContentWrapper__submitBtn} type="button">
+							Рассчитать кредит
 						</button>
+
 					</form>
 
 					<div className={style.calculationInfoWrapper} style={infoStyle}>

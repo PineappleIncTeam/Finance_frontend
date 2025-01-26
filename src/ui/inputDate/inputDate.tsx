@@ -17,15 +17,22 @@ import "./datepicker.scss";
 
 registerLocale("ru", ru);
 
-const InputDate = () => {
-	const currentDate = new Date();
-	const [startDate, setStartDate] = useState<Date>(currentDate);
+const InputDate = ({ isPeriod = true }: { isPeriod: boolean }) => {
+	const [currentDate, setCurrentDate] = useState<Date | null>(null);
+	const [startDate, setStartDate] = useState<Date | null>(null);
+	const [endDate, setEndDate] = useState<Date | null>(null);
 	const MAX_YEAR_INTERVAL = 100;
 
-	const handleChange = (date: Date | null) => {
+	const handleChangeCurrentDate = (date: Date | null) => {
 		if (date) {
-			setStartDate(date);
+			setCurrentDate(date);
 		}
+	};
+
+	const handleChangeDates = (dates: [Date | null, Date | null]) => {
+		const [start, end] = dates;
+		setStartDate(start);
+		setEndDate(end);
 	};
 
 	const CustomHeader = ({
@@ -101,24 +108,45 @@ const InputDate = () => {
 
 	return (
 		<div className={style.date__wrapper}>
-			<p className={style.date__label}>{"Выбор даты"}</p>
-			<DatePicker
-				selected={startDate}
-				onChange={handleChange}
-				onYearChange={handleChange}
-				onMonthChange={handleChange}
-				locale={"ru"}
-				placeholderText="__.__.___"
-				dateFormat="dd.MM.yy"
-				showIcon
-				calendarIconClassName={style.calendarIcon}
-				icon={calendarIcon(style.calendarIcon__img)}
-				className={style.date}
-				readOnly={false}
-				todayButton="Сегодня"
-				renderCustomHeader={CustomHeader}
-				closeOnScroll={true}
-			/>
+			<p className={style.date__label}>{isPeriod ? "Дата или период" : "Выбор даты"}</p>
+			{isPeriod ? (
+				<DatePicker
+					onChange={handleChangeDates}
+					startDate={startDate}
+					endDate={endDate}
+					selectsRange
+					selectedDates={[startDate, endDate]}
+					locale={"ru"}
+					placeholderText="__.__.___"
+					dateFormat="dd.MM.yy"
+					showIcon
+					calendarIconClassName={style.calendarIcon}
+					icon={calendarIcon(style.calendarIcon__img)}
+					className={style.date}
+					readOnly={false}
+					todayButton="Сегодня"
+					renderCustomHeader={CustomHeader}
+					closeOnScroll={true}
+				/>
+			) : (
+				<DatePicker
+					selected={currentDate}
+					onChange={handleChangeCurrentDate}
+					onMonthChange={handleChangeCurrentDate}
+					onYearChange={handleChangeCurrentDate}
+					locale={"ru"}
+					placeholderText="__.__.___"
+					dateFormat="dd.MM.yy"
+					showIcon
+					calendarIconClassName={style.calendarIcon}
+					icon={calendarIcon(style.calendarIcon__img)}
+					className={style.date}
+					readOnly={false}
+					todayButton="Сегодня"
+					renderCustomHeader={CustomHeader}
+					closeOnScroll={true}
+				/>
+			)}
 		</div>
 	);
 };

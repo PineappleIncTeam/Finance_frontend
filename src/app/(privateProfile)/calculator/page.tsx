@@ -9,13 +9,26 @@ import { formatCalculateNumber } from "../../../utils/formatCalculateNumber";
 
 import style from "./calculator.module.scss";
 
-const MAX_VALUE = 10000000;
-const DEFAULT_VALUE = 0;
-
 export default function Calculator() {
+
+	const MAX_VALUE = 10000000;
+	const DEFAULT_VALUE = 0;
+	const MOBILE_SCREEN = 460;
+	const FACTOR = 100;
+
 	const [value, setValue] = useState<number>(DEFAULT_VALUE);
 	const [isVisibleInfo, setIsVisibleInfo] = useState(false);
-	const [isMobile, setIsMobile] = useState(window.innerWidth <= 460);
+	const [isMobile, setIsMobile] = useState(window.innerWidth <= MOBILE_SCREEN);
+
+	useEffect(() => {
+		const handleResize = () => {
+			setIsMobile(window.innerWidth <= MOBILE_SCREEN);
+		};
+
+		window.addEventListener("resize", handleResize);
+
+		return () => window.removeEventListener("resize", handleResize);
+	}, []);
 
 	const handleVisibleInfo = () => {
 		setIsVisibleInfo(true);
@@ -34,16 +47,6 @@ export default function Calculator() {
 		};
 	};
 
-	useEffect(() => {
-		const handleResize = () => {
-			setIsMobile(window.innerWidth <= 460);
-		};
-
-		window.addEventListener("resize", handleResize);
-
-		return () => window.removeEventListener("resize", handleResize);
-	}, []);
-
 	const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
 		const rawValue = event.target.value.replace(/\s+/g, "");
 		const newValue = rawValue.replace(/[^\d]/g, "");
@@ -57,7 +60,7 @@ export default function Calculator() {
 
 		const min = target.min ? Number(target.min) : DEFAULT_VALUE;
 		const max = target.max ? Number(target.max) : MAX_VALUE;
-		const percentage = ((newValue - min) / (max - min)) * 100;
+		const percentage = ((newValue - min) / (max - min)) * FACTOR;
 
 		target.style.setProperty("--percentage", `${percentage}%`);
 	};

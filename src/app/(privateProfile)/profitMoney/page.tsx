@@ -40,7 +40,6 @@ function ProfitMoney() {
 								<p className={styles.totalMonthlyWrapper__sum}>{formatMoney(incomeMoney, 0)}</p>
 							</div>
 							<div className={styles.dateSelectionWrapper}>
-								<p className={styles.dateSelectionWrapper__description}>Выбор даты</p>
 								<InputDate />
 							</div>
 						</div>

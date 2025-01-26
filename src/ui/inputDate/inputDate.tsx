@@ -127,6 +127,7 @@ const InputDate = ({ isPeriod = false }: ICustomInputDate) => {
 					todayButton="Сегодня"
 					renderCustomHeader={CustomHeader}
 					closeOnScroll={true}
+					popperPlacement="bottom-start"
 				/>
 			) : (
 				<DatePicker
@@ -145,6 +146,7 @@ const InputDate = ({ isPeriod = false }: ICustomInputDate) => {
 					todayButton="Сегодня"
 					renderCustomHeader={CustomHeader}
 					closeOnScroll={true}
+					popperPlacement="bottom-start"
 				/>
 			)}
 		</div>

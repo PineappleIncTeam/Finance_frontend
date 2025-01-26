@@ -6,6 +6,8 @@ import "react-datepicker/dist/react-datepicker.css";
 import { ru } from "date-fns/locale/ru";
 import cn from "classnames";
 
+import { FieldValues, useController } from "react-hook-form";
+
 import { ICustomHeaderInputDate, ICustomInputDate } from "../../types/common/UiKitProps";
 
 import { calendarIcon } from "../../assets/components/InputDate/calendar";
@@ -17,15 +19,20 @@ import "./datepicker.scss";
 
 registerLocale("ru", ru);
 
-const InputDate = ({ isPeriod = false }: ICustomInputDate) => {
-	const [currentDate, setCurrentDate] = useState<Date | null>(null);
+const InputDate = <T extends FieldValues>({ isPeriod = false, control, name }: ICustomInputDate<T>) => {
+	const {
+		field: { onChange, value },
+	} = useController({
+		name,
+		control,
+	});
 	const [startDate, setStartDate] = useState<Date | null>(null);
 	const [endDate, setEndDate] = useState<Date | null>(null);
 	const MAX_YEAR_INTERVAL = 100;
 
 	const handleChangeCurrentDate = (date: Date | null) => {
 		if (date) {
-			setCurrentDate(date);
+			onChange(date);
 		}
 	};
 
@@ -33,6 +40,7 @@ const InputDate = ({ isPeriod = false }: ICustomInputDate) => {
 		const [start, end] = dates;
 		setStartDate(start);
 		setEndDate(end);
+		onChange([start, end]);
 	};
 
 	const CustomHeader = ({
@@ -128,10 +136,12 @@ const InputDate = ({ isPeriod = false }: ICustomInputDate) => {
 					renderCustomHeader={CustomHeader}
 					closeOnScroll={true}
 					popperPlacement="bottom-start"
+					value={value}
+					name={name}
 				/>
 			) : (
 				<DatePicker
-					selected={currentDate}
+					selected={value}
 					onChange={handleChangeCurrentDate}
 					onMonthChange={handleChangeCurrentDate}
 					onYearChange={handleChangeCurrentDate}
@@ -147,6 +157,7 @@ const InputDate = ({ isPeriod = false }: ICustomInputDate) => {
 					renderCustomHeader={CustomHeader}
 					closeOnScroll={true}
 					popperPlacement="bottom-start"
+					name={name}
 				/>
 			)}
 		</div>

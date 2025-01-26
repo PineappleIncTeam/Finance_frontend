@@ -104,6 +104,8 @@ export interface ICustomHeaderInputDate {
 	nextYearButtonDisabled: boolean;
 }
 
-export interface ICustomInputDate {
+export interface ICustomInputDate<T extends TAppInputForm> {
 	isPeriod?: boolean;
+	control?: Control<T>;
+	name: Path<T>;
 }

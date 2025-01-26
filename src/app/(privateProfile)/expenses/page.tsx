@@ -13,6 +13,7 @@ import { InputTypeList } from "../../../helpers/Input";
 import { IExpensesInputForm } from "../../../types/pages/Expenses";
 import { Select } from "../../../ui/select/Select";
 import Button from "../../../ui/button/button";
+import InputDate from "../../../ui/inputDate/inputDate";
 
 import styles from "./expenses.module.scss";
 
@@ -37,7 +38,7 @@ export default function Expenses() {
 						</div>
 						<div className={styles.dateSelectionWrapper}>
 							<p className={styles.dateSelectionWrapper__description}>Выбор даты</p>
-							<AppInput control={control} label={"Выбор даты"} type={InputTypeList.Date} name={"date"} />
+							<InputDate control={control} name={"date"} />
 						</div>
 					</div>
 					<div className={styles.expensesDetailsContainer}>

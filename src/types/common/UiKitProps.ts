@@ -103,3 +103,7 @@ export interface ICustomHeaderInputDate {
 	prevYearButtonDisabled: boolean;
 	nextYearButtonDisabled: boolean;
 }
+
+export interface ICustomInputDate {
+	isPeriod?: boolean;
+}

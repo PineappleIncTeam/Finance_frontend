@@ -6,7 +6,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import { ru } from "date-fns/locale/ru";
 import cn from "classnames";
 
-import { ICustomHeaderInputDate } from "../../types/common/UiKitProps";
+import { ICustomHeaderInputDate, ICustomInputDate } from "../../types/common/UiKitProps";
 
 import { calendarIcon } from "../../assets/components/InputDate/calendar";
 import { months } from "../../helpers/months";
@@ -17,7 +17,7 @@ import "./datepicker.scss";
 
 registerLocale("ru", ru);
 
-const InputDate = ({ isPeriod = true }: { isPeriod: boolean }) => {
+const InputDate = ({ isPeriod = false }: ICustomInputDate) => {
 	const [currentDate, setCurrentDate] = useState<Date | null>(null);
 	const [startDate, setStartDate] = useState<Date | null>(null);
 	const [endDate, setEndDate] = useState<Date | null>(null);
@@ -115,7 +115,7 @@ const InputDate = ({ isPeriod = true }: { isPeriod: boolean }) => {
 					startDate={startDate}
 					endDate={endDate}
 					selectsRange
-					selectedDates={[startDate, endDate]}
+					selectedDates={startDate && endDate ? [startDate, endDate] : []}
 					locale={"ru"}
 					placeholderText="__.__.___"
 					dateFormat="dd.MM.yy"

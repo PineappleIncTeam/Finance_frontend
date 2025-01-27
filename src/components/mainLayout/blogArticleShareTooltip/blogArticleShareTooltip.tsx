@@ -1,12 +1,12 @@
 import { ITooltip } from "../../../types/common/ComponentsProps";
 
-import style from "./blogArticleShareTooltip.module.scss";
+import styles from "./blogArticleShareTooltip.module.scss";
 
 export const BlogArticleShareTooltip = ({ open }: ITooltip) => {
 	return (
-		<dialog open={open} className={style.blogArticleShareTooltipContainer}>
+		<dialog open={open} className={styles.blogArticleShareTooltipContainer}>
 			<div onClick={(e) => e.stopPropagation()} role="textbox">
-				<p className={style.blogArticleShareTooltipContent}>Ссылка успешно скопирована!</p>
+				<p className={styles.blogArticleShareTooltipContent}>Ссылка успешно скопирована!</p>
 			</div>
 		</dialog>
 	);

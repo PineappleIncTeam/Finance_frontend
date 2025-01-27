@@ -8,6 +8,13 @@
 			width: 100%;
 		}
 	}
+
+	@media (max-width: 490px) {
+		& {
+			background-color: var(--color-pure-light);
+		}
+	}
+	
 }
 
 .profitMoneyPageContainer {
@@ -16,6 +23,12 @@
 	gap: 20px;
 	height: 100%;
 	background-color: var(--color-silver-gray);
+
+	@media (max-width: 490px) {
+		& {
+			background-color: var(--color-pure-light);
+		}
+	}
 }
 
 .formContentWrapper {

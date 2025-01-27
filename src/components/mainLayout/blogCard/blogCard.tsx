@@ -10,27 +10,27 @@ import { InputTypeList } from "../../../helpers/Input";
 import { ArrowRightSmallIcon } from "../../../assets/script/blog/ArrowRightSmallIcon";
 import { ShareIcon } from "../../../assets/script/blog/ShareIcon";
 
-import style from "./blogCard.module.scss";
+import styles from "./blogCard.module.scss";
 
 const BlogCard = ({ image, date, descriptionImage, text, blogAction, id }: IBlogCard) => {
 	const shared = useCurrentLinkCard();
 
 	return (
-		<div className={style.blogCardContainer}>
-			<div className={style.blogCardPicture}>
-				<Image className={style.blogCardImage} src={image} alt={descriptionImage} />
-				<button type={InputTypeList.Button} onClick={() => shared(id ?? "")} className={style.blogCardShareButton}>
-					<ShareIcon classNames={style.blogCardShareButtonIcon} />
+		<div className={styles.blogCardContainer}>
+			<div className={styles.blogCardPicture}>
+				<Image className={styles.blogCardImage} src={image} alt={descriptionImage} />
+				<button type={InputTypeList.Button} onClick={() => shared(id ?? "")} className={styles.blogCardShareButton}>
+					<ShareIcon classNames={styles.blogCardShareButtonIcon} />
 				</button>
 			</div>
-			<div className={style.blogCardInfo}>
-				<div className={style.blogCardDate}>{date}</div>
-				<div className={style.blogCardText}>{text}</div>
-				<div className={style.blogCardButtonWrap}>
-					<button className={style.blogCardButton} type={InputTypeList.Button} onClick={blogAction}>
+			<div className={styles.blogCardInfo}>
+				<div className={styles.blogCardDate}>{date}</div>
+				<div className={styles.blogCardText}>{text}</div>
+				<div className={styles.blogCardButtonWrap}>
+					<button className={styles.blogCardButton} type={InputTypeList.Button} onClick={blogAction}>
 						<div>Подробнее</div>
-						<div className={style.blogCardArrow}>
-							<ArrowRightSmallIcon classNames={style.blogArrow} />
+						<div className={styles.blogCardArrow}>
+							<ArrowRightSmallIcon classNames={styles.blogArrow} />
 						</div>
 					</button>
 				</div>

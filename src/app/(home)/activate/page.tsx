@@ -16,8 +16,10 @@ import { ApiResponseCode } from "../../../helpers/apiResponseCode";
 
 import logo from "../../../assets/pages/activate/logo.webp";
 import warning from "../../../assets/pages/activate/warning.svg";
+import activationBgImg from "../../../assets/pages/activate/activation-bg-img.svg";
+import warningBgImg from "../../../assets/pages/activate/warning-bg-img.svg";
 
-import style from "./activate.module.scss";
+import styles from "./activate.module.scss";
 
 const Activate = () => {
 	const [baseUrl, setBaseUrl] = useState<string>();
@@ -39,6 +41,7 @@ const Activate = () => {
 	const [messageTitle, setMessageTitle] = useState<string>(successMessageTitle);
 	const [messageDescription, setMessageDescription] = useState<string>(successMessageDescription);
 	const [messageLogo, setMessageLogo] = useState(logo);
+	const [backgroundImage, setBackgroundImage] = useState(activationBgImg.src);
 
 	enum ModalMessageTypes {
 		success = "success",
@@ -109,35 +112,40 @@ const Activate = () => {
 				setMessageLogo(logo);
 				setMessageTitle(successMessageTitle);
 				setMessageDescription(successMessageDescription);
+				setBackgroundImage(activationBgImg.src);
 				break;
 			case "warning":
 				setMessageLogo(warning);
 				setMessageTitle(warningMessageTitle);
 				setMessageDescription(warningMessageDescription);
+				setBackgroundImage(warningBgImg.src);
 				break;
 			case "notification":
 				setMessageLogo(logo);
 				setMessageTitle(notificationMessageTitle);
 				setMessageDescription(notificationMessageDescription);
+				setBackgroundImage(activationBgImg.src);
 				break;
 		}
 	};
 
 	const messageElement = () => {
 		return (
-			<div className={style.message}>
-				<div className={style.logo}>
-					<Image src={messageLogo} alt="иконка" className={style.icon} />
+			<div className={styles.message}>
+				<div className={styles.logo}>
+					<Image src={messageLogo} alt="иконка" className={styles.icon} />
 				</div>
-				<div className={style.title}>{messageTitle}</div>
-				<div className={style.description}>{messageDescription}</div>
+				<div className={styles.title}>{messageTitle}</div>
+				<div className={styles.description}>{messageDescription}</div>
 			</div>
 		);
 	};
 
 	return (
-		<div className={style.activationPageWrapper}>
-			<div className={style.messageWrapper}>{load ? <Spinner /> : messageElement()}</div>
+		<div className={styles.activationPageWrapper} style={{ backgroundImage: `url(${backgroundImage})` }}>
+			<div className={styles.backgroundWrapper}>
+				<div className={styles.messageWrapper}>{load ? <Spinner /> : messageElement()}</div>
+			</div>
 		</div>
 	);
 };

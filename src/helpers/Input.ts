@@ -6,5 +6,6 @@ export enum InputTypeList {
 	Checkbox = "checkbox",
 	Number = "number",
 	Date = "date",
+	Radio = "radio",
 	Button = "button",
 }

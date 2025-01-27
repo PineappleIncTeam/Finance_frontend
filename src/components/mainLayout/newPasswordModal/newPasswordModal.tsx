@@ -1,34 +1,27 @@
 "use client";
 
-import { useEffect } from "react";
-
-import { useScrollLock } from "../../../hooks/useScrollLock";
-
 import { INewPasswordModal } from "../../../types/common/ComponentsProps";
 import { InputTypeList } from "../../../helpers/Input";
+import { useLockScroll } from "../../../hooks/useLockScroll";
 
-import style from "./newPasswordModal.module.scss";
+import styles from "./newPasswordModal.module.scss";
 
 const NewPasswordModal = ({ email, open, toggle }: INewPasswordModal) => {
-	const lockScroll = useScrollLock(open);
-
-	useEffect(() => {
-		lockScroll();
-	}, [lockScroll]);
+	useLockScroll(open);
 
 	return (
 		<>
-			<dialog open={open} className={style.backgroundModal}>
-				<div onClick={(e) => e.stopPropagation()} role="textbox" className={style.newPasswordResponseModalWrap}>
-					<div className={style.newPasswordResponseModalContainer}>
-						<h1 className={style.newPasswordResponseModalContainer__title}>Письмо отправлено</h1>
-						<p className={style.newPasswordResponseModalContainer__subtitle}>
+			<dialog open={open} className={styles.backgroundModal}>
+				<div onClick={(e) => e.stopPropagation()} role="textbox" className={styles.newPasswordResponseModalWrap}>
+					<div className={styles.newPasswordResponseModalContainer}>
+						<h1 className={styles.newPasswordResponseModalContainer__title}>Письмо отправлено</h1>
+						<p className={styles.newPasswordResponseModalContainer__subtitle}>
 							На адрес {email} выслано письмо со ссылкой для восстановления доступа.{" "}
 						</p>
-						<p className={style.newPasswordResponseModalContainer__subtitle}>
+						<p className={styles.newPasswordResponseModalContainer__subtitle}>
 							В случае, если не нашли письма, проверьте папку «Спам» и правильность введенного адреса.
 						</p>
-						<button className={style.repeatSendButton} type={InputTypeList.Button} onClick={toggle}>
+						<button className={styles.repeatSendButton} type={InputTypeList.Button} onClick={toggle}>
 							Повторить отправку
 						</button>
 					</div>

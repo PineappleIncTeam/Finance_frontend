@@ -4,7 +4,7 @@ import AboutUsCard from "../../../components/mainLayout/aboutUsCard/aboutUsCard"
 
 import { AboutUsTeam } from "../../../mocks/AboutUsTeam";
 
-import style from "./aboutUs.module.scss";
+import styles from "./aboutUs.module.scss";
 
 function AboutUs() {
 	function cardsList(AboutUsTeam: ITeamMember[]) {
@@ -13,15 +13,15 @@ function AboutUs() {
 				<AboutUsCard photo={photo} teamRole={teamRole} key={teamRole} />
 			))
 		) : (
-			<div className={style.aboutUsTitle}>Команда скоро вернётся</div>
+			<div className={styles.aboutUsTitle}>Команда скоро вернётся</div>
 		);
 	}
 	return (
-		<div className={style.aboutUsWrap}>
-			<div className={style.aboutUsContainer}>
-				<div className={style.aboutUsMain}>
-					<div className={style.aboutUsTitle}>Классные ребята с горящими глазами.</div>
-					<div className={style.aboutUsCards}>{cardsList(AboutUsTeam)}</div>
+		<div className={styles.aboutUsWrap}>
+			<div className={styles.aboutUsContainer}>
+				<div className={styles.aboutUsMain}>
+					<div className={styles.aboutUsTitle}>Классные ребята с горящими глазами.</div>
+					<div className={styles.aboutUsCards}>{cardsList(AboutUsTeam)}</div>
 				</div>
 			</div>
 			<Footer />

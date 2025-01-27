@@ -8,22 +8,22 @@ import { IVideoElement } from "../../../types/components/ComponentsTypes";
 
 import fallback from "../../../assets/components/videoElement/fallback.webp";
 
-import style from "./videoElement.module.scss";
+import styles from "./videoElement.module.scss";
 
 const VideoElement = ({ videoId, close }: IVideoElement) => {
 	const [hasError, setHasError] = useState<boolean>(false);
 
 	return (
-		<div className={style.backgroundVideo}>
-			<div className={style.videoWrap}>
-				<div className={style.closeActionWrapper}>
-					<button onClick={close} className={style.closeActionElement} />
+		<div className={styles.backgroundVideo}>
+			<div className={styles.videoWrap}>
+				<div className={styles.closeActionWrapper}>
+					<button onClick={close} className={styles.closeActionElement} />
 				</div>
-				<div className={style.videoResponsive}>
+				<div className={styles.videoResponsive}>
 					{hasError ? (
-						<div className={style.fallbackImageWrapper}>
-							<Image className={style.fallbackImage} src={fallback} alt="no video" />
-							<h1 className={style.fallbackImage__text}>Приносим извинения. Данное видео отсутствует.</h1>
+						<div className={styles.fallbackImageWrapper}>
+							<Image className={styles.fallbackImage} src={fallback} alt="no video" />
+							<h1 className={styles.fallbackImage__text}>Приносим извинения. Данное видео отсутствует.</h1>
 						</div>
 					) : (
 						<iframe

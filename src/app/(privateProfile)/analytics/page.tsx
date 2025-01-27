@@ -29,126 +29,148 @@ function Analytics() {
 			id: 1,
 			background: "--color-dark-spring-green",
 			title: "Внезапная покупка",
-			value: "1.00 %"
+			valuePercent: "1.00",
+			valueRub: 1300.01
 		},
 		{
 			id: 2,
 			background: "--color-lavender-blush",
 			title: "Стрижка",
-			value: "3.00 %"
+			valuePercent: "3.00",
+			valueRub: 3900.02
 		},
 		{
 			id: 3,
 			background: "--color-sage-green",
 			title: "Бассейн",
-			value: "2.50 %"
+			valuePercent: "2.50",
+			valueRub: 3250.02
 		},
 		{
 			id: 4,
 			background: "--color-light-peach",
 			title: "Школа",
-			value: "1.26 %"
+			valuePercent: "1.26",
+			valueRub: 1638.83
 		},
 		{
 			id: 5,
 			background: "--color-burnt-orange",
 			title: "Еда",
-			value: "2.04 %"
+			valuePercent: "2.04",
+			valueRub: 2652.06
 		},
 		{
 			id: 6,
 			background: "--color-soft-tan",
 			title: "Плата жилья",
-			value: "11.70 %"
+			valuePercent: "11.70",
+			valueRub: 15271.09
 		},
 		{
 			id: 7,
 			background: "--color-peach",
 			title: "Ногти",
-			value: "0.30 %"
+			valuePercent: "0.30",
+			valueRub: 390.00
 		},
 		{
 			id: 8,
 			background: "--color-dark-sea-green",
 			title: "Бензин",
-			value: "0.75 %"
+			valuePercent: "0.75",
+			valueRub: 975.56
 		},
 		{
 			id: 9,
 			background: "--color-dusty-rose",
 			title: "Дорога работа",
-			value: "1.03 %"
+			valuePercent: "1.03",
+			valueRub: 1340.79
 		},
 		{
 			id: 10,
 			background: "--color-steel-blue",
 			title: "Юрист",
-			value: "7.00 %"
+			valuePercent: "7.00",
+			valueRub: 9110.05
 		},
 		{
 			id: 11,
 			background: "--color-sunny-yellow",
 			title: "Детский сад",
-			value: "12.40 %"
+			valuePercent: "12.40",
+			valueRub: 16192.09
 		},
 		{
 			id: 12,
 			background: "--color-peach-pink",
 			title: "Учебники",
-			value: "2.00 %"
+			valuePercent: "2.00",
+			valueRub: 2600.01
 		},
 		{
 			id: 13,
 			background: "--color-forest-green",
 			title: "Отпуск",
-			value: "4.95 %"
+			valuePercent: "4.95",
+			valueRub: 6437.57
 		},
 		{
 			id: 14,
 			background: "--color-olive-green",
 			title: "Театр",
-			value: "1.30 %"
+			valuePercent: "1.30",
+			valueRub: 1690.01
 		},
 		{
 			id: 15,
 			background: "--color-pale-lemon",
 			title: "Кредит",
-			value: "20.00 %"
+			valuePercent: "20.00",
+			valueRub: 26000.15
 		},
 		{
 			id: 16,
 			background: "--color-dark-olive",
 			title: "Страховка",
-			value: "0.40 %"
+			valuePercent: "0.40",
+			valueRub: 520.00
 		},
 		{
 			id: 17,
 			background: "--color-golden-olive",
 			title: "Киберспорт",
-			value: "0.40 %"
+			valuePercent: "0.40",
+			valueRub: 520.00
 		},
 		{
 			id: 18,
 			background: "--color-light-blue-gray",
 			title: "Путешествия",
-			value: "0.40 %"
+			valuePercent: "0.40",
+			valueRub: 520.00
 		},
 		{
 			id: 19,
 			background: "--color-burnt-orange",
 			title: "Кино",
-			value: "0.40 %"
+			valuePercent: "0.40",
+			valueRub: 520.00
 		},
 		{
 			id: 20,
 			background: "--color-bright-lime",
 			title: "Ипотека",
-			value: "7.37 %"
+			valuePercent: "7.37",
+			valueRub: 9586.33
 		}
-	]
+	];
+	
 
 	// const itemsToShow = window.innerWidth <= 1440 ? 0 : 8;
 	const [itemsToShow, setItemsToShow] = useState(8);
+	const [displayMode, setDisplayMode] = useState("rub");
 
     useEffect(() => {
         const handleResize = () => {
@@ -163,6 +185,10 @@ function Analytics() {
             window.removeEventListener("resize", handleResize);
         };
     }, []);
+
+	const handleDisplayChange = (event) => {
+		setDisplayMode(event.target.value);
+	};
 
 	return (
 		<div className={styles.analyticsPageWrap}>
@@ -196,8 +222,11 @@ function Analytics() {
 							<input
 								name="value"
 								type="radio"
+								value="rub"
 								id="analyticsDisplay__rub"
+								checked={displayMode === "rub"}
 								className={styles.analyticsDisplay__input}
+								onChange={handleDisplayChange}
 								defaultChecked
 							/>
 							<label htmlFor="analyticsDisplay__rub" className={styles.analyticsDisplay__label}>
@@ -206,7 +235,10 @@ function Analytics() {
 							<input
 								name="value"
 								type="radio"
+								value="percent"
 								id="analyticsDisplay__percent"
+								checked={displayMode === "percent"}
+								onChange={handleDisplayChange}
 								className={styles.analyticsDisplay__input}
 							/>
 							<label htmlFor="analyticsDisplay__percent" className={styles.analyticsDisplay__label}>
@@ -237,7 +269,9 @@ function Analytics() {
 													<div className={styles.diagramExpensesBlockLeftIconWrapper__circle} style={{background: `var(${item.background})`}}></div>
 													<p className={styles.diagramExpensesBlockLeftIconWrapper__text}>{item.title}</p>
 												</div>
-												<p className={styles.diagramExpensesBlockLeftItem__value}>{item.value}</p>
+												<p className={styles.diagramExpensesBlockLeftItem__value}>
+                                                    {displayMode === "rub" ? `${item.valueRub} ₽` : `${item.valuePercent}%`}
+                                                </p>
 											</li>
 										))}
 									</ul>
@@ -251,7 +285,9 @@ function Analytics() {
 													<div className={styles.diagramExpensesBlockRightIconWrapper__circle} style={{background: `var(${item.background})`}}></div>
 													<p className={styles.diagramExpensesBlockRightIconWrapper__text}>{item.title}</p>
 												</div>
-												<p className={styles.diagramExpensesBlockRightItem__value}>{item.value}</p>
+												<p className={styles.diagramExpensesBlockRightItem__value}>
+                                                    {displayMode === "rub" ? `${item.valueRub} ₽` : `${item.valuePercent}%`}
+                                                </p>
 											</li>
 										))}
 									</ul>

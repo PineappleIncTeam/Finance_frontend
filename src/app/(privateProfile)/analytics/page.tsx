@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, ChangeEvent } from "react";
 
 import { useForm } from "react-hook-form";
 
@@ -186,7 +186,7 @@ function Analytics() {
         };
     }, []);
 
-	const handleDisplayChange = (event) => {
+	const handleDisplayChange = (event: ChangeEvent<HTMLInputElement>) => {
 		setDisplayMode(event.target.value);
 	};
 

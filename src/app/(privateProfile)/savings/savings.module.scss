@@ -210,6 +210,8 @@
 
 .savingsFormContentWrapperList {
 	width: 100%;
+	overflow: auto;
+	height: 100%;
 
 	@media (max-width: 769px) {
 		width: 90vw;
@@ -219,11 +221,15 @@
 .wrapperList {
 	position: relative;
 
+	&__header{
+		position: sticky;
+		top: 0;
+	}
+
 	&__content {
 		height: 184px;
 		width: 100%;
 		white-space: nowrap;
-		overflow: auto;
 
 	}
 }
@@ -256,8 +262,8 @@
 		font-size: 1.1rem;
 		line-height: 1.3rem;
 	}
-	@media (max-width: 588px) {
-		width: 522px;
+	@media (max-width: 600px) {
+		// width: 522px;
 	}
 
 	&__category {

@@ -8,13 +8,13 @@ import { Select } from "../../../ui/select/Select";
 import AppInput from "../../../ui/appInput/AppInput";
 import Button from "../../../ui/button/button";
 
-import IncomeTransaction from "../../../components/userProfileLayout/incomeTranstaction/incomeTransaction";
+import IncomeTransaction from "../../../components/userProfileLayout/incomeTransaction/incomeTransaction";
 import { formatMoney } from "../../../utils/formatData";
 import { incomeTransactions } from "../../../mocks/IncomeTransaction";
 
 import { PlusIcon } from "../../../assets/script/expenses/PlusIcon";
 
-import style from "./profitMoney.module.scss";
+import styles from "./profitMoney.module.scss";
 
 function ProfitMoney() {
 	const { control } = useForm<IExpensesInputForm>({
@@ -28,54 +28,54 @@ function ProfitMoney() {
 	const incomeMoney = 200000;
 
 	return (
-		<div className={style.profitMoneyPageWrap}>
-			<div className={style.profitMoneyPageContainer}>
-				<form className={style.formContentWrapper}>
-					<div className={style.formContentContainer}>
-						<h1 className={style.headerTitle}>Доходы</h1>
-						<div className={style.byDateContainer}>
-							<div className={style.totalMonthlyWrapper}>
-								<p className={style.totalMonthlyWrapper__month}>Общий доход за Январь</p>
-								<p className={style.totalMonthlyWrapper__sum}>{formatMoney(incomeMoney, 0)}</p>
+		<div className={styles.profitMoneyPageWrap}>
+			<div className={styles.profitMoneyPageContainer}>
+				<form className={styles.formContentWrapper}>
+					<div className={styles.formContentContainer}>
+						<h1 className={styles.headerTitle}>Доходы</h1>
+						<div className={styles.byDateContainer}>
+							<div className={styles.totalMonthlyWrapper}>
+								<p className={styles.totalMonthlyWrapper__month}>Общий доход за Январь</p>
+								<p className={styles.totalMonthlyWrapper__sum}>{formatMoney(incomeMoney, 0)}</p>
 							</div>
-							<div className={style.dateSelectionWrapper}>
-								<p className={style.dateSelectionWrapper__description}>Выбор даты</p>
+							<div className={styles.dateSelectionWrapper}>
+								<p className={styles.dateSelectionWrapper__description}>Выбор даты</p>
 								<AppInput control={control} label={"Выбор даты"} type="date" name={"date"} />
 							</div>
 						</div>
-						<div className={style.detailsContainers}>
-							<div className={style.detailsContainer}>
-								<div className={style.detailsContainer__category}>
+						<div className={styles.detailsContainers}>
+							<div className={styles.detailsContainer}>
+								<div className={styles.detailsContainer__category}>
 									<Select name={"expenses"} label={"Категория"} options={["Продукты", "Зарплата"]} />
 								</div>
-								<div className={style.detailsContainer__rightSide}>
-									<div className={style.detailsContainer__sum}>
+								<div className={styles.detailsContainer__rightSide}>
+									<div className={styles.detailsContainer__sum}>
 										<AppInput control={control} label={"Сумма"} type="number" name={"number"} placeholder="0.00 ₽" />
 									</div>
 									<Button content={"Добавить"} styleName={"buttonForIncome__disabled"}>
-										<PlusIcon classNames={style.addButtonIcon} />
+										<PlusIcon classNames={styles.addButtonIcon} />
 									</Button>
 								</div>
 							</div>
-							<div className={style.detailsContainer}>
-								<div className={style.detailsContainer__category}>
+							<div className={styles.detailsContainer}>
+								<div className={styles.detailsContainer__category}>
 									<Select name={"expenses"} label={"Временные"} options={[""]} />
 								</div>
-								<div className={style.detailsContainer__rightSide}>
-									<div className={style.detailsContainer__sum}>
+								<div className={styles.detailsContainer__rightSide}>
+									<div className={styles.detailsContainer__sum}>
 										<AppInput control={control} label={"Сумма"} type="number" name={"number"} placeholder="0.00 ₽" />
 									</div>
 									<Button content={"Добавить"} styleName={"buttonForIncome__disabled"}>
-										<PlusIcon classNames={style.addButtonIcon} />
+										<PlusIcon classNames={styles.addButtonIcon} />
 									</Button>
 								</div>
 							</div>
 						</div>
 					</div>
 				</form>
-				<div className={style.transactionsWrapper}>
-					<h1 className={style.transactionHeader}>Последние операции по расходам</h1>
-					<div className={style.transactions}>
+				<div className={styles.transactionsWrapper}>
+					<h1 className={styles.transactionHeader}>Последние операции по расходам</h1>
+					<div className={styles.transactions}>
 						{incomeTransactions &&
 							incomeTransactions.map((incomeDate, index: Key) => (
 								<li key={index}>

@@ -17,7 +17,7 @@ import { ApiResponseCode } from "../../../helpers/apiResponseCode";
 import logo from "../../../assets/pages/activate/logo.webp";
 import warning from "../../../assets/pages/activate/warning.svg";
 
-import style from "./activate.module.scss";
+import styles from "./activate.module.scss";
 
 const Activate = () => {
 	const [baseUrl, setBaseUrl] = useState<string>();
@@ -125,19 +125,21 @@ const Activate = () => {
 
 	const messageElement = () => {
 		return (
-			<div className={style.message}>
-				<div className={style.logo}>
-					<Image src={messageLogo} alt="иконка" className={style.icon} />
+			<div className={styles.message}>
+				<div className={styles.logo}>
+					<Image src={messageLogo} alt="иконка" className={styles.icon} />
 				</div>
-				<div className={style.title}>{messageTitle}</div>
-				<div className={style.description}>{messageDescription}</div>
+				<div className={styles.title}>{messageTitle}</div>
+				<div className={styles.description}>{messageDescription}</div>
 			</div>
 		);
 	};
 
 	return (
-		<div className={style.activationPageWrapper}>
-			<div className={style.messageWrapper}>{load ? <Spinner /> : messageElement()}</div>
+		<div className={styles.activationPageWrapper}>
+			<div className={styles.backgrounWrapper}>
+				<div className={styles.messageWrapper}>{load ? <Spinner /> : messageElement()}</div>
+			</div>
 		</div>
 	);
 };

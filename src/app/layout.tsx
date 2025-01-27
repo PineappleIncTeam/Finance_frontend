@@ -1,7 +1,10 @@
 import "./reset.css";
 import "./globals.css";
+import cn from "classnames";
 
 import ProviderList from "../services/redux/provider";
+
+import { rubik, manrope } from "./fonts";
 
 import type { Metadata } from "next";
 
@@ -17,7 +20,7 @@ export default function RootLayout({
 }>) {
 	return (
 		<html lang="en">
-			<body>
+			<body className={cn(rubik.className, manrope.className)}>
 				<ProviderList>{children}</ProviderList>
 			</body>
 		</html>

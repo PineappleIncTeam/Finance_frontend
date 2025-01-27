@@ -2,12 +2,22 @@
 	top: 0;
 	left: 0;
 	position: fixed;
+	width: 100%;
+	height: 100vh;
+	background-image: url("../../../assets/pages/activate/activation-bg-img.svg");
+	background-repeat: no-repeat;
+	background-size: 350px;
+	background-position: right 308px top 358px;
+}
+
+.backgrounWrapper {
+	position: fixed;
+	width: 100vw;
+	height: 100vh;
+	background: var(--color-eerie-black-opacity);
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	width: 100%;
-	height: 100vh;
-	background-color: var(--color-eerie-black-opacity);
 	z-index: 100;
 }
 
@@ -82,5 +92,24 @@
 	@media (max-width: 500px) {
 		font-size: 1.4rem;
 		line-height: 1.8rem;
+	}
+}
+
+@media (max-width: 1440px) {
+	.activationPageWrapper {
+		background-size: 270px;
+		background-position: right 174px top 390px;
+	}
+}
+
+@media (max-width: 1024px) {
+	.activationPageWrapper {
+		background-position: right 64px top 569px;
+	}
+}
+
+@media (max-width: 768px) {
+	.activationPageWrapper {
+		background-image: unset;
 	}
 }

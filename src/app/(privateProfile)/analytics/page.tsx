@@ -166,15 +166,17 @@ function Analytics() {
 			valueRub: 9586.33
 		}
 	];
-	
+	const WINDOW_SIZE = 1440;
+	const MIN_ROW = 0;
+	const MAX_ROW = 8;
 
 	// const itemsToShow = window.innerWidth <= 1440 ? 0 : 8;
-	const [itemsToShow, setItemsToShow] = useState(8);
+	const [itemsToShow, setItemsToShow] = useState(MAX_ROW);
 	const [displayMode, setDisplayMode] = useState("rub");
 
     useEffect(() => {
         const handleResize = () => {
-            setItemsToShow(window.innerWidth <= 1440 ? 0 : 8);
+            setItemsToShow(window.innerWidth <= WINDOW_SIZE ? MIN_ROW : MAX_ROW);
         };
 
         handleResize();
@@ -263,7 +265,7 @@ function Analytics() {
 
 								<div className={styles.diagramExpensesBlockLeft}>
 									<ul className={styles.diagramExpensesBlockLeftItems}>
-										{DIAGRAM_ITEMS_DATA.slice(0, 8).map(item => (
+										{DIAGRAM_ITEMS_DATA.slice(MIN_ROW, MAX_ROW).map(item => (
 											<li key={item.id} className={styles.diagramExpensesBlockLeftItem}>
 												<div className={styles.diagramExpensesBlockLeftIconWrapper}>
 													<div className={styles.diagramExpensesBlockLeftIconWrapper__circle} style={{background: `var(${item.background})`}}></div>

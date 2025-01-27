@@ -8,16 +8,15 @@ import cn from "classnames";
 
 import { FieldValues, useController } from "react-hook-form";
 
+import moment from "moment";
+
 import { ICustomHeaderInputDate, ICustomInputDate } from "../../types/common/UiKitProps";
 
-import { calendarIcon } from "../../assets/components/InputDate/calendar";
-import { months } from "../../helpers/months";
+import calendarIcon from "../../assets/components/inputDate/calendarIcon";
 
 import style from "./inputDate.module.scss";
 
 import "./datepicker.scss";
-
-registerLocale("ru", ru);
 
 const InputDate = <T extends FieldValues>({ isPeriod = false, control, name }: ICustomInputDate<T>) => {
 	const {
@@ -29,10 +28,14 @@ const InputDate = <T extends FieldValues>({ isPeriod = false, control, name }: I
 	const [startDate, setStartDate] = useState<Date | null>(null);
 	const [endDate, setEndDate] = useState<Date | null>(null);
 	const MAX_YEAR_INTERVAL = 100;
+	moment.locale("ru");
+	registerLocale("ru", ru);
 
 	const handleChangeCurrentDate = (date: Date | null) => {
 		if (date) {
 			onChange(date);
+		} else {
+			onChange(new Date());
 		}
 	};
 
@@ -78,7 +81,7 @@ const InputDate = <T extends FieldValues>({ isPeriod = false, control, name }: I
 					value={date.getMonth()}
 					onChange={({ target: { value } }) => changeMonth(Number(value))}
 					className={cn(style.inputDateSelect, style.inputDateSelect__month)}>
-					{months.map((month, index) => (
+					{moment.months().map((month, index) => (
 						<option key={index} value={index}>
 							{month}
 						</option>

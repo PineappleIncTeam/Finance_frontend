@@ -1,5 +1,4 @@
 .react-datepicker {
-	font-family: Rubik, Verdana, Arial, Tahoma, sans-serif;
 	border-radius: 8px;
 	border: none;
 	box-shadow: 0px 4px 20px 0px var(--color-black-eight-part);
@@ -7,10 +6,11 @@
 	line-height: 2.8rem;
 	width: 300px;
 	height: 100%;
-
+	
 	background-color: var(--color-pure-light);
 	overflow: hidden;
 	transition: 0.4s;
+	font-family: "Rubik", Verdana, Arial, Tahoma, sans-serif;
 
 	@media (max-width: 480px) {
 		width: 270px;

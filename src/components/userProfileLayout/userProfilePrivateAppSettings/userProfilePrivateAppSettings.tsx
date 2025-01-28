@@ -15,7 +15,7 @@ export const UserProfilePrivateAppSettings = () => {
 		delayError: 200,
 	});
 	return (
-		<form className={style.privateAppSettingsform}>
+		<form className={style.privateAppSettingsForm}>
 			<p className={style.privateAppSettingsTitle}>Настройки</p>
 			<div className={style.privateAppSettingsForm__settings}>
 				<Selector

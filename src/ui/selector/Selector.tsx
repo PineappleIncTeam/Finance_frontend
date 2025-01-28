@@ -8,13 +8,7 @@ import { ISelector } from "../../types/common/UiKitProps";
 
 import style from "./Selector.module.scss";
 
-export const Selector = <T extends FieldValues>({
-	label,
-	options,
-	control,
-	name,
-	placeholder = options[0],
-}: ISelector<T>) => {
+export const Selector = <T extends FieldValues>({ label, options, control, name, placeholder }: ISelector<T>) => {
 	const {
 		field: { onChange, value },
 	} = useController({

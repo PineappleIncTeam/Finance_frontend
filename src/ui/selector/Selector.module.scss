@@ -6,10 +6,17 @@
 	gap: 8px;
 	user-select: none;
 
+	@media (max-width: 600px) {
+		gap: 4px;
+	}
+
 	&__description {
 		font-size: 2rem;
 		line-height: 2.8rem;
 		color: var(--color-very-dark-grayish-blue);
+		@media (max-width: 600px) {
+			display: none;
+		}
 	}
 
 	&__field {
@@ -22,6 +29,13 @@
 		border-radius: 8px;
 		z-index: 200;
 		transition: 0.4s;
+		min-height: 48px;
+
+		@media (max-width: 600px) {
+			font-size: 1.3rem;
+			line-height: 1.8rem;
+			min-height: 38px;
+		}
 
 		&:hover {
 			border-color: var(--color-dark-spring-green);
@@ -56,6 +70,11 @@
 	&__optionValue {
 		font-size: 2rem;
 		line-height: 2.8rem;
+
+		@media (max-width: 600px) {
+			font-size: 1.3rem;
+			line-height: 1.8rem;
+		}
 	}
 
 	&__selectIcon {
@@ -72,8 +91,15 @@
 		width: 12px;
 		transition: 0.4s;
 
+		@media (max-width: 600px) {
+			top: calc(50% - 6px);
+			height: 8px;
+			width: 8px;
+		}
+
 		&__active {
 			transform: rotate(-135deg);
+			border-color: var(--color-ash-grey);
 		}
 	}
 }

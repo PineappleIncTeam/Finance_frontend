@@ -10,7 +10,6 @@ import { formatCalculateNumber } from "../../../utils/formatCalculateNumber";
 import style from "./calculator.module.scss";
 
 export default function Calculator() {
-
 	const MAX_VALUE = 10000000;
 	const DEFAULT_VALUE = 0;
 	const MOBILE_SCREEN = 460;
@@ -118,21 +117,17 @@ export default function Calculator() {
 				<div className={style.calculationWrapper}>
 					<form className={style.calculatorFormContentWrapper}>
 						<div className={style.selectionOfCalculationContainer}>
-
 							<button
 								className={`${style.selectionOfCalculationContainer__button} ${activeButton === "realEstate" ? style.active : ""}`}
-								onClick={(event) => handleButtonClick("realEstate", event)}
-							>
+								onClick={(event) => handleButtonClick("realEstate", event)}>
 								Недвижимость
 							</button>
 
 							<button
 								className={`${style.selectionOfCalculationContainer__button} ${activeButton === "credit" ? style.active : ""}`}
-								onClick={(event) => handleButtonClick("credit", event)}
-							>
+								onClick={(event) => handleButtonClick("credit", event)}>
 								Кредит
 							</button>
-
 						</div>
 
 						<div className={style.propertyValueContainer}>
@@ -415,7 +410,6 @@ export default function Calculator() {
 						<button onClick={handleSubmit} className={style.calculatorFormContentWrapper__submitBtn} type="button">
 							Рассчитать кредит
 						</button>
-
 					</form>
 
 					<div className={style.calculationInfoWrapper} style={infoStyle}>

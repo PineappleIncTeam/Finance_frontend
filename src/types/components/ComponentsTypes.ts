@@ -59,7 +59,6 @@ export interface IBurgerMenu {
 	setShowMenu: Dispatch<SetStateAction<boolean>>;
 }
 
-
 export interface ISavingsTransaction {
 	firstDate: string;
 	secondDate: string;

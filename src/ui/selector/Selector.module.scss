@@ -1,0 +1,79 @@
+.selectContainer {
+	display: flex;
+	flex-direction: column;
+	position: relative;
+	width: 100%;
+	gap: 8px;
+	user-select: none;
+
+	&__description {
+		font-size: 2rem;
+		line-height: 2.8rem;
+		color: var(--color-very-dark-grayish-blue);
+	}
+
+	&__field {
+		position: relative;
+		font-size: 2rem;
+		line-height: 2.8rem;
+		padding: 10px 40px 10px 16px;
+		border: 1.5px solid var(--color-gainsboro);
+		background-color: var(--color-pure-light);
+		border-radius: 8px;
+		z-index: 200;
+		transition: 0.4s;
+
+		&:hover {
+			border-color: var(--color-dark-spring-green);
+		}
+	}
+
+	&__placeholder {
+		color: var(--color-ash-grey);
+	}
+
+	&__options {
+		position: absolute;
+		top: 102%;
+		left: 0;
+		right: 0;
+		width: 100%;
+		border-radius: 8px;
+		border: 1.5px solid var(--color-gainsboro);
+		background-color: var(--color-pure-light);
+		box-shadow: 0px 4px 20px 0px var(--color-black-eight-part);
+		z-index: 100;
+		overflow: hidden;
+	}
+
+	&__option {
+		padding: 10px 16px 12px;
+		&:hover {
+			background-color: var(--color-light-grayish-green);
+		}
+	}
+
+	&__optionValue {
+		font-size: 2rem;
+		line-height: 2.8rem;
+	}
+
+	&__selectIcon {
+		position: absolute;
+		top: calc(50% - 10px);
+		right: 16px;
+		content: "";
+		border-color: var(--color-gainsboro);
+		border-width: 0 3px 3px 0;
+		transform: rotate(45deg);
+		border-bottom-right-radius: 1.5px;
+		border-style: solid;
+		height: 12px;
+		width: 12px;
+		transition: 0.4s;
+
+		&__active {
+			transform: rotate(-135deg);
+		}
+	}
+}

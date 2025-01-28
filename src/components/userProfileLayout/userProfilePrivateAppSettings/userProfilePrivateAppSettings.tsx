@@ -4,7 +4,7 @@ import { IPrivateAppSettings } from "../../../types/pages/userProfileSettings";
 import Button from "../../../ui/button/button";
 
 import { DeleteIcon } from "../../../assets/script/expenses/DeleteIcon";
-import { NewSelect } from "../../../ui/newSelect/newSelect";
+import { Selector } from "../../../ui/selector/Selector";
 import Switcher from "../../../ui/switcher/switcher";
 
 import style from "./userProfilePrivateAppSettings.module.scss";
@@ -18,7 +18,7 @@ export const UserProfilePrivateAppSettings = () => {
 		<form className={style.privateAppSettingsform}>
 			<p className={style.privateAppSettingsTitle}>Настройки</p>
 			<div className={style.privateAppSettingsForm__settings}>
-				<NewSelect
+				<Selector
 					name={"currency"}
 					label="Валюта"
 					options={["Российский рубль", "Американский доллар"]}

@@ -67,11 +67,12 @@ export interface ISelect extends UseControllerProps<IExpensesSelectForm> {
 	disabled?: boolean;
 }
 
-export interface INewSelect<T extends TAuthInputForm> {
+export interface ISelector<T extends TAuthInputForm> {
 	label?: string;
 	options?: string[];
 	disabled?: boolean;
 	control?: Control<T>;
+	placeholder?: string;
 	name: Path<T>;
 }
 

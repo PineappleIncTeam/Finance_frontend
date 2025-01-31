@@ -149,8 +149,6 @@ const NavBar = ({ onClick }: INavBar) => {
 				</Link>
 				<Link href={UserProfilePath.Calculator} className={styles.navigationLink}>
 					<div
-						role="button"
-						onClick={() => resetTimer()}
 						className={cn(styles.navigationLinkWrap, {
 							[styles.navigationLinkWrapBoder__hide]: pathname === UserProfilePath.Calculator,
 						})}>

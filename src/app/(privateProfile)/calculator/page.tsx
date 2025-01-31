@@ -88,6 +88,10 @@ export default function Calculator() {
 	const { request } = handleLogout(baseUrl);
 	const { resetTimer } = useLogoutTimer(request);
 
+	useEffect(() => {
+		resetTimer();
+	}, [request, resetTimer]);
+
 	return (
 		<div className={style.calculatorPageWrap}>
 			<div className={style.calculatorPageContainer}>

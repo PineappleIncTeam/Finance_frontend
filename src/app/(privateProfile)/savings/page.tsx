@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 
 import { PlusIcon } from "../../../assets/script/expenses/PlusIcon";
@@ -25,6 +25,10 @@ import {
 	TIndexState,
 	TSavingsFieldState,
 } from "../../../types/components/ComponentsTypes";
+
+import { getCorrectBaseUrl } from "../../../utils/baseUrlConverter";
+import handleLogout from "../../../helpers/logout";
+import useLogoutTimer from "../../../hooks/useLogoutTimer";
 
 import style from "./savings.module.scss";
 
@@ -56,6 +60,7 @@ function Savings() {
 	];
 
 	const [items, setItems] = useState(initialItems);
+	const [baseUrl, setBaseUrl] = useState<string>();
 
 	const handleEditClick = ({ index, field, value }: IEditActionProps) => {
 		setEditIndex(index);
@@ -93,6 +98,17 @@ function Savings() {
 			sortTargetOrder === SortOrderStateValue.asc ? SortOrderStateValue.desc : SortOrderStateValue.asc,
 		);
 	};
+
+	useEffect(() => {
+		setBaseUrl(getCorrectBaseUrl());
+	}, []);
+
+	const { request } = handleLogout(baseUrl);
+	const { resetTimer } = useLogoutTimer(request);
+
+	useEffect(() => {
+		resetTimer();
+	}, [request, resetTimer]);
 
 	function renderSavingsItemList() {
 		return items.map((item, index) => {

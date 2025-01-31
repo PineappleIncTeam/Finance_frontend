@@ -8,13 +8,13 @@ import { useForm } from "react-hook-form";
 
 import AppInput from "../../../ui/appInput/AppInput";
 import { Select } from "../../../ui/select/Select";
-import { IExpensesInputForm } from "../../../types/pages/Expenses";
+import { IAnalyticsInputForm } from "../../../types/pages/Analytics";
 import { InputTypeList } from "../../../helpers/Input";
 
 import styles from "./analytics.module.scss";
 
 function Analytics() {
-	const { control } = useForm<IExpensesInputForm>({
+	const { control } = useForm<IAnalyticsInputForm>({
 		defaultValues: {
 			sum: "",
 		},

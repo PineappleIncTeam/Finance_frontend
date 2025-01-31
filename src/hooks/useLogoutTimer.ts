@@ -14,7 +14,7 @@ const useLogoutTimer = (callback: TCommonFunction) => {
 	const startTimer = useCallback(() => {
 		timerRef.current = setTimeout(() => {
 			callback();
-			clearInterval(timerRef.current);
+			clearInterval(+timerRef.current);
 		}, minutesCount);
 	}, [callback, minutesCount]);
 

@@ -1,7 +1,5 @@
 import { Key, useEffect, useRef, useState } from "react";
-
 import { FieldValues, useController } from "react-hook-form";
-
 import cn from "classnames";
 
 import { ISelector } from "../../types/common/UiKitProps";
@@ -16,7 +14,7 @@ export const Selector = <T extends FieldValues>({ label, options, control, name,
 		control,
 	});
 
-	const [isOpen, setIsOpen] = useState(false);
+	const [isOpen, setIsOpen] = useState<boolean>(false);
 	const [selectedValue, setSelectedValue] = useState<string>(value);
 	const selectRef = useRef<HTMLDivElement>(null);
 
@@ -28,6 +26,7 @@ export const Selector = <T extends FieldValues>({ label, options, control, name,
 		};
 
 		document.addEventListener("mousedown", handleClickOutside);
+
 		return () => {
 			document.removeEventListener("mousedown", handleClickOutside);
 		};
@@ -42,14 +41,10 @@ export const Selector = <T extends FieldValues>({ label, options, control, name,
 	const toggleDropdown = () => {
 		setIsOpen(!isOpen);
 	};
-	return (
-		<div className={style.selectContainer} ref={selectRef}>
-			<label className={style.selectContainer__description}>{label}</label>
-			<div onClick={toggleDropdown} className={style.selectContainer__field} role="listbox">
-				{selectedValue ? selectedValue : <span className={style.selectContainer__placeholder}>{placeholder}</span>}
-				<div className={cn(style.selectContainer__selectIcon, isOpen && style.selectContainer__selectIcon__active)} />
-			</div>
-			{isOpen && (
+
+	function renderSelectorOptions() {
+		return (
+			isOpen && (
 				<div className={style.selectContainer__options} onChange={onChange}>
 					{options &&
 						options.map((option, index: Key) => (
@@ -60,7 +55,18 @@ export const Selector = <T extends FieldValues>({ label, options, control, name,
 							</div>
 						))}
 				</div>
-			)}
+			)
+		);
+	}
+
+	return (
+		<div className={style.selectContainer} ref={selectRef}>
+			<label className={style.selectContainer__description}>{label}</label>
+			<div onClick={toggleDropdown} className={style.selectContainer__field} role="listbox">
+				{selectedValue ? selectedValue : <span className={style.selectContainer__placeholder}>{placeholder}</span>}
+				<div className={cn(style.selectContainer__selectIcon, isOpen && style.selectContainer__selectIcon__active)} />
+			</div>
+			{renderSelectorOptions()}
 		</div>
 	);
 };

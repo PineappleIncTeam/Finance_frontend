@@ -138,29 +138,29 @@
 .diagramExpenses {
     width: 228px;
     height: 228px;
-    border-radius: 50%;
-    background: conic-gradient(
-      var(--color-dark-spring-green) var(--previous-value-1),
-      var(--color-lavender-blush) 0 var(--previous-value-2),
-      var(--color-sage-green) 0 var(--previous-value-3),
-      var(--color-light-peach) 0 var(--previous-value-4), 
-      var(--color-burnt-orange) 0 var(--previous-value-5),
-      var(--color-soft-tan) 0 var(--previous-value-6),
-      var(--color-peach) 0 var(--previous-value-7),
-      var(--color-dark-sea-green) 0 var(--previous-value-8),
-      var(--color-dusty-rose) 0 var(--previous-value-9),
-      var(--color-steel-blue) 0 var(--previous-value-10),
-      var(--color-sunny-yellow) 0 var(--previous-value-11),
-      var(--color-peach-pink) 0 var(--previous-value-12),
-      var(--color-forest-green) 0 var(--previous-value-13),
-      var(--color-olive-green) 0 var(--previous-value-14),
-      var(--color-pale-lemon) 0 var(--previous-value-15),
-      var(--color-dark-olive) 0 var(--previous-value-16),
-      var(--color-golden-olive) 0 var(--previous-value-17),
-      var(--color-light-blue-gray) 0 var(--previous-value-18),
-      var(--color-burnt-orange) 0 var(--previous-value-19),
-      var(--color-bright-lime) 0,
-    );
+    // border-radius: 50%;
+    // background: conic-gradient(
+    //   var(--color-dark-spring-green) var(--previous-value-1),
+    //   var(--color-lavender-blush) 0 var(--previous-value-2),
+    //   var(--color-sage-green) 0 var(--previous-value-3),
+    //   var(--color-light-peach) 0 var(--previous-value-4), 
+    //   var(--color-burnt-orange) 0 var(--previous-value-5),
+    //   var(--color-soft-tan) 0 var(--previous-value-6),
+    //   var(--color-peach) 0 var(--previous-value-7),
+    //   var(--color-dark-sea-green) 0 var(--previous-value-8),
+    //   var(--color-dusty-rose) 0 var(--previous-value-9),
+    //   var(--color-steel-blue) 0 var(--previous-value-10),
+    //   var(--color-sunny-yellow) 0 var(--previous-value-11),
+    //   var(--color-peach-pink) 0 var(--previous-value-12),
+    //   var(--color-forest-green) 0 var(--previous-value-13),
+    //   var(--color-olive-green) 0 var(--previous-value-14),
+    //   var(--color-pale-lemon) 0 var(--previous-value-15),
+    //   var(--color-dark-olive) 0 var(--previous-value-16),
+    //   var(--color-golden-olive) 0 var(--previous-value-17),
+    //   var(--color-light-blue-gray) 0 var(--previous-value-18),
+    //   var(--color-burnt-orange) 0 var(--previous-value-19),
+    //   var(--color-bright-lime) 0,
+    // );
 }
 
 .analyticsDiagramExpensesInfo {

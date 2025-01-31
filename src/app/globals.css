@@ -40,7 +40,7 @@ button {
 	--color-black-two-of-third: #000000b3;
 	--color-pure-black: #000;
 
-	--color-lavender-blush: #b48dad;
+	/* --color-lavender-blush: #b48dad;
 	--color-sage-green: #bfc3a8;
 	--color-light-peach: #eed6cd;
 	--color-burnt-orange: #b83400;
@@ -77,5 +77,5 @@ button {
 	--previous-value-16: calc(var(--previous-value-15) + 0.4%);
 	--previous-value-17: calc(var(--previous-value-16) + 7%);
 	--previous-value-18: calc(var(--previous-value-17) + 7%);
-	--previous-value-19: calc(var(--previous-value-18) + 7%);
+	--previous-value-19: calc(var(--previous-value-18) + 7%); */
 }

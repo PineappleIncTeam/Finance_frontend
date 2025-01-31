@@ -23,11 +23,11 @@ const useLogoutTimer = (callback: TCommonFunction) => {
 	useEffect(() => {
 		startTimer();
 
-		if (timerRef.current) {
-			return () => {
+		return () => {
+			if (timerRef.current !== null) {
 				clearTimeout(+timerRef.current);
-			};
-		}
+			}
+		};
 	}, [timerRef, startTimer]);
 
 	const resetTimer = () => {

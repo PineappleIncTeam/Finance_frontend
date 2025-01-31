@@ -28,7 +28,7 @@ import styles from "./signInForm.module.scss";
 const SignInForm = () => {
 	const [baseUrl, setBaseUrl] = useState<string>();
 	const [errorMessage, setErrorMessage] = useState<string>("");
-	const [isOpen, setIsOpen] = useState<boolean>(true);
+	const [isOpen, setIsOpen] = useState<boolean>(false);
 
 	const dispatch = useAppDispatch();
 

@@ -1,6 +1,8 @@
 import { useCallback, useEffect, useRef } from "react";
 
-const useLogoutTimer = (callback) => {
+import { TCommonFunction } from "../types/common/ComponentsProps";
+
+const useLogoutTimer = (callback: TCommonFunction) => {
 	const timerRef = useRef(null);
 
 	const minutes = 15;

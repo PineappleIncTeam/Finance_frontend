@@ -8,7 +8,7 @@ import { MainPath } from "../services/router/routes";
 
 import { ApiResponseCode } from "./apiResponseCode";
 
-export default function HandleLogout(url: string | "") {
+export default function HandleLogout(url: string | undefined) {
 	const router = useRouter();
 
 	const request = async () => {

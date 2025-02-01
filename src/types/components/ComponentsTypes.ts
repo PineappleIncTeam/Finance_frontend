@@ -94,3 +94,5 @@ export interface IEditActionProps {
 }
 
 export type TCommonFunction = () => void;
+
+export type TTimerRefState = ReturnType<typeof setTimeout> | null | number;

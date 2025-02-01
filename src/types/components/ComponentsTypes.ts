@@ -92,3 +92,7 @@ export interface IEditActionProps {
 	field: SavingsFieldValues;
 	value: string;
 }
+
+export type TCommonFunction = () => void;
+
+export type TTimerRefState = ReturnType<typeof setTimeout> | null | number;

@@ -7,6 +7,10 @@ import { CgClose } from "react-icons/cg";
 
 import { formatCalculateNumber } from "../../../utils/formatCalculateNumber";
 
+import handleLogout from "../../../helpers/logout";
+import useLogoutTimer from "../../../hooks/useLogoutTimer";
+import { getCorrectBaseUrl } from "../../../utils/baseUrlConverter";
+
 import style from "./calculator.module.scss";
 
 export default function Calculator() {
@@ -19,6 +23,17 @@ export default function Calculator() {
 	const [isVisibleInfo, setIsVisibleInfo] = useState(false);
 	const [isMobile, setIsMobile] = useState(window.innerWidth <= MOBILE_SCREEN);
 	const [activeButton, setActiveButton] = useState<string | null>("realEstate");
+	const [baseUrl, setBaseUrl] = useState<string>();
+	const { request } = handleLogout(baseUrl);
+	const { resetTimer } = useLogoutTimer(request);
+
+	useEffect(() => {
+		setBaseUrl(getCorrectBaseUrl());
+	}, []);
+
+	useEffect(() => {
+		resetTimer();
+	}, [request, resetTimer]);
 
 	useEffect(() => {
 		const handleResize = () => {
@@ -37,6 +52,7 @@ export default function Calculator() {
 		setIsVisibleInfo(false);
 	};
 	const handleSubmit = (event: MouseEvent<HTMLButtonElement>) => {
+		resetTimer();
 		event.preventDefault();
 		if (isMobile) {
 			handleVisibleInfo();

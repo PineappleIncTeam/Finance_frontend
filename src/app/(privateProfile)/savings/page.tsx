@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 
 import { PlusIcon } from "../../../assets/script/expenses/PlusIcon";
@@ -26,6 +26,10 @@ import {
 	TSavingsFieldState,
 } from "../../../types/components/ComponentsTypes";
 
+import { getCorrectBaseUrl } from "../../../utils/baseUrlConverter";
+import handleLogout from "../../../helpers/logout";
+import useLogoutTimer from "../../../hooks/useLogoutTimer";
+
 import style from "./savings.module.scss";
 
 function Savings() {
@@ -46,6 +50,9 @@ function Savings() {
 
 	const [sortOrder, setSortOrder] = useState<SortOrderStateValue>(SortOrderStateValue.asc);
 	const [sortTargetOrder, setSortTargetOrder] = useState<SortOrderStateValue>(SortOrderStateValue.asc);
+	const [baseUrl, setBaseUrl] = useState<string>();
+	const { request } = handleLogout(baseUrl);
+	const { resetTimer } = useLogoutTimer(request);
 
 	const initialItems = [
 		{ category: "Обучение ребенка", target: "210 000.00", sum: "200 000.00", status: "В процессe" },
@@ -56,7 +63,6 @@ function Savings() {
 	];
 
 	const [items, setItems] = useState(initialItems);
-
 	const handleEditClick = ({ index, field, value }: IEditActionProps) => {
 		setEditIndex(index);
 		setEditField(field);
@@ -93,6 +99,14 @@ function Savings() {
 			sortTargetOrder === SortOrderStateValue.asc ? SortOrderStateValue.desc : SortOrderStateValue.asc,
 		);
 	};
+
+	useEffect(() => {
+		setBaseUrl(getCorrectBaseUrl());
+	}, []);
+
+	useEffect(() => {
+		resetTimer();
+	}, [request, resetTimer]);
 
 	function renderSavingsItemList() {
 		return items.map((item, index) => {

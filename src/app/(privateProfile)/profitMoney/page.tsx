@@ -1,6 +1,6 @@
 "use client";
 
-import { Key } from "react";
+import { Key, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 
 import { IExpensesInputForm } from "../../../types/pages/Expenses";
@@ -14,9 +14,16 @@ import { incomeTransactions } from "../../../mocks/IncomeTransaction";
 
 import { PlusIcon } from "../../../assets/script/expenses/PlusIcon";
 
+import { getCorrectBaseUrl } from "../../../utils/baseUrlConverter";
+import handleLogout from "../../../helpers/logout";
+import useLogoutTimer from "../../../hooks/useLogoutTimer";
+
 import styles from "./profitMoney.module.scss";
 
 function ProfitMoney() {
+	const [baseUrl, setBaseUrl] = useState<string>();
+	const { request } = handleLogout(baseUrl);
+	const { resetTimer } = useLogoutTimer(request);
 	const { control } = useForm<IExpensesInputForm>({
 		defaultValues: {
 			sum: "",
@@ -26,6 +33,14 @@ function ProfitMoney() {
 	});
 
 	const incomeMoney = 200000;
+
+	useEffect(() => {
+		setBaseUrl(getCorrectBaseUrl());
+	}, []);
+
+	useEffect(() => {
+		resetTimer();
+	}, [request, resetTimer]);
 
 	return (
 		<div className={styles.profitMoneyPageWrap}>

@@ -22,7 +22,8 @@ import styles from "./profitMoney.module.scss";
 
 function ProfitMoney() {
 	const [baseUrl, setBaseUrl] = useState<string>();
-
+	const { request } = handleLogout(baseUrl);
+	const { resetTimer } = useLogoutTimer(request);
 	const { control } = useForm<IExpensesInputForm>({
 		defaultValues: {
 			sum: "",
@@ -36,9 +37,6 @@ function ProfitMoney() {
 	useEffect(() => {
 		setBaseUrl(getCorrectBaseUrl());
 	}, []);
-
-	const { request } = handleLogout(baseUrl);
-	const { resetTimer } = useLogoutTimer(request);
 
 	useEffect(() => {
 		resetTimer();

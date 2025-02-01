@@ -50,6 +50,9 @@ function Savings() {
 
 	const [sortOrder, setSortOrder] = useState<SortOrderStateValue>(SortOrderStateValue.asc);
 	const [sortTargetOrder, setSortTargetOrder] = useState<SortOrderStateValue>(SortOrderStateValue.asc);
+	const [baseUrl, setBaseUrl] = useState<string>();
+	const { request } = handleLogout(baseUrl);
+	const { resetTimer } = useLogoutTimer(request);
 
 	const initialItems = [
 		{ category: "Обучение ребенка", target: "210 000.00", sum: "200 000.00", status: "В процессe" },
@@ -60,8 +63,6 @@ function Savings() {
 	];
 
 	const [items, setItems] = useState(initialItems);
-	const [baseUrl, setBaseUrl] = useState<string>();
-
 	const handleEditClick = ({ index, field, value }: IEditActionProps) => {
 		setEditIndex(index);
 		setEditField(field);
@@ -102,9 +103,6 @@ function Savings() {
 	useEffect(() => {
 		setBaseUrl(getCorrectBaseUrl());
 	}, []);
-
-	const { request } = handleLogout(baseUrl);
-	const { resetTimer } = useLogoutTimer(request);
 
 	useEffect(() => {
 		resetTimer();

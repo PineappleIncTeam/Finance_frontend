@@ -92,3 +92,5 @@ export interface IEditActionProps {
 	field: SavingsFieldValues;
 	value: string;
 }
+
+export type TCommonFunction = () => void;

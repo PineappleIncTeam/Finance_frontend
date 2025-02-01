@@ -24,6 +24,16 @@ export default function Calculator() {
 	const [isMobile, setIsMobile] = useState(window.innerWidth <= MOBILE_SCREEN);
 	const [activeButton, setActiveButton] = useState<string | null>("realEstate");
 	const [baseUrl, setBaseUrl] = useState<string>();
+	const { request } = handleLogout(baseUrl);
+	const { resetTimer } = useLogoutTimer(request);
+
+	useEffect(() => {
+		setBaseUrl(getCorrectBaseUrl());
+	}, []);
+
+	useEffect(() => {
+		resetTimer();
+	}, [request, resetTimer]);
 
 	useEffect(() => {
 		const handleResize = () => {
@@ -80,17 +90,6 @@ export default function Calculator() {
 		transform: isMobile ? `scale(${isVisibleInfo ? 1 : 0})` : "none",
 		transition: "transform 0.3s ease",
 	};
-
-	useEffect(() => {
-		setBaseUrl(getCorrectBaseUrl());
-	}, []);
-
-	const { request } = handleLogout(baseUrl);
-	const { resetTimer } = useLogoutTimer(request);
-
-	useEffect(() => {
-		resetTimer();
-	}, [request, resetTimer]);
 
 	return (
 		<div className={style.calculatorPageWrap}>

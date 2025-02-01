@@ -54,8 +54,6 @@ export interface ITooltip {
 	text?: string;
 }
 
-export type TCommonFunction = () => void;
-
 export interface IAboutUsCard {
 	photo: string | StaticImageData;
 	teamRole: string;

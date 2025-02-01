@@ -29,6 +29,8 @@ const NavBar = ({ onClick }: INavBar) => {
 	const [open, setOpen] = useState<boolean>(false);
 	const [baseUrl, setBaseUrl] = useState<string>();
 	const modalRef = useRef<HTMLDivElement | null>(null);
+	const { request } = handleLogout(baseUrl);
+	const { resetTimer } = useLogoutTimer(request);
 
 	const handleClickOutside = (
 		event: MouseEvent,
@@ -62,9 +64,6 @@ const NavBar = ({ onClick }: INavBar) => {
 	useEffect(() => {
 		setBaseUrl(getCorrectBaseUrl());
 	}, []);
-
-	const { request } = handleLogout(baseUrl);
-	const { resetTimer } = useLogoutTimer(request);
 
 	const renderNavigationElements = () => {
 		return (

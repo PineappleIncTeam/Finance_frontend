@@ -3,7 +3,7 @@ import { useController } from "react-hook-form";
 import { InputTypeList } from "../../helpers/Input";
 import { IRadioButton } from "../../types/common/UiKitProps";
 
-import style from "./radioButton.module.scss";
+import styles from "./radioButton.module.scss";
 
 export const RadioButton = ({ control, name, value, label }: IRadioButton) => {
 	const {
@@ -15,10 +15,10 @@ export const RadioButton = ({ control, name, value, label }: IRadioButton) => {
 	});
 
 	return (
-		<div className={style.wrapper} key={`name ${value}`}>
+		<div className={styles.wrapper} key={`name ${value}`}>
 			<input
 				type={InputTypeList.Radio}
-				className={style.radio}
+				className={styles.radio}
 				id={value}
 				name={name}
 				value={value}
@@ -26,7 +26,7 @@ export const RadioButton = ({ control, name, value, label }: IRadioButton) => {
 				ref={ref}
 				checked={checkedValue === value}
 			/>
-			<label className={style.label} htmlFor={value}>
+			<label className={styles.label} htmlFor={value}>
 				{label}
 			</label>
 		</div>

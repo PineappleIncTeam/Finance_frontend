@@ -10,7 +10,7 @@ import { InputTypeList } from "../../../helpers/Input";
 
 import { passwordValidate } from "../../../utils/passwordValidate";
 
-import style from "./userProfileChangePassword.module.scss";
+import styles from "./userProfileChangePassword.module.scss";
 
 export const UserProfileChangePassword = () => {
 	const {
@@ -38,9 +38,9 @@ export const UserProfileChangePassword = () => {
 	};
 
 	return (
-		<form className={style.changePasswordForm} onSubmit={handleSubmit(onSubmit)}>
-			<p className={style.changePasswordTitle}>Смена пароля</p>
-			<div className={style.changePasswordForm__settings}>
+		<form className={styles.changePasswordForm} onSubmit={handleSubmit(onSubmit)}>
+			<p className={styles.changePasswordTitle}>Смена пароля</p>
+			<div className={styles.changePasswordForm__settings}>
 				<AppInput
 					label={"Текущий пароль"}
 					control={control}

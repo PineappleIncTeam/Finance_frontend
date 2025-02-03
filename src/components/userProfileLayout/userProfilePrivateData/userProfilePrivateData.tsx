@@ -5,7 +5,7 @@ import AppInput from "../../../ui/appInput/AppInput";
 import Button from "../../../ui/button/button";
 import { RadioButton } from "../../../ui/radio/radioButton";
 
-import style from "./userProfilePrivateData.module.scss";
+import styles from "./userProfilePrivateData.module.scss";
 
 export const UserProfilePrivateData = () => {
 	const {
@@ -22,9 +22,9 @@ export const UserProfilePrivateData = () => {
 		delayError: 200,
 	});
 	return (
-		<form className={style.privateDataForm}>
-			<p className={style.privateDataTitle}>Личные данные</p>
-			<div className={style.privateDataForm__settings}>
+		<form className={styles.privateDataForm}>
+			<p className={styles.privateDataTitle}>Личные данные</p>
+			<div className={styles.privateDataForm__settings}>
 				<AppInput
 					label={"Nickname"}
 					type={"text"}
@@ -38,7 +38,7 @@ export const UserProfilePrivateData = () => {
 					}}
 					error={errors.nickname?.message}
 				/>
-				<div className={style.privateDataRadioButtons}>
+				<div className={styles.privateDataRadioButtons}>
 					<RadioButton control={control} name="gender" value="male" label="Муж." />
 					<RadioButton control={control} name="gender" value="female" label="Жен." />
 				</div>

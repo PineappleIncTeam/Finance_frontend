@@ -26,7 +26,7 @@ import { BurgerMenu } from "../burgerMenu/burgerMenu";
 import { sidebarNavMenu } from "../../../helpers/sidebarNavMenu";
 import { UserProfileSidebarMenu } from "../userProfileSidebarMenu/userProfileSidebarMenu";
 
-import style from "./userProfileSidebar.module.scss";
+import styles from "./userProfileSidebar.module.scss";
 
 const UserProfileSidebar = ({ avatar, name, balance }: IUserProfileSidebar) => {
 	const [currentDate, setCurrentDate] = useState<string>("");
@@ -101,46 +101,46 @@ const UserProfileSidebar = ({ avatar, name, balance }: IUserProfileSidebar) => {
 	return (
 		<>
 			<BurgerMenu showMenu={showMenu} setShowMenu={setShowMenu}>
-				<div className={style.burgerMenu__wrapper}>
+				<div className={styles.burgerMenu__wrapper}>
 					{renderSelectedMenuItem()}
 					<UserProfileSidebarMenu handleClick={handleItemClick} />
 				</div>
 			</BurgerMenu>
-			<div className={style.userProfileWrap}>
-				<div className={style.userProfileHeader}>
+			<div className={styles.userProfileWrap}>
+				<div className={styles.userProfileHeader}>
 					<Link href={""}>
-						<p className={style.userProfileHeader__link}>FAQ</p>
+						<p className={styles.userProfileHeader__link}>FAQ</p>
 					</Link>
 					<Link href={""}>
-						<p className={style.userProfileHeader__link}>Поддержка</p>
+						<p className={styles.userProfileHeader__link}>Поддержка</p>
 					</Link>
-					<div role="button" onClick={handleLogout} className={style.exit}>
+					<div role="button" onClick={handleLogout} className={styles.exit}>
 						<Image src={infoIcon} alt={"info"} />
 					</div>
 				</div>
-				<div className={style.userProfileMain}>
-					<div className={style.userProfileContainer}>
-						<div className={style.userInformationWrap} onClick={handleOpenMenu} role="button">
-							<div className={style.userInformationWrap_images}>
-								<button className={style.userInformationWrap_images_action}>
-									<Image src={avatar || userAvatar} alt={"userAvatar"} className={style.userInformationWrap__avatar} />
+				<div className={styles.userProfileMain}>
+					<div className={styles.userProfileContainer}>
+						<div className={styles.userInformationWrap} onClick={handleOpenMenu} role="button">
+							<div className={styles.userInformationWrap_images}>
+								<button className={styles.userInformationWrap_images_action}>
+									<Image src={avatar || userAvatar} alt={"userAvatar"} className={styles.userInformationWrap__avatar} />
 								</button>
 							</div>
-							<p className={style.userInformationWrap__name}>{name || "Имя"}</p>
-							<div className={style.userInformationWrap__adaptive}>
-								<div className={style.userInformationWrap__date}>
+							<p className={styles.userInformationWrap__name}>{name || "Имя"}</p>
+							<div className={styles.userInformationWrap__adaptive}>
+								<div className={styles.userInformationWrap__date}>
 									<p>Ваш баланс на</p>
 									<p>{currentDate}</p>
 								</div>
-								<p className={style.userInformationWrap__balance}>{balance || 0} ₽</p>
+								<p className={styles.userInformationWrap__balance}>{balance || 0} ₽</p>
 							</div>
 						</div>
-						<div className={style.sidebarMenuWrapper}>
+						<div className={styles.sidebarMenuWrapper}>
 							<UserProfileSidebarMenu handleClick={handleOpenItemClick} />
 						</div>
 
-						<button onClick={() => setIsOpen(!isOpen)} className={style.burgerActionWrap}>
-							<Image src={burgerIcon} alt={"burger"} className={style.burgerActionWrap_icon} />
+						<button onClick={() => setIsOpen(!isOpen)} className={styles.burgerActionWrap}>
+							<Image src={burgerIcon} alt={"burger"} className={styles.burgerActionWrap_icon} />
 						</button>
 					</div>
 				</div>

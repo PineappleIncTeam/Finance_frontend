@@ -10,7 +10,7 @@ import Button from "../../../ui/button/button";
 
 import { avatarTemplates } from "../../../mocks/AvatarTemplates";
 
-import style from "./userProfileAvatarSettings.module.scss";
+import styles from "./userProfileAvatarSettings.module.scss";
 
 export const UserProfileAvatarSettings = () => {
 	const { register } = useForm<IUserAvatar>({
@@ -18,32 +18,32 @@ export const UserProfileAvatarSettings = () => {
 		delayError: 200,
 	});
 	return (
-		<form className={style.avatarForm}>
-			<p className={style.avatarTitle}>Аватар</p>
-			<div className={style.avatarForm__settings}>
-				<div className={style.avatar__wrapper}>
-					<div className={style.avatar__picture}>
-						<Image src={userAvatar} alt={"userAvatar"} className={style.avatar__image} />
-						<div className={style.avatar__editButtonWrapper}>
-							<label htmlFor="userAvatar" className={style.avatar__editButton}>
-								<input type="file" id="userAvatar" className={style.avatar__input} {...register("personalAvatar")} />
-								<Image src={editProfileIcon} alt={"editProfile"} className={style.avatar__editIcon} />
+		<form className={styles.avatarForm}>
+			<p className={styles.avatarTitle}>Аватар</p>
+			<div className={styles.avatarForm__settings}>
+				<div className={styles.avatar__wrapper}>
+					<div className={styles.avatar__picture}>
+						<Image src={userAvatar} alt={"userAvatar"} className={styles.avatar__image} />
+						<div className={styles.avatar__editButtonWrapper}>
+							<label htmlFor="userAvatar" className={styles.avatar__editButton}>
+								<input type="file" id="userAvatar" className={styles.avatar__input} {...register("personalAvatar")} />
+								<Image src={editProfileIcon} alt={"editProfile"} className={styles.avatar__editIcon} />
 							</label>
 						</div>
 					</div>
 				</div>
-				<div className={style.avatarTemplates}>
+				<div className={styles.avatarTemplates}>
 					{avatarTemplates.map((avatar, index) => (
-						<div className={style.avatarTemplates__picture} key={index}>
+						<div className={styles.avatarTemplates__picture} key={index}>
 							<input
 								type="radio"
 								id={`template-avatar-${index}`}
 								value={avatar}
 								{...register("templateAvatar")}
-								className={style.templateAvatar__input}
+								className={styles.templateAvatar__input}
 							/>
-							<label htmlFor={`template-avatar-${index}`} className={style.templateAvatar__label}>
-								<Image src={avatar} className={style.avatarTemplates__img} alt={""} />
+							<label htmlFor={`template-avatar-${index}`} className={styles.templateAvatar__label}>
+								<Image src={avatar} className={styles.avatarTemplates__img} alt={""} />
 							</label>
 						</div>
 					))}

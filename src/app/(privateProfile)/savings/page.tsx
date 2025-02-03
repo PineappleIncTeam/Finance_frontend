@@ -30,7 +30,7 @@ import { getCorrectBaseUrl } from "../../../utils/baseUrlConverter";
 import handleLogout from "../../../helpers/logout";
 import useLogoutTimer from "../../../hooks/useLogoutTimer";
 
-import style from "./savings.module.scss";
+import styles from "./savings.module.scss";
 
 function Savings() {
 	const { control } = useForm<ISavingsInputForm>({
@@ -115,21 +115,21 @@ function Savings() {
 					key={index}
 					onMouseEnter={() => setHoveredIndex(index)}
 					onMouseLeave={() => setHoveredIndex(null)}
-					className={editIndex === index ? style.activeEditItem : ""}>
-					<div className={style.wrapperListContentBlock__category}>
-						<div className={style.inputEditWrapper}>
+					className={editIndex === index ? styles.activeEditItem : ""}>
+					<div className={styles.wrapperListContentBlock__category}>
+						<div className={styles.inputEditWrapper}>
 							{editIndex === index && editField === SavingsFieldValues.category ? (
 								<input
-									className={style.inputEdit}
+									className={styles.inputEdit}
 									type="text"
 									value={editValue}
 									onChange={(e) => setEditValue(e.target.value)}
 								/>
 							) : (
-								<p className={style.inputEditWrapper__textCategory}>{item.category}</p>
+								<p className={styles.inputEditWrapper__textCategory}>{item.category}</p>
 							)}
 							<div
-								className={style.editIcon}
+								className={styles.editIcon}
 								style={{
 									display: hoveredIndex === index || editIndex === index ? "flex" : "none",
 								}}
@@ -144,10 +144,10 @@ function Savings() {
 						</div>
 					</div>
 
-					<div className={style.wrapperListContentBlock__target}>
-						<div className={style.inputEditWrapper}>
+					<div className={styles.wrapperListContentBlock__target}>
+						<div className={styles.inputEditWrapper}>
 							<div
-								className={style.editIcon}
+								className={styles.editIcon}
 								style={{
 									display: hoveredIndex === index || editIndex === index ? "flex" : "none",
 								}}
@@ -161,31 +161,31 @@ function Savings() {
 							</div>
 							{editIndex === index && editField === SavingsFieldValues.target ? (
 								<input
-									className={`${style.inputEdit} ${style.inputEdit__target}`}
+									className={`${styles.inputEdit} ${styles.inputEdit__target}`}
 									type="text"
 									value={editValue}
 									onChange={(e) => setEditValue(e.target.value)}
 								/>
 							) : (
-								<p className={style.inputEditWrapper__textTarget}>{item.target}</p>
+								<p className={styles.inputEditWrapper__textTarget}>{item.target}</p>
 							)}
 						</div>
 					</div>
 
-					<div className={style.wrapperListContentBlock__sum}>
+					<div className={styles.wrapperListContentBlock__sum}>
 						<p>{item.sum}</p>
 					</div>
-					<div className={style.wrapperListContentBlock__status}>
+					<div className={styles.wrapperListContentBlock__status}>
 						<p>{item.status}</p>
 					</div>
 					<div
-						className={style.wrapperListContentBlock__actionElement}
+						className={styles.wrapperListContentBlock__actionElement}
 						onClick={() => handleMoreClick(index)}
 						role="button">
 						<MoreIcon />
 						{openMoreIndex === index && (
-							<div className={style.wrapperListContentMore}>
-								<p className={style.wrapperListContentMore__close}>Закрыть цель</p>
+							<div className={styles.wrapperListContentMore}>
+								<p className={styles.wrapperListContentMore__close}>Закрыть цель</p>
 								<p>Вернуть средства на счет</p>
 							</div>
 						)}
@@ -209,30 +209,30 @@ function Savings() {
 	};
 
 	return (
-		<div className={style.savingsPageWrap}>
-			<div className={style.savingsPageContainer}>
-				<form className={style.savingsFormContentWrapper}>
-					<h1 className={style.headerTitle}>Накопления</h1>
-					<div className={style.savingsFormContentWrapperChoice}>
-						<div className={style.savingsByDateContainer}>
-							<div className={style.totalAmountWrapper}>
-								<p className={style.totalAmountWrapper__savings}>Общая сумма накоплений </p>
-								<p className={style.totalAmountWrapper__sum}>4 112 500 ₽</p>
+		<div className={styles.savingsPageWrap}>
+			<div className={styles.savingsPageContainer}>
+				<form className={styles.savingsFormContentWrapper}>
+					<h1 className={styles.headerTitle}>Накопления</h1>
+					<div className={styles.savingsFormContentWrapperChoice}>
+						<div className={styles.savingsByDateContainer}>
+							<div className={styles.totalAmountWrapper}>
+								<p className={styles.totalAmountWrapper__savings}>Общая сумма накоплений </p>
+								<p className={styles.totalAmountWrapper__sum}>4 112 500 ₽</p>
 							</div>
-							<div className={style.dateSelectionWrapper}>
-								<p className={style.dateSelectionWrapper__description}>Выбор даты</p>
+							<div className={styles.dateSelectionWrapper}>
+								<p className={styles.dateSelectionWrapper__description}>Выбор даты</p>
 								<AppInput control={control} label={"Выбор даты"} type={InputTypeList.Date} name={"date"} />
 							</div>
 						</div>
-						<div className={style.savingsDetailsContainer}>
-							<div className={style.savingsDetailsContainer__category}>
+						<div className={styles.savingsDetailsContainer}>
+							<div className={styles.savingsDetailsContainer__category}>
 								<Select
 									name={"expenses"}
 									label={"Накопления"}
 									options={["Обучение ребенка", "Машина", "Квартира", "Отпуск 2024"]}
 								/>
 							</div>
-							<div className={style.savingsDetailsContainer__sum}>
+							<div className={styles.savingsDetailsContainer__sum}>
 								<AppInput
 									control={control}
 									label={"Сумма"}
@@ -243,41 +243,41 @@ function Savings() {
 							</div>
 
 							<Button content={"Добавить"} styleName={"buttonForSavings__disabled"}>
-								<PlusIcon classNames={style.addButtonIcon} />
+								<PlusIcon classNames={styles.addButtonIcon} />
 							</Button>
 						</div>
 					</div>
-					<div className={style.savingsFormContentWrapperList}>
-						<div className={style.wrapperList__header}>
-							<ul className={style.wrapperListHeaderBlock}>
-								<li className={style.wrapperListHeaderBlock__category}>Категория</li>
-								<li className={style.wrapperListHeaderBlock__target}>
-									<div className={style.wrapperListHeaderBlock__targetPosition}>
+					<div className={styles.savingsFormContentWrapperList}>
+						<div className={styles.wrapperList__header}>
+							<ul className={styles.wrapperListHeaderBlock}>
+								<li className={styles.wrapperListHeaderBlock__category}>Категория</li>
+								<li className={styles.wrapperListHeaderBlock__target}>
+									<div className={styles.wrapperListHeaderBlock__targetPosition}>
 										<p>Цель, ₽</p>
 										<div onClick={handleSortByTarget} role="button">
-											<SortIcon classNames={style.sortIcon} />
+											<SortIcon classNames={styles.sortIcon} />
 										</div>
 									</div>
 								</li>
-								<li className={style.wrapperListHeaderBlock__sum}>
-									<div className={style.wrapperListHeaderBlock__sumPosition}>
+								<li className={styles.wrapperListHeaderBlock__sum}>
+									<div className={styles.wrapperListHeaderBlock__sumPosition}>
 										<p>Сумма, ₽</p>
-										<div className={style.sortIcon} onClick={handleSortBySum} role="button">
+										<div className={styles.sortIcon} onClick={handleSortBySum} role="button">
 											<SortIcon />
 										</div>
 									</div>
 								</li>
-								<li className={style.wrapperListHeaderBlock__status}>Статус</li>
+								<li className={styles.wrapperListHeaderBlock__status}>Статус</li>
 							</ul>
 						</div>
-						<div className={style.wrapperList__content}>
-							<ul className={style.wrapperListContentBlock}>{renderSavingsItemList()}</ul>
+						<div className={styles.wrapperList__content}>
+							<ul className={styles.wrapperListContentBlock}>{renderSavingsItemList()}</ul>
 						</div>
 					</div>
 				</form>
-				<div className={style.savingsTransactionWrapper}>
-					<h2 className={style.savingsTransactionHeader}>Последние операции по накоплениям</h2>
-					<ul className={style.savingsTransaction}>
+				<div className={styles.savingsTransactionWrapper}>
+					<h2 className={styles.savingsTransactionHeader}>Последние операции по накоплениям</h2>
+					<ul className={styles.savingsTransaction}>
 						{savingsTransactions && renderSavingsTransactions(savingsTransactions)}
 					</ul>
 				</div>

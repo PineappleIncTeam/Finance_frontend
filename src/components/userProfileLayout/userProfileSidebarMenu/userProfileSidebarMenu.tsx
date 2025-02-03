@@ -8,14 +8,14 @@ import { sidebarNavMenu } from "../../../helpers/sidebarNavMenu";
 import arrowRightIcon from "../../../assets/components/userProfile/arrowRight.svg";
 import navigationArrowIcon from "../../../assets/components/userProfile/navigationArrow.svg";
 
-import style from "./userProfileSidebarMenu.module.scss";
+import styles from "./userProfileSidebarMenu.module.scss";
 
 export const UserProfileSidebarMenu = ({ handleClick }: ISidebarMenu) => {
 	const renderProfileItem = ({ title, handleClick }: IRenderProfileItem) => {
 		return (
-			<button className={style.sidebarProfileItem__wrapper} onClick={() => handleClick(title)} key={title}>
-				<p className={style.sidebarProfileItem__title}>{title}</p>
-				<Image src={arrowRightIcon} alt={""} className={style.sidebarProfileItem__icon} />
+			<button className={styles.sidebarProfileItem__wrapper} onClick={() => handleClick(title)} key={title}>
+				<p className={styles.sidebarProfileItem__title}>{title}</p>
+				<Image src={arrowRightIcon} alt={""} className={styles.sidebarProfileItem__icon} />
 			</button>
 		);
 	};
@@ -23,20 +23,20 @@ export const UserProfileSidebarMenu = ({ handleClick }: ISidebarMenu) => {
 	const renderNavItem = ({ title, link }: IRenderNavItem) => {
 		return (
 			<Link href={link || "#"}>
-				<div className={style.sidebarNavItem__wrapper}>
-					<p className={style.sidebarNavItem__title}>{title}</p>
-					<Image src={navigationArrowIcon} alt={""} className={style.sidebarNavItem__icon} />
+				<div className={styles.sidebarNavItem__wrapper}>
+					<p className={styles.sidebarNavItem__title}>{title}</p>
+					<Image src={navigationArrowIcon} alt={""} className={styles.sidebarNavItem__icon} />
 				</div>
 			</Link>
 		);
 	};
 
 	return (
-		<div className={style.sidebar__nav}>
-			<div className={style.sidebar__profileItems}>
+		<div className={styles.sidebar__nav}>
+			<div className={styles.sidebar__profileItems}>
 				{sidebarNavMenu.map((menuItem) => renderProfileItem({ title: menuItem.title, handleClick }))}
 			</div>
-			<div className={style.sidebar__navItems}>
+			<div className={styles.sidebar__navItems}>
 				{renderNavItem({ title: "О приложении", link: MainPath.AboutUs })}
 				{renderNavItem({ title: "Блог", link: MainPath.Blog })}
 			</div>

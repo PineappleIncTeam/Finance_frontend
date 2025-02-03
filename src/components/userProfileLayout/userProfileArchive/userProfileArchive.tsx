@@ -6,7 +6,7 @@ import { UserProfileArchiveItem } from "../userProfileArchiveItem/userProfileArc
 
 import { archiveList } from "../../../mocks/PrivateProfileArchive";
 
-import style from "./userProfileArchive.module.scss";
+import styles from "./userProfileArchive.module.scss";
 
 export const UserProfileArchive = () => {
 	const tooltipInitialState = {
@@ -66,10 +66,10 @@ export const UserProfileArchive = () => {
 	};
 
 	return (
-		<div className={style.archiveForm}>
-			<p className={style.archiveTitle}>Архив</p>
-			<div className={style.archiveItemsWrapper}>
-				<div className={style.archive__items} ref={scrollableBlockRef}>
+		<div className={styles.archiveForm}>
+			<p className={styles.archiveTitle}>Архив</p>
+			<div className={styles.archiveItemsWrapper}>
+				<div className={styles.archive__items} ref={scrollableBlockRef}>
 					{archiveList.map((archiveItemValue, index) => {
 						return (
 							<UserProfileArchiveItem
@@ -86,7 +86,7 @@ export const UserProfileArchive = () => {
 					text={tooltip.content}
 					top={tooltip.top}
 					left={tooltip.left}
-					className={style.archiveItem__tooltip || ""}
+					className={styles.archiveItem__tooltip || ""}
 				/>
 			</div>
 		</div>

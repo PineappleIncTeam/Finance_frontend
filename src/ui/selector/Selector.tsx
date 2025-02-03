@@ -4,7 +4,7 @@ import cn from "classnames";
 
 import { ISelector } from "../../types/common/UiKitProps";
 
-import style from "./Selector.module.scss";
+import styles from "./Selector.module.scss";
 
 export const Selector = <T extends FieldValues>({ label, options, control, name, placeholder }: ISelector<T>) => {
 	const {
@@ -45,11 +45,11 @@ export const Selector = <T extends FieldValues>({ label, options, control, name,
 	function renderSelectorOptions() {
 		return (
 			isOpen && (
-				<div className={style.selectContainer__options} onChange={onChange}>
+				<div className={styles.selectContainer__options} onChange={onChange}>
 					{options &&
 						options.map((option, index: Key) => (
-							<div key={index} className={style.selectContainer__option}>
-								<p className={style.selectContainer__optionValue} onClick={() => handleOptionClick(option)}>
+							<div key={index} className={styles.selectContainer__option}>
+								<p className={styles.selectContainer__optionValue} onClick={() => handleOptionClick(option)}>
 									{option}
 								</p>
 							</div>
@@ -60,11 +60,11 @@ export const Selector = <T extends FieldValues>({ label, options, control, name,
 	}
 
 	return (
-		<div className={style.selectContainer} ref={selectRef}>
-			<label className={style.selectContainer__description}>{label}</label>
-			<div onClick={toggleDropdown} className={style.selectContainer__field} role="listbox">
-				{selectedValue ? selectedValue : <span className={style.selectContainer__placeholder}>{placeholder}</span>}
-				<div className={cn(style.selectContainer__selectIcon, isOpen && style.selectContainer__selectIcon__active)} />
+		<div className={styles.selectContainer} ref={selectRef}>
+			<label className={styles.selectContainer__description}>{label}</label>
+			<div onClick={toggleDropdown} className={styles.selectContainer__field} role="listbox">
+				{selectedValue ? selectedValue : <span className={styles.selectContainer__placeholder}>{placeholder}</span>}
+				<div className={cn(styles.selectContainer__selectIcon, isOpen && styles.selectContainer__selectIcon__active)} />
 			</div>
 			{renderSelectorOptions()}
 		</div>

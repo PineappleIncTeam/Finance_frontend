@@ -13,9 +13,9 @@ import styles from "./userProfileSidebarMenu.module.scss";
 export const UserProfileSidebarMenu = ({ handleClick }: ISidebarMenu) => {
 	const renderProfileItem = ({ title, handleClick }: IRenderProfileItem) => {
 		return (
-			<button className={styles.sidebarProfileItem__wrapper} onClick={() => handleClick(title)} key={title}>
-				<p className={styles.sidebarProfileItem__title}>{title}</p>
-				<Image src={arrowRightIcon} alt={""} className={styles.sidebarProfileItem__icon} />
+			<button className={styles.profileItemActionWrap} onClick={() => handleClick(title)} key={title}>
+				<p className={styles.profileItemActionWrap__title}>{title}</p>
+				<Image src={arrowRightIcon} alt={""} className={styles.profileItemActionWrap__iconElement} />
 			</button>
 		);
 	};
@@ -23,20 +23,20 @@ export const UserProfileSidebarMenu = ({ handleClick }: ISidebarMenu) => {
 	const renderNavItem = ({ title, link }: IRenderNavItem) => {
 		return (
 			<Link href={link || "#"}>
-				<div className={styles.sidebarNavItem__wrapper}>
-					<p className={styles.sidebarNavItem__title}>{title}</p>
-					<Image src={navigationArrowIcon} alt={""} className={styles.sidebarNavItem__icon} />
+				<div className={styles.navLinkWrapper}>
+					<p className={styles.navLinkWrapper__title}>{title}</p>
+					<Image src={navigationArrowIcon} alt={""} className={styles.navLinkWrapper__iconElement} />
 				</div>
 			</Link>
 		);
 	};
 
 	return (
-		<div className={styles.sidebar__nav}>
-			<div className={styles.sidebar__profileItems}>
+		<div className={styles.sidebarNavWrap}>
+			<div className={styles.sidebarProfileItems}>
 				{sidebarNavMenu.map((menuItem) => renderProfileItem({ title: menuItem.title, handleClick }))}
 			</div>
-			<div className={styles.sidebar__navItems}>
+			<div className={styles.sidebarNavContainer}>
 				{renderNavItem({ title: "О приложении", link: MainPath.AboutUs })}
 				{renderNavItem({ title: "Блог", link: MainPath.Blog })}
 			</div>

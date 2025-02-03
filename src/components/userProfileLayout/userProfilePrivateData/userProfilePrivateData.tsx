@@ -21,10 +21,11 @@ export const UserProfilePrivateData = () => {
 		mode: "all",
 		delayError: 200,
 	});
+
 	return (
 		<form className={styles.privateDataForm}>
-			<p className={styles.privateDataTitle}>Личные данные</p>
-			<div className={styles.privateDataForm__settings}>
+			<p className={styles.privateDataForm__title}>Личные данные</p>
+			<div className={styles.privateDataSettingsWrap}>
 				<AppInput
 					label={"Nickname"}
 					type={"text"}

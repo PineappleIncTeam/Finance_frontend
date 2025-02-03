@@ -6,13 +6,16 @@ import styles from "./userProfileArchiveItem.module.scss";
 
 export const UserProfileArchiveItem = ({ archiveItemValue, onMouseEnter, onMouseLeave }: IArchiveItem) => {
 	return (
-		<div className={styles.archiveItem}>
-			<p className={styles.archiveItem__title}>{archiveItemValue}</p>
+		<div className={styles.archiveItemWrapper}>
+			<p className={styles.archiveItemWrapper__title}>{archiveItemValue}</p>
 			<div className={styles.archiveItemIconsWrap}>
-				<DeleteIcon classNames={styles.archiveItem__icon} />
-				<div className={styles.archiveItem__resetWrapper}>
+				<DeleteIcon classNames={styles.archiveItemIconsWrap__iconElement} />
+				<div className={styles.archiveItemResetWrapper}>
 					<div onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
-						<ResetIcon classNames={styles.archiveItem__icon} color={"var(--color-very-dark-grayish-blue)"} />
+						<ResetIcon
+							classNames={styles.archiveItemIconsWrap__iconElement}
+							color={"var(--color-very-dark-grayish-blue)"}
+						/>
 					</div>
 				</div>
 			</div>

@@ -67,9 +67,9 @@ export const UserProfileArchive = () => {
 
 	return (
 		<div className={styles.archiveForm}>
-			<p className={styles.archiveTitle}>Архив</p>
+			<p className={styles.archiveForm__title}>Архив</p>
 			<div className={styles.archiveItemsWrapper}>
-				<div className={styles.archive__items} ref={scrollableBlockRef}>
+				<div className={styles.archiveItemsContainer} ref={scrollableBlockRef}>
 					{archiveList.map((archiveItemValue, index) => {
 						return (
 							<UserProfileArchiveItem

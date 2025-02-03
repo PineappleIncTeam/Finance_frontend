@@ -1,4 +1,4 @@
-.archiveItem {
+.archiveItemWrapper {
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
@@ -7,7 +7,7 @@
 	padding-right: 18px;
 }
 
-.archiveItem__title {
+.archiveItemWrapper__title {
 	font-size: 1.6rem;
 	line-height: 2.2rem;
 	font-weight: 400;
@@ -29,7 +29,7 @@
 	}
 }
 
-.archiveItem__icon {
+.archiveItemIconsWrap__iconElement {
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -42,7 +42,7 @@
 	}
 }
 
-.archiveItem__resetWrapper {
+.archiveItemResetWrapper {
 	position: relative;
 }
 

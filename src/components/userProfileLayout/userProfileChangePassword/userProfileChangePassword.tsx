@@ -38,9 +38,9 @@ export const UserProfileChangePassword = () => {
 	};
 
 	return (
-		<form className={styles.changePasswordForm} onSubmit={handleSubmit(onSubmit)}>
-			<p className={styles.changePasswordTitle}>Смена пароля</p>
-			<div className={styles.changePasswordForm__settings}>
+		<form className={styles.changePasswordFormWrap} onSubmit={handleSubmit(onSubmit)}>
+			<p className={styles.changePasswordFormWrap__title}>Смена пароля</p>
+			<div className={styles.changePasswordSettingsWrap}>
 				<AppInput
 					label={"Текущий пароль"}
 					control={control}

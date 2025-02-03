@@ -15,9 +15,9 @@ export const UserProfilePrivateAppSettings = () => {
 		delayError: 200,
 	});
 	return (
-		<form className={styles.privateAppSettingsForm}>
-			<p className={styles.privateAppSettingsTitle}>Настройки</p>
-			<div className={styles.privateAppSettingsForm__settings}>
+		<form className={styles.privateAppSettingsFormWrap}>
+			<p className={styles.privateAppSettingsFormWrap__title}>Настройки</p>
+			<div className={styles.privateAppSettingsFormContainer}>
 				<Selector
 					name={"currency"}
 					label="Валюта"

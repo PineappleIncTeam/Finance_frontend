@@ -17,10 +17,11 @@ export const UserProfileAvatarSettings = () => {
 		mode: "all",
 		delayError: 200,
 	});
+
 	return (
 		<form className={styles.avatarForm}>
-			<p className={styles.avatarTitle}>Аватар</p>
-			<div className={styles.avatarForm__settings}>
+			<p className={styles.avatarForm__title}>Аватар</p>
+			<div className={styles.avatarSettingsWrap}>
 				<div className={styles.avatar__wrapper}>
 					<div className={styles.avatar__picture}>
 						<Image src={userAvatar} alt={"userAvatar"} className={styles.avatar__image} />
@@ -32,9 +33,9 @@ export const UserProfileAvatarSettings = () => {
 						</div>
 					</div>
 				</div>
-				<div className={styles.avatarTemplates}>
+				<div className={styles.avatarTemplatesWrap}>
 					{avatarTemplates.map((avatar, index) => (
-						<div className={styles.avatarTemplates__picture} key={index}>
+						<div className={styles.avatarPictureWrap} key={index}>
 							<input
 								type="radio"
 								id={`template-avatar-${index}`}

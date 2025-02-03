@@ -127,7 +127,7 @@
 	}
 }
 
-.userInformationWrap__adaptive {
+.userInformationAdaptiveContainer {
 	display: block;
 
 	@media (max-width: 1100px) {
@@ -138,6 +138,7 @@
 		}
 	}
 }
+
 .burgerActionWrap {
 	display: none;
 
@@ -156,7 +157,7 @@
 	}
 }
 
-.userInformationWrap__date {
+.userInformationDateWrap {
 	font-size: 2.2rem;
 	line-height: 3.5rem;
 	font-weight: 400;
@@ -185,7 +186,7 @@
 		}
 	}
 }
-.userInformationWrap__balance {
+.userInformationAdaptiveContainer__balance {
 	padding-top: 16px;
 	font-size: 2.6rem;
 	line-height: 3.8rem;

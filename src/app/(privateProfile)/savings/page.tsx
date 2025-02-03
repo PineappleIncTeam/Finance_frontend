@@ -121,7 +121,7 @@ function Savings() {
 							{editIndex === index && editField === SavingsFieldValues.category ? (
 								<input
 									className={styles.inputEdit}
-									type="text"
+									type={InputTypeList.Text}
 									value={editValue}
 									onChange={(e) => setEditValue(e.target.value)}
 								/>
@@ -162,7 +162,7 @@ function Savings() {
 							{editIndex === index && editField === SavingsFieldValues.target ? (
 								<input
 									className={`${styles.inputEdit} ${styles.inputEdit__target}`}
-									type="text"
+									type={InputTypeList.Text}
 									value={editValue}
 									onChange={(e) => setEditValue(e.target.value)}
 								/>

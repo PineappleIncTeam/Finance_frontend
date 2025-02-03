@@ -3,20 +3,20 @@
 import { Key, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 
+import useLogoutTimer from "../../../hooks/useLogoutTimer";
+
 import { IExpensesInputForm } from "../../../types/pages/Expenses";
 import { Select } from "../../../ui/select/Select";
 import AppInput from "../../../ui/appInput/AppInput";
 import Button from "../../../ui/button/button";
-
 import IncomeTransaction from "../../../components/userProfileLayout/incomeTransaction/incomeTransaction";
+import { InputTypeList } from "../../../helpers/Input";
+import handleLogout from "../../../helpers/logout";
 import { formatMoney } from "../../../utils/formatData";
+import { getCorrectBaseUrl } from "../../../utils/baseUrlConverter";
 import { incomeTransactions } from "../../../mocks/IncomeTransaction";
 
 import { PlusIcon } from "../../../assets/script/expenses/PlusIcon";
-
-import { getCorrectBaseUrl } from "../../../utils/baseUrlConverter";
-import handleLogout from "../../../helpers/logout";
-import useLogoutTimer from "../../../hooks/useLogoutTimer";
 
 import styles from "./profitMoney.module.scss";
 
@@ -55,7 +55,7 @@ function ProfitMoney() {
 							</div>
 							<div className={styles.dateSelectionWrapper}>
 								<p className={styles.dateSelectionWrapper__description}>Выбор даты</p>
-								<AppInput control={control} label={"Выбор даты"} type="date" name={"date"} />
+								<AppInput control={control} label={"Выбор даты"} type={InputTypeList.Date} name={"date"} />
 							</div>
 						</div>
 						<div className={styles.detailsContainers}>
@@ -65,7 +65,13 @@ function ProfitMoney() {
 								</div>
 								<div className={styles.detailsContainer__rightSide}>
 									<div className={styles.detailsContainer__sum}>
-										<AppInput control={control} label={"Сумма"} type="number" name={"number"} placeholder="0.00 ₽" />
+										<AppInput
+											control={control}
+											label={"Сумма"}
+											type={InputTypeList.Number}
+											name={"number"}
+											placeholder="0.00 ₽"
+										/>
 									</div>
 									<Button content={"Добавить"} styleName={"buttonForIncome__disabled"}>
 										<PlusIcon classNames={styles.addButtonIcon} />
@@ -78,7 +84,13 @@ function ProfitMoney() {
 								</div>
 								<div className={styles.detailsContainer__rightSide}>
 									<div className={styles.detailsContainer__sum}>
-										<AppInput control={control} label={"Сумма"} type="number" name={"number"} placeholder="0.00 ₽" />
+										<AppInput
+											control={control}
+											label={"Сумма"}
+											type={InputTypeList.Number}
+											name={"number"}
+											placeholder="0.00 ₽"
+										/>
 									</div>
 									<Button content={"Добавить"} styleName={"buttonForIncome__disabled"}>
 										<PlusIcon classNames={styles.addButtonIcon} />

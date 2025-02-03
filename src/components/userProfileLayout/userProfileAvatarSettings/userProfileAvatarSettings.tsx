@@ -1,14 +1,13 @@
 import { useForm } from "react-hook-form";
-
 import Image from "next/image";
-
-import userAvatar from "../../../assets/components/userProfile/userPhoto.svg";
-import editProfileIcon from "../../../assets/components/userProfile/editProfile.svg";
 
 import { IUserAvatar } from "../../../types/pages/userProfileSettings";
 import Button from "../../../ui/button/button";
-
+import { InputTypeList } from "../../../helpers/Input";
 import { avatarTemplates } from "../../../mocks/AvatarTemplates";
+
+import userAvatar from "../../../assets/components/userProfile/userPhoto.svg";
+import editProfileIcon from "../../../assets/components/userProfile/editProfile.svg";
 
 import styles from "./userProfileAvatarSettings.module.scss";
 
@@ -27,7 +26,12 @@ export const UserProfileAvatarSettings = () => {
 						<Image src={userAvatar} alt={"userAvatar"} className={styles.avatar__image} />
 						<div className={styles.avatar__editButtonWrapper}>
 							<label htmlFor="userAvatar" className={styles.avatar__editButton}>
-								<input type="file" id="userAvatar" className={styles.avatar__input} {...register("personalAvatar")} />
+								<input
+									type={InputTypeList.File}
+									id="userAvatar"
+									className={styles.avatar__input}
+									{...register("personalAvatar")}
+								/>
 								<Image src={editProfileIcon} alt={"editProfile"} className={styles.avatar__editIcon} />
 							</label>
 						</div>
@@ -37,7 +41,7 @@ export const UserProfileAvatarSettings = () => {
 					{avatarTemplates.map((avatar, index) => (
 						<div className={styles.avatarPictureWrap} key={index}>
 							<input
-								type="radio"
+								type={InputTypeList.Radio}
 								id={`template-avatar-${index}`}
 								value={avatar}
 								{...register("templateAvatar")}

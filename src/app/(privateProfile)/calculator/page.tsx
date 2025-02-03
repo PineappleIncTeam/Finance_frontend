@@ -5,11 +5,12 @@ import React, { useState, useEffect, ChangeEvent, MouseEvent } from "react";
 import { AiFillInfoCircle } from "react-icons/ai";
 import { CgClose } from "react-icons/cg";
 
-import { formatCalculateNumber } from "../../../utils/formatCalculateNumber";
-
-import handleLogout from "../../../helpers/logout";
 import useLogoutTimer from "../../../hooks/useLogoutTimer";
+
+import { formatCalculateNumber } from "../../../utils/formatCalculateNumber";
 import { getCorrectBaseUrl } from "../../../utils/baseUrlConverter";
+import { InputTypeList } from "../../../helpers/Input";
+import handleLogout from "../../../helpers/logout";
 
 import styles from "./calculator.module.scss";
 
@@ -101,7 +102,7 @@ export default function Calculator() {
 					<div className={styles.currencySelectionRadioGroup}>
 						<input
 							name="currency"
-							type="radio"
+							type={InputTypeList.Radio}
 							id="currencySelectionRadioGroup__usd"
 							className={styles.currencySelectionRadioGroup__input}
 						/>
@@ -110,7 +111,7 @@ export default function Calculator() {
 						</label>
 						<input
 							name="currency"
-							type="radio"
+							type={InputTypeList.Radio}
 							id="currencySelectionRadioGroup__rub"
 							className={styles.currencySelectionRadioGroup__input}
 							defaultChecked
@@ -120,7 +121,7 @@ export default function Calculator() {
 						</label>
 						<input
 							name="currency"
-							type="radio"
+							type={InputTypeList.Radio}
 							id="currencySelectionRadioGroup__eur"
 							className={styles.currencySelectionRadioGroup__input}
 						/>
@@ -152,7 +153,7 @@ export default function Calculator() {
 							</label>
 							<div className={styles.inputRangeFieldContainer}>
 								<input
-									type="text"
+									type={InputTypeList.Text}
 									inputMode="numeric"
 									value={formatCalculateNumber(value)}
 									onChange={handleInputChange}
@@ -162,7 +163,7 @@ export default function Calculator() {
 									id="propertyValue"
 								/>
 								<input
-									type="range"
+									type={InputTypeList.Range}
 									value={value}
 									onChange={handleRangeChange}
 									className={styles.inputRangeFieldContainer__range}
@@ -178,7 +179,7 @@ export default function Calculator() {
 							</label>
 							<div className={styles.inputRangeFieldContainer}>
 								<input
-									type="text"
+									type={InputTypeList.Text}
 									inputMode="numeric"
 									value={formatCalculateNumber(value)}
 									onChange={handleInputChange}
@@ -188,7 +189,7 @@ export default function Calculator() {
 									id="initialContribution"
 								/>
 								<input
-									type="range"
+									type={InputTypeList.Range}
 									value={value}
 									onChange={handleRangeChange}
 									className={styles.inputRangeFieldContainer__range}
@@ -200,7 +201,7 @@ export default function Calculator() {
 							<div className={styles.propertyButtonRadioContainer}>
 								<input
 									name="percent"
-									type="radio"
+									type={InputTypeList.Radio}
 									id="propertyButtonRadioContainer__5"
 									className={styles.propertyButtonRadioContainer__input}
 								/>
@@ -209,7 +210,7 @@ export default function Calculator() {
 								</label>
 								<input
 									name="percent"
-									type="radio"
+									type={InputTypeList.Radio}
 									id="propertyButtonRadioContainer__10"
 									className={styles.propertyButtonRadioContainer__input}
 								/>
@@ -220,7 +221,7 @@ export default function Calculator() {
 								</label>
 								<input
 									name="percent"
-									type="radio"
+									type={InputTypeList.Radio}
 									id="propertyButtonRadioContainer__15"
 									className={styles.propertyButtonRadioContainer__input}
 								/>
@@ -231,7 +232,7 @@ export default function Calculator() {
 								</label>
 								<input
 									name="percent"
-									type="radio"
+									type={InputTypeList.Radio}
 									id="propertyButtonRadioContainer__20"
 									className={styles.propertyButtonRadioContainer__input}
 								/>
@@ -242,7 +243,7 @@ export default function Calculator() {
 								</label>
 								<input
 									name="percent"
-									type="radio"
+									type={InputTypeList.Radio}
 									id="propertyButtonRadioContainer__25"
 									className={styles.propertyButtonRadioContainer__input}
 								/>
@@ -253,7 +254,7 @@ export default function Calculator() {
 								</label>
 								<input
 									name="percent"
-									type="radio"
+									type={InputTypeList.Radio}
 									id="propertyButtonRadioContainer__30"
 									className={styles.propertyButtonRadioContainer__input}
 								/>
@@ -271,7 +272,7 @@ export default function Calculator() {
 							</label>
 							<div className={styles.inputRangeFieldContainer}>
 								<input
-									type="text"
+									type={InputTypeList.Text}
 									inputMode="numeric"
 									value={formatCalculateNumber(value)}
 									onChange={handleInputChange}
@@ -281,7 +282,7 @@ export default function Calculator() {
 									id="initialContribution"
 								/>
 								<input
-									type="range"
+									type={InputTypeList.Range}
 									value={value}
 									onChange={handleRangeChange}
 									className={styles.inputRangeFieldContainer__range}
@@ -293,7 +294,7 @@ export default function Calculator() {
 							<div className={styles.propertyButtonRadioContainer}>
 								<input
 									name="percent"
-									type="radio"
+									type={InputTypeList.Radio}
 									id="propertyButtonRadioContainer__5year"
 									className={styles.propertyButtonRadioContainer__input}
 								/>
@@ -304,7 +305,7 @@ export default function Calculator() {
 								</label>
 								<input
 									name="percent"
-									type="radio"
+									type={InputTypeList.Radio}
 									id="propertyButtonRadioContainer__10year"
 									className={styles.propertyButtonRadioContainer__input}
 								/>
@@ -315,7 +316,7 @@ export default function Calculator() {
 								</label>
 								<input
 									name="percent"
-									type="radio"
+									type={InputTypeList.Radio}
 									id="propertyButtonRadioContainer__15year"
 									className={styles.propertyButtonRadioContainer__input}
 								/>
@@ -326,7 +327,7 @@ export default function Calculator() {
 								</label>
 								<input
 									name="percent"
-									type="radio"
+									type={InputTypeList.Radio}
 									id="propertyButtonRadioContainer__20year"
 									className={styles.propertyButtonRadioContainer__input}
 								/>
@@ -337,7 +338,7 @@ export default function Calculator() {
 								</label>
 								<input
 									name="percent"
-									type="radio"
+									type={InputTypeList.Radio}
 									id="propertyButtonRadioContainer__25year"
 									className={styles.propertyButtonRadioContainer__input}
 								/>
@@ -355,7 +356,7 @@ export default function Calculator() {
 							</label>
 							<div className={styles.inputRangeFieldContainer}>
 								<input
-									type="text"
+									type={InputTypeList.Text}
 									inputMode="numeric"
 									value={formatCalculateNumber(value)}
 									onChange={handleInputChange}
@@ -365,7 +366,7 @@ export default function Calculator() {
 									id="initialContribution"
 								/>
 								<input
-									type="range"
+									type={InputTypeList.Range}
 									value={value}
 									onChange={handleRangeChange}
 									className={styles.inputRangeFieldContainer__range}
@@ -377,7 +378,7 @@ export default function Calculator() {
 							<div className={styles.propertyButtonRadioContainer}>
 								<input
 									name="percent"
-									type="radio"
+									type={InputTypeList.Radio}
 									id="propertyButtonRadioContainer__5-5"
 									className={styles.propertyButtonRadioContainer__input}
 								/>
@@ -388,7 +389,7 @@ export default function Calculator() {
 								</label>
 								<input
 									name="percent"
-									type="radio"
+									type={InputTypeList.Radio}
 									id="propertyButtonRadioContainer__7-5"
 									className={styles.propertyButtonRadioContainer__input}
 								/>
@@ -399,7 +400,7 @@ export default function Calculator() {
 								</label>
 								<input
 									name="percent"
-									type="radio"
+									type={InputTypeList.Radio}
 									id="propertyButtonRadioContainer__7-9"
 									className={styles.propertyButtonRadioContainer__input}
 								/>
@@ -410,7 +411,7 @@ export default function Calculator() {
 								</label>
 								<input
 									name="percent"
-									type="radio"
+									type={InputTypeList.Radio}
 									id="propertyButtonRadioContainer__11-4"
 									className={styles.propertyButtonRadioContainer__input}
 								/>
@@ -421,7 +422,7 @@ export default function Calculator() {
 								</label>
 								<input
 									name="percent"
-									type="radio"
+									type={InputTypeList.Radio}
 									id="propertyButtonRadioContainer__13-5"
 									className={styles.propertyButtonRadioContainer__input}
 								/>
@@ -433,7 +434,10 @@ export default function Calculator() {
 							</div>
 						</div>
 
-						<button onClick={handleSubmit} className={styles.calculatorFormContentWrapper__submitBtn} type="button">
+						<button
+							onClick={handleSubmit}
+							className={styles.calculatorFormContentWrapper__submitBtn}
+							type={InputTypeList.Button}>
 							Рассчитать кредит
 						</button>
 					</form>

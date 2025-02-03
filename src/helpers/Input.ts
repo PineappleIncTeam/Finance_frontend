@@ -8,4 +8,6 @@ export enum InputTypeList {
 	Date = "date",
 	Radio = "radio",
 	Button = "button",
+	Range = "range",
+	File = "file",
 }

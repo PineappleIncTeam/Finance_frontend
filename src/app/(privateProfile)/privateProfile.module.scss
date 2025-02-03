@@ -18,11 +18,17 @@
 		}
 	}
 
+	
+	@media (max-width: 490px) {
+		& {
+			background-color: var(--color-pure-light);
+		}
+	}
+
 	@media (max-width: 420px) {
 		& {
 			min-height: auto;
 			padding: 48px 16px 40px;
-			background-color: var(--color-pure-light);
 		}
 	}
 }

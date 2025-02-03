@@ -1,22 +1,57 @@
 .userProfileWrap {
-	width: 350px;
-	background: var(--color-pure-light);
-	height: 100vh;
-	padding-top: 50px;
-
-	@media (max-width: 1440px) {
-		& {
-			width: 290px;
-		}
-	}
+	display: flex;
+	flex-direction: column;
+	max-width: 350px;
+	height: 100%;
 
 	@media (max-width: 1100px) {
 		& {
+			max-width: 100%;
 			width: 100%;
-			background: var(--color-dark-spring-green);
-			height: fit-content;
+		}
+	}
+}
+
+.userProfileHeader {
+	display: flex;
+	justify-content: space-between;
+	padding-top: 50px;
+	padding-bottom: 30px;
+	width: 95%;
+	margin: 0 auto;
+
+	@media (max-width: 1100px) {
+		& {
+			display: none;
+		}
+	}
+}
+
+.userProfileHeader__link {
+	font-size: 2.6rem;
+	font-weight: 400;
+	color: var(--color-dark-spring-green);
+
+	@media (max-width: 1440px) {
+		& {
+			font-size: 2rem;
+		}
+	}
+}
+
+.userProfileMain {
+	background-color: var(--color-pure-light);
+	padding-top: 50px;
+	margin-bottom: 14px;
+	border-radius: 20px;
+	height: 100%;
+
+	@media (max-width: 1100px) {
+		& {
 			padding: 20px 24px;
+			margin: 0;
 			border-radius: 12px;
+			background-color: var(--color-dark-spring-green);
 		}
 	}
 
@@ -28,15 +63,22 @@
 }
 
 .userProfileContainer {
-	max-width: 255px;
 	display: flex;
 	flex-direction: column;
-	margin: 0 auto;
 	gap: 32px;
+	margin: 0 30px;
+
+	@media (max-width: 1440px) {
+		& {
+			width: 86%;
+			margin: 0 auto;
+		}
+	}
 
 	@media (max-width: 1100px) {
 		& {
 			max-width: 100%;
+			width: 100%;
 			margin: 0;
 			flex-direction: row;
 			justify-content: space-between;
@@ -68,20 +110,9 @@
 	position: relative;
 }
 
-.userInformationWrap__edit {
-	position: absolute;
-	bottom: -10%;
-	right: 30%;
-	opacity: 0;
-}
-
 .userInformationWrap_images_action {
 	border: none;
 	background-color: transparent;
-}
-
-.userInformationWrap_images_action:hover + .userInformationWrap__edit {
-	opacity: 1;
 }
 
 .userInformationWrap__name {
@@ -96,7 +127,7 @@
 	}
 }
 
-.userInformationWrap__adaptive {
+.userInformationAdaptiveContainer {
 	display: block;
 
 	@media (max-width: 1100px) {
@@ -107,6 +138,7 @@
 		}
 	}
 }
+
 .burgerActionWrap {
 	display: none;
 
@@ -118,32 +150,52 @@
 		}
 	}
 }
-.userInformationWrap__date {
+
+.userInformationWrap {
+	@media (max-width: 1100px) {
+		cursor: pointer;
+	}
+}
+
+.userInformationDateWrap {
 	font-size: 2.2rem;
 	line-height: 3.5rem;
 	font-weight: 400;
 	color: var(--color-star-dust);
+	display: flex;
+	flex-direction: column;
 
 	@media (max-width: 1100px) {
 		& {
 			font-size: 1.6rem;
-			line-height: 1;
+			line-height: 2.2rem;
+			flex-direction: row;
+			justify-content: center;
+			width: 100%;
+			min-width: 200px;
+			gap: 0.5rem;
+			color: var(--color-pure-light);
 		}
 	}
 
 	@media (max-width: 420px) {
 		& {
+			min-width: auto;
 			font-size: 1.1rem;
+			line-height: 1.3rem;
 		}
 	}
 }
-.userInformationWrap__balance {
+.userInformationAdaptiveContainer__balance {
+	padding-top: 16px;
 	font-size: 2.6rem;
+	line-height: 3.8rem;
 	font-weight: 400;
 	color: var(--color-eerie-black);
 
 	@media (max-width: 1100px) {
 		& {
+			padding-top: 0;
 			color: var(--color-pure-light);
 			border-bottom: 1px solid var(--color-pure-light);
 		}
@@ -152,6 +204,7 @@
 	@media (max-width: 420px) {
 		& {
 			font-size: 1.3rem;
+			line-height: 1.8rem;
 		}
 	}
 }
@@ -171,13 +224,13 @@
 .userProfileFunctions {
 	display: flex;
 	flex-direction: column;
-	gap: 12px;
+	gap: 14px;
 }
 
 .userProfileNavigation {
 	display: flex;
 	flex-direction: column;
-	gap: 12px;
+	gap: 14px;
 
 	@media (max-width: 1100px) {
 		& {
@@ -218,13 +271,14 @@
 	font-size: 20px;
 	font-weight: 400;
 	color: var(--color-dark-spring-green);
+	cursor: pointer;
 }
 
 .navigationElementsWrap {
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-	
+
 	@media (max-width: 1100px) {
 		& {
 			display: none;
@@ -236,4 +290,30 @@
 	color: var(--color-dark-cyan-blue);
 	font-size: 20px;
 	font-weight: 400;
+}
+
+.exit {
+	cursor: pointer;
+}
+
+.burgerMenu__wrapper {
+	padding: 50px 40px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	height: 100%;
+	gap: 40px;
+	@media (max-width: 1440px) {
+		padding: 30px 40px;
+	}
+
+	@media (max-width: 600px) {
+		padding: 20px;
+	}
+}
+
+.sidebarMenuWrapper {
+	@media (max-width: 1100px) {
+		display: none;
+	}
 }

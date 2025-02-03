@@ -16,6 +16,8 @@ import { ApiResponseCode } from "../../../helpers/apiResponseCode";
 
 import logo from "../../../assets/pages/activate/logo.webp";
 import warning from "../../../assets/pages/activate/warning.svg";
+import activationBgImg from "../../../assets/pages/activate/activation-bg-img.svg";
+import warningBgImg from "../../../assets/pages/activate/warning-bg-img.svg";
 
 import styles from "./activate.module.scss";
 
@@ -39,6 +41,7 @@ const Activate = () => {
 	const [messageTitle, setMessageTitle] = useState<string>(successMessageTitle);
 	const [messageDescription, setMessageDescription] = useState<string>(successMessageDescription);
 	const [messageLogo, setMessageLogo] = useState(logo);
+	const [backgroundImage, setBackgroundImage] = useState(activationBgImg.src);
 
 	enum ModalMessageTypes {
 		success = "success",
@@ -109,16 +112,19 @@ const Activate = () => {
 				setMessageLogo(logo);
 				setMessageTitle(successMessageTitle);
 				setMessageDescription(successMessageDescription);
+				setBackgroundImage(activationBgImg.src);
 				break;
 			case "warning":
 				setMessageLogo(warning);
 				setMessageTitle(warningMessageTitle);
 				setMessageDescription(warningMessageDescription);
+				setBackgroundImage(warningBgImg.src);
 				break;
 			case "notification":
 				setMessageLogo(logo);
 				setMessageTitle(notificationMessageTitle);
 				setMessageDescription(notificationMessageDescription);
+				setBackgroundImage(activationBgImg.src);
 				break;
 		}
 	};
@@ -136,8 +142,10 @@ const Activate = () => {
 	};
 
 	return (
-		<div className={styles.activationPageWrapper}>
-			<div className={styles.messageWrapper}>{load ? <Spinner /> : messageElement()}</div>
+		<div className={styles.activationPageWrapper} style={{ backgroundImage: `url(${backgroundImage})` }}>
+			<div className={styles.backgroundWrapper}>
+				<div className={styles.messageWrapper}>{load ? <Spinner /> : messageElement()}</div>
+			</div>
 		</div>
 	);
 };

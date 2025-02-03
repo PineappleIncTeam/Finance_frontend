@@ -1,6 +1,6 @@
 "use client";
 
-import { Key } from "react";
+import { Key, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 
 import { PlusIcon } from "../../../assets/script/expenses/PlusIcon";
@@ -13,10 +13,14 @@ import { InputTypeList } from "../../../helpers/Input";
 import { IExpensesInputForm } from "../../../types/pages/Expenses";
 import { Select } from "../../../ui/select/Select";
 import Button from "../../../ui/button/button";
+import handleLogout from "../../../helpers/logout";
+import { getCorrectBaseUrl } from "../../../utils/baseUrlConverter";
+import useLogoutTimer from "../../../hooks/useLogoutTimer";
 
 import styles from "./expenses.module.scss";
 
 export default function Expenses() {
+	const [baseUrl, setBaseUrl] = useState<string>();
 	const { control } = useForm<IExpensesInputForm>({
 		defaultValues: {
 			sum: "",
@@ -24,6 +28,17 @@ export default function Expenses() {
 		mode: "all",
 		delayError: 200,
 	});
+
+	useEffect(() => {
+		setBaseUrl(getCorrectBaseUrl());
+	}, []);
+
+	const { request } = handleLogout(baseUrl);
+	const { resetTimer } = useLogoutTimer(request);
+
+	useEffect(() => {
+		resetTimer();
+	}, [request, resetTimer]);
 
 	return (
 		<div className={styles.expensesPageWrap}>
@@ -53,7 +68,7 @@ export default function Expenses() {
 								placeholder={"0.00 ₽"}
 							/>
 						</div>
-						<Button content={"Добавить"} styleName={"buttonForExpenses"}>
+						<Button onClick={() => resetTimer()} content={"Добавить"} styleName={"buttonForExpenses"}>
 							<PlusIcon classNames={styles.addButtonIcon} />
 						</Button>
 					</div>

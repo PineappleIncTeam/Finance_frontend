@@ -1,5 +1,7 @@
 import { StaticImageData } from "next/image";
 
+import { MouseEvent } from "react";
+
 export type CustomLayout = () => Element;
 
 export interface INewPasswordModal {
@@ -49,9 +51,8 @@ export interface IBlogArticle {
 export interface ITooltip {
 	open: boolean;
 	toggle?: () => void;
+	text?: string;
 }
-
-export type TCommonFunction = () => void;
 
 export interface IAboutUsCard {
 	photo: string | StaticImageData;
@@ -72,4 +73,37 @@ export interface IExpensesTransaction {
 	secondDateFormat?: string;
 	purpose: string;
 	sum: string;
+}
+
+export interface IArchiveItem {
+	archiveItemValue: string;
+	onMouseEnter: undefined | ((event: MouseEvent<HTMLDivElement>) => void);
+	onMouseLeave: undefined | (() => void);
+}
+
+export interface ISimpleTooltip {
+	open: boolean;
+	toggle?: () => void;
+	text?: string;
+	className?: string;
+	top?: number;
+	left?: number;
+}
+
+export interface IRenderProfileItem {
+	title: string;
+	handleClick: (title: string) => void;
+}
+
+export interface IRenderNavItem {
+	title: string;
+	link?: string;
+}
+
+export interface ISidebarMenu {
+	handleClick: (title: string) => void;
+}
+
+export interface IHandleMouseEnterArchiveItem {
+	(event: MouseEvent<HTMLDivElement>, content: string): void;
 }

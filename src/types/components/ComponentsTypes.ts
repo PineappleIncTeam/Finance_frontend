@@ -1,3 +1,5 @@
+import { Dispatch, ReactNode, SetStateAction } from "react";
+
 export interface IUser {
 	age: number;
 	parentalConsent: boolean;
@@ -51,3 +53,46 @@ export interface IIncomeTransaction {
 	purpose: string;
 	sum: number;
 }
+export interface IBurgerMenu {
+	children: ReactNode;
+	showMenu: boolean;
+	setShowMenu: Dispatch<SetStateAction<boolean>>;
+}
+
+export interface ISavingsTransaction {
+	firstDate: string;
+	secondDate: string;
+	purpose: string;
+	sum: string;
+}
+
+export interface ISavingsItem {
+	category: string;
+	target: string;
+	sum: string;
+	status: string;
+}
+
+export enum SavingsFieldValues {
+	category = "category",
+	target = "target",
+}
+
+export enum SortOrderStateValue {
+	asc = "asc",
+	desc = "desc",
+}
+
+export type TSavingsFieldState = SavingsFieldValues | null;
+
+export type TIndexState = number | null;
+
+export interface IEditActionProps {
+	index: number;
+	field: SavingsFieldValues;
+	value: string;
+}
+
+export type TCommonFunction = () => void;
+
+export type TTimerRefState = ReturnType<typeof setTimeout> | null | number;

@@ -54,6 +54,11 @@ const Activate = () => {
 	}, []);
 
 	useEffect(() => {
+		if (!uid || !token) {
+			setLoad(true);
+			return;
+		}
+		
 		const activateUser = async () => {
 			try {
 				const isLocalhost =

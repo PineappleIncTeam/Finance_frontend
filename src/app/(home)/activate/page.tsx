@@ -58,7 +58,7 @@ const Activate = () => {
 			setLoad(true);
 			return;
 		}
-		
+
 		const activateUser = async () => {
 			try {
 				const isLocalhost =

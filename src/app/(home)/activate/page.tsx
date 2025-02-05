@@ -58,7 +58,7 @@ const Activate = () => {
 			setLoad(true);
 			return;
 		}
-		
+
 		const activateUser = async () => {
 			try {
 				const isLocalhost =
@@ -142,14 +142,20 @@ const Activate = () => {
 				</div>
 				<div className={styles.title}>{messageTitle}</div>
 				<div className={styles.description}>{messageDescription}</div>
+				{messageTitle === warningMessageTitle && (
+					<button className={styles.registerButton} onClick={() => router.push(MainPath.SignUp)}>
+						Регистрация
+					</button>
+				)}
 			</div>
 		);
 	};
 
 	return (
-		<div className={styles.activationPageWrapper} style={{ backgroundImage: `url(${backgroundImage})` }}>
+		<div className={styles.activationPageWrapper} style={{ backgroundImage: `url(${backgroundImage})` }} 
+		onClick={() => router.push(MainPath.Login)} role="button">
 			<div className={styles.backgroundWrapper}>
-				<div className={styles.messageWrapper}>{load ? <Spinner /> : messageElement()}</div>
+				<div className={styles.messageWrapper} onClick={(e) => e.stopPropagation()} role="button">{load ? <Spinner /> : messageElement()}</div>
 			</div>
 		</div>
 	);

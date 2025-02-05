@@ -13,6 +13,7 @@ import AppInput from "../../../ui/appInput/AppInput";
 import { Select } from "../../../ui/select/Select";
 import { IAnalyticsInputForm } from "../../../types/pages/Analytics";
 import { InputTypeList } from "../../../helpers/Input";
+import generateRandomColors from "../../../utils/generateRandomColor";
 
 import styles from "./analytics.module.scss";
 
@@ -53,13 +54,18 @@ function Analytics() {
 
 	ChartJS.register(ArcElement, Tooltip);
 
+	const LABELS_EXPENSES:string[] = [
+		"Внезапная покупка", "Стрижка", "Бассейн", "Школа", "Еда", 
+		"Плата жилья", "Ногти", "Бензин", "Дорога работа", "Юрист", 
+		"Детский сад", "Учебники", "Отпуск", "Театр", "Кредит", 
+		"Страховка", "Киберспорт", "Путешествия", "Кино", "Ипотека"
+	];
+	const LABELS_EXPENSES_NUMBER = LABELS_EXPENSES.length;
+
+	const RANDOM_COLORS:string[] = generateRandomColors(LABELS_EXPENSES_NUMBER);
+
 	const data = {
-		labels: [
-			"Внезапная покупка", "Стрижка", "Бассейн", "Школа", "Еда", 
-			"Плата жилья", "Ногти", "Бензин", "Дорога работа", "Юрист", 
-			"Детский сад", "Учебники", "Отпуск", "Театр", "Кредит", 
-			"Страховка", "Киберспорт", "Путешествия", "Кино", "Ипотека"
-		],
+		labels: LABELS_EXPENSES,
 		datasets: [
 			{
 				label: "Расходы",
@@ -69,15 +75,7 @@ function Analytics() {
 					16192.09, 2600.01, 6437.57, 1690.01, 26000.15, 
 					520.0, 520.0, 520.0, 520.0, 9586.33
 				].map(value => displayMode === "rub" ? value : (value / 130000 * 100).toFixed(2)),
-				backgroundColor: [
-					"#21703c", "#b48dad", "#bfc3a8", 
-					"#eed6cd", "#b83400", "#c88b79", 
-					"#ff9d73", "#90b89e", "#c7b2af", 
-					"#8891a8", "#edc915", "#f8ab9e", 
-					"#489177", "#8f9e3e", "#eef6c6", 
-					"#8f670a", "#c0a30f", "#afb9cf", 
-					"#c66a04", "#dbed15"
-				],
+				backgroundColor: RANDOM_COLORS,
 				borderWidth: 0,
 			},
 		],

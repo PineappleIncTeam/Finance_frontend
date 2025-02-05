@@ -177,3 +177,14 @@
 		}
 	}
 }
+
+@media (max-height: 600px) {
+	.notFoundPageWrap {
+		align-items: start;
+	}
+
+	.notFoundPageContainer {
+		margin-top: 20px;
+		padding-bottom: 20px;
+	}
+}

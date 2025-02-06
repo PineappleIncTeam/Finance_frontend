@@ -7,7 +7,6 @@
 	background-repeat: no-repeat;
 	background-size: 350px;
 	background-position: right 290px top 358px;
-	
 }
 
 .backgroundWrapper {
@@ -95,8 +94,7 @@
 	}
 }
 
-
-.registerButton{
+.registerButton {
 	cursor: pointer;
 	margin-top: 19px;
 	width: 238px;
@@ -104,19 +102,17 @@
 	border: 3px solid var(--color-dark-spring-green);
 	border-radius: 16px;
 
-font-family: "Rubik";
-font-size: 2.4rem;
-font-weight: 500;
-line-height: 3.2rem;
-text-align: center;
-
+	font-family: "Rubik", Verdana, Arial, Tahoma, sans-serif;
+	font-size: 2.4rem;
+	font-weight: 500;
+	line-height: 3.2rem;
+	text-align: center;
 }
 
-@media (min-width:1025px) {
-	.registerButton:hover{
-		color: var(--color-cal-poly-pomona-green)
+@media (min-width: 1025px) {
+	.registerButton:hover {
+		color: var(--color-cal-poly-pomona-green);
 	}
-	
 }
 @media (max-width: 1440px) {
 	.activationPageWrapper {
@@ -137,17 +133,14 @@ text-align: center;
 	}
 }
 @media (max-width: 500px) {
-	.registerButton{
+	.registerButton {
 		margin-top: 10px;
 		width: 131px;
 		height: 34px;
 		border-radius: 9px;
 
-	
 		font-size: 1.3rem;
 		font-weight: 500;
 		line-height: 1.8rem;
-		
-	
 	}
 }

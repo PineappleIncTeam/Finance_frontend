@@ -119,7 +119,7 @@ function Analytics() {
 							<div className={styles.analyticsDisplay}>
 								<input
 									name="value"
-									type="radio"
+									type={InputTypeList.Radio}
 									value="rub"
 									id="analyticsDisplay__rub"
 									checked={displayMode === "rub"}
@@ -131,7 +131,7 @@ function Analytics() {
 								</label>
 								<input
 									name="value"
-									type="radio"
+									type={InputTypeList.Radio}
 									value="percent"
 									id="analyticsDisplay__percent"
 									checked={displayMode === "percent"}

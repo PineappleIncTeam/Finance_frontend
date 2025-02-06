@@ -15,6 +15,7 @@ import handleLogout from "../../../helpers/logout";
 import { formatMoney } from "../../../utils/formatData";
 import { getCorrectBaseUrl } from "../../../utils/baseUrlConverter";
 import { incomeTransactions } from "../../../mocks/IncomeTransaction";
+import {CategorySelect} from "../../../components/userProfileLayout/categorySelect/CategorySelect"
 
 import { PlusIcon } from "../../../assets/script/expenses/PlusIcon";
 
@@ -80,7 +81,7 @@ function ProfitMoney() {
 							</div>
 							<div className={styles.detailsContainer}>
 								<div className={styles.detailsContainer__category}>
-									<Select name={"expenses"} label={"Временные"} options={[""]} />
+									<CategorySelect name={"expenses"} label={"Временные"} options={[""]} />
 								</div>
 								<div className={styles.detailsContainer__rightSide}>
 									<div className={styles.detailsContainer__sum}>

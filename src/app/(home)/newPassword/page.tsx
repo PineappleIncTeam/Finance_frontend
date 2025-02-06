@@ -87,13 +87,14 @@ export default function NewPassword() {
 	return (
 		<div className={styles.newPasswordWrap}>
 			<form className={styles.newPasswordFormContainer} onSubmit={handleSubmit(onSubmit)}>
-				<div className={styles.newPasswordFormContainer__Content}>
+				<div className={styles.newPasswordFormContainer__content}>
 					<Title title={"Восстановление пароля"} />
 					<NewPasswordModal
 						email={email}
 						open={isNewPasswordModalShown}
 						toggle={() => newPasswordModalVisible(false)}
 					/>
+					<p className={styles.inputLabel}>Введите почту</p>
 					<AuthInput
 						control={control}
 						label="Введите почту"

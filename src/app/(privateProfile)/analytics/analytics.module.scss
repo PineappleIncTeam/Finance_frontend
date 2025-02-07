@@ -1,0 +1,427 @@
+.analyticsPageWrap {
+    width: 100%;
+    height: 100%;
+	background-color: var(--color-pure-light);
+    border-radius: 20px;
+    padding: 24px 36px;
+}
+
+.analyticsPageContainer {
+    display: flex;
+    flex-direction: column;
+}
+
+.analyticsPagesContent {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.headerTitle {
+    font-size: 3.6rem;
+    font-weight: 500;
+    line-height: 4.4rem;
+}
+
+.analyticsBlankPage {
+    margin-top: 80px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 68px;
+
+    &__text {
+        text-align: center;
+        font-size: 2.6rem;
+        font-weight: 400;
+        line-height: 38px;
+        color: var(--color-star-dust);
+    }
+
+}
+
+.analyticsSelectContainer {
+    display: flex;
+    align-items: center;
+    gap: 72px;
+    font-size: 2.0rem;
+    font-weight: 400;
+    line-height: 28px;
+    color: var(--color-dark-cyan-blue);
+}
+
+.analyticsSelectOperation {
+    width: 420px;
+}
+
+.analyticsSelectDateAndPeriod {
+    width: 300px;
+}
+
+.analyticsDisplayWrapper {
+    display: flex;
+    flex-direction: column;
+    font-size: 2.0rem;
+    font-weight: 400;
+    line-height: 28px;
+}
+
+.analyticsDisplay {
+    display: flex;
+    margin-top: 10px;
+
+    &__label:last-of-type {
+        margin-left: 66px;
+    }
+
+    &__text {
+        cursor: pointer;
+        margin-left: 12px;
+    }
+    
+    &__input {
+        cursor: pointer;
+        display: none;
+    }
+    &__label {
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        position: relative;
+        padding-left: 24px;
+
+        @media (min-width: 1025px) {
+            &:hover::before {
+                border-color: var(--color-dark-spring-green);
+            }
+        }
+    }
+    &__label::before {
+        content: '';
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        border: 2px solid var(--color-gainsboro);
+        position: absolute;
+        left: 0;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+    &__label::after {
+        content: '';
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background-color: transparent;
+        position: absolute;
+        transform: translateX(9px);
+    }
+}
+
+.analyticsDisplay__input:checked + .analyticsDisplay__label::after {
+    background-color: var(--color-dark-spring-green);
+    position: absolute;
+    left: 0;
+}
+
+.analyticsDisplay__input:checked + .analyticsDisplay__label::before {
+    border-color: var(--color-dark-spring-green);
+}
+
+.analyticsDiagramExpensesWrapper {
+    border: 1px solid var(--color-gainsboro);
+    border-radius: 12px;
+    padding: 32px 28px 47px 28px;
+}
+
+.diagramExpenses {
+    width: 228px;
+    height: 228px;
+}
+
+.analyticsDiagramExpensesInfo {
+
+    &__title {
+        font-size: 2.0rem;
+        font-weight: 400;
+        line-height: 28px;
+    }
+
+    &__value {
+        font-size: 2.6rem;
+        font-weight: 400;
+        line-height: 38px;
+    }
+
+    &__date {
+        font-size: 1.6rem;
+        font-weight: 400;
+        line-height: 22px;
+        color: var(--color-star-dust);
+    }
+
+}
+
+.analyticsDiagramExpenses {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 280px;
+    margin-top: 28px;
+}
+
+.diagramExpensesBlock {
+    display: flex;
+    gap: 44px;
+    padding: 0 12px;
+}
+
+.diagramExpensesBlockLeft, .diagramExpensesBlockRight {
+    width: 273px;
+    height: 232px;
+}
+
+.diagramExpensesBlockRight {
+    overflow: hidden;
+    overflow-y: auto;
+}
+
+.diagramExpensesBlockRight::-webkit-scrollbar {
+    width: 4px;
+    background-color: var(--color-light-grayish-green);
+    border-radius: 10px;
+}
+.diagramExpensesBlockRight::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-color: var(--color-light-green);
+}
+.diagramExpensesBlockRight::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px var(--color-light-grayish-green);
+    border-radius: 10px;
+    background-color: transparent;
+}
+
+.diagramExpensesBlockLeftItems {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.diagramExpensesBlockLeftItem {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    &__value {
+        font-size: 1.6rem;
+        font-weight: 400;
+        line-height: 22px;
+    }
+}
+
+.diagramExpensesBlockLeftIconWrapper {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    
+    &__circle {
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+    }
+    
+    &__text {
+        font-size: 1.6rem;
+        font-weight: 400;
+        line-height: 22px;
+    }
+}
+
+.diagramExpensesBlockRightItems {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+}
+
+.diagramExpensesBlockRightItem {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    &__value {
+        margin-right: 12px;
+        font-size: 1.6rem;
+        font-weight: 400;
+        line-height: 22px;
+    }
+}
+
+.diagramExpensesBlockRightIconWrapper {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    
+    &__circle {
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+    }
+    
+    &__text {
+        font-size: 1.6rem;
+        font-weight: 400;
+        line-height: 22px;
+    }
+}
+
+@media (max-width: 1440px) {
+    .analyticsBlankPage {
+        margin-top: 20px;
+    }
+    .diagramExpensesBlockLeft {
+        display: none;
+    }
+    .diagramExpensesBlockRight {
+        overflow: hidden;
+        overflow-y: auto;
+    }
+    .analyticsSelectContainer {
+        justify-content: space-between;
+        gap: 28px;
+    }
+    .analyticsSelectOperation {
+        width: calc(100% - 300px);
+    }
+}
+
+@media (max-width: 1024px) {
+    .analyticsBlankPage__image {
+        margin-bottom: 46px;
+    }
+}
+
+@media (max-width: 768px) {
+    .analyticsBlankPage__image {
+        margin-bottom: 38px;
+    }
+
+    .diagramExpensesBlockRightIconWrapper__text,
+    .diagramExpensesBlockRightItem__value {
+        font-size: 1.3rem;
+        line-height: 18px;
+    } 
+
+    .diagramExpensesBlockRight {
+        height: 218px;
+    }
+
+    .diagramExpenses {
+        width: 160px;
+        height: 160px;
+    }
+    .analyticsDiagramExpenses {
+        height: 222px;
+        margin-top: 0px;
+    }
+
+    .analyticsSelectContainer {
+        gap: 20px;
+    }
+
+    .analyticsSelectOperation {
+        width: 50%;
+    }
+    .analyticsSelectDateAndPeriod {
+        width: 50%;
+    }
+}
+
+@media (max-width: 460px) {
+    .analyticsPageWrap {
+        padding: 20px 0px;
+    }
+    .analyticsBlankPage {
+        gap: 48px;
+
+        &__text {
+            font-size: 1.6rem;
+            line-height: 22px;
+        }
+    }
+    .headerTitle {
+        font-size: 2.4rem;
+        line-height: 32px;
+    }
+    .analyticsDiagramExpenses {
+        flex-direction: column;
+        height: 400px;
+    }
+    .analyticsPageWrap {
+        padding: 0;
+    }
+    .headerTitle {
+        font-size: 2.4rem;
+        line-height: 32px;
+    }
+    .analyticsSelectContainer {
+        gap: 6px;
+    }
+    .analyticsDisplayWrapper {
+        font-size: 1.3rem;
+        line-height: 18px;
+    }
+    .analyticsDisplay {
+    
+        &__label:last-of-type {
+            margin-left: 32px;
+        }
+    
+        &__text {
+            margin-left: 8px;
+        }
+        &__label::before {
+            width: 16px;
+            height: 16px;
+        }
+        &__label::after {
+            width: 6px;
+            height: 6px;
+            transform: translateX(7px);
+        }
+    }
+    .analyticsDiagramExpensesWrapper {
+        padding: 20px;
+    }
+    .analyticsDiagramExpenses {
+        align-items: start;
+    }
+    .analyticsDiagramExpensesInfo {
+
+        &__title {
+            font-size: 1.6rem;
+            line-height: 22px;
+        }
+
+        &__value {
+            font-size: 2.0rem;
+            line-height: 28px;
+        }
+
+        &__date {
+            font-size: 1.3rem;
+            line-height: 18px;
+        }
+    }
+    .analyticsDiagramExpenses {
+        margin-top: 20px;
+    }
+    .diagramExpensesBlock {
+        padding: 0;
+        width: 100%;
+    }
+    .diagramExpensesBlockRight {
+        width: 100%;
+    }
+}

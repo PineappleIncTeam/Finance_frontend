@@ -15,7 +15,12 @@ export const metadata: Metadata = {
 		title: "Freenance - Your finances in one place",
 		description: "Manage your finances easily and conveniently with our app! Record your income and expenses, analyze your habits, and plan your budget to achieve your financial goals effortlessly.",
 		siteName: "Freenance",
-		images: ""
+		images: [
+			{
+				url: "../app/favicon.ico",
+				alt: "Ico",
+			}
+		],
 	}
 };
 

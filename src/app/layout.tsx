@@ -17,8 +17,8 @@ export const metadata: Metadata = {
 		siteName: "Freenance",
 		images: [
 			{
-				url: "../app/favicon.ico",
-				alt: "Ico",
+				url: "../assets/components/logo.png",
+				alt: "Freenance logo",
 			}
 		],
 	}

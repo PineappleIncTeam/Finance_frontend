@@ -166,7 +166,7 @@ function Analytics() {
 													<div className={styles.diagramExpensesBlockLeftIconWrapper}>
 														<div
 															className={styles.diagramExpensesBlockLeftIconWrapper__circle}
-															style={{ background: `var(${item.background})` }}></div>
+															style={{ background: `${item.background}` }}></div>
 														<p className={styles.diagramExpensesBlockLeftIconWrapper__text}>{item.title}</p>
 													</div>
 													<p className={styles.diagramExpensesBlockLeftItem__value}>
@@ -184,7 +184,7 @@ function Analytics() {
 													<div className={styles.diagramExpensesBlockRightIconWrapper}>
 														<div
 															className={styles.diagramExpensesBlockRightIconWrapper__circle}
-															style={{ background: `var(${item.background})` }}></div>
+															style={{ background: `${item.background}` }}></div>
 														<p className={styles.diagramExpensesBlockRightIconWrapper__text}>{item.title}</p>
 													</div>
 													<p className={styles.diagramExpensesBlockRightItem__value}>

@@ -27,6 +27,6 @@ export default function robots(): MetadataRoute.Robots {
 				"/serverError",
 			],
 		},
-		sitemap: "https://acme.com/sitemap.xml",
+		sitemap: "https://freenance.com/sitemap.xml",
 	}
 }

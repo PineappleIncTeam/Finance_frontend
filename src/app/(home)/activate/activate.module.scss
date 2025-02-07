@@ -7,6 +7,25 @@
 	background-repeat: no-repeat;
 	background-size: 350px;
 	background-position: right 290px top 358px;
+
+	@media (max-width: 1440px) {
+		& {
+			background-size: 270px;
+			background-position: right 174px top 390px;
+		}
+	}
+	
+	@media (max-width: 1024px) {
+		& {
+			background-position: right 64px top 569px;
+		}
+	}
+	
+	@media (max-width: 768px) {
+		& {
+			background-size: 0;
+		}
+	}
 }
 
 .backgroundWrapper {
@@ -43,9 +62,6 @@
 	justify-content: center;
 	flex-direction: column;
 	max-width: 350px;
-	@media (max-width: 500px) {
-		gap: 16px;
-	}
 }
 
 .logo {
@@ -55,10 +71,11 @@
 	width: 65px;
 	height: 65px;
 	margin-bottom: 32px;
+	
 	@media (max-width: 500px) {
 		width: 50px;
 		height: 50px;
-		margin-bottom: 18px;
+		margin-bottom: 10px;
 	}
 }
 
@@ -114,24 +131,7 @@
 		color: var(--color-cal-poly-pomona-green);
 	}
 }
-@media (max-width: 1440px) {
-	.activationPageWrapper {
-		background-size: 270px;
-		background-position: right 174px top 390px;
-	}
-}
 
-@media (max-width: 1024px) {
-	.activationPageWrapper {
-		background-position: right 64px top 569px;
-	}
-}
-
-@media (max-width: 768px) {
-	.activationPageWrapper {
-		background-size: 0;
-	}
-}
 @media (max-width: 500px) {
 	.registerButton {
 		margin-top: 10px;

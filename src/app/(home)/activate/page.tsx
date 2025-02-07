@@ -152,10 +152,15 @@ const Activate = () => {
 	};
 
 	return (
-		<div className={styles.activationPageWrapper} style={{ backgroundImage: `url(${backgroundImage})` }} 
-		onClick={() => router.push(MainPath.Login)} role="button">
+		<div
+			className={styles.activationPageWrapper}
+			style={{ backgroundImage: `url(${backgroundImage})` }}
+			onClick={() => router.push(MainPath.Login)}
+			role="button">
 			<div className={styles.backgroundWrapper}>
-				<div className={styles.messageWrapper} onClick={(e) => e.stopPropagation()} role="button">{load ? <Spinner /> : messageElement()}</div>
+				<div className={styles.messageWrapper} onClick={(e) => e.stopPropagation()} role="button">
+					{load ? <Spinner /> : messageElement()}
+				</div>
 			</div>
 		</div>
 	);

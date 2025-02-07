@@ -10,7 +10,7 @@ import { Chart as ChartJS, ArcElement, Tooltip} from "chart.js";
 import { MoneyIcon } from "../../../assets/script/analytics/MoneyIcon";
 
 import AppInput from "../../../ui/appInput/AppInput";
-import { Select } from "../../../ui/select/Select";
+import { Selector } from "../../../ui/selector/Selector";
 import { IAnalyticsInputForm } from "../../../types/pages/Analytics";
 import { InputTypeList } from "../../../helpers/Input";
 import generateRandomColors from "../../../utils/generateRandomColor";
@@ -103,10 +103,11 @@ function Analytics() {
 					<div className={styles.analyticsPagesContent}>
 						<div className={styles.analyticsSelectContainer}>
 							<div className={styles.analyticsSelectOperation}>
-								<Select
-									name={"expenses"}
+								<Selector
+									name={"number"}
 									label={"Операции"}
 									options={["Расходы", "Доходы", "Анализ доходов и расходов"]}
+									control={control}
 								/>
 							</div>
 							<div className={styles.analyticsSelectDateAndPeriod}>

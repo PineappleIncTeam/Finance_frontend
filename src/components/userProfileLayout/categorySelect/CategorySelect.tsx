@@ -58,6 +58,10 @@ export const CategorySelect = <T extends FieldValues>({
 		}
 	};
 
+	const handleRemoveSelection = () => {
+		setSelectedValue (null);
+	}
+
 	function renderSelectorOptions() {
 		return (
 			isOpen && (
@@ -92,7 +96,7 @@ export const CategorySelect = <T extends FieldValues>({
 			<div onClick={toggleDropdown} className={styles.selectContainer__field} role="listbox">
 				{selectedValue ? (
 					<span className={cn(styles.selectContainer__selectedValue)}>
-						{selectedValue} <Image src={CloseIcon} alt="close"></Image>
+						{selectedValue} <Image src={CloseIcon} alt="close" onClick={handleRemoveSelection}></Image>
 					</span>
 				) : (
 					<span className={styles.selectContainer__placeholder}>{placeholder}</span>

@@ -41,6 +41,14 @@
 	color: var(--color-ash-grey);
 }
 
+.selectContainer__selectedValue {
+    background-color: var(--color-light-grayish-green);
+    padding: 2px 10px; 
+    border-radius: 6px; 
+	display: flex;
+	align-items: center;
+	gap: 8px;
+}
 .selectContainer__selectIcon {
 	width: 24px;
 	height: 24px;

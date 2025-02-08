@@ -65,15 +65,19 @@ export const CategorySelect = <T extends FieldValues>({
 					<p className={styles.selectContainer__title}>Добавить категорию</p>
 					{options &&
 						options.map((option, index: Key) => (
-							<div key={index} className={styles.selectContainer__option} onClick={() => handleOptionClick(option)} role="button">
-								<p className={styles.selectContainer__optionValue} >
-									{option}
-								</p>
+							<div
+								key={index}
+								className={styles.selectContainer__option}
+								onClick={() => handleOptionClick(option)}
+								role="button">
+								<p className={styles.selectContainer__optionValue}>{option}</p>
 								<button
 									className={styles.selectContainer__removeButton}
-									onClick={() => handleRemoveCategory(option)} 
-								>
-									<Image src={CloseIcon} alt={"close"}  />
+									onClick={(event) => {
+										event.stopPropagation(); 
+										handleRemoveCategory(option);
+									}}>
+									<Image src={CloseIcon} alt={"close"} />
 								</button>
 							</div>
 						))}
@@ -83,17 +87,23 @@ export const CategorySelect = <T extends FieldValues>({
 	}
 
 	return (
-<div className={styles.selectContainer}>
-    <label className={styles.selectContainer__description}>{label}</label>
-    <div onClick={toggleDropdown} className={styles.selectContainer__field} role="listbox">
-        {selectedValue ? selectedValue : <span className={styles.selectContainer__placeholder}>{placeholder}</span>}
-            <Image
-                src={Arrow}
-                alt="arrow"
-                className={cn(styles.selectContainer__selectIcon, isOpen && styles.selectContainer__selectIcon__active)}
-            />
-    </div>
-    {renderSelectorOptions()}
-</div>
+		<div className={styles.selectContainer}>
+			<label className={styles.selectContainer__description}>{label}</label>
+			<div onClick={toggleDropdown} className={styles.selectContainer__field} role="listbox">
+				{selectedValue ? (
+					<span className={cn(styles.selectContainer__selectedValue)}>
+						{selectedValue} <Image src={CloseIcon} alt="close"></Image>
+					</span>
+				) : (
+					<span className={styles.selectContainer__placeholder}>{placeholder}</span>
+				)}
+				<Image
+					src={Arrow}
+					alt="arrow"
+					className={cn(styles.selectContainer__selectIcon, isOpen && styles.selectContainer__selectIcon__active)}
+				/>
+			</div>
+			{renderSelectorOptions()}
+		</div>
 	);
 };

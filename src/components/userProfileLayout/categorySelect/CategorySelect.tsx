@@ -1,11 +1,10 @@
 import { Key, useEffect, useRef, useState } from "react";
 import { FieldValues, useController } from "react-hook-form";
 import cn from "classnames";
-import Image from "next/image";
 
 import { ICategorySelect } from "../../../types/common/UiKitProps";
-import CloseIcon from "../../../assets/components/categorySelect/close.svg";
-import Arrow from "../../../assets/components/categorySelect/arrow.svg";
+import { CloseIcon } from "../../../assets/components/categorySelect/CloseIcon";
+import { Arrow } from "../../../assets/components/categorySelect/Arrow";
 
 import styles from "./CategorySelect.module.scss";
 
@@ -59,8 +58,8 @@ export const CategorySelect = <T extends FieldValues>({
 	};
 
 	const handleRemoveSelection = () => {
-		setSelectedValue (null);
-	}
+		setSelectedValue(null);
+	};
 
 	function renderSelectorOptions() {
 		return (
@@ -78,10 +77,10 @@ export const CategorySelect = <T extends FieldValues>({
 								<button
 									className={styles.selectContainer__removeButton}
 									onClick={(event) => {
-										event.stopPropagation(); 
+										event.stopPropagation();
 										handleRemoveCategory(option);
 									}}>
-									<Image src={CloseIcon} alt={"close"} />
+									<CloseIcon classNames={styles.selectContainer__selectIcon} />
 								</button>
 							</div>
 						))}
@@ -91,20 +90,22 @@ export const CategorySelect = <T extends FieldValues>({
 	}
 
 	return (
-		<div className={styles.selectContainer}>
+		<div className={styles.selectContainer} ref={selectRef}>
 			<label className={styles.selectContainer__description}>{label}</label>
 			<div onClick={toggleDropdown} className={styles.selectContainer__field} role="listbox">
 				{selectedValue ? (
 					<span className={cn(styles.selectContainer__selectedValue)}>
-						{selectedValue} <Image src={CloseIcon} alt="close" onClick={handleRemoveSelection}></Image>
+						{selectedValue}{" "}
+						<div className={styles.closeIcon} onClick={handleRemoveSelection} role="button">
+							<CloseIcon classNames={styles.selectContainer__selectIcon} />
+						</div>
 					</span>
 				) : (
 					<span className={styles.selectContainer__placeholder}>{placeholder}</span>
 				)}
-				<Image
-					src={Arrow}
-					alt="arrow"
-					className={cn(styles.selectContainer__selectIcon, isOpen && styles.selectContainer__selectIcon__active)}
+
+				<Arrow
+					classNames={cn(styles.selectContainer__selectIcon, isOpen && styles.selectContainer__selectIcon__active)}
 				/>
 			</div>
 			{renderSelectorOptions()}

@@ -24,7 +24,7 @@ export const CategorySelect = <T extends FieldValues>({
 	});
 
 	const [isOpen, setIsOpen] = useState<boolean>(false);
-	const [selectedValue, setSelectedValue] = useState<string>(value);
+	const [selectedValue, setSelectedValue] = useState<string | null>(value);
 	const selectRef = useRef<HTMLDivElement>(null);
 
 	useEffect(() => {

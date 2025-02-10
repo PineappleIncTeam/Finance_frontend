@@ -105,6 +105,13 @@ export interface ICustomHeaderInputDate {
 	nextYearButtonDisabled: boolean;
 }
 
+export interface IInputDateSelector {
+	options?: number[] | string[];
+	value: number;
+	changeDate: (date: number) => void;
+	isMonth?: boolean
+}
+
 export interface ICustomInputDate<T extends TAppInputForm> {
 	isPeriod?: boolean;
 	control?: Control<T>;

@@ -6,9 +6,7 @@
 	line-height: 2.8rem;
 	width: 300px;
 	height: 100%;
-	
 	background-color: var(--color-pure-light);
-	overflow: hidden;
 	transition: 0.4s;
 	font-family: "Rubik", Verdana, Arial, Tahoma, sans-serif;
 
@@ -32,6 +30,7 @@
 
 .react-datepicker__month-container {
 	width: 100%;
+	border-radius: 8px;
 	background-color: var(--color-pure-light);
 }
 

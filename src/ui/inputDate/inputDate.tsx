@@ -14,6 +14,8 @@ import { ICustomHeaderInputDate, ICustomInputDate } from "../../types/common/UiK
 
 import calendarIcon from "../../assets/components/inputDate/calendarIcon";
 
+import InputDateSelector from "../../components/userProfileLayout/inputDateSelector/inputDateSelector";
+
 import style from "./inputDate.module.scss";
 
 import "./datepicker.scss";
@@ -77,26 +79,15 @@ const InputDate = <T extends FieldValues>({ isPeriod = false, control, name }: I
 				</button>
 			</div>
 			<div className={style.inputDateSelectors}>
-				<select
-					value={date.getMonth()}
-					onChange={({ target: { value } }) => changeMonth(Number(value))}
-					className={cn(style.inputDateSelect, style.inputDateSelect__month)}>
-					{moment.months().map((month, index) => (
-						<option key={index} value={index}>
-							{month}
-						</option>
-					))}
-				</select>
-				<select
+				<InputDateSelector options={moment.months()} changeDate={changeMonth} value={date.getMonth()} isMonth />
+				<InputDateSelector
+					options={Array.from(
+						{ length: MAX_YEAR_INTERVAL },
+						(_, index) => date.getFullYear() - MAX_YEAR_INTERVAL / 2 + index,
+					)}
+					changeDate={changeYear}
 					value={date.getFullYear()}
-					onChange={({ target: { value } }) => changeYear(Number(value))}
-					className={style.inputDateSelect}>
-					{[...Array(MAX_YEAR_INTERVAL)].map((_, index) => (
-						<option key={index} value={date.getFullYear() - MAX_YEAR_INTERVAL / 2 + index}>
-							{date.getFullYear() - MAX_YEAR_INTERVAL / 2 + index}
-						</option>
-					))}
-				</select>
+				/>
 			</div>
 			<div className={style.inputDateSelect__arrowButtons}>
 				<button

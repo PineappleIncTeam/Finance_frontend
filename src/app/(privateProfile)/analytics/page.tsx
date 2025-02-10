@@ -5,7 +5,7 @@ import { useState, useEffect, ChangeEvent } from "react";
 import { useForm } from "react-hook-form";
 
 import { Pie } from "react-chartjs-2";
-import { Chart as ChartJS, ArcElement, Tooltip} from "chart.js";
+import { Chart as ChartJS, ArcElement, Tooltip } from "chart.js";
 
 import { MoneyIcon } from "../../../assets/script/analytics/MoneyIcon";
 
@@ -54,15 +54,31 @@ function Analytics() {
 
 	ChartJS.register(ArcElement, Tooltip);
 
-	const LABELS_EXPENSES:string[] = [
-		"Внезапная покупка", "Стрижка", "Бассейн", "Школа", "Еда", 
-		"Плата жилья", "Ногти", "Бензин", "Дорога работа", "Юрист", 
-		"Детский сад", "Учебники", "Отпуск", "Театр", "Кредит", 
-		"Страховка", "Киберспорт", "Путешествия", "Кино", "Ипотека"
+	const LABELS_EXPENSES: string[] = [
+		"Внезапная покупка",
+		"Стрижка",
+		"Бассейн",
+		"Школа",
+		"Еда",
+		"Плата жилья",
+		"Ногти",
+		"Бензин",
+		"Дорога работа",
+		"Юрист",
+		"Детский сад",
+		"Учебники",
+		"Отпуск",
+		"Театр",
+		"Кредит",
+		"Страховка",
+		"Киберспорт",
+		"Путешествия",
+		"Кино",
+		"Ипотека",
 	];
 	const LABELS_EXPENSES_NUMBER = LABELS_EXPENSES.length;
 
-	const RANDOM_COLORS:string[] = generateRandomColors(LABELS_EXPENSES_NUMBER);
+	const RANDOM_COLORS: string[] = generateRandomColors(LABELS_EXPENSES_NUMBER);
 
 	const data = {
 		labels: LABELS_EXPENSES,
@@ -70,11 +86,9 @@ function Analytics() {
 			{
 				label: "Расходы",
 				data: [
-					1300.01, 3900.02, 3250.02, 1638.83, 2652.06, 
-					15271.09, 390.0, 975.56, 1340.79, 9110.05, 
-					16192.09, 2600.01, 6437.57, 1690.01, 26000.15, 
-					520.0, 520.0, 520.0, 520.0, 9586.33
-				].map(value => displayMode === "rub" ? value : (value / 130000 * 100).toFixed(2)),
+					1300.01, 3900.02, 3250.02, 1638.83, 2652.06, 15271.09, 390.0, 975.56, 1340.79, 9110.05, 16192.09, 2600.01,
+					6437.57, 1690.01, 26000.15, 520.0, 520.0, 520.0, 520.0, 9586.33,
+				].map((value) => (displayMode === "rub" ? value : ((value / 130000) * 100).toFixed(2))),
 				backgroundColor: RANDOM_COLORS,
 				borderWidth: 0,
 			},
@@ -91,13 +105,14 @@ function Analytics() {
 		<div className={styles.analyticsPageWrap}>
 			<div className={styles.analyticsPageContainer}>
 				<h1 className={styles.headerTitle}>Аналитика</h1>
-				{isEmptyPage? (
+				{isEmptyPage ? (
 					<div className={styles.analyticsBlankPage}>
+						<p className={styles.analyticsBlankPage__text}>
+							К сожалению, этот раздел пока пуст. Начните вести учет финансов в приложении и сможет воспользоваться этим
+							разделом.
+						</p>
 
-						<p className={styles.analyticsBlankPage__text}>К сожалению, этот раздел пока пуст. Начните вести учет финансов в приложении и сможет воспользоваться этим разделом.</p>
-						
-						<MoneyIcon classNames={styles.analyticsBlankPage__image}/>
-	
+						<MoneyIcon classNames={styles.analyticsBlankPage__image} />
 					</div>
 				) : (
 					<div className={styles.analyticsPagesContent}>
@@ -153,7 +168,6 @@ function Analytics() {
 							</div>
 
 							<div className={styles.analyticsDiagramExpenses}>
-
 								<div className={styles.diagramExpenses}>
 									<Pie data={data} options={{ responsive: true }} />
 								</div>

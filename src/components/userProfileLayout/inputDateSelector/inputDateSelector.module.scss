@@ -1,0 +1,68 @@
+.selectContainer {
+	display: flex;
+	flex-direction: column;
+	position: relative;
+	width: 100%;
+	gap: 8px;
+	user-select: none;
+
+	@media (max-width: 600px) {
+		gap: 4px;
+	}
+
+	&__field {
+		font-size: 2rem;
+		text-transform: capitalize;
+		font-weight: 400;
+		appearance: none;
+		-webkit-appearance: none;
+		-moz-appearance: none;
+		background: none;
+		border: none;
+		padding: 0;
+		margin: 0;
+		cursor: pointer;
+		@media (max-width: 490px) {
+			font-size: 1.6rem;
+		}
+	}
+
+	&__options {
+		position: absolute;
+		top: 102%;
+		max-height: 300px;
+		left: 0;
+		right: 0;
+		width: fit-content;
+		overflow-y: auto;
+		transition: transform 0.5s;
+		scrollbar-width: thin;
+		scrollbar-color: var(--color-light-green) var(--color-light-grayish-green);
+		border-radius: 8px;
+		border: 1.5px solid var(--color-gainsboro);
+		background-color: var(--color-pure-light);
+		box-shadow: 0px 4px 20px 0px var(--color-black-eight-part);
+		z-index: 100;
+	}
+
+	&__option {
+		padding: 10px 16px;
+		&:hover {
+			background-color: var(--color-light-grayish-green);
+		}
+	}
+
+	&__optionSelected {
+		background-color: var(--color-dark-sea-green);
+	}
+
+	&__optionValue {
+		font-size: 2rem;
+		line-height: 2.8rem;
+
+		@media (max-width: 600px) {
+			font-size: 1.3rem;
+			line-height: 1.8rem;
+		}
+	}
+}

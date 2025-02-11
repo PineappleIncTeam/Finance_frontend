@@ -28,14 +28,14 @@ const MainHeader = () => {
 	const pathname = usePathname();
 	const [open, setOpen] = useState<boolean>(false);
 	const [baseUrl, setBaseUrl] = useState<string>();
-	const modalRef = useRef<any>(null);
+	const modalRef = useRef<HTMLDivElement | null>(null);
 	const router = useRouter();
 
 	const { isAutoLogin } = useAppSelector(autoLoginSelector);
 
 	const handleClickOutside = (
 		event: MouseEvent,
-		modalRef: RefObject<HTMLDivElement>,
+		modalRef: RefObject<HTMLDivElement | null>,
 		setOpen: Dispatch<SetStateAction<boolean>>,
 	) => {
 		if (modalRef.current && !modalRef.current.contains(event.target as Node)) {
@@ -80,7 +80,9 @@ const MainHeader = () => {
 
 	useEffect(() => {
 		const handleDocumentClick = (event: MouseEvent) => {
-			handleClickOutside(event, modalRef, setOpen);
+			if (modalRef.current) {
+				handleClickOutside(event, modalRef, setOpen);
+			}
 		};
 		if (open) {
 			document.addEventListener("mousedown", handleDocumentClick);

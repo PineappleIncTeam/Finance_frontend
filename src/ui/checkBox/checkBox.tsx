@@ -1,19 +1,19 @@
 import React from "react";
 
-import { useController } from "react-hook-form";
+import { FieldValues, Path, PathValue, useController } from "react-hook-form";
 
 import { ICustomCheckbox } from "../../types/common/UiKitProps";
 import { InputTypeList } from "../../helpers/Input";
 
 import styles from "./checkBox.module.scss";
 
-const CustomCheckbox = ({ control, name, rules }: ICustomCheckbox) => {
+const CustomCheckbox = <T extends FieldValues>({ control, name, rules }: ICustomCheckbox<T>) => {
 	const {
 		field: { onChange, value, ref },
 	} = useController({
 		name,
 		control,
-		defaultValue: false,
+		defaultValue: false as PathValue<T, Path<T>>,
 		rules,
 	});
 

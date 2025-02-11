@@ -5,21 +5,21 @@ import { EditIcon } from "../../../assets/script/expenses/EditIcon";
 import { ISavingsTransaction } from "../../../types/components/ComponentsTypes";
 import { ExpensesTooltip } from "../expensesTooltip/expensesTooltip";
 
-import style from "./savingsTransaction.module.scss";
+import styles from "./savingsTransaction.module.scss";
 
 const SavingsTransaction = ({ firstDate, secondDate, purpose, sum }: ISavingsTransaction) => {
 	const [isTooltipShown, setIsTooltipShown] = useState<boolean>(false);
 
 	return (
-		<div className={style.savingsTransactionContainer}>
-			<p className={style.transactionData}>{firstDate}</p>
-			<p className={style.transactionData}>{secondDate}</p>
-			<p className={style.transactionData}>{purpose}</p>
-			<p className={style.transactionData}>{sum}</p>
-			<div className={style.savingsTransactionContainer__actionsWrapper}>
-				<DeleteIcon classNames={style.deleteIcon} />
+		<div className={styles.savingsTransactionContainer}>
+			<p className={styles.transactionData}>{firstDate}</p>
+			<p className={styles.transactionData}>{secondDate}</p>
+			<p className={styles.transactionData}>{purpose}</p>
+			<p className={styles.transactionData}>{sum}</p>
+			<div className={styles.savingsTransactionContainer__actionsWrapper}>
+				<DeleteIcon classNames={styles.deleteIcon} />
 				<div onMouseMove={() => setIsTooltipShown(true)} onMouseOut={() => setIsTooltipShown(false)}>
-					<EditIcon classNames={style.editIcon} />
+					<EditIcon classNames={styles.editIcon} />
 				</div>
 			</div>
 			<ExpensesTooltip open={isTooltipShown} />

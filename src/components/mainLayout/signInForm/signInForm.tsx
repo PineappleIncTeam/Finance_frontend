@@ -28,7 +28,7 @@ import styles from "./signInForm.module.scss";
 const SignInForm = () => {
 	const [baseUrl, setBaseUrl] = useState<string>();
 	const [errorMessage, setErrorMessage] = useState<string>("");
-	const [isOpen, setIsOpen] = useState<boolean>(true);
+	const [isOpen, setIsOpen] = useState<boolean>(false);
 
 	const dispatch = useAppDispatch();
 
@@ -107,7 +107,7 @@ const SignInForm = () => {
 				/>
 				<div className={styles.additionalFunctionsWrap}>
 					<div className={styles.additionalFunctionsWrap__checkbox}>
-						<CustomCheckbox control={control} name={"isAuth"} />
+						<CustomCheckbox control={control} name={"isAutoAuth"} />
 						<p className={styles.checkBoxText}>Запомнить меня</p>
 					</div>
 					<Link href={MainPath.NewPassword} className={styles.forgetPassword}>

@@ -1,19 +1,31 @@
-.sidebar__navItems {
+.sidebarNavWrap {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	gap: 32px;
+
+	@media (max-width: 600px) {
+		gap: 20px;
+	}
+}
+
+.sidebarNavContainer {
 	display: flex;
 	flex-direction: column;
 	gap: 14px;
+
 	@media (max-width: 600px) {
 		gap: 8px;
 	}
 }
 
-.sidebarNavItem__wrapper {
+.navLinkWrapper {
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
 }
 
-.sidebarNavItem__title {
+.navLinkWrapper__title {
 	color: var(--color-dark-cyan-blue);
 	font-size: 20px;
 	font-weight: 400;
@@ -24,14 +36,14 @@
 	}
 }
 
-.sidebarNavItem__icon {
+.navLinkWrapper__iconElement {
 	@media (max-width: 600px) {
 		width: 13px;
 		height: 13px;
 	}
 }
 
-.sidebar__profileItems {
+.sidebarProfileItems {
 	display: flex;
 	flex-direction: column;
 	gap: 14px;
@@ -41,7 +53,7 @@
 	}
 }
 
-.sidebarProfileItem__wrapper {
+.profileItemActionWrap {
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
@@ -49,7 +61,7 @@
 	border: none;
 }
 
-.sidebarProfileItem__title {
+.profileItemActionWrap__title {
 	font-size: 2rem;
 	line-height: 2.8rem;
 	font-weight: 400;
@@ -62,23 +74,12 @@
 	}
 }
 
-.sidebarProfileItem__icon {
+.profileItemActionWrap__iconElement {
 	width: 24px;
 	height: 24px;
 
 	@media (max-width: 600px) {
 		width: 20px;
 		height: 20px;
-	}
-}
-
-.sidebar__nav {
-	width: 100%;
-	display: flex;
-	flex-direction: column;
-	gap: 32px;
-
-	@media (max-width: 600px) {
-		gap: 20px;
 	}
 }

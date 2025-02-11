@@ -1,15 +1,19 @@
 "use client";
 
-import { Key } from "react";
+import { Key, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+
+import useLogoutTimer from "../../../hooks/useLogoutTimer";
 
 import { IExpensesInputForm } from "../../../types/pages/Expenses";
 import { Select } from "../../../ui/select/Select";
 import AppInput from "../../../ui/appInput/AppInput";
 import Button from "../../../ui/button/button";
-
 import IncomeTransaction from "../../../components/userProfileLayout/incomeTransaction/incomeTransaction";
+import { InputTypeList } from "../../../helpers/Input";
+import handleLogout from "../../../helpers/logout";
 import { formatMoney } from "../../../utils/formatData";
+import { getCorrectBaseUrl } from "../../../utils/baseUrlConverter";
 import { incomeTransactions } from "../../../mocks/IncomeTransaction";
 
 import { PlusIcon } from "../../../assets/script/expenses/PlusIcon";
@@ -18,6 +22,9 @@ import InputDate from "../../../ui/inputDate/inputDate";
 import styles from "./profitMoney.module.scss";
 
 function ProfitMoney() {
+	const [baseUrl, setBaseUrl] = useState<string>();
+	const { request } = handleLogout(baseUrl);
+	const { resetTimer } = useLogoutTimer(request);
 	const { control } = useForm<IExpensesInputForm>({
 		defaultValues: {
 			sum: "",
@@ -27,6 +34,14 @@ function ProfitMoney() {
 	});
 
 	const incomeMoney = 200000;
+
+	useEffect(() => {
+		setBaseUrl(getCorrectBaseUrl());
+	}, []);
+
+	useEffect(() => {
+		resetTimer();
+	}, [request, resetTimer]);
 
 	return (
 		<div className={styles.profitMoneyPageWrap}>
@@ -50,7 +65,13 @@ function ProfitMoney() {
 								</div>
 								<div className={styles.detailsContainer__rightSide}>
 									<div className={styles.detailsContainer__sum}>
-										<AppInput control={control} label={"Сумма"} type="number" name={"number"} placeholder="0.00 ₽" />
+										<AppInput
+											control={control}
+											label={"Сумма"}
+											type={InputTypeList.Number}
+											name={"number"}
+											placeholder="0.00 ₽"
+										/>
 									</div>
 									<Button content={"Добавить"} styleName={"buttonForIncome__disabled"}>
 										<PlusIcon classNames={styles.addButtonIcon} />
@@ -63,7 +84,13 @@ function ProfitMoney() {
 								</div>
 								<div className={styles.detailsContainer__rightSide}>
 									<div className={styles.detailsContainer__sum}>
-										<AppInput control={control} label={"Сумма"} type="number" name={"number"} placeholder="0.00 ₽" />
+										<AppInput
+											control={control}
+											label={"Сумма"}
+											type={InputTypeList.Number}
+											name={"number"}
+											placeholder="0.00 ₽"
+										/>
 									</div>
 									<Button content={"Добавить"} styleName={"buttonForIncome__disabled"}>
 										<PlusIcon classNames={styles.addButtonIcon} />

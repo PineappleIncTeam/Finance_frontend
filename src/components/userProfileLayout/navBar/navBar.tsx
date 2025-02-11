@@ -18,17 +18,23 @@ import AnalyticsIcon from "../../../assets/script/privateProfileNavBar/Analytics
 import CalculatorIcon from "../../../assets/script/privateProfileNavBar/CalculatorIcon";
 import infoIcon from "../../../assets/components/navBar/infoIcon.svg";
 import crossIcon from "../../../assets/components/navBar/crossIcon.svg";
+import useLogoutTimer from "../../../hooks/useLogoutTimer";
+import handleLogout from "../../../helpers/logout";
+import { getCorrectBaseUrl } from "../../../utils/baseUrlConverter";
 
 import styles from "./navBar.module.scss";
 
 const NavBar = ({ onClick }: INavBar) => {
 	const pathname = usePathname();
 	const [open, setOpen] = useState<boolean>(false);
+	const [baseUrl, setBaseUrl] = useState<string>();
 	const modalRef = useRef<HTMLDivElement | null>(null);
+	const { request } = handleLogout(baseUrl);
+	const { resetTimer } = useLogoutTimer(request);
 
 	const handleClickOutside = (
 		event: MouseEvent,
-		modalRef: RefObject<HTMLDivElement>,
+		modalRef: RefObject<HTMLDivElement | null>,
 		setOpen: Dispatch<SetStateAction<boolean>>,
 	) => {
 		if (modalRef && modalRef.current && !modalRef.current.contains(event.target as Node)) {
@@ -38,7 +44,9 @@ const NavBar = ({ onClick }: INavBar) => {
 
 	useEffect(() => {
 		const handleDocumentClick = (event: MouseEvent) => {
-			handleClickOutside(event, modalRef as any, setOpen);
+			if (modalRef.current) {
+				handleClickOutside(event, modalRef, setOpen);
+			}
 		};
 		if (open) {
 			document.addEventListener("mousedown", handleDocumentClick);
@@ -54,6 +62,10 @@ const NavBar = ({ onClick }: INavBar) => {
 	useEffect(() => {
 		setOpen(false);
 	}, [pathname]);
+
+	useEffect(() => {
+		setBaseUrl(getCorrectBaseUrl());
+	}, []);
 
 	const renderNavigationElements = () => {
 		return (
@@ -117,6 +129,8 @@ const NavBar = ({ onClick }: INavBar) => {
 				</Link>
 				<Link href={UserProfilePath.Analytics} className={styles.navigationLink}>
 					<div
+						role="button"
+						onClick={() => resetTimer()}
 						className={cn(styles.navigationLinkWrap, {
 							[styles.navigationLinkWrapBoder__hide]: pathname === UserProfilePath.Analytics,
 						})}>

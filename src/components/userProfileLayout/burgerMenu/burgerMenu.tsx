@@ -7,7 +7,7 @@ import { IBurgerMenu } from "../../../types/components/ComponentsTypes";
 
 import { useLockScroll } from "../../../hooks/useLockScroll";
 
-import style from "./burgerMenu.module.scss";
+import styles from "./burgerMenu.module.scss";
 
 export const BurgerMenu = ({ children, showMenu, setShowMenu }: IBurgerMenu) => {
 	const closeMenu = () => {
@@ -18,24 +18,24 @@ export const BurgerMenu = ({ children, showMenu, setShowMenu }: IBurgerMenu) => 
 
 	return (
 		<div
-			className={cn(style.burgerMenuWrapper, {
-				[style.burgerMenuWrapper__show]: showMenu,
+			className={cn(styles.burgerMenuWrapper, {
+				[styles.burgerMenuWrapper__show]: showMenu,
 			})}>
 			<div
-				className={cn(style.burgerMenuContainer, {
-					[style.burgerMenuContainer__show]: showMenu,
+				className={cn(styles.burgerMenuContainer, {
+					[styles.burgerMenuContainer__show]: showMenu,
 				})}
 				onClick={closeMenu}
 				role="button"></div>
 			<div
 				role="menubar"
-				className={cn(style.burgerMenuSlide, {
-					[style.burgerMenuSlide__show]: showMenu,
+				className={cn(styles.burgerMenuSlide, {
+					[styles.burgerMenuSlide__show]: showMenu,
 				})}>
-				<div className={style.burgerMenuCross} onClick={closeMenu} role="button">
-					<Image src={crossIcon} alt={"crossIcon"} className={style.burgerMenuCross__icon} />
+				<div className={styles.burgerMenuCross} onClick={closeMenu} role="button">
+					<Image src={crossIcon} alt={"crossIcon"} className={styles.burgerMenuCross__icon} />
 				</div>
-				<div className={style.burgerMenuContent}>{children}</div>
+				<div className={styles.burgerMenuContent}>{children}</div>
 			</div>
 		</div>
 	);

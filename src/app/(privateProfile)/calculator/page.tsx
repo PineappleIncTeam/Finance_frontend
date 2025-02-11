@@ -5,9 +5,14 @@ import React, { useState, useEffect, ChangeEvent, MouseEvent } from "react";
 import { AiFillInfoCircle } from "react-icons/ai";
 import { CgClose } from "react-icons/cg";
 
-import { formatCalculateNumber } from "../../../utils/formatCalculateNumber";
+import useLogoutTimer from "../../../hooks/useLogoutTimer";
 
-import style from "./calculator.module.scss";
+import { formatCalculateNumber } from "../../../utils/formatCalculateNumber";
+import { getCorrectBaseUrl } from "../../../utils/baseUrlConverter";
+import { InputTypeList } from "../../../helpers/Input";
+import handleLogout from "../../../helpers/logout";
+
+import styles from "./calculator.module.scss";
 
 export default function Calculator() {
 	const MAX_VALUE = 10000000;
@@ -19,6 +24,17 @@ export default function Calculator() {
 	const [isVisibleInfo, setIsVisibleInfo] = useState(false);
 	const [isMobile, setIsMobile] = useState(window.innerWidth <= MOBILE_SCREEN);
 	const [activeButton, setActiveButton] = useState<string | null>("realEstate");
+	const [baseUrl, setBaseUrl] = useState<string>();
+	const { request } = handleLogout(baseUrl);
+	const { resetTimer } = useLogoutTimer(request);
+
+	useEffect(() => {
+		setBaseUrl(getCorrectBaseUrl());
+	}, []);
+
+	useEffect(() => {
+		resetTimer();
+	}, [request, resetTimer]);
 
 	useEffect(() => {
 		const handleResize = () => {
@@ -37,6 +53,7 @@ export default function Calculator() {
 		setIsVisibleInfo(false);
 	};
 	const handleSubmit = (event: MouseEvent<HTMLButtonElement>) => {
+		resetTimer();
 		event.preventDefault();
 		if (isMobile) {
 			handleVisibleInfo();
@@ -76,360 +93,373 @@ export default function Calculator() {
 	};
 
 	return (
-		<div className={style.calculatorPageWrap}>
-			<div className={style.calculatorPageContainer}>
-				<h1 className={style.headerTitle}>Калькулятор</h1>
+		<div className={styles.calculatorPageWrap}>
+			<div className={styles.calculatorPageContainer}>
+				<h1 className={styles.headerTitle}>Калькулятор</h1>
 
-				<div className={style.currencySelectionWrapper}>
-					<p className={style.currencySelectionWrapper__description}>Рассчитать в:</p>
-					<div className={style.currencySelectionRadioGroup}>
+				<div className={styles.currencySelectionWrapper}>
+					<p className={styles.currencySelectionWrapper__description}>Рассчитать в:</p>
+					<div className={styles.currencySelectionRadioGroup}>
 						<input
 							name="currency"
-							type="radio"
+							type={InputTypeList.Radio}
 							id="currencySelectionRadioGroup__usd"
-							className={style.currencySelectionRadioGroup__input}
+							className={styles.currencySelectionRadioGroup__input}
 						/>
-						<label htmlFor="currencySelectionRadioGroup__usd" className={style.currencySelectionRadioGroup__label}>
-							<p className={style.currencySelectionRadioGroup__text}>$</p>
+						<label htmlFor="currencySelectionRadioGroup__usd" className={styles.currencySelectionRadioGroup__label}>
+							<p className={styles.currencySelectionRadioGroup__text}>$</p>
 						</label>
 						<input
 							name="currency"
-							type="radio"
+							type={InputTypeList.Radio}
 							id="currencySelectionRadioGroup__rub"
-							className={style.currencySelectionRadioGroup__input}
+							className={styles.currencySelectionRadioGroup__input}
 							defaultChecked
 						/>
-						<label htmlFor="currencySelectionRadioGroup__rub" className={style.currencySelectionRadioGroup__label}>
-							<p className={style.currencySelectionRadioGroup__text}>₽</p>
+						<label htmlFor="currencySelectionRadioGroup__rub" className={styles.currencySelectionRadioGroup__label}>
+							<p className={styles.currencySelectionRadioGroup__text}>₽</p>
 						</label>
 						<input
 							name="currency"
-							type="radio"
+							type={InputTypeList.Radio}
 							id="currencySelectionRadioGroup__eur"
-							className={style.currencySelectionRadioGroup__input}
+							className={styles.currencySelectionRadioGroup__input}
 						/>
-						<label htmlFor="currencySelectionRadioGroup__eur" className={style.currencySelectionRadioGroup__label}>
-							<p className={style.currencySelectionRadioGroup__text}>€</p>
+						<label htmlFor="currencySelectionRadioGroup__eur" className={styles.currencySelectionRadioGroup__label}>
+							<p className={styles.currencySelectionRadioGroup__text}>€</p>
 						</label>
 					</div>
 				</div>
 
-				<div className={style.calculationWrapper}>
-					<form className={style.calculatorFormContentWrapper}>
-						<div className={style.selectionOfCalculationContainer}>
+				<div className={styles.calculationWrapper}>
+					<form className={styles.calculatorFormContentWrapper}>
+						<div className={styles.selectionOfCalculationContainer}>
 							<button
-								className={`${style.selectionOfCalculationContainer__button} ${activeButton === "realEstate" ? style.active : ""}`}
+								className={`${styles.selectionOfCalculationContainer__button} ${activeButton === "realEstate" ? styles.active : ""}`}
 								onClick={(event) => handleButtonClick("realEstate", event)}>
 								Недвижимость
 							</button>
 
 							<button
-								className={`${style.selectionOfCalculationContainer__button} ${activeButton === "credit" ? style.active : ""}`}
+								className={`${styles.selectionOfCalculationContainer__button} ${activeButton === "credit" ? styles.active : ""}`}
 								onClick={(event) => handleButtonClick("credit", event)}>
 								Кредит
 							</button>
 						</div>
 
-						<div className={style.propertyValueContainer}>
-							<label className={style.propertyValueContainer__label} htmlFor="propertyValue">
+						<div className={styles.propertyValueContainer}>
+							<label className={styles.propertyValueContainer__label} htmlFor="propertyValue">
 								Стоимость недвижимости, ₽
 							</label>
-							<div className={style.inputRangeFieldContainer}>
+							<div className={styles.inputRangeFieldContainer}>
 								<input
-									type="text"
+									type={InputTypeList.Text}
 									inputMode="numeric"
 									value={formatCalculateNumber(value)}
 									onChange={handleInputChange}
-									className={style.inputRangeFieldContainer__input}
+									className={styles.inputRangeFieldContainer__input}
 									min={DEFAULT_VALUE}
 									max={MAX_VALUE}
 									id="propertyValue"
 								/>
 								<input
-									type="range"
+									type={InputTypeList.Range}
 									value={value}
 									onChange={handleRangeChange}
-									className={style.inputRangeFieldContainer__range}
+									className={styles.inputRangeFieldContainer__range}
 									min={DEFAULT_VALUE}
 									max={MAX_VALUE}
 								/>
 							</div>
 						</div>
 
-						<div className={style.propertyValueContainer}>
-							<label className={style.propertyValueContainer__label} htmlFor="initialContribution">
+						<div className={styles.propertyValueContainer}>
+							<label className={styles.propertyValueContainer__label} htmlFor="initialContribution">
 								Первоначальный взнос, ₽
 							</label>
-							<div className={style.inputRangeFieldContainer}>
+							<div className={styles.inputRangeFieldContainer}>
 								<input
-									type="text"
+									type={InputTypeList.Text}
 									inputMode="numeric"
 									value={formatCalculateNumber(value)}
 									onChange={handleInputChange}
-									className={style.inputRangeFieldContainer__input}
+									className={styles.inputRangeFieldContainer__input}
 									min={DEFAULT_VALUE}
 									max={MAX_VALUE}
 									id="initialContribution"
 								/>
 								<input
-									type="range"
+									type={InputTypeList.Range}
 									value={value}
 									onChange={handleRangeChange}
-									className={style.inputRangeFieldContainer__range}
+									className={styles.inputRangeFieldContainer__range}
 									min={DEFAULT_VALUE}
 									max={MAX_VALUE}
 								/>
 							</div>
 
-							<div className={style.propertyButtonRadioContainer}>
+							<div className={styles.propertyButtonRadioContainer}>
 								<input
 									name="percent"
-									type="radio"
+									type={InputTypeList.Radio}
 									id="propertyButtonRadioContainer__5"
-									className={style.propertyButtonRadioContainer__input}
+									className={styles.propertyButtonRadioContainer__input}
 								/>
-								<label htmlFor="propertyButtonRadioContainer__5" className={style.propertyButtonRadioContainer__label}>
-									<p className={style.propertyButtonRadioContainer__text}>5%</p>
+								<label htmlFor="propertyButtonRadioContainer__5" className={styles.propertyButtonRadioContainer__label}>
+									<p className={styles.propertyButtonRadioContainer__text}>5%</p>
 								</label>
 								<input
 									name="percent"
-									type="radio"
+									type={InputTypeList.Radio}
 									id="propertyButtonRadioContainer__10"
-									className={style.propertyButtonRadioContainer__input}
+									className={styles.propertyButtonRadioContainer__input}
 								/>
-								<label htmlFor="propertyButtonRadioContainer__10" className={style.propertyButtonRadioContainer__label}>
-									<p className={style.propertyButtonRadioContainer__text}>10%</p>
+								<label
+									htmlFor="propertyButtonRadioContainer__10"
+									className={styles.propertyButtonRadioContainer__label}>
+									<p className={styles.propertyButtonRadioContainer__text}>10%</p>
 								</label>
 								<input
 									name="percent"
-									type="radio"
+									type={InputTypeList.Radio}
 									id="propertyButtonRadioContainer__15"
-									className={style.propertyButtonRadioContainer__input}
+									className={styles.propertyButtonRadioContainer__input}
 								/>
-								<label htmlFor="propertyButtonRadioContainer__15" className={style.propertyButtonRadioContainer__label}>
-									<p className={style.propertyButtonRadioContainer__text}>15%</p>
+								<label
+									htmlFor="propertyButtonRadioContainer__15"
+									className={styles.propertyButtonRadioContainer__label}>
+									<p className={styles.propertyButtonRadioContainer__text}>15%</p>
 								</label>
 								<input
 									name="percent"
-									type="radio"
+									type={InputTypeList.Radio}
 									id="propertyButtonRadioContainer__20"
-									className={style.propertyButtonRadioContainer__input}
+									className={styles.propertyButtonRadioContainer__input}
 								/>
-								<label htmlFor="propertyButtonRadioContainer__20" className={style.propertyButtonRadioContainer__label}>
-									<p className={style.propertyButtonRadioContainer__text}>20%</p>
+								<label
+									htmlFor="propertyButtonRadioContainer__20"
+									className={styles.propertyButtonRadioContainer__label}>
+									<p className={styles.propertyButtonRadioContainer__text}>20%</p>
 								</label>
 								<input
 									name="percent"
-									type="radio"
+									type={InputTypeList.Radio}
 									id="propertyButtonRadioContainer__25"
-									className={style.propertyButtonRadioContainer__input}
+									className={styles.propertyButtonRadioContainer__input}
 								/>
-								<label htmlFor="propertyButtonRadioContainer__25" className={style.propertyButtonRadioContainer__label}>
-									<p className={style.propertyButtonRadioContainer__text}>25%</p>
+								<label
+									htmlFor="propertyButtonRadioContainer__25"
+									className={styles.propertyButtonRadioContainer__label}>
+									<p className={styles.propertyButtonRadioContainer__text}>25%</p>
 								</label>
 								<input
 									name="percent"
-									type="radio"
+									type={InputTypeList.Radio}
 									id="propertyButtonRadioContainer__30"
-									className={style.propertyButtonRadioContainer__input}
+									className={styles.propertyButtonRadioContainer__input}
 								/>
-								<label htmlFor="propertyButtonRadioContainer__30" className={style.propertyButtonRadioContainer__label}>
-									<p className={style.propertyButtonRadioContainer__text}>30%</p>
+								<label
+									htmlFor="propertyButtonRadioContainer__30"
+									className={styles.propertyButtonRadioContainer__label}>
+									<p className={styles.propertyButtonRadioContainer__text}>30%</p>
 								</label>
 							</div>
 						</div>
 
-						<div className={style.propertyValueContainer}>
-							<label className={style.propertyValueContainer__label} htmlFor="initialContribution">
+						<div className={styles.propertyValueContainer}>
+							<label className={styles.propertyValueContainer__label} htmlFor="initialContribution">
 								Сроки кредита, лет
 							</label>
-							<div className={style.inputRangeFieldContainer}>
+							<div className={styles.inputRangeFieldContainer}>
 								<input
-									type="text"
+									type={InputTypeList.Text}
 									inputMode="numeric"
 									value={formatCalculateNumber(value)}
 									onChange={handleInputChange}
-									className={style.inputRangeFieldContainer__input}
+									className={styles.inputRangeFieldContainer__input}
 									min={DEFAULT_VALUE}
 									max={MAX_VALUE}
 									id="initialContribution"
 								/>
 								<input
-									type="range"
+									type={InputTypeList.Range}
 									value={value}
 									onChange={handleRangeChange}
-									className={style.inputRangeFieldContainer__range}
+									className={styles.inputRangeFieldContainer__range}
 									min={DEFAULT_VALUE}
 									max={MAX_VALUE}
 								/>
 							</div>
 
-							<div className={style.propertyButtonRadioContainer}>
+							<div className={styles.propertyButtonRadioContainer}>
 								<input
 									name="percent"
-									type="radio"
+									type={InputTypeList.Radio}
 									id="propertyButtonRadioContainer__5year"
-									className={style.propertyButtonRadioContainer__input}
+									className={styles.propertyButtonRadioContainer__input}
 								/>
 								<label
 									htmlFor="propertyButtonRadioContainer__5year"
-									className={style.propertyButtonRadioContainer__label}>
-									<p className={style.propertyButtonRadioContainer__text}>5 лет</p>
+									className={styles.propertyButtonRadioContainer__label}>
+									<p className={styles.propertyButtonRadioContainer__text}>5 лет</p>
 								</label>
 								<input
 									name="percent"
-									type="radio"
+									type={InputTypeList.Radio}
 									id="propertyButtonRadioContainer__10year"
-									className={style.propertyButtonRadioContainer__input}
+									className={styles.propertyButtonRadioContainer__input}
 								/>
 								<label
 									htmlFor="propertyButtonRadioContainer__10year"
-									className={style.propertyButtonRadioContainer__label}>
-									<p className={style.propertyButtonRadioContainer__text}>10 лет</p>
+									className={styles.propertyButtonRadioContainer__label}>
+									<p className={styles.propertyButtonRadioContainer__text}>10 лет</p>
 								</label>
 								<input
 									name="percent"
-									type="radio"
+									type={InputTypeList.Radio}
 									id="propertyButtonRadioContainer__15year"
-									className={style.propertyButtonRadioContainer__input}
+									className={styles.propertyButtonRadioContainer__input}
 								/>
 								<label
 									htmlFor="propertyButtonRadioContainer__15year"
-									className={style.propertyButtonRadioContainer__label}>
-									<p className={style.propertyButtonRadioContainer__text}>15 лет</p>
+									className={styles.propertyButtonRadioContainer__label}>
+									<p className={styles.propertyButtonRadioContainer__text}>15 лет</p>
 								</label>
 								<input
 									name="percent"
-									type="radio"
+									type={InputTypeList.Radio}
 									id="propertyButtonRadioContainer__20year"
-									className={style.propertyButtonRadioContainer__input}
+									className={styles.propertyButtonRadioContainer__input}
 								/>
 								<label
 									htmlFor="propertyButtonRadioContainer__20year"
-									className={style.propertyButtonRadioContainer__label}>
-									<p className={style.propertyButtonRadioContainer__text}>20 лет</p>
+									className={styles.propertyButtonRadioContainer__label}>
+									<p className={styles.propertyButtonRadioContainer__text}>20 лет</p>
 								</label>
 								<input
 									name="percent"
-									type="radio"
+									type={InputTypeList.Radio}
 									id="propertyButtonRadioContainer__25year"
-									className={style.propertyButtonRadioContainer__input}
+									className={styles.propertyButtonRadioContainer__input}
 								/>
 								<label
 									htmlFor="propertyButtonRadioContainer__25year"
-									className={style.propertyButtonRadioContainer__label}>
-									<p className={style.propertyButtonRadioContainer__text}>25 лет</p>
+									className={styles.propertyButtonRadioContainer__label}>
+									<p className={styles.propertyButtonRadioContainer__text}>25 лет</p>
 								</label>
 							</div>
 						</div>
 
-						<div className={style.propertyValueContainer}>
-							<label className={style.propertyValueContainer__label} htmlFor="initialContribution">
+						<div className={styles.propertyValueContainer}>
+							<label className={styles.propertyValueContainer__label} htmlFor="initialContribution">
 								Процентная ставка, %
 							</label>
-							<div className={style.inputRangeFieldContainer}>
+							<div className={styles.inputRangeFieldContainer}>
 								<input
-									type="text"
+									type={InputTypeList.Text}
 									inputMode="numeric"
 									value={formatCalculateNumber(value)}
 									onChange={handleInputChange}
-									className={style.inputRangeFieldContainer__input}
+									className={styles.inputRangeFieldContainer__input}
 									min={DEFAULT_VALUE}
 									max={MAX_VALUE}
 									id="initialContribution"
 								/>
 								<input
-									type="range"
+									type={InputTypeList.Range}
 									value={value}
 									onChange={handleRangeChange}
-									className={style.inputRangeFieldContainer__range}
+									className={styles.inputRangeFieldContainer__range}
 									min={DEFAULT_VALUE}
 									max={MAX_VALUE}
 								/>
 							</div>
 
-							<div className={style.propertyButtonRadioContainer}>
+							<div className={styles.propertyButtonRadioContainer}>
 								<input
 									name="percent"
-									type="radio"
+									type={InputTypeList.Radio}
 									id="propertyButtonRadioContainer__5-5"
-									className={style.propertyButtonRadioContainer__input}
+									className={styles.propertyButtonRadioContainer__input}
 								/>
 								<label
 									htmlFor="propertyButtonRadioContainer__5-5"
-									className={style.propertyButtonRadioContainer__label}>
-									<p className={style.propertyButtonRadioContainer__text}>5.5%</p>
+									className={styles.propertyButtonRadioContainer__label}>
+									<p className={styles.propertyButtonRadioContainer__text}>5.5%</p>
 								</label>
 								<input
 									name="percent"
-									type="radio"
+									type={InputTypeList.Radio}
 									id="propertyButtonRadioContainer__7-5"
-									className={style.propertyButtonRadioContainer__input}
+									className={styles.propertyButtonRadioContainer__input}
 								/>
 								<label
 									htmlFor="propertyButtonRadioContainer__7-5"
-									className={style.propertyButtonRadioContainer__label}>
-									<p className={style.propertyButtonRadioContainer__text}>7.5%</p>
+									className={styles.propertyButtonRadioContainer__label}>
+									<p className={styles.propertyButtonRadioContainer__text}>7.5%</p>
 								</label>
 								<input
 									name="percent"
-									type="radio"
+									type={InputTypeList.Radio}
 									id="propertyButtonRadioContainer__7-9"
-									className={style.propertyButtonRadioContainer__input}
+									className={styles.propertyButtonRadioContainer__input}
 								/>
 								<label
 									htmlFor="propertyButtonRadioContainer__7-9"
-									className={style.propertyButtonRadioContainer__label}>
-									<p className={style.propertyButtonRadioContainer__text}>7.9%</p>
+									className={styles.propertyButtonRadioContainer__label}>
+									<p className={styles.propertyButtonRadioContainer__text}>7.9%</p>
 								</label>
 								<input
 									name="percent"
-									type="radio"
+									type={InputTypeList.Radio}
 									id="propertyButtonRadioContainer__11-4"
-									className={style.propertyButtonRadioContainer__input}
+									className={styles.propertyButtonRadioContainer__input}
 								/>
 								<label
 									htmlFor="propertyButtonRadioContainer__11-4"
-									className={style.propertyButtonRadioContainer__label}>
-									<p className={style.propertyButtonRadioContainer__text}>11.4%</p>
+									className={styles.propertyButtonRadioContainer__label}>
+									<p className={styles.propertyButtonRadioContainer__text}>11.4%</p>
 								</label>
 								<input
 									name="percent"
-									type="radio"
+									type={InputTypeList.Radio}
 									id="propertyButtonRadioContainer__13-5"
-									className={style.propertyButtonRadioContainer__input}
+									className={styles.propertyButtonRadioContainer__input}
 								/>
 								<label
 									htmlFor="propertyButtonRadioContainer__13-5"
-									className={style.propertyButtonRadioContainer__label}>
-									<p className={style.propertyButtonRadioContainer__text}>13.5%</p>
+									className={styles.propertyButtonRadioContainer__label}>
+									<p className={styles.propertyButtonRadioContainer__text}>13.5%</p>
 								</label>
 							</div>
 						</div>
 
-						<button onClick={handleSubmit} className={style.calculatorFormContentWrapper__submitBtn} type="button">
+						<button
+							onClick={handleSubmit}
+							className={styles.calculatorFormContentWrapper__submitBtn}
+							type={InputTypeList.Button}>
 							Рассчитать кредит
 						</button>
 					</form>
 
-					<div className={style.calculationInfoWrapper} style={infoStyle}>
-						<div className={style.calculationInfoButtonWrapper}>
-							<AiFillInfoCircle className={style.calculationInfoButtonWrapper__infoIcon} />
-							<CgClose onClick={handleCloseInfo} className={style.calculationInfoButtonWrapper__closeIcon} />
+					<div className={styles.calculationInfoWrapper} style={infoStyle}>
+						<div className={styles.calculationInfoButtonWrapper}>
+							<AiFillInfoCircle className={styles.calculationInfoButtonWrapper__infoIcon} />
+							<CgClose onClick={handleCloseInfo} className={styles.calculationInfoButtonWrapper__closeIcon} />
 						</div>
-						<p className={style.calculationInfoWrapper__title}>Ежемесячный платеж</p>
-						<p className={style.calculationInfoWrapper__price}>26 125 ₽</p>
-						<div className={style.creditInfoWrapper}>
-							<p className={style.creditInfoWrapper__name}>Кредит</p>
-							<p className={style.creditInfoWrapper__value}>5 000 000 ₽</p>
+						<p className={styles.calculationInfoWrapper__title}>Ежемесячный платеж</p>
+						<p className={styles.calculationInfoWrapper__price}>26 125 ₽</p>
+						<div className={styles.creditInfoWrapper}>
+							<p className={styles.creditInfoWrapper__name}>Кредит</p>
+							<p className={styles.creditInfoWrapper__value}>5 000 000 ₽</p>
 						</div>
-						<div className={style.percentInfoWrapper}>
-							<p className={style.percentInfoWrapper__name}>Проценты</p>
-							<p className={style.percentInfoWrapper__value}>4 500 000 ₽</p>
+						<div className={styles.percentInfoWrapper}>
+							<p className={styles.percentInfoWrapper__name}>Проценты</p>
+							<p className={styles.percentInfoWrapper__value}>4 500 000 ₽</p>
 						</div>
-						<div className={style.creditAndPercentInfoWrapper}>
-							<p className={style.creditAndPercentInfoWrapper__name}>Кредит + проценты</p>
-							<p className={style.creditAndPercentInfoWrapper__value}>9 500 000 ₽</p>
+						<div className={styles.creditAndPercentInfoWrapper}>
+							<p className={styles.creditAndPercentInfoWrapper__name}>Кредит + проценты</p>
+							<p className={styles.creditAndPercentInfoWrapper__value}>9 500 000 ₽</p>
 						</div>
 					</div>
 				</div>

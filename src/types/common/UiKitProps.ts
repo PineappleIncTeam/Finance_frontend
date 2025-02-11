@@ -1,6 +1,6 @@
 import { ReactElement, ReactNode } from "react";
 
-import { Control, FieldError, FieldErrorsImpl, FieldValues, Merge, Path, UseControllerProps } from "react-hook-form";
+import { Control, FieldError, FieldErrorsImpl, FieldValues, Merge, Path, PathValue, RegisterOptions, UseControllerProps } from "react-hook-form";
 
 import { ISignInForm, ISignUpForm } from "../components/ComponentsTypes";
 import { IChangePasswordForm, INewPassword } from "../pages/Password";
@@ -26,7 +26,7 @@ export interface IAuthInput extends UseControllerProps<TAuthInputForm> {
 	placeholder?: string;
 	autoComplete?: string;
 	subtitle?: string;
-	error?: string | FieldError | Merge<FieldError, FieldErrorsImpl<any>> | null;
+	error?: string | FieldError | Merge<FieldError, FieldErrorsImpl<TAuthInputForm>> | null;
 }
 
 export interface IAppInput<T extends FieldValues> {
@@ -35,10 +35,10 @@ export interface IAppInput<T extends FieldValues> {
 	placeholder?: string;
 	autoComplete?: string;
 	subtitle?: string;
-	error?: string | FieldError | Merge<FieldError, FieldErrorsImpl<any>> | null;
+	error?: string | FieldError | Merge<FieldError, FieldErrorsImpl<T>> | null;
 	control: Control<T>;
 	name: Path<T>;
-	rules?: any;
+	rules?: Omit<RegisterOptions<T, Path<T>>, "disabled" | "setValueAs" | "valueAsNumber" | "valueAsDate">;
 	disabled?: boolean;
 }
 
@@ -48,17 +48,17 @@ export interface IChangePassInput extends UseControllerProps<TChangePassForm> {
 	placeholder?: string;
 	autoComplete?: string;
 	subtitle?: string;
-	error?: string | FieldError | Merge<FieldError, FieldErrorsImpl<any>> | null;
+	error?: string | FieldError | Merge<FieldError, FieldErrorsImpl<TChangePassForm>> | null;
 }
 
 export interface ITitle {
 	title: string;
 }
 
-export interface ICustomCheckbox {
-	control: Control<any>;
-	name: string;
-	rules?: any;
+export interface ICustomCheckbox<T extends FieldValues> {
+	control: Control<T>;
+	name: Path<T>;
+	rules?: RegisterOptions<T>;
 }
 
 export interface ISelect extends UseControllerProps<IExpensesSelectForm> {
@@ -76,10 +76,10 @@ export interface ISelector<T extends TAuthInputForm> {
 	name: Path<T>;
 }
 
-export interface IRadioButton {
-	control: Control<any>;
-	name: string;
-	value: string;
+export interface IRadioButton<T extends FieldValues> {
+	control: Control<T>;
+	name: Path<T>;
+	value: PathValue<T, Path<T>>;
 	label: string;
 }
 

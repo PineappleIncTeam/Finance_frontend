@@ -7,7 +7,7 @@ import { format } from "date-fns";
 
 import { ICurrentRate } from "../../../types/common/ComponentsProps";
 
-import style from "./userProfileHeader.module.scss";
+import styles from "./userProfileHeader.module.scss";
 
 const UserProfileHeader = ({ dollar, euro, crypto }: ICurrentRate) => {
 	const [currentDate, setCurrentDate] = useState<string>("");
@@ -17,10 +17,10 @@ const UserProfileHeader = ({ dollar, euro, crypto }: ICurrentRate) => {
 	}, []);
 
 	return (
-		<div className={style.userProfileHeaderWrap}>
-			<div className={style.userProfileHeaderContainer}>
-				<p className={style.currencyRateWrap__titles}>Курсы валют ЦБ РФ на {currentDate} </p>
-				<p className={cn(style.currencyRateWrap__titles, style.currencyRateWrap__exchange)}>
+		<div className={styles.userProfileHeaderWrap}>
+			<div className={styles.userProfileHeaderContainer}>
+				<p className={styles.userProfileHeaderContainer__titles}>Курсы валют ЦБ РФ на {currentDate} </p>
+				<p className={cn(styles.userProfileHeaderContainer__titles, styles.userProfileHeaderContainer__exchange)}>
 					$ {dollar || 0} € {euro || 0} ₿ {crypto || 0}
 				</p>
 			</div>

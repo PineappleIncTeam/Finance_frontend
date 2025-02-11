@@ -3,30 +3,25 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-
 import { useRouter } from "next/navigation";
-
 import axios from "axios";
-
 import { format } from "date-fns";
 
-import userAvatar from "../../../assets/components/userProfile/userPhoto.svg";
-import burgerIcon from "../../../assets/components/userProfile/burger.svg";
-import NavBar from "../navBar/navBar";
-import infoIcon from "../../../assets/components/userProfile/infoIcon.svg";
-
 import { IUserProfileSidebar } from "../../../types/common/ComponentsProps";
+import NavBar from "../navBar/navBar";
+import { BurgerMenu } from "../burgerMenu/burgerMenu";
+import { UserProfileSidebarMenu } from "../userProfileSidebarMenu/userProfileSidebarMenu";
 import { MainPath } from "../../../services/router/routes";
-
 import { logoutUser } from "../../../services/api/auth/Logout";
 import { getCorrectBaseUrl } from "../../../utils/baseUrlConverter";
 import { ApiResponseCode } from "../../../helpers/apiResponseCode";
-import { BurgerMenu } from "../burgerMenu/burgerMenu";
-
 import { sidebarNavMenu } from "../../../helpers/sidebarNavMenu";
-import { UserProfileSidebarMenu } from "../userProfileSidebarMenu/userProfileSidebarMenu";
 
-import style from "./userProfileSidebar.module.scss";
+import userAvatar from "../../../assets/components/userProfile/userPhoto.svg";
+import burgerIcon from "../../../assets/components/userProfile/burger.svg";
+import infoIcon from "../../../assets/components/userProfile/infoIcon.svg";
+
+import styles from "./userProfileSidebar.module.scss";
 
 const UserProfileSidebar = ({ avatar, name, balance }: IUserProfileSidebar) => {
 	const [currentDate, setCurrentDate] = useState<string>("");
@@ -34,6 +29,7 @@ const UserProfileSidebar = ({ avatar, name, balance }: IUserProfileSidebar) => {
 	const [baseUrl, setBaseUrl] = useState<string>();
 	const [showMenu, setShowMenu] = useState<boolean>(false);
 	const [selectedMenuItem, setSelectedMenuItem] = useState<string>("Личные данные");
+
 	const laptopWindowSize = 1100;
 
 	const router = useRouter();
@@ -100,52 +96,52 @@ const UserProfileSidebar = ({ avatar, name, balance }: IUserProfileSidebar) => {
 
 	return (
 		<>
-			<BurgerMenu showMenu={showMenu} setShowMenu={setShowMenu}>
-				<div className={style.burgerMenu__wrapper}>
-					{renderSelectedMenuItem()}
-					<UserProfileSidebarMenu handleClick={handleItemClick} />
-				</div>
-			</BurgerMenu>
-			<div className={style.userProfileWrap}>
-				<div className={style.userProfileHeader}>
+			<div className={styles.userProfileWrap}>
+				<div className={styles.userProfileHeader}>
 					<Link href={""}>
-						<p className={style.userProfileHeader__link}>FAQ</p>
+						<p className={styles.userProfileHeader__link}>FAQ</p>
 					</Link>
 					<Link href={""}>
-						<p className={style.userProfileHeader__link}>Поддержка</p>
+						<p className={styles.userProfileHeader__link}>Поддержка</p>
 					</Link>
-					<div role="button" onClick={handleLogout} className={style.exit}>
+					<div role="button" onClick={handleLogout} className={styles.exit}>
 						<Image src={infoIcon} alt={"info"} />
 					</div>
 				</div>
-				<div className={style.userProfileMain}>
-					<div className={style.userProfileContainer}>
-						<div className={style.userInformationWrap} onClick={handleOpenMenu} role="button">
-							<div className={style.userInformationWrap_images}>
-								<button className={style.userInformationWrap_images_action}>
-									<Image src={avatar || userAvatar} alt={"userAvatar"} className={style.userInformationWrap__avatar} />
+				<div className={styles.userProfileMain}>
+					<div className={styles.userProfileContainer}>
+						<div className={styles.userInformationWrap} onClick={handleOpenMenu} role="button">
+							<div className={styles.userInformationWrap_images}>
+								<button className={styles.userInformationWrap_images_action}>
+									<Image src={avatar || userAvatar} alt={"userAvatar"} className={styles.userInformationWrap__avatar} />
 								</button>
 							</div>
-							<p className={style.userInformationWrap__name}>{name || "Имя"}</p>
-							<div className={style.userInformationWrap__adaptive}>
-								<div className={style.userInformationWrap__date}>
+							<p className={styles.userInformationWrap__name}>{name || "Имя"}</p>
+							<div className={styles.userInformationAdaptiveContainer}>
+								<div className={styles.userInformationDateWrap}>
 									<p>Ваш баланс на</p>
 									<p>{currentDate}</p>
 								</div>
-								<p className={style.userInformationWrap__balance}>{balance || 0} ₽</p>
+								<p className={styles.userInformationAdaptiveContainer__balance}>{balance || 0} ₽</p>
 							</div>
 						</div>
-						<div className={style.sidebarMenuWrapper}>
+						<div className={styles.sidebarMenuWrapper}>
 							<UserProfileSidebarMenu handleClick={handleOpenItemClick} />
 						</div>
 
-						<button onClick={() => setIsOpen(!isOpen)} className={style.burgerActionWrap}>
-							<Image src={burgerIcon} alt={"burger"} className={style.burgerActionWrap_icon} />
+						<button onClick={() => setIsOpen(!isOpen)} className={styles.burgerActionWrap}>
+							<Image src={burgerIcon} alt={"burger"} className={styles.burgerActionWrap_icon} />
 						</button>
 					</div>
 				</div>
 			</div>
 			{isOpen && <NavBar onClick={() => setIsOpen(!isOpen)} />}
+			<BurgerMenu showMenu={showMenu} setShowMenu={setShowMenu}>
+				<div className={styles.burgerMenu__wrapper}>
+					{renderSelectedMenuItem()}
+					<UserProfileSidebarMenu handleClick={handleItemClick} />
+				</div>
+			</BurgerMenu>
 		</>
 	);
 };

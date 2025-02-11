@@ -7,7 +7,7 @@ import { DeleteIcon } from "../../../assets/script/expenses/DeleteIcon";
 import { Selector } from "../../../ui/selector/Selector";
 import Switcher from "../../../ui/switcher/switcher";
 
-import style from "./userProfilePrivateAppSettings.module.scss";
+import styles from "./userProfilePrivateAppSettings.module.scss";
 
 export const UserProfilePrivateAppSettings = () => {
 	const { control } = useForm<IPrivateAppSettings>({
@@ -15,9 +15,9 @@ export const UserProfilePrivateAppSettings = () => {
 		delayError: 200,
 	});
 	return (
-		<form className={style.privateAppSettingsForm}>
-			<p className={style.privateAppSettingsTitle}>Настройки</p>
-			<div className={style.privateAppSettingsForm__settings}>
+		<form className={styles.privateAppSettingsFormWrap}>
+			<p className={styles.privateAppSettingsFormWrap__title}>Настройки</p>
+			<div className={styles.privateAppSettingsFormContainer}>
 				<Selector
 					name={"currency"}
 					label="Валюта"
@@ -26,9 +26,9 @@ export const UserProfilePrivateAppSettings = () => {
 				/>
 				<Switcher control={control} name={"darkTheme"} label={"Темная тема"} />
 				<Switcher control={control} name={"finAssistant"} label={"Финансовый помощник"} />
-				<div className={style.privateAppSettingsRemoveButton}>
-					<DeleteIcon classNames={style.privateAppSettingsRemoveButton__icon} />
-					<div className={style.privateAppSettingsRemoveButton__title}>Удалить аккаунт</div>
+				<div className={styles.privateAppSettingsRemoveButton}>
+					<DeleteIcon classNames={styles.privateAppSettingsRemoveButton__icon} />
+					<div className={styles.privateAppSettingsRemoveButton__title}>Удалить аккаунт</div>
 				</div>
 			</div>
 			<Button content={"Сохранить"} styleName={"outlineButton"} type={"submit"} />

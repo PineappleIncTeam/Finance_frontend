@@ -1,10 +1,10 @@
 import cn from "classnames";
 
-import { INewButton } from "../../types/common/UiKitProps";
+import { IDefaultButton } from "../../types/common/UiKitProps";
 
 import style from "./button.module.scss";
 
-const Button = ({ children, onClick, type, className, variant, size, ...props }: INewButton) => {
+const Button = ({ children, onClick, type, className, variant, size, ...props }: IDefaultButton) => {
 	return (
 		<button
 			className={cn(style.button, className)}

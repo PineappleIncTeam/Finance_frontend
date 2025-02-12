@@ -17,12 +17,19 @@ export interface IButton {
 type TButtonStyle = "contained" | "outlined";
 type TButtonSize = "L" | "M" | "S" | "XS";
 
-export interface INewButton extends ButtonHTMLAttributes<HTMLButtonElement> {
+export interface IDefaultButton extends ButtonHTMLAttributes<HTMLButtonElement> {
 	className?: string;
 	onClick?: () => void;
 	type?: "button" | "submit";
 	size?: TButtonSize;
 	variant: TButtonStyle;
+	children?: ReactNode;
+}
+
+export interface IAppButton extends ButtonHTMLAttributes<HTMLButtonElement> {
+	className?: string;
+	onClick?: () => void;
+	type?: "button" | "submit";
 	children?: ReactNode;
 }
 

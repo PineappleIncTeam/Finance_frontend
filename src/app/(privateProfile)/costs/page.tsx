@@ -1,11 +1,7 @@
-import Button from "../../../ui/newButton/button";
+import FileButton from "../../../ui/fileButton/button";
 
 function Сosts() {
-	return (
-		<Button variant={"outlined"} size="L">
-			Вход
-		</Button>
-	);
+	return <FileButton>PDF</FileButton>;
 }
 
 export default Сosts;

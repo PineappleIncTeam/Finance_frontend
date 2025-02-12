@@ -1,0 +1,123 @@
+.button {
+	font-weight: 400;
+	letter-spacing: 0%;
+	text-align: center;
+
+	&[data-style="contained"] {
+		position: relative;
+		color: var(--color-eerie-black);
+		width: 230px;
+		height: 60px;
+		border-radius: 16px;
+		background-image: linear-gradient(179.76deg, var(--color-jasmine) 0.21%, var(--color-sandy-drown) 172.57%);
+		transition: 0.4s;
+		z-index: 1;
+
+		font-size: 2rem;
+		line-height: 2.8rem;
+		width: 200px;
+		height: 52px;
+
+		&:before {
+			content: "";
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			border-radius: 16px;
+			background: linear-gradient(179.76deg, var(--color-mustard) 0.21%, var(--color-carrot-orange) 172.57%);
+			position: absolute;
+			z-index: -1;
+			opacity: 0;
+			transition: opacity 0.4s;
+		}
+
+		&:hover::before {
+			opacity: 1;
+		}
+
+		&:active {
+			background: linear-gradient(179.76deg, var(--color-mustard) 0.21%, var(--color-carrot-orange) 172.57%);
+		}
+
+		&:disabled {
+			color: var(--color-star-dust);
+			background: linear-gradient(179.76deg, var(--color-jasmine) 0.21%, var(--color-sandy-drown) 172.57%);
+		}
+	}
+
+	&[data-style="outlined"] {
+		position: relative;
+		color: var(--color-eerie-black);
+		width: 230px;
+		height: 60px;
+		border-radius: 16px;
+		background: var(--color-pure-light);
+		border: 3px solid var(--color-dark-spring-green);
+		transition: 0.4s;
+
+		&:hover,
+		&:active {
+			color: var(--color-cal-poly-pomona-green);
+			border-color: var(--color-cal-poly-pomona-green);
+		}
+
+		&:disabled {
+			color: var(--color-star-dust);
+			border-color: var(--color-star-dust);
+		}
+	}
+
+	&[data-size="L"] {
+		font-size: 2.6rem;
+		line-height: 3.8rem;
+		width: 230px;
+		height: 60px;
+		border-radius: 16px;
+
+		@media (max-width: 1440px) {
+			font-size: 2rem;
+			line-height: 2.8rem;
+			width: 200px;
+			height: 52px;
+			border-radius: 12px;
+		}
+
+		@media (max-width: 440px) {
+			font-size: 1.6rem;
+			line-height: 2.2rem;
+			width: 156px;
+			height: 36px;
+			border-radius: 8px;
+		}
+	}
+	&[data-size="M"] {
+		font-size: 2rem;
+		line-height: 2.8rem;
+		width: 200px;
+		height: 52px;
+		border-radius: 12px;
+
+		@media (max-width: 440px) {
+			font-size: 1.6rem;
+			line-height: 2.2rem;
+			width: 156px;
+			height: 36px;
+			border-radius: 8px;
+		}
+	}
+	&[data-size="S"] {
+		font-size: 1.6rem;
+		line-height: 2.2rem;
+		width: 156px;
+		height: 36px;
+		border-radius: 8px;
+	}
+	&[data-size="XS"] {
+		font-size: 1.3rem;
+		line-height: 1.8rem;
+		width: 130px;
+		height: 32px;
+		border-radius: 6px;
+	}
+}

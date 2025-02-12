@@ -1,4 +1,4 @@
-import { ReactElement, ReactNode } from "react";
+import { ButtonHTMLAttributes, ReactElement, ReactNode } from "react";
 
 import { Control, FieldError, FieldErrorsImpl, FieldValues, Merge, Path, PathValue, RegisterOptions, UseControllerProps } from "react-hook-form";
 
@@ -12,6 +12,18 @@ export interface IButton {
 	onClick?: () => void;
 	type?: "button" | "submit";
 	children?: ReactElement;
+}
+
+type TButtonStyle = "contained" | "outlined";
+type TButtonSize = "L" | "M" | "S" | "XS";
+
+export interface INewButton extends ButtonHTMLAttributes<HTMLButtonElement> {
+	className?: string;
+	onClick?: () => void;
+	type?: "button" | "submit";
+	size?: TButtonSize;
+	variant: TButtonStyle;
+	children?: ReactNode;
 }
 
 export type TAuthInputForm = ISignUpForm | ISignInForm | INewPassword;

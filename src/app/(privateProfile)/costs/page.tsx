@@ -1,8 +1,10 @@
+import Button from "../../../ui/newButton/button";
+
 function Сosts() {
 	return (
-		<>
-			<div>Сosts</div>
-		</>
+		<Button variant={"outlined"} size="L">
+			Вход
+		</Button>
 	);
 }
 

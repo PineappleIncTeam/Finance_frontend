@@ -20,6 +20,7 @@
     "air-datepicker": "^3.5.3",
     "axios": "^1.7.9",
     "chart.js": "^4.4.7",
+    "check-password-strength": "^3.0.0",
     "classnames": "^2.5.1",
     "date-fns": "^4.1.0",
     "jspdf": "^2.5.2",

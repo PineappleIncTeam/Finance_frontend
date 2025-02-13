@@ -1,7 +1,7 @@
-import FileButton from "../../../ui/fileButton/button";
+import AppButton from "../../../ui/appButton/button";
 
 function Сosts() {
-	return <FileButton>PDF</FileButton>;
+	return <AppButton variant={"faded"}>Ответить</AppButton>;
 }
 
 export default Сosts;

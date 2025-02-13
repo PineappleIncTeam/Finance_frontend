@@ -14,19 +14,26 @@ export interface IButton {
 	children?: ReactElement;
 }
 
-type TButtonStyle = "contained" | "outlined";
-type TButtonSize = "L" | "M" | "S" | "XS";
+type THeaderButtonStyle = "contained" | "outlined";
 
-export interface IDefaultButton extends ButtonHTMLAttributes<HTMLButtonElement> {
+export interface IHeaderButton extends ButtonHTMLAttributes<HTMLButtonElement> {
 	className?: string;
 	onClick?: () => void;
-	type?: "button" | "submit";
-	size?: TButtonSize;
-	variant: TButtonStyle;
+	variant: THeaderButtonStyle;
 	children?: ReactNode;
 }
 
+type TAppButtonStyle = "contained" | "outlined" | "warning" | "notification" | "faded";
+
 export interface IAppButton extends ButtonHTMLAttributes<HTMLButtonElement> {
+	className?: string;
+	onClick?: () => void;
+	type?: "button" | "submit";
+	variant: TAppButtonStyle;
+	children?: ReactNode;
+}
+
+export interface IAddButton extends ButtonHTMLAttributes<HTMLButtonElement> {
 	className?: string;
 	onClick?: () => void;
 	type?: "button" | "submit";

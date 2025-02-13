@@ -4,12 +4,12 @@ import { IAddButton } from "../../types/common/UiKitProps";
 
 import style from "./button.module.scss";
 
-const FileButton = ({ children, onClick, type, className, ...props }: IAddButton) => {
+const AddButton = ({ children, onClick, type, className, ...props }: IAddButton) => {
 	return (
 		<button className={cn(style.button, className)} onClick={onClick} type={type} {...props}>
-			{children}
+			<span className={style.buttonText}>{children}</span>
 		</button>
 	);
 };
 
-export default FileButton;
+export default AddButton;

@@ -2,6 +2,11 @@
 	font-weight: 400;
 	letter-spacing: 0%;
 	text-align: center;
+	font-size: 2.6rem;
+	line-height: 3.8rem;
+	width: 230px;
+	height: 60px;
+	border-radius: 16px;
 
 	&[data-style="contained"] {
 		position: relative;
@@ -12,11 +17,6 @@
 		background-image: linear-gradient(179.76deg, var(--color-jasmine) 0.21%, var(--color-sandy-drown) 172.57%);
 		transition: 0.4s;
 		z-index: 1;
-
-		font-size: 2rem;
-		line-height: 2.8rem;
-		width: 200px;
-		height: 52px;
 
 		&:before {
 			content: "";
@@ -68,56 +68,19 @@
 		}
 	}
 
-	&[data-size="L"] {
-		font-size: 2.6rem;
-		line-height: 3.8rem;
-		width: 230px;
-		height: 60px;
-		border-radius: 16px;
-
-		@media (max-width: 1440px) {
-			font-size: 2rem;
-			line-height: 2.8rem;
-			width: 200px;
-			height: 52px;
-			border-radius: 12px;
-		}
-
-		@media (max-width: 440px) {
-			font-size: 1.6rem;
-			line-height: 2.2rem;
-			width: 156px;
-			height: 36px;
-			border-radius: 8px;
-		}
-	}
-	&[data-size="M"] {
+	@media (max-width: 1440px) {
 		font-size: 2rem;
 		line-height: 2.8rem;
 		width: 200px;
 		height: 52px;
 		border-radius: 12px;
-
-		@media (max-width: 440px) {
-			font-size: 1.6rem;
-			line-height: 2.2rem;
-			width: 156px;
-			height: 36px;
-			border-radius: 8px;
-		}
 	}
-	&[data-size="S"] {
+
+	@media (max-width: 440px) {
 		font-size: 1.6rem;
 		line-height: 2.2rem;
 		width: 156px;
 		height: 36px;
 		border-radius: 8px;
-	}
-	&[data-size="XS"] {
-		font-size: 1.3rem;
-		line-height: 1.8rem;
-		width: 130px;
-		height: 32px;
-		border-radius: 6px;
 	}
 }

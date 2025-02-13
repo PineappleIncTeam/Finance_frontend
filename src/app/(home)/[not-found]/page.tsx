@@ -5,6 +5,8 @@ import { MainPath } from "../../../services/router/routes";
 
 import meditatingMan from "../../../assets/pages/notFound/meditatingMan.webp";
 
+import Button from "../../../ui/appButton/button";
+
 import styles from "./notFound.module.scss";
 
 function NotFound() {
@@ -17,7 +19,9 @@ function NotFound() {
 					<p className={styles.infoContainer__subtitle}>Такой страницы у нас нет...</p>
 					<p className={styles.infoContainer__subtitle}>Но есть помощник финансового планирования</p>
 					<Link href={MainPath.Login} className={styles.infoContainer__navigateAction}>
-						Войти в приложение
+						<Button variant={"notification"} className={styles.button} isLarge>
+							Войти в приложение
+						</Button>
 					</Link>
 				</div>
 			</div>

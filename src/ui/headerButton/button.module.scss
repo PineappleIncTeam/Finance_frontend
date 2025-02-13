@@ -7,13 +7,12 @@
 	width: 230px;
 	height: 60px;
 	border-radius: 16px;
+	overflow: hidden;
+	cursor: pointer;
 
 	&[data-style="contained"] {
 		position: relative;
 		color: var(--color-eerie-black);
-		width: 230px;
-		height: 60px;
-		border-radius: 16px;
 		background-image: linear-gradient(179.76deg, var(--color-jasmine) 0.21%, var(--color-sandy-drown) 172.57%);
 		transition: 0.4s;
 		z-index: 1;
@@ -24,7 +23,6 @@
 			left: 0;
 			width: 100%;
 			height: 100%;
-			border-radius: 16px;
 			background: linear-gradient(179.76deg, var(--color-mustard) 0.21%, var(--color-carrot-orange) 172.57%);
 			position: absolute;
 			z-index: -1;
@@ -49,9 +47,6 @@
 	&[data-style="outlined"] {
 		position: relative;
 		color: var(--color-eerie-black);
-		width: 230px;
-		height: 60px;
-		border-radius: 16px;
 		background: var(--color-pure-light);
 		border: 3px solid var(--color-dark-spring-green);
 		transition: 0.4s;
@@ -76,7 +71,7 @@
 		border-radius: 12px;
 	}
 
-	@media (max-width: 440px) {
+	@media (max-width: 500px) {
 		font-size: 1.6rem;
 		line-height: 2.2rem;
 		width: 156px;

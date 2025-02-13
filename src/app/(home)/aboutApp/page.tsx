@@ -22,6 +22,8 @@ import VideoElement from "../../../components/mainLayout/videoElement/videoEleme
 
 import { videoId } from "../../../mocks/VideoId";
 
+import Button from "../../../ui/appButton/button";
+
 import styles from "./aboutAppPage.module.scss";
 
 function AboutApp() {
@@ -102,9 +104,9 @@ function AboutApp() {
 						<p className={styles.aboutAppPageInstructionVideoContainer__header}>
 							Пошаговая инструкция об использовании приложения
 						</p>
-						<button className={styles.aboutAppPageInstructionVideoContainer__button} onClick={() => buttonAction(true)}>
+						<Button variant="outlined" isLarge>
 							Смотреть видео
-						</button>
+						</Button>
 					</div>
 					{isVideoElementStart && (
 						<div className={styles.videoElementWrapper}>

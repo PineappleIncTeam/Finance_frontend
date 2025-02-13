@@ -29,6 +29,7 @@ export interface IAppButton extends ButtonHTMLAttributes<HTMLButtonElement> {
 	className?: string;
 	onClick?: () => void;
 	type?: "button" | "submit";
+	isLarge?: boolean;
 	variant: TAppButtonStyle;
 	children?: ReactNode;
 }

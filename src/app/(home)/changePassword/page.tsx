@@ -17,6 +17,7 @@ import { InputTypeList } from "../../../helpers/Input";
 import { errorPasswordRepeat, passwordPattern } from "../../../helpers/authConstants";
 import { getCorrectBaseUrl } from "../../../utils/baseUrlConverter";
 import { formHelpers } from "../../../utils/formHelpers";
+import Button from "../../../ui/appButton/button";
 
 import styles from "./changePassword.module.scss";
 
@@ -126,7 +127,9 @@ export default function ChangePassword() {
 						rules={{ required: true, validate: validateRepeatPassword }}
 						autoComplete="off"
 					/>
-					<input className={styles.saveButton} type={InputTypeList.Submit} value="Сохранить" />
+					<Button variant={"notification"} type="submit" className={styles.saveButton}>
+						Сохранить
+					</Button>
 				</div>
 			</form>
 		</div>

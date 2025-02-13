@@ -9,7 +9,6 @@ import Link from "next/link";
 import useAppDispatch from "../../../hooks/useAppDispatch";
 
 import { ICorrectSignInForm, ISignInForm } from "../../../types/components/ComponentsTypes";
-import Button from "../../../ui/button/button";
 import AuthInput from "../../../ui/authInput/AuthInput";
 import Title from "../../../ui/title/Title";
 import CustomCheckbox from "../../../ui/checkBox/checkBox";
@@ -22,6 +21,7 @@ import { MainPath, UserProfilePath } from "../../../services/router/routes";
 import { ApiResponseCode } from "../../../helpers/apiResponseCode";
 import { loginUser } from "../../../services/api/auth/Login";
 import { setAutoLoginStatus } from "../../../services/redux/features/autoLogin/autoLoginSlice";
+import Button from "../../../ui/appButton/button";
 
 import styles from "./signInForm.module.scss";
 
@@ -115,7 +115,9 @@ const SignInForm = () => {
 					</Link>
 				</div>
 				{errorMessage && <p className={styles.errorMessage}>{errorMessage}</p>}
-				<Button content="Вход" styleName="big buttonForLogin" type={InputTypeList.Submit} />
+				<Button variant="notification" type="submit" className={styles.button}>
+					Вход
+				</Button>
 				<div className={styles.dividerWrap}>
 					<div className={styles.dividerWrap__line} />
 					<span className={styles.dividerWrap__subtitle}>или</span>

@@ -22,6 +22,8 @@ import { MainPath } from "../../../services/router/routes";
 
 import { ApiResponseCode } from "../../../helpers/apiResponseCode";
 
+import Button from "../../../ui/appButton/button";
+
 import styles from "./newPassword.module.scss";
 
 export default function NewPassword() {
@@ -105,8 +107,12 @@ export default function NewPassword() {
 						rules={{ required: true, pattern: emailPattern }}
 					/>
 					<div className={styles.newPasswordFormContainer__buttons}>
-						<input className={styles.backButton} type={InputTypeList.Submit} value="Назад" />
-						<input className={styles.restoreButton} type={InputTypeList.Submit} value="Восстановить" />
+						<Button variant="outlined" type="submit" className={styles.button}>
+							Назад
+						</Button>
+						<Button variant="notification" type="submit" className={styles.button}>
+							Восстановить
+						</Button>
 					</div>
 				</div>
 			</form>

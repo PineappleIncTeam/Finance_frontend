@@ -1,11 +1,12 @@
 import { useForm } from "react-hook-form";
 
 import { IPrivateAppSettings } from "../../../types/pages/userProfileSettings";
-import Button from "../../../ui/button/button";
 
 import { DeleteIcon } from "../../../assets/script/expenses/DeleteIcon";
 import { Selector } from "../../../ui/selector/Selector";
 import Switcher from "../../../ui/switcher/switcher";
+
+import Button from "../../../ui/appButton/button";
 
 import styles from "./userProfilePrivateAppSettings.module.scss";
 
@@ -31,7 +32,9 @@ export const UserProfilePrivateAppSettings = () => {
 					<div className={styles.privateAppSettingsRemoveButton__title}>Удалить аккаунт</div>
 				</div>
 			</div>
-			<Button content={"Сохранить"} styleName={"outlineButton"} type={"submit"} />
+			<Button variant={"outlined"} type={"submit"}>
+				Сохранить
+			</Button>
 		</form>
 	);
 };

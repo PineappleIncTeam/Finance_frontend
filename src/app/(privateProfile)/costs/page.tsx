@@ -1,7 +1,5 @@
-import AppButton from "../../../ui/appButton/button";
-
 function Сosts() {
-	return <AppButton variant={"faded"}>Ответить</AppButton>;
+	return <div></div>;
 }
 
 export default Сosts;

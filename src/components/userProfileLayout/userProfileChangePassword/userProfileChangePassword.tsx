@@ -2,13 +2,14 @@ import { useForm } from "react-hook-form";
 
 import { IChangePasswordForm } from "../../../types/pages/userProfileSettings";
 import AppInput from "../../../ui/appInput/AppInput";
-import Button from "../../../ui/button/button";
 
 import { errorPasswordRepeat } from "../../../helpers/authConstants";
 
 import { InputTypeList } from "../../../helpers/Input";
 
 import { passwordValidate } from "../../../utils/passwordValidate";
+
+import Button from "../../../ui/appButton/button";
 
 import styles from "./userProfileChangePassword.module.scss";
 
@@ -69,7 +70,9 @@ export const UserProfileChangePassword = () => {
 					error={errors.repeatPassword}
 				/>
 			</div>
-			<Button content={"Сохранить"} styleName={"outlineButton"} type={"submit"} />
+			<Button variant={"outlined"} type={"submit"}>
+				Сохранить
+			</Button>
 		</form>
 	);
 };

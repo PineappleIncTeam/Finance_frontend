@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, ChangeEvent, MouseEvent } from "react";
+import React, { useState, useEffect, ChangeEvent } from "react";
 
 import { AiFillInfoCircle } from "react-icons/ai";
 import { CgClose } from "react-icons/cg";
@@ -11,6 +11,7 @@ import { formatCalculateNumber } from "../../../utils/formatCalculateNumber";
 import { getCorrectBaseUrl } from "../../../utils/baseUrlConverter";
 import { InputTypeList } from "../../../helpers/Input";
 import handleLogout from "../../../helpers/logout";
+import Button from "../../../ui/appButton/button";
 
 import styles from "./calculator.module.scss";
 
@@ -52,9 +53,9 @@ export default function Calculator() {
 	const handleCloseInfo = () => {
 		setIsVisibleInfo(false);
 	};
-	const handleSubmit = (event: MouseEvent<HTMLButtonElement>) => {
+	const handleSubmit = () => {
 		resetTimer();
-		event.preventDefault();
+
 		if (isMobile) {
 			handleVisibleInfo();
 		}
@@ -433,13 +434,14 @@ export default function Calculator() {
 								</label>
 							</div>
 						</div>
-
-						<button
+						<Button
+							variant="contained"
 							onClick={handleSubmit}
-							className={styles.calculatorFormContentWrapper__submitBtn}
-							type={InputTypeList.Button}>
+							type="submit"
+							isLarge
+							className={styles.calculatorFormContentWrapper__submitBtn}>
 							Рассчитать кредит
-						</button>
+						</Button>
 					</form>
 
 					<div className={styles.calculationInfoWrapper} style={infoStyle}>

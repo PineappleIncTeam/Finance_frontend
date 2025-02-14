@@ -2,8 +2,10 @@ import { useForm } from "react-hook-form";
 
 import { IPrivateDataFrom } from "../../../types/pages/userProfileSettings";
 import AppInput from "../../../ui/appInput/AppInput";
-import Button from "../../../ui/button/button";
+
 import { RadioButton } from "../../../ui/radio/radioButton";
+
+import Button from "../../../ui/appButton/button";
 
 import styles from "./userProfilePrivateData.module.scss";
 
@@ -46,7 +48,9 @@ export const UserProfilePrivateData = () => {
 				<AppInput label={"Введите страну"} type={"text"} name={"country"} control={control} />
 				<AppInput label={"Email"} type={"text"} name={"email"} control={control} disabled />
 			</div>
-			<Button content={"Сохранить"} styleName={"outlineButton"} type={"submit"} />
+			<Button variant={"outlined"} type={"submit"}>
+				Сохранить
+			</Button>
 		</form>
 	);
 };

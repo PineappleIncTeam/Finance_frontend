@@ -104,36 +104,11 @@ class FormHelpers {
 				messages.push(errorPasswordThreeNumbersRow);
 			}
 			if (
-				!isNaN(
-					Date.parse(
-						passArray[i] +
-							passArray[i + 1] +
-							"-" +
-							passArray[i + 2] +
-							passArray[i + 3] +
-							"-" +
-							passArray[i + 4] +
-							passArray[i + 5] +
-							passArray[i + 6] +
-							passArray[i + 7],
-					),
-				) ||
-				!isNaN(
-					Date.parse(
-						passArray[i] +
-							passArray[i + 1] +
-							passArray[i + 2] +
-							passArray[i + 3] +
-							"-" +
-							passArray[i + 4] +
-							passArray[i + 5] +
-							"-" +
-							passArray[i + 6] +
-							passArray[i + 7],
-					),
-				)
+				password.match(/\d{4}(-|\/|\.)\d{2}(-|\/|\.)\d{2}/g) ||
+				password.match(/\d{2}(-|\/|\.)\d{2}(-|\/|\.)\d{4}/g) ||
+				password.match(/\d{8}/g)
 			) {
-				messages.push(errorPasswordPrivateBirthDate);
+				return messages.push(errorPasswordPrivateBirthDate);
 			}
 		}
 		return messages.join(" ");

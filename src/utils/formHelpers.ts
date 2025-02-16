@@ -1,12 +1,14 @@
 import { FieldErrors } from "react-hook-form";
-import { passwordStrength, Options } from "check-password-strength";
+
+import { passwordStrength } from "check-password-strength";
+
+import { defaultOptions } from "../helpers/passwordStrengthOption";
 
 import {
 	errorDefault,
 	errorPasswordIncorrect,
 	errorEmailIncorrect,
 	errorPasswordLength,
-	errorPasswordNumber,
 	errorRequiredField,
 	passwordPattern,
 	errorPasswordMoreTwoSameSymbolsRepeat,
@@ -21,33 +23,6 @@ enum ErrorTypes {
 	REQUIRED = "required",
 	PATTERN = "pattern",
 }
-
-export const defaultOptions: Options<string> = [
-	{
-		id: 0,
-		value: "Too weak",
-		minDiversity: 0,
-		minLength: 0,
-	},
-	{
-		id: 1,
-		value: "Weak",
-		minDiversity: 2,
-		minLength: 6,
-	},
-	{
-		id: 2,
-		value: "Medium",
-		minDiversity: 4,
-		minLength: 10,
-	},
-	{
-		id: 3,
-		value: "Strong",
-		minDiversity: 4,
-		minLength: 12,
-	},
-];
 
 class FormHelpers {
 	getPasswordError = (errors: FieldErrors, password: string) => {
@@ -69,10 +44,20 @@ class FormHelpers {
 			messages.push(errorPasswordLength);
 		}
 		this.checkPasswordStrength(password, messages);
-		this.checkPasswordSameSymbolsThreeNumbersPrivateBirth(password, messages);
-		if (password.length >= minPasswordLength && !/(?=.*\d)/.test(password)) {
-			messages.push(errorPasswordNumber);
-		} else if (!passwordPattern.test(password)) {
+		if (
+			password.match(/\d{4}(-|\/|\.)\d{2}(-|\/|\.)\d{2}/g) ||
+			password.match(/\d{2}(-|\/|\.)\d{2}(-|\/|\.)\d{4}/g) ||
+			password.match(/\d{8}/g)
+		) {
+			messages.push(errorPasswordPrivateBirthDate);
+		}
+		if (password.match(/\d{3,}/g)) {
+			messages.push(errorPasswordThreeNumbersRow);
+		}
+		if (password.match(/(.)\1/)) {
+			messages.push(errorPasswordMoreTwoSameSymbolsRepeat);
+		}
+		if (!passwordPattern.test(password)) {
 			messages.push(errorPasswordIncorrect);
 		}
 		if (messages.length === 0) {
@@ -90,26 +75,6 @@ class FormHelpers {
 		}
 		if (passwordStrength(password, defaultOptions).value === "Medium") {
 			messages.push(errorPasswordStrengthMedium);
-		}
-		return messages.join(" ");
-	};
-
-	checkPasswordSameSymbolsThreeNumbersPrivateBirth = (password: string, messages: string[]) => {
-		const passArray = password.split("");
-		for (let i = 0; i < password.length; i++) {
-			if (passArray[i] === passArray[i + 1]) {
-				messages.push(errorPasswordMoreTwoSameSymbolsRepeat);
-			}
-			if (+passArray[i + 1] - +passArray[i] == 1 && +passArray[i + 2] - +passArray[i + 1] == 1) {
-				messages.push(errorPasswordThreeNumbersRow);
-			}
-			if (
-				password.match(/\d{4}(-|\/|\.)\d{2}(-|\/|\.)\d{2}/g) ||
-				password.match(/\d{2}(-|\/|\.)\d{2}(-|\/|\.)\d{4}/g) ||
-				password.match(/\d{8}/g)
-			) {
-				return messages.push(errorPasswordPrivateBirthDate);
-			}
 		}
 		return messages.join(" ");
 	};

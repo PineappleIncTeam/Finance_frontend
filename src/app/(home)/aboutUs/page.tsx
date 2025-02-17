@@ -7,7 +7,7 @@ import { AboutUsTeam } from "../../../mocks/AboutUsTeam";
 import styles from "./aboutUs.module.scss";
 
 function AboutUs() {
-	function cardsList(AboutUsTeam: ITeamMember[]) {
+	function renderCardsList(AboutUsTeam: ITeamMember[]) {
 		return AboutUsTeam.length ? (
 			AboutUsTeam.map(({ teamRole, photo }: IAboutUsCard) => (
 				<AboutUsCard photo={photo} teamRole={teamRole} key={teamRole} />
@@ -16,12 +16,13 @@ function AboutUs() {
 			<div className={styles.aboutUsTitle}>Команда скоро вернётся</div>
 		);
 	}
+
 	return (
 		<div className={styles.aboutUsWrap}>
 			<div className={styles.aboutUsContainer}>
 				<div className={styles.aboutUsMain}>
 					<div className={styles.aboutUsTitle}>Классные ребята с горящими глазами.</div>
-					<div className={styles.aboutUsCards}>{cardsList(AboutUsTeam)}</div>
+					<div className={styles.aboutUsCards}>{renderCardsList(AboutUsTeam)}</div>
 				</div>
 			</div>
 			<Footer />

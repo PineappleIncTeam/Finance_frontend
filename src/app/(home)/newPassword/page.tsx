@@ -28,7 +28,10 @@ export default function NewPassword() {
 	const [isNewPasswordModalShown, setIsNewPasswordModalShown] = useState<boolean>(false);
 	const [email, setEmail] = useState<string>("");
 	const [baseUrl, setBaseUrl] = useState<string>();
-	const seconds = 7000;
+
+	const router = useRouter();
+
+	const secondCount = 7000;
 
 	const {
 		formState: { errors },
@@ -43,23 +46,21 @@ export default function NewPassword() {
 		delayError: 200,
 	});
 
+	useEffect(() => {
+		setBaseUrl(getCorrectBaseUrl());
+	}, []);
+
 	const onSubmit = (data: INewPassword) => {
 		setEmail(data?.email ?? "");
 		restoreButtonClick(data);
 		newPasswordModalVisible(true);
-		setTimeout(() => newPasswordModalVisible(false), seconds);
+		setTimeout(() => newPasswordModalVisible(false), secondCount);
 		reset();
 	};
 
 	const newPasswordModalVisible = (prop: boolean) => {
 		setIsNewPasswordModalShown(prop);
 	};
-
-	useEffect(() => {
-		setBaseUrl(getCorrectBaseUrl());
-	}, []);
-
-	const router = useRouter();
 
 	const isAxiosError = (error: unknown): error is AxiosError => {
 		return (error as AxiosError).isAxiosError !== undefined;
@@ -87,13 +88,14 @@ export default function NewPassword() {
 	return (
 		<div className={styles.newPasswordWrap}>
 			<form className={styles.newPasswordFormContainer} onSubmit={handleSubmit(onSubmit)}>
-				<div className={styles.newPasswordFormContainer__Content}>
+				<div className={styles.newPasswordFormContainer__content}>
 					<Title title={"Восстановление пароля"} />
 					<NewPasswordModal
 						email={email}
 						open={isNewPasswordModalShown}
 						toggle={() => newPasswordModalVisible(false)}
 					/>
+					<p className={styles.inputLabel}>Введите почту</p>
 					<AuthInput
 						control={control}
 						label="Введите почту"

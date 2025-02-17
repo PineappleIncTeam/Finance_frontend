@@ -15,14 +15,14 @@ import handleLogout from "../../../helpers/logout";
 import styles from "./calculator.module.scss";
 
 export default function Calculator() {
-	const MAX_VALUE = 10000000;
-	const DEFAULT_VALUE = 0;
-	const MOBILE_SCREEN = 460;
-	const FACTOR = 100;
+	const maximalStateValue = 10000000;
+	const defaultStateValue = 0;
+	const mobileSCreenWidthValue = 460;
+	const factorValue = 100;
 
-	const [value, setValue] = useState<number>(DEFAULT_VALUE);
+	const [value, setValue] = useState<number>(defaultStateValue);
 	const [isVisibleInfo, setIsVisibleInfo] = useState(false);
-	const [isMobile, setIsMobile] = useState(window.innerWidth <= MOBILE_SCREEN);
+	const [isMobile, setIsMobile] = useState(window.innerWidth <= mobileSCreenWidthValue);
 	const [activeButton, setActiveButton] = useState<string | null>("realEstate");
 	const [baseUrl, setBaseUrl] = useState<string>();
 	const { request } = handleLogout(baseUrl);
@@ -38,7 +38,7 @@ export default function Calculator() {
 
 	useEffect(() => {
 		const handleResize = () => {
-			setIsMobile(window.innerWidth <= MOBILE_SCREEN);
+			setIsMobile(window.innerWidth <= mobileSCreenWidthValue);
 		};
 
 		window.addEventListener("resize", handleResize);
@@ -75,9 +75,9 @@ export default function Calculator() {
 		const newValue = Number(target.value);
 		setValue(newValue);
 
-		const min = target.min ? Number(target.min) : DEFAULT_VALUE;
-		const max = target.max ? Number(target.max) : MAX_VALUE;
-		const percentage = ((newValue - min) / (max - min)) * FACTOR;
+		const min = target.min ? Number(target.min) : defaultStateValue;
+		const max = target.max ? Number(target.max) : maximalStateValue;
+		const percentage = ((newValue - min) / (max - min)) * factorValue;
 
 		target.style.setProperty("--percentage", `${percentage}%`);
 	};
@@ -158,8 +158,8 @@ export default function Calculator() {
 									value={formatCalculateNumber(value)}
 									onChange={handleInputChange}
 									className={styles.inputRangeFieldContainer__input}
-									min={DEFAULT_VALUE}
-									max={MAX_VALUE}
+									min={defaultStateValue}
+									max={maximalStateValue}
 									id="propertyValue"
 								/>
 								<input
@@ -167,8 +167,8 @@ export default function Calculator() {
 									value={value}
 									onChange={handleRangeChange}
 									className={styles.inputRangeFieldContainer__range}
-									min={DEFAULT_VALUE}
-									max={MAX_VALUE}
+									min={defaultStateValue}
+									max={maximalStateValue}
 								/>
 							</div>
 						</div>
@@ -184,8 +184,8 @@ export default function Calculator() {
 									value={formatCalculateNumber(value)}
 									onChange={handleInputChange}
 									className={styles.inputRangeFieldContainer__input}
-									min={DEFAULT_VALUE}
-									max={MAX_VALUE}
+									min={defaultStateValue}
+									max={maximalStateValue}
 									id="initialContribution"
 								/>
 								<input
@@ -193,8 +193,8 @@ export default function Calculator() {
 									value={value}
 									onChange={handleRangeChange}
 									className={styles.inputRangeFieldContainer__range}
-									min={DEFAULT_VALUE}
-									max={MAX_VALUE}
+									min={defaultStateValue}
+									max={maximalStateValue}
 								/>
 							</div>
 
@@ -277,8 +277,8 @@ export default function Calculator() {
 									value={formatCalculateNumber(value)}
 									onChange={handleInputChange}
 									className={styles.inputRangeFieldContainer__input}
-									min={DEFAULT_VALUE}
-									max={MAX_VALUE}
+									min={defaultStateValue}
+									max={maximalStateValue}
 									id="initialContribution"
 								/>
 								<input
@@ -286,8 +286,8 @@ export default function Calculator() {
 									value={value}
 									onChange={handleRangeChange}
 									className={styles.inputRangeFieldContainer__range}
-									min={DEFAULT_VALUE}
-									max={MAX_VALUE}
+									min={defaultStateValue}
+									max={maximalStateValue}
 								/>
 							</div>
 
@@ -361,8 +361,8 @@ export default function Calculator() {
 									value={formatCalculateNumber(value)}
 									onChange={handleInputChange}
 									className={styles.inputRangeFieldContainer__input}
-									min={DEFAULT_VALUE}
-									max={MAX_VALUE}
+									min={defaultStateValue}
+									max={maximalStateValue}
 									id="initialContribution"
 								/>
 								<input
@@ -370,8 +370,8 @@ export default function Calculator() {
 									value={value}
 									onChange={handleRangeChange}
 									className={styles.inputRangeFieldContainer__range}
-									min={DEFAULT_VALUE}
-									max={MAX_VALUE}
+									min={defaultStateValue}
+									max={maximalStateValue}
 								/>
 							</div>
 

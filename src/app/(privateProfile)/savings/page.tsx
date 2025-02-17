@@ -55,9 +55,9 @@ function Savings() {
 	const { resetTimer } = useLogoutTimer(request);
 
 	const initialItems = [
-		{ category: "Обучение ребенка", target: "210 000.00", sum: "200 000.00", status: "В процессe" },
+		{ category: "Обучение ребенка", target: "210 000.00", sum: "200 000.00", status: "В процессе" },
 		{ category: "Машина", target: "4 000 000.00", sum: "4 000 000.00", status: "Достигнута" },
-		{ category: "Квартира", target: "10 000 000.00", sum: "100 000.00", status: "В процессe" },
+		{ category: "Квартира", target: "10 000 000.00", sum: "100 000.00", status: "В процессе" },
 		{ category: "Дом у моря", target: "1 000 000 000.00", sum: "1 000 000.00", status: "В процессе" },
 		{ category: "Дача", target: "5 000 000.00", sum: "115 000.00", status: "В процессе" },
 	];

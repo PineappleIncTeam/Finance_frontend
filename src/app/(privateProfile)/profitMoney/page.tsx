@@ -17,6 +17,7 @@ import { getCorrectBaseUrl } from "../../../utils/baseUrlConverter";
 import { incomeTransactions } from "../../../mocks/IncomeTransaction";
 
 import { PlusIcon } from "../../../assets/script/expenses/PlusIcon";
+import InputDate from "../../../ui/inputDate/inputDate";
 
 import styles from "./profitMoney.module.scss";
 
@@ -54,8 +55,7 @@ function ProfitMoney() {
 								<p className={styles.totalMonthlyWrapper__sum}>{formatMoney(incomeMoney, 0)}</p>
 							</div>
 							<div className={styles.dateSelectionWrapper}>
-								<p className={styles.dateSelectionWrapper__description}>Выбор даты</p>
-								<AppInput control={control} label={"Выбор даты"} type={InputTypeList.Date} name={"date"} />
+								<InputDate control={control} name={"date"} />
 							</div>
 						</div>
 						<div className={styles.detailsContainers}>

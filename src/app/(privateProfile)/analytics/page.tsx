@@ -26,17 +26,17 @@ function Analytics() {
 		delayError: 200,
 	});
 
-	const WINDOW_SIZE = 1440;
-	const MIN_ROW = 0;
-	const MAX_ROW = 8;
+	const windowSize = 1440;
+	const minimalRowValue = 0;
+	const maximalRowValue = 8;
 
-	const [itemsToShow, setItemsToShow] = useState(MAX_ROW);
+	const [itemsToShow, setItemsToShow] = useState(maximalRowValue);
 	const [displayMode, setDisplayMode] = useState("rub");
 	const isEmptyPage = false;
 
 	useEffect(() => {
 		const handleResize = () => {
-			setItemsToShow(window.innerWidth <= WINDOW_SIZE ? MIN_ROW : MAX_ROW);
+			setItemsToShow(window.innerWidth <= windowSize ? minimalRowValue : maximalRowValue);
 		};
 
 		handleResize();
@@ -54,7 +54,7 @@ function Analytics() {
 
 	ChartJS.register(ArcElement, Tooltip);
 
-	const LABELS_EXPENSES: string[] = [
+	const expensesLabels: string[] = [
 		"Внезапная покупка",
 		"Стрижка",
 		"Бассейн",
@@ -76,12 +76,12 @@ function Analytics() {
 		"Кино",
 		"Ипотека",
 	];
-	const LABELS_EXPENSES_NUMBER = LABELS_EXPENSES.length;
+	const expensesLabelsLengthValue = expensesLabels.length;
 
-	const RANDOM_COLORS: string[] = generateRandomColors(LABELS_EXPENSES_NUMBER);
+	const randomColorSet: string[] = generateRandomColors(expensesLabelsLengthValue);
 
 	const data = {
-		labels: LABELS_EXPENSES,
+		labels: expensesLabels,
 		datasets: [
 			{
 				label: "Расходы",
@@ -89,7 +89,7 @@ function Analytics() {
 					1300.01, 3900.02, 3250.02, 1638.83, 2652.06, 15271.09, 390.0, 975.56, 1340.79, 9110.05, 16192.09, 2600.01,
 					6437.57, 1690.01, 26000.15, 520.0, 520.0, 520.0, 520.0, 9586.33,
 				].map((value) => (displayMode === "rub" ? value : ((value / 130000) * 100).toFixed(2))),
-				backgroundColor: RANDOM_COLORS,
+				backgroundColor: randomColorSet,
 				borderWidth: 0,
 			},
 		],
@@ -175,7 +175,7 @@ function Analytics() {
 								<div className={styles.diagramExpensesBlock}>
 									<div className={styles.diagramExpensesBlockLeft}>
 										<ul className={styles.diagramExpensesBlockLeftItems}>
-											{displayData.slice(MIN_ROW, MAX_ROW).map((item, index) => (
+											{displayData.slice(minimalRowValue, maximalRowValue).map((item, index) => (
 												<li key={index} className={styles.diagramExpensesBlockLeftItem}>
 													<div className={styles.diagramExpensesBlockLeftIconWrapper}>
 														<div

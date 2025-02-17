@@ -10,11 +10,11 @@ function generateRandomColors(numColors: number): string[] {
 	const minimalLightColorValue = 205;
 
 	const isDarkOrLightColor = (color: string): boolean => {
-		const r = parseInt(color.slice(1, greenFirstSymbolIndex), 16);
-		const g = parseInt(color.slice(greenFirstSymbolIndex, blueFirstSymbolIndex), 16);
-		const b = parseInt(color.slice(blueFirstSymbolIndex, blueLastSymbolIndex), 16);
+		const red = parseInt(color.slice(1, greenFirstSymbolIndex), 16);
+		const green = parseInt(color.slice(greenFirstSymbolIndex, blueFirstSymbolIndex), 16);
+		const blue = parseInt(color.slice(blueFirstSymbolIndex, blueLastSymbolIndex), 16);
 
-		const average = (r + g + b) / colorCount;
+		const average = (red + green + blue) / colorCount;
 		return average < maximalDarkColorValue || average > minimalLightColorValue;
 	};
 

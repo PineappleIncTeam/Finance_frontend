@@ -8,7 +8,6 @@ import {
 	errorDefault,
 	errorPasswordIncorrect,
 	errorEmailIncorrect,
-	errorPasswordLength,
 	errorRequiredField,
 	passwordPattern,
 	errorPasswordMoreTwoSameSymbolsRepeat,
@@ -17,6 +16,7 @@ import {
 	errorPasswordStrengthTooWeak,
 	errorPasswordStrengthWeak,
 	errorPasswordStrengthMedium,
+	errorPasswordNumber,
 } from "../helpers/authConstants";
 
 enum ErrorTypes {
@@ -40,8 +40,8 @@ class FormHelpers {
 	constructPasswordMessage = (password: string) => {
 		const messages = [];
 		const minPasswordLength = 6;
-		if (password.length < minPasswordLength) {
-			messages.push(errorPasswordLength);
+		if (password.length >= minPasswordLength && !/(?=.*\d)/.test(password)) {
+			messages.push(errorPasswordNumber);
 		}
 		this.checkPasswordStrength(password, messages);
 		if (

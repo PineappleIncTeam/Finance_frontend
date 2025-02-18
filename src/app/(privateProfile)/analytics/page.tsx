@@ -33,6 +33,7 @@ function Analytics() {
 	const [itemsToShow, setItemsToShow] = useState(maximalRowValue);
 	const [displayMode, setDisplayMode] = useState("rub");
 	const isEmptyPage = false;
+	const operation: string = "Расходы";
 
 	useEffect(() => {
 		const handleResize = () => {
@@ -160,57 +161,65 @@ function Analytics() {
 							</div>
 						</div>
 
-						<div className={styles.analyticsDiagramExpensesWrapper}>
-							<div className={styles.analyticsDiagramExpensesInfo}>
-								<p className={styles.analyticsDiagramExpensesInfo__title}>Общий расход</p>
-								<p className={styles.analyticsDiagramExpensesInfo__value}>130 000.75 ₽</p>
-								<p className={styles.analyticsDiagramExpensesInfo__date}>14.09.23 - 20.09.23</p>
-							</div>
-
-							<div className={styles.analyticsDiagramExpenses}>
-								<div className={styles.diagramExpenses}>
-									<Pie data={data} options={{ responsive: true }} />
+						{operation === "Расходы" && (
+							<div className={styles.analyticsDiagramExpensesWrapper}>
+								<div className={styles.analyticsDiagramExpensesInfo}>
+									<p className={styles.analyticsDiagramExpensesInfo__title}>Общий расход</p>
+									<p className={styles.analyticsDiagramExpensesInfo__value}>130 000.75 ₽</p>
+									<p className={styles.analyticsDiagramExpensesInfo__date}>14.09.23 - 20.09.23</p>
 								</div>
-
-								<div className={styles.diagramExpensesBlock}>
-									<div className={styles.diagramExpensesBlockLeft}>
-										<ul className={styles.diagramExpensesBlockLeftItems}>
-											{displayData.slice(minimalRowValue, maximalRowValue).map((item, index) => (
-												<li key={index} className={styles.diagramExpensesBlockLeftItem}>
-													<div className={styles.diagramExpensesBlockLeftIconWrapper}>
-														<div
-															className={styles.diagramExpensesBlockLeftIconWrapper__circle}
-															style={{ background: `${item.background}` }}></div>
-														<p className={styles.diagramExpensesBlockLeftIconWrapper__text}>{item.title}</p>
-													</div>
-													<p className={styles.diagramExpensesBlockLeftItem__value}>
-														{displayMode === "rub" ? `${item.value} ₽` : `${item.value}%`}
-													</p>
-												</li>
-											))}
-										</ul>
+	
+								<div className={styles.analyticsDiagramExpenses}>
+									<div className={styles.diagramExpenses}>
+										<Pie data={data} options={{ responsive: true }} />
 									</div>
-
-									<div className={styles.diagramExpensesBlockRight}>
-										<ul className={styles.diagramExpensesBlockRightItems}>
-											{displayData.slice(itemsToShow).map((item, index) => (
-												<li key={index} className={styles.diagramExpensesBlockRightItem}>
-													<div className={styles.diagramExpensesBlockRightIconWrapper}>
-														<div
-															className={styles.diagramExpensesBlockRightIconWrapper__circle}
-															style={{ background: `${item.background}` }}></div>
-														<p className={styles.diagramExpensesBlockRightIconWrapper__text}>{item.title}</p>
-													</div>
-													<p className={styles.diagramExpensesBlockRightItem__value}>
-														{displayMode === "rub" ? `${item.value} ₽` : `${item.value}%`}
-													</p>
-												</li>
-											))}
-										</ul>
+	
+									<div className={styles.diagramExpensesBlock}>
+										<div className={styles.diagramExpensesBlockLeft}>
+											<ul className={styles.diagramExpensesBlockLeftItems}>
+												{displayData.slice(minimalRowValue, maximalRowValue).map((item, index) => (
+													<li key={index} className={styles.diagramExpensesBlockLeftItem}>
+														<div className={styles.diagramExpensesBlockLeftIconWrapper}>
+															<div
+																className={styles.diagramExpensesBlockLeftIconWrapper__circle}
+																style={{ background: `${item.background}` }}></div>
+															<p className={styles.diagramExpensesBlockLeftIconWrapper__text}>{item.title}</p>
+														</div>
+														<p className={styles.diagramExpensesBlockLeftItem__value}>
+															{displayMode === "rub" ? `${item.value} ₽` : `${item.value}%`}
+														</p>
+													</li>
+												))}
+											</ul>
+										</div>
+	
+										<div className={styles.diagramExpensesBlockRight}>
+											<ul className={styles.diagramExpensesBlockRightItems}>
+												{displayData.slice(itemsToShow).map((item, index) => (
+													<li key={index} className={styles.diagramExpensesBlockRightItem}>
+														<div className={styles.diagramExpensesBlockRightIconWrapper}>
+															<div
+																className={styles.diagramExpensesBlockRightIconWrapper__circle}
+																style={{ background: `${item.background}` }}></div>
+															<p className={styles.diagramExpensesBlockRightIconWrapper__text}>{item.title}</p>
+														</div>
+														<p className={styles.diagramExpensesBlockRightItem__value}>
+															{displayMode === "rub" ? `${item.value} ₽` : `${item.value}%`}
+														</p>
+													</li>
+												))}
+											</ul>
+										</div>
 									</div>
 								</div>
 							</div>
-						</div>
+						)}
+						{operation === "Доходы" && (
+							<div>Test</div>
+						)}
+						{operation === "Анализ доходов и расходов" && (
+							<div>Test 2</div>
+						)}
 					</div>
 				)}
 			</div>

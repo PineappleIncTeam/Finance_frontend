@@ -130,7 +130,11 @@ const SignUpForm = () => {
 						</p>
 					</div>
 				</div>
-				<Button variant={ButtonType.Notification} className={styles.button} disabled={!isValid} type="submit">
+				<Button
+					variant={ButtonType.Notification}
+					className={styles.button}
+					disabled={!isValid}
+					type={InputTypeList.Submit}>
 					Зарегистрироваться
 				</Button>
 				<div className={styles.dividerWrap}>

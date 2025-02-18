@@ -103,10 +103,10 @@ export default function NewPassword() {
 						rules={{ required: true, pattern: emailPattern }}
 					/>
 					<div className={styles.newPasswordFormContainer__buttons}>
-						<Button variant={ButtonType.Outlined} type="submit" className={styles.button}>
+						<Button variant={ButtonType.Outlined} type={InputTypeList.Submit} className={styles.button}>
 							Назад
 						</Button>
-						<Button variant={ButtonType.Notification} type="submit" className={styles.button}>
+						<Button variant={ButtonType.Notification} type={InputTypeList.Submit} className={styles.button}>
 							Восстановить
 						</Button>
 					</div>

@@ -12,6 +12,7 @@ import { setCookieStatus } from "../../../services/redux/features/cookieStatus/c
 import cookieStatusSelector from "../../../services/redux/features/cookieStatus/cookieStatusSelector";
 import Button from "../../../ui/Button/button";
 import { ButtonType } from "../../../helpers/buttonFieldValues";
+import { InputTypeList } from "../../../helpers/Input";
 
 import styles from "./cookiePopupWindowPage.module.scss";
 
@@ -48,6 +49,7 @@ const CookiePopupWindowPage = () => {
 					variant={ButtonType.Outlined}
 					onClick={() => dispatch(setCookieStatus("confirmed"))}
 					className={styles.textContentBlock__button}
+					type={InputTypeList.Button}
 					isLarge>
 					Хорошо, принимаю
 				</Button>

@@ -7,7 +7,7 @@ import style from "./button.module.scss";
 const Button = ({ children, onClick, type = "button", className, variant, isLarge, ...props }: IAppButton) => {
 	return (
 		<button
-			className={cn(style.button, isLarge && style.large, className)}
+			className={cn(style.button, { [style.large]: isLarge }, className)}
 			onClick={onClick}
 			type={type}
 			data-style={variant}

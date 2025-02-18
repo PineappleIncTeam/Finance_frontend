@@ -438,7 +438,7 @@ export default function Calculator() {
 						<Button
 							variant={ButtonType.Contained}
 							onClick={handleSubmit}
-							type="submit"
+							type={InputTypeList.Submit}
 							isLarge
 							className={styles.calculatorFormContentWrapper__submitBtn}>
 							Рассчитать кредит

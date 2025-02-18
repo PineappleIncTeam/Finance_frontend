@@ -8,6 +8,7 @@ import Switcher from "../../../ui/switcher/switcher";
 
 import Button from "../../../ui/Button/button";
 import { ButtonType } from "../../../helpers/buttonFieldValues";
+import { InputTypeList } from "../../../helpers/Input";
 
 import styles from "./userProfilePrivateAppSettings.module.scss";
 
@@ -33,7 +34,7 @@ export const UserProfilePrivateAppSettings = () => {
 					<div className={styles.privateAppSettingsRemoveButton__title}>Удалить аккаунт</div>
 				</div>
 			</div>
-			<Button variant={ButtonType.Outlined} type={"submit"}>
+			<Button variant={ButtonType.Outlined} type={InputTypeList.Submit}>
 				Сохранить
 			</Button>
 		</form>

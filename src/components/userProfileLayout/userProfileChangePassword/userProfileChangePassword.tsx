@@ -71,7 +71,7 @@ export const UserProfileChangePassword = () => {
 					error={errors.repeatPassword}
 				/>
 			</div>
-			<Button variant={ButtonType.Outlined} type={"submit"}>
+			<Button variant={ButtonType.Outlined} type={InputTypeList.Submit}>
 				Сохранить
 			</Button>
 		</form>

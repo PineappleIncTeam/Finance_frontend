@@ -128,7 +128,7 @@ export default function ChangePassword() {
 						rules={{ required: true, validate: validateRepeatPassword }}
 						autoComplete="off"
 					/>
-					<Button variant={ButtonType.Notification} type="submit" className={styles.saveButton}>
+					<Button variant={ButtonType.Notification} type={InputTypeList.Submit} className={styles.saveButton}>
 						Сохранить
 					</Button>
 				</div>

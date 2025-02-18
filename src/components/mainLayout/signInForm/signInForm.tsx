@@ -21,7 +21,8 @@ import { MainPath, UserProfilePath } from "../../../services/router/routes";
 import { ApiResponseCode } from "../../../helpers/apiResponseCode";
 import { loginUser } from "../../../services/api/auth/Login";
 import { setAutoLoginStatus } from "../../../services/redux/features/autoLogin/autoLoginSlice";
-import Button from "../../../ui/appButton/button";
+import Button from "../../../ui/Button/button";
+import { ButtonType } from "../../../helpers/buttonFieldValues";
 
 import styles from "./signInForm.module.scss";
 
@@ -115,7 +116,7 @@ const SignInForm = () => {
 					</Link>
 				</div>
 				{errorMessage && <p className={styles.errorMessage}>{errorMessage}</p>}
-				<Button variant="notification" type="submit" className={styles.button}>
+				<Button variant={ButtonType.Notification} type="submit" className={styles.button}>
 					Вход
 				</Button>
 				<div className={styles.dividerWrap}>

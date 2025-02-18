@@ -16,7 +16,7 @@ import handleLogout from "../../../helpers/logout";
 import { getCorrectBaseUrl } from "../../../utils/baseUrlConverter";
 import useLogoutTimer from "../../../hooks/useLogoutTimer";
 
-import AddButton from "../../../ui/addButton/button";
+import AddButton from "../../../components/userProfileLayout/addButton/addButton";
 
 import styles from "./expenses.module.scss";
 

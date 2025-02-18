@@ -27,7 +27,7 @@ import {
 import { getCorrectBaseUrl } from "../../../utils/baseUrlConverter";
 import handleLogout from "../../../helpers/logout";
 import useLogoutTimer from "../../../hooks/useLogoutTimer";
-import AddButton from "../../../ui/addButton/button";
+import AddButton from "../../../components/userProfileLayout/addButton/addButton";
 
 import styles from "./savings.module.scss";
 

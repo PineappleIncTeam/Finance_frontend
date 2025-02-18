@@ -5,7 +5,8 @@ import AppInput from "../../../ui/appInput/AppInput";
 
 import { RadioButton } from "../../../ui/radio/radioButton";
 
-import Button from "../../../ui/appButton/button";
+import Button from "../../../ui/Button/button";
+import { ButtonType } from "../../../helpers/buttonFieldValues";
 
 import styles from "./userProfilePrivateData.module.scss";
 
@@ -48,7 +49,7 @@ export const UserProfilePrivateData = () => {
 				<AppInput label={"Введите страну"} type={"text"} name={"country"} control={control} />
 				<AppInput label={"Email"} type={"text"} name={"email"} control={control} disabled />
 			</div>
-			<Button variant={"outlined"} type={"submit"}>
+			<Button variant={ButtonType.Outlined} type={"submit"}>
 				Сохранить
 			</Button>
 		</form>

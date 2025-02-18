@@ -9,7 +9,8 @@ import { InputTypeList } from "../../../helpers/Input";
 
 import { passwordValidate } from "../../../utils/passwordValidate";
 
-import Button from "../../../ui/appButton/button";
+import Button from "../../../ui/Button/button";
+import { ButtonType } from "../../../helpers/buttonFieldValues";
 
 import styles from "./userProfileChangePassword.module.scss";
 
@@ -70,7 +71,7 @@ export const UserProfileChangePassword = () => {
 					error={errors.repeatPassword}
 				/>
 			</div>
-			<Button variant={"outlined"} type={"submit"}>
+			<Button variant={ButtonType.Outlined} type={"submit"}>
 				Сохранить
 			</Button>
 		</form>

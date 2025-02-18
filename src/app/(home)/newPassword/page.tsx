@@ -13,16 +13,12 @@ import NewPasswordModal from "../../../components/mainLayout/newPasswordModal/ne
 import { formHelpers } from "../../../utils/formHelpers";
 import { emailPattern } from "../../../helpers/authConstants";
 import { InputTypeList } from "../../../helpers/Input";
-
 import { getCorrectBaseUrl } from "../../../utils/baseUrlConverter";
-
 import { ResetPasswordWithEmail } from "../../../services/api/auth/ResetPasswordWithEmail";
-
 import { MainPath } from "../../../services/router/routes";
-
 import { ApiResponseCode } from "../../../helpers/apiResponseCode";
-
-import Button from "../../../ui/appButton/button";
+import Button from "../../../ui/Button/button";
+import { ButtonType } from "../../../helpers/buttonFieldValues";
 
 import styles from "./newPassword.module.scss";
 
@@ -107,10 +103,10 @@ export default function NewPassword() {
 						rules={{ required: true, pattern: emailPattern }}
 					/>
 					<div className={styles.newPasswordFormContainer__buttons}>
-						<Button variant="outlined" type="submit" className={styles.button}>
+						<Button variant={ButtonType.Outlined} type="submit" className={styles.button}>
 							Назад
 						</Button>
-						<Button variant="notification" type="submit" className={styles.button}>
+						<Button variant={ButtonType.Notification} type="submit" className={styles.button}>
 							Восстановить
 						</Button>
 					</div>

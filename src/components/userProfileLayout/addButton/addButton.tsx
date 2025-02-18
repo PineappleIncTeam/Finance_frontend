@@ -1,8 +1,8 @@
 import cn from "classnames";
 
-import { IAddButton } from "../../types/common/UiKitProps";
+import { IAddButton } from "../../../types/common/UiKitProps";
 
-import style from "./button.module.scss";
+import style from "./addButton.module.scss";
 
 const AddButton = ({ children, onClick, type, className, ...props }: IAddButton) => {
 	return (

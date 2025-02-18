@@ -21,7 +21,7 @@ import logo from "../../../assets/layouts/main/logo.webp";
 import burger from "../../../assets/layouts/main/burger.svg";
 import closeElement from "../../../assets/layouts/main/closeElement.svg";
 
-import HeaderButton from "../../../ui/headerButton/button";
+import HeaderButton from "../headerButton/headerButton";
 
 import styles from "./mainHeader.module.scss";
 

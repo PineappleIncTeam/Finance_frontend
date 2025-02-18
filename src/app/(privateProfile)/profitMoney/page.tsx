@@ -16,7 +16,7 @@ import { getCorrectBaseUrl } from "../../../utils/baseUrlConverter";
 import { incomeTransactions } from "../../../mocks/IncomeTransaction";
 
 import InputDate from "../../../ui/inputDate/inputDate";
-import AddButton from "../../../ui/addButton/button";
+import AddButton from "../../../components/userProfileLayout/addButton/addButton";
 
 import styles from "./profitMoney.module.scss";
 

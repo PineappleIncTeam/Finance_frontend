@@ -7,7 +7,8 @@ import { avatarTemplates } from "../../../mocks/AvatarTemplates";
 
 import userAvatar from "../../../assets/components/userProfile/userPhoto.svg";
 import editProfileIcon from "../../../assets/components/userProfile/editProfile.svg";
-import Button from "../../../ui/appButton/button";
+import Button from "../../../ui/Button/button";
+import { ButtonType } from "../../../helpers/buttonFieldValues";
 
 import styles from "./userProfileAvatarSettings.module.scss";
 
@@ -54,7 +55,7 @@ export const UserProfileAvatarSettings = () => {
 					))}
 				</div>
 			</div>
-			<Button variant={"outlined"} type={"submit"}>
+			<Button variant={ButtonType.Outlined} type={"submit"}>
 				Сохранить
 			</Button>
 		</form>

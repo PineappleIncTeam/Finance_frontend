@@ -22,7 +22,8 @@ import VideoElement from "../../../components/mainLayout/videoElement/videoEleme
 
 import { videoId } from "../../../mocks/VideoId";
 
-import Button from "../../../ui/appButton/button";
+import Button from "../../../ui/Button/button";
+import { ButtonType } from "../../../helpers/buttonFieldValues";
 
 import styles from "./aboutAppPage.module.scss";
 
@@ -104,7 +105,7 @@ function AboutApp() {
 						<p className={styles.aboutAppPageInstructionVideoContainer__header}>
 							Пошаговая инструкция об использовании приложения
 						</p>
-						<Button variant="outlined" isLarge>
+						<Button variant={ButtonType.Outlined} isLarge>
 							Смотреть видео
 						</Button>
 					</div>

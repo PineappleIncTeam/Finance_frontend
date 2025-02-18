@@ -1,8 +1,8 @@
 import cn from "classnames";
 
-import { IHeaderButton } from "../../types/common/UiKitProps";
+import { IHeaderButton } from "../../../types/common/UiKitProps";
 
-import style from "./button.module.scss";
+import style from "./headerButton.module.scss";
 
 const HeaderButton = ({ children, onClick, className, variant, ...props }: IHeaderButton) => {
 	return (

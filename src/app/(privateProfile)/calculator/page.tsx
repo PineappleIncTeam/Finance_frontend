@@ -11,7 +11,8 @@ import { formatCalculateNumber } from "../../../utils/formatCalculateNumber";
 import { getCorrectBaseUrl } from "../../../utils/baseUrlConverter";
 import { InputTypeList } from "../../../helpers/Input";
 import handleLogout from "../../../helpers/logout";
-import Button from "../../../ui/appButton/button";
+import Button from "../../../ui/Button/button";
+import { ButtonType } from "../../../helpers/buttonFieldValues";
 
 import styles from "./calculator.module.scss";
 
@@ -435,7 +436,7 @@ export default function Calculator() {
 							</div>
 						</div>
 						<Button
-							variant="contained"
+							variant={ButtonType.Contained}
 							onClick={handleSubmit}
 							type="submit"
 							isLarge

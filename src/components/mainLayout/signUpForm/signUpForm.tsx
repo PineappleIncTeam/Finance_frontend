@@ -18,7 +18,8 @@ import { getCorrectBaseUrl } from "../../../utils/baseUrlConverter";
 import { ApiResponseCode } from "../../../helpers/apiResponseCode";
 import { vkLink } from "../../../mocks/linkSetup";
 import CustomCheckbox from "../../../ui/checkBox/checkBox";
-import Button from "../../../ui/appButton/button";
+import Button from "../../../ui/Button/button";
+import { ButtonType } from "../../../helpers/buttonFieldValues";
 
 import styles from "./signUpForm.module.scss";
 
@@ -129,7 +130,7 @@ const SignUpForm = () => {
 						</p>
 					</div>
 				</div>
-				<Button variant={"notification"} className={styles.button} disabled={!isValid} type="submit">
+				<Button variant={ButtonType.Notification} className={styles.button} disabled={!isValid} type="submit">
 					Зарегистрироваться
 				</Button>
 				<div className={styles.dividerWrap}>

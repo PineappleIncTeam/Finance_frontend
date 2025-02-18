@@ -1,6 +1,16 @@
 import { ButtonHTMLAttributes, ReactElement, ReactNode } from "react";
 
-import { Control, FieldError, FieldErrorsImpl, FieldValues, Merge, Path, PathValue, RegisterOptions, UseControllerProps } from "react-hook-form";
+import {
+	Control,
+	FieldError,
+	FieldErrorsImpl,
+	FieldValues,
+	Merge,
+	Path,
+	PathValue,
+	RegisterOptions,
+	UseControllerProps,
+} from "react-hook-form";
 
 import { ISignInForm, ISignUpForm } from "../components/ComponentsTypes";
 import { IChangePasswordForm, INewPassword } from "../pages/Password";
@@ -136,7 +146,7 @@ export interface IInputDateSelector {
 	options?: number[] | string[];
 	value: number;
 	changeDate: (date: number) => void;
-	isMonth?: boolean
+	isMonth?: boolean;
 }
 
 export interface ICustomInputDate<T extends TAppInputForm> {

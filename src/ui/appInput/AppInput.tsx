@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { FieldValues, useController, } from "react-hook-form";
+import { FieldValues, useController } from "react-hook-form";
 import cn from "classnames";
 import Image from "next/image";
 

@@ -1,13 +1,22 @@
 import { FieldErrors } from "react-hook-form";
 
+import { passwordStrength } from "check-password-strength";
+
+import { defaultOptions } from "../helpers/passwordStrengthOption";
+
 import {
 	errorDefault,
 	errorPasswordIncorrect,
 	errorEmailIncorrect,
-	errorPasswordLength,
-	errorPasswordNumber,
 	errorRequiredField,
 	passwordPattern,
+	errorPasswordMoreTwoSameSymbolsRepeat,
+	errorPasswordPrivateBirthDate,
+	errorPasswordThreeNumbersRow,
+	errorPasswordStrengthTooWeak,
+	errorPasswordStrengthWeak,
+	errorPasswordStrengthMedium,
+	errorPasswordNumber,
 } from "../helpers/authConstants";
 
 enum ErrorTypes {
@@ -18,7 +27,6 @@ enum ErrorTypes {
 class FormHelpers {
 	getPasswordError = (errors: FieldErrors, password: string) => {
 		const errorInfo = errors.password || {};
-
 		switch (errorInfo.type) {
 			case ErrorTypes.REQUIRED:
 				return errorRequiredField;
@@ -32,15 +40,41 @@ class FormHelpers {
 	constructPasswordMessage = (password: string) => {
 		const messages = [];
 		const minPasswordLength = 6;
-		if (password.length < minPasswordLength) {
-			messages.push(errorPasswordLength);
-		} else if (password.length >= minPasswordLength && !/(?=.*\d)/.test(password)) {
+		if (password.length >= minPasswordLength && !/(?=.*\d)/.test(password)) {
 			messages.push(errorPasswordNumber);
-		} else if (!passwordPattern.test(password)) {
+		}
+		this.checkPasswordStrength(password, messages);
+		if (
+			password.match(/\d{4}(-|\/|\.)\d{2}(-|\/|\.)\d{2}/g) ||
+			password.match(/\d{2}(-|\/|\.)\d{2}(-|\/|\.)\d{4}/g) ||
+			password.match(/\d{8}/g)
+		) {
+			messages.push(errorPasswordPrivateBirthDate);
+		}
+		if (password.match(/\d{3,}/g)) {
+			messages.push(errorPasswordThreeNumbersRow);
+		}
+		if (password.match(/(.)\1/)) {
+			messages.push(errorPasswordMoreTwoSameSymbolsRepeat);
+		}
+		if (!passwordPattern.test(password)) {
 			messages.push(errorPasswordIncorrect);
 		}
 		if (messages.length === 0) {
 			return null;
+		}
+		return messages.join(" ");
+	};
+
+	checkPasswordStrength = (password: string, messages: string[]) => {
+		if (passwordStrength(password, defaultOptions).value === "Too weak") {
+			messages.push(errorPasswordStrengthTooWeak);
+		}
+		if (passwordStrength(password, defaultOptions).value === "Weak") {
+			messages.push(errorPasswordStrengthWeak);
+		}
+		if (passwordStrength(password, defaultOptions).value === "Medium") {
+			messages.push(errorPasswordStrengthMedium);
 		}
 		return messages.join(" ");
 	};

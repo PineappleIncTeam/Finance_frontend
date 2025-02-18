@@ -29,7 +29,7 @@ function Analytics() {
 	const operation: string = "Доходы";
 	const windowSize = 1440;
 	const minimalRowValue = 0;
-	let maximalRowValue: number;
+	let maximalRowValue: number = 0;
 
 	if (operation === "Расходы") {
 		maximalRowValue = 8;

@@ -45,7 +45,21 @@ function Analytics() {
 		1340.79, 9110.05, 16192.09, 2600.01, 6437.57, 1690.01, 26000.15,
 		520.0, 520.0, 520.0, 520.0, 9586.33,
 	];
-	const monthlyExpenses = {
+	type MonthlyExpenses = {
+		Январь: number[];
+		Февраль: number[];
+		Март: number[];
+		Апрель: number[];
+		Май: number[];
+		Июнь: number[];
+		Июль: number[];
+		Август: number[];
+		Сентябрь: number[];
+		Октябрь: number[];
+		Ноябрь: number[];
+		Декабрь: number[];
+	};
+	const monthlyExpenses: MonthlyExpenses = {
 		Январь: [rawExpensesData[0], rawExpensesData[1],],
 		Февраль: [],
 		Март: [],

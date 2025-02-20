@@ -4,8 +4,8 @@ import { useState, useEffect, ChangeEvent } from "react";
 
 import { useForm } from "react-hook-form";
 
-import { Pie } from "react-chartjs-2";
-import { Chart as ChartJS, ArcElement, Tooltip } from "chart.js";
+import { Pie, Bar } from "react-chartjs-2";
+import { Chart as ChartJS, ArcElement, Tooltip, CategoryScale, LinearScale, BarElement } from "chart.js";
 
 import { MoneyIcon } from "../../../assets/script/analytics/MoneyIcon";
 
@@ -40,6 +40,27 @@ function Analytics() {
 	const [itemsToShow, setItemsToShow] = useState(maximalRowValue);
 	const [displayMode, setDisplayMode] = useState("rub");
 	const isEmptyPage = false;
+	const rawExpensesData = [
+		1300.01, 3900.02, 3250.02, 1638.83, 2652.06, 15271.09, 390.0, 975.56,
+		1340.79, 9110.05, 16192.09, 2600.01, 6437.57, 1690.01, 26000.15,
+		520.0, 520.0, 520.0, 520.0, 9586.33,
+	];
+	const monthlyExpenses = {
+		Январь: [rawExpensesData[0], rawExpensesData[1],],
+		Февраль: [],
+		Март: [],
+		Апрель: [],
+		Май: [],
+		Июнь: [],
+		Июль: [],
+		Август: [],
+		Сентябрь: [],
+		Октябрь: [],
+		Ноябрь: [],
+		Декабрь: [],
+	};
+
+	const labels = Object.keys(monthlyExpenses);
 
 	useEffect(() => {
 		const handleResize = () => {
@@ -60,6 +81,7 @@ function Analytics() {
 	};
 
 	ChartJS.register(ArcElement, Tooltip);
+	ChartJS.register(CategoryScale, LinearScale, BarElement);
 
 	const expensesLabels: string[] = [
 		"Внезапная покупка",
@@ -92,21 +114,72 @@ function Analytics() {
 		datasets: [
 			{
 				label: "Расходы",
-				data: [
-					1300.01, 3900.02, 3250.02, 1638.83, 2652.06, 15271.09, 390.0, 975.56, 1340.79, 9110.05, 16192.09, 2600.01,
-					6437.57, 1690.01, 26000.15, 520.0, 520.0, 520.0, 520.0, 9586.33,
-				].map((value) => (displayMode === "rub" ? value : ((value / 130000) * 100).toFixed(2))),
+				data: rawExpensesData.map((value) => (displayMode === "rub" ? value : ((value / 130000) * 100).toFixed(2))),
 				backgroundColor: randomColorSet,
 				borderWidth: 0,
 			},
 		],
 	};
 
+	const dataSets = [
+		{
+			label: "За квартиру",
+			data: labels.map(month => monthlyExpenses[month][0]),
+			backgroundColor: "rgba(255, 99, 132, 0.6)",
+			barThickness: 10, // Устанавливаем ширину столбика на 10 пикселей
+		},
+		{
+			label: "Тренажерный зал",
+			data: labels.map(month => monthlyExpenses[month][1]),
+			backgroundColor: "rgba(54, 162, 235, 0.6)",
+			barThickness: 10, // Устанавливаем ширину столбика на 10 пикселей
+		},
+		{
+			label: "Ногти",
+			data: labels.map(month => monthlyExpenses[month][2]),
+			backgroundColor: "rgba(75, 192, 192, 0.6)",
+			barThickness: 10, // Устанавливаем ширину столбика на 10 пикселей
+		},
+	];
+
 	const displayData = data.labels.map((label, index) => ({
 		title: label,
 		value: data.datasets[0].data[index],
 		background: data.datasets[0].backgroundColor[index],
 	}));
+
+	const dataIncome = {
+        labels: labels,
+        datasets: dataSets,
+    };
+
+	const options = {
+		scales: {
+			x: {
+				ticks: {
+					autoSkip: false, // отключить автоматическое пропускание меток
+					maxRotation: 0, // установить максимальный угол наклона меток
+					minRotation: 0, // установить минимальный угол наклона меток
+				},
+				grid: {
+					display: false, // отключить сетку (по желанию)
+				},
+				stacked: true, // Включаем стековое отображение
+			},
+			y: {
+				border: {
+					display: false,
+				},
+				beginAtZero: true,
+				ticks: {
+					stepSize: 5000,
+				},
+				stacked: true, // Включаем стековое отображение
+			},
+		},
+	};
+
+
 
 	return (
 		<div className={styles.analyticsPageWrap}>
@@ -271,6 +344,10 @@ function Analytics() {
 										</div>
 									</div>
 
+								</div>
+
+								<div className={styles.diagramIncome}>
+									<Bar data={dataIncome} options={options} />
 								</div>
 
 							</div>

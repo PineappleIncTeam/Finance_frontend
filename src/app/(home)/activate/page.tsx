@@ -18,6 +18,8 @@ import logo from "../../../assets/pages/activate/logo.webp";
 import warning from "../../../assets/pages/activate/warning.svg";
 import activationBgImg from "../../../assets/pages/activate/activation-bg-img.svg";
 import warningBgImg from "../../../assets/pages/activate/warning-bg-img.svg";
+import Button from "../../../ui/Button/button";
+import { ButtonType } from "../../../helpers/buttonFieldValues";
 
 import styles from "./activate.module.scss";
 
@@ -143,9 +145,13 @@ const Activate = () => {
 				<div className={styles.title}>{messageTitle}</div>
 				<div className={styles.description}>{messageDescription}</div>
 				{messageTitle === warningMessageTitle && (
-					<button className={styles.registerButton} onClick={() => router.push(MainPath.SignUp)}>
+					<Button
+						variant={ButtonType.Outlined}
+						onClick={() => router.push(MainPath.SignUp)}
+						className={styles.registerButton}
+						isLarge>
 						Регистрация
-					</button>
+					</Button>
 				)}
 			</div>
 		);

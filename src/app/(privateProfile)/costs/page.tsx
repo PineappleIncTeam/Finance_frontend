@@ -1,9 +1,5 @@
 function Сosts() {
-	return (
-		<>
-			<div>Сosts</div>
-		</>
-	);
+	return <div></div>;
 }
 
 export default Сosts;

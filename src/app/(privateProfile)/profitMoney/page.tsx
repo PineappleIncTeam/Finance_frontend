@@ -8,7 +8,6 @@ import useLogoutTimer from "../../../hooks/useLogoutTimer";
 import { IExpensesInputForm } from "../../../types/pages/Expenses";
 import { Select } from "../../../ui/select/Select";
 import AppInput from "../../../ui/appInput/AppInput";
-import Button from "../../../ui/button/button";
 import IncomeTransaction from "../../../components/userProfileLayout/incomeTransaction/incomeTransaction";
 import { InputTypeList } from "../../../helpers/Input";
 import handleLogout from "../../../helpers/logout";
@@ -16,8 +15,8 @@ import { formatMoney } from "../../../utils/formatData";
 import { getCorrectBaseUrl } from "../../../utils/baseUrlConverter";
 import { incomeTransactions } from "../../../mocks/IncomeTransaction";
 
-import { PlusIcon } from "../../../assets/script/expenses/PlusIcon";
 import InputDate from "../../../ui/inputDate/inputDate";
+import AddButton from "../../../components/userProfileLayout/addButton/addButton";
 
 import styles from "./profitMoney.module.scss";
 
@@ -73,9 +72,7 @@ function ProfitMoney() {
 											placeholder="0.00 ₽"
 										/>
 									</div>
-									<Button content={"Добавить"} styleName={"buttonForIncome__disabled"}>
-										<PlusIcon classNames={styles.addButtonIcon} />
-									</Button>
+									<AddButton onClick={() => resetTimer()} type="submit" />
 								</div>
 							</div>
 							<div className={styles.detailsContainer}>
@@ -92,9 +89,7 @@ function ProfitMoney() {
 											placeholder="0.00 ₽"
 										/>
 									</div>
-									<Button content={"Добавить"} styleName={"buttonForIncome__disabled"}>
-										<PlusIcon classNames={styles.addButtonIcon} />
-									</Button>
+									<AddButton onClick={() => resetTimer()} type="submit" />
 								</div>
 							</div>
 						</div>

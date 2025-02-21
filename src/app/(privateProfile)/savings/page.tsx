@@ -3,7 +3,6 @@
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 
-import { PlusIcon } from "../../../assets/script/expenses/PlusIcon";
 import { EditIcon } from "../../../assets/script/expenses/EditIcon";
 import { CheckIcon } from "../../../assets/script/savings/CheckIcon";
 import { MoreIcon } from "../../../assets/script/savings/MoreIcon";
@@ -16,7 +15,6 @@ import AppInput from "../../../ui/appInput/AppInput";
 import { InputTypeList } from "../../../helpers/Input";
 import { ISavingsInputForm } from "../../../types/pages/Savings";
 import { Select } from "../../../ui/select/Select";
-import Button from "../../../ui/button/button";
 import {
 	IEditActionProps,
 	ISavingsTransaction,
@@ -29,6 +27,7 @@ import {
 import { getCorrectBaseUrl } from "../../../utils/baseUrlConverter";
 import handleLogout from "../../../helpers/logout";
 import useLogoutTimer from "../../../hooks/useLogoutTimer";
+import AddButton from "../../../components/userProfileLayout/addButton/addButton";
 
 import styles from "./savings.module.scss";
 
@@ -242,9 +241,7 @@ function Savings() {
 								/>
 							</div>
 
-							<Button content={"Добавить"} styleName={"buttonForSavings__disabled"}>
-								<PlusIcon classNames={styles.addButtonIcon} />
-							</Button>
+							<AddButton onClick={() => resetTimer()} type="submit" />
 						</div>
 					</div>
 					<div className={styles.savingsFormContentWrapperList}>

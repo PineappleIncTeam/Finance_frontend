@@ -249,21 +249,32 @@ function Analytics() {
 	const uniqueLabels = Array.from(new Set(
 		Object.values(monthlyExpenses).flat().map(expense => Object.keys(expense)[0])
 	));
-	
+
 	// Создаем dataSets на основе уникальных лейблов
 	const dataSets = uniqueLabels.map((label, index) => {
-		return {
-			label: expensesMapping[label].label, // Используем лейбл из expensesMapping
-			data: Object.keys(monthlyExpenses).map(month => {
-				const expenseData = monthlyExpenses[month].find(exp => Object.keys(exp)[0] === label);
-				const value = expenseData ? expenseData[label] : 0; // Возвращаем значение или 0, если расход не найден
-				return displayMode === "rub" ? value : ((value / 130000) * 100).toFixed(2); // Переводим в проценты
-			}),
-			backgroundColor: randomColorSet[index % randomColorSet.length], // Цвет для графика
-			barThickness: 10, // Ширина столбцов
-		};
+		// Проверяем, существует ли label в expensesMapping
+		if (Object.prototype.hasOwnProperty.call(expensesMapping, label)) {
+			return {
+				label: expensesMapping[label].label, // Используем лейбл из expensesMapping
+				data: Object.keys(monthlyExpenses).map(month => {
+					const expenseData = monthlyExpenses[month].find(exp => Object.keys(exp)[0] === label);
+					const value = expenseData ? expenseData[label] : 0; // Возвращаем значение или 0, если расход не найден
+					return displayMode === "rub" ? value : ((value / 130000) * 100).toFixed(2); // Переводим в проценты
+				}),
+				backgroundColor: randomColorSet[index % randomColorSet.length], // Цвет для графика
+				barThickness: 10, // Ширина столбцов
+			};
+		} else {
+			console.warn(`Label "${label}" не найден в expensesMapping.`);
+			return {
+				label: label,
+				data: Array(Object.keys(monthlyExpenses).length).fill(0), // Заполняем нулями, если лейбл не найден
+				backgroundColor: randomColorSet[index % randomColorSet.length],
+				barThickness: 10,
+			};
+		}
 	});
-	
+
 	const dataIncome = {
 		labels: Object.keys(monthlyExpenses), // Месяцы
 		datasets: dataSets, // Обновленный массив с данными расходов

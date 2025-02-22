@@ -45,48 +45,6 @@ function Analytics() {
 		1340.79, 9110.05, 16192.09, 2600.01, 6437.57, 1690.01, 26000.15,
 		520.0, 520.0, 520.0, 520.0, 9586.33,
 	];
-	
-	type MonthlyExpenses = {
-		[key: string]: number[]; // Добавляем индексный сигнатур
-	};
-
-	const monthlyExpenses: MonthlyExpenses = {
-		Январь: [rawExpensesData[0], rawExpensesData[1],],
-		Февраль: [],
-		Март: [],
-		Апрель: [],
-		Май: [],
-		Июнь: [],
-		Июль: [],
-		Август: [],
-		Сентябрь: [],
-		Октябрь: [],
-		Ноябрь: [],
-		Декабрь: [],
-	};
-
-	const labels = Object.keys(monthlyExpenses);
-
-	useEffect(() => {
-		const handleResize = () => {
-			setItemsToShow(window.innerWidth <= windowSize ? minimalRowValue : maximalRowValue);
-		};
-
-		handleResize();
-
-		window.addEventListener("resize", handleResize);
-
-		return () => {
-			window.removeEventListener("resize", handleResize);
-		};
-	}, []);
-
-	const handleDisplayChange = (event: ChangeEvent<HTMLInputElement>) => {
-		setDisplayMode(event.target.value);
-	};
-
-	ChartJS.register(ArcElement, Tooltip);
-	ChartJS.register(CategoryScale, LinearScale, BarElement);
 
 	const expensesLabels: string[] = [
 		"Внезапная покупка",
@@ -112,6 +70,145 @@ function Analytics() {
 	];
 	const expensesLabelsLengthValue = expensesLabels.length;
 
+	const expensesMapping = {
+		"Внезапная покупка": { label: "Внезапная покупка", value: 1300.01 },
+		"Стрижка": { label: "Стрижка", value: 3900.02 },
+		"Бассейн": { label: "Бассейн", value: 3250.02 },
+		"Школа": { label: "Школа", value: 1638.83 },
+		"Еда": { label: "Еда", value: 2652.06 },
+		"Плата жилья": { label: "Плата жилья", value: 15271.09 },
+		"Ногти": { label: "Ногти", value: 390.0 },
+		"Бензин": { label: "Бензин", value: 975.56 },
+		"Дорога работа": { label: "Дорога работа", value: 1340.79 },
+		"Юрист": { label: "Юрист", value: 9110.05 },
+		"Детский сад": { label: "Детский сад", value: 16192.09 },
+		"Учебники": { label: "Учебники", value: 2600.01 },
+		"Отпуск": { label: "Отпуск", value: 6437.57 },
+		"Театр": { label: "Театр", value: 1690.01 },
+		"Кредит": { label: "Кредит", value: 26000.15 },
+		"Страховка": { label: "Страховка", value: 520.0 },
+		"Киберспорт": { label: "Киберспорт", value: 520.0 },
+		"Путешествия": { label: "Путешествия", value: 520.0 },
+		"Кино": { label: "Кино", value: 520.0 },
+		"Ипотека": { label: "Ипотека", value: 9586.33 },
+	};
+
+	type MonthlyExpenses = {
+		[month: string]: Array<{ [key: string]: number }>;
+	};
+
+	const monthlyExpenses: MonthlyExpenses = {
+		Январь: [
+			{ "Плата жилья": 15271.09 }, 
+			{ "Еда": 2652.06 }, 
+			{ "Стрижка": 3900.02 },
+			{ "Дорога работа": 1340.79 },
+			{ "Театр": 1690.01 },
+			{ "Путешествия": 520.0 },  
+		],
+		Февраль: [
+			{ "Плата жилья": 15271.09 }, 
+			{ "Еда": 2652.06 }, 
+			{ "Бассейн": 3250.02 },
+			{ "Юрист": 9110.05 },
+			{ "Страховка": 520.0 }, 
+		],
+		Март: [
+			{ "Плата жилья": 15271.09 }, 
+			{ "Еда": 2652.06 }, 
+			{ "Школа": 1638.83 },
+			{ "Детский сад": 16192.09 },
+			{ "Киберспорт": 520.0 }, 
+		],
+		Апрель: [
+			{ "Плата жилья": 15271.09 }, 
+			{ "Еда": 2652.06 }, 
+			{ "Ногти": 390.0 },
+			{ "Учебники": 2600.01 },
+			{ "Театр": 1690.01 },
+			{ "Ипотека": 9586.33 },  
+		],
+		Май: [
+			{ "Плата жилья": 15271.09 }, 
+			{ "Еда": 2652.06 }, 
+			{ "Бензин": 975.56 },
+			{ "Отпуск": 6437.57 },
+			{ "Киберспорт": 520.0 },
+			{ "Ипотека": 9586.33 }, 
+		],
+		Июнь: [
+			{ "Плата жилья": 15271.09 }, 
+			{ "Еда": 2652.06 }, 
+			{ "Бассейн": 3250.02 },
+			{ "Детский сад": 16192.09 }, 
+			{ "Кредит": 26000.15 }, 
+		],
+		Июль: [
+			{ "Плата жилья": 15271.09 }, 
+			{ "Еда": 2652.06 }, 
+			{ "Школа": 1638.83 },
+			{ "Учебники": 2600.01 },
+			{ "Театр": 1690.01 },
+			{ "Кредит": 26000.15 },  
+		],
+		Август: [
+			{ "Плата жилья": 15271.09 }, 
+			{ "Еда": 2652.06 }, 
+			{ "Бензин": 975.56 },
+			{ "Дорога работа": 1340.79 },
+			{ "Кино": 520.0 }, 
+		],
+		Сентябрь: [
+			{ "Плата жилья": 15271.09 }, 
+			{ "Еда": 2652.06 }, 
+			{ "Ногти": 390.0 },
+			{ "Юрист": 9110.05 },
+			{ "Страховка": 520.0 }, 
+		],
+		Октябрь: [
+			{ "Плата жилья": 15271.09 }, 
+			{ "Еда": 2652.06 }, 
+			{ "Стрижка": 3900.02 },
+			{ "Учебники": 2600.01 },
+			{ "Кино": 520.0 },  
+		],
+		Ноябрь: [
+			{ "Плата жилья": 15271.09 }, 
+			{ "Еда": 2652.06 }, 
+			{ "Школа": 1638.83 },
+			{ "Страховка": 520.0 },
+			{ "Путешествия": 520.0 }, 
+		],
+		Декабрь: [
+			{ "Плата жилья": 15271.09 }, 
+			{ "Еда": 2652.06 }, 
+			{ "Бассейн": 3250.02 },
+			{ "Юрист": 9110.05 },
+			{ "Отпуск": 6437.57 }, 
+		],
+	};
+
+	useEffect(() => {
+		const handleResize = () => {
+			setItemsToShow(window.innerWidth <= windowSize ? minimalRowValue : maximalRowValue);
+		};
+
+		handleResize();
+
+		window.addEventListener("resize", handleResize);
+
+		return () => {
+			window.removeEventListener("resize", handleResize);
+		};
+	}, []);
+
+	const handleDisplayChange = (event: ChangeEvent<HTMLInputElement>) => {
+		setDisplayMode(event.target.value);
+	};
+
+	ChartJS.register(ArcElement, Tooltip);
+	ChartJS.register(CategoryScale, LinearScale, BarElement);
+
 	const randomColorSet: string[] = generateRandomColors(expensesLabelsLengthValue);
 
 	const data = {
@@ -125,38 +222,37 @@ function Analytics() {
 			},
 		],
 	};
+	
+	// Определяем массив лейблов, основываясь на первом месяце
+	const uniqueLabels = Array.from(new Set(
+		Object.values(monthlyExpenses).flat().map(expense => Object.keys(expense)[0])
+	));
+	
+	// Создаем dataSets на основе уникальных лейблов
+	const dataSets = uniqueLabels.map((label, index) => {
+		return {
+			label: expensesMapping[label].label, // Используем лейбл из expensesMapping
+			data: Object.keys(monthlyExpenses).map(month => {
+				const expenseData = monthlyExpenses[month].find(exp => Object.keys(exp)[0] === label);
+				const value = expenseData ? expenseData[label] : 0; // Возвращаем значение или 0, если расход не найден
+				return displayMode === "rub" ? value : ((value / 130000) * 100).toFixed(2); // Переводим в проценты
+			}),
+			backgroundColor: randomColorSet[index % randomColorSet.length], // Цвет для графика
+			barThickness: 10, // Ширина столбцов
+		};
+	});
+	
+	const dataIncome = {
+		labels: Object.keys(monthlyExpenses), // Месяцы
+		datasets: dataSets, // Обновленный массив с данными расходов
+	};
 
-	const dataSets = [
-		{
-			label: "За квартиру",
-			data: labels.map(month => monthlyExpenses[month][0]),
-			backgroundColor: "rgba(255, 99, 132, 0.6)",
-			barThickness: 10, // Устанавливаем ширину столбика на 10 пикселей
-		},
-		{
-			label: "Тренажерный зал",
-			data: labels.map(month => monthlyExpenses[month][1]),
-			backgroundColor: "rgba(54, 162, 235, 0.6)",
-			barThickness: 10, // Устанавливаем ширину столбика на 10 пикселей
-		},
-		{
-			label: "Ногти",
-			data: labels.map(month => monthlyExpenses[month][2]),
-			backgroundColor: "rgba(75, 192, 192, 0.6)",
-			barThickness: 10, // Устанавливаем ширину столбика на 10 пикселей
-		},
-	];
 
 	const displayData = data.labels.map((label, index) => ({
 		title: label,
 		value: data.datasets[0].data[index],
 		background: data.datasets[0].backgroundColor[index],
 	}));
-
-	const dataIncome = {
-        labels: labels,
-        datasets: dataSets,
-    };
 
 	const options = {
 		scales: {

@@ -252,13 +252,16 @@ function Analytics() {
 
 	// Создаем dataSets на основе уникальных лейблов
 	const dataSets = uniqueLabels.map((label, index) => {
-		// Проверяем, существует ли label в expensesMapping
-		if (Object.prototype.hasOwnProperty.call(expensesMapping, label)) {
+		// Приводим label к типу ExpenseLabel
+		const typedLabel = label as ExpenseLabel; // Приведение типа
+
+		// Проверяем, существует ли typedLabel в expensesMapping
+		if (typedLabel in expensesMapping) {
 			return {
-				label: expensesMapping[label].label, // Используем лейбл из expensesMapping
+				label: expensesMapping[typedLabel].label, // Используем лейбл из expensesMapping
 				data: Object.keys(monthlyExpenses).map(month => {
-					const expenseData = monthlyExpenses[month].find(exp => Object.keys(exp)[0] === label);
-					const value = expenseData ? expenseData[label] : 0; // Возвращаем значение или 0, если расход не найден
+					const expenseData = monthlyExpenses[month].find(exp => Object.keys(exp)[0] === typedLabel);
+					const value = expenseData ? expenseData[typedLabel] : 0; // Возвращаем значение или 0, если расход не найден
 					return displayMode === "rub" ? value : ((value / 130000) * 100).toFixed(2); // Переводим в проценты
 				}),
 				backgroundColor: randomColorSet[index % randomColorSet.length], // Цвет для графика

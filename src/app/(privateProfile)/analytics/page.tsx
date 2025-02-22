@@ -70,7 +70,29 @@ function Analytics() {
 	];
 	const expensesLabelsLengthValue = expensesLabels.length;
 
-	const expensesMapping = {
+	type ExpenseLabel = 
+    | "Внезапная покупка"
+    | "Стрижка"
+    | "Бассейн"
+    | "Школа"
+    | "Еда"
+    | "Плата жилья"
+    | "Ногти"
+    | "Бензин"
+    | "Дорога работа"
+    | "Юрист"
+    | "Детский сад"
+    | "Учебники"
+    | "Отпуск"
+    | "Театр"
+    | "Кредит"
+    | "Страховка"
+    | "Киберспорт"
+    | "Путешествия"
+    | "Кино"
+    | "Ипотека";
+
+	const expensesMapping: Record<ExpenseLabel, { label: string; value: number }> = {
 		"Внезапная покупка": { label: "Внезапная покупка", value: 1300.01 },
 		"Стрижка": { label: "Стрижка", value: 3900.02 },
 		"Бассейн": { label: "Бассейн", value: 3250.02 },

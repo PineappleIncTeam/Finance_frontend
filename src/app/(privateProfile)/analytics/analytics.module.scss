@@ -296,6 +296,7 @@
     border: 1px solid var(--color-gainsboro);
     border-radius: 12px;
     padding: 28px 28px 40px 28px;
+    margin-top: 94px;
 }
 
 .analyticsDiagramIncomeInfoWrapper {
@@ -431,6 +432,10 @@
     }
 }
 
+.diagramIncome {
+    width: 100%;
+    margin-top: 28px;
+}
 
 
 
@@ -470,11 +475,35 @@
     .analyticsSelectOperation {
         width: calc(100% - 300px);
     }
+
+
+
+
+
+    .analyticsDiagramIncomeWrapper {
+        margin-top: 72px;
+    }
+    .diagramIncomeBlockLeft {
+        display: none;
+    }
 }
 
 @media (max-width: 1024px) {
     .analyticsBlankPage__image {
         margin-bottom: 46px;
+    }
+    .analyticsDiagramIncomeWrapper {
+        margin-top: 30px;
+    }
+
+
+
+
+
+
+    
+    .diagramIncomeBlockLeft {
+        display: block;
     }
 }
 

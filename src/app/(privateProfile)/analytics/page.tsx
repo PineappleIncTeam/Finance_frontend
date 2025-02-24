@@ -28,6 +28,8 @@ function Analytics() {
 
 	const operation: string = "Доходы";
 	const windowSize = 1440;
+	const windowSizeM = 1024;
+	const windowSizeS = 768;
 	const minimalRowValue = 0;
 	let maximalRowValue: number = 0;
 
@@ -39,6 +41,7 @@ function Analytics() {
 
 	const [itemsToShow, setItemsToShow] = useState(maximalRowValue);
 	const [displayMode, setDisplayMode] = useState("rub");
+	const [chartHeight, setChartHeight] = useState(298);
 	const isEmptyPage = false;
 	const rawExpensesData = [
 		1300.01, 3900.02, 3250.02, 1638.83, 2652.06, 15271.09, 390.0, 975.56,
@@ -210,17 +213,41 @@ function Analytics() {
 		],
 	};
 
+	const updateChartHeight = () => {
+        const width = window.innerWidth;
+        if (width < 768) {
+            setChartHeight(238);
+        } else {
+            setChartHeight(298);
+        }
+    };
+
 	useEffect(() => {
 		const handleResize = () => {
-			setItemsToShow(window.innerWidth <= windowSize ? minimalRowValue : maximalRowValue);
+			if (operation === "Доходы") {
+				if (window.innerWidth > windowSize) {
+					setItemsToShow(maximalRowValue);
+				} else if (window.innerWidth <= windowSize && window.innerWidth > windowSizeM) {
+					setItemsToShow(minimalRowValue);
+				} else if (window.innerWidth <= windowSizeM && window.innerWidth > windowSizeS) {
+					setItemsToShow(maximalRowValue);
+				} else if (window.innerWidth <= windowSizeS) {
+					setItemsToShow(minimalRowValue);
+				}
+			} else {
+				setItemsToShow(window.innerWidth <= windowSize ? minimalRowValue : maximalRowValue);
+			}
 		};
 
+		updateChartHeight();
 		handleResize();
 
 		window.addEventListener("resize", handleResize);
+		window.addEventListener("resize", updateChartHeight);
 
 		return () => {
 			window.removeEventListener("resize", handleResize);
+			window.removeEventListener("resize", updateChartHeight);
 		};
 	}, []);
 
@@ -249,23 +276,22 @@ function Analytics() {
 	const uniqueLabels = Array.from(new Set(
 		Object.values(monthlyExpenses).flat().map(expense => Object.keys(expense)[0])
 	));
-
+	
 	// Создаем dataSets на основе уникальных лейблов
 	const dataSets = uniqueLabels.map((label, index) => {
 		// Приводим label к типу ExpenseLabel
 		const typedLabel = label as ExpenseLabel; // Приведение типа
-
+	
 		// Проверяем, существует ли typedLabel в expensesMapping
 		if (typedLabel in expensesMapping) {
 			return {
-				label: expensesMapping[typedLabel].label, // Используем лейбл из expensesMapping
+				label: expensesMapping[typedLabel].label, 
 				data: Object.keys(monthlyExpenses).map(month => {
 					const expenseData = monthlyExpenses[month].find(exp => Object.keys(exp)[0] === typedLabel);
-					const value = expenseData ? expenseData[typedLabel] : 0; // Возвращаем значение или 0, если расход не найден
-					return displayMode === "rub" ? value : ((value / 130000) * 100).toFixed(2); // Переводим в проценты
+					return expenseData ? expenseData[typedLabel] : 0; // Возвращаем значение или 0, если расход не найден
 				}),
-				backgroundColor: randomColorSet[index % randomColorSet.length], // Цвет для графика
-				barThickness: 10, // Ширина столбцов
+				backgroundColor: randomColorSet[index % randomColorSet.length],
+				barThickness: 10, 
 			};
 		} else {
 			console.warn(`Label "${label}" не найден в expensesMapping.`);
@@ -277,7 +303,7 @@ function Analytics() {
 			};
 		}
 	});
-
+	
 	const dataIncome = {
 		labels: Object.keys(monthlyExpenses), // Месяцы
 		datasets: dataSets, // Обновленный массив с данными расходов
@@ -291,6 +317,8 @@ function Analytics() {
 	}));
 
 	const options = {
+		responsive: true,
+		maintainAspectRatio: false, 		
 		scales: {
 			x: {
 				ticks: {
@@ -483,7 +511,7 @@ function Analytics() {
 
 								</div>
 
-								<div className={styles.diagramIncome}>
+								<div className={styles.diagramIncome} style={{ height: chartHeight }}>
 									<Bar data={dataIncome} options={options} />
 								</div>
 

@@ -14,7 +14,7 @@ export const CategorySelect = <T extends FieldValues>({
 	control,
 	name,
 	placeholder,
-	onRemoveCategory, // callback для удаления категории
+	onRemoveCategory,
 }: ICategorySelect<T>) => {
 	const {
 		field: { onChange, value },
@@ -53,7 +53,7 @@ export const CategorySelect = <T extends FieldValues>({
 
 	const handleRemoveCategory = (category: string) => {
 		if (onRemoveCategory) {
-			onRemoveCategory(category); // вызов callback при удалении
+			onRemoveCategory(category);
 		}
 	};
 

@@ -14,8 +14,7 @@ import { savingsTransactions } from "../../../mocks/SavingsTransaction";
 
 import AppInput from "../../../ui/appInput/AppInput";
 import { InputTypeList } from "../../../helpers/Input";
-import { ISavingsInputForm } from "../../../types/pages/Savings";
-import { Select } from "../../../ui/select/Select";
+import { ISavingsInputForm , ISavingsSelectForm } from "../../../types/pages/Savings";
 import Button from "../../../ui/button/button";
 import {
 	IEditActionProps,
@@ -29,11 +28,12 @@ import {
 import { getCorrectBaseUrl } from "../../../utils/baseUrlConverter";
 import handleLogout from "../../../helpers/logout";
 import useLogoutTimer from "../../../hooks/useLogoutTimer";
+import { CategorySelect } from "../../../components/userProfileLayout/categorySelect/CategorySelect";
 
 import styles from "./savings.module.scss";
 
 function Savings() {
-	const { control } = useForm<ISavingsInputForm>({
+	const { control } = useForm<ISavingsInputForm & ISavingsSelectForm>({
 		defaultValues: {
 			sum: "",
 		},
@@ -226,10 +226,11 @@ function Savings() {
 						</div>
 						<div className={styles.savingsDetailsContainer}>
 							<div className={styles.savingsDetailsContainer__category}>
-								<Select
-									name={"expenses"}
+								<CategorySelect
+									name={"savings"}
 									label={"Накопления"}
 									options={["Обучение ребенка", "Машина", "Квартира", "Отпуск 2024"]}
+									control={control}
 								/>
 							</div>
 							<div className={styles.savingsDetailsContainer__sum}>

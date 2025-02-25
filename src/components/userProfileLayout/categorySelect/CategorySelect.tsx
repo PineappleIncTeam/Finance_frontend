@@ -89,20 +89,23 @@ export const CategorySelect = <T extends FieldValues>({
 		);
 	}
 
+	const renderSelectedValue = () =>
+		selectedValue ? (
+			<span className={cn(styles.selectContainer__selectedValue)}>
+				{selectedValue}{" "}
+				<div className={styles.closeIcon} onClick={handleRemoveSelection} role="button">
+					<CloseIcon classNames={styles.selectContainer__selectIcon} />
+				</div>
+			</span>
+		) : (
+			<span className={styles.selectContainer__placeholder}>{placeholder}</span>
+		);
+
 	return (
 		<div className={styles.selectContainer} ref={selectRef}>
 			<label className={styles.selectContainer__description}>{label}</label>
 			<div onClick={toggleDropdown} className={styles.selectContainer__field} role="listbox">
-				{selectedValue ? (
-					<span className={cn(styles.selectContainer__selectedValue)}>
-						{selectedValue}{" "}
-						<div className={styles.closeIcon} onClick={handleRemoveSelection} role="button">
-							<CloseIcon classNames={styles.selectContainer__selectIcon} />
-						</div>
-					</span>
-				) : (
-					<span className={styles.selectContainer__placeholder}>{placeholder}</span>
-				)}
+				{renderSelectedValue()}
 
 				<Arrow
 					classNames={cn(styles.selectContainer__selectIcon, isOpen && styles.selectContainer__selectIcon__active)}

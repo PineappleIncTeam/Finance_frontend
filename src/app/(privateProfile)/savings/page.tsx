@@ -230,6 +230,7 @@ function Savings() {
 									name={"savings"}
 									label={"Накопления"}
 									options={["Обучение ребенка", "Машина", "Квартира", "Отпуск 2024"]}
+									placeholder="Выберите категорию"
 									control={control}
 								/>
 							</div>

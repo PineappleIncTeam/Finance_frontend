@@ -42,6 +42,7 @@ function Analytics() {
 	const [itemsToShow, setItemsToShow] = useState(maximalRowValue);
 	const [displayMode, setDisplayMode] = useState("rub");
 	const [chartHeight, setChartHeight] = useState(298);
+	const [rotation, setRotation] = useState({ maxRotation: 0, minRotation: 0 });
 	const isEmptyPage = false;
 	const rawExpensesData = [
 		1300.01, 3900.02, 3250.02, 1638.83, 2652.06, 15271.09, 390.0, 975.56,
@@ -213,6 +214,16 @@ function Analytics() {
 		],
 	};
 
+	const [monthNames, setMonthNames] = useState(Object.keys(monthlyExpenses));
+
+	const updateMonthNames = () => {
+        if (window.innerWidth <= 768) {
+            setMonthNames(['Янв.', 'Февр.', 'Март', 'Апр.', 'Май', 'Июн.', 'Июль', 'Авг.', 'Сент.', 'Окт.', 'Нояб.', 'Дек.']);
+        } else {
+            setMonthNames(Object.keys(monthlyExpenses));
+        }
+    };
+
 	const updateChartHeight = () => {
         const width = window.innerWidth;
         if (width < 768) {
@@ -224,6 +235,12 @@ function Analytics() {
 
 	useEffect(() => {
 		const handleResize = () => {
+			if (window.innerWidth <= 768) {
+                setRotation({ maxRotation: 90, minRotation: 90 });
+            } else {
+                setRotation({ maxRotation: 0, minRotation: 0 });
+            }
+
 			if (operation === "Доходы") {
 				if (window.innerWidth > windowSize) {
 					setItemsToShow(maximalRowValue);
@@ -240,14 +257,17 @@ function Analytics() {
 		};
 
 		updateChartHeight();
+		updateMonthNames();
 		handleResize();
 
 		window.addEventListener("resize", handleResize);
 		window.addEventListener("resize", updateChartHeight);
+		window.addEventListener('resize', updateMonthNames);
 
 		return () => {
 			window.removeEventListener("resize", handleResize);
 			window.removeEventListener("resize", updateChartHeight);
+			window.removeEventListener('resize', updateMonthNames);
 		};
 	}, []);
 
@@ -305,7 +325,7 @@ function Analytics() {
 	});
 	
 	const dataIncome = {
-		labels: Object.keys(monthlyExpenses), // Месяцы
+		labels: monthNames.map(label => label), // Месяцы
 		datasets: dataSets, // Обновленный массив с данными расходов
 	};
 
@@ -323,8 +343,8 @@ function Analytics() {
 			x: {
 				ticks: {
 					autoSkip: false, // отключить автоматическое пропускание меток
-					maxRotation: 0, // установить максимальный угол наклона меток
-					minRotation: 0, // установить минимальный угол наклона меток
+					maxRotation: rotation.maxRotation,
+                    minRotation: rotation.minRotation,
 				},
 				grid: {
 					display: false, // отключить сетку (по желанию)
@@ -337,7 +357,14 @@ function Analytics() {
 				},
 				beginAtZero: true,
 				ticks: {
-					stepSize: 5000,
+					stepSize: 5000, // Шаг остается равным 5000
+					callback: (value: number) => {
+						// Форматируем метки для отображения "K" только при ширине экрана 460px или меньше
+						if (window.innerWidth <= 460 && value >= 1000) {
+							return (value / 1000) + 'K'; // Преобразуем в K (например, 2000 -> 2K)
+						}
+						return value; // Возвращаем оригинальное значение для больших экранов
+					},
 				},
 				stacked: true, // Включаем стековое отображение
 			},
@@ -490,23 +517,25 @@ function Analytics() {
 											</ul>
 										</div>
 	
-										<div className={styles.diagramIncomeBlockRight}>
-											<ul className={styles.diagramIncomeBlockRightItems}>
-												{displayData.slice(itemsToShow).map((item, index) => (
-													<li key={index} className={styles.diagramIncomeBlockRightItem}>
-														<div className={styles.diagramIncomeBlockRightIconWrapper}>
-															<div
-																className={styles.diagramIncomeBlockRightIconWrapper__circle}
-																style={{ background: `${item.background}` }}></div>
-															<p className={styles.diagramIncomeBlockRightIconWrapper__text}>{item.title}</p>
-														</div>
-														<p className={styles.diagramIncomeBlockRightItem__value}>
-															{displayMode === "rub" ? `${item.value} ₽` : `${item.value}%`}
-														</p>
-													</li>
-												))}
-											</ul>
-										</div>
+										{window.innerWidth > 460 && (
+											<div className={styles.diagramIncomeBlockRight}>
+												<ul className={styles.diagramIncomeBlockRightItems}>
+													{displayData.slice(itemsToShow).map((item, index) => (
+														<li key={index} className={styles.diagramIncomeBlockRightItem}>
+															<div className={styles.diagramIncomeBlockRightIconWrapper}>
+																<div
+																	className={styles.diagramIncomeBlockRightIconWrapper__circle}
+																	style={{ background: `${item.background}` }}></div>
+																<p className={styles.diagramIncomeBlockRightIconWrapper__text}>{item.title}</p>
+															</div>
+															<p className={styles.diagramIncomeBlockRightItem__value}>
+																{displayMode === "rub" ? `${item.value} ₽` : `${item.value}%`}
+															</p>
+														</li>
+													))}
+												</ul>
+											</div>
+										)}
 									</div>
 
 								</div>
@@ -514,6 +543,26 @@ function Analytics() {
 								<div className={styles.diagramIncome} style={{ height: chartHeight }}>
 									<Bar data={dataIncome} options={options} />
 								</div>
+
+								{window.innerWidth <= 460 && (
+									<div className={styles.diagramIncomeBlockRight}>
+										<ul className={styles.diagramIncomeBlockRightItems}>
+											{displayData.slice(itemsToShow).map((item, index) => (
+												<li key={index} className={styles.diagramIncomeBlockRightItem}>
+													<div className={styles.diagramIncomeBlockRightIconWrapper}>
+														<div
+															className={styles.diagramIncomeBlockRightIconWrapper__circle}
+															style={{ background: `${item.background}` }}></div>
+														<p className={styles.diagramIncomeBlockRightIconWrapper__text}>{item.title}</p>
+													</div>
+													<p className={styles.diagramIncomeBlockRightItem__value}>
+														{displayMode === "rub" ? `${item.value} ₽` : `${item.value}%`}
+													</p>
+												</li>
+											))}
+										</ul>
+									</div>
+								)}
 
 							</div>
 						)}

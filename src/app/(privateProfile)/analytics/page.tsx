@@ -218,7 +218,7 @@ function Analytics() {
 
 	const updateMonthNames = () => {
         if (window.innerWidth <= 768) {
-            setMonthNames(['Янв.', 'Февр.', 'Март', 'Апр.', 'Май', 'Июн.', 'Июль', 'Авг.', 'Сент.', 'Окт.', 'Нояб.', 'Дек.']);
+            setMonthNames(["Янв.", "Февр.", "Март", "Апр.", "Май", "Июн.", "Июль", "Авг.", "Сент.", "Окт.", "Нояб.", "Дек."]);
         } else {
             setMonthNames(Object.keys(monthlyExpenses));
         }
@@ -262,12 +262,12 @@ function Analytics() {
 
 		window.addEventListener("resize", handleResize);
 		window.addEventListener("resize", updateChartHeight);
-		window.addEventListener('resize', updateMonthNames);
+		window.addEventListener("resize", updateMonthNames);
 
 		return () => {
 			window.removeEventListener("resize", handleResize);
 			window.removeEventListener("resize", updateChartHeight);
-			window.removeEventListener('resize', updateMonthNames);
+			window.removeEventListener("resize", updateMonthNames);
 		};
 	}, []);
 
@@ -361,7 +361,7 @@ function Analytics() {
 					callback: (value: number) => {
 						// Форматируем метки для отображения "K" только при ширине экрана 460px или меньше
 						if (window.innerWidth <= 460 && value >= 1000) {
-							return (value / 1000) + 'K'; // Преобразуем в K (например, 2000 -> 2K)
+							return (value / 1000) + "K"; // Преобразуем в K (например, 2000 -> 2K)
 						}
 						return value; // Возвращаем оригинальное значение для больших экранов
 					},

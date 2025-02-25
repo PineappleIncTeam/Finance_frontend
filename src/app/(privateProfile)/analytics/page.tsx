@@ -358,8 +358,9 @@ function Analytics() {
 				beginAtZero: true,
 				ticks: {
 					stepSize: 5000, // Шаг остается равным 5000
-					callback: (value: number) => {
+					callback: (tickValue: string | number) => {
 						// Форматируем метки для отображения "K" только при ширине экрана 460px или меньше
+						const value = typeof tickValue === "string" ? parseFloat(tickValue) : tickValue;
 						if (window.innerWidth <= 460 && value >= 1000) {
 							return (value / 1000) + "K"; // Преобразуем в K (например, 2000 -> 2K)
 						}

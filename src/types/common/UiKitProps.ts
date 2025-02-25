@@ -91,12 +91,4 @@ export interface ISwitcher<T extends TAuthInputForm> {
 
 export type TAppInputValue = string | number | readonly string[] | undefined;
 
-export interface ICategorySelect<T extends FieldValues> {
-	label: string; 
-	options: string[];
-	control: Control<T>;
-	name: Path<T>;
-	placeholder?: string;
-	onRemoveCategory?: (category: string) => void;
-  }
-  
+

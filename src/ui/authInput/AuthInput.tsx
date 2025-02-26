@@ -25,7 +25,7 @@ const AuthInput = ({ label, type, placeholder, autoComplete, subtitle, error, ..
   const { field, fieldState } = useController<TAuthInputForm>({
     ...props,
     rules: {
-      validate: (value) => validateEmail(value)
+      validate: (value) => value !== undefined && validateEmail(value)
     }
   });
 

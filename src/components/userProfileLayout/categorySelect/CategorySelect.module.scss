@@ -80,12 +80,23 @@
 		display: flex;
 		align-items: center;
 		gap: 8px;
+		overflow: hidden;
+		
+		
 
 		@media (max-width: 550px) {
 			font-size: 1.6rem;
 			line-height: 2.2rem;
 		}
 	}
+
+	&__selectedText {
+		display: flex;
+		align-items: center;
+		overflow: hidden; 
+		white-space: nowrap;
+		text-overflow: ellipsis;
+	  }
 	&__selectIcon {
 		width: 20px;
 		height: 20px;

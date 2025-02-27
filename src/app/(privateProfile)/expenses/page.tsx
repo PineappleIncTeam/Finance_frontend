@@ -58,7 +58,15 @@ export default function Expenses() {
 					</div>
 					<div className={styles.expensesDetailsContainer}>
 						<div className={styles.expensesDetailsContainer__category}>
-							<CategorySelect name={"expenses"} label={"Постоянные"} options={["Продукты", "Зарплата"]} control={control} />
+							<CategorySelect
+								name={"expenses"}
+								label={"Постоянные"}
+								options={[
+									{ id: "1", name: "Продукты" },
+									{ id: "2", name: "Зарплата" },
+								]}
+								control={control}
+							/>
 						</div>
 						<div className={styles.expensesDetailsContainer__sum}>
 							<AppInput

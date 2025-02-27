@@ -14,7 +14,7 @@ import { savingsTransactions } from "../../../mocks/SavingsTransaction";
 
 import AppInput from "../../../ui/appInput/AppInput";
 import { InputTypeList } from "../../../helpers/Input";
-import { ISavingsInputForm , ISavingsSelectForm } from "../../../types/pages/Savings";
+import { ISavingsInputForm, ISavingsSelectForm } from "../../../types/pages/Savings";
 import Button from "../../../ui/button/button";
 import {
 	IEditActionProps,
@@ -229,7 +229,12 @@ function Savings() {
 								<CategorySelect
 									name={"savings"}
 									label={"Накопления"}
-									options={["Обучение ребенка", "Машина", "Квартира", "Отпуск 2024"]}
+									options={[
+										{ id: "1", name: "Обучение ребенка" },
+										{ id: "2", name: "Машина" },
+										{ id: "3", name: "Квартира" },
+										{ id: "4", name: "Отпуск 2024" }
+									  ]}
 									placeholder="Выберите категорию"
 									control={control}
 								/>

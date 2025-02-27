@@ -51,9 +51,9 @@ export const CategorySelect = <T extends FieldValues>({
 		setIsOpen(!isOpen);
 	};
 
-	const handleRemoveCategory = (category: string) => {
+	const handleRemoveCategory = (categoryId: string) => {
 		if (onRemoveCategory) {
-			onRemoveCategory(category);
+			onRemoveCategory(categoryId);
 		}
 	};
 
@@ -71,14 +71,14 @@ export const CategorySelect = <T extends FieldValues>({
 							<div
 								key={index}
 								className={styles.selectContainer__option}
-								onClick={() => handleOptionClick(option)}
+								onClick={() => handleOptionClick(option.id)}
 								role="button">
-								<p className={styles.selectContainer__optionValue}>{option}</p>
+								<p className={styles.selectContainer__optionValue}>{option.name}</p>
 								<button
 									className={styles.selectContainer__removeButton}
 									onClick={(event) => {
 										event.stopPropagation();
-										handleRemoveCategory(option);
+										handleRemoveCategory(option.id);
 									}}>
 									<CloseIcon classNames={styles.selectContainer__selectIcon} />
 								</button>
@@ -89,10 +89,13 @@ export const CategorySelect = <T extends FieldValues>({
 		);
 	}
 
-	const renderSelectedValue = () =>
-		selectedValue ? (
+	const renderSelectedValue = () => {
+		const selectedOption = options.find((option) => option.id === selectedValue);
+		return selectedOption ? (
 			<span className={cn(styles.selectContainer__selectedValue)}>
-				{selectedValue}{" "}
+				<span className={styles.selectContainer__selectedText}>
+				{selectedOption.name}{" "}
+				</span>
 				<div className={styles.closeIcon} onClick={handleRemoveSelection} role="button">
 					<CloseIcon classNames={styles.selectContainer__selectIcon} />
 				</div>
@@ -100,6 +103,7 @@ export const CategorySelect = <T extends FieldValues>({
 		) : (
 			<span className={styles.selectContainer__placeholder}>{placeholder}</span>
 		);
+	};
 
 	return (
 		<div className={styles.selectContainer} ref={selectRef}>

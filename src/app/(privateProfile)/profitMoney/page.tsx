@@ -65,7 +65,11 @@ function ProfitMoney() {
 									<CategorySelect
 										name={"expenses"}
 										label={"Категория"}
-										options={["Продукты", "Зарплата"]}
+										options={[
+											{ id: "1", name: "Продукты" },
+											{ id: "2", name: "Зарплата" }
+										  ]}
+										  
 										placeholder="Выберите категорию"
 										control={control}
 									/>

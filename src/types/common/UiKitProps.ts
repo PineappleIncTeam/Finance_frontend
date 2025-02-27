@@ -90,5 +90,3 @@ export interface ISwitcher<T extends TAuthInputForm> {
 }
 
 export type TAppInputValue = string | number | readonly string[] | undefined;
-
-

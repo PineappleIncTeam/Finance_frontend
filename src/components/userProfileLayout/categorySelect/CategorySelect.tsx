@@ -93,9 +93,7 @@ export const CategorySelect = <T extends FieldValues>({
 		const selectedOption = options.find((option) => option.id === selectedValue);
 		return selectedOption ? (
 			<span className={cn(styles.selectContainer__selectedValue)}>
-				<span className={styles.selectContainer__selectedText}>
-				{selectedOption.name}{" "}
-				</span>
+				<span className={styles.selectContainer__selectedText}>{selectedOption.name} </span>
 				<div className={styles.closeIcon} onClick={handleRemoveSelection} role="button">
 					<CloseIcon classNames={styles.selectContainer__selectIcon} />
 				</div>

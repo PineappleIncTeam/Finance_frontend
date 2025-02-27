@@ -233,8 +233,8 @@ function Savings() {
 										{ id: "1", name: "Обучение ребенка" },
 										{ id: "2", name: "Машина" },
 										{ id: "3", name: "Квартира" },
-										{ id: "4", name: "Отпуск 2024" }
-									  ]}
+										{ id: "4", name: "Отпуск 2024" },
+									]}
 									placeholder="Выберите категорию"
 									control={control}
 								/>

@@ -67,9 +67,8 @@ function ProfitMoney() {
 										label={"Категория"}
 										options={[
 											{ id: "1", name: "Продукты" },
-											{ id: "2", name: "Зарплата" }
-										  ]}
-										  
+											{ id: "2", name: "Зарплата" },
+										]}
 										placeholder="Выберите категорию"
 										control={control}
 									/>

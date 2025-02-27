@@ -396,7 +396,7 @@ function Analytics() {
 					"rgba(255, 206, 86, 1)",
 					"rgba(75, 192, 192, 1)",
 				],
-				borderWidth: false,
+				borderWidth: 0,
 			},
 		],
 	};

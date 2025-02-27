@@ -4,7 +4,7 @@ import { useState, useEffect, ChangeEvent } from "react";
 
 import { useForm } from "react-hook-form";
 
-import { Pie, Bar } from "react-chartjs-2";
+import { Pie, Bar, Doughnut  } from "react-chartjs-2";
 import { Chart as ChartJS, ArcElement, Tooltip, CategoryScale, LinearScale, BarElement } from "chart.js";
 
 import { MoneyIcon } from "../../../assets/script/analytics/MoneyIcon";
@@ -26,7 +26,7 @@ function Analytics() {
 		delayError: 200,
 	});
 
-	const operation: string = "Доходы";
+	const operation: string = "Анализ доходов и расходов";
 	const windowSize = 1440;
 	const windowSizeM = 1024;
 	const windowSizeS = 768;
@@ -49,6 +49,9 @@ function Analytics() {
 		1340.79, 9110.05, 16192.09, 2600.01, 6437.57, 1690.01, 26000.15,
 		520.0, 520.0, 520.0, 520.0, 9586.33,
 	];
+	// const rawAnalysisData = [
+	// 	50000, 50000,
+	// ];
 
 	const expensesLabels: string[] = [
 		"Внезапная покупка",
@@ -73,6 +76,12 @@ function Analytics() {
 		"Ипотека",
 	];
 	const expensesLabelsLengthValue = expensesLabels.length;
+
+	// const analysisLabels: string[] = [
+	// 	"Общий расход",
+	// 	"Общий доход",
+	// ];
+	// const analysisLabelsLengthValue = analysisLabels.length;
 
 	type ExpenseLabel = 
     | "Внезапная покупка"
@@ -292,23 +301,20 @@ function Analytics() {
 		],
 	};
 	
-	// Определяем массив лейблов, основываясь на первом месяце
 	const uniqueLabels = Array.from(new Set(
 		Object.values(monthlyExpenses).flat().map(expense => Object.keys(expense)[0])
 	));
 	
-	// Создаем dataSets на основе уникальных лейблов
 	const dataSets = uniqueLabels.map((label, index) => {
-		// Приводим label к типу ExpenseLabel
-		const typedLabel = label as ExpenseLabel; // Приведение типа
+
+		const typedLabel = label as ExpenseLabel;
 	
-		// Проверяем, существует ли typedLabel в expensesMapping
 		if (typedLabel in expensesMapping) {
 			return {
 				label: expensesMapping[typedLabel].label, 
 				data: Object.keys(monthlyExpenses).map(month => {
 					const expenseData = monthlyExpenses[month].find(exp => Object.keys(exp)[0] === typedLabel);
-					return expenseData ? expenseData[typedLabel] : 0; // Возвращаем значение или 0, если расход не найден
+					return expenseData ? expenseData[typedLabel] : 0;
 				}),
 				backgroundColor: randomColorSet[index % randomColorSet.length],
 				barThickness: 10, 
@@ -317,7 +323,7 @@ function Analytics() {
 			console.warn(`Label "${label}" не найден в expensesMapping.`);
 			return {
 				label: label,
-				data: Array(Object.keys(monthlyExpenses).length).fill(0), // Заполняем нулями, если лейбл не найден
+				data: Array(Object.keys(monthlyExpenses).length).fill(0),
 				backgroundColor: randomColorSet[index % randomColorSet.length],
 				barThickness: 10,
 			};
@@ -325,8 +331,8 @@ function Analytics() {
 	});
 	
 	const dataIncome = {
-		labels: monthNames.map(label => label), // Месяцы
-		datasets: dataSets, // Обновленный массив с данными расходов
+		labels: monthNames.map(label => label),
+		datasets: dataSets,
 	};
 
 
@@ -342,14 +348,14 @@ function Analytics() {
 		scales: {
 			x: {
 				ticks: {
-					autoSkip: false, // отключить автоматическое пропускание меток
+					autoSkip: false,
 					maxRotation: rotation.maxRotation,
                     minRotation: rotation.minRotation,
 				},
 				grid: {
-					display: false, // отключить сетку (по желанию)
+					display: false,
 				},
-				stacked: true, // Включаем стековое отображение
+				stacked: true,
 			},
 			y: {
 				border: {
@@ -357,21 +363,43 @@ function Analytics() {
 				},
 				beginAtZero: true,
 				ticks: {
-					stepSize: 5000, // Шаг остается равным 5000
+					stepSize: 5000,
 					callback: (tickValue: string | number) => {
-						// Форматируем метки для отображения "K" только при ширине экрана 460px или меньше
+	
 						const value = typeof tickValue === "string" ? parseFloat(tickValue) : tickValue;
 						if (window.innerWidth <= 460 && value >= 1000) {
-							return (value / 1000) + "K"; // Преобразуем в K (например, 2000 -> 2K)
+							return (value / 1000) + "K";
 						}
-						return value; // Возвращаем оригинальное значение для больших экранов
+						return value;
 					},
 				},
-				stacked: true, // Включаем стековое отображение
+				stacked: true,
 			},
 		},
 	};
 
+	const dataAnalysis = {
+		labels: ["Red", "Blue", "Yellow", "Green"],
+		datasets: [
+			{
+				label: "My First Dataset",
+				data: [300, 50, 100, 75],
+				backgroundColor: [
+					"rgba(255, 99, 132, 0.2)",
+					"rgba(54, 162, 235, 0.2)",
+					"rgba(255, 206, 86, 0.2)",
+					"rgba(75, 192, 192, 0.2)",
+				],
+				borderColor: [
+					"rgba(255, 99, 132, 1)",
+					"rgba(54, 162, 235, 1)",
+					"rgba(255, 206, 86, 1)",
+					"rgba(75, 192, 192, 1)",
+				],
+				borderWidth: false,
+			},
+		],
+	};
 
 
 	return (
@@ -569,7 +597,23 @@ function Analytics() {
 						)}
 
 						{operation === "Анализ доходов и расходов" && (
-							<div>Test 2</div>
+							<div className={styles.analyticsDiagramAnalysisWrapper}>
+
+								<div className={styles.analyticsDiagramAnalysisInfoWrapper}>
+
+									<div className={styles.analyticsDiagramAnalysisInfo}>
+										<p className={styles.analyticsDiagramAnalysisInfo__title}>Ваш баланс</p>
+										<p className={styles.analyticsDiagramAnalysisInfo__value}>0.00 ₽</p>
+										<p className={styles.analyticsDiagramAnalysisInfo__date}>14.09.23 - 20.09.23</p>
+									</div>
+
+									<div className={styles.analyticsDiagramAnalysis}>
+										<Doughnut data={dataAnalysis} />
+									</div>
+
+								</div>
+
+							</div>
 						)}
 					</div>
 				)}

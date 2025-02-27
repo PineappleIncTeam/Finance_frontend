@@ -39,5 +39,8 @@ spec:
             limits:
               memory: "512Mi"
               cpu: "150m"
+          envFrom:
+            - secretRef:
+                name: finance-dev-front-secret
           ports:
             - containerPort: 3000

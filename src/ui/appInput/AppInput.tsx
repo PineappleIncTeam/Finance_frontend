@@ -24,7 +24,7 @@ const AppInput = <T extends FieldValues>({
 	...props
 }: IAppInput<T>) => {
 	const [passwordType, setPasswordType] = useState<InputTypeList>(InputTypeList.Password);
-	const { field, fieldState } = useController({ name, control, rules, disabled, ...props });
+	const { field, fieldState } = useController<T>({ name, control, rules, disabled, ...props });
 
 	const value = typeof field.value === "boolean" ? String(field.value) : field.value;
 

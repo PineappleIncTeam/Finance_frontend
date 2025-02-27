@@ -3,7 +3,6 @@
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 
-import { PlusIcon } from "../../../assets/script/expenses/PlusIcon";
 import { EditIcon } from "../../../assets/script/expenses/EditIcon";
 import { CheckIcon } from "../../../assets/script/savings/CheckIcon";
 import { MoreIcon } from "../../../assets/script/savings/MoreIcon";
@@ -14,8 +13,13 @@ import { savingsTransactions } from "../../../mocks/SavingsTransaction";
 
 import AppInput from "../../../ui/appInput/AppInput";
 import { InputTypeList } from "../../../helpers/Input";
+
 import { ISavingsInputForm, ISavingsSelectForm } from "../../../types/pages/Savings";
 import Button from "../../../ui/button/button";
+
+import { ISavingsInputForm } from "../../../types/pages/Savings";
+import { Select } from "../../../ui/select/Select";
+
 import {
 	IEditActionProps,
 	ISavingsTransaction,
@@ -28,7 +32,11 @@ import {
 import { getCorrectBaseUrl } from "../../../utils/baseUrlConverter";
 import handleLogout from "../../../helpers/logout";
 import useLogoutTimer from "../../../hooks/useLogoutTimer";
+
 import { CategorySelect } from "../../../components/userProfileLayout/categorySelect/CategorySelect";
+
+import AddButton from "../../../components/userProfileLayout/addButton/addButton";
+
 
 import styles from "./savings.module.scss";
 
@@ -55,9 +63,9 @@ function Savings() {
 	const { resetTimer } = useLogoutTimer(request);
 
 	const initialItems = [
-		{ category: "Обучение ребенка", target: "210 000.00", sum: "200 000.00", status: "В процессe" },
+		{ category: "Обучение ребенка", target: "210 000.00", sum: "200 000.00", status: "В процессе" },
 		{ category: "Машина", target: "4 000 000.00", sum: "4 000 000.00", status: "Достигнута" },
-		{ category: "Квартира", target: "10 000 000.00", sum: "100 000.00", status: "В процессe" },
+		{ category: "Квартира", target: "10 000 000.00", sum: "100 000.00", status: "В процессе" },
 		{ category: "Дом у моря", target: "1 000 000 000.00", sum: "1 000 000.00", status: "В процессе" },
 		{ category: "Дача", target: "5 000 000.00", sum: "115 000.00", status: "В процессе" },
 	];
@@ -249,9 +257,7 @@ function Savings() {
 								/>
 							</div>
 
-							<Button content={"Добавить"} styleName={"buttonForSavings__disabled"}>
-								<PlusIcon classNames={styles.addButtonIcon} />
-							</Button>
+							<AddButton onClick={() => resetTimer()} type="submit" />
 						</div>
 					</div>
 					<div className={styles.savingsFormContentWrapperList}>

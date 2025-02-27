@@ -18,6 +18,8 @@ import logo from "../../../assets/pages/activate/logo.webp";
 import warning from "../../../assets/pages/activate/warning.svg";
 import activationBgImg from "../../../assets/pages/activate/activation-bg-img.svg";
 import warningBgImg from "../../../assets/pages/activate/warning-bg-img.svg";
+import Button from "../../../ui/Button/button";
+import { ButtonType } from "../../../helpers/buttonFieldValues";
 
 import styles from "./activate.module.scss";
 
@@ -142,14 +144,29 @@ const Activate = () => {
 				</div>
 				<div className={styles.title}>{messageTitle}</div>
 				<div className={styles.description}>{messageDescription}</div>
+				{messageTitle === warningMessageTitle && (
+					<Button
+						variant={ButtonType.Outlined}
+						onClick={() => router.push(MainPath.SignUp)}
+						className={styles.registerButton}
+						isLarge>
+						Регистрация
+					</Button>
+				)}
 			</div>
 		);
 	};
 
 	return (
-		<div className={styles.activationPageWrapper} style={{ backgroundImage: `url(${backgroundImage})` }}>
+		<div
+			className={styles.activationPageWrapper}
+			style={{ backgroundImage: `url(${backgroundImage})` }}
+			onClick={() => router.push(MainPath.Login)}
+			role="button">
 			<div className={styles.backgroundWrapper}>
-				<div className={styles.messageWrapper}>{load ? <Spinner /> : messageElement()}</div>
+				<div className={styles.messageWrapper} onClick={(e) => e.stopPropagation()} role="button">
+					{load ? <Spinner /> : messageElement()}
+				</div>
 			</div>
 		</div>
 	);

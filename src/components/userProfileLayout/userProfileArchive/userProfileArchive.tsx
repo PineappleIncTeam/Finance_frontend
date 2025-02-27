@@ -20,13 +20,13 @@ export const UserProfileArchive = () => {
 	const [isSmallScreen, setIsSmallScreen] = useState<boolean>(false);
 	const scrollableBlockRef = useRef<HTMLDivElement>(null);
 
-	const MOBILE_SCREEN_SIZE = 1100;
-	const TOOLTIP_OFFSET_LEFT = 100;
-	const TOOLTIP_OFFSET_TOP = 40;
+	const laptopScreenSizeValue = 1100;
+	const tooltipOffsetLeft = 100;
+	const tooltipOffsetTop = 40;
 
 	useEffect(() => {
 		const handleResize = () => {
-			setIsSmallScreen(window.innerWidth <= MOBILE_SCREEN_SIZE);
+			setIsSmallScreen(window.innerWidth <= laptopScreenSizeValue);
 		};
 
 		handleResize();
@@ -35,7 +35,7 @@ export const UserProfileArchive = () => {
 		return () => {
 			window.removeEventListener("resize", handleResize);
 		};
-	}, [MOBILE_SCREEN_SIZE]);
+	}, [laptopScreenSizeValue]);
 
 	const handleMouseEnter: IHandleMouseEnterArchiveItem = (event, content) => {
 		const target = event.currentTarget as HTMLDivElement;
@@ -46,11 +46,11 @@ export const UserProfileArchive = () => {
 
 		const scrollableBlockRect = scrollableBlock.getBoundingClientRect();
 
-		const top = rect.top - scrollableBlockRect.top - TOOLTIP_OFFSET_TOP;
+		const top = rect.top - scrollableBlockRect.top - tooltipOffsetTop;
 		let left = rect.left - scrollableBlockRect.left;
 
-		if (left + TOOLTIP_OFFSET_LEFT > scrollableBlockRect.width) {
-			left = scrollableBlockRect.width - TOOLTIP_OFFSET_LEFT;
+		if (left + tooltipOffsetLeft > scrollableBlockRect.width) {
+			left = scrollableBlockRect.width - tooltipOffsetLeft;
 		}
 
 		setTooltip({

@@ -3,8 +3,6 @@
 import { Key, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 
-import { PlusIcon } from "../../../assets/script/expenses/PlusIcon";
-
 import ExpensesTransaction from "../../../components/userProfileLayout/expensesTransaction/expensesTransaction";
 import { expensesTransactions } from "../../../mocks/ExpensesTransaction";
 
@@ -12,11 +10,14 @@ import AppInput from "../../../ui/appInput/AppInput";
 import { InputTypeList } from "../../../helpers/Input";
 import { IExpensesInputForm, IExpensesSelectForm } from "../../../types/pages/Expenses";
 import { Select } from "../../../ui/select/Select";
-import Button from "../../../ui/button/button";
+
+import InputDate from "../../../ui/inputDate/inputDate";
 import handleLogout from "../../../helpers/logout";
 import { getCorrectBaseUrl } from "../../../utils/baseUrlConverter";
 import useLogoutTimer from "../../../hooks/useLogoutTimer";
 import { CategorySelect } from "../../../components/userProfileLayout/categorySelect/CategorySelect";
+
+import AddButton from "../../../components/userProfileLayout/addButton/addButton";
 
 import styles from "./expenses.module.scss";
 
@@ -53,7 +54,7 @@ export default function Expenses() {
 						</div>
 						<div className={styles.dateSelectionWrapper}>
 							<p className={styles.dateSelectionWrapper__description}>Выбор даты</p>
-							<AppInput control={control} label={"Выбор даты"} type={InputTypeList.Date} name={"date"} />
+							<InputDate control={control} name={"date"} />
 						</div>
 					</div>
 					<div className={styles.expensesDetailsContainer}>
@@ -77,9 +78,7 @@ export default function Expenses() {
 								placeholder={"0.00 ₽"}
 							/>
 						</div>
-						<Button onClick={() => resetTimer()} content={"Добавить"} styleName={"buttonForExpenses"}>
-							<PlusIcon classNames={styles.addButtonIcon} />
-						</Button>
+						<AddButton onClick={() => resetTimer()} type="submit" />
 					</div>
 					<div className={styles.expensesDetailsContainer}>
 						<div className={styles.expensesDetailsContainer__category}>
@@ -94,9 +93,9 @@ export default function Expenses() {
 								placeholder="0.00 ₽"
 							/>
 						</div>
-						<Button content={"Добавить"} styleName={"buttonForExpenses__disabled"}>
-							<PlusIcon classNames={styles.addButtonIcon} />
-						</Button>
+						<AddButton onClick={() => resetTimer()} type="submit">
+							Добавить
+						</AddButton>
 					</div>
 				</form>
 				<div className={styles.expensesTransactionsWrapper}>

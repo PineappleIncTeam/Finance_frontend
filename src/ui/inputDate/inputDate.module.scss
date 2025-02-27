@@ -1,0 +1,210 @@
+.date__wrapper {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+	justify-content: flex-start;
+	width: 100%;
+	&:focus-within .calendarIcon__img,
+	&:focus-within .calendarIcon__img {
+		stroke: var(--color-ash-grey);
+	}
+
+	@media (max-width: 490px) {
+		gap: 4px;
+	}
+}
+
+.date {
+	display: flex;
+	align-items: center;
+	font-size: 2rem;
+	line-height: 2.8rem;
+	font-family: "Rubik", Verdana, Arial, Tahoma, sans-serif;
+	color: var(--color-dark-cyan-blue);
+	position: relative;
+	border: 1.5px solid var(--color-gainsboro);
+	border-radius: 8px;
+	padding: 15px;
+	width: 100%;
+	height: 50px;
+	transition: 0.4s;
+
+	@media (max-width: 490px) {
+		gap: 4px;
+		height: 36px;
+		font-size: 1.3rem;
+		line-height: 1.8rem;
+		padding: 6px 10px;
+	}
+
+	&:hover {
+		border-color: var(--color-dark-spring-green);
+	}
+	&:active,
+	&:focus {
+		border-color: var(--color-dark-spring-green);
+	}
+
+	&:disabled {
+		color: var(--color-ash-grey);
+	}
+}
+
+.date__label {
+	font-size: 2rem;
+	line-height: 2.8rem;
+	color: var(--color-dark-cyan-blue);
+	@media (max-width: 490px) {
+		font-size: 1.3rem;
+		line-height: 1.8rem;
+	}
+}
+
+.calendarIcon {
+	position: absolute;
+	right: 0;
+	height: 100%;
+	top: 10px;
+	right: 14px;
+	z-index: 100;
+	@media (max-width: 490px) {
+		top: 6px;
+		right: 10px;
+	}
+}
+
+.calendarIcon__img {
+	stroke: var(--color-gainsboro);
+	width: 18px;
+	height: 18px;
+	transition: 0.4s;
+	@media (max-width: 490px) {
+		width: 12px;
+		height: 12px;
+	}
+}
+
+.customHeader {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-between;
+	font-size: 2rem;
+	line-height: 2.8rem;
+	text-transform: capitalize;
+	font-weight: 400;
+	border-top-right-radius: 8px;
+	border-top-left-radius: 8px;
+	background-color: var(--color-pure-light);
+	border-bottom: 1px solid var(--color-ghost-white);
+	padding: 14px 18px;
+	@media (max-width: 490px) {
+		font-size: 1.6rem;
+		line-height: 2.2rem;
+		padding: 14px 16px;
+	}
+}
+
+.inputDateSelectors {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 8px;
+}
+
+.inputDateSelect {
+	font-size: 2rem;
+	text-transform: capitalize;
+	font-weight: 400;
+	appearance: none;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	background: none;
+	border: none;
+	padding: 0;
+	margin: 0;
+	cursor: pointer;
+	@media (max-width: 490px) {
+		font-size: 1.6rem;
+	}
+}
+
+.inputDateSelect__month {
+	text-align: center;
+}
+
+.inputDateSelect__arrowButton {
+	width: 24px;
+	height: 20px;
+}
+
+.inputDateSelect__monthArrow {
+	border-color: var(--color-eerie-black);
+	border-width: 2px 2px 0 0;
+	border-style: solid;
+	height: 10px;
+	width: 10px;
+	cursor: pointer;
+	@media (max-width: 490px) {
+		height: 8px;
+		width: 8px;
+	}
+}
+.inputDateSelect__yearArrow {
+	position: relative;
+	height: 16px;
+	width: 16px;
+	cursor: pointer;
+
+	&::before {
+		position: absolute;
+		content: "";
+		top: 6px;
+		right: 6px;
+		border-style: solid;
+		border-color: var(--color-eerie-black);
+		border-width: 2px 2px 0 0;
+		height: 8px;
+		width: 8px;
+
+		@media (max-width: 490px) {
+			height: 6px;
+			width: 6px;
+		}
+	}
+
+	&::after {
+		position: absolute;
+		content: "";
+		top: 0px;
+		right: 0px;
+		border-style: solid;
+		border-color: var(--color-eerie-black);
+		border-width: 2px 2px 0 0;
+		height: 8px;
+		width: 8px;
+		@media (max-width: 490px) {
+			height: 6px;
+			width: 6px;
+		}
+	}
+}
+
+.inputDateSelect__arrow__prev {
+	transform: rotate(-135deg);
+}
+
+.inputDateSelect__arrow__next {
+	transform: rotate(45deg);
+}
+
+.inputDateSelect__arrowButtons {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+}
+.inputDateSelect__arrowButton {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}

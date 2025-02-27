@@ -13,14 +13,12 @@ import NewPasswordModal from "../../../components/mainLayout/newPasswordModal/ne
 import { formHelpers } from "../../../utils/formHelpers";
 import { emailPattern } from "../../../helpers/authConstants";
 import { InputTypeList } from "../../../helpers/Input";
-
 import { getCorrectBaseUrl } from "../../../utils/baseUrlConverter";
-
 import { ResetPasswordWithEmail } from "../../../services/api/auth/ResetPasswordWithEmail";
-
 import { MainPath } from "../../../services/router/routes";
-
 import { ApiResponseCode } from "../../../helpers/apiResponseCode";
+import Button from "../../../ui/Button/button";
+import { ButtonType } from "../../../helpers/buttonFieldValues";
 
 import styles from "./newPassword.module.scss";
 
@@ -28,7 +26,10 @@ export default function NewPassword() {
 	const [isNewPasswordModalShown, setIsNewPasswordModalShown] = useState<boolean>(false);
 	const [email, setEmail] = useState<string>("");
 	const [baseUrl, setBaseUrl] = useState<string>();
-	const seconds = 7000;
+
+	const router = useRouter();
+
+	const secondCount = 7000;
 
 	const {
 		formState: { errors },
@@ -43,23 +44,21 @@ export default function NewPassword() {
 		delayError: 200,
 	});
 
+	useEffect(() => {
+		setBaseUrl(getCorrectBaseUrl());
+	}, []);
+
 	const onSubmit = (data: INewPassword) => {
 		setEmail(data?.email ?? "");
 		restoreButtonClick(data);
 		newPasswordModalVisible(true);
-		setTimeout(() => newPasswordModalVisible(false), seconds);
+		setTimeout(() => newPasswordModalVisible(false), secondCount);
 		reset();
 	};
 
 	const newPasswordModalVisible = (prop: boolean) => {
 		setIsNewPasswordModalShown(prop);
 	};
-
-	useEffect(() => {
-		setBaseUrl(getCorrectBaseUrl());
-	}, []);
-
-	const router = useRouter();
 
 	const isAxiosError = (error: unknown): error is AxiosError => {
 		return (error as AxiosError).isAxiosError !== undefined;
@@ -87,13 +86,14 @@ export default function NewPassword() {
 	return (
 		<div className={styles.newPasswordWrap}>
 			<form className={styles.newPasswordFormContainer} onSubmit={handleSubmit(onSubmit)}>
-				<div className={styles.newPasswordFormContainer__Content}>
+				<div className={styles.newPasswordFormContainer__content}>
 					<Title title={"Восстановление пароля"} />
 					<NewPasswordModal
 						email={email}
 						open={isNewPasswordModalShown}
 						toggle={() => newPasswordModalVisible(false)}
 					/>
+					<p className={styles.inputLabel}>Введите почту</p>
 					<AuthInput
 						control={control}
 						label="Введите почту"
@@ -104,8 +104,12 @@ export default function NewPassword() {
 						rules={{ required: true, pattern: emailPattern }}
 					/>
 					<div className={styles.newPasswordFormContainer__buttons}>
-						<input className={styles.backButton} type={InputTypeList.Submit} value="Назад" />
-						<input className={styles.restoreButton} type={InputTypeList.Submit} value="Восстановить" />
+						<Button variant={ButtonType.Outlined} type={InputTypeList.Submit} className={styles.button}>
+							Назад
+						</Button>
+						<Button variant={ButtonType.Notification} type={InputTypeList.Submit} className={styles.button}>
+							Восстановить
+						</Button>
 					</div>
 				</div>
 			</form>

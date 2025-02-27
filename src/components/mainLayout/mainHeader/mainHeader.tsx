@@ -10,7 +10,6 @@ import axios, { AxiosResponse } from "axios";
 import useAppSelector from "../../../hooks/useAppSelector";
 
 import { IValidateTokenResponse } from "../../../types/api/Auth";
-import Button from "../../../ui/button/button";
 import { getCorrectBaseUrl } from "../../../utils/baseUrlConverter";
 import autoLoginSelector from "../../../services/redux/features/autoLogin/autoLoginSelector";
 import { validateToken } from "../../../services/api/auth/validateToken";
@@ -22,20 +21,22 @@ import logo from "../../../assets/layouts/main/logo.webp";
 import burger from "../../../assets/layouts/main/burger.svg";
 import closeElement from "../../../assets/layouts/main/closeElement.svg";
 
+import HeaderButton from "../headerButton/headerButton";
+
 import styles from "./mainHeader.module.scss";
 
 const MainHeader = () => {
 	const pathname = usePathname();
 	const [open, setOpen] = useState<boolean>(false);
 	const [baseUrl, setBaseUrl] = useState<string>();
-	const modalRef = useRef<any>(null);
+	const modalRef = useRef<HTMLDivElement | null>(null);
 	const router = useRouter();
 
 	const { isAutoLogin } = useAppSelector(autoLoginSelector);
 
 	const handleClickOutside = (
 		event: MouseEvent,
-		modalRef: RefObject<HTMLDivElement>,
+		modalRef: RefObject<HTMLDivElement | null>,
 		setOpen: Dispatch<SetStateAction<boolean>>,
 	) => {
 		if (modalRef.current && !modalRef.current.contains(event.target as Node)) {
@@ -80,7 +81,9 @@ const MainHeader = () => {
 
 	useEffect(() => {
 		const handleDocumentClick = (event: MouseEvent) => {
-			handleClickOutside(event, modalRef, setOpen);
+			if (modalRef.current) {
+				handleClickOutside(event, modalRef, setOpen);
+			}
 		};
 		if (open) {
 			document.addEventListener("mousedown", handleDocumentClick);
@@ -138,10 +141,10 @@ const MainHeader = () => {
 						<nav className={styles.navigatingWrap}>{renderNavigationElements()}</nav>
 						<div className={styles.authLinkWrap}>
 							<Link href={MainPath.SignUp}>
-								<Button content="Регистрация" styleName="buttonForRegistration" />
+								<HeaderButton variant={"outlined"}>Регистрация</HeaderButton>
 							</Link>
 							<Link href={MainPath.Login}>
-								<Button content="Вход" styleName="buttonForLogin" />
+								<HeaderButton variant={"contained"}>Вход</HeaderButton>
 							</Link>
 						</div>
 					</div>
@@ -163,10 +166,10 @@ const MainHeader = () => {
 				<nav className={styles.navigationWrap}>{renderNavigationElements()}</nav>
 				<div className={styles.authWrap}>
 					<Link href={MainPath.Login}>
-						<Button content="Вход" styleName="buttonForLogin" />
+						<HeaderButton variant={"contained"}>Вход</HeaderButton>
 					</Link>
 					<Link href={MainPath.SignUp}>
-						<Button content="Регистрация" styleName="buttonForRegistration" />
+						<HeaderButton variant={"outlined"}>Регистрация</HeaderButton>
 					</Link>
 				</div>
 			</div>

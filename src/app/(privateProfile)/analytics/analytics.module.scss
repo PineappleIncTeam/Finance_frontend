@@ -461,7 +461,8 @@
 
 .analyticsDiagramAnalysisInfoWrapper {
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
+    gap: 48px;
 }
 
 .analyticsDiagramAnalysisInfo {
@@ -484,10 +485,58 @@
         line-height: 22px;
         color: var(--color-star-dust);
     }
-
 }
 
+.diagramAnalysis {
+    width: 228px;
+    height: 228px;
+    transform: rotate(90deg);
+}
 
+.analyticsDiagramAnalysis {
+    display: flex;
+    align-items: center;
+    gap: 56px;
+}
+
+.diagramAnalysisBlockItems {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.diagramAnalysisBlockItem {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+
+    &__value {
+        font-weight: 400;
+        font-size: 1.6rem;
+        line-height: 22px;
+        letter-spacing: 0px;
+    }
+}
+
+.diagramAnalysisBlockIconWrapper {
+
+    display: flex;
+    align-items: center;
+    gap: 4px;
+
+    &__circle {
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+    }
+
+    &__text {
+        font-weight: 400;
+        font-size: 1.6rem;
+        line-height: 22px;
+        letter-spacing: 0px;
+    }
+}
 
 
 
@@ -595,6 +644,14 @@
     }
     .diagramIncome {
         margin-top: 24px;
+    }
+
+
+
+
+    .diagramAnalysis {
+        width: 160px;
+        height: 160px;
     }
 }
 
@@ -717,5 +774,28 @@
     .diagramIncomeBlockRight {
         margin-top: 20px;
         width: 100%;
+    }
+
+    
+
+
+    .analyticsDiagramAnalysis {
+        flex-direction: column;
+        align-items: start;
+    }
+
+    .analyticsDiagramAnalysisInfo {
+
+        &__title {
+            font-size: 1.6rem;
+        }
+    
+        &__value {
+            font-size: 2.0rem;         
+        }
+    
+        &__date {
+            font-size: 1.3rem;
+        }
     }
 }

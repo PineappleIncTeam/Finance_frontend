@@ -30,6 +30,7 @@ function Analytics() {
 	const windowSize = 1440;
 	const windowSizeM = 1024;
 	const windowSizeS = 768;
+	const windowSizeXS = 460;
 	const minimalRowValue = 0;
 	let maximalRowValue: number = 0;
 
@@ -49,9 +50,9 @@ function Analytics() {
 		1340.79, 9110.05, 16192.09, 2600.01, 6437.57, 1690.01, 26000.15,
 		520.0, 520.0, 520.0, 520.0, 9586.33,
 	];
-	// const rawAnalysisData = [
-	// 	50000, 50000,
-	// ];
+	const rawAnalysisData = [
+		50000, 50000,
+	];
 
 	const expensesLabels: string[] = [
 		"Внезапная покупка",
@@ -77,11 +78,10 @@ function Analytics() {
 	];
 	const expensesLabelsLengthValue = expensesLabels.length;
 
-	// const analysisLabels: string[] = [
-	// 	"Общий расход",
-	// 	"Общий доход",
-	// ];
-	// const analysisLabelsLengthValue = analysisLabels.length;
+	const analysisLabels: string[] = [
+		"Общий расход",
+		"Общий доход",
+	];
 
 	type ExpenseLabel = 
     | "Внезапная покупка"
@@ -226,7 +226,7 @@ function Analytics() {
 	const [monthNames, setMonthNames] = useState(Object.keys(monthlyExpenses));
 
 	const updateMonthNames = () => {
-        if (window.innerWidth <= 768) {
+        if (window.innerWidth <= windowSizeS) {
             setMonthNames(["Янв.", "Февр.", "Март", "Апр.", "Май", "Июн.", "Июль", "Авг.", "Сент.", "Окт.", "Нояб.", "Дек."]);
         } else {
             setMonthNames(Object.keys(monthlyExpenses));
@@ -235,7 +235,7 @@ function Analytics() {
 
 	const updateChartHeight = () => {
         const width = window.innerWidth;
-        if (width < 768) {
+        if (width < windowSizeS) {
             setChartHeight(238);
         } else {
             setChartHeight(298);
@@ -244,7 +244,7 @@ function Analytics() {
 
 	useEffect(() => {
 		const handleResize = () => {
-			if (window.innerWidth <= 768) {
+			if (window.innerWidth <= windowSizeS) {
                 setRotation({ maxRotation: 90, minRotation: 90 });
             } else {
                 setRotation({ maxRotation: 0, minRotation: 0 });
@@ -305,7 +305,7 @@ function Analytics() {
 		Object.values(monthlyExpenses).flat().map(expense => Object.keys(expense)[0])
 	));
 	
-	const dataSets = uniqueLabels.map((label, index) => {
+	const dataSetsIncome = uniqueLabels.map((label, index) => {
 
 		const typedLabel = label as ExpenseLabel;
 	
@@ -332,7 +332,7 @@ function Analytics() {
 	
 	const dataIncome = {
 		labels: monthNames.map(label => label),
-		datasets: dataSets,
+		datasets: dataSetsIncome,
 	};
 
 
@@ -367,7 +367,7 @@ function Analytics() {
 					callback: (tickValue: string | number) => {
 	
 						const value = typeof tickValue === "string" ? parseFloat(tickValue) : tickValue;
-						if (window.innerWidth <= 460 && value >= 1000) {
+						if (window.innerWidth <= windowSizeXS && value >= 1000) {
 							return (value / 1000) + "K";
 						}
 						return value;
@@ -379,27 +379,24 @@ function Analytics() {
 	};
 
 	const dataAnalysis = {
-		labels: ["Red", "Blue", "Yellow", "Green"],
+		labels: analysisLabels,
 		datasets: [
 			{
-				label: "My First Dataset",
-				data: [300, 50, 100, 75],
-				backgroundColor: [
-					"rgba(255, 99, 132, 0.2)",
-					"rgba(54, 162, 235, 0.2)",
-					"rgba(255, 206, 86, 0.2)",
-					"rgba(75, 192, 192, 0.2)",
-				],
-				borderColor: [
-					"rgba(255, 99, 132, 1)",
-					"rgba(54, 162, 235, 1)",
-					"rgba(255, 206, 86, 1)",
-					"rgba(75, 192, 192, 1)",
-				],
+				data: rawAnalysisData.map((value) => (displayMode === "rub" ? value : ((value / 130000) * 100).toFixed(2))),
+				backgroundColor: randomColorSet,
 				borderWidth: 0,
 			},
 		],
 	};
+	const optionsAnalysis = {
+		cutout: "60%",
+	};
+
+	const displayDataAnalysis = dataAnalysis.labels.map((label, index) => ({
+		title: label,
+		value: dataAnalysis.datasets[0].data[index],
+		background: dataAnalysis.datasets[0].backgroundColor[index],
+	}));
 
 
 	return (
@@ -546,7 +543,7 @@ function Analytics() {
 											</ul>
 										</div>
 	
-										{window.innerWidth > 460 && (
+										{window.innerWidth > windowSizeXS && (
 											<div className={styles.diagramIncomeBlockRight}>
 												<ul className={styles.diagramIncomeBlockRightItems}>
 													{displayData.slice(itemsToShow).map((item, index) => (
@@ -573,7 +570,7 @@ function Analytics() {
 									<Bar data={dataIncome} options={options} />
 								</div>
 
-								{window.innerWidth <= 460 && (
+								{window.innerWidth <= windowSizeXS && (
 									<div className={styles.diagramIncomeBlockRight}>
 										<ul className={styles.diagramIncomeBlockRightItems}>
 											{displayData.slice(itemsToShow).map((item, index) => (
@@ -608,7 +605,28 @@ function Analytics() {
 									</div>
 
 									<div className={styles.analyticsDiagramAnalysis}>
-										<Doughnut data={dataAnalysis} />
+
+										<div className={styles.diagramAnalysis}>
+											<Doughnut data={dataAnalysis} options={optionsAnalysis}/>
+										</div>
+
+										<div className={styles.diagramAnalysisBlock}>
+											<ul className={styles.diagramAnalysisBlockItems}>
+												{displayDataAnalysis.map((item, index) => (
+													<li key={index} className={styles.diagramAnalysisBlockItem}>
+														<div className={styles.diagramAnalysisBlockIconWrapper}>
+															<div
+																className={styles.diagramAnalysisBlockIconWrapper__circle}
+																style={{ background: `${item.background}` }}></div>
+															<p className={styles.diagramAnalysisBlockIconWrapper__text}>{item.title}:</p>
+														</div>
+														<p className={styles.diagramAnalysisBlockItem__value}>
+															{displayMode === "rub" ? `${item.value} ₽` : `${item.value}%`}
+														</p>
+													</li>
+												))}
+											</ul>
+										</div>
 									</div>
 
 								</div>

@@ -228,11 +228,11 @@ function Savings() {
 									name={"savings"}
 									label={"Накопления"}
 									options={[
-										{ id: "1", name: "Обучение ребенка" },
-										{ id: "2", name: "Машина" },
-										{ id: "3", name: "Квартира" },
-										{ id: "4", name: "Отпуск 2024" },
-									]}
+										{ id: 1, name: "Обучение ребенка", isIncome: false, isOutcome: true, isDeleted: false },
+										{ id: 2, name: "Машина", isIncome: false, isOutcome: true, isDeleted: false },
+										{ id: 3, name: "Квартира", isIncome: false, isOutcome: true, isDeleted: false },
+										{ id: 4, name: "Отпуск 2024", isIncome: false, isOutcome: true, isDeleted: false },
+									  ]}
 									placeholder="Выберите категорию"
 									control={control}
 								/>

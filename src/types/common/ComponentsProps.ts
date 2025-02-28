@@ -111,9 +111,9 @@ export interface IHandleMouseEnterArchiveItem {
 export interface ICategoryOption {
 	id: number;
 	name: string;
-	is_income: boolean;
-	is_outcome: boolean;
-	is_deleted: boolean;
+	isIncome: boolean;
+	isOutcome: boolean;
+	isDeleted: boolean;
 }
 
 export interface ICategorySelect<T extends FieldValues> {

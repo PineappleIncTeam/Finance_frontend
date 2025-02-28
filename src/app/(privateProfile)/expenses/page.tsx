@@ -63,9 +63,9 @@ export default function Expenses() {
 								name={"expenses"}
 								label={"Постоянные"}
 								options={[
-									{ id: "1", name: "Продукты" },
-									{ id: "2", name: "Зарплата" },
-								]}
+									{ id: 1, name: "Продукты", isIncome: false, isOutcome: true, isDeleted: false },
+									{ id: 2, name: "Зарплата", isIncome: true, isOutcome: false, isDeleted: false },
+								  ]}
 								control={control}
 							/>
 						</div>

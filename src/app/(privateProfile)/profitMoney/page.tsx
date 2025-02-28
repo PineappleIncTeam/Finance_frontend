@@ -65,9 +65,9 @@ function ProfitMoney() {
 										name={"expenses"}
 										label={"Категория"}
 										options={[
-											{ id: "1", name: "Продукты" },
-											{ id: "2", name: "Зарплата" },
-										]}
+											{ id: 1, name: "Продукты", isIncome: false, isOutcome: true, isDeleted: false },
+											{ id: 2, name: "Зарплата", isIncome: true, isOutcome: false, isDeleted: false },
+										  ]}
 										placeholder="Выберите категорию"
 										control={control}
 									/>

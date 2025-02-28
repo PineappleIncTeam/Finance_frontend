@@ -60,7 +60,6 @@ export const CategorySelect = <T extends FieldValues>({
 	const handleRemoveSelection = () => {
 		setSelectedValue(null);
 		onChange(null);
-		
 	};
 
 	function renderSelectorOptions() {

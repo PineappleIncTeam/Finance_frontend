@@ -65,7 +65,7 @@ export default function Expenses() {
 								options={[
 									{ id: 1, name: "Продукты", isIncome: false, isOutcome: true, isDeleted: false },
 									{ id: 2, name: "Зарплата", isIncome: true, isOutcome: false, isDeleted: false },
-								  ]}
+								]}
 								control={control}
 							/>
 						</div>

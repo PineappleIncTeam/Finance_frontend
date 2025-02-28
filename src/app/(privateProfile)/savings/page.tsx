@@ -232,7 +232,7 @@ function Savings() {
 										{ id: 2, name: "Машина", isIncome: false, isOutcome: true, isDeleted: false },
 										{ id: 3, name: "Квартира", isIncome: false, isOutcome: true, isDeleted: false },
 										{ id: 4, name: "Отпуск 2024", isIncome: false, isOutcome: true, isDeleted: false },
-									  ]}
+									]}
 									placeholder="Выберите категорию"
 									control={control}
 								/>

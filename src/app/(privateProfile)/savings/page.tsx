@@ -3,22 +3,7 @@
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 
-import { EditIcon } from "../../../assets/script/expenses/EditIcon";
-import { CheckIcon } from "../../../assets/script/savings/CheckIcon";
-import { MoreIcon } from "../../../assets/script/savings/MoreIcon";
-import { SortIcon } from "../../../assets/script/savings/SortIcon";
-
-import SavingsTransaction from "../../../components/userProfileLayout/savingsTransaction/savingsTransaction";
-import { savingsTransactions } from "../../../mocks/SavingsTransaction";
-
-import AppInput from "../../../ui/appInput/AppInput";
-import { InputTypeList } from "../../../helpers/Input";
-
-import { ISavingsInputForm, ISavingsSelectForm } from "../../../types/pages/Savings";
-import Button from "../../../ui/button/button";
-
-import { ISavingsInputForm } from "../../../types/pages/Savings";
-import { Select } from "../../../ui/select/Select";
+import useLogoutTimer from "../../../hooks/useLogoutTimer";
 
 import {
 	IEditActionProps,
@@ -28,15 +13,20 @@ import {
 	TIndexState,
 	TSavingsFieldState,
 } from "../../../types/components/ComponentsTypes";
-
+import { ISavingsInputForm, ISavingsSelectForm } from "../../../types/pages/Savings";
+import SavingsTransaction from "../../../components/userProfileLayout/savingsTransaction/savingsTransaction";
+import AppInput from "../../../ui/appInput/AppInput";
+import { CategorySelect } from "../../../components/userProfileLayout/categorySelect/CategorySelect";
+import AddButton from "../../../components/userProfileLayout/addButton/addButton";
+import { savingsTransactions } from "../../../mocks/SavingsTransaction";
+import { InputTypeList } from "../../../helpers/Input";
 import { getCorrectBaseUrl } from "../../../utils/baseUrlConverter";
 import handleLogout from "../../../helpers/logout";
-import useLogoutTimer from "../../../hooks/useLogoutTimer";
 
-import { CategorySelect } from "../../../components/userProfileLayout/categorySelect/CategorySelect";
-
-import AddButton from "../../../components/userProfileLayout/addButton/addButton";
-
+import { EditIcon } from "../../../assets/script/expenses/EditIcon";
+import { CheckIcon } from "../../../assets/script/savings/CheckIcon";
+import { MoreIcon } from "../../../assets/script/savings/MoreIcon";
+import { SortIcon } from "../../../assets/script/savings/SortIcon";
 
 import styles from "./savings.module.scss";
 

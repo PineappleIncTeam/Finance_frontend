@@ -2,7 +2,7 @@ import { Key, useEffect, useRef, useState } from "react";
 import { FieldValues, useController } from "react-hook-form";
 import cn from "classnames";
 
-import { ICategorySelect } from "../../../types/common/ComponentsTypes";
+import { ICategorySelect } from "../../../types/common/ComponentsProps";
 import { CloseIcon } from "../../../assets/components/categorySelect/CloseIcon";
 import { Arrow } from "../../../assets/components/categorySelect/Arrow";
 

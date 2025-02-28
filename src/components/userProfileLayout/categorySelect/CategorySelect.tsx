@@ -24,7 +24,7 @@ export const CategorySelect = <T extends FieldValues>({
 	});
 
 	const [isOpen, setIsOpen] = useState<boolean>(false);
-	const [selectedValue, setSelectedValue] = useState<string | null>(value);
+	const [selectedValue, setSelectedValue] = useState<number | null>(value);
 	const selectRef = useRef<HTMLDivElement>(null);
 
 	useEffect(() => {
@@ -41,7 +41,7 @@ export const CategorySelect = <T extends FieldValues>({
 		};
 	}, []);
 
-	const handleOptionClick = (optionValue: string) => {
+	const handleOptionClick = (optionValue: number) => {
 		setSelectedValue(optionValue);
 		onChange(optionValue);
 		setIsOpen(false);
@@ -51,7 +51,7 @@ export const CategorySelect = <T extends FieldValues>({
 		setIsOpen(!isOpen);
 	};
 
-	const handleRemoveCategory = (categoryId: string) => {
+	const handleRemoveCategory = (categoryId: number) => {
 		if (onRemoveCategory) {
 			onRemoveCategory(categoryId);
 		}
@@ -59,6 +59,8 @@ export const CategorySelect = <T extends FieldValues>({
 
 	const handleRemoveSelection = () => {
 		setSelectedValue(null);
+		onChange(null);
+		
 	};
 
 	function renderSelectorOptions() {

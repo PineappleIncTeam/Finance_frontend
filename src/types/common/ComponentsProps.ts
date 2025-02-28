@@ -109,8 +109,11 @@ export interface IHandleMouseEnterArchiveItem {
 }
 
 export interface ICategoryOption {
-	id: string;
+	id: number;
 	name: string;
+	is_income: boolean;
+	is_outcome: boolean;
+	is_deleted: boolean;
 }
 
 export interface ICategorySelect<T extends FieldValues> {
@@ -119,5 +122,5 @@ export interface ICategorySelect<T extends FieldValues> {
 	control: Control<T>;
 	name: Path<T>;
 	placeholder?: string;
-	onRemoveCategory?: (categoryId: string) => void;
+	onRemoveCategory?: (categoryId: number) => void;
 }

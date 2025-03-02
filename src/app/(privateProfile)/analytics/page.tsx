@@ -18,15 +18,18 @@ import generateRandomColors from "../../../utils/generateRandomColor";
 import styles from "./analytics.module.scss";
 
 function Analytics() {
-	const { control } = useForm<IAnalyticsInputForm>({
+	const { control, watch } = useForm<IAnalyticsInputForm>({
 		defaultValues: {
 			sum: "",
+			number: "Расходы",
 		},
 		mode: "all",
 		delayError: 200,
 	});
 
-	const operation: string = "Анализ доходов и расходов";
+
+	const selectedOperation = watch("number");
+	const operation: string = selectedOperation || "Расходы";
 	const windowSize = 1440;
 	const windowSizeM = 1024;
 	const windowSizeS = 768;

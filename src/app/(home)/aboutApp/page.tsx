@@ -17,10 +17,11 @@ import OneNumIcon from "../../../assets/script/aboutApp/OneNumIcon.svg";
 import TwoNumIcon from "../../../assets/script/aboutApp/TwoNumIcon.svg";
 import ThreeNumIcon from "../../../assets/script/aboutApp/ThreeNumIcon.svg";
 import FourNumIcon from "../../../assets/script/aboutApp/FourNumIcon.svg";
-
 import VideoElement from "../../../components/mainLayout/videoElement/videoElement";
-
 import { videoId } from "../../../mocks/VideoId";
+import Button from "../../../ui/Button/button";
+import { ButtonType } from "../../../helpers/buttonFieldValues";
+import { InputTypeList } from "../../../helpers/Input";
 
 import styles from "./aboutAppPage.module.scss";
 
@@ -102,9 +103,13 @@ function AboutApp() {
 						<p className={styles.aboutAppPageInstructionVideoContainer__header}>
 							Пошаговая инструкция об использовании приложения
 						</p>
-						<button className={styles.aboutAppPageInstructionVideoContainer__button} onClick={() => buttonAction(true)}>
+						<Button
+							variant={ButtonType.Outlined}
+							isLarge
+							onClick={() => buttonAction(true)}
+							type={InputTypeList.Button}>
 							Смотреть видео
-						</button>
+						</Button>
 					</div>
 					{isVideoElementStart && (
 						<div className={styles.videoElementWrapper}>

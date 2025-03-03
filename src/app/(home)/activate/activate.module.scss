@@ -14,13 +14,13 @@
 			background-position: right 174px top 390px;
 		}
 	}
-	
+
 	@media (max-width: 1024px) {
 		& {
 			background-position: right 64px top 569px;
 		}
 	}
-	
+
 	@media (max-width: 768px) {
 		& {
 			background-size: 0;
@@ -74,7 +74,7 @@
 	width: 65px;
 	height: 65px;
 	margin-bottom: 32px;
-	
+
 	@media (max-width: 500px) {
 		width: 50px;
 		height: 50px;
@@ -115,35 +115,9 @@
 }
 
 .registerButton {
-	cursor: pointer;
 	margin-top: 19px;
-	width: 238px;
-	height: 62px;
-	border: 3px solid var(--color-dark-spring-green);
-	border-radius: 16px;
 
-	font-family: "Rubik", Verdana, Arial, Tahoma, sans-serif;
-	font-size: 2.4rem;
-	font-weight: 500;
-	line-height: 3.2rem;
-	text-align: center;
-}
-
-@media (min-width: 1025px) {
-	.registerButton:hover {
-		color: var(--color-cal-poly-pomona-green);
-	}
-}
-
-@media (max-width: 500px) {
-	.registerButton {
+	@media (max-width: 500px) {
 		margin-top: 10px;
-		width: 131px;
-		height: 34px;
-		border-radius: 9px;
-
-		font-size: 1.3rem;
-		font-weight: 500;
-		line-height: 1.8rem;
 	}
 }

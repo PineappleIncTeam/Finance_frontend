@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 "use client";
 
 import { useEffect, useState } from "react";
@@ -228,10 +229,10 @@ function Savings() {
 									name={"savings"}
 									label={"Накопления"}
 									options={[
-										{ id: 1, name: "Обучение ребенка", isIncome: false, isOutcome: true, isDeleted: false },
-										{ id: 2, name: "Машина", isIncome: false, isOutcome: true, isDeleted: false },
-										{ id: 3, name: "Квартира", isIncome: false, isOutcome: true, isDeleted: false },
-										{ id: 4, name: "Отпуск 2024", isIncome: false, isOutcome: true, isDeleted: false },
+										{ id: 1, name: "Обучение ребенка", is_income: false, is_outcome: true, is_deleted: false },
+										{ id: 2, name: "Машина", is_income: false, is_outcome: true, is_deleted: false },
+										{ id: 3, name: "Квартира", is_income: false, is_outcome: true, is_deleted: false },
+										{ id: 4, name: "Отпуск 2024", is_income: false, is_outcome: true, is_deleted: false },
 									]}
 									placeholder="Выберите категорию"
 									control={control}

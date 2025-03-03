@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 "use client";
 
 import { Key, useEffect, useState } from "react";
@@ -63,8 +64,8 @@ export default function Expenses() {
 								name={"expenses"}
 								label={"Постоянные"}
 								options={[
-									{ id: 1, name: "Продукты", isIncome: false, isOutcome: true, isDeleted: false },
-									{ id: 2, name: "Зарплата", isIncome: true, isOutcome: false, isDeleted: false },
+									{ id: 1, name: "Продукты", is_income: false, is_outcome: true, is_deleted: false },
+									{ id: 2, name: "Зарплата", is_income: true, is_outcome: false, is_deleted: false },
 								]}
 								control={control}
 							/>

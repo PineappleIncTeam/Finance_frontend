@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 "use client";
 
 import { Key, useEffect, useState } from "react";
@@ -8,13 +9,14 @@ import { expensesTransactions } from "../../../mocks/ExpensesTransaction";
 
 import AppInput from "../../../ui/appInput/AppInput";
 import { InputTypeList } from "../../../helpers/Input";
-import { IExpensesInputForm } from "../../../types/pages/Expenses";
+import { IExpensesInputForm, IExpensesSelectForm } from "../../../types/pages/Expenses";
 import { Select } from "../../../ui/select/Select";
 
 import InputDate from "../../../ui/inputDate/inputDate";
 import handleLogout from "../../../helpers/logout";
 import { getCorrectBaseUrl } from "../../../utils/baseUrlConverter";
 import useLogoutTimer from "../../../hooks/useLogoutTimer";
+import { CategorySelect } from "../../../components/userProfileLayout/categorySelect/CategorySelect";
 
 import AddButton from "../../../components/userProfileLayout/addButton/addButton";
 
@@ -22,7 +24,7 @@ import styles from "./expenses.module.scss";
 
 export default function Expenses() {
 	const [baseUrl, setBaseUrl] = useState<string>();
-	const { control } = useForm<IExpensesInputForm>({
+	const { control } = useForm<IExpensesInputForm & IExpensesSelectForm>({
 		defaultValues: {
 			sum: "",
 		},
@@ -58,7 +60,15 @@ export default function Expenses() {
 					</div>
 					<div className={styles.expensesDetailsContainer}>
 						<div className={styles.expensesDetailsContainer__category}>
-							<Select name={"expenses"} label={"Постоянные"} options={["Продукты", "Зарплата"]} />
+							<CategorySelect
+								name={"expenses"}
+								label={"Постоянные"}
+								options={[
+									{ id: 1, name: "Продукты", is_income: false, is_outcome: true, is_deleted: false },
+									{ id: 2, name: "Зарплата", is_income: true, is_outcome: false, is_deleted: false },
+								]}
+								control={control}
+							/>
 						</div>
 						<div className={styles.expensesDetailsContainer__sum}>
 							<AppInput

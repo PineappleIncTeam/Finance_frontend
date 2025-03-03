@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 "use client";
 
 import { Key, useEffect, useState } from "react";
@@ -5,7 +6,7 @@ import { useForm } from "react-hook-form";
 
 import useLogoutTimer from "../../../hooks/useLogoutTimer";
 
-import { IExpensesInputForm } from "../../../types/pages/Expenses";
+import { IExpensesInputForm, IExpensesSelectForm } from "../../../types/pages/Expenses";
 import { Select } from "../../../ui/select/Select";
 import AppInput from "../../../ui/appInput/AppInput";
 import IncomeTransaction from "../../../components/userProfileLayout/incomeTransaction/incomeTransaction";
@@ -14,6 +15,7 @@ import handleLogout from "../../../helpers/logout";
 import { formatMoney } from "../../../utils/formatData";
 import { getCorrectBaseUrl } from "../../../utils/baseUrlConverter";
 import { incomeTransactions } from "../../../mocks/IncomeTransaction";
+import { CategorySelect } from "../../../components/userProfileLayout/categorySelect/CategorySelect";
 
 import InputDate from "../../../ui/inputDate/inputDate";
 import AddButton from "../../../components/userProfileLayout/addButton/addButton";
@@ -24,7 +26,7 @@ function ProfitMoney() {
 	const [baseUrl, setBaseUrl] = useState<string>();
 	const { request } = handleLogout(baseUrl);
 	const { resetTimer } = useLogoutTimer(request);
-	const { control } = useForm<IExpensesInputForm>({
+	const { control } = useForm<IExpensesInputForm & IExpensesSelectForm>({
 		defaultValues: {
 			sum: "",
 		},
@@ -60,7 +62,16 @@ function ProfitMoney() {
 						<div className={styles.detailsContainers}>
 							<div className={styles.detailsContainer}>
 								<div className={styles.detailsContainer__category}>
-									<Select name={"expenses"} label={"Категория"} options={["Продукты", "Зарплата"]} />
+									<CategorySelect
+										name={"expenses"}
+										label={"Категория"}
+										options={[
+											{ id: 1, name: "Продукты", is_income: false, is_outcome: true, is_deleted: false },
+											{ id: 2, name: "Зарплата", is_income: true, is_outcome: false, is_deleted: false },
+										]}
+										placeholder="Выберите категорию"
+										control={control}
+									/>
 								</div>
 								<div className={styles.detailsContainer__rightSide}>
 									<div className={styles.detailsContainer__sum}>

@@ -3,6 +3,8 @@ import { FieldValues, useController } from "react-hook-form";
 import cn from "classnames";
 
 import { ICategorySelect } from "../../../types/common/ComponentsProps";
+import { InputTypeList } from "../../../helpers/Input";
+
 import { CloseIcon } from "../../../assets/components/categorySelect/CloseIcon";
 import { Arrow } from "../../../assets/components/categorySelect/Arrow";
 
@@ -66,7 +68,9 @@ export const CategorySelect = <T extends FieldValues>({
 		return (
 			isOpen && (
 				<div className={styles.selectContainer__options} onChange={onChange}>
-					<p className={styles.selectContainer__title}>Добавить категорию</p>
+					<button type={InputTypeList.Button} className={styles.selectContainer__title}>
+						Добавить категорию
+					</button>
 					{options &&
 						options.map((option, index: Key) => (
 							<div

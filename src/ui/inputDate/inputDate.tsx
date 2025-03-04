@@ -8,6 +8,7 @@ import moment from "moment";
 
 import { ICustomHeaderInputDate, ICustomInputDate } from "../../types/common/UiKitProps";
 import InputDateSelector from "../../components/userProfileLayout/inputDateSelector/inputDateSelector";
+import { InputTypeList } from "../../helpers/Input";
 
 import calendarIcon from "../../assets/components/inputDate/calendarIcon";
 
@@ -58,14 +59,14 @@ const InputDate = <T extends FieldValues>({ isPeriod = false, control, name }: I
 		<div className={styles.customHeader}>
 			<div className={styles.inputDateSelect__arrowButtons}>
 				<button
-					type="button"
+					type={InputTypeList.Button}
 					onClick={decreaseYear}
 					disabled={prevYearButtonDisabled}
 					className={styles.inputDateSelect__arrowButton}>
 					<div className={cn(styles.inputDateSelect__yearArrow, styles.inputDateSelect__arrow__prev)}></div>
 				</button>
 				<button
-					type="button"
+					type={InputTypeList.Button}
 					onClick={decreaseMonth}
 					disabled={prevMonthButtonDisabled}
 					className={styles.inputDateSelect__arrowButton}>
@@ -85,14 +86,14 @@ const InputDate = <T extends FieldValues>({ isPeriod = false, control, name }: I
 			</div>
 			<div className={styles.inputDateSelect__arrowButtons}>
 				<button
-					type="button"
+					type={InputTypeList.Button}
 					onClick={increaseMonth}
 					disabled={nextMonthButtonDisabled}
 					className={styles.inputDateSelect__arrowButton}>
 					<div className={cn(styles.inputDateSelect__monthArrow, styles.inputDateSelect__arrow__next)}></div>
 				</button>
 				<button
-					type="button"
+					type={InputTypeList.Button}
 					onClick={increaseYear}
 					disabled={nextYearButtonDisabled}
 					className={styles.inputDateSelect__arrowButton}>

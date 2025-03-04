@@ -80,7 +80,7 @@ export default function Expenses() {
 								placeholder={"0.00 ₽"}
 							/>
 						</div>
-						<AddButton onClick={() => resetTimer()} type="submit" />
+						<AddButton onClick={() => resetTimer()} type={InputTypeList.Submit} />
 					</div>
 					<div className={styles.expensesDetailsContainer}>
 						<div className={styles.expensesDetailsContainer__category}>
@@ -95,7 +95,7 @@ export default function Expenses() {
 								placeholder="0.00 ₽"
 							/>
 						</div>
-						<AddButton onClick={() => resetTimer()} type="submit">
+						<AddButton onClick={() => resetTimer()} type={InputTypeList.Submit}>
 							Добавить
 						</AddButton>
 					</div>

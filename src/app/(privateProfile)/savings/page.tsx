@@ -98,6 +98,8 @@ function Savings() {
 			sortTargetOrder === SortOrderStateValue.asc ? SortOrderStateValue.desc : SortOrderStateValue.asc,
 		);
 	};
+
+	
 	type Item = {
 		category_name: string;
 		amount: number;
@@ -105,18 +107,36 @@ function Savings() {
 	  
 	  type Data = Item[];
 
+	  function getTokenFromCookie() {
+		const token = document.cookie
+		  .split("; ")
+		  .find(row => row.startsWith("token="))
+		  ?.split("=")[1]; // Используем optional chaining, чтобы избежать ошибки, если токен не найден
+		return token || ""; // Возвращаем пустую строку, если токен не найден
+	  }
+	  
+
 	const [data, setData] = useState<Data | null>(null);
 	const [error, setError] = useState<string | null>(null);
-	const yourToken = "TОКЕН"; // Замени на актуальный токен
+
+	
+
+
+	
 
 	useEffect(() => {
 		const fetchStatistics = async () => {
+			const token = getTokenFromCookie();
+			if (!token) {
+				setError("Токен не найден в cookies.");
+				return;
+			  }
 			try {
 				const response = await fetch("/reports/statistics/", {
 					method: "GET",
 					headers: {
 						"Content-Type": "application/json",
-						Authorization: `Bearer ${yourToken}`,
+						Authorization: `Bearer ${token}`,
 					},
 				});
 

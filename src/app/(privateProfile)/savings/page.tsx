@@ -98,8 +98,14 @@ function Savings() {
 			sortTargetOrder === SortOrderStateValue.asc ? SortOrderStateValue.desc : SortOrderStateValue.asc,
 		);
 	};
+	type Item = {
+		category_name: string;
+		amount: number;
+	  };
+	  
+	  type Data = Item[];
 
-	const [data, setData] = useState([]);
+	const [data, setData] = useState<Data | null>(null);
 	const [error, setError] = useState<string | null>(null);
 	const yourToken = "TОКЕН"; // Замени на актуальный токен
 

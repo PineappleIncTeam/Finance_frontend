@@ -236,6 +236,7 @@ function Savings() {
 									]}
 									placeholder="Выберите категорию"
 									control={control}
+									onAddCategory={() => undefined}
 								/>
 							</div>
 							<div className={styles.savingsDetailsContainer__sum}>

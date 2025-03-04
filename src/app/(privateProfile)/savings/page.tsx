@@ -106,13 +106,15 @@ function Savings() {
 
 	type Data = Item[];
 
-	function getTokenFromCookie() {
-		const token = document.cookie
-			.split("; ")
-			.find((row) => row.startsWith("token="))
-			?.split("=")[1]; // Используем optional chaining, чтобы избежать ошибки, если токен не найден
-		return token || ""; // Возвращаем пустую строку, если токен не найден
-	}
+function getTokenFromCookie() {
+    console.log("Текущие cookie:", document.cookie);
+    const token = document.cookie
+        .split("; ")
+        .find((row) => row.startsWith("token="))
+        ?.split("=")[1]; 
+    console.log("Найденный токен:", token);
+    return token || ""; 
+}
 
 	const [data, setData] = useState<Data | null>(null);
 	const [error, setError] = useState<string | null>(null);

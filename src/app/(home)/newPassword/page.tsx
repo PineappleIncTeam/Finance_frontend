@@ -13,14 +13,12 @@ import NewPasswordModal from "../../../components/mainLayout/newPasswordModal/ne
 import { formHelpers } from "../../../utils/formHelpers";
 import { emailPattern } from "../../../helpers/authConstants";
 import { InputTypeList } from "../../../helpers/Input";
-
 import { getCorrectBaseUrl } from "../../../utils/baseUrlConverter";
-
 import { ResetPasswordWithEmail } from "../../../services/api/auth/ResetPasswordWithEmail";
-
 import { MainPath } from "../../../services/router/routes";
-
 import { ApiResponseCode } from "../../../helpers/apiResponseCode";
+import Button from "../../../ui/Button/button";
+import { ButtonType } from "../../../helpers/buttonFieldValues";
 
 import styles from "./newPassword.module.scss";
 
@@ -106,8 +104,12 @@ export default function NewPassword() {
 						rules={{ required: true, pattern: emailPattern }}
 					/>
 					<div className={styles.newPasswordFormContainer__buttons}>
-						<input className={styles.backButton} type={InputTypeList.Submit} value="Назад" />
-						<input className={styles.restoreButton} type={InputTypeList.Submit} value="Восстановить" />
+						<Button variant={ButtonType.Outlined} type={InputTypeList.Submit} className={styles.button}>
+							Назад
+						</Button>
+						<Button variant={ButtonType.Notification} type={InputTypeList.Submit} className={styles.button}>
+							Восстановить
+						</Button>
 					</div>
 				</div>
 			</form>

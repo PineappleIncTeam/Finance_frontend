@@ -1,5 +1,5 @@
 import { StaticImageData } from "next/image";
-
+import { Control, FieldValues, Path } from "react-hook-form";
 import { MouseEvent } from "react";
 
 export type CustomLayout = () => Element;
@@ -106,4 +106,22 @@ export interface ISidebarMenu {
 
 export interface IHandleMouseEnterArchiveItem {
 	(event: MouseEvent<HTMLDivElement>, content: string): void;
+}
+
+export interface ICategoryOption {
+	id: number;
+	name: string;
+	is_income: boolean;
+	is_outcome: boolean;
+	is_deleted: boolean;
+}
+
+export interface ICategorySelect<T extends FieldValues> {
+	label: string;
+	options: ICategoryOption[];
+	control: Control<T>;
+	name: Path<T>;
+	placeholder?: string;
+	onAddCategory: () => void;
+	onRemoveCategory?: (categoryId: number) => void;
 }

@@ -1,4 +1,4 @@
-import { ReactElement, ReactNode } from "react";
+import { ButtonHTMLAttributes, ReactElement, ReactNode } from "react";
 
 import {
 	Control,
@@ -22,6 +22,33 @@ export interface IButton {
 	onClick?: () => void;
 	type?: "button" | "submit";
 	children?: ReactElement;
+}
+
+type THeaderButtonStyle = "contained" | "outlined";
+
+export interface IHeaderButton extends ButtonHTMLAttributes<HTMLButtonElement> {
+	className?: string;
+	onClick?: () => void;
+	variant: THeaderButtonStyle;
+	children?: ReactNode;
+}
+
+type TAppButtonStyle = "contained" | "outlined" | "warning" | "notification" | "faded";
+
+export interface IAppButton extends ButtonHTMLAttributes<HTMLButtonElement> {
+	className?: string;
+	onClick?: () => void;
+	type?: "button" | "submit";
+	isLarge?: boolean;
+	variant: TAppButtonStyle;
+	children?: ReactNode;
+}
+
+export interface IAddButton extends ButtonHTMLAttributes<HTMLButtonElement> {
+	className?: string;
+	onClick?: () => void;
+	type?: "button" | "submit";
+	children?: ReactNode;
 }
 
 export type TAuthInputForm = ISignUpForm | ISignInForm | INewPassword;

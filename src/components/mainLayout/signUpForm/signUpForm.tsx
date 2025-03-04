@@ -7,7 +7,6 @@ import Link from "next/link";
 import axios, { AxiosError } from "axios";
 
 import { ISignUpForm } from "../../../types/components/ComponentsTypes";
-import Button from "../../../ui/button/button";
 import AuthInput from "../../../ui/authInput/AuthInput";
 import Title from "../../../ui/title/Title";
 import { emailPattern, errorPasswordRepeat, passwordPattern } from "../../../helpers/authConstants";
@@ -19,6 +18,8 @@ import { getCorrectBaseUrl } from "../../../utils/baseUrlConverter";
 import { ApiResponseCode } from "../../../helpers/apiResponseCode";
 import { vkLink } from "../../../mocks/linkSetup";
 import CustomCheckbox from "../../../ui/checkBox/checkBox";
+import Button from "../../../ui/Button/button";
+import { ButtonType } from "../../../helpers/buttonFieldValues";
 
 import styles from "./signUpForm.module.scss";
 
@@ -130,10 +131,12 @@ const SignUpForm = () => {
 					</div>
 				</div>
 				<Button
-					content="Зарегистрироваться"
-					styleName={isValid ? "big buttonForLogin" : "big__disabled buttonForLogin"}
-					type={InputTypeList.Submit}
-				/>
+					variant={ButtonType.Notification}
+					className={styles.button}
+					disabled={!isValid}
+					type={InputTypeList.Submit}>
+					Зарегистрироваться
+				</Button>
 				<div className={styles.dividerWrap}>
 					<div className={styles.dividerWrap__line} />
 					<span className={styles.dividerWrap__subtitle}>или</span>

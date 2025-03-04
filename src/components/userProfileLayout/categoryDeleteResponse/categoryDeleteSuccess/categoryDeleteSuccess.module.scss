@@ -1,0 +1,38 @@
+.backgroundModal {
+	position: fixed;
+	background: var(--color-black-two-of-third);
+	width: 100%;
+	height: 100vh;
+	top: 0;
+	left: 0;
+	z-index: 120;
+}
+
+.categoryDeleteSuccessModalContainer {
+	width: 408px;
+	height: 92px;
+	background: var(--color-pure-light);
+	padding: 30px 66px;
+	margin-inline: auto;
+	border-radius: 12px;
+	box-shadow: 0px 4px 20px 0px var(--color-black-eight-part);
+
+	@media (max-width: 430px) {
+		& {
+			width: 264px;
+			height: 62px;
+			padding: 20px 22px;
+		}
+	}
+}
+
+.categoryDeleteSuccessModalTitle {
+	font-size: 2rem;
+	line-height: 2.8rem;
+	margin-inline: auto;
+
+	@media (max-width: 430px) {
+		font-size: 1.6rem;
+		line-height: 2.2rem;
+	}
+}

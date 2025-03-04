@@ -408,3 +408,131 @@
 		background-color: var(--color-star-dust);
 	}
 }
+
+.buttonForAddExpensesCategory {
+	width: 47%;
+	height: 52px;
+	background-color: var(--color-dark-spring-green);
+	border-radius: 12px;
+	font-size: 2rem;
+	line-height: 2.8rem;
+	color: var(--color-pure-light);
+
+	&__cancel {
+		width: 47%;
+		height: 52px;
+		border-radius: 12px;
+		border: 2px solid var(--color-dark-spring-green);
+		font-size: 2rem;
+		line-height: 2.8rem;
+	}
+
+	@media (max-width: 490px) {
+		& {
+			width: 100%;
+			height: 36px;
+			font-size: 1.6rem;
+			line-height: 2.2rem;
+
+			&__cancel {
+				width: 100%;
+				height: 36px;
+				font-size: 1.6rem;
+				line-height: 2.2rem;
+			}
+		}
+	}
+}
+
+.buttonForDeleteCategory {
+	width: 33%;
+	height: 52px;
+	border-radius: 12px;
+	border-radius: 12px;
+	border: 2px solid var(--color-dark-spring-green);
+	font-size: 2rem;
+	line-height: 2.8rem;
+
+	&__cancel {
+		width: 33%;
+		height: 52px;
+		font-size: 2rem;
+		line-height: 2.8rem;
+		border-radius: 12px;
+		border: 2px solid var(--color-dark-spring-green);
+		color: var(--color-pure-light);
+		background-color: var(--color-dark-spring-green);
+	}
+
+	&__archive {
+		width: 33%;
+		height: 52px;
+		font-size: 2rem;
+		line-height: 2.8rem;
+		border-radius: 12px;
+		color: var(--color-pure-light);
+		background-color: var(--color-dark-sea-green);
+	}
+
+	@media (max-width: 490px) {
+		& {
+			width: 100%;
+			height: 36px;
+			font-size: 1.6rem;
+			line-height: 2.2rem;
+
+			&__cancel {
+				width: 100%;
+				height: 36px;
+				font-size: 1.6rem;
+				line-height: 2.2rem;
+			}
+
+			&__archive {
+				width: 100%;
+				height: 36px;
+				font-size: 1.6rem;
+				line-height: 2.2rem;
+			}
+		}
+	}
+}
+
+.buttonForDeleteRecord {
+	width: 44%;
+	height: 52px;
+	border-radius: 12px;
+	font-size: 2.2rem;
+	line-height: 3.2rem;
+	color: var(--color-pure-light);
+	background-color: var(--color-bright-maroon);
+	margin-left: 20px;
+
+	&__cancel {
+		width: 44%;
+		height: 52px;
+		border-radius: 12px;
+		font-size: 2.2rem;
+		line-height: 3.2rem;
+		border: 2px solid var(--color-dark-spring-green);
+		margin-left: 20px;
+	}
+
+	@media (max-width: 470px) {
+		& {
+			width: 100%;
+			height: 36px;
+			font-size: 1.6rem;
+			line-height: 2.2rem;
+			margin-left: 0;
+
+			&__cancel {
+				width: 100%;
+				height: 36px;
+				font-size: 1.6rem;
+				line-height: 2.2rem;
+				margin-left: 0;
+			}
+		}
+	}
+}

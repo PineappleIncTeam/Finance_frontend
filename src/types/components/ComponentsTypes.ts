@@ -43,7 +43,7 @@ export type TMessageModal = "success" | "warning" | "notification";
 
 export interface IExpenseTransaction {
 	firstDate: string;
-	secondDate: string;
+	secondDate?: string;
 	purpose: string;
 	sum: string;
 }
@@ -96,3 +96,9 @@ export interface IEditActionProps {
 export type TCommonFunction = () => void;
 
 export type TTimerRefState = ReturnType<typeof setTimeout> | null | number;
+
+export interface IAddCategoryExpensesForm {
+	targetAmount?: string;
+	amount?: string;
+	category?: string;
+}

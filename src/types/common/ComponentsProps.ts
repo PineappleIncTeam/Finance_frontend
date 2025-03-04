@@ -107,3 +107,7 @@ export interface ISidebarMenu {
 export interface IHandleMouseEnterArchiveItem {
 	(event: MouseEvent<HTMLDivElement>, content: string): void;
 }
+
+export interface IExpensesModals {
+	open: boolean;
+}

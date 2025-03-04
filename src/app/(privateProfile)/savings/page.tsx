@@ -99,6 +99,38 @@ function Savings() {
 		);
 	};
 
+	const [data, setData] = useState([]);
+	const [error, setError] = useState(null);
+	const yourToken = "TОКЕН"; // Замени на актуальный токен
+
+	useEffect(() => {
+		const fetchStatistics = async () => {
+			try {
+				const response = await fetch("/reports/statistics/", {
+					method: "GET",
+					headers: {
+						"Content-Type": "application/json",
+						Authorization: `Bearer ${yourToken}`,
+					},
+				});
+
+				if (!response.ok) {
+					throw new Error(`Ошибка: ${response.status}`);
+				}
+
+				const result = await response.json();
+				setData(result || []);
+			} catch (error) {
+				setError(error.message);
+			}
+		};
+
+		fetchStatistics();
+	}, []);
+
+	const savingsData = data.find((item) => item.category_name === "Savings");
+	const totalSavings = savingsData ? savingsData.amount : 0;
+
 	useEffect(() => {
 		setBaseUrl(getCorrectBaseUrl());
 	}, []);
@@ -106,6 +138,14 @@ function Savings() {
 	useEffect(() => {
 		resetTimer();
 	}, [request, resetTimer]);
+
+	if (error) {
+		return <p>Ошибка загрузки: {error}</p>;
+	}
+
+	if (!data) {
+		return <p>Загрузка...</p>;
+	}
 
 	function renderSavingsItemList() {
 		return items.map((item, index) => {
@@ -216,7 +256,7 @@ function Savings() {
 						<div className={styles.savingsByDateContainer}>
 							<div className={styles.totalAmountWrapper}>
 								<p className={styles.totalAmountWrapper__savings}>Общая сумма накоплений </p>
-								<p className={styles.totalAmountWrapper__sum}>4 112 500 ₽</p>
+								<p className={styles.totalAmountWrapper__sum}>{totalSavings} ₽</p>
 							</div>
 							<div className={styles.dateSelectionWrapper}>
 								<p className={styles.dateSelectionWrapper__description}>Выбор даты</p>

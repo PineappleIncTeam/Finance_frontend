@@ -138,7 +138,7 @@ function Savings() {
 		fetchStatistics();
 	}, []);
 
-	const savingsData = data.find((item) => item.category_name === "Savings");
+	const savingsData = data?.find((item) => item.category_name === "Savings");
 	const totalSavings = savingsData ? savingsData.amount : 0;
 
 	useEffect(() => {

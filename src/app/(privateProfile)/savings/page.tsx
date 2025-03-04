@@ -100,7 +100,7 @@ function Savings() {
 	};
 
 	const [data, setData] = useState([]);
-	const [error, setError] = useState(null);
+	const [error, setError] = useState<string | null>(null);
 	const yourToken = "TОКЕН"; // Замени на актуальный токен
 
 	useEffect(() => {
@@ -120,8 +120,12 @@ function Savings() {
 
 				const result = await response.json();
 				setData(result || []);
-			} catch (error) {
-				setError(error.message);
+			} catch (err) {
+				if (err instanceof Error) {
+				  setError(err.message); // Типизация ошибки как Error
+				} else {
+				  setError("Произошла неизвестная ошибка");
+				}
 			}
 		};
 

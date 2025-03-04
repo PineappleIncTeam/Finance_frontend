@@ -99,30 +99,23 @@ function Savings() {
 		);
 	};
 
-	
 	type Item = {
 		category_name: string;
 		amount: number;
-	  };
-	  
-	  type Data = Item[];
+	};
 
-	  function getTokenFromCookie() {
+	type Data = Item[];
+
+	function getTokenFromCookie() {
 		const token = document.cookie
-		  .split("; ")
-		  .find(row => row.startsWith("token="))
-		  ?.split("=")[1]; // Используем optional chaining, чтобы избежать ошибки, если токен не найден
+			.split("; ")
+			.find((row) => row.startsWith("token="))
+			?.split("=")[1]; // Используем optional chaining, чтобы избежать ошибки, если токен не найден
 		return token || ""; // Возвращаем пустую строку, если токен не найден
-	  }
-	  
+	}
 
 	const [data, setData] = useState<Data | null>(null);
 	const [error, setError] = useState<string | null>(null);
-
-	
-
-
-	
 
 	useEffect(() => {
 		const fetchStatistics = async () => {
@@ -130,7 +123,7 @@ function Savings() {
 			if (!token) {
 				setError("Токен не найден в cookies.");
 				return;
-			  }
+			}
 			try {
 				const response = await fetch("/reports/statistics/", {
 					method: "GET",
@@ -148,9 +141,9 @@ function Savings() {
 				setData(result || []);
 			} catch (err) {
 				if (err instanceof Error) {
-				  setError(err.message); // Типизация ошибки как Error
+					setError(err.message); // Типизация ошибки как Error
 				} else {
-				  setError("Произошла неизвестная ошибка");
+					setError("Произошла неизвестная ошибка");
 				}
 			}
 		};

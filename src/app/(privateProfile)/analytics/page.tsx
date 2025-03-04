@@ -27,6 +27,17 @@ function Analytics() {
 		delayError: 200,
 	});
 
+	const renderEmptyAnaliticsPage = () => (
+		<div className={styles.analyticsBlankPage}>
+			<p className={styles.analyticsBlankPage__text}>
+				К сожалению, этот раздел пока пуст. Начните вести учет финансов в приложении и сможет воспользоваться этим
+				разделом.
+			</p>
+
+			<MoneyIcon classNames={styles.analyticsBlankPage__image} />
+		</div>
+	)
+
 	const renderExpenses = () => (
 		<div className={styles.analyticsDiagramExpensesWrapper}>
 			<div className={styles.analyticsDiagramExpensesInfo}>
@@ -193,12 +204,59 @@ function Analytics() {
 		</div>
 	)
 
+	const renderContentAnaliticsPage = () => (
+		<div className={styles.analyticsPagesContent}>
+			<div className={styles.analyticsSelectContainer}>
+				<div className={styles.analyticsSelectOperation}>
+					<Selector
+						name={"number"}
+						label={"Операции"}
+						options={["Расходы", "Доходы", "Анализ доходов и расходов"]}
+						control={control}
+					/>
+				</div>
+				<div className={styles.analyticsSelectDateAndPeriod}>
+					<AppInput control={control} label={"Выбор даты"} type={InputTypeList.Date} name={"date"} />
+				</div>
+			</div>
 
+			<div className={styles.analyticsDisplayWrapper}>
+				<p className={styles.analyticsDisplay_title}>Отображать в:</p>
+				<div className={styles.analyticsDisplay}>
+					<input
+						name="value"
+						type={InputTypeList.Radio}
+						value="rub"
+						id="analyticsDisplay__rub"
+						checked={displayMode === "rub"}
+						className={styles.analyticsDisplay__input}
+						onChange={handleDisplayChange}
+					/>
+					<label htmlFor="analyticsDisplay__rub" className={styles.analyticsDisplay__label}>
+						<p className={styles.analyticsDisplay__text}>В рублях</p>
+					</label>
+					<input
+						name="value"
+						type={InputTypeList.Radio}
+						value="percent"
+						id="analyticsDisplay__percent"
+						checked={displayMode === "percent"}
+						onChange={handleDisplayChange}
+						className={styles.analyticsDisplay__input}
+					/>
+					<label htmlFor="analyticsDisplay__percent" className={styles.analyticsDisplay__label}>
+						<p className={styles.analyticsDisplay__text}>В процентах</p>
+					</label>
+				</div>
+			</div>
 
+			{operation === "Расходы" && renderExpenses()}
 
+			{operation === "Доходы" && renderIncome()}
 
-
-
+			{operation === "Анализ доходов и расходов" && renderAnalysis()}
+		</div>
+	)
 
 	const selectedOperation = watch("number");
 	const operation: string = selectedOperation || "Расходы";
@@ -572,68 +630,7 @@ function Analytics() {
 		<div className={styles.analyticsPageWrap}>
 			<div className={styles.analyticsPageContainer}>
 				<h1 className={styles.headerTitle}>Аналитика</h1>
-				{isEmptyPage ? (
-					<div className={styles.analyticsBlankPage}>
-						<p className={styles.analyticsBlankPage__text}>
-							К сожалению, этот раздел пока пуст. Начните вести учет финансов в приложении и сможет воспользоваться этим
-							разделом.
-						</p>
-
-						<MoneyIcon classNames={styles.analyticsBlankPage__image} />
-					</div>
-				) : (
-					<div className={styles.analyticsPagesContent}>
-						<div className={styles.analyticsSelectContainer}>
-							<div className={styles.analyticsSelectOperation}>
-								<Selector
-									name={"number"}
-									label={"Операции"}
-									options={["Расходы", "Доходы", "Анализ доходов и расходов"]}
-									control={control}
-								/>
-							</div>
-							<div className={styles.analyticsSelectDateAndPeriod}>
-								<AppInput control={control} label={"Выбор даты"} type={InputTypeList.Date} name={"date"} />
-							</div>
-						</div>
-
-						<div className={styles.analyticsDisplayWrapper}>
-							<p className={styles.analyticsDisplay_title}>Отображать в:</p>
-							<div className={styles.analyticsDisplay}>
-								<input
-									name="value"
-									type={InputTypeList.Radio}
-									value="rub"
-									id="analyticsDisplay__rub"
-									checked={displayMode === "rub"}
-									className={styles.analyticsDisplay__input}
-									onChange={handleDisplayChange}
-								/>
-								<label htmlFor="analyticsDisplay__rub" className={styles.analyticsDisplay__label}>
-									<p className={styles.analyticsDisplay__text}>В рублях</p>
-								</label>
-								<input
-									name="value"
-									type={InputTypeList.Radio}
-									value="percent"
-									id="analyticsDisplay__percent"
-									checked={displayMode === "percent"}
-									onChange={handleDisplayChange}
-									className={styles.analyticsDisplay__input}
-								/>
-								<label htmlFor="analyticsDisplay__percent" className={styles.analyticsDisplay__label}>
-									<p className={styles.analyticsDisplay__text}>В процентах</p>
-								</label>
-							</div>
-						</div>
-
-						{operation === "Расходы" && renderExpenses()}
-
-						{operation === "Доходы" && renderIncome()}
-
-						{operation === "Анализ доходов и расходов" && renderAnalysis()}
-					</div>
-				)}
+				{isEmptyPage ? renderEmptyAnaliticsPage() : renderContentAnaliticsPage()}
 			</div>
 		</div>
 	);

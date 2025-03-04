@@ -71,6 +71,7 @@ function ProfitMoney() {
 										]}
 										placeholder="Выберите категорию"
 										control={control}
+										onAddCategory={() => undefined}
 									/>
 								</div>
 								<div className={styles.detailsContainer__rightSide}>

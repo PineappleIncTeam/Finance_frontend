@@ -16,6 +16,7 @@ export const CategorySelect = <T extends FieldValues>({
 	control,
 	name,
 	placeholder,
+	onAddCategory,
 	onRemoveCategory,
 }: ICategorySelect<T>) => {
 	const {
@@ -68,7 +69,7 @@ export const CategorySelect = <T extends FieldValues>({
 		return (
 			isOpen && (
 				<div className={styles.selectContainer__options} onChange={onChange}>
-					<button type={InputTypeList.Button} className={styles.selectContainer__title}>
+					<button onClick={onAddCategory} type={InputTypeList.Button} className={styles.selectContainer__title}>
 						Добавить категорию
 					</button>
 					{options &&

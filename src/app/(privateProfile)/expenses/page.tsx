@@ -68,6 +68,7 @@ export default function Expenses() {
 									{ id: 2, name: "Зарплата", is_income: true, is_outcome: false, is_deleted: false },
 								]}
 								control={control}
+								onAddCategory={() => undefined}
 							/>
 						</div>
 						<div className={styles.expensesDetailsContainer__sum}>

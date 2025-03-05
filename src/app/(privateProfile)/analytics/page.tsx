@@ -9,7 +9,7 @@ import { Chart as ChartJS, ArcElement, Tooltip, CategoryScale, LinearScale, BarE
 
 import { MoneyIcon } from "../../../assets/script/analytics/MoneyIcon";
 
-import AppInput from "../../../ui/appInput/AppInput";
+import InputDate from "../../../ui/inputDate/inputDate";
 import { Selector } from "../../../ui/selector/Selector";
 import { IAnalyticsInputForm } from "../../../types/pages/Analytics";
 import { InputTypeList } from "../../../helpers/Input";
@@ -222,7 +222,7 @@ function Analytics() {
 					/>
 				</div>
 				<div className={styles.analyticsSelectDateAndPeriod}>
-					<AppInput control={control} label={"Выбор даты"} type={InputTypeList.Date} name={"date"} />
+					<InputDate control={control} name={"date"} />
 				</div>
 			</div>
 

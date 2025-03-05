@@ -258,8 +258,13 @@ function Analytics() {
 		</div>
 	)
 
+	enum Operation {
+		Expenses = "Расходы",
+		Income = "Доходы",
+	}
+
 	const selectedOperation = watch("number");
-	const operation: string = selectedOperation || "Расходы";
+	const operation: string = selectedOperation || Operation.Expenses;
 	const windowSize = 1440;
 	const windowSizeM = 1024;
 	const windowSizeS = 768;
@@ -267,9 +272,9 @@ function Analytics() {
 	const minimalRowValue = 0;
 	let maximalRowValue: number = 0;
 
-	if (operation === "Расходы") {
+	if (operation === Operation.Expenses) {
 		maximalRowValue = 8;
-	} else if (operation === "Доходы") {
+	} else if (operation === Operation.Income) {
 		maximalRowValue = 5;
 	}
 

@@ -130,8 +130,12 @@
 	color: var(--color-bright-maroon);
 	font-weight: 400;
 	margin-bottom: 3.2rem;
-	
+
 	@media (max-width: 550px) {
 		font-size: 1.3rem;
 	}
+}
+
+.button {
+	width: 100%;
 }

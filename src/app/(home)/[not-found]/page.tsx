@@ -2,8 +2,10 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { MainPath } from "../../../services/router/routes";
-
 import meditatingMan from "../../../assets/pages/notFound/meditatingMan.webp";
+import Button from "../../../ui/Button/button";
+import { ButtonType } from "../../../helpers/buttonFieldValues";
+import { InputTypeList } from "../../../helpers/Input";
 
 import styles from "./notFound.module.scss";
 
@@ -17,7 +19,9 @@ function NotFound() {
 					<p className={styles.infoContainer__subtitle}>Такой страницы у нас нет...</p>
 					<p className={styles.infoContainer__subtitle}>Но есть помощник финансового планирования</p>
 					<Link href={MainPath.Login} className={styles.infoContainer__navigateAction}>
-						Войти в приложение
+						<Button variant={ButtonType.Notification} className={styles.button} isLarge type={InputTypeList.Button}>
+							Войти в приложение
+						</Button>
 					</Link>
 				</div>
 			</div>

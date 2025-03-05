@@ -43,7 +43,7 @@ const UserProfileSidebar = ({ avatar, name, balance }: IUserProfileSidebar) => {
 		try {
 			if (baseUrl) {
 				const response = await logoutUser(baseUrl);
-				if (response.status === axios.HttpStatusCode.Ok) {
+				if (response.status >= axios.HttpStatusCode.Ok && response.status < axios.HttpStatusCode.MultipleChoices) {
 					router.push(MainPath.Main);
 				}
 			}

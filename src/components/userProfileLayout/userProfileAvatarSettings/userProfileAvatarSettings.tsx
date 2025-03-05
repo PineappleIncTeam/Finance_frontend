@@ -2,12 +2,13 @@ import { useForm } from "react-hook-form";
 import Image from "next/image";
 
 import { IUserAvatar } from "../../../types/pages/userProfileSettings";
-import Button from "../../../ui/button/button";
 import { InputTypeList } from "../../../helpers/Input";
 import { avatarTemplates } from "../../../mocks/AvatarTemplates";
 
 import userAvatar from "../../../assets/components/userProfile/userPhoto.svg";
 import editProfileIcon from "../../../assets/components/userProfile/editProfile.svg";
+import Button from "../../../ui/Button/button";
+import { ButtonType } from "../../../helpers/buttonFieldValues";
 
 import styles from "./userProfileAvatarSettings.module.scss";
 
@@ -54,7 +55,9 @@ export const UserProfileAvatarSettings = () => {
 					))}
 				</div>
 			</div>
-			<Button content={"Сохранить"} styleName={"outlineButton"} type={"submit"} />
+			<Button variant={ButtonType.Outlined} type={InputTypeList.Submit}>
+				Сохранить
+			</Button>
 		</form>
 	);
 };

@@ -20,7 +20,7 @@
 .textContentBlock {
 	display: flex;
 	flex-direction: column;
-	justify-content: space-between;
+	justify-content: center;
 	align-items: center;
 	width: 780px;
 	height: 316px;
@@ -28,10 +28,10 @@
 	border-radius: 8px;
 	background-color: var(--color-pure-light);
 	box-shadow: 0px 4px 20px 0px var(--color-gray-umber-light);
-	padding: 64px 64px 36px;
 	gap: 24px;
+	padding: 0 64px;
 
-	@media (width < 1024px) {
+	@media (width < 900px) {
 		& {
 			width: 300px;
 			height: 208px;
@@ -51,7 +51,7 @@
 	font-size: 3.6rem;
 	line-height: 4.4rem;
 
-	@media (width < 1024px) {
+	@media (width < 900px) {
 		font-size: 2rem;
 		line-height: 2.8rem;
 	}
@@ -62,7 +62,7 @@
 	font-size: 2rem;
 	line-height: 2.8rem;
 
-	@media (width < 1024px) {
+	@media (width < 900px) {
 		& {
 			font-size: 1.3rem;
 			line-height: 1.8rem;
@@ -76,4 +76,17 @@
 
 .textContentBlock__action {
 	cursor: pointer;
+}
+
+.textContentBlock__button {
+	font-size: 2rem;
+	line-height: 2.8rem;
+
+	@media (width < 900px) {
+		& {
+			padding: 8px 32px;
+			font-size: 1.6rem;
+			line-height: 2.2rem;
+		}
+	}
 }

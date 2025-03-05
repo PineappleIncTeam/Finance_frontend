@@ -1,22 +1,11 @@
+/* eslint-disable camelcase */
 "use client";
 
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 
-import { PlusIcon } from "../../../assets/script/expenses/PlusIcon";
-import { EditIcon } from "../../../assets/script/expenses/EditIcon";
-import { CheckIcon } from "../../../assets/script/savings/CheckIcon";
-import { MoreIcon } from "../../../assets/script/savings/MoreIcon";
-import { SortIcon } from "../../../assets/script/savings/SortIcon";
+import useLogoutTimer from "../../../hooks/useLogoutTimer";
 
-import SavingsTransaction from "../../../components/userProfileLayout/savingsTransaction/savingsTransaction";
-import { savingsTransactions } from "../../../mocks/SavingsTransaction";
-
-import AppInput from "../../../ui/appInput/AppInput";
-import { InputTypeList } from "../../../helpers/Input";
-import { ISavingsInputForm } from "../../../types/pages/Savings";
-import { Select } from "../../../ui/select/Select";
-import Button from "../../../ui/button/button";
 import {
 	IEditActionProps,
 	ISavingsTransaction,
@@ -25,15 +14,25 @@ import {
 	TIndexState,
 	TSavingsFieldState,
 } from "../../../types/components/ComponentsTypes";
-
+import { ISavingsInputForm, ISavingsSelectForm } from "../../../types/pages/Savings";
+import SavingsTransaction from "../../../components/userProfileLayout/savingsTransaction/savingsTransaction";
+import AppInput from "../../../ui/appInput/AppInput";
+import { CategorySelect } from "../../../components/userProfileLayout/categorySelect/CategorySelect";
+import AddButton from "../../../components/userProfileLayout/addButton/addButton";
+import { savingsTransactions } from "../../../mocks/SavingsTransaction";
+import { InputTypeList } from "../../../helpers/Input";
 import { getCorrectBaseUrl } from "../../../utils/baseUrlConverter";
 import handleLogout from "../../../helpers/logout";
-import useLogoutTimer from "../../../hooks/useLogoutTimer";
+
+import { EditIcon } from "../../../assets/script/expenses/EditIcon";
+import { CheckIcon } from "../../../assets/script/savings/CheckIcon";
+import { MoreIcon } from "../../../assets/script/savings/MoreIcon";
+import { SortIcon } from "../../../assets/script/savings/SortIcon";
 
 import styles from "./savings.module.scss";
 
 function Savings() {
-	const { control } = useForm<ISavingsInputForm>({
+	const { control } = useForm<ISavingsInputForm & ISavingsSelectForm>({
 		defaultValues: {
 			sum: "",
 		},
@@ -226,10 +225,18 @@ function Savings() {
 						</div>
 						<div className={styles.savingsDetailsContainer}>
 							<div className={styles.savingsDetailsContainer__category}>
-								<Select
-									name={"expenses"}
+								<CategorySelect
+									name={"savings"}
 									label={"Накопления"}
-									options={["Обучение ребенка", "Машина", "Квартира", "Отпуск 2024"]}
+									options={[
+										{ id: 1, name: "Обучение ребенка", is_income: false, is_outcome: true, is_deleted: false },
+										{ id: 2, name: "Машина", is_income: false, is_outcome: true, is_deleted: false },
+										{ id: 3, name: "Квартира", is_income: false, is_outcome: true, is_deleted: false },
+										{ id: 4, name: "Отпуск 2024", is_income: false, is_outcome: true, is_deleted: false },
+									]}
+									placeholder="Выберите категорию"
+									control={control}
+									onAddCategory={() => undefined}
 								/>
 							</div>
 							<div className={styles.savingsDetailsContainer__sum}>
@@ -242,9 +249,7 @@ function Savings() {
 								/>
 							</div>
 
-							<Button content={"Добавить"} styleName={"buttonForSavings__disabled"}>
-								<PlusIcon classNames={styles.addButtonIcon} />
-							</Button>
+							<AddButton onClick={() => resetTimer()} type="submit" />
 						</div>
 					</div>
 					<div className={styles.savingsFormContentWrapperList}>

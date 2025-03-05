@@ -7,10 +7,12 @@ import Link from "next/link";
 import useAppSelector from "../../../hooks/useAppSelector";
 import useAppDispatch from "../../../hooks/useAppDispatch";
 
-import Button from "../../../ui/button/button";
 import { MainPath } from "../../../services/router/routes";
 import { setCookieStatus } from "../../../services/redux/features/cookieStatus/cookieStatusSlice";
 import cookieStatusSelector from "../../../services/redux/features/cookieStatus/cookieStatusSelector";
+import Button from "../../../ui/Button/button";
+import { ButtonType } from "../../../helpers/buttonFieldValues";
+import { InputTypeList } from "../../../helpers/Input";
 
 import styles from "./cookiePopupWindowPage.module.scss";
 
@@ -44,10 +46,13 @@ const CookiePopupWindowPage = () => {
 					— для нас. Собираем их, чтобы сделать наш сайт еще удобнее. Ограничить или настроить их можно в браузере.
 				</div>
 				<Button
-					content="Хорошо, принимаю"
-					styleName="buttonConfirmCookies"
+					variant={ButtonType.Outlined}
 					onClick={() => dispatch(setCookieStatus("confirmed"))}
-				/>
+					className={styles.textContentBlock__button}
+					type={InputTypeList.Button}
+					isLarge>
+					Хорошо, принимаю
+				</Button>
 			</div>
 		</div>
 	);

@@ -1,20 +1,18 @@
+/* eslint-disable camelcase */
 "use client";
 
 import { Key, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-
 import axios from "axios";
 
-import { PlusIcon } from "../../../assets/script/expenses/PlusIcon";
+import handleLogout from "../../../helpers/logout";
 
 import ExpensesTransaction from "../../../components/userProfileLayout/expensesTransaction/expensesTransaction";
 
 import { InputTypeList } from "../../../helpers/Input";
-import handleLogout from "../../../helpers/logout";
-import useLogoutTimer from "../../../hooks/useLogoutTimer";
-import { IExpensesInputForm } from "../../../types/pages/Expenses";
-import AppInput from "../../../ui/appInput/AppInput";
-import Button from "../../../ui/button/button";
+
+import { IExpensesInputForm, IExpensesSelectForm } from "../../../types/pages/Expenses";
+
 import InputDate from "../../../ui/inputDate/inputDate";
 import { Select } from "../../../ui/select/Select";
 import { getCorrectBaseUrl } from "../../../utils/baseUrlConverter";
@@ -22,14 +20,18 @@ import { getCorrectBaseUrl } from "../../../utils/baseUrlConverter";
 import { ApiResponseCode } from "../../../helpers/apiResponseCode";
 import { GetFiveOperations } from "../../../services/api/userProfile/GetFiveOperations";
 
-import { ExpenseCategoryAddModal } from "../../../components/userProfileLayout/expenseCategoryAdd/expenseCategoryAdd";
+import useLogoutTimer from "../../../hooks/useLogoutTimer";
+import { CategorySelect } from "../../../components/userProfileLayout/categorySelect/CategorySelect";
+
+import AddButton from "../../../components/userProfileLayout/addButton/addButton";
+
+import AppInput from "../../../ui/appInput/AppInput";
 
 import styles from "./expenses.module.scss";
 
 export default function Expenses() {
 	const [baseUrl, setBaseUrl] = useState<string>();
-	// const [isOpen, setIsOpen] = useState<boolean>(false);
-	const { control } = useForm<IExpensesInputForm>({
+	const { control } = useForm<IExpensesInputForm & IExpensesSelectForm>({
 		defaultValues: {
 			sum: "",
 		},
@@ -142,9 +144,18 @@ export default function Expenses() {
 					</div>
 					<div className={styles.expensesDetailsContainer}>
 						<div className={styles.expensesDetailsContainer__category}>
-							<Select name={"expenses"} label={"Постоянные"} options={["Продукты", "Зарплата"]} />
+							<CategorySelect
+								name={"expenses"}
+								label={"Постоянные"}
+								options={[
+									{ id: 1, name: "Продукты", is_income: false, is_outcome: true, is_deleted: false },
+									{ id: 2, name: "Зарплата", is_income: true, is_outcome: false, is_deleted: false },
+								]}
+								control={control}
+								onAddCategory={() => undefined}
+							/>
 						</div>
-						{isOpen && <ExpenseCategoryAddModal open={isOpen} />}
+						{/* {isOpen && <ExpenseCategoryAddModal open={isOpen} />} */}
 						<div className={styles.expensesDetailsContainer__sum}>
 							<AppInput
 								control={control}
@@ -154,9 +165,7 @@ export default function Expenses() {
 								placeholder={"0.00"}
 							/>
 						</div>
-						<Button onClick={() => resetTimer()} content={"Добавить"} styleName={"buttonForExpenses"}>
-							<PlusIcon classNames={styles.addButtonIcon} />
-						</Button>
+						<AddButton onClick={() => resetTimer()} type="submit" />
 					</div>
 					<div className={styles.expensesDetailsContainer}>
 						<div className={styles.expensesDetailsContainer__category}>
@@ -171,9 +180,9 @@ export default function Expenses() {
 								placeholder="0.00"
 							/>
 						</div>
-						<Button content={"Добавить"} styleName={"buttonForExpenses__disabled"}>
-							<PlusIcon classNames={styles.addButtonIcon} />
-						</Button>
+						<AddButton onClick={() => resetTimer()} type="submit">
+							Добавить
+						</AddButton>
 					</div>
 				</form>
 				<div className={styles.expensesTransactionsWrapper}>

@@ -276,22 +276,6 @@
     }
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 .analyticsDiagramIncomeWrapper {
     border: 1px solid var(--color-gainsboro);
     border-radius: 12px;
@@ -437,21 +421,6 @@
     margin-top: 28px;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 .analyticsDiagramAnalysisWrapper {
     border: 1px solid var(--color-gainsboro);
     border-radius: 12px;
@@ -538,20 +507,6 @@
     }
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 @media (max-width: 1440px) {
     .analyticsBlankPage {
         margin-top: 20px;
@@ -570,10 +525,6 @@
     .analyticsSelectOperation {
         width: calc(100% - 300px);
     }
-
-
-
-
 
     .analyticsDiagramIncomeWrapper {
         margin-top: 72px;
@@ -630,12 +581,6 @@
         width: 50%;
     }
 
-
-
-
-
-
-
     .diagramIncomeBlockLeft {
         display: none;
     }
@@ -645,9 +590,6 @@
     .diagramIncome {
         margin-top: 24px;
     }
-
-
-
 
     .diagramAnalysis {
         width: 160px;
@@ -742,13 +684,6 @@
         width: 100%;
     }
 
-
-
-
-
-
-
-
     .analyticsDiagramIncomeInfo {
 
         &__title {
@@ -775,9 +710,6 @@
         margin-top: 20px;
         width: 100%;
     }
-
-    
-
 
     .analyticsDiagramAnalysis {
         flex-direction: column;

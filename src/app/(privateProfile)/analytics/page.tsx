@@ -222,7 +222,7 @@ function Analytics() {
 					/>
 				</div>
 				<div className={styles.analyticsSelectDateAndPeriod}>
-					<InputDate control={control} name={"date"} />
+					<InputDate control={control} name={"date"} isPeriod={true} />
 				</div>
 			</div>
 

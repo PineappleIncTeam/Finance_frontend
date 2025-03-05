@@ -27,6 +27,12 @@ function Analytics() {
 		delayError: 200,
 	});
 
+	enum Operation {
+		Expenses = "Расходы",
+		Income = "Доходы",
+		Analysis = "Анализ доходов и расходов",
+	}
+
 	const renderEmptyAnaliticsPage = () => (
 		<div className={styles.analyticsBlankPage}>
 			<p className={styles.analyticsBlankPage__text}>
@@ -211,7 +217,7 @@ function Analytics() {
 					<Selector
 						name={"number"}
 						label={"Операции"}
-						options={["Расходы", "Доходы", "Анализ доходов и расходов"]}
+						options={[Operation.Expenses, Operation.Income, Operation.Analysis]}
 						control={control}
 					/>
 				</div>
@@ -250,18 +256,13 @@ function Analytics() {
 				</div>
 			</div>
 
-			{operation === "Расходы" && renderExpenses()}
+			{operation === Operation.Expenses && renderExpenses()}
 
-			{operation === "Доходы" && renderIncome()}
+			{operation === Operation.Income && renderIncome()}
 
-			{operation === "Анализ доходов и расходов" && renderAnalysis()}
+			{operation === Operation.Analysis && renderAnalysis()}
 		</div>
 	)
-
-	enum Operation {
-		Expenses = "Расходы",
-		Income = "Доходы",
-	}
 
 	const selectedOperation = watch("number");
 	const operation: string = selectedOperation || Operation.Expenses;

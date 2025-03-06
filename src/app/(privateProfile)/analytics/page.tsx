@@ -33,237 +33,6 @@ function Analytics() {
 		Analysis = "Анализ доходов и расходов",
 	}
 
-	const renderEmptyAnaliticsPage = () => (
-		<div className={styles.analyticsBlankPage}>
-			<p className={styles.analyticsBlankPage__text}>
-				К сожалению, этот раздел пока пуст. Начните вести учет финансов в приложении и сможет воспользоваться этим
-				разделом.
-			</p>
-
-			<MoneyIcon classNames={styles.analyticsBlankPage__image} />
-		</div>
-	)
-
-	const renderExpenses = () => (
-		<div className={styles.analyticsDiagramExpensesWrapper}>
-			<div className={styles.analyticsDiagramExpensesInfo}>
-				<p className={styles.analyticsDiagramExpensesInfo__title}>Общий расход</p>
-				<p className={styles.analyticsDiagramExpensesInfo__value}>130 000.75 ₽</p>
-				<p className={styles.analyticsDiagramExpensesInfo__date}>14.09.23 - 20.09.23</p>
-			</div>
-
-			<div className={styles.analyticsDiagramExpenses}>
-				<div className={styles.diagramExpenses}>
-					<Pie data={data} options={{ responsive: true }} />
-				</div>
-
-				<div className={styles.diagramExpensesBlock}>
-					<div className={styles.diagramExpensesBlockLeft}>
-						<ul className={styles.diagramExpensesBlockLeftItems}>
-							{displayData.slice(minimalRowValue, maximalRowValue).map((item, index) => (
-								<li key={index} className={styles.diagramExpensesBlockLeftItem}>
-									<div className={styles.diagramExpensesBlockLeftIconWrapper}>
-										<div
-											className={styles.diagramExpensesBlockLeftIconWrapper__circle}
-											style={{ background: `${item.background}` }}></div>
-										<p className={styles.diagramExpensesBlockLeftIconWrapper__text}>{item.title}</p>
-									</div>
-									<p className={styles.diagramExpensesBlockLeftItem__value}>
-										{displayMode === "rub" ? `${item.value} ₽` : `${item.value}%`}
-									</p>
-								</li>
-							))}
-						</ul>
-					</div>
-
-					<div className={styles.diagramExpensesBlockRight}>
-						<ul className={styles.diagramExpensesBlockRightItems}>
-							{displayData.slice(itemsToShow).map((item, index) => (
-								<li key={index} className={styles.diagramExpensesBlockRightItem}>
-									<div className={styles.diagramExpensesBlockRightIconWrapper}>
-										<div
-											className={styles.diagramExpensesBlockRightIconWrapper__circle}
-											style={{ background: `${item.background}` }}></div>
-										<p className={styles.diagramExpensesBlockRightIconWrapper__text}>{item.title}</p>
-									</div>
-									<p className={styles.diagramExpensesBlockRightItem__value}>
-										{displayMode === "rub" ? `${item.value} ₽` : `${item.value}%`}
-									</p>
-								</li>
-							))}
-						</ul>
-					</div>
-				</div>
-			</div>
-		</div>
-	)
-
-	const renderIncome = () => (
-		<div className={styles.analyticsDiagramIncomeWrapper}>
-			<div className={styles.analyticsDiagramIncomeInfoWrapper}>
-				<div className={styles.analyticsDiagramIncomeInfo}>
-					<p className={styles.analyticsDiagramIncomeInfo__title}>Общий доход</p>
-					<p className={styles.analyticsDiagramIncomeInfo__value}>130 000.75 ₽</p>
-					<p className={styles.analyticsDiagramIncomeInfo__date}>14.09.23 - 20.09.23</p>
-				</div>
-
-				<div className={styles.analyticsDiagramIncome}>
-					<div className={styles.diagramIncomeBlockLeft}>
-						<ul className={styles.diagramIncomeBlockLeftItems}>
-							{displayData.slice(minimalRowValue, maximalRowValue).map((item, index) => (
-								<li key={index} className={styles.diagramIncomeBlockLeftItem}>
-									<div className={styles.diagramIncomeBlockLeftIconWrapper}>
-										<div
-											className={styles.diagramIncomeBlockLeftIconWrapper__circle}
-											style={{ background: `${item.background}` }}></div>
-										<p className={styles.diagramIncomeBlockLeftIconWrapper__text}>{item.title}</p>
-									</div>
-									<p className={styles.diagramIncomeBlockLeftItem__value}>
-										{displayMode === "rub" ? `${item.value} ₽` : `${item.value}%`}
-									</p>
-								</li>
-							))}
-						</ul>
-					</div>
-
-					{window.innerWidth > windowSizeXS && (
-						<div className={styles.diagramIncomeBlockRight}>
-							<ul className={styles.diagramIncomeBlockRightItems}>
-								{displayData.slice(itemsToShow).map((item, index) => (
-									<li key={index} className={styles.diagramIncomeBlockRightItem}>
-										<div className={styles.diagramIncomeBlockRightIconWrapper}>
-											<div
-												className={styles.diagramIncomeBlockRightIconWrapper__circle}
-												style={{ background: `${item.background}` }}></div>
-											<p className={styles.diagramIncomeBlockRightIconWrapper__text}>{item.title}</p>
-										</div>
-										<p className={styles.diagramIncomeBlockRightItem__value}>
-											{displayMode === "rub" ? `${item.value} ₽` : `${item.value}%`}
-										</p>
-									</li>
-								))}
-							</ul>
-						</div>
-					)}
-				</div>
-			</div>
-
-			<div className={styles.diagramIncome} style={{ height: chartHeight }}>
-				<Bar data={dataIncome} options={options} />
-			</div>
-
-			{window.innerWidth <= windowSizeXS && (
-				<div className={styles.diagramIncomeBlockRight}>
-					<ul className={styles.diagramIncomeBlockRightItems}>
-						{displayData.slice(itemsToShow).map((item, index) => (
-							<li key={index} className={styles.diagramIncomeBlockRightItem}>
-								<div className={styles.diagramIncomeBlockRightIconWrapper}>
-									<div
-										className={styles.diagramIncomeBlockRightIconWrapper__circle}
-										style={{ background: `${item.background}` }}></div>
-									<p className={styles.diagramIncomeBlockRightIconWrapper__text}>{item.title}</p>
-								</div>
-								<p className={styles.diagramIncomeBlockRightItem__value}>
-									{displayMode === "rub" ? `${item.value} ₽` : `${item.value}%`}
-								</p>
-							</li>
-						))}
-					</ul>
-				</div>
-			)}
-		</div>
-	)
-
-	const renderAnalysis = () => (
-		<div className={styles.analyticsDiagramAnalysisWrapper}>
-			<div className={styles.analyticsDiagramAnalysisInfoWrapper}>
-				<div className={styles.analyticsDiagramAnalysisInfo}>
-					<p className={styles.analyticsDiagramAnalysisInfo__title}>Ваш баланс</p>
-					<p className={styles.analyticsDiagramAnalysisInfo__value}>0.00 ₽</p>
-					<p className={styles.analyticsDiagramAnalysisInfo__date}>14.09.23 - 20.09.23</p>
-				</div>
-
-				<div className={styles.analyticsDiagramAnalysis}>
-					<div className={styles.diagramAnalysis}>
-						<Doughnut data={dataAnalysis} options={optionsAnalysis} />
-					</div>
-
-					<div className={styles.diagramAnalysisBlock}>
-						<ul className={styles.diagramAnalysisBlockItems}>
-							{displayDataAnalysis.map((item, index) => (
-								<li key={index} className={styles.diagramAnalysisBlockItem}>
-									<div className={styles.diagramAnalysisBlockIconWrapper}>
-										<div
-											className={styles.diagramAnalysisBlockIconWrapper__circle}
-											style={{ background: `${item.background}` }}></div>
-										<p className={styles.diagramAnalysisBlockIconWrapper__text}>{item.title}:</p>
-									</div>
-									<p className={styles.diagramAnalysisBlockItem__value}>
-										{displayMode === "rub" ? `${item.value} ₽` : `${item.value}%`}
-									</p>
-								</li>
-							))}
-						</ul>
-					</div>
-				</div>
-			</div>
-		</div>
-	)
-
-	const renderContentAnaliticsPage = () => (
-		<div className={styles.analyticsPagesContent}>
-			<div className={styles.analyticsSelectContainer}>
-				<div className={styles.analyticsSelectOperation}>
-					<Selector
-						name={"number"}
-						label={"Операции"}
-						options={[Operation.Expenses, Operation.Income, Operation.Analysis]}
-						control={control}
-					/>
-				</div>
-				<div className={styles.analyticsSelectDateAndPeriod}>
-					<InputDate control={control} name={"date"} isPeriod={true} />
-				</div>
-			</div>
-
-			<div className={styles.analyticsDisplayWrapper}>
-				<p className={styles.analyticsDisplay_title}>Отображать в:</p>
-				<div className={styles.analyticsDisplay}>
-					<input
-						name="value"
-						type={InputTypeList.Radio}
-						value="rub"
-						id="analyticsDisplay__rub"
-						checked={displayMode === "rub"}
-						className={styles.analyticsDisplay__input}
-						onChange={handleDisplayChange}
-					/>
-					<label htmlFor="analyticsDisplay__rub" className={styles.analyticsDisplay__label}>
-						<p className={styles.analyticsDisplay__text}>В рублях</p>
-					</label>
-					<input
-						name="value"
-						type={InputTypeList.Radio}
-						value="percent"
-						id="analyticsDisplay__percent"
-						checked={displayMode === "percent"}
-						onChange={handleDisplayChange}
-						className={styles.analyticsDisplay__input}
-					/>
-					<label htmlFor="analyticsDisplay__percent" className={styles.analyticsDisplay__label}>
-						<p className={styles.analyticsDisplay__text}>В процентах</p>
-					</label>
-				</div>
-			</div>
-
-			{operation === Operation.Expenses && renderExpenses()}
-
-			{operation === Operation.Income && renderIncome()}
-
-			{operation === Operation.Analysis && renderAnalysis()}
-		</div>
-	)
-
 	const selectedOperation = watch("number");
 	const operation: string = selectedOperation || Operation.Expenses;
 	const windowSize = 1440;
@@ -556,7 +325,6 @@ function Analytics() {
 				barThickness: 10,
 			};
 		} else {
-			console.warn(`Label "${label}" не найден в expensesMapping.`);
 			return {
 				label: label,
 				data: Array(Object.keys(monthlyExpenses).length).fill(0),
@@ -631,6 +399,237 @@ function Analytics() {
 		value: dataAnalysis.datasets[0].data[index],
 		background: dataAnalysis.datasets[0].backgroundColor[index],
 	}));
+
+	const renderEmptyAnaliticsPage = () => (
+		<div className={styles.analyticsBlankPage}>
+			<p className={styles.analyticsBlankPage__text}>
+				К сожалению, этот раздел пока пуст. Начните вести учет финансов в приложении и сможет воспользоваться этим
+				разделом.
+			</p>
+
+			<MoneyIcon classNames={styles.analyticsBlankPage__image} />
+		</div>
+	)
+
+	const renderExpenses = () => (
+		<div className={styles.analyticsDiagramExpensesWrapper}>
+			<div className={styles.analyticsDiagramExpensesInfo}>
+				<p className={styles.analyticsDiagramExpensesInfo__title}>Общий расход</p>
+				<p className={styles.analyticsDiagramExpensesInfo__value}>130 000.75 ₽</p>
+				<p className={styles.analyticsDiagramExpensesInfo__date}>14.09.23 - 20.09.23</p>
+			</div>
+
+			<div className={styles.analyticsDiagramExpenses}>
+				<div className={styles.diagramExpenses}>
+					<Pie data={data} options={{ responsive: true }} />
+				</div>
+
+				<div className={styles.diagramExpensesBlock}>
+					<div className={styles.diagramExpensesBlockLeft}>
+						<ul className={styles.diagramExpensesBlockLeftItems}>
+							{displayData.slice(minimalRowValue, maximalRowValue).map((item, index) => (
+								<li key={index} className={styles.diagramExpensesBlockLeftItem}>
+									<div className={styles.diagramExpensesBlockLeftIconWrapper}>
+										<div
+											className={styles.diagramExpensesBlockLeftIconWrapper__circle}
+											style={{ background: `${item.background}` }}></div>
+										<p className={styles.diagramExpensesBlockLeftIconWrapper__text}>{item.title}</p>
+									</div>
+									<p className={styles.diagramExpensesBlockLeftItem__value}>
+										{displayMode === "rub" ? `${item.value} ₽` : `${item.value}%`}
+									</p>
+								</li>
+							))}
+						</ul>
+					</div>
+
+					<div className={styles.diagramExpensesBlockRight}>
+						<ul className={styles.diagramExpensesBlockRightItems}>
+							{displayData.slice(itemsToShow).map((item, index) => (
+								<li key={index} className={styles.diagramExpensesBlockRightItem}>
+									<div className={styles.diagramExpensesBlockRightIconWrapper}>
+										<div
+											className={styles.diagramExpensesBlockRightIconWrapper__circle}
+											style={{ background: `${item.background}` }}></div>
+										<p className={styles.diagramExpensesBlockRightIconWrapper__text}>{item.title}</p>
+									</div>
+									<p className={styles.diagramExpensesBlockRightItem__value}>
+										{displayMode === "rub" ? `${item.value} ₽` : `${item.value}%`}
+									</p>
+								</li>
+							))}
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	)
+
+	const renderIncome = () => (
+		<div className={styles.analyticsDiagramIncomeWrapper}>
+			<div className={styles.analyticsDiagramIncomeInfoWrapper}>
+				<div className={styles.analyticsDiagramIncomeInfo}>
+					<p className={styles.analyticsDiagramIncomeInfo__title}>Общий доход</p>
+					<p className={styles.analyticsDiagramIncomeInfo__value}>130 000.75 ₽</p>
+					<p className={styles.analyticsDiagramIncomeInfo__date}>14.09.23 - 20.09.23</p>
+				</div>
+
+				<div className={styles.analyticsDiagramIncome}>
+					<div className={styles.diagramIncomeBlockLeft}>
+						<ul className={styles.diagramIncomeBlockLeftItems}>
+							{displayData.slice(minimalRowValue, maximalRowValue).map((item, index) => (
+								<li key={index} className={styles.diagramIncomeBlockLeftItem}>
+									<div className={styles.diagramIncomeBlockLeftIconWrapper}>
+										<div
+											className={styles.diagramIncomeBlockLeftIconWrapper__circle}
+											style={{ background: `${item.background}` }}></div>
+										<p className={styles.diagramIncomeBlockLeftIconWrapper__text}>{item.title}</p>
+									</div>
+									<p className={styles.diagramIncomeBlockLeftItem__value}>
+										{displayMode === "rub" ? `${item.value} ₽` : `${item.value}%`}
+									</p>
+								</li>
+							))}
+						</ul>
+					</div>
+
+					{window.innerWidth > windowSizeXS && (
+						<div className={styles.diagramIncomeBlockRight}>
+							<ul className={styles.diagramIncomeBlockRightItems}>
+								{displayData.slice(itemsToShow).map((item, index) => (
+									<li key={index} className={styles.diagramIncomeBlockRightItem}>
+										<div className={styles.diagramIncomeBlockRightIconWrapper}>
+											<div
+												className={styles.diagramIncomeBlockRightIconWrapper__circle}
+												style={{ background: `${item.background}` }}></div>
+											<p className={styles.diagramIncomeBlockRightIconWrapper__text}>{item.title}</p>
+										</div>
+										<p className={styles.diagramIncomeBlockRightItem__value}>
+											{displayMode === "rub" ? `${item.value} ₽` : `${item.value}%`}
+										</p>
+									</li>
+								))}
+							</ul>
+						</div>
+					)}
+				</div>
+			</div>
+
+			<div className={styles.diagramIncome} style={{ height: chartHeight }}>
+				<Bar data={dataIncome} options={options} />
+			</div>
+
+			{window.innerWidth <= windowSizeXS && (
+				<div className={styles.diagramIncomeBlockRight}>
+					<ul className={styles.diagramIncomeBlockRightItems}>
+						{displayData.slice(itemsToShow).map((item, index) => (
+							<li key={index} className={styles.diagramIncomeBlockRightItem}>
+								<div className={styles.diagramIncomeBlockRightIconWrapper}>
+									<div
+										className={styles.diagramIncomeBlockRightIconWrapper__circle}
+										style={{ background: `${item.background}` }}></div>
+									<p className={styles.diagramIncomeBlockRightIconWrapper__text}>{item.title}</p>
+								</div>
+								<p className={styles.diagramIncomeBlockRightItem__value}>
+									{displayMode === "rub" ? `${item.value} ₽` : `${item.value}%`}
+								</p>
+							</li>
+						))}
+					</ul>
+				</div>
+			)}
+		</div>
+	)
+
+	const renderAnalysis = () => (
+		<div className={styles.analyticsDiagramAnalysisWrapper}>
+			<div className={styles.analyticsDiagramAnalysisInfoWrapper}>
+				<div className={styles.analyticsDiagramAnalysisInfo}>
+					<p className={styles.analyticsDiagramAnalysisInfo__title}>Ваш баланс</p>
+					<p className={styles.analyticsDiagramAnalysisInfo__value}>0.00 ₽</p>
+					<p className={styles.analyticsDiagramAnalysisInfo__date}>14.09.23 - 20.09.23</p>
+				</div>
+
+				<div className={styles.analyticsDiagramAnalysis}>
+					<div className={styles.diagramAnalysis}>
+						<Doughnut data={dataAnalysis} options={optionsAnalysis} />
+					</div>
+
+					<div className={styles.diagramAnalysisBlock}>
+						<ul className={styles.diagramAnalysisBlockItems}>
+							{displayDataAnalysis.map((item, index) => (
+								<li key={index} className={styles.diagramAnalysisBlockItem}>
+									<div className={styles.diagramAnalysisBlockIconWrapper}>
+										<div
+											className={styles.diagramAnalysisBlockIconWrapper__circle}
+											style={{ background: `${item.background}` }}></div>
+										<p className={styles.diagramAnalysisBlockIconWrapper__text}>{item.title}:</p>
+									</div>
+									<p className={styles.diagramAnalysisBlockItem__value}>
+										{displayMode === "rub" ? `${item.value} ₽` : `${item.value}%`}
+									</p>
+								</li>
+							))}
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	)
+
+	const renderContentAnaliticsPage = () => (
+		<div className={styles.analyticsPagesContent}>
+			<div className={styles.analyticsSelectContainer}>
+				<div className={styles.analyticsSelectOperation}>
+					<Selector
+						name={"number"}
+						label={"Операции"}
+						options={[Operation.Expenses, Operation.Income, Operation.Analysis]}
+						control={control}
+					/>
+				</div>
+				<div className={styles.analyticsSelectDateAndPeriod}>
+					<InputDate control={control} name={"date"} isPeriod={true} />
+				</div>
+			</div>
+
+			<div className={styles.analyticsDisplayWrapper}>
+				<p className={styles.analyticsDisplay_title}>Отображать в:</p>
+				<div className={styles.analyticsDisplay}>
+					<input
+						name="value"
+						type={InputTypeList.Radio}
+						value="rub"
+						id="analyticsDisplay__rub"
+						checked={displayMode === "rub"}
+						className={styles.analyticsDisplay__input}
+						onChange={handleDisplayChange}
+					/>
+					<label htmlFor="analyticsDisplay__rub" className={styles.analyticsDisplay__label}>
+						<p className={styles.analyticsDisplay__text}>В рублях</p>
+					</label>
+					<input
+						name="value"
+						type={InputTypeList.Radio}
+						value="percent"
+						id="analyticsDisplay__percent"
+						checked={displayMode === "percent"}
+						onChange={handleDisplayChange}
+						className={styles.analyticsDisplay__input}
+					/>
+					<label htmlFor="analyticsDisplay__percent" className={styles.analyticsDisplay__label}>
+						<p className={styles.analyticsDisplay__text}>В процентах</p>
+					</label>
+				</div>
+			</div>
+
+			{operation === Operation.Expenses && renderExpenses()}
+
+			{operation === Operation.Income && renderIncome()}
+
+			{operation === Operation.Analysis && renderAnalysis()}
+		</div>
+	)
 
 	return (
 		<div className={styles.analyticsPageWrap}>

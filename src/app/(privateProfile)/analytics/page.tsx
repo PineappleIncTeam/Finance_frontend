@@ -33,7 +33,7 @@ function Analytics() {
 		Analysis = "Анализ доходов и расходов",
 	}
 
-	const renderEmptyAnaliticsPage = () => (
+	const renderEmptyAnalyticsPage = () => (
 		<div className={styles.analyticsBlankPage}>
 			<p className={styles.analyticsBlankPage__text}>
 				К сожалению, этот раздел пока пуст. Начните вести учет финансов в приложении и сможет воспользоваться этим
@@ -42,7 +42,7 @@ function Analytics() {
 
 			<MoneyIcon classNames={styles.analyticsBlankPage__image} />
 		</div>
-	)
+	);
 
 	const renderExpenses = () => (
 		<div className={styles.analyticsDiagramExpensesWrapper}>
@@ -96,7 +96,7 @@ function Analytics() {
 				</div>
 			</div>
 		</div>
-	)
+	);
 
 	const renderIncome = () => (
 		<div className={styles.analyticsDiagramIncomeWrapper}>
@@ -172,7 +172,7 @@ function Analytics() {
 				</div>
 			)}
 		</div>
-	)
+	);
 
 	const renderAnalysis = () => (
 		<div className={styles.analyticsDiagramAnalysisWrapper}>
@@ -208,9 +208,9 @@ function Analytics() {
 				</div>
 			</div>
 		</div>
-	)
+	);
 
-	const renderContentAnaliticsPage = () => (
+	const renderContentAnalyticsPage = () => (
 		<div className={styles.analyticsPagesContent}>
 			<div className={styles.analyticsSelectContainer}>
 				<div className={styles.analyticsSelectOperation}>
@@ -262,7 +262,7 @@ function Analytics() {
 
 			{operation === Operation.Analysis && renderAnalysis()}
 		</div>
-	)
+	);
 
 	const selectedOperation = watch("number");
 	const operation: string = selectedOperation || Operation.Expenses;
@@ -483,7 +483,7 @@ function Analytics() {
 				setRotation({ maxRotation: 0, minRotation: 0 });
 			}
 
-			if (operation === "Доходы") {
+			if (operation === Operation.Income) {
 				if (window.innerWidth > windowSize) {
 					setItemsToShow(maximalRowValue);
 				} else if (window.innerWidth <= windowSize && window.innerWidth > windowSizeM) {
@@ -511,6 +511,7 @@ function Analytics() {
 			window.removeEventListener("resize", updateChartHeight);
 			window.removeEventListener("resize", updateMonthNames);
 		};
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	const handleDisplayChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -636,7 +637,7 @@ function Analytics() {
 		<div className={styles.analyticsPageWrap}>
 			<div className={styles.analyticsPageContainer}>
 				<h1 className={styles.headerTitle}>Аналитика</h1>
-				{isEmptyPage ? renderEmptyAnaliticsPage() : renderContentAnaliticsPage()}
+				{isEmptyPage ? renderEmptyAnalyticsPage() : renderContentAnalyticsPage()}
 			</div>
 		</div>
 	);

@@ -98,7 +98,7 @@ export type TCommonFunction = () => void;
 export type TTimerRefState = ReturnType<typeof setTimeout> | null | number;
 
 export interface IAddCategoryExpensesForm {
-	targetAmount?: string;
-	amount?: string;
-	category?: string;
+	name: string;
+	is_income: true;
+	is_outcome: true;
 }

@@ -9,14 +9,20 @@ import Title from "../../../ui/title/Title";
 import { IAddCategoryExpensesForm } from "../../../types/components/ComponentsTypes";
 import Button from "../../../ui/button/button";
 
+import { ButtonType } from "../../../helpers/buttonFieldValues";
+
 import styles from "./expensesCategoryAdd.module.scss";
 
-export const ExpenseCategoryAddModal = ({ open }: IExpensesModals) => {
+export const ExpenseCategoryAddModal = ({ open, addClick }: IExpensesModals) => {
 	const { control, handleSubmit } = useForm<IAddCategoryExpensesForm>({
 		defaultValues: {
-			category: "",
-			amount: "",
-			targetAmount: "",
+			name: "",
+			// amount: "",
+			// targetAmount: "",
+			// eslint-disable-next-line camelcase
+			is_income: true,
+			// eslint-disable-next-line camelcase
+			is_outcome: true,
 		},
 		mode: "all",
 		delayError: 200,
@@ -35,12 +41,12 @@ export const ExpenseCategoryAddModal = ({ open }: IExpensesModals) => {
 							control={control}
 							label={"Введите название категории"}
 							type={InputTypeList.Text}
-							name={"category"}
+							name={"name"}
 							placeholder={"Название категории"}
 							subtitle="Не более 14 символов"
 						/>
 					</div>
-					<div className={styles.addExpensesCategoryFormData}>
+					{/* <div className={styles.addExpensesCategoryFormData}>
 						<p className={styles.addExpensesCategoryFormData__label}>Введите сумму</p>
 						<AppInput
 							control={control}
@@ -49,8 +55,8 @@ export const ExpenseCategoryAddModal = ({ open }: IExpensesModals) => {
 							name={"amount"}
 							placeholder={"0.00"}
 						/>
-					</div>
-					<div className={styles.addExpensesCategoryFormData}>
+					</div> */}
+					{/* <div className={styles.addExpensesCategoryFormData}>
 						<p className={styles.addExpensesCategoryFormData__label}>Введите целевую сумму</p>
 						<AppInput
 							control={control}
@@ -59,10 +65,12 @@ export const ExpenseCategoryAddModal = ({ open }: IExpensesModals) => {
 							name={"targetAmount"}
 							placeholder={"0.00"}
 						/>
-					</div>
+					</div> */}
 					<div className={styles.buttonsContainer}>
-						<Button content={"Отменить"} styleName={"buttonForAddExpensesCategory__cancel"} />
-						<Button content={"Добавить"} styleName={"buttonForAddExpensesCategory"} />
+						<Button variant={ButtonType.Outlined}>Отменить</Button>
+						<Button variant={ButtonType.Contained} onClick={addClick}>
+							Добавить
+						</Button>
 					</div>
 				</form>
 			</div>

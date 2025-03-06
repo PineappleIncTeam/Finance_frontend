@@ -33,6 +33,13 @@ function Analytics() {
 		Analysis = "Анализ доходов и расходов",
 	}
 
+	enum DisplayMode {
+		RUB = "rub",
+		USD = "usd",
+		EUR = "eur",
+		PERCENT = "percent"
+	}
+
 	const selectedOperation = watch("number");
 	const operation: string = selectedOperation || Operation.Expenses;
 	const windowSize = 1440;
@@ -49,7 +56,7 @@ function Analytics() {
 	}
 
 	const [itemsToShow, setItemsToShow] = useState(maximalRowValue);
-	const [displayMode, setDisplayMode] = useState("rub");
+	const [displayMode, setDisplayMode] = useState(DisplayMode.RUB);
 	const [chartHeight, setChartHeight] = useState(298);
 	const [rotation, setRotation] = useState({ maxRotation: 0, minRotation: 0 });
 	const isEmptyPage = false;
@@ -252,7 +259,7 @@ function Analytics() {
 				setRotation({ maxRotation: 0, minRotation: 0 });
 			}
 
-			if (operation === "Доходы") {
+			if (operation === Operation.Income) {
 				if (window.innerWidth > windowSize) {
 					setItemsToShow(maximalRowValue);
 				} else if (window.innerWidth <= windowSize && window.innerWidth > windowSizeM) {
@@ -283,7 +290,8 @@ function Analytics() {
 	}, []);
 
 	const handleDisplayChange = (event: ChangeEvent<HTMLInputElement>) => {
-		setDisplayMode(event.target.value);
+		const value = event.target.value as DisplayMode;
+		setDisplayMode(value);
 	};
 
 	ChartJS.register(ArcElement, Tooltip);
@@ -296,7 +304,7 @@ function Analytics() {
 		datasets: [
 			{
 				label: "Расходы",
-				data: rawExpensesData.map((value) => (displayMode === "rub" ? value : ((value / 130000) * 100).toFixed(2))),
+				data: rawExpensesData.map((value) => (displayMode === DisplayMode.RUB ? value : ((value / 130000) * 100).toFixed(2))),
 				backgroundColor: randomColorSet,
 				borderWidth: 0,
 			},
@@ -384,7 +392,7 @@ function Analytics() {
 		labels: analysisLabels,
 		datasets: [
 			{
-				data: rawAnalysisData.map((value) => (displayMode === "rub" ? value : ((value / 130000) * 100).toFixed(2))),
+				data: rawAnalysisData.map((value) => (displayMode === DisplayMode.RUB ? value : ((value / 130000) * 100).toFixed(2))),
 				backgroundColor: randomColorSet,
 				borderWidth: 0,
 			},
@@ -436,7 +444,7 @@ function Analytics() {
 										<p className={styles.diagramExpensesBlockLeftIconWrapper__text}>{item.title}</p>
 									</div>
 									<p className={styles.diagramExpensesBlockLeftItem__value}>
-										{displayMode === "rub" ? `${item.value} ₽` : `${item.value}%`}
+										{displayMode === DisplayMode.RUB ? `${item.value} ₽` : `${item.value}%`}
 									</p>
 								</li>
 							))}
@@ -454,7 +462,7 @@ function Analytics() {
 										<p className={styles.diagramExpensesBlockRightIconWrapper__text}>{item.title}</p>
 									</div>
 									<p className={styles.diagramExpensesBlockRightItem__value}>
-										{displayMode === "rub" ? `${item.value} ₽` : `${item.value}%`}
+										{displayMode === DisplayMode.RUB ? `${item.value} ₽` : `${item.value}%`}
 									</p>
 								</li>
 							))}
@@ -486,7 +494,7 @@ function Analytics() {
 										<p className={styles.diagramIncomeBlockLeftIconWrapper__text}>{item.title}</p>
 									</div>
 									<p className={styles.diagramIncomeBlockLeftItem__value}>
-										{displayMode === "rub" ? `${item.value} ₽` : `${item.value}%`}
+										{displayMode === DisplayMode.RUB ? `${item.value} ₽` : `${item.value}%`}
 									</p>
 								</li>
 							))}
@@ -505,7 +513,7 @@ function Analytics() {
 											<p className={styles.diagramIncomeBlockRightIconWrapper__text}>{item.title}</p>
 										</div>
 										<p className={styles.diagramIncomeBlockRightItem__value}>
-											{displayMode === "rub" ? `${item.value} ₽` : `${item.value}%`}
+											{displayMode === DisplayMode.RUB ? `${item.value} ₽` : `${item.value}%`}
 										</p>
 									</li>
 								))}
@@ -531,7 +539,7 @@ function Analytics() {
 									<p className={styles.diagramIncomeBlockRightIconWrapper__text}>{item.title}</p>
 								</div>
 								<p className={styles.diagramIncomeBlockRightItem__value}>
-									{displayMode === "rub" ? `${item.value} ₽` : `${item.value}%`}
+									{displayMode === DisplayMode.RUB ? `${item.value} ₽` : `${item.value}%`}
 								</p>
 							</li>
 						))}
@@ -566,7 +574,7 @@ function Analytics() {
 										<p className={styles.diagramAnalysisBlockIconWrapper__text}>{item.title}:</p>
 									</div>
 									<p className={styles.diagramAnalysisBlockItem__value}>
-										{displayMode === "rub" ? `${item.value} ₽` : `${item.value}%`}
+										{displayMode === DisplayMode.RUB ? `${item.value} ₽` : `${item.value}%`}
 									</p>
 								</li>
 							))}
@@ -601,7 +609,7 @@ function Analytics() {
 						type={InputTypeList.Radio}
 						value="rub"
 						id="analyticsDisplay__rub"
-						checked={displayMode === "rub"}
+						checked={displayMode === DisplayMode.RUB}
 						className={styles.analyticsDisplay__input}
 						onChange={handleDisplayChange}
 					/>
@@ -613,7 +621,7 @@ function Analytics() {
 						type={InputTypeList.Radio}
 						value="percent"
 						id="analyticsDisplay__percent"
-						checked={displayMode === "percent"}
+						checked={displayMode === DisplayMode.PERCENT}
 						onChange={handleDisplayChange}
 						className={styles.analyticsDisplay__input}
 					/>

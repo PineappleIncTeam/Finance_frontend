@@ -74,7 +74,7 @@ export default function Expenses() {
 				error.response.status <= axios.HttpStatusCode.InternalServerError
 			) {
 				console.log(error);
-				return null;
+				return [];
 			}
 			if (
 				axios.isAxiosError(error) &&
@@ -84,7 +84,7 @@ export default function Expenses() {
 				error.response.status < ApiResponseCode.SERVER_ERROR_STATUS_MAX
 			) {
 				console.log(error);
-				return null;
+				return [];
 			}
 		}
 	};
@@ -162,10 +162,10 @@ export default function Expenses() {
 						expensesTransactions.map((expensesData, index: Key) => (
 							<li key={index}>
 								<ExpensesTransaction
-									firstDate={expensesData.date}
+									firstDate={expensesData?.date}
 									// secondDate={expensesData.secondDate}
 									purpose={expensesData?.target}
-									sum={expensesData.amount}
+									sum={expensesData?.amount}
 								/>
 							</li>
 						))}

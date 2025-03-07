@@ -29,6 +29,8 @@ import AppInput from "../../../ui/appInput/AppInput";
 
 import { CategoryAddModal } from "../../../components/userProfileLayout/categoryAdd/categoryAddModal";
 
+import { IExpenseTransaction } from "../../../types/components/ComponentsTypes";
+
 import styles from "./expenses.module.scss";
 
 export default function Expenses() {
@@ -54,7 +56,7 @@ export default function Expenses() {
 		resetTimer();
 	}, [request, resetTimer]);
 
-	const expensesTransactions = [];
+	const expensesTransactions: string[] | IExpenseTransaction | any = [];
 
 	const GetOperations = async () => {
 		try {
@@ -90,7 +92,9 @@ export default function Expenses() {
 	};
 
 	useEffect(() => {
-		expensesTransactions.push(GetOperations());
+		if (expensesTransactions !== null) {
+			expensesTransactions.push(GetOperations());
+		}
 	}, [GetOperations, expensesTransactions]);
 
 	// const onAddCategoryClick = () => {
@@ -159,13 +163,13 @@ export default function Expenses() {
 				<div className={styles.expensesTransactionsWrapper}>
 					<h1 className={styles.expensesTransactionHeader}>Последние операции по расходам</h1>
 					{expensesTransactions &&
-						expensesTransactions.map((expensesData, index: Key) => (
+						expensesTransactions.map((expensesData: IExpenseTransaction, index: Key) => (
 							<li key={index}>
 								<ExpensesTransaction
-									firstDate={expensesData?.date}
+									date={expensesData?.date}
 									// secondDate={expensesData.secondDate}
-									purpose={expensesData?.target}
-									sum={expensesData?.amount}
+									target={expensesData?.target}
+									amount={expensesData?.amount}
 								/>
 							</li>
 						))}

@@ -42,10 +42,10 @@ export interface IUserActivation {
 export type TMessageModal = "success" | "warning" | "notification";
 
 export interface IExpenseTransaction {
-	firstDate: string;
+	date: string;
 	secondDate?: string;
-	purpose: string;
-	sum: string;
+	target: string;
+	amount: string;
 }
 
 export interface IIncomeTransaction {

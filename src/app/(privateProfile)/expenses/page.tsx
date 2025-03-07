@@ -60,7 +60,7 @@ export default function Expenses() {
 		try {
 			if (baseUrl) {
 				const response = await GetFiveOperations(baseUrl);
-				if (response.status === axios.HttpStatusCode.Ok) {
+				if (response !== null && response.status === axios.HttpStatusCode.Ok) {
 					console.log(response);
 					return response;
 				}
@@ -74,7 +74,7 @@ export default function Expenses() {
 				error.response.status <= axios.HttpStatusCode.InternalServerError
 			) {
 				console.log(error);
-				return [];
+				return expensesTransactions;
 			}
 			if (
 				axios.isAxiosError(error) &&
@@ -84,13 +84,13 @@ export default function Expenses() {
 				error.response.status < ApiResponseCode.SERVER_ERROR_STATUS_MAX
 			) {
 				console.log(error);
-				return [];
+				return expensesTransactions;
 			}
 		}
 	};
 
 	useEffect(() => {
-		expensesTransactions.push(GetOperations() ?? []);
+		expensesTransactions.push(GetOperations());
 	}, [GetOperations, expensesTransactions]);
 
 	// const onAddCategoryClick = () => {

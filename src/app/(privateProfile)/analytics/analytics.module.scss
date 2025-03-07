@@ -276,6 +276,237 @@
     }
 }
 
+.analyticsDiagramIncomeWrapper {
+    border: 1px solid var(--color-gainsboro);
+    border-radius: 12px;
+    padding: 28px 28px 40px 28px;
+    margin-top: 94px;
+}
+
+.analyticsDiagramIncomeInfoWrapper {
+    display: flex;
+    justify-content: space-between;
+}
+
+.analyticsDiagramIncomeInfo {
+
+    &__title {
+        font-size: 2.0rem;
+        font-weight: 400;
+        line-height: 28px;
+    }
+
+    &__value {
+        font-size: 2.6rem;
+        font-weight: 400;
+        line-height: 38px;
+    }
+
+    &__date {
+        font-size: 1.6rem;
+        font-weight: 400;
+        line-height: 22px;
+        color: var(--color-star-dust);
+    }
+
+}
+
+.analyticsDiagramIncome {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 107px;
+    gap: 40px;
+    padding: 0 12px;
+}
+
+.diagramIncomeBlockLeft, .diagramIncomeBlockRight {
+    width: 232px;
+    height: 107px;
+}
+
+.diagramIncomeBlockLeftItems {
+    display: flex;
+    flex-direction: column;
+}
+
+
+.diagramIncomeBlockLeftItem {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    &__value {
+        font-size: 1.3rem;
+        font-weight: 400;
+        line-height: 22px;
+    }
+}
+
+.diagramIncomeBlockLeftIconWrapper {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    
+    &__circle {
+        width: 14px;
+        height: 14px;
+        border-radius: 50%;
+    }
+    
+    &__text {
+        font-size: 1.3rem;
+        font-weight: 400;
+        line-height: 22px;
+    }
+}
+
+.diagramIncomeBlockRight {
+    overflow: hidden;
+    overflow-y: auto;
+}
+
+.diagramIncomeBlockRight::-webkit-scrollbar {
+    width: 4px;
+    background-color: var(--color-light-grayish-green);
+    border-radius: 10px;
+}
+.diagramIncomeBlockRight::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-color: var(--color-light-green);
+}
+.diagramIncomeBlockRight::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px var(--color-light-grayish-green);
+    border-radius: 10px;
+    background-color: transparent;
+}
+.diagramIncomeBlockRightItems {
+    display: flex;
+    flex-direction: column;
+}
+
+.diagramIncomeBlockRightItem {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    &__value {
+        margin-right: 12px;
+        font-size: 1.3rem;
+        font-weight: 400;
+        line-height: 22px;
+    }
+}
+
+.diagramIncomeBlockRightIconWrapper {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    
+    &__circle {
+        width: 14px;
+        height: 14px;
+        border-radius: 50%;
+    }
+    
+    &__text {
+        font-size: 1.3rem;
+        font-weight: 400;
+        line-height: 22px;
+    }
+}
+
+.diagramIncome {
+    width: 100%;
+    margin-top: 28px;
+}
+
+.analyticsDiagramAnalysisWrapper {
+    border: 1px solid var(--color-gainsboro);
+    border-radius: 12px;
+    padding: 28px 28px 40px 28px;
+    margin-top: 94px;
+}
+
+.analyticsDiagramAnalysisInfoWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 48px;
+}
+
+.analyticsDiagramAnalysisInfo {
+
+    &__title {
+        font-size: 2.0rem;
+        font-weight: 400;
+        line-height: 28px;
+    }
+
+    &__value {
+        font-size: 2.6rem;
+        font-weight: 400;
+        line-height: 38px;
+    }
+
+    &__date {
+        font-size: 1.6rem;
+        font-weight: 400;
+        line-height: 22px;
+        color: var(--color-star-dust);
+    }
+}
+
+.diagramAnalysis {
+    width: 228px;
+    height: 228px;
+    transform: rotate(90deg);
+}
+
+.analyticsDiagramAnalysis {
+    display: flex;
+    align-items: center;
+    gap: 56px;
+}
+
+.diagramAnalysisBlockItems {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.diagramAnalysisBlockItem {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+
+    &__value {
+        font-weight: 400;
+        font-size: 1.6rem;
+        line-height: 22px;
+        letter-spacing: 0px;
+    }
+}
+
+.diagramAnalysisBlockIconWrapper {
+
+    display: flex;
+    align-items: center;
+    gap: 4px;
+
+    &__circle {
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+    }
+
+    &__text {
+        font-weight: 400;
+        font-size: 1.6rem;
+        line-height: 22px;
+        letter-spacing: 0px;
+    }
+}
+
 @media (max-width: 1440px) {
     .analyticsBlankPage {
         margin-top: 20px;
@@ -294,11 +525,24 @@
     .analyticsSelectOperation {
         width: calc(100% - 300px);
     }
+
+    .analyticsDiagramIncomeWrapper {
+        margin-top: 72px;
+    }
+    .diagramIncomeBlockLeft {
+        display: none;
+    }
 }
 
 @media (max-width: 1024px) {
     .analyticsBlankPage__image {
         margin-bottom: 46px;
+    }
+    .analyticsDiagramIncomeWrapper {
+        margin-top: 30px;
+    }
+    .diagramIncomeBlockLeft {
+        display: block;
     }
 }
 
@@ -335,6 +579,21 @@
     }
     .analyticsSelectDateAndPeriod {
         width: 50%;
+    }
+
+    .diagramIncomeBlockLeft {
+        display: none;
+    }
+    .analyticsDiagramIncomeWrapper {
+        margin-top: 0px;
+    }
+    .diagramIncome {
+        margin-top: 24px;
+    }
+
+    .diagramAnalysis {
+        width: 160px;
+        height: 160px;
     }
 }
 
@@ -423,5 +682,52 @@
     }
     .diagramExpensesBlockRight {
         width: 100%;
+    }
+
+    .analyticsDiagramIncomeInfo {
+
+        &__title {
+            font-size: 1.6rem;
+            font-weight: 400;
+            line-height: 28px;
+        }
+    
+        &__value {
+            font-size: 2.0rem;
+            font-weight: 400;
+            line-height: 38px;
+        }
+    
+        &__date {
+            font-size: 1.3rem;
+            font-weight: 400;
+            line-height: 22px;
+            color: var(--color-star-dust);
+        }
+    }
+    
+    .diagramIncomeBlockRight {
+        margin-top: 20px;
+        width: 100%;
+    }
+
+    .analyticsDiagramAnalysis {
+        flex-direction: column;
+        align-items: start;
+    }
+
+    .analyticsDiagramAnalysisInfo {
+
+        &__title {
+            font-size: 1.6rem;
+        }
+    
+        &__value {
+            font-size: 2.0rem;         
+        }
+    
+        &__date {
+            font-size: 1.3rem;
+        }
     }
 }

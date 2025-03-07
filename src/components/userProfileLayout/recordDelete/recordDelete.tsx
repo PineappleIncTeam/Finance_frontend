@@ -1,3 +1,4 @@
+import { ButtonType } from "../../../helpers/buttonFieldValues";
 import { IExpensesModals } from "../../../types/common/ComponentsProps";
 import Button from "../../../ui/button/button";
 import Title from "../../../ui/title/Title";
@@ -12,8 +13,8 @@ export const RecordDeleteModal = ({ open }: IExpensesModals) => {
 				<p className={styles.deleteRecordModalSubtitle}>Вы действительно хотите удалить эту запись?</p>
 				<p className={styles.deleteRecordModalSubtitle}>Далее действие уже не может быть отменено.</p>
 				<div className={styles.buttonsContainer}>
-					<Button content={"Отменить"} styleName={"buttonForDeleteRecord__cancel"} />
-					<Button content={"Удалить"} styleName={"buttonForDeleteRecord"} />
+					<Button variant={ButtonType.Outlined}>Отменить</Button>
+					<Button variant={ButtonType.Faded}>Удалить</Button>
 				</div>
 			</div>
 		</dialog>

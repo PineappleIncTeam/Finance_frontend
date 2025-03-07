@@ -4,6 +4,8 @@ import Title from "../../../ui/title/Title";
 
 import Button from "../../../ui/button/button";
 
+import { ButtonType } from "../../../helpers/buttonFieldValues";
+
 import styles from "./categoryDelete.module.scss";
 
 export const CategoryDeleteModal = ({ open }: IExpensesModals) => {
@@ -15,9 +17,9 @@ export const CategoryDeleteModal = ({ open }: IExpensesModals) => {
 					Вы хотите удалить категорию «Зарплата» или оправить ее в архив ?
 				</p>
 				<div className={styles.buttonsContainer}>
-					<Button content={"Удалить"} styleName={"buttonForDeleteCategory"} />
-					<Button content={"В архив"} styleName={"buttonForDeleteCategory__archive"} />
-					<Button content={"Отменить"} styleName={"buttonForDeleteCategory__cancel"} />
+					<Button variant={ButtonType.Faded}>Удалить</Button>
+					<Button variant={ButtonType.Faded}>В архив</Button>
+					<Button variant={ButtonType.Outlined}>Отменить</Button>
 				</div>
 			</div>
 		</dialog>

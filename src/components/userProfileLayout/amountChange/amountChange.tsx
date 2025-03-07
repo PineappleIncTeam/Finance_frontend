@@ -10,13 +10,15 @@ import Button from "../../../ui/button/button";
 import { IAddCategoryExpensesForm } from "../../../types/components/ComponentsTypes";
 import { IExpensesModals } from "../../../types/common/ComponentsProps";
 
+import { ButtonType } from "../../../helpers/buttonFieldValues";
+
 import styles from "./amountChange.module.scss";
 
 export const AmountChangeModal = ({ open }: IExpensesModals) => {
 	const { control, handleSubmit } = useForm<IAddCategoryExpensesForm>({
-		defaultValues: {
-			amount: "",
-		},
+		// defaultValues: {
+		// 	amount: "",
+		// },
 		mode: "all",
 		delayError: 200,
 	});
@@ -35,14 +37,14 @@ export const AmountChangeModal = ({ open }: IExpensesModals) => {
 						<AppInput
 							control={control}
 							label={"Введите новое числовое значение"}
-							name={"category"}
+							name={"name"}
 							type={InputTypeList.Text}
 							placeholder={"100.00"}
 						/>
 					</div>
 					<div className={styles.buttonsContainer}>
-						<Button content={"Отменить"} styleName={"buttonForAddExpensesCategory__cancel"} />
-						<Button content={"Изменить"} styleName={"buttonForAddExpensesCategory"} />
+						<Button variant={ButtonType.Outlined}>Отменить</Button>
+						<Button variant={ButtonType.Faded}>Изменить</Button>
 					</div>
 				</form>
 			</div>

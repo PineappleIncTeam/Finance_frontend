@@ -1,6 +1,6 @@
 import { StaticImageData } from "next/image";
 import { Control, FieldValues, Path } from "react-hook-form";
-import { MouseEvent } from "react";
+import { MouseEvent, ReactNode } from "react";
 
 export type CustomLayout = () => Element;
 
@@ -124,4 +124,16 @@ export interface ICategorySelect<T extends FieldValues> {
 	placeholder?: string;
 	onAddCategory: () => void;
 	onRemoveCategory?: (categoryId: number) => void;
+}
+
+export interface IExpensesModals {
+	open: boolean;
+	addClick?: () => void;
+}
+
+export interface ICategoryResponse {
+	className?: string;
+	title?: string;
+	open: boolean;
+	children?: ReactNode;
 }

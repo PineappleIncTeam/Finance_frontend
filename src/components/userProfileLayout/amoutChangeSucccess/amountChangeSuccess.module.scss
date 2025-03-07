@@ -1,0 +1,36 @@
+.backgroundModal {
+	position: fixed;
+	background: var(--color-black-two-of-third);
+	width: 100%;
+	height: 100vh;
+	top: 0;
+	left: 0;
+	z-index: 120;
+}
+.amountChangeSuccessModalContainer {
+	width: 384px;
+	height: 92px;
+	border-radius: 12px;
+	margin-inline: auto;
+	background: var(--color-pure-light);
+	box-shadow: 0px 4px 20px 0px var(--color-black-eight-part);
+
+	&__title {
+		font-size: 2rem;
+		line-height: 2.8rem;
+		padding: 32px 64px;
+	}
+
+	@media (max-width: 490px) {
+		& {
+			width: 246px;
+			height: 62px;
+
+			&__title {
+				font-size: 1.6rem;
+				line-height: 2.2rem;
+                padding: 20px;
+			}
+		}
+	}
+}

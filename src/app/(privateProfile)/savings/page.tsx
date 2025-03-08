@@ -14,7 +14,8 @@ import {
 	TIndexState,
 	TSavingsFieldState,
 } from "../../../types/components/ComponentsTypes";
-import { ISavingsInputForm, ISavingsSelectForm } from "../../../types/pages/Savings";
+import { ISavingsInputForm, ISavingsSelectForm} from "../../../types/pages/Savings";
+import { ICategoryOption} from "../../../types/common/ComponentsProps";
 import SavingsTransaction from "../../../components/userProfileLayout/savingsTransaction/savingsTransaction";
 import AppInput from "../../../ui/appInput/AppInput";
 import { CategorySelect } from "../../../components/userProfileLayout/categorySelect/CategorySelect";
@@ -25,7 +26,6 @@ import { getCorrectBaseUrl } from "../../../utils/baseUrlConverter";
 import handleLogout from "../../../helpers/logout";
 
 import { getUserCategories } from "../../../services/api/categories/getUserCategories";
-
 
 import { EditIcon } from "../../../assets/script/expenses/EditIcon";
 import { CheckIcon } from "../../../assets/script/savings/CheckIcon";
@@ -56,9 +56,7 @@ function Savings() {
 	const { request } = handleLogout(baseUrl);
 	const { resetTimer } = useLogoutTimer(request);
 
-	const [categories, setCategories] = useState<any[]>([]); // Состояние для хранения категорий
-	const [loading, setLoading] = useState<boolean>(false); // Состояние загрузки
-	const [error, setError] = useState<string | null>(null); // Состояние ошибок
+	const [categories, setCategories] = useState<ICategoryOption[]>([]);
 
 	const initialItems = [
 		{ category: "Обучение ребенка", target: "210 000.00", sum: "200 000.00", status: "В процессе" },
@@ -114,37 +112,18 @@ function Savings() {
 		resetTimer();
 	}, [request, resetTimer]);
 
-
-
 	useEffect(() => {
 		if (baseUrl) {
-		  // При монтировании компонента получаем категории
 		  const fetchCategories = async () => {
-			setLoading(true);
-			setError(null); // Сбрасываем ошибки
-			try {
-			  const response = await getUserCategories(baseUrl); // Получаем категории
-			  setCategories(response.data); // Сохраняем категории в состояние
-			} catch (err) {
-			  setError("Не удалось загрузить категории."); // Обрабатываем ошибку
-			  console.error(err);
-			} finally {
-			  setLoading(false); // Завершаем загрузку
-			}
+			const response = await getUserCategories(baseUrl);
+			setCategories(response.data); 
 		  };
-	
+	  
 		  fetchCategories();
 		}
 	  }, [baseUrl]);
 
 
-	  if (loading) {
-		return <div>Загрузка...</div>; // Показать индикатор загрузки
-	  }
-	
-	  if (error) {
-		return <div>{error}</div>; // Показать ошибку
-	  }
 
 	function renderSavingsItemList() {
 		return items.map((item, index) => {

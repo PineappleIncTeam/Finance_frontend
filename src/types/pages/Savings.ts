@@ -7,3 +7,8 @@ export interface ISavingsInputForm {
 export interface ISavingsSelectForm {
 	savings?: string;
 }
+
+export interface ICategory {
+	id: number;
+	name: string;
+  }

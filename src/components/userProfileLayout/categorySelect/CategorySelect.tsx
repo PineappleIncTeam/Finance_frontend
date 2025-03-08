@@ -5,6 +5,8 @@ import cn from "classnames";
 import { ICategorySelect } from "../../../types/common/ComponentsProps";
 import { InputTypeList } from "../../../helpers/Input";
 import CategorySelectAdd from "../categorySelectAdd/CategorySelectAdd";
+import { deleteUserCategories } from "../../../services/api/categories/DeletepostUserCategories";
+
 
 
 
@@ -61,11 +63,7 @@ export const CategorySelect = <T extends FieldValues>({
 		setIsOpen(!isOpen);
 	};
 
-	const handleRemoveCategory = (categoryId: number) => {
-		if (onRemoveCategory) {
-			onRemoveCategory(categoryId);
-		}
-	};
+
 
 	const handleRemoveSelection = () => {
 		setSelectedValue(null);
@@ -77,9 +75,8 @@ export const CategorySelect = <T extends FieldValues>({
 		onAddCategory();
 	};
 
-	const handleCategorySubmit = (categoryName: string, targetAmount: string) => {
+	const handleCategorySubmit = () => {
 
-		console.log("Категория добавлена:", categoryName, targetAmount);
 		setAddingCategory(false);
 	};
 
@@ -87,6 +84,18 @@ export const CategorySelect = <T extends FieldValues>({
 		// Логика закрытия модального окна
 		setAddingCategory(false);
 	};
+
+	const handleRemoveCategory = async (categoryId: number) => {
+		try {
+		  await deleteUserCategories("https://dev.freenance.store", categoryId);
+	  
+		  if (onRemoveCategory) {
+			onRemoveCategory(categoryId);
+		  }
+		} catch (error) {
+		  console.error("Ошибка при удалении категории:", error);
+		}
+	  };
 
 
 

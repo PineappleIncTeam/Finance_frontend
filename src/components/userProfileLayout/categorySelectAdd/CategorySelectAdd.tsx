@@ -5,33 +5,30 @@ import { useState } from "react";
 import { ICategorySelectAdd } from "../../../types/common/ComponentsProps";
 import { postUserCategories } from "../../../services/api/categories/postUserCategories";
 
-
 import styles from "./CategorySelectAdd.module.scss";
 
 const CategorySelectAdd = ({ onSubmit, onClose }: ICategorySelectAdd) => {
 	const [categoryName, setCategoryName] = useState("");
 	const [targetAmount, setTargetAmount] = useState("");
 
-    const handleSubmit = async () => {
-        
-        const categoryData = {
-            name: categoryName,
-            is_income:  true, 
-            is_outcome: false,  
-            is_deleted: false,
-        };
+	const handleSubmit = async () => {
+		const categoryData = {
+			name: categoryName,
+			is_income: true,
+			is_outcome: false,
+			is_deleted: false,
+		};
 
-        try {
-            // Отправка данных в API
-            await postUserCategories("https://dev.freenance.store", categoryData);
+		try {
+			// Отправка данных в API
+			await postUserCategories("https://dev.freenance.store", categoryData);
 
-            
-            onSubmit(categoryName, targetAmount);
-            onClose(); 
-        } catch (error) {
-            console.error("Ошибка при добавлении категории:", error);
-        }
-    };
+			onSubmit(categoryName, targetAmount);
+			onClose();
+		} catch (error) {
+			console.error("Ошибка при добавлении категории:", error);
+		}
+	};
 
 	return (
 		<>

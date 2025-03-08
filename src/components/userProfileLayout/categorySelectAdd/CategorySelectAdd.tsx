@@ -16,14 +16,14 @@ const CategorySelectAdd = ({ onSubmit, onClose }: ICategorySelectAdd) => {
         
         const categoryData = {
             name: categoryName,
-            is_income: false, 
-            is_outcome: true,  
+            is_income:  true, 
+            is_outcome: false,  
             is_deleted: false,
         };
 
         try {
             // Отправка данных в API
-            await postUserCategories("https://dev.freenance.store/api/v1", categoryData);
+            await postUserCategories("https://dev.freenance.store", categoryData);
 
             
             onSubmit(categoryName, targetAmount);

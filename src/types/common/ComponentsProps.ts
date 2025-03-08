@@ -125,3 +125,8 @@ export interface ICategorySelect<T extends FieldValues> {
 	onAddCategory: () => void;
 	onRemoveCategory?: (categoryId: number) => void;
 }
+
+export interface ICategorySelectAdd {
+	onSubmit: (categoryName: string, targetAmount: string) => void;
+	onClose: () => void;
+  }

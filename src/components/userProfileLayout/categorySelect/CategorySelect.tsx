@@ -4,6 +4,9 @@ import cn from "classnames";
 
 import { ICategorySelect } from "../../../types/common/ComponentsProps";
 import { InputTypeList } from "../../../helpers/Input";
+import CategorySelectAdd from "../categorySelectAdd/CategorySelectAdd";
+
+
 
 import { CloseIcon } from "../../../assets/components/categorySelect/CloseIcon";
 import { Arrow } from "../../../assets/components/categorySelect/Arrow";
@@ -18,6 +21,7 @@ export const CategorySelect = <T extends FieldValues>({
 	placeholder,
 	onAddCategory,
 	onRemoveCategory,
+
 }: ICategorySelect<T>) => {
 	const {
 		field: { onChange, value },
@@ -28,7 +32,10 @@ export const CategorySelect = <T extends FieldValues>({
 
 	const [isOpen, setIsOpen] = useState<boolean>(false);
 	const [selectedValue, setSelectedValue] = useState<number | null>(value);
+	const [addingCategory, setAddingCategory] = useState<boolean>(false);
 	const selectRef = useRef<HTMLDivElement>(null);
+
+
 
 	useEffect(() => {
 		const handleClickOutside = (event: MouseEvent) => {
@@ -65,13 +72,35 @@ export const CategorySelect = <T extends FieldValues>({
 		onChange(null);
 	};
 
+	const handleAddCategory = () => {
+		setAddingCategory(true);
+		onAddCategory();
+	};
+
+	const handleCategorySubmit = (categoryName: string, targetAmount: string) => {
+
+		console.log("Категория добавлена:", categoryName, targetAmount);
+		setAddingCategory(false);
+	};
+
+	const handleCategoryClose = () => {
+		// Логика закрытия модального окна
+		setAddingCategory(false);
+	};
+
+
+
+
 	function renderSelectorOptions() {
 		return (
 			isOpen && (
 				<div className={styles.selectContainer__options} onChange={onChange}>
-					<button onClick={onAddCategory} type={InputTypeList.Button} className={styles.selectContainer__title}>
+					<button onClick={handleAddCategory} type={InputTypeList.Button} className={styles.selectContainer__title}>
 						Добавить категорию
 					</button>
+					{addingCategory && <CategorySelectAdd onSubmit={handleCategorySubmit} onClose={handleCategoryClose}  />}
+
+
 					{options &&
 						options.map((option, index: Key) => (
 							<div

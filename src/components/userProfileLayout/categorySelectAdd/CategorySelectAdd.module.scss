@@ -1,0 +1,90 @@
+.formAdd {
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	height: 541px;
+	width: 548px;
+	background-color: var(--color-pure-light);
+	box-shadow: 0px 4px 20px 0px #0000001f;
+}
+
+.formContent {
+	padding: 64px;
+	font-family: "Rubik", Verdana, Arial, Tahoma, sans-serif;
+
+	&__title {
+		font-weight: 500;
+		font-size: 3.6rem;
+		line-height: 4.4rem;
+		text-align: center;
+		color: var(--color-eerie-black);
+	}
+
+	&__input {
+		width: 100%;
+		margin-top: 27px;
+		display: flex;
+		flex-direction: column;
+		color: var(--color-very-dark-grayish-blue);
+
+		input {
+			margin-top: 4px;
+			border: 1.5px solid var(--color-gainsboro);
+			height: 52px;
+			border-radius: 8px;
+			padding-left: 15px;
+
+			font-weight: 400;
+			font-size: 2rem;
+			line-height: 2.8rem;
+		}
+
+		font-weight: 400;
+		font-size: 2rem;
+		line-height: 2.8rem;
+
+		input::placeholder {
+			color: var(--color-ash-grey);
+		}
+	}
+
+    &__btn{
+        margin-top: 32px;
+        display: flex;
+        justify-content: space-between;
+
+        button{
+            height: 52px;
+            width: 200px;
+            border: 2px solid var(--color-dark-spring-green);
+            border-radius: 12px;
+
+
+font-weight: 400;
+font-size: 2rem;
+line-height: 2.8rem;
+
+        }
+    }
+}
+
+.btnAdd{
+    background-color: var(--color-dark-spring-green) ;
+    color: var(--color-pure-light);
+    transition: all 0.2s ease-in-out;
+}
+.btnCancel{
+    transition: all 0.2s ease-in-out;
+}
+
+@media (min-width:1025px) {
+    .btnAdd:hover{
+        background-color: var(--color-cal-poly-pomona-green);
+    }
+
+    .btnCancel:hover{
+       background-color: var(--color-light-grayish-green);
+    }
+    
+}

@@ -1,1 +1,1 @@
-export const getUserCategoriesEndpoint = "api/v1/categories/";
+export const UserCategoriesEndpoint = "api/v1/categories/";

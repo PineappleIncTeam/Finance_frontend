@@ -31,6 +31,7 @@ function Analytics() {
 		Expenses = "Расходы",
 		Income = "Доходы",
 		Analysis = "Анализ доходов и расходов",
+		ListOfOperations = "Список операций",
 	}
 
 	enum DisplayMode {
@@ -592,7 +593,7 @@ function Analytics() {
 					<Selector
 						name={"number"}
 						label={"Операции"}
-						options={[Operation.Expenses, Operation.Income, Operation.Analysis]}
+						options={[Operation.Expenses, Operation.Income, Operation.Analysis, Operation.ListOfOperations]}
 						control={control}
 					/>
 				</div>
@@ -639,11 +640,41 @@ function Analytics() {
 		</div>
 	)
 
+	const renderListOfOperations = () => (
+		<div className={styles.analyticsListOfOperationsWrapper}>
+			<div className={styles.analyticsListOfOperationsContainer}>
+				<div className={styles.analyticsSelectOperation}>
+					<Selector
+						name={"number"}
+						label={"Операции"}
+						options={[Operation.Expenses, Operation.Income, Operation.Analysis, Operation.ListOfOperations]}
+						control={control}
+					/>
+				</div>
+				<div className={styles.analyticsSelectDateAndPeriod}>
+					<InputDate control={control} name={"date"} isPeriod={true} />
+				</div>
+				<div className={styles.analyticsListOfOperationsDownloadWrapper}>
+					<p className={styles.analyticsListOfOperationsDownloadWrapper__title}>Скачать</p>
+					<div className={styles.analyticsListOfOperationsButtonContent}>
+						<button className={styles.analyticsListOfOperationsButtonContent__PdfButton}>PDF</button>
+						<button className={styles.analyticsListOfOperationsButtonContent__XslButton}>XSL</button>
+					</div>
+				</div>
+			</div>
+			<div className={styles.analyticsListOfOperationsContent}>
+
+			</div>
+		</div>
+	)
+
 	return (
 		<div className={styles.analyticsPageWrap}>
 			<div className={styles.analyticsPageContainer}>
 				<h1 className={styles.headerTitle}>Аналитика</h1>
-				{isEmptyPage ? renderEmptyAnaliticsPage() : renderContentAnaliticsPage()}
+				{operation === Operation.ListOfOperations 
+                ? renderListOfOperations() 
+                : (isEmptyPage ? renderEmptyAnaliticsPage() : renderContentAnaliticsPage())}
 			</div>
 		</div>
 	);

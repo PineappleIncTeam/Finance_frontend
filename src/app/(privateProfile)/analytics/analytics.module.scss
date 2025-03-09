@@ -507,6 +507,88 @@
     }
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.analyticsListOfOperationsWrapper {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.analyticsListOfOperationsContainer {
+    display: flex;
+    align-items: end;
+    gap: 20px;
+    font-size: 2.0rem;
+    font-weight: 400;
+    line-height: 28px;
+    color: var(--color-dark-cyan-blue);
+}
+
+.analyticsListOfOperationsDownloadWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    &__title {
+        font-weight: 400;
+        font-size: 2.0rem;
+        line-height: 28px;
+        letter-spacing: 0px;
+        color: var(--color-very-dark-grayish-blue);
+    }
+}
+
+.analyticsListOfOperationsButtonContent {
+    display: flex;
+    gap: 20px;
+
+    &__PdfButton, &__XslButton {
+        width: 89px;
+        height: 52px;
+        background-color: var(--color-dark-spring-green);
+        color: var(--color-pure-light);
+        font-family: Rubik;
+        font-weight: 400;
+        font-size: 2.4rem;
+        line-height: 24px;
+        letter-spacing: 0px;
+        text-align: center;
+        border-radius: 12px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 @media (max-width: 1440px) {
     .analyticsBlankPage {
         margin-top: 20px;
@@ -728,6 +810,23 @@
     
         &__date {
             font-size: 1.3rem;
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+@media (min-width: 1025px) {
+    .analyticsListOfOperationsButtonContent {
+
+        &__PdfButton:hover, &__XslButton:hover {
+            background-color: var(--color-cal-poly-pomona-green);
         }
     }
 }

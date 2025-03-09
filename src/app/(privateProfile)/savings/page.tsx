@@ -27,6 +27,7 @@ import handleLogout from "../../../helpers/logout";
 
 import { getUserCategories } from "../../../services/api/categories/getUserCategories";
 import { getUserOperations } from "../../../services/api/operations/getUserOperation";
+import { postUserOperations } from "../../../services/api/operations/postUserOperation";
 
 import { EditIcon } from "../../../assets/script/expenses/EditIcon";
 import { CheckIcon } from "../../../assets/script/savings/CheckIcon";
@@ -36,7 +37,7 @@ import { SortIcon } from "../../../assets/script/savings/SortIcon";
 import styles from "./savings.module.scss";
 
 function Savings() {
-	const { control } = useForm<ISavingsInputForm & ISavingsSelectForm>({
+	const { control, getValues } = useForm<ISavingsInputForm & ISavingsSelectForm>({
 		defaultValues: {
 			sum: "",
 		},
@@ -107,6 +108,28 @@ function Savings() {
 		);
 	};
 
+	const handleAddButtonClick = async () => {
+		const categorySelected = getValues("savings"); // Получаем выбранную категорию
+		const amount = parseFloat(getValues("number")); // Получаем введённую сумму
+		const date = getValues("date"); // Получаем дату (если она есть)
+	
+	
+	
+		const operation = {
+		  type: "Deposit", // Тип операции, если это депозит, можно изменить
+		  amount: amount,
+		  date: date || new Date().toISOString(), // Если дата не выбрана, используем текущую
+		  categories: Number(categorySelected),
+		};
+	
+		try {
+		  await postUserOperations(baseUrl, operation); // Отправляем данные
+		  resetTimer(); // После успешной отправки, сбрасываем таймер
+		} catch (error) {
+		  console.error("Ошибка при добавлении операции:", error);
+		}
+	  };
+
 	useEffect(() => {
 		setBaseUrl(getCorrectBaseUrl());
 	}, []);
@@ -128,18 +151,18 @@ function Savings() {
 
 	useEffect(() => {
 		const fetchOperations = async () => {
-		  if (baseUrl) {
-			try {
-			  const response = await getUserOperations(baseUrl);
-			  setTransactions(response.data);
-			} catch (error) {
-			  console.error("Ошибка при получении операций:", error);
+			if (baseUrl) {
+				try {
+					const response = await getUserOperations(baseUrl);
+					setTransactions(response.data);
+				} catch (error) {
+					console.error("Ошибка при получении операций:", error);
+				}
 			}
-		  }
 		};
-	
+
 		fetchOperations();
-	  }, [baseUrl]);
+	}, [baseUrl]);
 
 	function renderSavingsItemList() {
 		return items.map((item, index) => {
@@ -278,7 +301,7 @@ function Savings() {
 								/>
 							</div>
 
-							<AddButton onClick={() => resetTimer()} type={InputTypeList.Submit} />
+							<AddButton onClick={handleAddButtonClick} type={InputTypeList.Submit} />
 						</div>
 					</div>
 					<div className={styles.savingsFormContentWrapperList}>

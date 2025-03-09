@@ -14,8 +14,8 @@ import {
 	TIndexState,
 	TSavingsFieldState,
 } from "../../../types/components/ComponentsTypes";
-import { ISavingsInputForm, ISavingsSelectForm} from "../../../types/pages/Savings";
-import { ICategoryOption} from "../../../types/common/ComponentsProps";
+import { ISavingsInputForm, ISavingsSelectForm } from "../../../types/pages/Savings";
+import { ICategoryOption } from "../../../types/common/ComponentsProps";
 import SavingsTransaction from "../../../components/userProfileLayout/savingsTransaction/savingsTransaction";
 import AppInput from "../../../ui/appInput/AppInput";
 import { CategorySelect } from "../../../components/userProfileLayout/categorySelect/CategorySelect";
@@ -26,6 +26,7 @@ import { getCorrectBaseUrl } from "../../../utils/baseUrlConverter";
 import handleLogout from "../../../helpers/logout";
 
 import { getUserCategories } from "../../../services/api/categories/getUserCategories";
+import { getUserOperations } from "../../../services/api/operations/getUserOperation";
 
 import { EditIcon } from "../../../assets/script/expenses/EditIcon";
 import { CheckIcon } from "../../../assets/script/savings/CheckIcon";
@@ -57,6 +58,8 @@ function Savings() {
 	const { resetTimer } = useLogoutTimer(request);
 
 	const [categories, setCategories] = useState<ICategoryOption[]>([]);
+
+	const [transactions, setTransactions] = useState<ISavingsTransaction[]>([]);
 
 	const initialItems = [
 		{ category: "Обучение ребенка", target: "210 000.00", sum: "200 000.00", status: "В процессе" },
@@ -114,16 +117,29 @@ function Savings() {
 
 	useEffect(() => {
 		if (baseUrl) {
-		  const fetchCategories = async () => {
-			const response = await getUserCategories(baseUrl);
-			setCategories(response.data); 
-		  };
-	  
-		  fetchCategories();
+			const fetchCategories = async () => {
+				const response = await getUserCategories(baseUrl);
+				setCategories(response.data);
+			};
+
+			fetchCategories();
 		}
+	}, [baseUrl]);
+
+	useEffect(() => {
+		const fetchOperations = async () => {
+		  if (baseUrl) {
+			try {
+			  const response = await getUserOperations(baseUrl);
+			  setTransactions(response.data);
+			} catch (error) {
+			  console.error("Ошибка при получении операций:", error);
+			}
+		  }
+		};
+	
+		fetchOperations();
 	  }, [baseUrl]);
-
-
 
 	function renderSavingsItemList() {
 		return items.map((item, index) => {
@@ -216,10 +232,10 @@ function Savings() {
 		return transactions.map((savingsData, index) => (
 			<li key={index}>
 				<SavingsTransaction
-					firstDate={savingsData.firstDate}
-					secondDate={savingsData.secondDate}
-					purpose={savingsData.purpose}
-					sum={savingsData.sum}
+					date={savingsData.date}
+					// secondDate={savingsData.category}
+					categories={savingsData.categories}
+					amount={savingsData.amount}
 				/>
 			</li>
 		));
@@ -296,7 +312,7 @@ function Savings() {
 				<div className={styles.savingsTransactionWrapper}>
 					<h2 className={styles.savingsTransactionHeader}>Последние операции по накоплениям</h2>
 					<ul className={styles.savingsTransaction}>
-						{savingsTransactions && renderSavingsTransactions(savingsTransactions)}
+						{savingsTransactions && renderSavingsTransactions(transactions)}
 					</ul>
 				</div>
 			</div>

@@ -20,7 +20,6 @@ const CategorySelectAdd = ({ onSubmit, onClose }: ICategorySelectAdd) => {
 		};
 
 		try {
-			// Отправка данных в API
 			await postUserCategories("https://dev.freenance.store", categoryData);
 
 			onSubmit(categoryName, targetAmount);

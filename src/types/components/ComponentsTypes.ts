@@ -60,10 +60,9 @@ export interface IBurgerMenu {
 }
 
 export interface ISavingsTransaction {
-	firstDate: string;
-	secondDate: string;
-	purpose: string;
-	sum: string;
+	date: string;
+	categories: string;
+	amount: number;
 }
 
 export interface ISavingsItem {

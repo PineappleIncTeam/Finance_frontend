@@ -110,7 +110,8 @@ function Savings() {
 
 	const handleAddButtonClick = async () => {
 		const categorySelected = getValues("savings"); // Получаем выбранную категорию
-		const amount = parseFloat(getValues("number")); // Получаем введённую сумму
+		const amountString = getValues("number");
+		const amount = amountString ? parseFloat(amountString) : 0; // Получаем введённую сумму
 		const date = getValues("date"); // Получаем дату (если она есть)
 	
 	

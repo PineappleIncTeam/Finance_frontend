@@ -4,32 +4,32 @@ export const savingsTransactions: ISavingsTransaction[] = [
 	{
 		date: "25 января 2024, Пт",
 		// secondDate: "25.01.24, Пт",
-		categories: "Квартира",
+		categories: 1,
 		amount: parseAmount("+ 30 000.00 ₽"),
 	},
 	{
 		date: "24 января 2024, Чт",
 		// secondDate: "24.01.24, Чт",
-		categories: "Квартира",
+		categories: 2,
 		amount: parseAmount("+ 105 000.00 ₽"),
 	},
 	{
 		date: "20 сентября 2024, Ср",
 		// secondDate: "20.09.24, Ср",
-		categories: "Отпуск 2024",
+		categories: 3,
 		amount: parseAmount("+ 10 000.00 ₽"),
 	},
 	{
 		date: "20 сентября 2024, Ср",
 		// secondDate: "20.09.24, Ср",
-		categories: "Машина",
+		categories: 4,
 		amount: parseAmount("+ 10 000.00 ₽"),
 	},
 
 	{
 		date: "14 августа 2024, Пн",
 		// secondDate: "14.08.24, Пн",
-		categories: "Обучение ребенка",
+		categories: 5,
 		amount: parseAmount("+ 2 000.00 ₽"),
 	},
 ];

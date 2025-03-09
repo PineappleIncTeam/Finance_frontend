@@ -124,6 +124,9 @@ function Savings() {
 		};
 	
 		try {
+			if (!baseUrl) {
+				throw new Error("Base URL is not defined");
+			  }
 		  await postUserOperations(baseUrl, operation); // Отправляем данные
 		  resetTimer(); // После успешной отправки, сбрасываем таймер
 		} catch (error) {

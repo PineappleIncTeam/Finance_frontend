@@ -128,7 +128,9 @@ function Savings() {
 				throw new Error("Base URL is not defined");
 			  }
 		  await postUserOperations(baseUrl, operation); // Отправляем данные
-		  resetTimer(); // После успешной отправки, сбрасываем таймер
+		  const updatedTransactions = [...transactions, operation]; // Добавляем новую операцию
+		  setTransactions(updatedTransactions);
+	 
 		} catch (error) {
 		  console.error("Ошибка при добавлении операции:", error);
 		}
@@ -156,13 +158,10 @@ function Savings() {
 	useEffect(() => {
 		const fetchOperations = async () => {
 			if (baseUrl) {
-				try {
 					const response = await getUserOperations(baseUrl);
 					setTransactions(response.data);
-				} catch (error) {
-					console.error("Ошибка при получении операций:", error);
 				}
-			}
+			
 		};
 
 		fetchOperations();

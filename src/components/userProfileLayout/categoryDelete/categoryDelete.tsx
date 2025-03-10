@@ -1,10 +1,9 @@
 import { IExpensesModals } from "../../../types/common/ComponentsProps";
 
-import Title from "../../../ui/title/Title";
-
-import Button from "../../../ui/button/button";
-
 import { ButtonType } from "../../../helpers/buttonFieldValues";
+
+import Button from "../../../ui/Button/button";
+import Title from "../../../ui/title/Title";
 
 import styles from "./categoryDelete.module.scss";
 

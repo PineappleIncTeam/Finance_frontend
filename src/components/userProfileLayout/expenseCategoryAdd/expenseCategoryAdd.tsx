@@ -7,9 +7,10 @@ import AppInput from "../../../ui/appInput/AppInput";
 import Title from "../../../ui/title/Title";
 
 import { IAddCategoryExpensesForm } from "../../../types/components/ComponentsTypes";
-import Button from "../../../ui/button/button";
 
 import { ButtonType } from "../../../helpers/buttonFieldValues";
+
+import Button from "../../../ui/Button/button";
 
 import styles from "./expensesCategoryAdd.module.scss";
 

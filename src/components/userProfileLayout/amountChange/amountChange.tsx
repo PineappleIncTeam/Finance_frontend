@@ -4,13 +4,13 @@ import { InputTypeList } from "../../../helpers/Input";
 
 import AppInput from "../../../ui/appInput/AppInput";
 
-import Title from "../../../ui/title/Title";
-
-import Button from "../../../ui/button/button";
 import { IAddCategoryExpensesForm } from "../../../types/components/ComponentsTypes";
 import { IExpensesModals } from "../../../types/common/ComponentsProps";
 
 import { ButtonType } from "../../../helpers/buttonFieldValues";
+
+import Button from "../../../ui/Button/button";
+import Title from "../../../ui/title/Title";
 
 import styles from "./amountChange.module.scss";
 

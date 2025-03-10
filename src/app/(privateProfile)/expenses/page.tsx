@@ -3,27 +3,40 @@
 
 import { Key, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+import axios from "axios";
+
+import handleLogout from "../../../helpers/logout";
 
 import ExpensesTransaction from "../../../components/userProfileLayout/expensesTransaction/expensesTransaction";
-import { expensesTransactions } from "../../../mocks/ExpensesTransaction";
 
-import AppInput from "../../../ui/appInput/AppInput";
 import { InputTypeList } from "../../../helpers/Input";
+
 import { IExpensesInputForm, IExpensesSelectForm } from "../../../types/pages/Expenses";
-import { Select } from "../../../ui/select/Select";
 
 import InputDate from "../../../ui/inputDate/inputDate";
-import handleLogout from "../../../helpers/logout";
+import { Select } from "../../../ui/select/Select";
 import { getCorrectBaseUrl } from "../../../utils/baseUrlConverter";
+
+import { ApiResponseCode } from "../../../helpers/apiResponseCode";
+import { GetFiveOperations } from "../../../services/api/userProfile/GetFiveOperations";
+
 import useLogoutTimer from "../../../hooks/useLogoutTimer";
 import { CategorySelect } from "../../../components/userProfileLayout/categorySelect/CategorySelect";
 
 import AddButton from "../../../components/userProfileLayout/addButton/addButton";
 
+import AppInput from "../../../ui/appInput/AppInput";
+
+import { CategoryAddModal } from "../../../components/userProfileLayout/categoryAdd/categoryAddModal";
+
+import { IExpenseTransaction } from "../../../types/components/ComponentsTypes";
+
 import styles from "./expenses.module.scss";
 
 export default function Expenses() {
 	const [baseUrl, setBaseUrl] = useState<string>();
+	// const [isOpen, setIsOpen] = useState<boolean>(false);
+
 	const { control } = useForm<IExpensesInputForm & IExpensesSelectForm>({
 		defaultValues: {
 			sum: "",
@@ -42,6 +55,51 @@ export default function Expenses() {
 	useEffect(() => {
 		resetTimer();
 	}, [request, resetTimer]);
+
+	const expensesTransactions: string[] | IExpenseTransaction | any = [];
+
+	const GetOperations = async () => {
+		try {
+			if (baseUrl) {
+				const response = await GetFiveOperations(baseUrl);
+				if (response !== null && response.status === axios.HttpStatusCode.Ok) {
+					console.log(response);
+					return response;
+				}
+			}
+		} catch (error) {
+			if (
+				axios.isAxiosError(error) &&
+				error.response &&
+				error.response.status &&
+				error.response.status >= axios.HttpStatusCode.BadRequest &&
+				error.response.status <= axios.HttpStatusCode.InternalServerError
+			) {
+				console.log(error);
+				return expensesTransactions;
+			}
+			if (
+				axios.isAxiosError(error) &&
+				error.response &&
+				error.response.status &&
+				error.response.status >= axios.HttpStatusCode.InternalServerError &&
+				error.response.status < ApiResponseCode.SERVER_ERROR_STATUS_MAX
+			) {
+				console.log(error);
+				return expensesTransactions;
+			}
+		}
+	};
+
+	useEffect(() => {
+		if (expensesTransactions !== null) {
+			expensesTransactions.push(GetOperations());
+		}
+	}, [GetOperations, expensesTransactions]);
+
+	// const onAddCategoryClick = () => {
+	// 	setIsOpen(true);
+	// };
 
 	return (
 		<div className={styles.expensesPageWrap}>
@@ -77,7 +135,7 @@ export default function Expenses() {
 								label={"Сумма"}
 								type={InputTypeList.Number}
 								name={"number"}
-								placeholder={"0.00 ₽"}
+								placeholder={"0.00"}
 							/>
 						</div>
 						<AddButton onClick={() => resetTimer()} type={InputTypeList.Submit} />
@@ -92,7 +150,7 @@ export default function Expenses() {
 								label={"Сумма"}
 								type={InputTypeList.Number}
 								name={"number"}
-								placeholder="0.00 ₽"
+								placeholder="0.00"
 							/>
 						</div>
 						<AddButton onClick={() => resetTimer()} type={InputTypeList.Submit}>
@@ -100,16 +158,18 @@ export default function Expenses() {
 						</AddButton>
 					</div>
 				</form>
+				{/* {isOpen && <CategoryAddModal open={isOpen}/>} */}
+				{<CategoryAddModal open={true} />}
 				<div className={styles.expensesTransactionsWrapper}>
 					<h1 className={styles.expensesTransactionHeader}>Последние операции по расходам</h1>
 					{expensesTransactions &&
-						expensesTransactions.map((expensesData, index: Key) => (
+						expensesTransactions.map((expensesData: IExpenseTransaction, index: Key) => (
 							<li key={index}>
 								<ExpensesTransaction
-									firstDate={expensesData.firstDate}
-									secondDate={expensesData.secondDate}
-									purpose={expensesData.purpose}
-									sum={expensesData.sum}
+									date={expensesData?.date}
+									// secondDate={expensesData.secondDate}
+									target={expensesData?.target}
+									amount={expensesData?.amount}
 								/>
 							</li>
 						))}

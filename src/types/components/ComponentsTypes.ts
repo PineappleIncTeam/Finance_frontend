@@ -42,10 +42,10 @@ export interface IUserActivation {
 export type TMessageModal = "success" | "warning" | "notification";
 
 export interface IExpenseTransaction {
-	firstDate: string;
-	secondDate: string;
-	purpose: string;
-	sum: string;
+	date: string;
+	secondDate?: string;
+	target: string;
+	amount: string;
 }
 
 export interface IIncomeTransaction {
@@ -96,3 +96,9 @@ export interface IEditActionProps {
 export type TCommonFunction = () => void;
 
 export type TTimerRefState = ReturnType<typeof setTimeout> | null | number;
+
+export interface IAddCategoryExpensesForm {
+	name: string;
+	is_income: boolean;
+	is_outcome: boolean;
+}

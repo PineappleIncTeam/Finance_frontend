@@ -3,34 +3,34 @@ import { IExpenseTransaction } from "../types/components/ComponentsTypes";
 
 export const expensesTransactions: IExpenseTransaction[] = [
 	{
-		firstDate: "24 января 2024, Чт",
+		date: "24 января 2024, Чт",
 		secondDate: "24.01.24, Чт",
-		purpose: "Обучение ребёнка",
-		sum: "- 50 000.00 ₽",
+		target: "Обучение ребёнка",
+		amount: "- 50 000.00 ₽",
 	},
 	{
-		firstDate: "24 января 2024, Чт",
+		date: "24 января 2024, Чт",
 		secondDate: "24.01.24, Чт",
-		purpose: "Ремонт машины",
-		sum: "- 10 000.00 ₽",
+		target: "Ремонт машины",
+		amount: "- 10 000.00 ₽",
 	},
 	{
-		firstDate: "24 января 2024, Чт",
+		date: "24 января 2024, Чт",
 		secondDate: "24.01.24, Чт",
-		purpose: "ЖКХ",
-		sum: "- 7 000.00 ₽",
+		target: "ЖКХ",
+		amount: "- 7 000.00 ₽",
 	},
 	{
-		firstDate: "24 января 2024, Чт",
+		date: "24 января 2024, Чт",
 		secondDate: "24.01.24, Чт",
-		purpose: "Охрана школы",
-		sum: "- 1 000.00 ₽",
+		target: "Охрана школы",
+		amount: "- 1 000.00 ₽",
 	},
 
 	{
-		firstDate: "24 января 2024, Чт",
+		date: "24 января 2024, Чт",
 		secondDate: "24.01.24, Чт",
-		purpose: "Накопления на квартиру",
-		sum: "- 100 500.00 ₽",
+		target: "Накопления на квартиру",
+		amount: "- 100 500.00 ₽",
 	},
 ];

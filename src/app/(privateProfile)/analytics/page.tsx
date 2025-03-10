@@ -16,9 +16,11 @@ import { InputTypeList } from "../../../helpers/Input";
 import generateRandomColors from "../../../utils/generateRandomColor";
 import { analyticsIncomeTransactions } from "../../../mocks/AnalyticsIncomeTransaction";
 import { analyticsExpensesTransactions } from "../../../mocks/AnalyticsExpensesTransaction";
+import { analyticsSavingsTransactions } from "../../../mocks/AnalyticsSavingsTransaction";
 import { IAnalyticsTransactions } from "../../../types/components/ComponentsTypes";
 import AnalystIncomeTransactions from "../../../components/userProfileLayout/analystIncomeTransactions/analystIncomeTransactions";
 import AnalystExpensesTransactions from "../../../components/userProfileLayout/analystExpensesTransactions/analystExpensesTransactions";
+import AnalystSavingsTransactions from "../../../components/userProfileLayout/analystSavingsTransactions/analystSavingsTransactions";
 
 import styles from "./analytics.module.scss";
 
@@ -671,6 +673,19 @@ function Analytics() {
 		));
 	};
 
+	const renderAnalyticsSavingsTransactions = (transactions: IAnalyticsTransactions[]) => {
+		return transactions.map((savingsData, index) => (
+			<li key={index}>
+				<AnalystSavingsTransactions
+					firstDate={savingsData.firstDate}
+					secondDate={savingsData.secondDate}
+					purpose={savingsData.purpose}
+					sum={savingsData.sum}
+				/>
+			</li>
+		));
+	};
+
 	
 
 	const renderListOfOperations = () => (
@@ -709,6 +724,13 @@ function Analytics() {
 					<h3 className={styles.analyticsTransactionsWrapper__title}>Операции с расходами</h3>
 					<ul className={styles.analyticsTransactionsWrapper__item}>
 						{analyticsExpensesTransactions && renderAnalyticsExpensesTransactions(analyticsExpensesTransactions)}
+					</ul>
+				</div>
+
+				<div className={styles.analyticsTransactionsWrapper}>
+					<h3 className={styles.analyticsTransactionsWrapper__title}>Операции с накоплениями</h3>
+					<ul className={styles.analyticsTransactionsWrapper__item}>
+						{analyticsSavingsTransactions && renderAnalyticsSavingsTransactions(analyticsSavingsTransactions)}
 					</ul>
 				</div>
 

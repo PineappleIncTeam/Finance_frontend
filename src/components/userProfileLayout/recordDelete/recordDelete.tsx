@@ -1,6 +1,6 @@
 import { ButtonType } from "../../../helpers/buttonFieldValues";
 import { IExpensesModals } from "../../../types/common/ComponentsProps";
-import Button from "../../../ui/button/button";
+import Button from "../../../ui/Button/button";
 import Title from "../../../ui/title/Title";
 
 import styles from "./recordDelete.module.scss";

@@ -11,8 +11,6 @@ import AppInput from "../../../ui/appInput/AppInput";
 
 import Title from "../../../ui/title/Title";
 
-import Button from "../../../ui/button/button";
-
 import { ButtonType } from "../../../helpers/buttonFieldValues";
 import { ApiResponseCode } from "../../../helpers/apiResponseCode";
 
@@ -20,6 +18,8 @@ import { AddExpensesCategory } from "../../../services/api/userProfile/AddExpens
 
 import { getCorrectBaseUrl } from "../../../utils/baseUrlConverter";
 import { CategoryAddSuccessModal } from "../categoryAddSuccess/categoryAddSuccess";
+
+import Button from "../../../ui/Button/button";
 
 import styles from "./categoryAddModal.module.scss";
 

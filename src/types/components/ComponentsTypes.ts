@@ -99,6 +99,6 @@ export type TTimerRefState = ReturnType<typeof setTimeout> | null | number;
 
 export interface IAddCategoryExpensesForm {
 	name: string;
-	is_income: true;
-	is_outcome: true;
+	is_income: boolean;
+	is_outcome: boolean;
 }

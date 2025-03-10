@@ -28,7 +28,7 @@ export const CategoryAddModal = ({ open }: IExpensesModals) => {
 		defaultValues: {
 			name: "",
 			// eslint-disable-next-line camelcase
-			is_income: true,
+			is_income: false,
 			// eslint-disable-next-line camelcase
 			is_outcome: true,
 			// amount: "",

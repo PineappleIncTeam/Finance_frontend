@@ -528,7 +528,7 @@
     margin-top: 20px;
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 40px;
 }
 
 .analyticsListOfOperationsContainer {
@@ -576,7 +576,49 @@
     }
 }
 
+.analyticsListOfOperationsContent {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    overflow: hidden;
+    overflow-y: auto;
+    height: 620px;
+}
 
+.analyticsListOfOperationsContent::-webkit-scrollbar {
+    width: 4px;
+    background-color: var(--color-light-grayish-green);
+    border-radius: 10px;
+}
+.analyticsListOfOperationsContent::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-color: var(--color-light-green);
+}
+.analyticsListOfOperationsContent::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px var(--color-light-grayish-green);
+    border-radius: 10px;
+    background-color: transparent;
+}
+
+.analyticsTransactionsWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    &__title {
+        font-weight: 500;
+        font-size: 2.4rem;
+        line-height: 32px;
+        letter-spacing: 0px;
+        color: var(--color-eerie-black);
+    }
+    &__item {
+        font-weight: 400;
+        font-size: 1.6rem;
+        line-height: 22px;
+        letter-spacing: 0px;
+    }
+}
 
 
 
@@ -813,6 +855,13 @@
         }
     }
 }
+
+
+
+
+
+
+
 
 
 

@@ -66,6 +66,13 @@ export interface ISavingsTransaction {
 	sum: string;
 }
 
+export interface IAnalyticsTransactions {
+	firstDate: string;
+	secondDate: string;
+	purpose: string;
+	sum: string;
+}
+
 export interface ISavingsItem {
 	category: string;
 	target: string;

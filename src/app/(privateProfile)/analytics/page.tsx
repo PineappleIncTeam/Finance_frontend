@@ -14,6 +14,9 @@ import { Selector } from "../../../ui/selector/Selector";
 import { IAnalyticsInputForm } from "../../../types/pages/Analytics";
 import { InputTypeList } from "../../../helpers/Input";
 import generateRandomColors from "../../../utils/generateRandomColor";
+import { analyticsIncomeTransactions } from "../../../mocks/AnalyticsIncomeTransaction";
+import { IAnalyticsTransactions } from "../../../types/components/ComponentsTypes";
+import AnalystIncomeTransactions from "../../../components/userProfileLayout/analystIncomeTransactions/analystIncomeTransactions";
 
 import styles from "./analytics.module.scss";
 
@@ -640,6 +643,21 @@ function Analytics() {
 		</div>
 	)
 
+	const renderAnalyticsIncomeTransactions = (transactions: IAnalyticsTransactions[]) => {
+		return transactions.map((savingsData, index) => (
+			<li key={index}>
+				<AnalystIncomeTransactions
+					firstDate={savingsData.firstDate}
+					secondDate={savingsData.secondDate}
+					purpose={savingsData.purpose}
+					sum={savingsData.sum}
+				/>
+			</li>
+		));
+	};
+
+	
+
 	const renderListOfOperations = () => (
 		<div className={styles.analyticsListOfOperationsWrapper}>
 			<div className={styles.analyticsListOfOperationsContainer}>
@@ -662,9 +680,18 @@ function Analytics() {
 					</div>
 				</div>
 			</div>
+
 			<div className={styles.analyticsListOfOperationsContent}>
 
+				<div className={styles.analyticsTransactionsWrapper}>
+					<h3 className={styles.analyticsTransactionsWrapper__title}>Операции с доходами</h3>
+					<ul className={styles.analyticsTransactionsWrapper__item}>
+						{analyticsIncomeTransactions && renderAnalyticsIncomeTransactions(analyticsIncomeTransactions)}
+					</ul>
+				</div>
+
 			</div>
+
 		</div>
 	)
 

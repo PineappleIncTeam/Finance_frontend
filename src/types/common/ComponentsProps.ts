@@ -1,6 +1,10 @@
+import { AxiosResponse } from "axios";
 import { StaticImageData } from "next/image";
 import { Control, FieldValues, Path } from "react-hook-form";
+
 import { MouseEvent, ReactNode } from "react";
+
+import { IAddCategoryExpensesForm } from "../components/ComponentsTypes";
 
 export type CustomLayout = () => Element;
 
@@ -128,7 +132,8 @@ export interface ICategorySelect<T extends FieldValues> {
 
 export interface IExpensesModals {
 	open: boolean;
-	addClick?: () => void;
+	request?: (data: IAddCategoryExpensesForm) => Promise<AxiosResponse<any, any>>;
+	onCancelClick?: () => void;
 }
 
 export interface ICategoryResponse {

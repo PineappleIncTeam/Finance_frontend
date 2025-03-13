@@ -33,10 +33,14 @@ export const CategoryAddModal = ({ open, request, onCancelClick }: IExpensesModa
 		delayError: 200,
 	});
 
+	const onSubmit = async (data: IAddCategoryExpensesForm) => {
+		request(data);
+	};
+
 	return (
 		<dialog open={open} className={styles.backgroundModal}>
 			<div onClick={(e) => e.stopPropagation()} role="textbox" className={styles.addCategoryModalWrap}>
-				<form className={styles.addCategoryFormContainer} onSubmit={handleSubmit(request)}>
+				<form className={styles.addCategoryFormContainer} onSubmit={handleSubmit(onSubmit)}>
 					<Title title={"Добавление категории"} />
 					<div className={styles.addCategoryFormData}>
 						<p className={styles.addCategoryFormData__label}>Введите название категории</p>

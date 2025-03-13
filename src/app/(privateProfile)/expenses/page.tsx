@@ -105,6 +105,7 @@ export default function Expenses() {
 				if (response.status === axios.HttpStatusCode.Ok) {
 					setIsOpen(false);
 					setIsResponseSuccess(true);
+					return true;
 				}
 			}
 		} catch (error) {
@@ -115,6 +116,7 @@ export default function Expenses() {
 				error.response.status === axios.HttpStatusCode.Conflict
 			) {
 				("Не верные данные");
+				return false;
 			}
 			if (
 				axios.isAxiosError(error) &&
@@ -124,6 +126,7 @@ export default function Expenses() {
 				error.response.status < ApiResponseCode.SERVER_ERROR_STATUS_MAX
 			) {
 				router.push(MainPath.ServerError);
+				return false;
 			}
 		}
 	};

@@ -131,7 +131,7 @@ export interface ICategorySelect<T extends FieldValues> {
 
 export interface IExpensesModals {
 	open: boolean;
-	request?: (data: IAddCategoryExpensesForm) => Promise<void>;
+	request?: (data: IAddCategoryExpensesForm) => Promise<boolean>;
 	onCancelClick?: () => void;
 }
 

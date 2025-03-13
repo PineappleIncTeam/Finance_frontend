@@ -1,4 +1,3 @@
-import { AxiosResponse } from "axios";
 import { StaticImageData } from "next/image";
 import { Control, FieldValues, Path } from "react-hook-form";
 
@@ -132,7 +131,7 @@ export interface ICategorySelect<T extends FieldValues> {
 
 export interface IExpensesModals {
 	open: boolean;
-	request?: (data: IAddCategoryExpensesForm) => Promise<AxiosResponse<any, any>>;
+	request?: (data: IAddCategoryExpensesForm) => Promise<void>;
 	onCancelClick?: () => void;
 }
 

@@ -132,7 +132,7 @@ export interface ICategorySelect<T extends FieldValues> {
 
 export interface IExpensesModals {
 	open: boolean;
-	request?: (data: IAddCategoryExpensesForm) => Promise<AxiosResponse<any, any> | undefined>;
+	request?: (data: IAddCategoryExpensesForm) => Promise<AxiosResponse<any, any>>;
 	onCancelClick?: () => void;
 }
 

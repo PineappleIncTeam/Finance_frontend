@@ -115,7 +115,7 @@ export default function Expenses() {
 				error.response.status &&
 				error.response.status === axios.HttpStatusCode.Conflict
 			) {
-				return "Не верные данные";
+				("Не верные данные");
 			}
 			if (
 				axios.isAxiosError(error) &&

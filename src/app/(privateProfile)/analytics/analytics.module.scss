@@ -583,6 +583,7 @@
     overflow: hidden;
     overflow-y: auto;
     height: 620px;
+    padding-right: 8px;
 }
 
 .analyticsListOfOperationsContent::-webkit-scrollbar {
@@ -656,6 +657,46 @@
     .diagramIncomeBlockLeft {
         display: none;
     }
+
+
+
+
+
+
+
+
+
+
+
+
+    .analyticsListOfOperationsButtonContent {
+        display: flex;
+        gap: 9px;
+    
+        &__PdfButton, &__XslButton {
+            width: 71px;
+            height: 52px;
+        }
+    }
+
+    .analyticsListOfOperationsContainer {
+        display: flex;
+        align-items: end;
+        gap: 16px;
+        font-size: 2.0rem;
+        font-weight: 400;
+        line-height: 28px;
+        color: var(--color-dark-cyan-blue);
+    }
+
+
+
+
+
+
+
+
+
 }
 
 @media (max-width: 1024px) {

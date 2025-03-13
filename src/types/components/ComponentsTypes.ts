@@ -101,4 +101,5 @@ export interface IAddCategoryExpensesForm {
 	name: string;
 	is_income: boolean;
 	is_outcome: boolean;
+	request?: (data: IAddCategoryExpensesForm) => Promise<void>;
 }

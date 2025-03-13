@@ -675,7 +675,6 @@
     
         &__PdfButton, &__XslButton {
             width: 71px;
-            height: 52px;
         }
     }
 
@@ -702,6 +701,31 @@
     }
     .diagramIncomeBlockLeft {
         display: block;
+    }
+
+
+
+
+
+
+
+
+    .analyticsListOfOperationsButtonContent {
+        display: flex;
+        gap: 20px;
+    
+        &__PdfButton, &__XslButton {
+            width: 89px;
+            font-size: 2rem;
+        }
+    }
+
+    .analyticsListOfOperationsContent {
+        height: 700px;
+    }
+
+    .analyticsListOfOperationsContainer {
+        gap: 20px;
     }
 }
 
@@ -753,6 +777,33 @@
     .diagramAnalysis {
         width: 160px;
         height: 160px;
+    }
+
+
+
+
+
+
+
+
+
+
+
+    .analyticsListOfOperationsButtonContent {
+        display: flex;
+        gap: 8px;
+    
+        &__PdfButton, &__XslButton {
+            width: 54px;
+        }
+    }
+
+    .analyticsListOfOperationsContainer {
+        gap: 12px;
+    }
+
+    .analyticsListOfOperationsContent {
+        height: 503px;
     }
 }
 

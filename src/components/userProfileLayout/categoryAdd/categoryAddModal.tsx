@@ -34,7 +34,7 @@ export const CategoryAddModal = ({ open, request, onCancelClick }: IExpensesModa
 	});
 
 	const onSubmit = async (data: IAddCategoryExpensesForm) => {
-		if (data) {
+		if (data !== null) {
 			await request(data);
 		}
 	};

@@ -99,7 +99,7 @@ export default function Expenses() {
 
 	const addCategory = async (data: IAddCategoryExpensesForm) => {
 		try {
-			if (baseUrl && data) {
+			if (baseUrl && data !== null) {
 				const response = await AddExpensesCategory(baseUrl, data);
 
 				if (response.status === axios.HttpStatusCode.Ok) {

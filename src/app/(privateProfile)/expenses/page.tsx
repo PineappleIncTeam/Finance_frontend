@@ -1,6 +1,7 @@
 /* eslint-disable camelcase */
 "use client";
 
+import { useRouter } from "next/navigation";
 import { Key, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import axios from "axios";
@@ -34,6 +35,8 @@ import { IAddCategoryExpensesForm, IExpenseTransaction } from "../../../types/co
 import { AddExpensesCategory } from "../../../services/api/userProfile/AddExpensesCategory";
 import { CategoryAddSuccessModal } from "../../../components/userProfileLayout/categoryAddSuccess/categoryAddSuccess";
 
+import { MainPath } from "../../../services/router/routes";
+
 import styles from "./expenses.module.scss";
 
 export default function Expenses() {
@@ -48,6 +51,8 @@ export default function Expenses() {
 		mode: "all",
 		delayError: 200,
 	});
+
+	const router = useRouter();
 
 	useEffect(() => {
 		setBaseUrl(getCorrectBaseUrl());
@@ -108,10 +113,9 @@ export default function Expenses() {
 				axios.isAxiosError(error) &&
 				error.response &&
 				error.response.status &&
-				error.response.status >= axios.HttpStatusCode.BadRequest &&
-				error.response.status <= axios.HttpStatusCode.InternalServerError
+				error.response.status === axios.HttpStatusCode.Conflict
 			) {
-				return null;
+				return "Не верные данные";
 			}
 			if (
 				axios.isAxiosError(error) &&
@@ -120,7 +124,7 @@ export default function Expenses() {
 				error.response.status >= axios.HttpStatusCode.InternalServerError &&
 				error.response.status < ApiResponseCode.SERVER_ERROR_STATUS_MAX
 			) {
-				return null;
+				router.push(MainPath.ServerError);
 			}
 		}
 	};

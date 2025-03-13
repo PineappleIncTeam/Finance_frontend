@@ -11,10 +11,16 @@ import { ButtonType } from "../../../helpers/buttonFieldValues";
 
 import Button from "../../../ui/Button/button";
 
+import { formHelpers } from "../../../utils/formHelpers";
+
 import styles from "./categoryAddModal.module.scss";
 
 export const CategoryAddModal = ({ open, request, onCancelClick }: IExpensesModals) => {
-	const { control, handleSubmit } = useForm<IAddCategoryExpensesForm>({
+	const {
+		control,
+		handleSubmit,
+		formState: { errors },
+	} = useForm<IAddCategoryExpensesForm>({
 		defaultValues: {
 			name: "",
 			// eslint-disable-next-line camelcase
@@ -41,6 +47,7 @@ export const CategoryAddModal = ({ open, request, onCancelClick }: IExpensesModa
 							type={InputTypeList.Text}
 							placeholder={"Название категории"}
 							subtitle="Не более 14 символов"
+							error={formHelpers.getAddCategoryError(errors)}
 						/>
 					</div>
 					{/* <div className={styles.addCategoryFormData}>

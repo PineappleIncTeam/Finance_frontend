@@ -1,4 +1,3 @@
-/* eslint-disable camelcase */
 "use client";
 
 import { useRouter } from "next/navigation";
@@ -36,6 +35,8 @@ import { AddExpensesCategory } from "../../../services/api/userProfile/AddExpens
 import { CategoryAddSuccessModal } from "../../../components/userProfileLayout/categoryAddSuccess/categoryAddSuccess";
 
 import { MainPath } from "../../../services/router/routes";
+
+import { GetCategoryOptions } from "../../../services/api/userProfile/GetCategoryOptions";
 
 import styles from "./expenses.module.scss";
 
@@ -128,6 +129,41 @@ export default function Expenses() {
 		}
 	};
 
+	let categoryOptions = null;
+
+	useEffect(() => {
+		const getCategoryOptions = async () => {
+			try {
+				if (baseUrl) {
+					const response = await GetCategoryOptions(baseUrl);
+					if (response !== null && response.status === axios.HttpStatusCode.Ok) {
+						return response;
+					}
+				}
+			} catch (error) {
+				if (
+					axios.isAxiosError(error) &&
+					error.response &&
+					error.response.status &&
+					error.response.status >= axios.HttpStatusCode.BadRequest &&
+					error.response.status <= axios.HttpStatusCode.InternalServerError
+				) {
+					console.log(error);
+				}
+				if (
+					axios.isAxiosError(error) &&
+					error.response &&
+					error.response.status &&
+					error.response.status >= axios.HttpStatusCode.InternalServerError &&
+					error.response.status < ApiResponseCode.SERVER_ERROR_STATUS_MAX
+				) {
+					console.log(error);
+				}
+			}
+		};
+		categoryOptions = getCategoryOptions() ?? [];
+	}, [baseUrl]);
+
 	useEffect(() => {
 		if (expensesTransactions !== null) {
 			expensesTransactions.push(getOperations());
@@ -154,10 +190,7 @@ export default function Expenses() {
 							<CategorySelect
 								name={"expenses"}
 								label={"Постоянные"}
-								options={[
-									{ id: 1, name: "Продукты", is_income: false, is_outcome: true, is_deleted: false },
-									{ id: 2, name: "Зарплата", is_income: true, is_outcome: false, is_deleted: false },
-								]}
+								options={categoryOptions}
 								control={control}
 								onAddCategory={() => setIsOpen(true)}
 							/>

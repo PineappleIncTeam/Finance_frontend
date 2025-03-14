@@ -12,3 +12,4 @@ export const setNewPasswordEndPoint = "api/v1/auth/users/reset_password_confirm/
 
 export const getFiveOperationsEndPoint = "api/v1/operations/?type=outcome";
 export const addExpensesCategory = "api/v1/categories/";
+export const getCategoryOptionsEndPoint = "api/v1/categories/?is_outcome=true&is_income=false";

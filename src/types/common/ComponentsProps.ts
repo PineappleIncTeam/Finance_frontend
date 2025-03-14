@@ -131,6 +131,7 @@ export interface ICategorySelect<T extends FieldValues> {
 
 export interface IExpensesModals {
 	open: boolean;
+	addClick?: () => void;
 }
 
 export interface IAddCategory {

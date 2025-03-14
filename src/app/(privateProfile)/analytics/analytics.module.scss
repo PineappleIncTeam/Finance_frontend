@@ -507,23 +507,6 @@
     }
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 .analyticsListOfOperationsWrapper {
     margin-top: 20px;
     display: flex;
@@ -621,16 +604,10 @@
     }
 }
 
-
-
-
-
-
-
-
-
-
-
+.analyticsListOfOperationsSelectsBlock {
+    display: flex;
+    gap: 20px;
+}
 
 @media (max-width: 1440px) {
     .analyticsBlankPage {
@@ -658,17 +635,6 @@
         display: none;
     }
 
-
-
-
-
-
-
-
-
-
-
-
     .analyticsListOfOperationsButtonContent {
         display: flex;
         gap: 9px;
@@ -682,13 +648,9 @@
         gap: 16px;
     }
 
-
-
-
-
-
-
-
+    .analyticsListOfOperationsSelectsBlock {
+        gap: 16px;
+    }
 
 }
 
@@ -702,13 +664,6 @@
     .diagramIncomeBlockLeft {
         display: block;
     }
-
-
-
-
-
-
-
 
     .analyticsListOfOperationsButtonContent {
         display: flex;
@@ -725,6 +680,10 @@
     }
 
     .analyticsListOfOperationsContainer {
+        gap: 20px;
+    }
+
+    .analyticsListOfOperationsSelectsBlock {
         gap: 20px;
     }
 }
@@ -779,16 +738,6 @@
         height: 160px;
     }
 
-
-
-
-
-
-
-
-
-
-
     .analyticsListOfOperationsButtonContent {
         display: flex;
         gap: 8px;
@@ -804,6 +753,9 @@
 
     .analyticsListOfOperationsContent {
         height: 503px;
+    }
+    .analyticsListOfOperationsSelectsBlock {
+        gap: 12px;
     }
 }
 
@@ -940,22 +892,36 @@
             font-size: 1.3rem;
         }
     }
+
+    .analyticsListOfOperationsContent {
+        height: 100%;
+    }
+
+    .analyticsListOfOperationsSelectsBlock {
+        gap: auto;
+        justify-content: space-between;
+    }
+    .analyticsListOfOperationsContainer {
+        display: flex;
+        flex-direction: column;
+        align-items: start;
+        gap: 13px;
+    }
+    .analyticsListOfOperationsButtonContent {
+        display: flex;
+        gap: 8px;
+    
+        &__PdfButton, &__XslButton {
+            width: 60px;
+            height: 36px;
+            font-family: Rubik;
+            font-size: 1.6rem;
+            line-height: 22px;
+            letter-spacing: 0px;
+            text-align: center;
+        }
+    }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 @media (min-width: 1025px) {
     .analyticsListOfOperationsButtonContent {

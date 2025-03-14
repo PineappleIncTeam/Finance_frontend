@@ -691,16 +691,18 @@ function Analytics() {
 	const renderListOfOperations = () => (
 		<div className={styles.analyticsListOfOperationsWrapper}>
 			<div className={styles.analyticsListOfOperationsContainer}>
-				<div className={styles.analyticsSelectOperation}>
-					<Selector
-						name={"number"}
-						label={"Операции"}
-						options={[Operation.Expenses, Operation.Income, Operation.Analysis, Operation.ListOfOperations]}
-						control={control}
-					/>
-				</div>
-				<div className={styles.analyticsSelectDateAndPeriod}>
-					<InputDate control={control} name={"date"} isPeriod={true} />
+				<div className={styles.analyticsListOfOperationsSelectsBlock}>
+					<div className={styles.analyticsSelectOperation}>
+						<Selector
+							name={"number"}
+							label={"Операции"}
+							options={[Operation.Expenses, Operation.Income, Operation.Analysis, Operation.ListOfOperations]}
+							control={control}
+						/>
+					</div>
+					<div className={styles.analyticsSelectDateAndPeriod}>
+						<InputDate control={control} name={"date"} isPeriod={true} />
+					</div>
 				</div>
 				<div className={styles.analyticsListOfOperationsDownloadWrapper}>
 					<p className={styles.analyticsListOfOperationsDownloadWrapper__title}>Скачать</p>

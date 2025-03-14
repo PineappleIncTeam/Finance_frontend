@@ -190,7 +190,7 @@ export default function Expenses() {
 							<CategorySelect
 								name={"expenses"}
 								label={"Постоянные"}
-								options={categoryOptions}
+								options={categoryOptions ?? []}
 								control={control}
 								onAddCategory={() => setIsOpen(true)}
 							/>

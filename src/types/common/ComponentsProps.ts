@@ -136,7 +136,7 @@ export interface IExpensesModals {
 export interface IAddCategory {
 	open: boolean;
 	request: (data: IAddCategoryExpensesForm) => Promise<void>;
-	onCancelClick?: () => void;
+	onCancelClick: () => void;
 }
 
 export interface ICategoryResponse {

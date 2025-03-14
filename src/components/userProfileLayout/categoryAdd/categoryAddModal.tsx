@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 
 import { InputTypeList } from "../../../helpers/Input";
-import { IExpensesModals } from "../../../types/common/ComponentsProps";
+import { IAddCategory } from "../../../types/common/ComponentsProps";
 import { IAddCategoryExpensesForm } from "../../../types/components/ComponentsTypes";
 import AppInput from "../../../ui/appInput/AppInput";
 
@@ -15,7 +15,7 @@ import { formHelpers } from "../../../utils/formHelpers";
 
 import styles from "./categoryAddModal.module.scss";
 
-export const CategoryAddModal = ({ open, request, onCancelClick }: IExpensesModals) => {
+export const CategoryAddModal = ({ open, request, onCancelClick }: IAddCategory) => {
 	const {
 		control,
 		handleSubmit,

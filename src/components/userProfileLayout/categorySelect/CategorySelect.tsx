@@ -88,9 +88,10 @@ export const CategorySelect = <T extends FieldValues>({
 	const handleRemoveCategory = async (categoryId: number) => {
 		console.log("Попытка удалить категорию с ID:", categoryId);
 		try {
-		  await deleteUserCategories("https://dev.freenance.store", categoryId);
-		  console.log("Категория удалена успешно!");
-	  
+			const response = await deleteUserCategories("https://dev.freenance.store", categoryId);
+
+			console.log("Категория удалена успешно!", response.data);
+			
 		  if (onRemoveCategory) {
 			onRemoveCategory(categoryId);
 		  }

@@ -45,7 +45,7 @@ function Analytics() {
 		RUB = "rub",
 		USD = "usd",
 		EUR = "eur",
-		PERCENT = "percent"
+		PERCENT = "percent",
 	}
 
 	const selectedOperation = watch("number");
@@ -312,7 +312,9 @@ function Analytics() {
 		datasets: [
 			{
 				label: "Расходы",
-				data: rawExpensesData.map((value) => (displayMode === DisplayMode.RUB ? value : ((value / 130000) * 100).toFixed(2))),
+				data: rawExpensesData.map((value) =>
+					displayMode === DisplayMode.RUB ? value : ((value / 130000) * 100).toFixed(2),
+				),
 				backgroundColor: randomColorSet,
 				borderWidth: 0,
 			},
@@ -400,7 +402,9 @@ function Analytics() {
 		labels: analysisLabels,
 		datasets: [
 			{
-				data: rawAnalysisData.map((value) => (displayMode === DisplayMode.RUB ? value : ((value / 130000) * 100).toFixed(2))),
+				data: rawAnalysisData.map((value) =>
+					displayMode === DisplayMode.RUB ? value : ((value / 130000) * 100).toFixed(2),
+				),
 				backgroundColor: randomColorSet,
 				borderWidth: 0,
 			},
@@ -425,7 +429,7 @@ function Analytics() {
 
 			<MoneyIcon classNames={styles.analyticsBlankPage__image} />
 		</div>
-	)
+	);
 
 	const renderExpenses = () => (
 		<div className={styles.analyticsDiagramExpensesWrapper}>
@@ -479,7 +483,7 @@ function Analytics() {
 				</div>
 			</div>
 		</div>
-	)
+	);
 
 	const renderIncome = () => (
 		<div className={styles.analyticsDiagramIncomeWrapper}>
@@ -555,7 +559,7 @@ function Analytics() {
 				</div>
 			)}
 		</div>
-	)
+	);
 
 	const renderAnalysis = () => (
 		<div className={styles.analyticsDiagramAnalysisWrapper}>
@@ -591,7 +595,7 @@ function Analytics() {
 				</div>
 			</div>
 		</div>
-	)
+	);
 
 	const renderContentAnaliticsPage = () => (
 		<div className={styles.analyticsPagesContent}>
@@ -645,7 +649,7 @@ function Analytics() {
 
 			{operation === Operation.Analysis && renderAnalysis()}
 		</div>
-	)
+	);
 
 	const renderAnalyticsIncomeTransactions = (transactions: IAnalyticsTransactions[]) => {
 		return transactions.map((savingsData, index) => (
@@ -686,8 +690,6 @@ function Analytics() {
 		));
 	};
 
-	
-
 	const renderListOfOperations = () => (
 		<div className={styles.analyticsListOfOperationsWrapper}>
 			<div className={styles.analyticsListOfOperationsContainer}>
@@ -714,7 +716,6 @@ function Analytics() {
 			</div>
 
 			<div className={styles.analyticsListOfOperationsContent}>
-
 				<div className={styles.analyticsTransactionsWrapper}>
 					<h3 className={styles.analyticsTransactionsWrapper__title}>Операции с доходами</h3>
 					<ul className={styles.analyticsTransactionsWrapper__item}>
@@ -735,19 +736,19 @@ function Analytics() {
 						{analyticsSavingsTransactions && renderAnalyticsSavingsTransactions(analyticsSavingsTransactions)}
 					</ul>
 				</div>
-
 			</div>
-
 		</div>
-	)
+	);
 
 	return (
 		<div className={styles.analyticsPageWrap}>
 			<div className={styles.analyticsPageContainer}>
 				<h1 className={styles.headerTitle}>Аналитика</h1>
-				{operation === Operation.ListOfOperations 
-                ? renderListOfOperations() 
-                : (isEmptyPage ? renderEmptyAnaliticsPage() : renderContentAnaliticsPage())}
+				{operation === Operation.ListOfOperations
+					? renderListOfOperations()
+					: isEmptyPage
+						? renderEmptyAnaliticsPage()
+						: renderContentAnaliticsPage()}
 			</div>
 		</div>
 	);

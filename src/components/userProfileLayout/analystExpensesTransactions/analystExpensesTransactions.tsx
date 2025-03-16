@@ -3,7 +3,6 @@ import { IAnalyticsTransactions } from "../../../types/components/ComponentsType
 import styles from "./analystExpensesTransactions.module.scss";
 
 const AnalystExpensesTransactions = ({ firstDate, secondDate, purpose, sum }: IAnalyticsTransactions) => {
-
 	return (
 		<div className={styles.transactionContainer}>
 			<p className={styles.transactionData}>{firstDate}</p>

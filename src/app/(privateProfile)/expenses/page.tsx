@@ -44,6 +44,7 @@ export default function Expenses() {
 	const [baseUrl, setBaseUrl] = useState<string>();
 	const [isResponseSuccess, setIsResponseSuccess] = useState<boolean>(false);
 	const [isOpen, setIsOpen] = useState<boolean>(false);
+	const [options, setOptions] = useState(null);
 
 	const { control } = useForm<IExpensesInputForm & IExpensesSelectForm>({
 		defaultValues: {
@@ -129,15 +130,13 @@ export default function Expenses() {
 		}
 	};
 
-	let categoryOptions = null;
-
 	useEffect(() => {
 		const getCategoryOptions = async () => {
 			try {
 				if (baseUrl) {
 					const response = await GetCategoryOptions(baseUrl);
 					if (response !== null && response.status === axios.HttpStatusCode.Ok) {
-						return response;
+						setOptions(response);
 					}
 				}
 			} catch (error) {
@@ -161,7 +160,7 @@ export default function Expenses() {
 				}
 			}
 		};
-		categoryOptions = getCategoryOptions() ?? [];
+		getCategoryOptions();
 	}, [baseUrl]);
 
 	useEffect(() => {
@@ -190,7 +189,7 @@ export default function Expenses() {
 							<CategorySelect
 								name={"expenses"}
 								label={"Постоянные"}
-								options={categoryOptions ?? []}
+								options={options ?? []}
 								control={control}
 								onAddCategory={() => setIsOpen(true)}
 							/>

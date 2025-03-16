@@ -7,7 +7,7 @@ export const deleteUserCategories = async (
     categoryId: number,
   ) => {
     return await axios(
-      `${baseURL}/${DeleteUserCategoriesEndpoint.replace("{id}", `${categoryId}`)}`,
+      `${baseURL}/${DeleteUserCategoriesEndpoint.replace("{id}", categoryId.toString())}`,
       {
         method: "DELETE",
         withCredentials: true,

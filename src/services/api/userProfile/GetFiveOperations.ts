@@ -4,7 +4,7 @@ import { getFiveOperationsEndPoint } from "../auth/apiConstants";
 
 export const GetFiveTransactions = async (baseUrl: string) => {
 	return await axios(`${baseUrl}/${getFiveOperationsEndPoint}`, {
-		method: "POST",
+		method: "GET",
 		headers: {
 			"Content-Type": "application/json",
 		},

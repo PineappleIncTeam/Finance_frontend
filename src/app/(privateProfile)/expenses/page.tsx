@@ -109,7 +109,7 @@ export default function Expenses() {
 		try {
 			if (baseUrl && data !== null) {
 				const response = await AddExpensesCategory(baseUrl, data);
-
+				console.log(response.status);
 				if (response.status === axios.HttpStatusCode.Ok) {
 					setIsOpen(false);
 					setIsResponseSuccess(true);

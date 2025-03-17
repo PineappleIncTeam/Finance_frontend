@@ -37,7 +37,7 @@ function Analytics() {
 		RUB = "rub",
 		USD = "usd",
 		EUR = "eur",
-		PERCENT = "percent"
+		PERCENT = "percent",
 	}
 
 	const selectedOperation = watch("number");
@@ -304,7 +304,9 @@ function Analytics() {
 		datasets: [
 			{
 				label: "Расходы",
-				data: rawExpensesData.map((value) => (displayMode === DisplayMode.RUB ? value : ((value / 130000) * 100).toFixed(2))),
+				data: rawExpensesData.map((value) =>
+					displayMode === DisplayMode.RUB ? value : ((value / 130000) * 100).toFixed(2),
+				),
 				backgroundColor: randomColorSet,
 				borderWidth: 0,
 			},
@@ -392,7 +394,9 @@ function Analytics() {
 		labels: analysisLabels,
 		datasets: [
 			{
-				data: rawAnalysisData.map((value) => (displayMode === DisplayMode.RUB ? value : ((value / 130000) * 100).toFixed(2))),
+				data: rawAnalysisData.map((value) =>
+					displayMode === DisplayMode.RUB ? value : ((value / 130000) * 100).toFixed(2),
+				),
 				backgroundColor: randomColorSet,
 				borderWidth: 0,
 			},
@@ -417,7 +421,7 @@ function Analytics() {
 
 			<MoneyIcon classNames={styles.analyticsBlankPage__image} />
 		</div>
-	)
+	);
 
 	const renderExpenses = () => (
 		<div className={styles.analyticsDiagramExpensesWrapper}>
@@ -471,7 +475,7 @@ function Analytics() {
 				</div>
 			</div>
 		</div>
-	)
+	);
 
 	const renderIncome = () => (
 		<div className={styles.analyticsDiagramIncomeWrapper}>
@@ -547,7 +551,7 @@ function Analytics() {
 				</div>
 			)}
 		</div>
-	)
+	);
 
 	const renderAnalysis = () => (
 		<div className={styles.analyticsDiagramAnalysisWrapper}>
@@ -583,7 +587,7 @@ function Analytics() {
 				</div>
 			</div>
 		</div>
-	)
+	);
 
 	const renderContentAnaliticsPage = () => (
 		<div className={styles.analyticsPagesContent}>
@@ -637,7 +641,7 @@ function Analytics() {
 
 			{operation === Operation.Analysis && renderAnalysis()}
 		</div>
-	)
+	);
 
 	return (
 		<div className={styles.analyticsPageWrap}>

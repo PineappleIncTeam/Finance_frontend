@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation";
 import { Key, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
 
 import handleLogout from "../../../helpers/logout";
 
@@ -38,13 +38,15 @@ import { MainPath } from "../../../services/router/routes";
 
 import { GetCategoryOptions } from "../../../services/api/userProfile/GetCategoryOptions";
 
+import { IOptionsResponse } from "../../../types/api/Expenses";
+
 import styles from "./expenses.module.scss";
 
 export default function Expenses() {
 	const [baseUrl, setBaseUrl] = useState<string>();
 	const [isResponseSuccess, setIsResponseSuccess] = useState<boolean>(false);
 	const [isOpen, setIsOpen] = useState<boolean>(false);
-	const [options, setOptions] = useState(null);
+	const [options, setOptions] = useState<string[] | any>([]);
 
 	const { control } = useForm<IExpensesInputForm & IExpensesSelectForm>({
 		defaultValues: {
@@ -134,7 +136,7 @@ export default function Expenses() {
 		const getCategoryOptions = async () => {
 			try {
 				if (baseUrl) {
-					const response = await GetCategoryOptions(baseUrl);
+					const response: AxiosResponse<IOptionsResponse> = await GetCategoryOptions(baseUrl);
 					if (response !== null && response.status === axios.HttpStatusCode.Ok) {
 						setOptions(response);
 					}

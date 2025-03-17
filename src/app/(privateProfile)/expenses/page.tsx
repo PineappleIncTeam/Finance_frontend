@@ -18,7 +18,7 @@ import { Select } from "../../../ui/select/Select";
 import { getCorrectBaseUrl } from "../../../utils/baseUrlConverter";
 
 import { ApiResponseCode } from "../../../helpers/apiResponseCode";
-import { GetFiveOperations } from "../../../services/api/userProfile/GetFiveOperations";
+import { GetFiveTransactions } from "../../../services/api/userProfile/GetFiveOperations";
 
 import useLogoutTimer from "../../../hooks/useLogoutTimer";
 import { CategorySelect } from "../../../components/userProfileLayout/categorySelect/CategorySelect";
@@ -38,7 +38,7 @@ import { MainPath } from "../../../services/router/routes";
 
 import { GetCategoryOptions } from "../../../services/api/userProfile/GetCategoryOptions";
 
-import { IOptionsResponse } from "../../../types/api/Expenses";
+import { IOptionsResponse, ITransactionsResponse } from "../../../types/api/Expenses";
 
 import styles from "./expenses.module.scss";
 
@@ -46,6 +46,7 @@ export default function Expenses() {
 	const [baseUrl, setBaseUrl] = useState<string>();
 	const [isResponseSuccess, setIsResponseSuccess] = useState<boolean>(false);
 	const [isOpen, setIsOpen] = useState<boolean>(false);
+	const [fiveOperations, setFiveOperations] = useState<string[] | any>([]);
 	const [options, setOptions] = useState<string[] | any>([]);
 
 	const { control } = useForm<IExpensesInputForm & IExpensesSelectForm>({
@@ -69,37 +70,40 @@ export default function Expenses() {
 		resetTimer();
 	}, [request, resetTimer]);
 
-	const expensesTransactions: string[] | IExpenseTransaction | any = [];
-
-	const getOperations = async () => {
-		try {
-			if (baseUrl) {
-				const response = await GetFiveOperations(baseUrl);
-				if (response !== null && response.status === axios.HttpStatusCode.Ok) {
-					return response;
+	useEffect(() => {
+		const getFiveOperations = async () => {
+			try {
+				if (baseUrl) {
+					const response: AxiosResponse<ITransactionsResponse> = await GetFiveTransactions(baseUrl);
+					if (response !== null && response.status === axios.HttpStatusCode.Ok) {
+						setFiveOperations(response);
+					}
+				}
+			} catch (error) {
+				if (
+					axios.isAxiosError(error) &&
+					error.response &&
+					error.response.status &&
+					error.response.status >= axios.HttpStatusCode.BadRequest &&
+					error.response.status <= axios.HttpStatusCode.InternalServerError
+				) {
+					console.log(error);
+					setFiveOperations([]);
+				}
+				if (
+					axios.isAxiosError(error) &&
+					error.response &&
+					error.response.status &&
+					error.response.status >= axios.HttpStatusCode.InternalServerError &&
+					error.response.status < ApiResponseCode.SERVER_ERROR_STATUS_MAX
+				) {
+					console.log(error);
+					setFiveOperations([]);
 				}
 			}
-		} catch (error) {
-			if (
-				axios.isAxiosError(error) &&
-				error.response &&
-				error.response.status &&
-				error.response.status >= axios.HttpStatusCode.BadRequest &&
-				error.response.status <= axios.HttpStatusCode.InternalServerError
-			) {
-				return expensesTransactions;
-			}
-			if (
-				axios.isAxiosError(error) &&
-				error.response &&
-				error.response.status &&
-				error.response.status >= axios.HttpStatusCode.InternalServerError &&
-				error.response.status < ApiResponseCode.SERVER_ERROR_STATUS_MAX
-			) {
-				return expensesTransactions;
-			}
-		}
-	};
+		};
+		getFiveOperations();
+	}, [baseUrl]);
 
 	const addCategory = async (data: IAddCategoryExpensesForm) => {
 		try {
@@ -150,6 +154,7 @@ export default function Expenses() {
 					error.response.status <= axios.HttpStatusCode.InternalServerError
 				) {
 					console.log(error);
+					setOptions([]);
 				}
 				if (
 					axios.isAxiosError(error) &&
@@ -159,17 +164,12 @@ export default function Expenses() {
 					error.response.status < ApiResponseCode.SERVER_ERROR_STATUS_MAX
 				) {
 					console.log(error);
+					setOptions([]);
 				}
 			}
 		};
 		getCategoryOptions();
 	}, [baseUrl]);
-
-	useEffect(() => {
-		if (expensesTransactions !== null) {
-			expensesTransactions.push(getOperations());
-		}
-	}, [getOperations, expensesTransactions]);
 
 	return (
 		<div className={styles.expensesPageWrap}>
@@ -191,7 +191,7 @@ export default function Expenses() {
 							<CategorySelect
 								name={"expenses"}
 								label={"Постоянные"}
-								options={options ?? []}
+								options={options}
 								control={control}
 								onAddCategory={() => setIsOpen(true)}
 							/>
@@ -229,12 +229,11 @@ export default function Expenses() {
 				{isResponseSuccess && <CategoryAddSuccessModal open={isResponseSuccess} />}
 				<div className={styles.expensesTransactionsWrapper}>
 					<h1 className={styles.expensesTransactionHeader}>Последние операции по расходам</h1>
-					{expensesTransactions &&
-						expensesTransactions.map((expensesData: IExpenseTransaction, index: Key) => (
+					{fiveOperations &&
+						fiveOperations.map((expensesData: IExpenseTransaction, index: Key) => (
 							<li key={index}>
 								<ExpensesTransaction
 									date={expensesData?.date}
-									// secondDate={expensesData.secondDate}
 									target={expensesData?.target}
 									amount={expensesData?.amount}
 								/>

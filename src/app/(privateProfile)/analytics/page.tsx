@@ -14,6 +14,13 @@ import { Selector } from "../../../ui/selector/Selector";
 import { IAnalyticsInputForm } from "../../../types/pages/Analytics";
 import { InputTypeList } from "../../../helpers/Input";
 import generateRandomColors from "../../../utils/generateRandomColor";
+import { analyticsIncomeTransactions } from "../../../mocks/AnalyticsIncomeTransaction";
+import { analyticsExpensesTransactions } from "../../../mocks/AnalyticsExpensesTransaction";
+import { analyticsSavingsTransactions } from "../../../mocks/AnalyticsSavingsTransaction";
+import { IAnalyticsTransactions } from "../../../types/components/ComponentsTypes";
+import AnalystIncomeTransactions from "../../../components/userProfileLayout/analystIncomeTransactions/analystIncomeTransactions";
+import AnalystExpensesTransactions from "../../../components/userProfileLayout/analystExpensesTransactions/analystExpensesTransactions";
+import AnalystSavingsTransactions from "../../../components/userProfileLayout/analystSavingsTransactions/analystSavingsTransactions";
 
 import styles from "./analytics.module.scss";
 
@@ -31,13 +38,14 @@ function Analytics() {
 		Expenses = "Расходы",
 		Income = "Доходы",
 		Analysis = "Анализ доходов и расходов",
+		ListOfOperations = "Список операций",
 	}
 
 	enum DisplayMode {
 		RUB = "rub",
 		USD = "usd",
 		EUR = "eur",
-		PERCENT = "percent"
+		PERCENT = "percent",
 	}
 
 	const selectedOperation = watch("number");
@@ -304,7 +312,9 @@ function Analytics() {
 		datasets: [
 			{
 				label: "Расходы",
-				data: rawExpensesData.map((value) => (displayMode === DisplayMode.RUB ? value : ((value / 130000) * 100).toFixed(2))),
+				data: rawExpensesData.map((value) =>
+					displayMode === DisplayMode.RUB ? value : ((value / 130000) * 100).toFixed(2),
+				),
 				backgroundColor: randomColorSet,
 				borderWidth: 0,
 			},
@@ -392,7 +402,9 @@ function Analytics() {
 		labels: analysisLabels,
 		datasets: [
 			{
-				data: rawAnalysisData.map((value) => (displayMode === DisplayMode.RUB ? value : ((value / 130000) * 100).toFixed(2))),
+				data: rawAnalysisData.map((value) =>
+					displayMode === DisplayMode.RUB ? value : ((value / 130000) * 100).toFixed(2),
+				),
 				backgroundColor: randomColorSet,
 				borderWidth: 0,
 			},
@@ -417,7 +429,7 @@ function Analytics() {
 
 			<MoneyIcon classNames={styles.analyticsBlankPage__image} />
 		</div>
-	)
+	);
 
 	const renderExpenses = () => (
 		<div className={styles.analyticsDiagramExpensesWrapper}>
@@ -471,7 +483,7 @@ function Analytics() {
 				</div>
 			</div>
 		</div>
-	)
+	);
 
 	const renderIncome = () => (
 		<div className={styles.analyticsDiagramIncomeWrapper}>
@@ -547,7 +559,7 @@ function Analytics() {
 				</div>
 			)}
 		</div>
-	)
+	);
 
 	const renderAnalysis = () => (
 		<div className={styles.analyticsDiagramAnalysisWrapper}>
@@ -583,7 +595,7 @@ function Analytics() {
 				</div>
 			</div>
 		</div>
-	)
+	);
 
 	const renderContentAnaliticsPage = () => (
 		<div className={styles.analyticsPagesContent}>
@@ -592,7 +604,7 @@ function Analytics() {
 					<Selector
 						name={"number"}
 						label={"Операции"}
-						options={[Operation.Expenses, Operation.Income, Operation.Analysis]}
+						options={[Operation.Expenses, Operation.Income, Operation.Analysis, Operation.ListOfOperations]}
 						control={control}
 					/>
 				</div>
@@ -637,13 +649,106 @@ function Analytics() {
 
 			{operation === Operation.Analysis && renderAnalysis()}
 		</div>
-	)
+	);
+
+	const renderAnalyticsIncomeTransactions = (transactions: IAnalyticsTransactions[]) => {
+		return transactions.map((savingsData, index) => (
+			<li key={index}>
+				<AnalystIncomeTransactions
+					firstDate={savingsData.firstDate}
+					secondDate={savingsData.secondDate}
+					purpose={savingsData.purpose}
+					sum={savingsData.sum}
+				/>
+			</li>
+		));
+	};
+
+	const renderAnalyticsExpensesTransactions = (transactions: IAnalyticsTransactions[]) => {
+		return transactions.map((savingsData, index) => (
+			<li key={index}>
+				<AnalystExpensesTransactions
+					firstDate={savingsData.firstDate}
+					secondDate={savingsData.secondDate}
+					purpose={savingsData.purpose}
+					sum={savingsData.sum}
+				/>
+			</li>
+		));
+	};
+
+	const renderAnalyticsSavingsTransactions = (transactions: IAnalyticsTransactions[]) => {
+		return transactions.map((savingsData, index) => (
+			<li key={index}>
+				<AnalystSavingsTransactions
+					firstDate={savingsData.firstDate}
+					secondDate={savingsData.secondDate}
+					purpose={savingsData.purpose}
+					sum={savingsData.sum}
+				/>
+			</li>
+		));
+	};
+
+	const renderListOfOperations = () => (
+		<div className={styles.analyticsListOfOperationsWrapper}>
+			<div className={styles.analyticsListOfOperationsContainer}>
+				<div className={styles.analyticsListOfOperationsSelectsBlock}>
+					<div className={styles.analyticsSelectOperation}>
+						<Selector
+							name={"number"}
+							label={"Операции"}
+							options={[Operation.Expenses, Operation.Income, Operation.Analysis, Operation.ListOfOperations]}
+							control={control}
+						/>
+					</div>
+					<div className={styles.analyticsSelectDateAndPeriod}>
+						<InputDate control={control} name={"date"} isPeriod={true} />
+					</div>
+				</div>
+				<div className={styles.analyticsListOfOperationsDownloadWrapper}>
+					<p className={styles.analyticsListOfOperationsDownloadWrapper__title}>Скачать</p>
+					<div className={styles.analyticsListOfOperationsButtonContent}>
+						<button className={styles.analyticsListOfOperationsButtonContent__PdfButton}>PDF</button>
+						<button className={styles.analyticsListOfOperationsButtonContent__XslButton}>XSL</button>
+					</div>
+				</div>
+			</div>
+
+			<div className={styles.analyticsListOfOperationsContent}>
+				<div className={styles.analyticsTransactionsWrapper}>
+					<h3 className={styles.analyticsTransactionsWrapper__title}>Операции с доходами</h3>
+					<ul className={styles.analyticsTransactionsWrapper__item}>
+						{analyticsIncomeTransactions && renderAnalyticsIncomeTransactions(analyticsIncomeTransactions)}
+					</ul>
+				</div>
+
+				<div className={styles.analyticsTransactionsWrapper}>
+					<h3 className={styles.analyticsTransactionsWrapper__title}>Операции с расходами</h3>
+					<ul className={styles.analyticsTransactionsWrapper__item}>
+						{analyticsExpensesTransactions && renderAnalyticsExpensesTransactions(analyticsExpensesTransactions)}
+					</ul>
+				</div>
+
+				<div className={styles.analyticsTransactionsWrapper}>
+					<h3 className={styles.analyticsTransactionsWrapper__title}>Операции с накоплениями</h3>
+					<ul className={styles.analyticsTransactionsWrapper__item}>
+						{analyticsSavingsTransactions && renderAnalyticsSavingsTransactions(analyticsSavingsTransactions)}
+					</ul>
+				</div>
+			</div>
+		</div>
+	);
 
 	return (
 		<div className={styles.analyticsPageWrap}>
 			<div className={styles.analyticsPageContainer}>
 				<h1 className={styles.headerTitle}>Аналитика</h1>
-				{isEmptyPage ? renderEmptyAnaliticsPage() : renderContentAnaliticsPage()}
+				{operation === Operation.ListOfOperations
+					? renderListOfOperations()
+					: isEmptyPage
+						? renderEmptyAnaliticsPage()
+						: renderContentAnaliticsPage()}
 			</div>
 		</div>
 	);

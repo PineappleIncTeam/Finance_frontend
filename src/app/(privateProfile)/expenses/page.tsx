@@ -76,7 +76,7 @@ export default function Expenses() {
 				if (baseUrl) {
 					const response: AxiosResponse<ITransactionsResponse> = await GetFiveTransactions(baseUrl);
 					if (response !== null && response.status === axios.HttpStatusCode.Ok) {
-						setFiveOperations(response);
+						setFiveOperations(response.data);
 					}
 				}
 			} catch (error) {
@@ -142,7 +142,7 @@ export default function Expenses() {
 				if (baseUrl) {
 					const response: AxiosResponse<IOptionsResponse> = await GetCategoryOptions(baseUrl);
 					if (response !== null && response.status === axios.HttpStatusCode.Ok) {
-						setOptions(response);
+						setOptions(response.data);
 					}
 				}
 			} catch (error) {
@@ -233,9 +233,9 @@ export default function Expenses() {
 						fiveOperations.map((expensesData: IExpenseTransaction, index: Key) => (
 							<li key={index}>
 								<ExpensesTransaction
-									date={expensesData?.date}
-									target={expensesData?.target}
-									amount={expensesData?.amount}
+									date={expensesData.date}
+									target={expensesData.target}
+									amount={expensesData.amount}
 								/>
 							</li>
 						))}

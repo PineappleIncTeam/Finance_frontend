@@ -6,7 +6,7 @@ export const deleteUserCategories = async (
   baseURL: string,
   categoryId: number,
 ) => {
-  const url = `${baseURL}${DeleteUserCategoriesEndpoint.replace("{id}", categoryId.toString())}`;
+  const url = `${baseURL}/${DeleteUserCategoriesEndpoint.replace("{id}", categoryId.toString())}`;
   console.log("URL для удаления категории:", url);
 
   try {

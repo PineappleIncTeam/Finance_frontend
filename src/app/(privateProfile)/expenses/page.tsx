@@ -29,11 +29,7 @@ import AppInput from "../../../ui/appInput/AppInput";
 
 import { CategoryAddModal } from "../../../components/userProfileLayout/categoryAdd/categoryAddModal";
 
-import {
-	IAddCategoryExpensesForm,
-	IExpenseTransaction,
-	IRemoveCategoryExpenses,
-} from "../../../types/components/ComponentsTypes";
+import { IAddCategoryExpensesForm, IExpenseTransaction } from "../../../types/components/ComponentsTypes";
 
 import { AddExpensesCategory } from "../../../services/api/userProfile/AddExpensesCategory";
 import { CategoryAddSuccessModal } from "../../../components/userProfileLayout/categoryAddSuccess/categoryAddSuccess";
@@ -146,15 +142,16 @@ export default function Expenses() {
 		}
 	};
 
-	const handleCategoryDeleteClick = (name: IRemoveCategoryExpenses): string => {
-		return options.forEach((category: { name: IRemoveCategoryExpenses; id: IRemoveCategoryExpenses }) => {
+	const handleCategoryDeleteClick = (name: string): string => {
+		console.log(name);
+		return options.forEach((category: { name: string; id: string }) => {
 			name === category.name ? category.id : "";
 		});
 	};
 
-	const onRemoveClick = async (name: IRemoveCategoryExpenses) => {
+	const onRemoveClick = async (name: string) => {
 		const id = handleCategoryDeleteClick(name);
-
+		console.log(id);
 		try {
 			if (baseUrl && id !== null) {
 				const response = await RemoveExpensesCategory(baseUrl, id);
@@ -242,7 +239,7 @@ export default function Expenses() {
 								options={options}
 								control={control}
 								onAddCategory={() => setIsOpen(true)}
-								onRemoveCategory={() => onRemoveClick(options.name)}
+								onRemoveCategory={onRemoveClick}
 							/>
 						</div>
 						<div className={styles.expensesDetailsContainer__sum}>

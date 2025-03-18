@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 
 import { DeleteUserCategoriesEndpoint } from "./apiConstants";
 
@@ -7,20 +7,24 @@ export const deleteUserCategories = async (
   categoryId: number,
 ) => {
   const url = `${baseURL}${DeleteUserCategoriesEndpoint.replace("{id}", categoryId.toString())}`;
-  console.log("URL для удаления категории:", url); 
+  console.log("URL для удаления категории:", url);
 
   try {
-      const response = await axios.delete(url, {
-          headers: {
-              "Content-Type": "application/json",
-          },
-          withCredentials: true,
-      });
+    const response = await axios.delete(url, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+      withCredentials: true,
+    });
 
-      console.log("Ответ сервера:", response.status, response.data);
-      return response;
+    console.log("Ответ сервера:", response.status, response.data);
+    return response;
   } catch (error) {
-      console.error("Ошибка при удалении категории:", error.response?.data || error.message); 
-      throw error;
+    const axiosError = error as AxiosError;
+    console.error(
+      "Ошибка при удалении категории:",
+      axiosError.response?.data || axiosError.message
+    );
+    throw axiosError;
   }
 };

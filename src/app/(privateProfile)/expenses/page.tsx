@@ -29,7 +29,11 @@ import AppInput from "../../../ui/appInput/AppInput";
 
 import { CategoryAddModal } from "../../../components/userProfileLayout/categoryAdd/categoryAddModal";
 
-import { IAddCategoryExpensesForm, IExpenseTransaction } from "../../../types/components/ComponentsTypes";
+import {
+	IAddCategoryExpensesForm,
+	IExpenseTransaction,
+	IRemoveCategoryExpenses,
+} from "../../../types/components/ComponentsTypes";
 
 import { AddExpensesCategory } from "../../../services/api/userProfile/AddExpensesCategory";
 import { CategoryAddSuccessModal } from "../../../components/userProfileLayout/categoryAddSuccess/categoryAddSuccess";
@@ -40,14 +44,18 @@ import { GetCategoryOptions } from "../../../services/api/userProfile/GetCategor
 
 import { IOptionsResponse, ITransactionsResponse } from "../../../types/api/Expenses";
 
+import { RemoveExpensesCategory } from "../../../services/api/userProfile/RemoveExpensesCategory";
+import { CategoryDeleteSuccessModal } from "../../../components/userProfileLayout/categoryDeleteResponse/categoryDeleteSuccess/categoryDeleteSuccess";
+
 import styles from "./expenses.module.scss";
 
 export default function Expenses() {
 	const [baseUrl, setBaseUrl] = useState<string>();
-	const [isResponseSuccess, setIsResponseSuccess] = useState<boolean>(false);
+	const [isAddSuccess, setIsAddSuccess] = useState<boolean>(false);
 	const [isOpen, setIsOpen] = useState<boolean>(false);
 	const [fiveOperations, setFiveOperations] = useState<string[] | any>([]);
 	const [options, setOptions] = useState<string[] | any>([]);
+	const [isDeleteSuccess, setIsDeleteSuccess] = useState<boolean>(false);
 
 	const { control } = useForm<IExpensesInputForm & IExpensesSelectForm>({
 		defaultValues: {
@@ -105,15 +113,16 @@ export default function Expenses() {
 		getFiveOperations();
 	}, [baseUrl]);
 
+	const interval = 2000;
+
 	const addCategory = async (data: IAddCategoryExpensesForm) => {
-		const interval = 2000;
 		try {
 			if (baseUrl && data !== null) {
 				const response = await AddExpensesCategory(baseUrl, data);
 				if (response.status === axios.HttpStatusCode.Created) {
 					setIsOpen(false);
-					setIsResponseSuccess(true);
-					setTimeout(() => setIsResponseSuccess(false), interval);
+					setIsAddSuccess(true);
+					setTimeout(() => setIsAddSuccess(false), interval);
 				}
 			}
 		} catch (error) {
@@ -133,6 +142,44 @@ export default function Expenses() {
 				error.response.status < ApiResponseCode.SERVER_ERROR_STATUS_MAX
 			) {
 				router.push(MainPath.ServerError);
+			}
+		}
+	};
+
+	const handleCategoryDeleteClick = (name: IRemoveCategoryExpenses): string => {
+		return options.forEach((category: { name: IRemoveCategoryExpenses; id: IRemoveCategoryExpenses }) => {
+			name === category.name ? category.id : "";
+		});
+	};
+
+	const onRemoveClick = async (name: IRemoveCategoryExpenses) => {
+		const id = handleCategoryDeleteClick(name);
+
+		try {
+			if (baseUrl && id !== null) {
+				const response = await RemoveExpensesCategory(baseUrl, id);
+				if (response.status === axios.HttpStatusCode.Ok) {
+					setIsDeleteSuccess(true);
+					setTimeout(() => setIsDeleteSuccess(false), interval);
+				}
+			}
+		} catch (error) {
+			if (
+				axios.isAxiosError(error) &&
+				error.response &&
+				error.response.status &&
+				error.response.status === axios.HttpStatusCode.Conflict
+			) {
+				console.log(error);
+			}
+			if (
+				axios.isAxiosError(error) &&
+				error.response &&
+				error.response.status &&
+				error.response.status >= axios.HttpStatusCode.InternalServerError &&
+				error.response.status < ApiResponseCode.SERVER_ERROR_STATUS_MAX
+			) {
+				console.log(error);
 			}
 		}
 	};
@@ -195,6 +242,7 @@ export default function Expenses() {
 								options={options}
 								control={control}
 								onAddCategory={() => setIsOpen(true)}
+								onRemoveCategory={() => onRemoveClick(options.name)}
 							/>
 						</div>
 						<div className={styles.expensesDetailsContainer__sum}>
@@ -227,7 +275,8 @@ export default function Expenses() {
 					</div>
 				</form>
 				{isOpen && <CategoryAddModal open={isOpen} onCancelClick={() => setIsOpen(false)} request={addCategory} />}
-				{isResponseSuccess && <CategoryAddSuccessModal open={isResponseSuccess} />}
+				{isAddSuccess && <CategoryAddSuccessModal open={isAddSuccess} />}
+				{isDeleteSuccess && <CategoryDeleteSuccessModal open={isDeleteSuccess} />}
 				<div className={styles.expensesTransactionsWrapper}>
 					<h1 className={styles.expensesTransactionHeader}>Последние операции по расходам</h1>
 					{fiveOperations &&

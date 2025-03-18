@@ -101,3 +101,8 @@ export interface IAddCategoryExpensesForm {
 	is_income: boolean;
 	is_outcome: boolean;
 }
+
+export interface IRemoveCategoryExpenses {
+	name: string;
+	id: string;
+}

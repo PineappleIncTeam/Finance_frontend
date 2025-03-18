@@ -106,13 +106,14 @@ export default function Expenses() {
 	}, [baseUrl]);
 
 	const addCategory = async (data: IAddCategoryExpensesForm) => {
+		const interval = 2000;
 		try {
 			if (baseUrl && data !== null) {
 				const response = await AddExpensesCategory(baseUrl, data);
-				console.log(response.status);
 				if (response.status === axios.HttpStatusCode.Created) {
 					setIsOpen(false);
 					setIsResponseSuccess(true);
+					setTimeout(() => setIsResponseSuccess(false), interval);
 				}
 			}
 		} catch (error) {

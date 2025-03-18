@@ -9,6 +9,9 @@ export const deleteUserCategories = async (
     return await axios(
       `${baseURL}/${DeleteUserCategoriesEndpoint.replace("{id}", categoryId.toString())}`,
       {
+        headers: {
+          "Content-Type": "application/json",
+      },
         method: "DELETE",
         withCredentials: true,
       }

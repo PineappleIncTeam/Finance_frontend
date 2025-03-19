@@ -607,6 +607,7 @@
 .analyticsListOfOperationsSelectsBlock {
     display: flex;
     gap: 20px;
+    z-index: 1;
 }
 
 @media (max-width: 1440px) {

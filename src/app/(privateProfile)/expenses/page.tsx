@@ -142,15 +142,7 @@ export default function Expenses() {
 		}
 	};
 
-	const handleCategoryDeleteClick = (name: string): string => {
-		console.log(name);
-		return options.forEach((category: { name: string; id: string }) => {
-			name === category.name ? category.id : "";
-		});
-	};
-
-	const onRemoveClick = async (name: string) => {
-		const id = handleCategoryDeleteClick(name);
+	const onRemoveClick = async (id: number) => {
 		console.log(id);
 		try {
 			if (baseUrl && id !== null) {

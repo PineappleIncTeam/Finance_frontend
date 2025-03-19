@@ -426,7 +426,7 @@
     border: 1px solid var(--color-gainsboro);
     border-radius: 12px;
     padding: 28px 28px 40px 28px;
-    margin-top: 94px;
+    margin-top: 20px;
 }
 
 .analyticsDiagramAnalysisInfoWrapper {
@@ -734,6 +734,10 @@
         margin-top: 24px;
     }
 
+    .analyticsDiagramAnalysisWrapper {
+        margin-top: 4px;
+    }
+
     .diagramAnalysis {
         width: 160px;
         height: 160px;
@@ -877,6 +881,10 @@
     .analyticsDiagramAnalysis {
         flex-direction: column;
         align-items: start;
+    }
+
+    .analyticsDiagramAnalysisWrapper {
+        margin-top: 0px;
     }
 
     .analyticsDiagramAnalysisInfo {

@@ -54,6 +54,7 @@ function Analytics() {
 	const windowSizeM = 1024;
 	const windowSizeS = 768;
 	const windowSizeXS = 460;
+	const windowResizeLabel = 600;
 	const minimalRowValue = 0;
 	let maximalRowValue: number = 0;
 
@@ -67,11 +68,17 @@ function Analytics() {
 	const [displayMode, setDisplayMode] = useState(DisplayMode.RUB);
 	const [chartHeight, setChartHeight] = useState(298);
 	const [rotation, setRotation] = useState({ maxRotation: 0, minRotation: 0 });
+	const [isLabel, setIsLabel] = useState(true);
 	const isEmptyPage = false;
 	const rawExpensesData = [
 		1300.01, 3900.02, 3250.02, 1638.83, 2652.06, 15271.09, 390.0, 975.56, 1340.79, 9110.05, 16192.09, 2600.01, 6437.57,
 		1690.01, 26000.15, 520.0, 520.0, 520.0, 520.0, 9586.33,
 	];
+
+	const handleResizeIsLabel = () => {
+        setIsLabel(window.innerWidth > windowResizeLabel);
+    };
+
 	const rawAnalysisData = [50000, 50000];
 
 	const expensesLabels: string[] = [
@@ -285,15 +292,18 @@ function Analytics() {
 		updateChartHeight();
 		updateMonthNames();
 		handleResize();
+		handleResizeIsLabel();
 
 		window.addEventListener("resize", handleResize);
 		window.addEventListener("resize", updateChartHeight);
 		window.addEventListener("resize", updateMonthNames);
+		window.addEventListener("resize", handleResizeIsLabel);
 
 		return () => {
 			window.removeEventListener("resize", handleResize);
 			window.removeEventListener("resize", updateChartHeight);
 			window.removeEventListener("resize", updateMonthNames);
+			window.removeEventListener("resize", handleResizeIsLabel);
 		};
 	}, []);
 
@@ -609,7 +619,7 @@ function Analytics() {
 					/>
 				</div>
 				<div className={styles.analyticsSelectDateAndPeriod}>
-					<InputDate control={control} name={"date"} isPeriod={true} />
+					<InputDate control={control} name={"date"} isPeriod={true} isLabel={isLabel} />
 				</div>
 			</div>
 
@@ -703,7 +713,7 @@ function Analytics() {
 						/>
 					</div>
 					<div className={styles.analyticsSelectDateAndPeriod}>
-						<InputDate control={control} name={"date"} isPeriod={true} />
+						<InputDate control={control} name={"date"} isPeriod={true} isLabel={isLabel} />
 					</div>
 				</div>
 				<div className={styles.analyticsListOfOperationsDownloadWrapper}>

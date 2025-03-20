@@ -57,7 +57,7 @@ export default function Expenses() {
 
 	const { control, handleSubmit } = useForm<IExpensesInputForm & IExpensesSelectForm>({
 		defaultValues: {
-			sum: "",
+			amount: "",
 			type: "outcome",
 		},
 		mode: "all",
@@ -271,7 +271,7 @@ export default function Expenses() {
 								control={control}
 								label={"Сумма"}
 								type={InputTypeList.Number}
-								name={"number"}
+								name={"amount"}
 								placeholder={"0.00"}
 							/>
 						</div>

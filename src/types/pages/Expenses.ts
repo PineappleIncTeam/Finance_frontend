@@ -1,8 +1,7 @@
 export interface IExpensesInputForm {
-	number?: string;
-	date?: string;
-	sum?: string;
-	type?: string;
+	type: string;
+	amount: string;
+	date: string;
 }
 
 export interface IExpensesSelectForm {

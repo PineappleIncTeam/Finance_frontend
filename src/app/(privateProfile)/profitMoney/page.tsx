@@ -28,7 +28,7 @@ function ProfitMoney() {
 	const { resetTimer } = useLogoutTimer(request);
 	const { control } = useForm<IExpensesInputForm & IExpensesSelectForm>({
 		defaultValues: {
-			sum: "",
+			amount: "",
 		},
 		mode: "all",
 		delayError: 200,
@@ -80,7 +80,7 @@ function ProfitMoney() {
 											control={control}
 											label={"Сумма"}
 											type={InputTypeList.Number}
-											name={"number"}
+											name={"amount"}
 											placeholder="0.00 ₽"
 										/>
 									</div>
@@ -97,7 +97,7 @@ function ProfitMoney() {
 											control={control}
 											label={"Сумма"}
 											type={InputTypeList.Number}
-											name={"number"}
+											name={"amount"}
 											placeholder="0.00 ₽"
 										/>
 									</div>

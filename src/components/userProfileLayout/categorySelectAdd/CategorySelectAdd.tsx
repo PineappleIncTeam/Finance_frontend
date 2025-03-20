@@ -17,6 +17,7 @@ const CategorySelectAdd = ({ onSubmit, onClose }: ICategorySelectAdd) => {
 			is_income: true,
 			is_outcome: false,
 			is_deleted: false,
+			is_system: false,
 		};
 
 		try {

@@ -14,7 +14,7 @@ import { InputTypeList } from "../../../helpers/Input";
 import { IExpensesInputForm, IExpensesSelectForm } from "../../../types/pages/Expenses";
 
 import InputDate from "../../../ui/inputDate/inputDate";
-import { Select } from "../../../ui/select/Select";
+
 import { getCorrectBaseUrl } from "../../../utils/baseUrlConverter";
 
 import { ApiResponseCode } from "../../../helpers/apiResponseCode";
@@ -43,6 +43,8 @@ import { IOptionsResponse, ITransactionsResponse } from "../../../types/api/Expe
 import { RemoveExpensesCategory } from "../../../services/api/userProfile/RemoveExpensesCategory";
 import { CategoryDeleteSuccessModal } from "../../../components/userProfileLayout/categoryDeleteResponse/categoryDeleteSuccess/categoryDeleteSuccess";
 
+import { AddExpensesCategoryTransaction } from "../../../services/api/userProfile/AddExpensesCategoryTransaction";
+
 import styles from "./expenses.module.scss";
 
 export default function Expenses() {
@@ -53,9 +55,10 @@ export default function Expenses() {
 	const [options, setOptions] = useState<string[] | any>([]);
 	const [isDeleteSuccess, setIsDeleteSuccess] = useState<boolean>(false);
 
-	const { control } = useForm<IExpensesInputForm & IExpensesSelectForm>({
+	const { control, handleSubmit } = useForm<IExpensesInputForm & IExpensesSelectForm>({
 		defaultValues: {
 			sum: "",
+			type: "outcome",
 		},
 		mode: "all",
 		delayError: 200,
@@ -208,10 +211,39 @@ export default function Expenses() {
 		getCategoryOptions();
 	}, [baseUrl]);
 
+	const onSubmit = async (data: IExpensesInputForm) => {
+		try {
+			if (baseUrl && data !== null) {
+				const response = await AddExpensesCategoryTransaction(baseUrl, data);
+				if (response.status === axios.HttpStatusCode.Ok) {
+					console.log("success");
+				}
+			}
+		} catch (error) {
+			if (
+				axios.isAxiosError(error) &&
+				error.response &&
+				error.response.status &&
+				error.response.status === axios.HttpStatusCode.Conflict
+			) {
+				("Не верные данные");
+			}
+			if (
+				axios.isAxiosError(error) &&
+				error.response &&
+				error.response.status &&
+				error.response.status >= axios.HttpStatusCode.InternalServerError &&
+				error.response.status < ApiResponseCode.SERVER_ERROR_STATUS_MAX
+			) {
+				router.push(MainPath.ServerError);
+			}
+		}
+	};
+
 	return (
 		<div className={styles.expensesPageWrap}>
 			<div className={styles.expensesPageContainer}>
-				<form className={styles.expensesFormContentWrapper}>
+				<form className={styles.expensesFormContentWrapper} onSubmit={handleSubmit(onSubmit)}>
 					<h1 className={styles.headerTitle}>Расходы</h1>
 					<div className={styles.expensesByDateContainer}>
 						<div className={styles.totalMonthlyWrapper}>
@@ -227,7 +259,7 @@ export default function Expenses() {
 						<div className={styles.expensesDetailsContainer__category}>
 							<CategorySelect
 								name={"expenses"}
-								label={"Постоянные"}
+								label={"Категория"}
 								options={options}
 								control={control}
 								onAddCategory={() => setIsOpen(true)}
@@ -244,23 +276,6 @@ export default function Expenses() {
 							/>
 						</div>
 						<AddButton onClick={() => resetTimer()} type="submit" />
-					</div>
-					<div className={styles.expensesDetailsContainer}>
-						<div className={styles.expensesDetailsContainer__category}>
-							<Select name={"expenses"} label={"Временные"} options={[""]} />
-						</div>
-						<div className={styles.expensesDetailsContainer__sum}>
-							<AppInput
-								control={control}
-								label={"Сумма"}
-								type={InputTypeList.Number}
-								name={"number"}
-								placeholder="0.00"
-							/>
-						</div>
-						<AddButton onClick={() => resetTimer()} type="submit">
-							Добавить
-						</AddButton>
 					</div>
 				</form>
 				{isOpen && <CategoryAddModal open={isOpen} onCancelClick={() => setIsOpen(false)} request={addCategory} />}

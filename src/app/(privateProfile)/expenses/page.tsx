@@ -11,7 +11,7 @@ import ExpensesTransaction from "../../../components/userProfileLayout/expensesT
 
 import { InputTypeList } from "../../../helpers/Input";
 
-import { IExpensesInputForm, IExpensesSelectForm } from "../../../types/pages/Expenses";
+import { IExpensesAddCategoryTransactionForm, IExpensesSelectForm } from "../../../types/pages/Expenses";
 
 import InputDate from "../../../ui/inputDate/inputDate";
 
@@ -55,7 +55,7 @@ export default function Expenses() {
 	const [options, setOptions] = useState<string[] | any>([]);
 	const [isDeleteSuccess, setIsDeleteSuccess] = useState<boolean>(false);
 
-	const { control, handleSubmit } = useForm<IExpensesInputForm & IExpensesSelectForm>({
+	const { control, handleSubmit } = useForm<IExpensesAddCategoryTransactionForm & IExpensesSelectForm>({
 		defaultValues: {
 			amount: "",
 			type: "outcome",
@@ -211,7 +211,7 @@ export default function Expenses() {
 		getCategoryOptions();
 	}, [baseUrl]);
 
-	const onSubmit = async (data: IExpensesInputForm) => {
+	const onSubmit = async (data: IExpensesAddCategoryTransactionForm) => {
 		try {
 			if (baseUrl && data !== null) {
 				const response = await AddExpensesCategoryTransaction(baseUrl, data);

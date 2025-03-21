@@ -212,9 +212,7 @@ export default function Expenses() {
 	}, [baseUrl]);
 
 	const onSubmit = async (data: IExpensesAddCategoryTransactionForm) => {
-		console.log(data);
-		data.date = data.date.toString().slice(0, 9);
-		console.log(data);
+		data.date = new Date().toISOString().slice(0, 10);
 
 		try {
 			if (baseUrl && data !== null) {

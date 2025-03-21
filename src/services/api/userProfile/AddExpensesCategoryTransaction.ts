@@ -1,9 +1,9 @@
 import axios from "axios";
 
 import { addExpensesCategoryTransactionEndPoint } from "../auth/apiConstants";
-import { IExpensesInputForm } from "../../../types/pages/Expenses";
+import { IExpensesAddCategoryTransactionForm } from "../../../types/pages/Expenses";
 
-export const AddExpensesCategoryTransaction = async (baseUrl: string, data: IExpensesInputForm) => {
+export const AddExpensesCategoryTransaction = async (baseUrl: string, data: IExpensesAddCategoryTransactionForm) => {
 	return await axios(`${baseUrl}/${addExpensesCategoryTransactionEndPoint}`, {
 		method: "POST",
 		data: data,

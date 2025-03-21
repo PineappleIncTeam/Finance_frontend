@@ -11,7 +11,7 @@ import ExpensesTransaction from "../../../components/userProfileLayout/expensesT
 
 import { InputTypeList } from "../../../helpers/Input";
 
-import { IExpensesAddCategoryTransactionForm, IExpensesSelectForm } from "../../../types/pages/Expenses";
+import { IExpensesAddCategoryTransactionForm, IExpensesCategoryForm } from "../../../types/pages/Expenses";
 
 import InputDate from "../../../ui/inputDate/inputDate";
 
@@ -55,7 +55,7 @@ export default function Expenses() {
 	const [options, setOptions] = useState<string[] | any>([]);
 	const [isDeleteSuccess, setIsDeleteSuccess] = useState<boolean>(false);
 
-	const { control, handleSubmit } = useForm<IExpensesAddCategoryTransactionForm & IExpensesSelectForm>({
+	const { control, handleSubmit } = useForm<IExpensesAddCategoryTransactionForm & IExpensesCategoryForm>({
 		defaultValues: {
 			amount: "",
 			type: "outcome",
@@ -146,7 +146,6 @@ export default function Expenses() {
 	};
 
 	const onRemoveClick = async (id: number) => {
-		console.log(id);
 		try {
 			if (baseUrl && id !== null) {
 				const response = await RemoveExpensesCategory(baseUrl, id);
@@ -260,7 +259,7 @@ export default function Expenses() {
 					<div className={styles.expensesDetailsContainer}>
 						<div className={styles.expensesDetailsContainer__category}>
 							<CategorySelect
-								name={"expenses"}
+								name={"category"}
 								label={"Категория"}
 								options={options}
 								control={control}

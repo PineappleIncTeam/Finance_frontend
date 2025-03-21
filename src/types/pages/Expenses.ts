@@ -10,6 +10,10 @@ export interface IExpensesAddCategoryTransactionForm {
 	type: string;
 }
 
+export interface IExpensesCategoryForm {
+	category: string;
+}
+
 export interface IExpensesSelectForm {
 	expenses?: string;
 }

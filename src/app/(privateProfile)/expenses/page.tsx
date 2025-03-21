@@ -213,8 +213,9 @@ export default function Expenses() {
 
 	const onSubmit = async (data: IExpensesAddCategoryTransactionForm) => {
 		console.log(data);
-		data.date = data.date.slice(0, 9);
+		data.date = data.date.toString().slice(0, 9);
 		console.log(data);
+
 		try {
 			if (baseUrl && data !== null) {
 				const response = await AddExpensesCategoryTransaction(baseUrl, data);

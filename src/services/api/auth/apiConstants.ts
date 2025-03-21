@@ -14,4 +14,4 @@ export const getFiveOperationsEndPoint = "api/v1/operations/?type=outcome";
 export const addExpensesCategoryEndPoint = "api/v1/categories/";
 export const getCategoryOptionsEndPoint = "api/v1/categories/?is_outcome=true&is_income=false";
 export const removeCategoryExpensesEndPoint = "api/v1/categories";
-export const addExpensesCategoryTransactionEndPoint = "api/v1/operations";
+export const addExpensesCategoryTransactionEndPoint = "api/v1/operations/";

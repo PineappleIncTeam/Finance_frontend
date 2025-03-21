@@ -210,8 +210,9 @@ export default function Expenses() {
 		getCategoryOptions();
 	}, [baseUrl]);
 
-	const onSubmit = async (data: IExpensesAddCategoryTransactionForm) => {
+	const onSubmit = async (data: IExpensesAddCategoryTransactionForm & IExpensesCategoryForm) => {
 		data.date = new Date().toISOString().slice(0, 10);
+		data.category = String(data.category);
 
 		try {
 			if (baseUrl && data !== null) {

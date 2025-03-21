@@ -212,7 +212,6 @@ export default function Expenses() {
 
 	const onSubmit = async (data: IExpensesAddCategoryTransactionForm & IExpensesCategoryForm) => {
 		data.date = new Date().toISOString().slice(0, 10);
-		data.category = String(data.category);
 
 		try {
 			if (baseUrl && data !== null) {
@@ -260,7 +259,7 @@ export default function Expenses() {
 					<div className={styles.expensesDetailsContainer}>
 						<div className={styles.expensesDetailsContainer__category}>
 							<CategorySelect
-								name={"category"}
+								name={"categories"}
 								label={"Категория"}
 								options={options}
 								control={control}

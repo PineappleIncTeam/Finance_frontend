@@ -20,7 +20,6 @@ import SavingsTransaction from "../../../components/userProfileLayout/savingsTra
 import AppInput from "../../../ui/appInput/AppInput";
 import { CategorySelect } from "../../../components/userProfileLayout/categorySelect/CategorySelect";
 import AddButton from "../../../components/userProfileLayout/addButton/addButton";
-import { savingsTransactions } from "../../../mocks/SavingsTransaction";
 import { InputTypeList } from "../../../helpers/Input";
 import { getCorrectBaseUrl } from "../../../utils/baseUrlConverter";
 import handleLogout from "../../../helpers/logout";
@@ -344,7 +343,7 @@ function Savings() {
 				<div className={styles.savingsTransactionWrapper}>
 					<h2 className={styles.savingsTransactionHeader}>Последние операции по накоплениям</h2>
 					<ul className={styles.savingsTransaction}>
-						{savingsTransactions && renderSavingsTransactions(transactions)}
+							{renderSavingsTransactions(transactions)}
 					</ul>
 				</div>
 			</div>

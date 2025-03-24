@@ -8,11 +8,11 @@ export interface IExpensesAddCategoryTransactionForm {
 	date: string;
 	amount: string;
 	type: string;
+	target: string;
 }
 
 export interface IExpensesCategoryForm {
 	categories: string;
-	target: string;
 }
 
 export interface IExpensesSelectForm {

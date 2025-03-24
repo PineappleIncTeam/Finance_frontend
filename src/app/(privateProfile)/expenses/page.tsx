@@ -36,7 +36,7 @@ import { CategoryAddSuccessModal } from "../../../components/userProfileLayout/c
 
 import { MainPath } from "../../../services/router/routes";
 
-import { GetCategoryOptions } from "../../../services/api/userProfile/GetCategoryOptions";
+import { GetCategoriesAll } from "../../../services/api/userProfile/GetCategoriesAll";
 
 import { IOptionsResponse, ITransactionsResponse } from "../../../types/api/Expenses";
 
@@ -79,9 +79,12 @@ export default function Expenses() {
 
 	useEffect(() => {
 		const getFiveOperations = async () => {
+			const data = {
+				type: "outcome",
+			};
 			try {
 				if (baseUrl) {
-					const response: AxiosResponse<ITransactionsResponse> = await GetFiveTransactions(baseUrl);
+					const response: AxiosResponse<ITransactionsResponse> = await GetFiveTransactions(baseUrl, data);
 					if (response !== null && response.status === axios.HttpStatusCode.Ok) {
 						setFiveOperations(response.data);
 					}
@@ -176,10 +179,16 @@ export default function Expenses() {
 	};
 
 	useEffect(() => {
+		const data = {
+			// eslint-disable-next-line camelcase
+			is_income: false,
+			// eslint-disable-next-line camelcase
+			is_outcome: true,
+		};
 		const getCategoryOptions = async () => {
 			try {
 				if (baseUrl) {
-					const response: AxiosResponse<IOptionsResponse> = await GetCategoryOptions(baseUrl);
+					const response: AxiosResponse<IOptionsResponse> = await GetCategoriesAll(baseUrl, data);
 					if (response !== null && response.status === axios.HttpStatusCode.Ok) {
 						setOptions(response.data);
 					}
@@ -211,7 +220,8 @@ export default function Expenses() {
 	}, [baseUrl]);
 
 	const onSubmit = async (data: IExpensesAddCategoryTransactionForm & IExpensesCategoryForm) => {
-		data.date = new Date().toISOString().slice(0, 10);
+		const endDate = 10;
+		data.date = new Date().toISOString().slice(0, endDate);
 
 		try {
 			if (baseUrl && data !== null) {

@@ -17,3 +17,12 @@ export interface IExpensesCategoryForm {
 export interface IExpensesSelectForm {
 	expenses?: string;
 }
+
+export interface ICategoriesAll {
+	is_income: boolean;
+	is_outcome: boolean;
+}
+
+export interface IFiveOperations {
+	type: string;
+}

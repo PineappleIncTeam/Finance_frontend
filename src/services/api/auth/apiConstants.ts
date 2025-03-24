@@ -10,8 +10,8 @@ export const userActivationEndpoint = "api/v1/auth/users/activation/";
 export const resetPasswordWithEmailEndPoint = "api/v1/auth/users/reset_password/";
 export const setNewPasswordEndPoint = "api/v1/auth/users/reset_password_confirm/";
 
-export const getFiveOperationsEndPoint = "api/v1/operations/?type=outcome";
+export const getFiveOperationsEndPoint = "api/v1/operations/";
 export const addExpensesCategoryEndPoint = "api/v1/categories/";
-export const getCategoryOptionsEndPoint = "api/v1/categories/?is_outcome=true&is_income=false";
+export const getCategoriesAllEndPoint = "api/v1/categories/all/";
 export const removeCategoryExpensesEndPoint = "api/v1/categories";
 export const addExpensesCategoryTransactionEndPoint = "api/v1/operations/";

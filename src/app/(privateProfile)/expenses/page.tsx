@@ -270,7 +270,7 @@ export default function Expenses() {
 					<div className={styles.expensesDetailsContainer}>
 						<div className={styles.expensesDetailsContainer__category}>
 							<CategorySelect
-								name={"categories"}
+								name={"target"}
 								label={"Категория"}
 								options={options}
 								control={control}

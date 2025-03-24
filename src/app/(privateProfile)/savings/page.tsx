@@ -15,7 +15,7 @@ import {
 	TSavingsFieldState,
 } from "../../../types/components/ComponentsTypes";
 import { ISavingsInputForm, ISavingsSelectForm } from "../../../types/pages/Savings";
-import { ICategoryOption } from "../../../types/common/ComponentsProps";
+import { ICategoryOption, IOperation } from "../../../types/common/ComponentsProps";
 import SavingsTransaction from "../../../components/userProfileLayout/savingsTransaction/savingsTransaction";
 import AppInput from "../../../ui/appInput/AppInput";
 import { CategorySelect } from "../../../components/userProfileLayout/categorySelect/CategorySelect";
@@ -60,7 +60,7 @@ function Savings() {
 
 	const [categories, setCategories] = useState<ICategoryOption[]>([]);
 
-	const [transactions, setTransactions] = useState<ISavingsTransaction[]>([]);
+	const [transactions, setTransactions] = useState<IOperation[]>([]);
 
 	const initialItems = [
 		{ category: "Обучение ребенка", target: "210 000.00", sum: "200 000.00", status: "В процессе" },
@@ -109,32 +109,38 @@ function Savings() {
 	};
 
 	const handleAddButtonClick = async () => {
-		const categorySelected = getValues("savings"); // Получаем выбранную категорию
-		const amountString = getValues("number");
-		const amount = amountString ? parseFloat(amountString) : 0; // Получаем введённую сумму
-		const date = getValues("date"); // Получаем дату (если она есть)
-	
-	
-	
-		const operation = {
-		  type: "Deposit", // Тип операции, если это депозит, можно изменить
-		  amount: amount,
-		  date: date || new Date().toISOString(), // Если дата не выбрана, используем текущую
-		  categories: Number(categorySelected),
-		};
-	
 		try {
-			if (!baseUrl) {
-				throw new Error("Base URL is not defined");
-			  }
-		  await postUserOperations(baseUrl, operation); // Отправляем данные
-		  const updatedTransactions = [...transactions, operation]; // Добавляем новую операцию
-		  setTransactions(updatedTransactions);
-	 
+		  const categorySelected = getValues("savings");
+		  const amountString = getValues("sum");
+		  const amount = amountString ? parseFloat(amountString) : 0;
+		  const date = getValues("date") || new Date().toISOString().split("T")[0];
+	  
+		  if (!categorySelected || isNaN(amount)) {
+			console.error("Категория и сумма обязательны");
+			return;
+		  }
+	  
+		  const operation: Omit<IOperation, "id"> = {
+			type: "targets", // Тип для накоплений
+			amount: amount,
+			date: date,
+			categories: Number(categorySelected),
+		  };
+	  
+		  if (!baseUrl) throw new Error("Base URL is not defined");
+	  
+		  const response = await postUserOperations(baseUrl, operation);
+		  
+		  // Добавляем новую операцию в список
+		  setTransactions(prev => [...prev, response.data]);
+	  
 		} catch (error) {
 		  console.error("Ошибка при добавлении операции:", error);
+		  // Можно добавить toast-уведомление
 		}
 	  };
+
+
 
 	useEffect(() => {
 		setBaseUrl(getCorrectBaseUrl());
@@ -254,7 +260,7 @@ function Savings() {
 		});
 	}
 
-	const renderSavingsTransactions = (transactions: ISavingsTransaction[]) => {
+	const renderSavingsTransactions = (transactions: Array<ISavingsTransaction | IOperation>) => {
 		return transactions.map((savingsData, index) => (
 			<li key={index}>
 				<SavingsTransaction
@@ -299,7 +305,7 @@ function Savings() {
 									control={control}
 									label={"Сумма"}
 									type={InputTypeList.Number}
-									name={"number"}
+									name={"sum"}
 									placeholder={"0.00 ₽"}
 								/>
 							</div>

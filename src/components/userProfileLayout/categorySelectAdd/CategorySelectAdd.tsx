@@ -9,7 +9,6 @@ import styles from "./CategorySelectAdd.module.scss";
 
 const CategorySelectAdd = ({ onSubmit, onClose }: ICategorySelectAdd) => {
 	const [categoryName, setCategoryName] = useState("");
-	const [targetAmount, setTargetAmount] = useState("");
 
 	const handleSubmit = async () => {
 		const categoryData = {
@@ -23,7 +22,7 @@ const CategorySelectAdd = ({ onSubmit, onClose }: ICategorySelectAdd) => {
 		try {
 			await postUserCategories("https://dev.freenance.store", categoryData);
 
-			onSubmit(categoryName, targetAmount);
+			onSubmit(categoryName);
 			onClose();
 		} catch (error) {
 			console.error("Ошибка при добавлении категории:", error);
@@ -46,16 +45,7 @@ const CategorySelectAdd = ({ onSubmit, onClose }: ICategorySelectAdd) => {
 							required
 						/>
 					</div>
-					<div className={styles.formContent__input}>
-						<label htmlFor="CategorySum">Введите целевую сумму</label>
-						<input
-							type="text"
-							value={targetAmount}
-							onChange={(e) => setTargetAmount(e.target.value)}
-							placeholder="0.00"
-							required
-						/>
-					</div>
+
 					<div className={styles.formContent__btn}>
 						<button className={styles.btnCancel} onClick={onClose}>
 							Отменить

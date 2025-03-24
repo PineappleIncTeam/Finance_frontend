@@ -127,6 +127,15 @@ export interface ICategorySelect<T extends FieldValues> {
 }
 
 export interface ICategorySelectAdd {
-	onSubmit: (categoryName: string, targetAmount: string) => void;
+	onSubmit: (categoryName: string) => void;
 	onClose: () => void;
+  }
+
+  export interface IOperation {
+	id?: number; 
+	type: "targets" | "outcome" | "income"; 
+	amount: number;
+	date: string; 
+	categories?: number | null; 
+	target?: number | null; 
   }

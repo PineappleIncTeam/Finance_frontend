@@ -109,37 +109,34 @@ function Savings() {
 
 	const handleAddButtonClick = async () => {
 		try {
-		  const categorySelected = getValues("savings");
-		  const amountString = getValues("sum");
-		  const amount = amountString ? parseFloat(amountString) : 0;
-		  const date = getValues("date") || new Date().toISOString().split("T")[0];
-	  
-		  if (!categorySelected || isNaN(amount)) {
-			console.error("Категория и сумма обязательны");
-			return;
-		  }
-	  
-		  const operation: Omit<IOperation, "id"> = {
-			type: "targets", // Тип для накоплений
-			amount: amount,
-			date: date,
-			categories: Number(categorySelected),
-		  };
-	  
-		  if (!baseUrl) throw new Error("Base URL is not defined");
-	  
-		  const response = await postUserOperations(baseUrl, operation);
-		  
-		  // Добавляем новую операцию в список
-		  setTransactions(prev => [...prev, response.data]);
-	  
+			const categorySelected = getValues("savings");
+			const amountString = getValues("sum");
+			const amount = amountString ? parseFloat(amountString) : 0;
+			const date = getValues("date") || new Date().toISOString().split("T")[0];
+
+			if (!categorySelected || isNaN(amount)) {
+				console.error("Категория и сумма обязательны");
+				return;
+			}
+
+			const operation: Omit<IOperation, "id"> = {
+				type: "targets", // Тип для накоплений
+				amount: amount,
+				date: date,
+				categories: Number(categorySelected),
+			};
+
+			if (!baseUrl) throw new Error("Base URL is not defined");
+
+			const response = await postUserOperations(baseUrl, operation);
+
+			// Добавляем новую операцию в список
+			setTransactions((prev) => [...prev, response.data]);
 		} catch (error) {
-		  console.error("Ошибка при добавлении операции:", error);
-		  // Можно добавить toast-уведомление
+			console.error("Ошибка при добавлении операции:", error);
+			// Можно добавить toast-уведомление
 		}
-	  };
-
-
+	};
 
 	useEffect(() => {
 		setBaseUrl(getCorrectBaseUrl());
@@ -163,10 +160,9 @@ function Savings() {
 	useEffect(() => {
 		const fetchOperations = async () => {
 			if (baseUrl) {
-					const response = await getUserOperations(baseUrl);
-					setTransactions(response.data);
-				}
-			
+				const response = await getUserOperations(baseUrl);
+				setTransactions(response.data);
+			}
 		};
 
 		fetchOperations();
@@ -260,16 +256,17 @@ function Savings() {
 	}
 
 	const renderSavingsTransactions = (transactions: Array<ISavingsTransaction | IOperation>) => {
-		return transactions.map((savingsData, index) => (
-			<li key={index}>
-				<SavingsTransaction
-					date={savingsData.date}
-					// secondDate={savingsData.category}
-					categories={savingsData.categories}
-					amount={savingsData.amount}
-				/>
-			</li>
-		));
+		return transactions
+			.filter((t) => t.type === "targets") // Фильтруем только накопления
+			.map((savingsData, index) => (
+				<li key={index}>
+					<SavingsTransaction
+						date={savingsData.date}
+						categories={savingsData.categories ?? null} // Явно преобразуем undefined в null
+						amount={savingsData.amount}
+					/>
+				</li>
+			));
 	};
 
 	return (
@@ -342,9 +339,7 @@ function Savings() {
 				</form>
 				<div className={styles.savingsTransactionWrapper}>
 					<h2 className={styles.savingsTransactionHeader}>Последние операции по накоплениям</h2>
-					<ul className={styles.savingsTransaction}>
-							{renderSavingsTransactions(transactions)}
-					</ul>
+					<ul className={styles.savingsTransaction}>{renderSavingsTransactions(transactions)}</ul>
 				</div>
 			</div>
 		</div>

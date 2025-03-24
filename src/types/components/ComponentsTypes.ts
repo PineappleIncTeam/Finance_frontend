@@ -63,6 +63,7 @@ export interface ISavingsTransaction {
 	date: string;
 	categories: number | null;
 	amount: number;
+	type?: "targets" | "outcome" | "income";
 }
 
 export interface ISavingsItem {

@@ -12,6 +12,7 @@ export interface IExpensesAddCategoryTransactionForm {
 
 export interface IExpensesCategoryForm {
 	categories: string;
+	target: string;
 }
 
 export interface IExpensesSelectForm {

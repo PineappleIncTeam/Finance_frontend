@@ -78,6 +78,15 @@ export default function Expenses() {
 	}, [request, resetTimer]);
 
 	useEffect(() => {
+		const getNamesOperations = () => {
+			return options.forEach((option: { id: number; name: string }) => {
+				fiveOperations.forEach((element: { categories: number }) => {
+					if (option.id === element.categories) {
+						setFiveOperations({ name: option.name });
+					}
+				});
+			});
+		};
 		const getFiveOperations = async () => {
 			const data = {
 				type: "outcome",
@@ -87,6 +96,7 @@ export default function Expenses() {
 					const response: AxiosResponse<ITransactionsResponse> = await GetFiveTransactions(baseUrl, data);
 					if (response !== null && response.status === axios.HttpStatusCode.Ok) {
 						setFiveOperations(response.data);
+						getNamesOperations();
 					}
 				}
 			} catch (error) {
@@ -113,7 +123,7 @@ export default function Expenses() {
 			}
 		};
 		getFiveOperations();
-	}, [baseUrl]);
+	}, [baseUrl, fiveOperations, options]);
 
 	const interval = 2000;
 
@@ -298,11 +308,7 @@ export default function Expenses() {
 					{fiveOperations &&
 						fiveOperations.map((expensesData: IExpenseTransaction, index: Key) => (
 							<li key={index}>
-								<ExpensesTransaction
-									date={expensesData.date}
-									target={expensesData.target}
-									amount={expensesData.amount}
-								/>
+								<ExpensesTransaction date={expensesData.date} name={expensesData.name} amount={expensesData.amount} />
 							</li>
 						))}
 				</div>

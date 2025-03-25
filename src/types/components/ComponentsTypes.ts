@@ -43,8 +43,8 @@ export type TMessageModal = "success" | "warning" | "notification";
 
 export interface IExpenseTransaction {
 	date: string;
-	target: string;
 	amount: string;
+	name: string;
 }
 
 export interface IIncomeTransaction {

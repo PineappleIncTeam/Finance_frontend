@@ -78,6 +78,47 @@ export default function Expenses() {
 	}, [request, resetTimer]);
 
 	useEffect(() => {
+		const data = {
+			// eslint-disable-next-line camelcase
+			is_income: false,
+			// eslint-disable-next-line camelcase
+			is_outcome: true,
+		};
+		const getCategoryOptions = async () => {
+			try {
+				if (baseUrl) {
+					const response: AxiosResponse<IOptionsResponse> = await GetCategoriesAll(baseUrl, data);
+					if (response !== null && response.status === axios.HttpStatusCode.Ok) {
+						setOptions(response.data);
+					}
+				}
+			} catch (error) {
+				if (
+					axios.isAxiosError(error) &&
+					error.response &&
+					error.response.status &&
+					error.response.status >= axios.HttpStatusCode.BadRequest &&
+					error.response.status <= axios.HttpStatusCode.InternalServerError
+				) {
+					console.log(error);
+					setOptions([]);
+				}
+				if (
+					axios.isAxiosError(error) &&
+					error.response &&
+					error.response.status &&
+					error.response.status >= axios.HttpStatusCode.InternalServerError &&
+					error.response.status < ApiResponseCode.SERVER_ERROR_STATUS_MAX
+				) {
+					console.log(error);
+					setOptions([]);
+				}
+			}
+		};
+		getCategoryOptions();
+	}, [baseUrl]);
+
+	useEffect(() => {
 		const getNamesOperations = () => {
 			return options.forEach((option: { id: number; name: string }) => {
 				fiveOperations.forEach((element: { categories: number; target: string }) => {
@@ -187,47 +228,6 @@ export default function Expenses() {
 			}
 		}
 	};
-
-	useEffect(() => {
-		const data = {
-			// eslint-disable-next-line camelcase
-			is_income: false,
-			// eslint-disable-next-line camelcase
-			is_outcome: true,
-		};
-		const getCategoryOptions = async () => {
-			try {
-				if (baseUrl) {
-					const response: AxiosResponse<IOptionsResponse> = await GetCategoriesAll(baseUrl, data);
-					if (response !== null && response.status === axios.HttpStatusCode.Ok) {
-						setOptions(response.data);
-					}
-				}
-			} catch (error) {
-				if (
-					axios.isAxiosError(error) &&
-					error.response &&
-					error.response.status &&
-					error.response.status >= axios.HttpStatusCode.BadRequest &&
-					error.response.status <= axios.HttpStatusCode.InternalServerError
-				) {
-					console.log(error);
-					setOptions([]);
-				}
-				if (
-					axios.isAxiosError(error) &&
-					error.response &&
-					error.response.status &&
-					error.response.status >= axios.HttpStatusCode.InternalServerError &&
-					error.response.status < ApiResponseCode.SERVER_ERROR_STATUS_MAX
-				) {
-					console.log(error);
-					setOptions([]);
-				}
-			}
-		};
-		getCategoryOptions();
-	}, [baseUrl]);
 
 	const onSubmit = async (data: IExpensesAddCategoryTransactionForm & IExpensesCategoryForm) => {
 		const endDate = 10;

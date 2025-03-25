@@ -119,15 +119,6 @@ export default function Expenses() {
 	}, [baseUrl]);
 
 	useEffect(() => {
-		const getNamesOperations = () => {
-			return options.forEach((option: { id: number; name: string }) => {
-				fiveOperations.forEach((element: { categories: number; target: string }) => {
-					if (element.categories === option.id) {
-						element.target = option.name;
-					}
-				});
-			});
-		};
 		const getFiveOperations = async () => {
 			const data = {
 				type: "outcome",
@@ -137,7 +128,6 @@ export default function Expenses() {
 					const response: AxiosResponse<ITransactionsResponse> = await GetFiveTransactions(baseUrl, data);
 					if (response !== null && response.status === axios.HttpStatusCode.Ok) {
 						setFiveOperations(response.data);
-						getNamesOperations();
 					}
 				}
 			} catch (error) {
@@ -164,7 +154,7 @@ export default function Expenses() {
 			}
 		};
 		getFiveOperations();
-	}, [baseUrl, fiveOperations, options]);
+	}, [baseUrl]);
 
 	const interval = 2000;
 
@@ -262,6 +252,17 @@ export default function Expenses() {
 		}
 	};
 
+	const getNamesOperations = () => {
+		return options.forEach((option: { id: number; name: string }) => {
+			fiveOperations.forEach((element: { categories: number; target: string }) => {
+				if (element.categories === option.id) {
+					element.target = option.name;
+				}
+			});
+			console.log(fiveOperations);
+		});
+	};
+
 	return (
 		<div className={styles.expensesPageWrap}>
 			<div className={styles.expensesPageContainer}>
@@ -305,7 +306,8 @@ export default function Expenses() {
 				{isDeleteSuccess && <CategoryDeleteSuccessModal open={isDeleteSuccess} />}
 				<div className={styles.expensesTransactionsWrapper}>
 					<h1 className={styles.expensesTransactionHeader}>Последние операции по расходам</h1>
-					{fiveOperations &&
+					{getNamesOperations() &&
+						fiveOperations &&
 						fiveOperations.map((expensesData: IExpenseTransaction, index: Key) => (
 							<li key={index}>
 								<ExpensesTransaction

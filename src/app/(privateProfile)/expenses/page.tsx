@@ -80,9 +80,9 @@ export default function Expenses() {
 	useEffect(() => {
 		const getNamesOperations = () => {
 			return options.forEach((option: { id: number; name: string }) => {
-				fiveOperations.forEach((element: { categories: number }) => {
-					if (option.id === element.categories) {
-						setFiveOperations({ name: option.name });
+				fiveOperations.forEach((element: { categories: number; target: string }) => {
+					if (element.categories === option.id) {
+						element.target = option.name;
 					}
 				});
 			});
@@ -308,7 +308,11 @@ export default function Expenses() {
 					{fiveOperations &&
 						fiveOperations.map((expensesData: IExpenseTransaction, index: Key) => (
 							<li key={index}>
-								<ExpensesTransaction date={expensesData.date} name={expensesData.name} amount={expensesData.amount} />
+								<ExpensesTransaction
+									date={expensesData.date}
+									target={expensesData.target}
+									amount={expensesData.amount}
+								/>
 							</li>
 						))}
 				</div>

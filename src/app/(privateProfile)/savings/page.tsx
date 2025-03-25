@@ -36,7 +36,7 @@ import { SortIcon } from "../../../assets/script/savings/SortIcon";
 import styles from "./savings.module.scss";
 
 function Savings() {
-	const { control, getValues } = useForm<ISavingsInputForm & ISavingsSelectForm>({
+	const { control, getValues, setValue } = useForm<ISavingsInputForm & ISavingsSelectForm>({
 		defaultValues: {
 			sum: "",
 		},
@@ -109,34 +109,45 @@ function Savings() {
 
 	const handleAddButtonClick = async () => {
 		try {
+			// Получаем значения из формы
 			const categorySelected = getValues("savings");
-			const amountString = getValues("sum");
-			const amount = amountString ? parseFloat(amountString) : 0;
+			const amount = getValues("sum");
 			const date = getValues("date") || new Date().toISOString().split("T")[0];
-
-			if (!categorySelected || isNaN(amount)) {
-				console.error("Категория и сумма обязательны");
-				return;
+		
+			// Валидация
+			if (!categorySelected || !amount) {
+			  console.error("Категория и сумма обязательны");
+			  return;
 			}
-
-			const operation: Omit<IOperation, "id"> = {
-				type: "targets", // Тип для накоплений
-				amount: amount,
+		
+			// Подготовка данных
+			const operationData: Omit<IOperation, "id"> = {
+				type: "targets", // явно указываем допустимое значение
+				amount: Number(amount),
 				date: date,
-				categories: Number(categorySelected),
-			};
-
-			if (!baseUrl) throw new Error("Base URL is not defined");
-
-			const response = await postUserOperations(baseUrl, operation);
-
-			// Добавляем новую операцию в список
-			setTransactions((prev) => [...prev, response.data]);
-		} catch (error) {
+				categories: Number(categorySelected)
+			  };
+		
+			if (!baseUrl) {
+			  console.error("Base URL не определён");
+			  return;
+			}
+		
+			// Отправка запроса
+			const response = await postUserOperations(baseUrl, operationData);
+			
+			// Обновление состояния
+			setTransactions(prev => [...prev, response.data]);
+			
+			// Сброс полей формы (опционально)
+			setValue("sum", "");
+			setValue("savings", "");
+		
+		  } catch (error) {
 			console.error("Ошибка при добавлении операции:", error);
-			// Можно добавить toast-уведомление
-		}
-	};
+			// Можно добавить уведомление для пользователя
+		  }
+		};
 
 	useEffect(() => {
 		setBaseUrl(getCorrectBaseUrl());

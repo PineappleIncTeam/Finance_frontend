@@ -154,21 +154,21 @@ export default function Expenses() {
 			}
 		};
 		getFiveOperations();
-	}, []);
+	}, [baseUrl]);
 
-	useEffect(() => {
-		const getNamesOperations = () => {
-			return options.forEach((option: { id: number; name: string }) => {
-				fiveOperations.forEach((element: { categories: number; target: string }) => {
-					if (element.categories === option.id) {
-						element.target = option.name;
-					}
-				});
-				console.log(fiveOperations);
-			});
-		};
-		getNamesOperations();
-	}, [fiveOperations, options]);
+	// useEffect(() => {
+	// 	const getNamesOperations = () => {
+	// 		return options.forEach((option: { id: number; name: string }) => {
+	// 			fiveOperations.forEach((element: { categories: number; target: string }) => {
+	// 				if (element.categories === option.id) {
+	// 					element.target = option.name;
+	// 				}
+	// 			});
+	// 			console.log(fiveOperations);
+	// 		});
+	// 	};
+	// 	getNamesOperations();
+	// }, [fiveOperations, options]);
 
 	const interval = 2000;
 

@@ -108,66 +108,57 @@ function Savings() {
 		);
 	};
 
-	const handleAddButtonClick = async (e?: React.FormEvent) => {
-		e?.preventDefault();
+	const handleAddButtonClick = async () => {
 		try {
 		  const categorySelected = getValues("savings");
 		  const amount = getValues("sum");
 		  const date = getValues("date") || new Date().toISOString().split("T")[0];
 	  
-		  // Валидация
-		  if (!categorySelected || !amount) {
-			console.error("Категория и сумма обязательны");
+		  // Строгая валидация
+		  if (!categorySelected || isNaN(Number(categorySelected))) {
+			alert("Выберите корректную категорию");
 			return;
 		  }
 	  
-		  // Подготовка данных согласно Swagger
-		  const operationData: Omit<IOperation, "id"> = {
-			type: "targets",
-			amount: Number(amount),
-			date: date,
-			categories: Number(categorySelected),
-			target: null
+		  if (!amount || isNaN(parseFloat(amount))) {
+			alert("Введите корректную сумму");
+			return;
+		  }
+	  
+		  // Формируем данные ТОЧНО по Swagger
+		  const operationData: IOperation = {
+			type: "targets", // Enum value
+			amount: parseFloat(amount), // number($decimal)
+			date: date, // string($date)
+			categories: parseInt(categorySelected, 10), // integer
+			target: null // explicit null
 		  };
 	  
-		  console.log("Отправляемые данные:", operationData);
-    console.log("Base URL:", baseUrl);
-	  
-		  if (!baseUrl) {
-			console.error("Base URL не определён");
-			return;
-		  }
-
+		  console.log("Отправка (Swagger-совместимо):", operationData);
 		  
-	  
-		  // Отправка запроса
-		  const response = await postUserOperations(baseUrl, operationData);
-    
-    // Логирование ответа (добавьте это)
-    console.log("Полученный ответ:", {
-      status: response.status,
-      data: response.data,
-      headers: response.headers
-    });
+		  const response = await postUserOperations(baseUrl!, operationData);
+		  console.log("Успешный ответ:", response.data);
 		  
-		  // Обновление состояния
+		  // Обновляем список
 		  setTransactions(prev => [...prev, response.data]);
-
-
-		  const newOperations = await getUserOperations(baseUrl!);
-    		setTransactions(newOperations.data);
 		  
-		  // Сброс полей формы
+		  // Сбрасываем форму
 		  setValue("sum", "");
 		  setValue("savings", "");
 	  
 		} catch (error) {
-		  console.error("Ошибка при добавлении операции:", error);
 		  if (axios.isAxiosError(error)) {
-			console.error("Детали ошибки:", {
-			  status: error.response?.status,
-			  data: error.response?.data,
+			console.error("Детали ошибки 400:", {
+			  request: {
+				url: error.config?.url,
+				data: error.config?.data
+			  },
+			  response: {
+				status: error.response?.status,
+				data: error.response?.data
+			  }
 			});
+			alert(`Ошибка сервера: ${error.response?.data?.message || "Неверные данные"}`);
 		  }
 		}
 	  };

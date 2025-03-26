@@ -132,7 +132,6 @@ export interface ICategorySelectAdd {
   }
 
   export interface IOperation {
-	id?: number; 
 	type: "targets" | "outcome" | "income"; 
 	amount: number;
 	date: string; 

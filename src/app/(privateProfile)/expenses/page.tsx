@@ -154,7 +154,7 @@ export default function Expenses() {
 			}
 		};
 		getFiveOperations();
-	});
+	}, []);
 
 	useEffect(() => {
 		const getNamesOperations = () => {

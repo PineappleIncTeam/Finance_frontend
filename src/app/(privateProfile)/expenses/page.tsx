@@ -154,7 +154,7 @@ export default function Expenses() {
 			}
 		};
 		getFiveOperations();
-	}, [baseUrl]);
+	});
 
 	const interval = 2000;
 

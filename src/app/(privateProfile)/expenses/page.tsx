@@ -156,6 +156,20 @@ export default function Expenses() {
 		getFiveOperations();
 	});
 
+	useEffect(() => {
+		const getNamesOperations = () => {
+			return options.forEach((option: { id: number; name: string }) => {
+				fiveOperations.forEach((element: { categories: number; target: string }) => {
+					if (element.categories === option.id) {
+						element.target = option.name;
+					}
+				});
+				console.log(fiveOperations);
+			});
+		};
+		getNamesOperations();
+	}, [fiveOperations, options]);
+
 	const interval = 2000;
 
 	const addCategory = async (data: IAddCategoryExpensesForm) => {
@@ -252,17 +266,6 @@ export default function Expenses() {
 		}
 	};
 
-	const getNamesOperations = () => {
-		return options.forEach((option: { id: number; name: string }) => {
-			fiveOperations.forEach((element: { categories: number; target: string }) => {
-				if (element.categories === option.id) {
-					element.target = option.name;
-				}
-			});
-			console.log(fiveOperations);
-		});
-	};
-
 	return (
 		<div className={styles.expensesPageWrap}>
 			<div className={styles.expensesPageContainer}>
@@ -306,8 +309,7 @@ export default function Expenses() {
 				{isDeleteSuccess && <CategoryDeleteSuccessModal open={isDeleteSuccess} />}
 				<div className={styles.expensesTransactionsWrapper}>
 					<h1 className={styles.expensesTransactionHeader}>Последние операции по расходам</h1>
-					{getNamesOperations() &&
-						fiveOperations &&
+					{fiveOperations &&
 						fiveOperations.map((expensesData: IExpenseTransaction, index: Key) => (
 							<li key={index}>
 								<ExpensesTransaction

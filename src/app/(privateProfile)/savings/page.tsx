@@ -108,7 +108,8 @@ function Savings() {
 		);
 	};
 
-	const handleAddButtonClick = async () => {
+	const handleAddButtonClick = async (e?: React.FormEvent) => {
+		e?.preventDefault();
 		try {
 		  const categorySelected = getValues("savings");
 		  const amount = getValues("sum");
@@ -151,6 +152,10 @@ function Savings() {
 		  
 		  // Обновление состояния
 		  setTransactions(prev => [...prev, response.data]);
+
+
+		  const newOperations = await getUserOperations(baseUrl!);
+    		setTransactions(newOperations.data);
 		  
 		  // Сброс полей формы
 		  setValue("sum", "");
@@ -335,7 +340,7 @@ function Savings() {
 								/>
 							</div>
 
-							<AddButton onClick={handleAddButtonClick} type={InputTypeList.Submit} />
+							<AddButton onClick={handleAddButtonClick} type={InputTypeList.Button} />
 						</div>
 					</div>
 					<div className={styles.savingsFormContentWrapperList}>

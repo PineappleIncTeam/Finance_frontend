@@ -3,6 +3,7 @@
 
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+import axios from "axios";
 
 import useLogoutTimer from "../../../hooks/useLogoutTimer";
 
@@ -109,45 +110,62 @@ function Savings() {
 
 	const handleAddButtonClick = async () => {
 		try {
-			// Получаем значения из формы
-			const categorySelected = getValues("savings");
-			const amount = getValues("sum");
-			const date = getValues("date") || new Date().toISOString().split("T")[0];
-		
-			// Валидация
-			if (!categorySelected || !amount) {
-			  console.error("Категория и сумма обязательны");
-			  return;
-			}
-		
-			// Подготовка данных
-			const operationData: Omit<IOperation, "id"> = {
-				type: "targets", // явно указываем допустимое значение
-				amount: Number(amount),
-				date: date,
-				categories: Number(categorySelected)
-			  };
-		
-			if (!baseUrl) {
-			  console.error("Base URL не определён");
-			  return;
-			}
-		
-			// Отправка запроса
-			const response = await postUserOperations(baseUrl, operationData);
-			
-			// Обновление состояния
-			setTransactions(prev => [...prev, response.data]);
-			
-			// Сброс полей формы (опционально)
-			setValue("sum", "");
-			setValue("savings", "");
-		
-		  } catch (error) {
-			console.error("Ошибка при добавлении операции:", error);
-			// Можно добавить уведомление для пользователя
+		  const categorySelected = getValues("savings");
+		  const amount = getValues("sum");
+		  const date = getValues("date") || new Date().toISOString().split("T")[0];
+	  
+		  // Валидация
+		  if (!categorySelected || !amount) {
+			console.error("Категория и сумма обязательны");
+			return;
 		  }
-		};
+	  
+		  // Подготовка данных согласно Swagger
+		  const operationData: Omit<IOperation, "id"> = {
+			type: "targets",
+			amount: Number(amount),
+			date: date,
+			categories: Number(categorySelected),
+			target: null
+		  };
+	  
+		  console.log("Отправляемые данные:", operationData);
+    console.log("Base URL:", baseUrl);
+	  
+		  if (!baseUrl) {
+			console.error("Base URL не определён");
+			return;
+		  }
+
+		  
+	  
+		  // Отправка запроса
+		  const response = await postUserOperations(baseUrl, operationData);
+    
+    // Логирование ответа (добавьте это)
+    console.log("Полученный ответ:", {
+      status: response.status,
+      data: response.data,
+      headers: response.headers
+    });
+		  
+		  // Обновление состояния
+		  setTransactions(prev => [...prev, response.data]);
+		  
+		  // Сброс полей формы
+		  setValue("sum", "");
+		  setValue("savings", "");
+	  
+		} catch (error) {
+		  console.error("Ошибка при добавлении операции:", error);
+		  if (axios.isAxiosError(error)) {
+			console.error("Детали ошибки:", {
+			  status: error.response?.status,
+			  data: error.response?.data,
+			});
+		  }
+		}
+	  };
 
 	useEffect(() => {
 		setBaseUrl(getCorrectBaseUrl());

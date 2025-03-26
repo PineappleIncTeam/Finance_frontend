@@ -7,7 +7,7 @@ export const postUserOperations = async (
   baseURL: string,
   operationData: Omit<IOperation, "id"> 
 ) => {
-  return await axios(`${baseURL}/${PostUserOperationEndpoint}`, {
+  return await axios(`${baseURL}/${PostUserOperationEndpoint}/`, {
     method: "POST",
     data: operationData,
     headers: {

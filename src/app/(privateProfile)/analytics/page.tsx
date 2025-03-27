@@ -309,9 +309,10 @@ function Analytics() {
 		};
 	}, []);
 
+	const baseURL = getCorrectBaseUrl();
+
 	useEffect(() => {
 		const fetchData = async () => {
-		  const baseURL = getCorrectBaseUrl(); // Используйте свою функцию для получения базового URL
 		  try {
 			const reports = await getUserReports(baseURL);
 			console.log("Полученные данные из API:", reports); // Выводим данные в консоль
@@ -319,9 +320,9 @@ function Analytics() {
 			console.error("Ошибка при получении данных:", error);
 		  }
 		};
-	
+	  
 		fetchData(); // Вызов функции для получения данных
-	  }, []);
+	  }, [baseURL]);
 
 	const handleDisplayChange = (event: ChangeEvent<HTMLInputElement>) => {
 		const value = event.target.value as DisplayMode;

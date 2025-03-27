@@ -45,6 +45,9 @@ export interface IExpenseTransaction {
 	date: string;
 	amount: string;
 	target: string;
+	type: string;
+	categories: number;
+	id: string;
 }
 
 export interface IIncomeTransaction {

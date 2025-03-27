@@ -118,32 +118,7 @@ export default function Expenses() {
 		getCategoryOptions();
 	}, [baseUrl]);
 
-	// useEffect(() => {
-	// 	const getNamesOperations = () => {
-	// 		options.forEach((option: { id: number; name: string }) => {
-	// 			fiveOperations.forEach((element: { categories: number; target: string }) => {
-	// 				if (element.categories === option.id) {
-	// 					element.target = option.name;
-	// 				}
-	// 			});
-	// 			console.log(fiveOperations);
-	// 		});
-	// 	};
-	// 	getNamesOperations();
-	// }, [fiveOperations, options]);
-
 	useEffect(() => {
-		const getNamesOperations = () => {
-			options.forEach((option: { id: number; name: string }) => {
-				fiveOperations.forEach((element: { categories: number; target: string }) => {
-					if (element.categories === option.id) {
-						element.target = option.name;
-					}
-				});
-				console.log(fiveOperations);
-			});
-		};
-		getNamesOperations();
 		const getFiveOperations = async () => {
 			const data = {
 				type: "outcome",
@@ -179,8 +154,21 @@ export default function Expenses() {
 			}
 		};
 		getFiveOperations();
+	}, [baseUrl]);
+
+	useEffect(() => {
+		const getNamesOperations = () => {
+			options.forEach((option: { id: number; name: string }) => {
+				fiveOperations.forEach((element: { categories: number; target: string }) => {
+					if (element.categories === option.id) {
+						element.target = option.name;
+					}
+				});
+				console.log(fiveOperations);
+			});
+		};
 		getNamesOperations();
-	}, [baseUrl, fiveOperations, options]);
+	}, [fiveOperations, options]);
 
 	const interval = 2000;
 
@@ -328,6 +316,9 @@ export default function Expenses() {
 									date={expensesData.date}
 									target={expensesData.target}
 									amount={expensesData.amount}
+									type={""}
+									categories={0}
+									id={""}
 								/>
 							</li>
 						))}

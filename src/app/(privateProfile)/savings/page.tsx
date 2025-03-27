@@ -282,7 +282,7 @@ function Savings() {
 
 	const renderSavingsTransactions = (transactions: Array<ISavingsTransaction | IOperation>) => {
 		return transactions
-			.filter((t) => t.type === "targets") // Фильтруем только накопления
+			.filter((t) => t.type === "income") // Фильтруем только накопления
 			.map((savingsData, index) => (
 				<li key={index}>
 					<SavingsTransaction

@@ -127,7 +127,7 @@ function Savings() {
 	  
 		  // Формируем данные ТОЧНО по Swagger
 		  const operationData: IOperation = {
-			type: "targets", // Enum value
+			type: "income", // Enum value
 			amount: parseFloat(amount), // number($decimal)
 			date: date, // string($date)
 			categories: parseInt(categorySelected, 10), // integer

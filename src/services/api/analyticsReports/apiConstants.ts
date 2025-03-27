@@ -1,0 +1,1 @@
+export const GetUserReportsEndpoint = "api/v1/reports/statistics/";

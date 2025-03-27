@@ -21,6 +21,8 @@ import { IAnalyticsTransactions } from "../../../types/components/ComponentsType
 import AnalystIncomeTransactions from "../../../components/userProfileLayout/analystIncomeTransactions/analystIncomeTransactions";
 import AnalystExpensesTransactions from "../../../components/userProfileLayout/analystExpensesTransactions/analystExpensesTransactions";
 import AnalystSavingsTransactions from "../../../components/userProfileLayout/analystSavingsTransactions/analystSavingsTransactions";
+import { getCorrectBaseUrl } from "../../../utils/baseUrlConverter";
+import { getUserReports } from "../../../services/api/analyticsReports/getAllReports";
 
 import styles from "./analytics.module.scss";
 
@@ -306,6 +308,20 @@ function Analytics() {
 			window.removeEventListener("resize", handleResizeIsLabel);
 		};
 	}, []);
+
+	useEffect(() => {
+		const fetchData = async () => {
+		  const baseURL = getCorrectBaseUrl(); // Используйте свою функцию для получения базового URL
+		  try {
+			const reports = await getUserReports(baseURL);
+			console.log("Полученные данные из API:", reports); // Выводим данные в консоль
+		  } catch (error) {
+			console.error("Ошибка при получении данных:", error);
+		  }
+		};
+	
+		fetchData(); // Вызов функции для получения данных
+	  }, []);
 
 	const handleDisplayChange = (event: ChangeEvent<HTMLInputElement>) => {
 		const value = event.target.value as DisplayMode;

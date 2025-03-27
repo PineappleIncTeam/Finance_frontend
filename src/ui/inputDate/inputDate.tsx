@@ -105,9 +105,7 @@ const InputDate = <T extends FieldValues>({ isPeriod = false, control, name, isL
 
 	return (
 		<div className={styles.date__wrapper}>
-			{isLabel && (
-                <p className={styles.date__label}>{isPeriod ? "Дата или период" : "Выбор даты"}</p>
-            )}
+			{isLabel && <p className={styles.date__label}>{isPeriod ? "Дата или период" : "Выбор даты"}</p>}
 			{isPeriod ? (
 				<DatePicker
 					onChange={handleChangeDates}

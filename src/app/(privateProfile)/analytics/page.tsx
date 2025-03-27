@@ -76,8 +76,8 @@ function Analytics() {
 	];
 
 	const handleResizeIsLabel = () => {
-        setIsLabel(window.innerWidth > windowResizeLabel);
-    };
+		setIsLabel(window.innerWidth > windowResizeLabel);
+	};
 
 	const rawAnalysisData = [50000, 50000];
 

@@ -38,10 +38,6 @@
 		margin-left: 16px;
 	}
 
-	&:nth-child(2) {
-		display: none;
-	}
-
 	&:nth-child(4) {
 		text-align: right;
 	}
@@ -88,15 +84,6 @@
 		& {
 			font-size: 1.1rem;
 			line-height: 1.3rem;
-		}
-
-		&:nth-child(1) {
-			display: none;
-		}
-
-		&:nth-child(2) {
-			display: inline;
-			margin-left: 14px;
 		}
 	}
 }

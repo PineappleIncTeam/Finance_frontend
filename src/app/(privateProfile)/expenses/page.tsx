@@ -119,6 +119,17 @@ export default function Expenses() {
 	}, [baseUrl]);
 
 	useEffect(() => {
+		const getNamesOperations = () => {
+			options.forEach((option: { id: number; name: string }) => {
+				fiveOperations.forEach((element: { categories: number; target: string }) => {
+					if (element.categories === option.id) {
+						element.target = option.name;
+					}
+				});
+				console.log(fiveOperations);
+			});
+		};
+
 		const getFiveOperations = async () => {
 			const data = {
 				type: "outcome",
@@ -128,6 +139,7 @@ export default function Expenses() {
 					const response: AxiosResponse<ITransactionsResponse> = await GetFiveTransactions(baseUrl, data);
 					if (response !== null && response.status === axios.HttpStatusCode.Ok) {
 						setFiveOperations(response.data);
+						getNamesOperations();
 					}
 				}
 			} catch (error) {
@@ -154,21 +166,21 @@ export default function Expenses() {
 			}
 		};
 		getFiveOperations();
-	}, [baseUrl]);
+	}, [baseUrl, fiveOperations, options]);
 
-	useEffect(() => {
-		const getNamesOperations = () => {
-			options.forEach((option: { id: number; name: string }) => {
-				fiveOperations.forEach((element: { categories: number; target: string }) => {
-					if (element.categories === option.id) {
-						element.target = option.name;
-					}
-				});
-				console.log(fiveOperations);
-			});
-		};
-		getNamesOperations();
-	}, [fiveOperations, options]);
+	// useEffect(() => {
+	// 	const getNamesOperations = () => {
+	// 		options.forEach((option: { id: number; name: string }) => {
+	// 			fiveOperations.forEach((element: { categories: number; target: string }) => {
+	// 				if (element.categories === option.id) {
+	// 					element.target = option.name;
+	// 				}
+	// 			});
+	// 			console.log(fiveOperations);
+	// 		});
+	// 	};
+	// 	getNamesOperations();
+	// }, [fiveOperations, options]);
 
 	const interval = 2000;
 

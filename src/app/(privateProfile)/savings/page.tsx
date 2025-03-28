@@ -280,11 +280,10 @@ function Savings() {
 		});
 	}
 
-const getCategoryName = (categoryId: number | null): string => {
-	if (categoryId === null) return "Без категории";
-	const category = categories.find(c => c.id === categoryId);
-	return category?.name || "Неизвестная категория";
-  };
+	const getCategoryName = (categoryId: number): string => {
+		const category = categories.find(c => c.id === categoryId);
+		return category?.name || "Общая категория"; // Дефолтное название
+	  };
 
 	const renderSavingsTransactions = (transactions: Array<ISavingsTransaction | IOperation>) => {
 		return transactions

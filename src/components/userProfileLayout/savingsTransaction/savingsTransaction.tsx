@@ -7,13 +7,13 @@ import { ExpensesTooltip } from "../expensesTooltip/expensesTooltip";
 
 import styles from "./savingsTransaction.module.scss";
 
-const SavingsTransaction = ({ date, categories, categoryName, amount }: ISavingsTransaction) => {
+const SavingsTransaction = ({ date,  categoryName, amount }: ISavingsTransaction) => {
 	const [isTooltipShown, setIsTooltipShown] = useState<boolean>(false);
 
 	return (
 		<div className={styles.savingsTransactionContainer}>
 			<p className={styles.transactionData}>{date}</p>
-			<p className={styles.transactionData}>{categoryName || `ID: ${categories}`}</p>
+			<p className={styles.transactionData}>{categoryName}</p>
 			<p className={styles.transactionData}>{`+ ${amount} ₽ `}</p>
 			<div className={styles.savingsTransactionContainer__actionsWrapper}>
 				<DeleteIcon classNames={styles.deleteIcon} />

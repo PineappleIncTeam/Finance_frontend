@@ -15,7 +15,7 @@ const Footer = ({ isMainPage }: IFooter) => {
 	const copyrightYear: number = actualDate.getFullYear();
 
 	return (
-		<div className={styles.footerWrap}>
+		<footer className={styles.footerWrap}>
 			<div className={cn(styles.footerContainer, { [styles.footerContainer__mainPage]: isMainPage })}>
 				<p className={styles.footerContainer__copyright}>
 					Copyright © {copyrightYear} Freenance | All Rights Reserved
@@ -24,7 +24,7 @@ const Footer = ({ isMainPage }: IFooter) => {
 					Пользовательское соглашение
 				</Link>
 			</div>
-		</div>
+		</footer>
 	);
 };
 

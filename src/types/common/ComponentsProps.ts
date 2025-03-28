@@ -135,6 +135,6 @@ export interface ICategorySelectAdd {
 	type: "targets" | "outcome" | "income"; 
 	amount: number;
 	date: string; 
-	categories?: number | null; 
+	categories?: number; 
 	target?: number | null; 
   }

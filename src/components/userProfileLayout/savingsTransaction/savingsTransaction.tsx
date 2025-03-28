@@ -7,7 +7,7 @@ import { ExpensesTooltip } from "../expensesTooltip/expensesTooltip";
 
 import styles from "./savingsTransaction.module.scss";
 
-const SavingsTransaction = ({ date,  categoryName, amount }: ISavingsTransaction) => {
+const SavingsTransaction = ({ date, categoryName, amount }: ISavingsTransaction) => {
 	const [isTooltipShown, setIsTooltipShown] = useState<boolean>(false);
 
 	return (

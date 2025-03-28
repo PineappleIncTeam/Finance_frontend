@@ -292,7 +292,6 @@ function Savings() {
 			<li key={index}>
 			  <SavingsTransaction
 				date={savingsData.date}
-				categories={savingsData.categories} // Передаём ID как есть
 				categoryName={getCategoryName(savingsData.categories)} // Добавляем название
 				amount={savingsData.amount}
 			  />

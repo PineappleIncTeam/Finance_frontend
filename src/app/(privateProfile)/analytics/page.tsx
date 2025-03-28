@@ -23,9 +23,9 @@ import AnalystExpensesTransactions from "../../../components/userProfileLayout/a
 import AnalystSavingsTransactions from "../../../components/userProfileLayout/analystSavingsTransactions/analystSavingsTransactions";
 // import { getCorrectBaseUrl } from "../../../utils/baseUrlConverter";
 // import { getUserReports } from "../../../services/api/analyticsReports/getAllReports";
-import useLogoutTimer from "../../../hooks/useLogoutTimer";
-import handleLogout from "../../../helpers/logout";
-import { IReportsOption } from "../../../types/common/ComponentsProps";
+// import useLogoutTimer from "../../../hooks/useLogoutTimer";
+// import handleLogout from "../../../helpers/logout";
+// import { IReportsOption } from "../../../types/common/ComponentsProps";
 
 import styles from "./analytics.module.scss";
 
@@ -75,8 +75,8 @@ function Analytics() {
 	const [rotation, setRotation] = useState({ maxRotation: 0, minRotation: 0 });
 	const [isLabel, setIsLabel] = useState(true);
 
-	const [baseUrl, setBaseUrl] = useState<string>();
-	const { request } = handleLogout(baseUrl);
+	// const [baseUrl, setBaseUrl] = useState<string>();
+	// const { request } = handleLogout(baseUrl);
 	// const { resetTimer } = useLogoutTimer(request);
 
 	// const [reports, setReports] = useState<IReportsOption[]>([]);

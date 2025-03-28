@@ -280,19 +280,26 @@ function Savings() {
 		});
 	}
 
+const getCategoryName = (categoryId: number | null): string => {
+	if (categoryId === null) return "Без категории";
+	const category = categories.find(c => c.id === categoryId);
+	return category?.name || "Неизвестная категория";
+  };
+
 	const renderSavingsTransactions = (transactions: Array<ISavingsTransaction | IOperation>) => {
 		return transactions
-			.filter((t) => t.type === "income") // Фильтруем только накопления
-			.map((savingsData, index) => (
-				<li key={index}>
-					<SavingsTransaction
-						date={savingsData.date}
-						categories={savingsData.categories ?? null} // Явно преобразуем undefined в null
-						amount={savingsData.amount}
-					/>
-				</li>
-			));
-	};
+		  .filter((t) => t.type === "income")
+		  .map((savingsData, index) => (
+			<li key={index}>
+			  <SavingsTransaction
+				date={savingsData.date}
+				categories={savingsData.categories} // Передаём ID как есть
+				categoryName={getCategoryName(savingsData.categories)} // Добавляем название
+				amount={savingsData.amount}
+			  />
+			</li>
+		  ));
+	  };
 
 	return (
 		<div className={styles.savingsPageWrap}>

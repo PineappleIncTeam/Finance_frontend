@@ -62,6 +62,7 @@ export interface IBurgerMenu {
 export interface ISavingsTransaction {
 	date: string;
 	categories: number | null;
+	categoryName?: string;
 	amount: number;
 	type?: "targets" | "outcome" | "income";
 }

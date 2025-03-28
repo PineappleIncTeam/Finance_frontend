@@ -282,21 +282,27 @@ function Savings() {
 
 	const getCategoryName = (categoryId: number): string => {
 		const category = categories.find(c => c.id === categoryId);
-		return category?.name || "Общая категория"; // Дефолтное название
+		return category?.name || "Общая категория";
 	  };
 
-	const renderSavingsTransactions = (transactions: Array<ISavingsTransaction | IOperation>) => {
+	  const renderSavingsTransactions = (transactions: Array<ISavingsTransaction | IOperation>) => {
 		return transactions
 		  .filter((t) => t.type === "income")
-		  .map((savingsData, index) => (
-			<li key={index}>
-			  <SavingsTransaction
-				date={savingsData.date}
-				categoryName={getCategoryName(savingsData.categories)} // Добавляем название
-				amount={savingsData.amount}
-			  />
-			</li>
-		  ));
+		  .map((savingsData, index) => {
+			// Добавляем проверку на undefined и null
+			const categoryId = savingsData.categories ?? 0; // 0 или другой дефолтный ID
+			const categoryName = getCategoryName(categoryId);
+	  
+			return (
+			  <li key={index}>
+				<SavingsTransaction
+				  date={savingsData.date}
+				  categoryName={categoryName}
+				  amount={savingsData.amount}
+				/>
+			  </li>
+			);
+		  });
 	  };
 
 	return (

@@ -21,8 +21,11 @@ import { IAnalyticsTransactions } from "../../../types/components/ComponentsType
 import AnalystIncomeTransactions from "../../../components/userProfileLayout/analystIncomeTransactions/analystIncomeTransactions";
 import AnalystExpensesTransactions from "../../../components/userProfileLayout/analystExpensesTransactions/analystExpensesTransactions";
 import AnalystSavingsTransactions from "../../../components/userProfileLayout/analystSavingsTransactions/analystSavingsTransactions";
-import { getCorrectBaseUrl } from "../../../utils/baseUrlConverter";
-import { getUserReports } from "../../../services/api/analyticsReports/getAllReports";
+// import { getCorrectBaseUrl } from "../../../utils/baseUrlConverter";
+// import { getUserReports } from "../../../services/api/analyticsReports/getAllReports";
+import useLogoutTimer from "../../../hooks/useLogoutTimer";
+import handleLogout from "../../../helpers/logout";
+import { IReportsOption } from "../../../types/common/ComponentsProps";
 
 import styles from "./analytics.module.scss";
 
@@ -71,6 +74,13 @@ function Analytics() {
 	const [chartHeight, setChartHeight] = useState(298);
 	const [rotation, setRotation] = useState({ maxRotation: 0, minRotation: 0 });
 	const [isLabel, setIsLabel] = useState(true);
+
+	const [baseUrl, setBaseUrl] = useState<string>();
+	const { request } = handleLogout(baseUrl);
+	// const { resetTimer } = useLogoutTimer(request);
+
+	// const [reports, setReports] = useState<IReportsOption[]>([]);
+
 	const isEmptyPage = false;
 	const rawExpensesData = [
 		1300.01, 3900.02, 3250.02, 1638.83, 2652.06, 15271.09, 390.0, 975.56, 1340.79, 9110.05, 16192.09, 2600.01, 6437.57,
@@ -308,21 +318,6 @@ function Analytics() {
 			window.removeEventListener("resize", handleResizeIsLabel);
 		};
 	}, []);
-
-	const baseURL = getCorrectBaseUrl();
-
-	useEffect(() => {
-		const fetchData = async () => {
-		  try {
-			const reports = await getUserReports(baseURL);
-			console.log("Полученные данные из API:", reports); // Выводим данные в консоль
-		  } catch (error) {
-			console.error("Ошибка при получении данных:", error);
-		  }
-		};
-	  
-		fetchData(); // Вызов функции для получения данных
-	  }, [baseURL]);
 
 	const handleDisplayChange = (event: ChangeEvent<HTMLInputElement>) => {
 		const value = event.target.value as DisplayMode;

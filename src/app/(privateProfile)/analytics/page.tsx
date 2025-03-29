@@ -21,11 +21,11 @@ import { IAnalyticsTransactions } from "../../../types/components/ComponentsType
 import AnalystIncomeTransactions from "../../../components/userProfileLayout/analystIncomeTransactions/analystIncomeTransactions";
 import AnalystExpensesTransactions from "../../../components/userProfileLayout/analystExpensesTransactions/analystExpensesTransactions";
 import AnalystSavingsTransactions from "../../../components/userProfileLayout/analystSavingsTransactions/analystSavingsTransactions";
-// import { getCorrectBaseUrl } from "../../../utils/baseUrlConverter";
-// import { getUserReports } from "../../../services/api/analyticsReports/getAllReports";
-// import useLogoutTimer from "../../../hooks/useLogoutTimer";
-// import handleLogout from "../../../helpers/logout";
-// import { IReportsOption } from "../../../types/common/ComponentsProps";
+import { getCorrectBaseUrl } from "../../../utils/baseUrlConverter";
+import { getUserReports } from "../../../services/api/analyticsReports/getAllReports";
+import useLogoutTimer from "../../../hooks/useLogoutTimer";
+import handleLogout from "../../../helpers/logout";
+import { IReportsOption } from "../../../types/common/ComponentsProps";
 
 import styles from "./analytics.module.scss";
 
@@ -75,11 +75,11 @@ function Analytics() {
 	const [rotation, setRotation] = useState({ maxRotation: 0, minRotation: 0 });
 	const [isLabel, setIsLabel] = useState(true);
 
-	// const [baseUrl, setBaseUrl] = useState<string>();
-	// const { request } = handleLogout(baseUrl);
-	// const { resetTimer } = useLogoutTimer(request);
+	const [baseUrl, setBaseUrl] = useState<string>();
+	const { request } = handleLogout(baseUrl);
+	const { resetTimer } = useLogoutTimer(request);
 
-	// const [reports, setReports] = useState<IReportsOption[]>([]);
+	const [reports, setReports] = useState<IReportsOption[]>([]);
 
 	const isEmptyPage = false;
 	const rawExpensesData = [
@@ -318,6 +318,28 @@ function Analytics() {
 			window.removeEventListener("resize", handleResizeIsLabel);
 		};
 	}, []);
+
+	useEffect(() => {
+		setBaseUrl(getCorrectBaseUrl());
+	}, []);
+
+	useEffect(() => {
+		resetTimer();
+	}, [request, resetTimer]);
+
+	useEffect(() => {
+		if (baseUrl) {
+			const fetchCategories = async () => {
+				const response = await getUserReports(baseUrl);
+				console.log(response.data);
+				setReports(response.data);
+			};
+
+			fetchCategories();
+		}
+	}, [baseUrl]);
+
+	console.log(reports)
 
 	const handleDisplayChange = (event: ChangeEvent<HTMLInputElement>) => {
 		const value = event.target.value as DisplayMode;

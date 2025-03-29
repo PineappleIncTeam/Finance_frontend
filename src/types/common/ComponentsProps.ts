@@ -115,16 +115,16 @@ export interface ICategoryOption {
 	is_outcome: boolean;
 	is_deleted: boolean;
 }
-// export interface IMonthSum {
-//     month: string;
-//     amount: number;
-// }
-// export interface IReportsOption {
-//     category_id: number;
-//     category_name: string;
-//     amount: number;
-//     items: IMonthSum[];
-// }
+export interface IMonthSum {
+    month: string;
+    amount: number;
+}
+export interface IReportsOption {
+    category_id: number;
+    category_name: string;
+    amount: number;
+    items: IMonthSum[];
+}
 
 export interface ICategorySelect<T extends FieldValues> {
 	label: string;

@@ -320,8 +320,7 @@ function Analytics() {
 	}, []);
 
 	useEffect(() => {
-		const baseURL = getCorrectBaseUrl();
-		setBaseUrl(baseURL);
+		setBaseUrl(getCorrectBaseUrl());
 	}, []);
 
 	useEffect(() => {

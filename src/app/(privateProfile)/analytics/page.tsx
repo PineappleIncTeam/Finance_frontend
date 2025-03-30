@@ -320,7 +320,8 @@ function Analytics() {
 	}, []);
 
 	useEffect(() => {
-		setBaseUrl(getCorrectBaseUrl());
+		const baseURL = getCorrectBaseUrl();
+		setBaseUrl(baseURL);
 	}, []);
 
 	useEffect(() => {
@@ -331,7 +332,7 @@ function Analytics() {
 		if (baseUrl) {
 			const fetchCategories = async () => {
 				const response = await getUserReports(baseUrl);
-				console.log(response.data);
+				console.log(response);
 				setReports(response.data);
 			};
 

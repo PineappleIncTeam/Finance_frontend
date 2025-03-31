@@ -52,6 +52,7 @@ export default function Expenses() {
 	const [isAddSuccess, setIsAddSuccess] = useState<boolean>(false);
 	const [isOpen, setIsOpen] = useState<boolean>(false);
 	const [fiveOperations, setFiveOperations] = useState<string[] | any>([]);
+	const [fiveOperationsNames, setFiveOperationsNames] = useState<string[] | any>([]);
 	const [options, setOptions] = useState<string[] | any>([]);
 	const [isDeleteSuccess, setIsDeleteSuccess] = useState<boolean>(false);
 
@@ -157,8 +158,8 @@ export default function Expenses() {
 	}, [baseUrl]);
 
 	useEffect(() => {
-		const getNamesOperations = () => {
-			fiveOperations.forEach((option: { categories: number; target: string }) => {
+		const getFiveOperationsNames = () => {
+			fiveOperations.map((option: { categories: number; target: string }) => {
 				options.forEach((element: { id: number; name: string }) => {
 					if (option.categories === element.id) {
 						option.target = element.name;
@@ -167,8 +168,9 @@ export default function Expenses() {
 				console.log(fiveOperations);
 			});
 		};
-		getNamesOperations();
-	}, [fiveOperations, options]);
+		setFiveOperationsNames(getFiveOperationsNames);
+		console.log(fiveOperationsNames);
+	}, [fiveOperationsNames, fiveOperations, options]);
 
 	const interval = 2000;
 
@@ -309,8 +311,8 @@ export default function Expenses() {
 				{isDeleteSuccess && <CategoryDeleteSuccessModal open={isDeleteSuccess} />}
 				<div className={styles.expensesTransactionsWrapper}>
 					<h1 className={styles.expensesTransactionHeader}>Последние операции по расходам</h1>
-					{fiveOperations &&
-						fiveOperations.map((expensesData: IExpenseTransaction, index: Key) => (
+					{fiveOperationsNames &&
+						fiveOperationsNames.map((expensesData: IExpenseTransaction, index: Key) => (
 							<li key={index}>
 								<ExpensesTransaction
 									date={expensesData.date}

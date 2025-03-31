@@ -158,10 +158,10 @@ export default function Expenses() {
 
 	useEffect(() => {
 		const getNamesOperations = () => {
-			options.forEach((option: { id: number; name: string }) => {
-				fiveOperations.forEach((element: { categories: number; target: string }) => {
-					if (element.categories === option.id) {
-						element.target = option.name;
+			fiveOperations.forEach((option: { categories: number; target: string }) => {
+				options.forEach((element: { id: number; name: string }) => {
+					if (option.categories === element.id) {
+						option.target = element.name;
 					}
 				});
 				console.log(fiveOperations);

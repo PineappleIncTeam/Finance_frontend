@@ -18,7 +18,7 @@ import InputDate from "../../../ui/inputDate/inputDate";
 import { getCorrectBaseUrl } from "../../../utils/baseUrlConverter";
 
 import { ApiResponseCode } from "../../../helpers/apiResponseCode";
-import { GetFiveTransactions } from "../../../services/api/userProfile/GetFiveOperations";
+import { GetFiveTransactions } from "../../../services/api/userProfile/GetFiveTransactions";
 
 import useLogoutTimer from "../../../hooks/useLogoutTimer";
 import { CategorySelect } from "../../../components/userProfileLayout/categorySelect/CategorySelect";
@@ -45,6 +45,9 @@ import { CategoryDeleteSuccessModal } from "../../../components/userProfileLayou
 
 import { AddExpensesCategoryTransaction } from "../../../services/api/userProfile/AddExpensesCategoryTransaction";
 
+import { RemoveExpensesCategoryTransaction } from "../../../services/api/userProfile/RemoveExpensesTransaction";
+import { RecordDeleteModal } from "../../../components/userProfileLayout/recordDelete/recordDelete";
+
 import styles from "./expenses.module.scss";
 
 export default function Expenses() {
@@ -54,7 +57,8 @@ export default function Expenses() {
 	const [fiveOperations, setFiveOperations] = useState<string[] | any>([]);
 	const [fiveOperationsNames, setFiveOperationsNames] = useState<string[] | any>([]);
 	const [options, setOptions] = useState<string[] | any>([]);
-	const [isDeleteSuccess, setIsDeleteSuccess] = useState<boolean>(false);
+	const [isDeleteSuccessCategory, setIsDeleteSuccessCategory] = useState<boolean>(false);
+	const [isDeleteSuccessOperation, setIsDeleteSuccessOperation] = useState<boolean>(false);
 
 	const { control, handleSubmit } = useForm<IExpensesAddCategoryTransactionForm & IExpensesCategoryForm>({
 		defaultValues: {
@@ -159,17 +163,15 @@ export default function Expenses() {
 
 	useEffect(() => {
 		const getFiveOperationsNames = () => {
-			let fiveOperationsNames: string[] | any = [];
-			fiveOperations.forEach((element: { categories: number; target: string }) => {
+			const fiveOperationsNames: string[] | any = [];
+			fiveOperations.forEach((element: { categories: number; target: string; amount: string }) => {
 				options.forEach((option: { id: number; name: string }) => {
 					if (element.categories === option.id) {
 						element.target = option.name;
 						fiveOperationsNames.push(element);
 					}
 				});
-				console.log(fiveOperations);
 			});
-			console.log(fiveOperationsNames);
 			return fiveOperationsNames;
 		};
 		setFiveOperationsNames(getFiveOperationsNames);
@@ -214,8 +216,8 @@ export default function Expenses() {
 			if (baseUrl && id !== null) {
 				const response = await RemoveExpensesCategory(baseUrl, id);
 				if (response.status === axios.HttpStatusCode.Ok) {
-					setIsDeleteSuccess(true);
-					setTimeout(() => setIsDeleteSuccess(false), interval);
+					setIsDeleteSuccessCategory(true);
+					setTimeout(() => setIsDeleteSuccessCategory(false), interval);
 				}
 			}
 		} catch (error) {
@@ -242,8 +244,6 @@ export default function Expenses() {
 	const onSubmit = async (data: IExpensesAddCategoryTransactionForm & IExpensesCategoryForm) => {
 		const endDate = 10;
 		data.date = new Date().toISOString().slice(0, endDate);
-		console.log(data);
-
 		try {
 			if (baseUrl && data !== null) {
 				const response = await AddExpensesCategoryTransaction(baseUrl, data);
@@ -272,6 +272,37 @@ export default function Expenses() {
 		}
 	};
 
+	const deleteTransaction = async (id: string) => {
+		try {
+			if (baseUrl) {
+				const response = await RemoveExpensesCategoryTransaction(baseUrl, id);
+				if ((response.status = axios.HttpStatusCode.Ok)) {
+					setIsDeleteSuccessOperation(true);
+					setTimeout(() => {
+						setIsDeleteSuccessOperation(false), interval;
+					});
+				}
+			}
+		} catch (error) {
+			if (
+				axios.isAxiosError(error) &&
+				error.response &&
+				error.response.status &&
+				error.response.status === axios.HttpStatusCode.Forbidden
+			) {
+				console.log(error);
+			}
+			if (
+				axios.isAxiosError(error) &&
+				error.response &&
+				error.response.status &&
+				error.response.status >= axios.HttpStatusCode.InternalServerError &&
+				error.response.status < ApiResponseCode.SERVER_ERROR_STATUS_MAX
+			) {
+				console.log(error);
+			}
+		}
+	};
 	return (
 		<div className={styles.expensesPageWrap}>
 			<div className={styles.expensesPageContainer}>
@@ -312,7 +343,8 @@ export default function Expenses() {
 				</form>
 				{isOpen && <CategoryAddModal open={isOpen} onCancelClick={() => setIsOpen(false)} request={addCategory} />}
 				{isAddSuccess && <CategoryAddSuccessModal open={isAddSuccess} />}
-				{isDeleteSuccess && <CategoryDeleteSuccessModal open={isDeleteSuccess} />}
+				{isDeleteSuccessCategory && <CategoryDeleteSuccessModal open={isDeleteSuccessCategory} />}
+				{isDeleteSuccessOperation && <RecordDeleteModal open={isDeleteSuccessOperation} />}
 				<div className={styles.expensesTransactionsWrapper}>
 					<h1 className={styles.expensesTransactionHeader}>Последние операции по расходам</h1>
 					{fiveOperationsNames &&
@@ -325,6 +357,7 @@ export default function Expenses() {
 									type={""}
 									categories={0}
 									id={""}
+									onDeleteClick={deleteTransaction(expensesData.id)}
 								/>
 							</li>
 						))}

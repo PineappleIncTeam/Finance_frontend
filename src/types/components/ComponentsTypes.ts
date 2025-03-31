@@ -48,6 +48,7 @@ export interface IExpenseTransaction {
 	type: string;
 	categories: number;
 	id: string;
+	onDeleteClick: Promise<void>;
 }
 
 export interface IIncomeTransaction {

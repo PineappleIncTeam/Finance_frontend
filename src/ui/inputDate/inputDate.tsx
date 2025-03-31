@@ -15,7 +15,7 @@ import calendarIcon from "../../assets/components/inputDate/calendarIcon";
 import styles from "./inputDate.module.scss";
 import "./datepicker.scss";
 
-const InputDate = <T extends FieldValues>({ isPeriod = false, control, name }: ICustomInputDate<T>) => {
+const InputDate = <T extends FieldValues>({ isPeriod = false, control, name, isLabel = true }: ICustomInputDate<T>) => {
 	const {
 		field: { onChange, value },
 	} = useController({
@@ -105,7 +105,7 @@ const InputDate = <T extends FieldValues>({ isPeriod = false, control, name }: I
 
 	return (
 		<div className={styles.date__wrapper}>
-			<p className={styles.date__label}>{isPeriod ? "Дата или период" : "Выбор даты"}</p>
+			{isLabel && <p className={styles.date__label}>{isPeriod ? "Дата или период" : "Выбор даты"}</p>}
 			{isPeriod ? (
 				<DatePicker
 					onChange={handleChangeDates}

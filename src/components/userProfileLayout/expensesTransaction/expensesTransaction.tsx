@@ -7,7 +7,7 @@ import { ExpensesTooltip } from "../expensesTooltip/expensesTooltip";
 
 import styles from "./expensesTransaction.module.scss";
 
-export default function ExpensesTransaction({ date, target, amount, onDeleteClick }: IExpenseTransaction) {
+export default function ExpensesTransaction({ date, target, amount, onDeleteClick, id }: IExpenseTransaction) {
 	const [isTooltipShown, setIsTooltipShown] = useState<boolean>(false);
 
 	return (
@@ -16,7 +16,12 @@ export default function ExpensesTransaction({ date, target, amount, onDeleteClic
 			<p className={styles.transactionData}>{target}</p>
 			<p className={styles.transactionData}>- {amount} ₽</p>
 			<div className={styles.expensesTransactionContainer__actionsWrapper}>
-				<div role="button" onClick={() => onDeleteClick}>
+				<div
+					role="button"
+					onClick={(event) => {
+						event.stopPropagation();
+						onDeleteClick(id);
+					}}>
 					<DeleteIcon classNames={styles.deleteIcon} />
 				</div>
 				<div

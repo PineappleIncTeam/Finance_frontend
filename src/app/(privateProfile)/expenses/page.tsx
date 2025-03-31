@@ -175,7 +175,6 @@ export default function Expenses() {
 			return fiveOperationsNames;
 		};
 		setFiveOperationsNames(getFiveOperationsNames);
-		console.log(fiveOperationsNames);
 	}, [fiveOperationsNames, fiveOperations, options]);
 
 	const interval = 2000;
@@ -303,6 +302,7 @@ export default function Expenses() {
 			}
 		}
 	};
+
 	return (
 		<div className={styles.expensesPageWrap}>
 			<div className={styles.expensesPageContainer}>
@@ -356,8 +356,8 @@ export default function Expenses() {
 									amount={expensesData.amount}
 									type={""}
 									categories={0}
-									id={""}
-									onDeleteClick={deleteTransaction(expensesData.id)}
+									id={expensesData.id}
+									onDeleteClick={deleteTransaction}
 								/>
 							</li>
 						))}

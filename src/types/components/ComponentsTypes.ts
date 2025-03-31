@@ -48,7 +48,7 @@ export interface IExpenseTransaction {
 	type: string;
 	categories: number;
 	id: string;
-	onDeleteClick: Promise<void>;
+	onDeleteClick: (id: string) => Promise<void>;
 }
 
 export interface IIncomeTransaction {

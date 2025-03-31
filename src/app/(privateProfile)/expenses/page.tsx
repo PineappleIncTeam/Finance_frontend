@@ -159,7 +159,7 @@ export default function Expenses() {
 
 	useEffect(() => {
 		const getFiveOperationsNames = () => {
-			fiveOperations.map((option: { categories: number; target: string }) => {
+			const fiveOperationsNames = fiveOperations.map((option: { categories: number; target: string }) => {
 				options.forEach((element: { id: number; name: string }) => {
 					if (option.categories === element.id) {
 						option.target = element.name;
@@ -167,6 +167,8 @@ export default function Expenses() {
 				});
 				console.log(fiveOperations);
 			});
+			console.log(fiveOperationsNames);
+			return fiveOperationsNames;
 		};
 		setFiveOperationsNames(getFiveOperationsNames);
 		console.log(fiveOperationsNames);

@@ -80,6 +80,7 @@ function Analytics() {
 	const { resetTimer } = useLogoutTimer(request);
 
 	const [reports, setReports] = useState<IReportsOption[]>([]);
+	const [expensesSum, setExpensesSum] = useState(0);
 
 	const isEmptyPage = false;
 	const rawExpensesData = [
@@ -333,6 +334,7 @@ function Analytics() {
 				const response = await getUserReports(baseUrl);
 				console.log(response.data);
 				setReports(response.data);
+				setExpensesSum(response.data.total_expenses);
 			};
 
 			fetchCategories();
@@ -479,7 +481,7 @@ function Analytics() {
 		<div className={styles.analyticsDiagramExpensesWrapper}>
 			<div className={styles.analyticsDiagramExpensesInfo}>
 				<p className={styles.analyticsDiagramExpensesInfo__title}>Общий расход</p>
-				<p className={styles.analyticsDiagramExpensesInfo__value}>130 000.75 ₽</p>
+				<p className={styles.analyticsDiagramExpensesInfo__value}>{expensesSum.toFixed(2)} ₽</p>
 				<p className={styles.analyticsDiagramExpensesInfo__date}>14.09.23 - 20.09.23</p>
 			</div>
 

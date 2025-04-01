@@ -339,7 +339,7 @@ function Analytics() {
 		}
 	}, [baseUrl]);
 
-	console.log(reports)
+	console.log(`Консоль: ${reports}`)
 
 	const handleDisplayChange = (event: ChangeEvent<HTMLInputElement>) => {
 		const value = event.target.value as DisplayMode;

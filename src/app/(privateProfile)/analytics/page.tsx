@@ -81,6 +81,7 @@ function Analytics() {
 
 	const [reports, setReports] = useState<IReportsOption[]>([]);
 	const [expensesSum, setExpensesSum] = useState(0);
+	const [incomeSum, setIncomeSum] = useState(0);
 
 	const isEmptyPage = false;
 	const rawExpensesData = [
@@ -335,6 +336,7 @@ function Analytics() {
 				console.log(response.data);
 				setReports(response.data);
 				setExpensesSum(response.data.total_expenses);
+				setIncomeSum(response.data.total_income);
 			};
 
 			fetchCategories();
@@ -536,7 +538,7 @@ function Analytics() {
 			<div className={styles.analyticsDiagramIncomeInfoWrapper}>
 				<div className={styles.analyticsDiagramIncomeInfo}>
 					<p className={styles.analyticsDiagramIncomeInfo__title}>Общий доход</p>
-					<p className={styles.analyticsDiagramIncomeInfo__value}>130 000.75 ₽</p>
+					<p className={styles.analyticsDiagramIncomeInfo__value}>{incomeSum.toFixed(2)} ₽</p>
 					<p className={styles.analyticsDiagramIncomeInfo__date}>14.09.23 - 20.09.23</p>
 				</div>
 
@@ -628,7 +630,8 @@ function Analytics() {
 									<div className={styles.diagramAnalysisBlockIconWrapper}>
 										<div
 											className={styles.diagramAnalysisBlockIconWrapper__circle}
-											style={{ background: `${item.background}` }}></div>
+											style={{ background: `${item.background}` }}>
+										</div>
 										<p className={styles.diagramAnalysisBlockIconWrapper__text}>{item.title}:</p>
 									</div>
 									<p className={styles.diagramAnalysisBlockItem__value}>

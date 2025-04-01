@@ -331,7 +331,7 @@ function Analytics() {
 		if (baseUrl) {
 			const fetchCategories = async () => {
 				const response = await getUserReports(baseUrl);
-				console.log(response);
+				console.log(response.data);
 				setReports(response.data);
 			};
 

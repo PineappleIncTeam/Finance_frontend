@@ -1,8 +1,8 @@
-import { IExpensesModals } from "../../../../types/common/ComponentsProps";
+import { ITransactionDeleteSuccess } from "../../../../types/common/ComponentsProps";
 
 import styles from "./successDelete.module.scss";
 
-export const SuccessDeleteModal = ({ open }: IExpensesModals) => {
+export const SuccessDeleteModal = ({ open }: ITransactionDeleteSuccess) => {
 	return (
 		<dialog open={open} className={styles.backgroundModal}>
 			<div onClick={(e) => e.stopPropagation()} role="textbox" className={styles.successDeleteModalContainer}>

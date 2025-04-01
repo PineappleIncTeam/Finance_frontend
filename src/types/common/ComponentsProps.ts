@@ -146,3 +146,13 @@ export interface ICategoryResponse {
 	open: boolean;
 	children?: ReactNode;
 }
+
+export interface ITransactionDelete {
+	open: boolean;
+	remove: () => Promise<void>;
+	cancelRemove: () => void;
+}
+
+export interface ITransactionDeleteSuccess {
+	open: boolean;
+}

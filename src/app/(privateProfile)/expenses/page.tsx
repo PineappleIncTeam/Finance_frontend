@@ -46,7 +46,9 @@ import { CategoryDeleteSuccessModal } from "../../../components/userProfileLayou
 import { AddExpensesCategoryTransaction } from "../../../services/api/userProfile/AddExpensesCategoryTransaction";
 
 import { RemoveExpensesCategoryTransaction } from "../../../services/api/userProfile/RemoveExpensesTransaction";
+
 import { RecordDeleteModal } from "../../../components/userProfileLayout/recordDelete/recordDelete";
+import { SuccessDeleteModal } from "../../../components/userProfileLayout/recordDeleteResponse/successDelete/successDelete";
 
 import styles from "./expenses.module.scss";
 
@@ -58,7 +60,9 @@ export default function Expenses() {
 	const [fiveOperationsNames, setFiveOperationsNames] = useState<string[] | any>([]);
 	const [options, setOptions] = useState<string[] | any>([]);
 	const [isDeleteSuccessCategory, setIsDeleteSuccessCategory] = useState<boolean>(false);
-	const [isDeleteSuccessOperation, setIsDeleteSuccessOperation] = useState<boolean>(false);
+	const [isDeleteOperationApprove, setIsDeleteOperationApprove] = useState<boolean>(false);
+	const [isDeleteOperationSuccess, setIsDeleteOperationSuccess] = useState<boolean>(false);
+	const [isId, setIsId] = useState<string>("");
 
 	const { control, handleSubmit } = useForm<IExpensesAddCategoryTransactionForm & IExpensesCategoryForm>({
 		defaultValues: {
@@ -144,7 +148,6 @@ export default function Expenses() {
 					error.response.status <= axios.HttpStatusCode.InternalServerError
 				) {
 					console.log(error);
-					setFiveOperations([]);
 				}
 				if (
 					axios.isAxiosError(error) &&
@@ -154,7 +157,6 @@ export default function Expenses() {
 					error.response.status < ApiResponseCode.SERVER_ERROR_STATUS_MAX
 				) {
 					console.log(error);
-					setFiveOperations([]);
 				}
 			}
 		};
@@ -276,10 +278,8 @@ export default function Expenses() {
 			if (baseUrl) {
 				const response = await RemoveExpensesCategoryTransaction(baseUrl, id);
 				if ((response.status = axios.HttpStatusCode.Ok)) {
-					setIsDeleteSuccessOperation(true);
-					setTimeout(() => {
-						setIsDeleteSuccessOperation(false), interval;
-					});
+					setIsDeleteOperationSuccess(true);
+					setTimeout(() => setIsDeleteOperationSuccess(false), interval);
 				}
 			}
 		} catch (error) {
@@ -344,7 +344,7 @@ export default function Expenses() {
 				{isOpen && <CategoryAddModal open={isOpen} onCancelClick={() => setIsOpen(false)} request={addCategory} />}
 				{isAddSuccess && <CategoryAddSuccessModal open={isAddSuccess} />}
 				{isDeleteSuccessCategory && <CategoryDeleteSuccessModal open={isDeleteSuccessCategory} />}
-				{isDeleteSuccessOperation && <RecordDeleteModal open={isDeleteSuccessOperation} />}
+
 				<div className={styles.expensesTransactionsWrapper}>
 					<h1 className={styles.expensesTransactionHeader}>Последние операции по расходам</h1>
 					{fiveOperationsNames &&
@@ -357,11 +357,19 @@ export default function Expenses() {
 									type={""}
 									categories={0}
 									id={expensesData.id}
-									onDeleteClick={deleteTransaction}
+									onDeleteClick={() => [setIsDeleteOperationApprove(true), setIsId(expensesData.id)]}
 								/>
 							</li>
 						))}
 				</div>
+				{isDeleteOperationApprove && (
+					<RecordDeleteModal
+						open={isDeleteOperationApprove}
+						remove={() => deleteTransaction(isId)}
+						cancelRemove={() => setIsDeleteOperationApprove(false)}
+					/>
+				)}
+				{isDeleteOperationSuccess && <SuccessDeleteModal open={isDeleteOperationSuccess} />}
 			</div>
 		</div>
 	);

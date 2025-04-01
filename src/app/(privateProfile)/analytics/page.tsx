@@ -331,7 +331,7 @@ function Analytics() {
 		if (baseUrl) {
 			const fetchCategories = async () => {
 				const response = await getUserReports(baseUrl);
-				console.log(response);
+				console.log(`Эффект: ${response}`);
 				setReports(response.data);
 			};
 
@@ -339,7 +339,7 @@ function Analytics() {
 		}
 	}, [baseUrl]);
 
-	console.log(reports)
+	console.log(`Консоль: ${reports}`)
 
 	const handleDisplayChange = (event: ChangeEvent<HTMLInputElement>) => {
 		const value = event.target.value as DisplayMode;

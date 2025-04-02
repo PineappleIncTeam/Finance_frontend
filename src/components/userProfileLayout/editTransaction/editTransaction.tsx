@@ -48,7 +48,9 @@ export const EditTransactionModal = ({ open, id, request, cancelEdit }: IEditTra
 						<Button variant={ButtonType.Outlined} onClick={() => cancelEdit()}>
 							Отменить
 						</Button>
-						<Button variant={ButtonType.Faded}>Изменить</Button>
+						<Button variant={ButtonType.Faded} type={InputTypeList.Submit}>
+							Изменить
+						</Button>
 					</div>
 				</form>
 			</div>

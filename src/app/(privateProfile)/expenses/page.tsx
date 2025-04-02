@@ -170,10 +170,10 @@ export default function Expenses() {
 			}
 		};
 		getFiveOperations();
-		if (isDeleteOperationSuccess) {
+		if (isDeleteOperationSuccess || isEditSuccess) {
 			getFiveOperations();
 		}
-	}, [baseUrl, isDeleteOperationSuccess]);
+	}, [baseUrl, isDeleteOperationSuccess, isEditSuccess]);
 
 	useEffect(() => {
 		const getFiveOperationsNames = () => {
@@ -189,10 +189,10 @@ export default function Expenses() {
 			return fiveOperationsNames;
 		};
 		setFiveOperationsNames(getFiveOperationsNames);
-		if (isDeleteOperationSuccess) {
+		if (isDeleteOperationSuccess || isEditSuccess) {
 			setFiveOperationsNames(getFiveOperationsNames);
 		}
-	}, [fiveOperationsNames, fiveOperations, options, isDeleteOperationSuccess]);
+	}, [fiveOperationsNames, fiveOperations, options, isDeleteOperationSuccess, isEditSuccess]);
 
 	const interval = 2000;
 
@@ -263,8 +263,7 @@ export default function Expenses() {
 	};
 
 	const onSubmit = async (data: IExpensesAddCategoryTransactionForm & IExpensesCategoryForm) => {
-		const endDate = 10;
-		data.date = new Date().toISOString().slice(0, endDate);
+		data.date = currentDate();
 		try {
 			if (baseUrl && data !== null) {
 				const response = await AddExpensesCategoryTransaction(baseUrl, data);

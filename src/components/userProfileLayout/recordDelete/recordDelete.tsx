@@ -16,7 +16,7 @@ export const RecordDeleteModal = ({ open, remove, cancelRemove }: ITransactionDe
 					<Button variant={ButtonType.Outlined} onClick={() => cancelRemove()}>
 						Отменить
 					</Button>
-					<Button variant={ButtonType.Faded} onClick={() => remove()}>
+					<Button variant={ButtonType.Warning} onClick={() => remove()}>
 						Удалить
 					</Button>
 				</div>

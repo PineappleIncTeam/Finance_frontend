@@ -161,7 +161,10 @@ export default function Expenses() {
 			}
 		};
 		getFiveOperations();
-	}, [baseUrl]);
+		if (isDeleteOperationSuccess) {
+			getFiveOperations();
+		}
+	}, [baseUrl, isDeleteOperationSuccess]);
 
 	useEffect(() => {
 		const getFiveOperationsNames = () => {
@@ -177,7 +180,10 @@ export default function Expenses() {
 			return fiveOperationsNames;
 		};
 		setFiveOperationsNames(getFiveOperationsNames);
-	}, [fiveOperationsNames, fiveOperations, options]);
+		if (isDeleteOperationSuccess) {
+			setFiveOperationsNames(getFiveOperationsNames);
+		}
+	}, [fiveOperationsNames, fiveOperations, options, isDeleteOperationSuccess]);
 
 	const interval = 2000;
 
@@ -278,6 +284,7 @@ export default function Expenses() {
 			if (baseUrl) {
 				const response = await RemoveExpensesCategoryTransaction(baseUrl, id);
 				if ((response.status = axios.HttpStatusCode.Ok)) {
+					setIsDeleteOperationApprove(false);
 					setIsDeleteOperationSuccess(true);
 					setTimeout(() => setIsDeleteOperationSuccess(false), interval);
 				}
@@ -344,7 +351,6 @@ export default function Expenses() {
 				{isOpen && <CategoryAddModal open={isOpen} onCancelClick={() => setIsOpen(false)} request={addCategory} />}
 				{isAddSuccess && <CategoryAddSuccessModal open={isAddSuccess} />}
 				{isDeleteSuccessCategory && <CategoryDeleteSuccessModal open={isDeleteSuccessCategory} />}
-
 				<div className={styles.expensesTransactionsWrapper}>
 					<h1 className={styles.expensesTransactionHeader}>Последние операции по расходам</h1>
 					{fiveOperationsNames &&

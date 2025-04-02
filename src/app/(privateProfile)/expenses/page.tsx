@@ -29,7 +29,11 @@ import AppInput from "../../../ui/appInput/AppInput";
 
 import { CategoryAddModal } from "../../../components/userProfileLayout/categoryAdd/categoryAddModal";
 
-import { IAddCategoryExpensesForm, IExpenseTransaction } from "../../../types/components/ComponentsTypes";
+import {
+	IAddCategoryExpensesForm,
+	IEditTransactionForm,
+	IExpenseTransaction,
+} from "../../../types/components/ComponentsTypes";
 
 import { AddExpensesCategory } from "../../../services/api/userProfile/AddExpensesCategory";
 import { CategoryAddSuccessModal } from "../../../components/userProfileLayout/categoryAddSuccess/categoryAddSuccess";
@@ -49,6 +53,9 @@ import { RemoveExpensesCategoryTransaction } from "../../../services/api/userPro
 
 import { RecordDeleteModal } from "../../../components/userProfileLayout/recordDelete/recordDelete";
 import { SuccessDeleteModal } from "../../../components/userProfileLayout/recordDeleteResponse/successDelete/successDelete";
+import { EditExpensesCategoryTransaction } from "../../../services/api/userProfile/EditExpensesTransaction";
+import { EditTransactionModal } from "../../../components/userProfileLayout/editTransaction/editTransaction";
+import { EditTransactionSuccessModal } from "../../../components/userProfileLayout/editTransactionSucccess/editTransactionSuccess";
 
 import styles from "./expenses.module.scss";
 
@@ -63,6 +70,8 @@ export default function Expenses() {
 	const [isDeleteOperationApprove, setIsDeleteOperationApprove] = useState<boolean>(false);
 	const [isDeleteOperationSuccess, setIsDeleteOperationSuccess] = useState<boolean>(false);
 	const [isId, setIsId] = useState<string>("");
+	const [isEdit, setIsEdit] = useState<boolean>(false);
+	const [isEditSuccess, setIsEditSuccess] = useState<boolean>(false);
 
 	const { control, handleSubmit } = useForm<IExpensesAddCategoryTransactionForm & IExpensesCategoryForm>({
 		defaultValues: {
@@ -248,6 +257,11 @@ export default function Expenses() {
 		}
 	};
 
+	const currentDate = () => {
+		const endDate = 10;
+		return new Date().toISOString().slice(0, endDate);
+	};
+
 	const onSubmit = async (data: IExpensesAddCategoryTransactionForm & IExpensesCategoryForm) => {
 		const endDate = 10;
 		data.date = new Date().toISOString().slice(0, endDate);
@@ -295,6 +309,38 @@ export default function Expenses() {
 				error.response &&
 				error.response.status &&
 				error.response.status === axios.HttpStatusCode.Forbidden
+			) {
+				console.log(error);
+			}
+			if (
+				axios.isAxiosError(error) &&
+				error.response &&
+				error.response.status &&
+				error.response.status >= axios.HttpStatusCode.InternalServerError &&
+				error.response.status < ApiResponseCode.SERVER_ERROR_STATUS_MAX
+			) {
+				console.log(error);
+			}
+		}
+	};
+
+	const editTransaction = async (id: string, data: IEditTransactionForm) => {
+		data.date = currentDate();
+		try {
+			if (baseUrl && data !== null) {
+				const response = await EditExpensesCategoryTransaction(baseUrl, id, data);
+				if (response.status === axios.HttpStatusCode.Ok) {
+					setIsEdit(false);
+					setIsEditSuccess(true);
+					setTimeout(() => setIsEditSuccess(false), interval);
+				}
+			}
+		} catch (error) {
+			if (
+				axios.isAxiosError(error) &&
+				error.response &&
+				error.response.status &&
+				error.response.status === axios.HttpStatusCode.Conflict
 			) {
 				console.log(error);
 			}
@@ -364,6 +410,7 @@ export default function Expenses() {
 									categories={0}
 									id={expensesData.id}
 									onDeleteClick={() => [setIsDeleteOperationApprove(true), setIsId(expensesData.id)]}
+									editClick={() => [setIsEdit(true), setIsId(expensesData.id)]}
 								/>
 							</li>
 						))}
@@ -376,6 +423,10 @@ export default function Expenses() {
 					/>
 				)}
 				{isDeleteOperationSuccess && <SuccessDeleteModal open={isDeleteOperationSuccess} />}
+				{isEdit && (
+					<EditTransactionModal open={isEdit} id={isId} request={editTransaction} cancelEdit={() => setIsEdit(false)} />
+				)}
+				{isEditSuccess && <EditTransactionSuccessModal open={isEditSuccess} />}
 			</div>
 		</div>
 	);

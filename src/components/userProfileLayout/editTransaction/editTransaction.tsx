@@ -4,27 +4,29 @@ import { InputTypeList } from "../../../helpers/Input";
 
 import AppInput from "../../../ui/appInput/AppInput";
 
-import { IAddCategoryExpensesForm } from "../../../types/components/ComponentsTypes";
-import { IExpensesModals } from "../../../types/common/ComponentsProps";
+import { IEditTransactionForm } from "../../../types/components/ComponentsTypes";
+import { IEditTransaction } from "../../../types/common/ComponentsProps";
 
 import { ButtonType } from "../../../helpers/buttonFieldValues";
 
 import Button from "../../../ui/Button/button";
 import Title from "../../../ui/title/Title";
 
-import styles from "./amountChange.module.scss";
+import styles from "./editTransaction.module.scss";
 
-export const AmountChangeModal = ({ open }: IExpensesModals) => {
-	const { control, handleSubmit } = useForm<IAddCategoryExpensesForm>({
-		// defaultValues: {
-		// 	amount: "",
-		// },
+export const EditTransactionModal = ({ open, id, request, cancelEdit }: IEditTransaction) => {
+	const { control, handleSubmit } = useForm<IEditTransactionForm>({
+		defaultValues: {
+			amount: 0,
+		},
 		mode: "all",
 		delayError: 200,
 	});
 
-	const onSubmit = () => {
-		console.log("submit");
+	const onSubmit = async (data: IEditTransactionForm) => {
+		if (id !== null && data !== null) {
+			await request(id, data);
+		}
 	};
 
 	return (
@@ -37,13 +39,15 @@ export const AmountChangeModal = ({ open }: IExpensesModals) => {
 						<AppInput
 							control={control}
 							label={"Введите новое числовое значение"}
-							name={"name"}
-							type={InputTypeList.Text}
+							name={"amount"}
+							type={InputTypeList.Number}
 							placeholder={"100.00"}
 						/>
 					</div>
 					<div className={styles.buttonsContainer}>
-						<Button variant={ButtonType.Outlined}>Отменить</Button>
+						<Button variant={ButtonType.Outlined} onClick={() => cancelEdit()}>
+							Отменить
+						</Button>
 						<Button variant={ButtonType.Faded}>Изменить</Button>
 					</div>
 				</form>

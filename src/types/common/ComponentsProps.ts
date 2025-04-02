@@ -3,7 +3,7 @@ import { Control, FieldValues, Path } from "react-hook-form";
 
 import { MouseEvent, ReactNode } from "react";
 
-import { IAddCategoryExpensesForm } from "../components/ComponentsTypes";
+import { IAddCategoryExpensesForm, IEditTransactionForm } from "../components/ComponentsTypes";
 
 export type CustomLayout = () => Element;
 
@@ -154,5 +154,16 @@ export interface ITransactionDelete {
 }
 
 export interface ITransactionDeleteSuccess {
+	open: boolean;
+}
+
+export interface IEditTransaction {
+	open: boolean;
+	id: string;
+	request: (id: string, data: IEditTransactionForm) => Promise<void>;
+	cancelEdit: () => void;
+}
+
+export interface IEditTransactionSuccess {
 	open: boolean;
 }

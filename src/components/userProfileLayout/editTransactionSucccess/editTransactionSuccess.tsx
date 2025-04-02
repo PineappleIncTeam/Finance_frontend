@@ -1,8 +1,8 @@
-import { IExpensesModals } from "../../../types/common/ComponentsProps";
+import { IEditTransactionSuccess } from "../../../types/common/ComponentsProps";
 
-import styles from "./amountChangeSuccess.module.scss";
+import styles from "./editTransactionSuccess.module.scss";
 
-export const AmountChangeSuccessModal = ({ open }: IExpensesModals) => {
+export const EditTransactionSuccessModal = ({ open }: IEditTransactionSuccess) => {
 	return (
 		<dialog open={open} className={styles.backgroundModal}>
 			<div onClick={(e) => e.stopPropagation()} role="textbox" className={styles.amountChangeSuccessModalContainer}>

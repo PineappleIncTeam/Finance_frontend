@@ -49,6 +49,7 @@ export interface IExpenseTransaction {
 	categories: number;
 	id: string;
 	onDeleteClick: () => void;
+	editClick: () => void;
 }
 
 export interface IIncomeTransaction {
@@ -109,4 +110,9 @@ export interface IAddCategoryExpensesForm {
 export interface IRemoveCategoryExpenses {
 	name: string;
 	id: string;
+}
+
+export interface IEditTransactionForm {
+	date: string;
+	amount: number;
 }

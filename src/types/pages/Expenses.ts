@@ -27,3 +27,8 @@ export interface ICategoriesAll {
 export interface IFiveOperations {
 	type: string;
 }
+
+export interface IEditOperation {
+	date: string;
+	amount: number;
+}

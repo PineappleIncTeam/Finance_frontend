@@ -25,7 +25,8 @@ import { getCorrectBaseUrl } from "../../../utils/baseUrlConverter";
 import { getUserReports } from "../../../services/api/analyticsReports/getAllReports";
 import useLogoutTimer from "../../../hooks/useLogoutTimer";
 import handleLogout from "../../../helpers/logout";
-import { IReportsOption } from "../../../types/common/ComponentsProps";
+import { IReportsOption, IOperation } from "../../../types/common/ComponentsProps";
+import { getUserOperations } from "../../../services/api/analyticsOperations/getAllOperations";
 
 import styles from "./analytics.module.scss";
 
@@ -82,6 +83,8 @@ function Analytics() {
 	const [reports, setReports] = useState<IReportsOption[]>([]);
 	const [expensesSum, setExpensesSum] = useState(0);
 	const [incomeSum, setIncomeSum] = useState(0);
+
+	const [operations, setOperations] = useState<IOperation[]>([]);
 
 	const isEmptyPage = false;
 	const rawExpensesData = [
@@ -332,18 +335,22 @@ function Analytics() {
 	useEffect(() => {
 		if (baseUrl) {
 			const fetchCategories = async () => {
-				const response = await getUserReports(baseUrl);
-				console.log(response.data);
-				setReports(response.data);
-				setExpensesSum(response.data.total_expenses);
-				setIncomeSum(response.data.total_income);
+				const responseReports = await getUserReports(baseUrl);
+				const responseOperations = await getUserOperations(baseUrl);
+				console.log(responseReports.data);
+				console.log(responseOperations);
+				setReports(responseReports.data);
+				setOperations(responseOperations.data)
+				setExpensesSum(responseReports.data.total_expenses);
+				setIncomeSum(responseReports.data.total_income);
 			};
 
 			fetchCategories();
 		}
 	}, [baseUrl]);
 
-	console.log(`Консоль: ${reports}`)
+	console.log(`Консоль: ${reports}`);
+	console.log(`Консоль: ${operations}`);
 
 	const handleDisplayChange = (event: ChangeEvent<HTMLInputElement>) => {
 		const value = event.target.value as DisplayMode;

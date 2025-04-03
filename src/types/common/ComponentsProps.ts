@@ -125,6 +125,14 @@ export interface IReportsOption {
     amount: number;
     items: IMonthSum[];
 }
+export interface IOperation {
+    id: number;                                
+    type: "income" | "outcome" | "targets";   
+    amount: number;                     
+    date: string;                               
+    categories?: number;         
+    target?: number;     
+}
 
 export interface ICategorySelect<T extends FieldValues> {
 	label: string;

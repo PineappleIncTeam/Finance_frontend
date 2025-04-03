@@ -1,0 +1,1 @@
+export const GetUserOperationsEndpoint = "api/v1/operations/all/";

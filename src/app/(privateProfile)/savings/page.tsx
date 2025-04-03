@@ -62,6 +62,8 @@ function Savings() {
 
 	const [transactions, setTransactions] = useState<IOperation[]>([]);
 
+	const [isLoading, setIsLoading] = useState(true);
+
 	const initialItems = [
 		{ category: "Обучение ребенка", target: "210 000.00", sum: "200 000.00", status: "В процессе" },
 		{ category: "Машина", target: "4 000 000.00", sum: "4 000 000.00", status: "Достигнута" },
@@ -173,24 +175,25 @@ function Savings() {
 
 	useEffect(() => {
 		if (baseUrl) {
-			const fetchCategories = async () => {
-				const response = await getUserCategories(baseUrl);
-				setCategories(response.data);
+			const fetchData = async () => {
+				try {
+					setIsLoading(true);
+					// Сначала загружаем категории
+					const categoriesResponse = await getUserCategories(baseUrl);
+					setCategories(categoriesResponse.data);
+					
+					// Затем загружаем операции
+					const operationsResponse = await getUserOperations(baseUrl);
+					setTransactions(operationsResponse.data);
+				} catch (error) {
+					console.error("Error fetching data:", error);
+				} finally {
+					setIsLoading(false);
+				}
 			};
 
-			fetchCategories();
+			fetchData();
 		}
-	}, [baseUrl]);
-
-	useEffect(() => {
-		const fetchOperations = async () => {
-			if (baseUrl) {
-				const response = await getUserOperations(baseUrl);
-				setTransactions(response.data);
-			}
-		};
-
-		fetchOperations();
 	}, [baseUrl]);
 
 	function renderSavingsItemList() {
@@ -281,28 +284,38 @@ function Savings() {
 	}
 
 	const getCategoryName = (categoryId: number): string => {
+		console.log("Categories array:", categories);
+		console.log("Looking for category with ID:", categoryId);
 		const category = categories.find(c => c.id === categoryId);
+		console.log("Found category:", category);
 		return category?.name || "Общая категория";
 	  };
 
 	  const renderSavingsTransactions = (transactions: Array<ISavingsTransaction | IOperation>) => {
+		if (isLoading) {
+			return <div>Загрузка...</div>;
+		}
+
+		if (!categories.length) {
+			return <div>Нет доступных категорий</div>;
+		}
+
 		return transactions
-		  .filter((t) => t.type === "income")
-		  .map((savingsData, index) => {
-			// Добавляем проверку на undefined и null
-			const categoryId = savingsData.categories ?? 0; // 0 или другой дефолтный ID
-			const categoryName = getCategoryName(categoryId);
-	  
-			return (
-			  <li key={index}>
-				<SavingsTransaction
-				  date={savingsData.date}
-				  categoryName={categoryName}
-				  amount={savingsData.amount}
-				/>
-			  </li>
-			);
-		  });
+			.filter((t) => t.type === "income")
+			.map((savingsData, index) => {
+				const categoryId = savingsData.categories ?? 0;
+				const categoryName = getCategoryName(categoryId);
+				
+				return (
+					<li key={index}>
+						<SavingsTransaction
+							date={savingsData.date}
+							categoryName={categoryName}
+							amount={savingsData.amount}
+						/>
+					</li>
+				);
+			});
 	  };
 
 	return (

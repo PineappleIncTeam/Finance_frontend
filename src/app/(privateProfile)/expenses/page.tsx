@@ -61,7 +61,7 @@ import styles from "./expenses.module.scss";
 
 export default function Expenses() {
 	const [baseUrl, setBaseUrl] = useState<string>();
-	// const [isAddSuccess, setIsAddSuccess] = useState<boolean>(false);
+	const [isAddSuccess, setIsAddSuccess] = useState<boolean>(false);
 	const [isOpen, setIsOpen] = useState<boolean>(false);
 	const [fiveOperations, setFiveOperations] = useState<string[] | any>([]);
 	const [fiveOperationsNames, setFiveOperationsNames] = useState<string[] | any>([]);
@@ -142,7 +142,10 @@ export default function Expenses() {
 			}
 		};
 		getCategoryOptions();
-	}, [baseUrl]);
+		if (isAddSuccess) {
+			getCategoryOptions();
+		}
+	}, [baseUrl, isAddSuccess]);
 
 	useEffect(() => {
 		const getFiveOperations = async () => {
@@ -210,24 +213,19 @@ export default function Expenses() {
 				const response = await AddExpensesCategory(baseUrl, data);
 				if (response.status === axios.HttpStatusCode.Created) {
 					setIsOpen(false);
-					// setIsAddSuccess(true);
+					setIsAddSuccess(true);
 					setResponseApiRequestModal({
 						open: true,
 						title: "Категория успешно добавлена",
 						width: 548,
 					});
-					setTimeout(() => setResponseApiRequestModal(ResponseApiRequestModalInitialState), interval);
+					setTimeout(() => {
+						setResponseApiRequestModal(ResponseApiRequestModalInitialState);
+						setIsAddSuccess(false);
+					}, interval);
 				}
 			}
 		} catch (error) {
-			if (
-				axios.isAxiosError(error) &&
-				error.response &&
-				error.response.status &&
-				error.response.status === axios.HttpStatusCode.Conflict
-			) {
-				("Не верные данные");
-			}
 			if (
 				axios.isAxiosError(error) &&
 				error.response &&
@@ -407,7 +405,6 @@ export default function Expenses() {
 					</div>
 				</form>
 				{isOpen && <CategoryAddModal open={isOpen} onCancelClick={() => setIsOpen(false)} request={addCategory} />}
-				{/* {isAddSuccess && <CategoryAddSuccessModal open={isAddSuccess} />} */}
 				<ResponseApiRequestModal
 					open={responseApiRequestModal.open}
 					title={responseApiRequestModal.title}

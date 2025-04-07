@@ -36,7 +36,6 @@ import {
 } from "../../../types/components/ComponentsTypes";
 
 import { AddExpensesCategory } from "../../../services/api/userProfile/AddExpensesCategory";
-import { CategoryAddSuccessModal } from "../../../components/userProfileLayout/categoryAddSuccess/categoryAddSuccess";
 
 import { MainPath } from "../../../services/router/routes";
 
@@ -55,13 +54,14 @@ import { RecordDeleteModal } from "../../../components/userProfileLayout/recordD
 import { SuccessDeleteModal } from "../../../components/userProfileLayout/recordDeleteResponse/successDelete/successDelete";
 import { EditExpensesCategoryTransaction } from "../../../services/api/userProfile/EditExpensesTransaction";
 import { EditTransactionModal } from "../../../components/userProfileLayout/editTransaction/editTransaction";
-import { EditTransactionSuccessModal } from "../../../components/userProfileLayout/editTransactionSucccess/editTransactionSuccess";
+import { EditTransactionSuccessModal } from "../../../components/userProfileLayout/editTransactionSuccess/editTransactionSuccess";
+import { ResponseApiRequestModal } from "../../../components/userProfileLayout/responseActionExpenses/responseApiRequestModal";
 
 import styles from "./expenses.module.scss";
 
 export default function Expenses() {
 	const [baseUrl, setBaseUrl] = useState<string>();
-	const [isAddSuccess, setIsAddSuccess] = useState<boolean>(false);
+	// const [isAddSuccess, setIsAddSuccess] = useState<boolean>(false);
 	const [isOpen, setIsOpen] = useState<boolean>(false);
 	const [fiveOperations, setFiveOperations] = useState<string[] | any>([]);
 	const [fiveOperationsNames, setFiveOperationsNames] = useState<string[] | any>([]);
@@ -81,6 +81,14 @@ export default function Expenses() {
 		mode: "all",
 		delayError: 200,
 	});
+
+	const ResponseApiRequestModalInitialState = {
+		open: false,
+		title: "",
+		width: 0,
+	};
+
+	const [responseApiRequestModal, setResponseApiRequestModal] = useState(ResponseApiRequestModalInitialState);
 
 	const router = useRouter();
 
@@ -202,8 +210,13 @@ export default function Expenses() {
 				const response = await AddExpensesCategory(baseUrl, data);
 				if (response.status === axios.HttpStatusCode.Created) {
 					setIsOpen(false);
-					setIsAddSuccess(true);
-					setTimeout(() => setIsAddSuccess(false), interval);
+					// setIsAddSuccess(true);
+					setResponseApiRequestModal({
+						open: true,
+						title: "Категория успешно добавлена",
+						width: 548,
+					});
+					setTimeout(() => setResponseApiRequestModal(ResponseApiRequestModalInitialState), interval);
 				}
 			}
 		} catch (error) {
@@ -394,7 +407,13 @@ export default function Expenses() {
 					</div>
 				</form>
 				{isOpen && <CategoryAddModal open={isOpen} onCancelClick={() => setIsOpen(false)} request={addCategory} />}
-				{isAddSuccess && <CategoryAddSuccessModal open={isAddSuccess} />}
+				{/* {isAddSuccess && <CategoryAddSuccessModal open={isAddSuccess} />} */}
+				<ResponseApiRequestModal
+					open={responseApiRequestModal.open}
+					title={responseApiRequestModal.title}
+					width={responseApiRequestModal.width}
+					className={styles.categoryAddSuccess__modal}
+				/>
 				{isDeleteSuccessCategory && <CategoryDeleteSuccessModal open={isDeleteSuccessCategory} />}
 				<div className={styles.expensesTransactionsWrapper}>
 					<h1 className={styles.expensesTransactionHeader}>Последние операции по расходам</h1>

@@ -170,7 +170,7 @@ export interface IEditTransactionSuccess {
 
 export interface IResponseApiRequestModal {
 	open: boolean;
-	title: string;
-	className: string;
+	title?: string;
+	className?: string;
 	width?: number;
 }

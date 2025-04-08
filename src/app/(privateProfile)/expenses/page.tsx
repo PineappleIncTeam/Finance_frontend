@@ -44,7 +44,6 @@ import { GetCategoriesAll } from "../../../services/api/userProfile/GetCategorie
 import { IOptionsResponse, ITransactionsResponse } from "../../../types/api/Expenses";
 
 import { RemoveExpensesCategory } from "../../../services/api/userProfile/RemoveExpensesCategory";
-import { CategoryDeleteSuccessModal } from "../../../components/userProfileLayout/categoryDeleteResponse/categoryDeleteSuccess/categoryDeleteSuccess";
 
 import { AddExpensesCategoryTransaction } from "../../../services/api/userProfile/AddExpensesCategoryTransaction";
 
@@ -142,7 +141,7 @@ export default function Expenses() {
 			}
 		};
 		getCategoryOptions();
-		if (isAddSuccess) {
+		if (isAddSuccess || isDeleteSuccessCategory) {
 			getCategoryOptions();
 		}
 	}, [baseUrl, isAddSuccess]);
@@ -244,7 +243,15 @@ export default function Expenses() {
 				const response = await RemoveExpensesCategory(baseUrl, id);
 				if (response.status === axios.HttpStatusCode.Ok) {
 					setIsDeleteSuccessCategory(true);
-					setTimeout(() => setIsDeleteSuccessCategory(false), interval);
+					setResponseApiRequestModal({
+						open: true,
+						title: "Категория успешно удалена",
+						width: 408,
+					});
+					setTimeout(() => {
+						setResponseApiRequestModal(ResponseApiRequestModalInitialState);
+						setIsDeleteSuccessCategory(false);
+					}, interval);
 				}
 			}
 		} catch (error) {
@@ -252,18 +259,10 @@ export default function Expenses() {
 				axios.isAxiosError(error) &&
 				error.response &&
 				error.response.status &&
-				error.response.status === axios.HttpStatusCode.Conflict
-			) {
-				console.log(error);
-			}
-			if (
-				axios.isAxiosError(error) &&
-				error.response &&
-				error.response.status &&
 				error.response.status >= axios.HttpStatusCode.InternalServerError &&
 				error.response.status < ApiResponseCode.SERVER_ERROR_STATUS_MAX
 			) {
-				console.log(error);
+				router.push(MainPath.ServerError);
 			}
 		}
 	};
@@ -411,7 +410,13 @@ export default function Expenses() {
 					width={responseApiRequestModal.width}
 					className={styles.categoryAddSuccess__modal}
 				/>
-				{isDeleteSuccessCategory && <CategoryDeleteSuccessModal open={isDeleteSuccessCategory} />}
+				{/* {isDeleteSuccessCategory && <CategoryDeleteSuccessModal open={isDeleteSuccessCategory} />} */}
+				<ResponseApiRequestModal
+					open={responseApiRequestModal.open}
+					title={responseApiRequestModal.title}
+					width={responseApiRequestModal.width}
+					className={styles.categoryDeleteSuccess__modal}
+				/>
 				<div className={styles.expensesTransactionsWrapper}>
 					<h1 className={styles.expensesTransactionHeader}>Последние операции по расходам</h1>
 					{fiveOperationsNames &&

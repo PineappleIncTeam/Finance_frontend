@@ -10,6 +10,6 @@ export const userActivationEndpoint = "api/v1/auth/users/activation/";
 export const resetPasswordWithEmailEndPoint = "api/v1/auth/users/reset_password/";
 export const setNewPasswordEndPoint = "api/v1/auth/users/reset_password_confirm/";
 
-export const expensesCategoryEndPoint = "api/v1/categories/";
+export const expensesCategoryEndPoint = "api/v1/categories";
 export const expensesCategoriesAllEndPoint = "api/v1/categories/all/";
 export const expensesCategoryTransactionEndPoint = "api/v1/operations";

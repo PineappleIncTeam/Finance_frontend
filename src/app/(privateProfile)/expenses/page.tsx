@@ -144,7 +144,7 @@ export default function Expenses() {
 		if (isAddSuccess || isDeleteSuccessCategory) {
 			getCategoryOptions();
 		}
-	}, [baseUrl, isAddSuccess]);
+	}, [baseUrl, isAddSuccess, isDeleteSuccessCategory]);
 
 	useEffect(() => {
 		const getFiveOperations = async () => {

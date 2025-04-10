@@ -12,8 +12,7 @@ import { ButtonType } from "../../../helpers/buttonFieldValues";
 
 import Button from "../../../ui/Button/button";
 import Title from "../../../ui/title/Title";
-
-import { NegativeBalanceModal } from "../recordDeleteResponse/negativeBalance/negativeBalance";
+import { ResponseApiRequestModal } from "../responseActionExpenses/responseApiRequestModal";
 
 import styles from "./editTransaction.module.scss";
 
@@ -27,12 +26,14 @@ export const EditTransactionModal = ({ open, id, request, cancelEdit }: IEditTra
 	});
 
 	const [isNegativeBalanceModalShown, setIsNegativeBalanceModalShown] = useState<boolean>(false);
+
 	const interval = 2000;
 
 	const onSubmit = async (data: IEditTransactionForm) => {
 		if (id !== null && data !== null) {
 			if (data.amount === 0 || data.amount < 0) {
 				setIsNegativeBalanceModalShown(true);
+
 				setTimeout(() => setIsNegativeBalanceModalShown(false), interval);
 				return;
 			}
@@ -67,7 +68,8 @@ export const EditTransactionModal = ({ open, id, request, cancelEdit }: IEditTra
 					</form>
 				</div>
 			</dialog>
-			{isNegativeBalanceModalShown && <NegativeBalanceModal open={isNegativeBalanceModalShown} />}
+			<ResponseApiRequestModal open={isNegativeBalanceModalShown} className={styles.negativeBalance__modal} />
+			{/* {isNegativeBalanceModalShown && <NegativeBalanceModal open={isNegativeBalanceModalShown} />} */}
 		</>
 	);
 };

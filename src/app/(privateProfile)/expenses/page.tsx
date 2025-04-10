@@ -131,7 +131,7 @@ export default function Expenses() {
 		if (isAddSuccess || isDeleteSuccessCategory) {
 			getCategoryOptions();
 		}
-	}, [baseUrl, isAddSuccess, isDeleteSuccessCategory]);
+	}, [baseUrl, isAddSuccess, isDeleteSuccessCategory, router]);
 
 	useEffect(() => {
 		const getFiveOperations = async () => {
@@ -161,7 +161,7 @@ export default function Expenses() {
 		if (isDeleteOperationSuccess || isEditSuccess) {
 			getFiveOperations();
 		}
-	}, [baseUrl, isDeleteOperationSuccess, isEditSuccess]);
+	}, [baseUrl, isDeleteOperationSuccess, isEditSuccess, router]);
 
 	useEffect(() => {
 		const getFiveOperationsNames = () => {
@@ -408,7 +408,6 @@ export default function Expenses() {
 						cancelRemove={() => setIsDeleteOperationApprove(false)}
 					/>
 				)}
-				{/* {isDeleteOperationSuccess && <SuccessDeleteModal open={isDeleteOperationSuccess} />} */}
 				<ResponseApiRequestModal
 					open={responseApiRequestModal.open}
 					title={responseApiRequestModal.title}
@@ -424,7 +423,6 @@ export default function Expenses() {
 					width={responseApiRequestModal.width}
 					className={styles.recordEditSuccess__modal}
 				/>
-				{/* {isEditSuccess && <EditTransactionSuccessModal open={isEditSuccess} />} */}
 			</div>
 		</div>
 	);

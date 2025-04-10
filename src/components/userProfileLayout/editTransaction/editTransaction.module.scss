@@ -83,3 +83,12 @@
 		}
 	}
 }
+
+.negativeBalance__modal {
+	width: 474px;
+	background-color: var(--color-rose-white);
+
+	@media (max-width: 490px) {
+		width: 340px;
+	}
+}

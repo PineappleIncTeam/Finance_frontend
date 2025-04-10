@@ -173,4 +173,5 @@ export interface IResponseApiRequestModal {
 	title?: string;
 	className?: string;
 	width?: number;
+	color?: string;
 }

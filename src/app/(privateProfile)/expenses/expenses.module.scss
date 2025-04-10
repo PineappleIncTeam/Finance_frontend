@@ -298,3 +298,19 @@
 .categoryDeleteSuccess__modal {
 	width: 408px; 
 }
+
+.recordDeleteSuccess__modal {
+	width: 376px;
+
+	@media (max-width: 470px) {
+		width: 240px;
+	}
+}
+
+.recordEditSuccess__modal {
+	width: 384px;
+	
+	@media (max-width: 490px) {
+		width: 246px;
+	}
+} 

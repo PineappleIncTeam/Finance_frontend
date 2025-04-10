@@ -50,10 +50,8 @@ import { AddExpensesCategoryTransaction } from "../../../services/api/userProfil
 import { RemoveExpensesCategoryTransaction } from "../../../services/api/userProfile/RemoveExpensesTransaction";
 
 import { RecordDeleteModal } from "../../../components/userProfileLayout/recordDelete/recordDelete";
-import { SuccessDeleteModal } from "../../../components/userProfileLayout/recordDeleteResponse/successDelete/successDelete";
 import { EditExpensesCategoryTransaction } from "../../../services/api/userProfile/EditExpensesTransaction";
 import { EditTransactionModal } from "../../../components/userProfileLayout/editTransaction/editTransaction";
-import { EditTransactionSuccessModal } from "../../../components/userProfileLayout/editTransactionSuccess/editTransactionSuccess";
 import { ResponseApiRequestModal } from "../../../components/userProfileLayout/responseActionExpenses/responseApiRequestModal";
 
 import styles from "./expenses.module.scss";
@@ -122,21 +120,10 @@ export default function Expenses() {
 					axios.isAxiosError(error) &&
 					error.response &&
 					error.response.status &&
-					error.response.status >= axios.HttpStatusCode.BadRequest &&
-					error.response.status <= axios.HttpStatusCode.InternalServerError
-				) {
-					console.log(error);
-					setOptions([]);
-				}
-				if (
-					axios.isAxiosError(error) &&
-					error.response &&
-					error.response.status &&
 					error.response.status >= axios.HttpStatusCode.InternalServerError &&
 					error.response.status < ApiResponseCode.SERVER_ERROR_STATUS_MAX
 				) {
-					console.log(error);
-					setOptions([]);
+					router.push(MainPath.ServerError);
 				}
 			}
 		};
@@ -163,19 +150,10 @@ export default function Expenses() {
 					axios.isAxiosError(error) &&
 					error.response &&
 					error.response.status &&
-					error.response.status >= axios.HttpStatusCode.BadRequest &&
-					error.response.status <= axios.HttpStatusCode.InternalServerError
-				) {
-					console.log(error);
-				}
-				if (
-					axios.isAxiosError(error) &&
-					error.response &&
-					error.response.status &&
 					error.response.status >= axios.HttpStatusCode.InternalServerError &&
 					error.response.status < ApiResponseCode.SERVER_ERROR_STATUS_MAX
 				) {
-					console.log(error);
+					router.push(MainPath.ServerError);
 				}
 			}
 		};
@@ -276,20 +254,9 @@ export default function Expenses() {
 		data.date = currentDate();
 		try {
 			if (baseUrl && data !== null) {
-				const response = await AddExpensesCategoryTransaction(baseUrl, data);
-				if (response.status === axios.HttpStatusCode.Ok) {
-					console.log("success");
-				}
+				await AddExpensesCategoryTransaction(baseUrl, data);
 			}
 		} catch (error) {
-			if (
-				axios.isAxiosError(error) &&
-				error.response &&
-				error.response.status &&
-				error.response.status === axios.HttpStatusCode.Conflict
-			) {
-				("Не верные данные");
-			}
 			if (
 				axios.isAxiosError(error) &&
 				error.response &&
@@ -309,7 +276,15 @@ export default function Expenses() {
 				if ((response.status = axios.HttpStatusCode.Ok)) {
 					setIsDeleteOperationApprove(false);
 					setIsDeleteOperationSuccess(true);
-					setTimeout(() => setIsDeleteOperationSuccess(false), interval);
+					setResponseApiRequestModal({
+						open: true,
+						title: "Запись успешно удалена",
+						width: 376,
+					});
+					setTimeout(() => {
+						setResponseApiRequestModal(ResponseApiRequestModalInitialState);
+						setIsDeleteOperationSuccess(false);
+					}, interval);
 				}
 			}
 		} catch (error) {
@@ -317,18 +292,10 @@ export default function Expenses() {
 				axios.isAxiosError(error) &&
 				error.response &&
 				error.response.status &&
-				error.response.status === axios.HttpStatusCode.Forbidden
-			) {
-				console.log(error);
-			}
-			if (
-				axios.isAxiosError(error) &&
-				error.response &&
-				error.response.status &&
 				error.response.status >= axios.HttpStatusCode.InternalServerError &&
 				error.response.status < ApiResponseCode.SERVER_ERROR_STATUS_MAX
 			) {
-				console.log(error);
+				router.push(MainPath.ServerError);
 			}
 		}
 	};
@@ -341,7 +308,15 @@ export default function Expenses() {
 				if (response.status === axios.HttpStatusCode.Ok) {
 					setIsEdit(false);
 					setIsEditSuccess(true);
-					setTimeout(() => setIsEditSuccess(false), interval);
+					setResponseApiRequestModal({
+						open: true,
+						title: "Сумма успешно изменена",
+						width: 384,
+					});
+					setTimeout(() => {
+						setResponseApiRequestModal(ResponseApiRequestModalInitialState);
+						setIsEditSuccess(false);
+					}, interval);
 				}
 			}
 		} catch (error) {
@@ -349,18 +324,10 @@ export default function Expenses() {
 				axios.isAxiosError(error) &&
 				error.response &&
 				error.response.status &&
-				error.response.status === axios.HttpStatusCode.Conflict
-			) {
-				console.log(error);
-			}
-			if (
-				axios.isAxiosError(error) &&
-				error.response &&
-				error.response.status &&
 				error.response.status >= axios.HttpStatusCode.InternalServerError &&
 				error.response.status < ApiResponseCode.SERVER_ERROR_STATUS_MAX
 			) {
-				console.log(error);
+				router.push(MainPath.ServerError);
 			}
 		}
 	};
@@ -410,7 +377,6 @@ export default function Expenses() {
 					width={responseApiRequestModal.width}
 					className={styles.categoryAddSuccess__modal}
 				/>
-				{/* {isDeleteSuccessCategory && <CategoryDeleteSuccessModal open={isDeleteSuccessCategory} />} */}
 				<ResponseApiRequestModal
 					open={responseApiRequestModal.open}
 					title={responseApiRequestModal.title}
@@ -442,11 +408,23 @@ export default function Expenses() {
 						cancelRemove={() => setIsDeleteOperationApprove(false)}
 					/>
 				)}
-				{isDeleteOperationSuccess && <SuccessDeleteModal open={isDeleteOperationSuccess} />}
+				{/* {isDeleteOperationSuccess && <SuccessDeleteModal open={isDeleteOperationSuccess} />} */}
+				<ResponseApiRequestModal
+					open={responseApiRequestModal.open}
+					title={responseApiRequestModal.title}
+					width={responseApiRequestModal.width}
+					className={styles.recordDeleteSuccess__modal}
+				/>
 				{isEdit && (
 					<EditTransactionModal open={isEdit} id={isId} request={editTransaction} cancelEdit={() => setIsEdit(false)} />
 				)}
-				{isEditSuccess && <EditTransactionSuccessModal open={isEditSuccess} />}
+				<ResponseApiRequestModal
+					open={responseApiRequestModal.open}
+					title={responseApiRequestModal.title}
+					width={responseApiRequestModal.width}
+					className={styles.recordEditSuccess__modal}
+				/>
+				{/* {isEditSuccess && <EditTransactionSuccessModal open={isEditSuccess} />} */}
 			</div>
 		</div>
 	);

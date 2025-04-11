@@ -68,7 +68,11 @@ export const EditTransactionModal = ({ open, id, request, cancelEdit }: IEditTra
 					</form>
 				</div>
 			</dialog>
-			<ResponseApiRequestModal open={isNegativeBalanceModalShown} className={styles.negativeBalance__modal} />
+			<ResponseApiRequestModal
+				open={isNegativeBalanceModalShown}
+				title="Баланс не может быть меньше нуля"
+				className={styles.modalContainer}
+			/>
 			{/* {isNegativeBalanceModalShown && <NegativeBalanceModal open={isNegativeBalanceModalShown} />} */}
 		</>
 	);

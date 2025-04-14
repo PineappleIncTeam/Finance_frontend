@@ -33,7 +33,6 @@ export const EditTransactionModal = ({ open, id, request, cancelEdit }: IEditTra
 		if (id !== null && data !== null) {
 			if (data.amount === 0 || data.amount < 0) {
 				setIsNegativeBalanceModalShown(true);
-
 				setTimeout(() => setIsNegativeBalanceModalShown(false), interval);
 				return;
 			}
@@ -73,7 +72,6 @@ export const EditTransactionModal = ({ open, id, request, cancelEdit }: IEditTra
 				title="Баланс не может быть меньше нуля"
 				className={styles.modalContainer}
 			/>
-			{/* {isNegativeBalanceModalShown && <NegativeBalanceModal open={isNegativeBalanceModalShown} />} */}
 		</>
 	);
 };

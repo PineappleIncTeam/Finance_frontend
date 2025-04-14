@@ -172,6 +172,6 @@ export interface IResponseApiRequestModal {
 	open: boolean;
 	title?: string;
 	className?: string;
-	width?: number;
+	width?: number | string;
 	color?: string;
 }

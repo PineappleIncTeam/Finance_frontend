@@ -82,7 +82,7 @@ export default function Expenses() {
 	const ResponseApiRequestModalInitialState = {
 		open: false,
 		title: "",
-		width: 0,
+		width: "",
 	};
 
 	const [responseApiRequestModal, setResponseApiRequestModal] = useState(ResponseApiRequestModalInitialState);
@@ -194,7 +194,7 @@ export default function Expenses() {
 					setResponseApiRequestModal({
 						open: true,
 						title: "Категория успешно добавлена",
-						width: 548,
+						width: styles.categoryAddSuccess__modal,
 					});
 					setTimeout(() => {
 						setResponseApiRequestModal(ResponseApiRequestModalInitialState);
@@ -224,7 +224,7 @@ export default function Expenses() {
 					setResponseApiRequestModal({
 						open: true,
 						title: "Категория успешно удалена",
-						width: 408,
+						width: styles.categoryDeleteSuccess__modal,
 					});
 					setTimeout(() => {
 						setResponseApiRequestModal(ResponseApiRequestModalInitialState);
@@ -279,7 +279,7 @@ export default function Expenses() {
 					setResponseApiRequestModal({
 						open: true,
 						title: "Запись успешно удалена",
-						width: 376,
+						width: styles.recordDeleteSuccess__modal,
 					});
 					setTimeout(() => {
 						setResponseApiRequestModal(ResponseApiRequestModalInitialState);
@@ -311,7 +311,7 @@ export default function Expenses() {
 					setResponseApiRequestModal({
 						open: true,
 						title: "Сумма успешно изменена",
-						width: 384,
+						width: styles.recordEditSuccess__modal,
 					});
 					setTimeout(() => {
 						setResponseApiRequestModal(ResponseApiRequestModalInitialState);
@@ -374,13 +374,11 @@ export default function Expenses() {
 				<ResponseApiRequestModal
 					open={responseApiRequestModal.open}
 					title={responseApiRequestModal.title}
-					width={responseApiRequestModal.width}
 					className={styles.categoryAddSuccess__modal}
 				/>
 				<ResponseApiRequestModal
 					open={responseApiRequestModal.open}
 					title={responseApiRequestModal.title}
-					width={responseApiRequestModal.width}
 					className={styles.categoryDeleteSuccess__modal}
 				/>
 				<div className={styles.expensesTransactionsWrapper}>
@@ -411,7 +409,6 @@ export default function Expenses() {
 				<ResponseApiRequestModal
 					open={responseApiRequestModal.open}
 					title={responseApiRequestModal.title}
-					width={responseApiRequestModal.width}
 					className={styles.recordDeleteSuccess__modal}
 				/>
 				{isEdit && (
@@ -420,7 +417,6 @@ export default function Expenses() {
 				<ResponseApiRequestModal
 					open={responseApiRequestModal.open}
 					title={responseApiRequestModal.title}
-					width={responseApiRequestModal.width}
 					className={styles.recordEditSuccess__modal}
 				/>
 			</div>

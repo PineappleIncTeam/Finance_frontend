@@ -151,6 +151,7 @@ export interface IInputDateSelector {
 
 export interface ICustomInputDate<T extends TAppInputForm> {
 	isPeriod?: boolean;
+	isLabel?: boolean;
 	control?: Control<T>;
 	name: Path<T>;
 }

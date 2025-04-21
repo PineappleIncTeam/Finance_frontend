@@ -367,7 +367,7 @@ export default function Expenses() {
 								placeholder={"0.00"}
 							/>
 						</div>
-						<AddButton onClick={() => resetTimer()} type="submit" />
+						<AddButton onClick={() => resetTimer()} type={InputTypeList.Submit} />
 					</div>
 				</form>
 				{isOpen && <CategoryAddModal open={isOpen} onCancelClick={() => setIsOpen(false)} request={addCategory} />}

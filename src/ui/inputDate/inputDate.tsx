@@ -1,26 +1,21 @@
 import React, { useState } from "react";
-
 import DatePicker, { registerLocale } from "react-datepicker";
-
 import "react-datepicker/dist/react-datepicker.css";
 import { ru } from "date-fns/locale/ru";
 import cn from "classnames";
-
 import { FieldValues, useController } from "react-hook-form";
-
 import moment from "moment";
 
 import { ICustomHeaderInputDate, ICustomInputDate } from "../../types/common/UiKitProps";
+import InputDateSelector from "../../components/userProfileLayout/inputDateSelector/inputDateSelector";
+import { InputTypeList } from "../../helpers/Input";
 
 import calendarIcon from "../../assets/components/inputDate/calendarIcon";
 
-import InputDateSelector from "../../components/userProfileLayout/inputDateSelector/inputDateSelector";
-
-import style from "./inputDate.module.scss";
-
+import styles from "./inputDate.module.scss";
 import "./datepicker.scss";
 
-const InputDate = <T extends FieldValues>({ isPeriod = false, control, name }: ICustomInputDate<T>) => {
+const InputDate = <T extends FieldValues>({ isPeriod = false, control, name, isLabel = true }: ICustomInputDate<T>) => {
 	const {
 		field: { onChange, value },
 	} = useController({
@@ -61,24 +56,24 @@ const InputDate = <T extends FieldValues>({ isPeriod = false, control, name }: I
 		prevYearButtonDisabled,
 		nextYearButtonDisabled,
 	}: ICustomHeaderInputDate) => (
-		<div className={style.customHeader}>
-			<div className={style.inputDateSelect__arrowButtons}>
+		<div className={styles.customHeader}>
+			<div className={styles.inputDateSelect__arrowButtons}>
 				<button
-					type="button"
+					type={InputTypeList.Button}
 					onClick={decreaseYear}
 					disabled={prevYearButtonDisabled}
-					className={style.inputDateSelect__arrowButton}>
-					<div className={cn(style.inputDateSelect__yearArrow, style.inputDateSelect__arrow__prev)}></div>
+					className={styles.inputDateSelect__arrowButton}>
+					<div className={cn(styles.inputDateSelect__yearArrow, styles.inputDateSelect__arrow__prev)}></div>
 				</button>
 				<button
-					type="button"
+					type={InputTypeList.Button}
 					onClick={decreaseMonth}
 					disabled={prevMonthButtonDisabled}
-					className={style.inputDateSelect__arrowButton}>
-					<div className={cn(style.inputDateSelect__monthArrow, style.inputDateSelect__arrow__prev)}></div>
+					className={styles.inputDateSelect__arrowButton}>
+					<div className={cn(styles.inputDateSelect__monthArrow, styles.inputDateSelect__arrow__prev)}></div>
 				</button>
 			</div>
-			<div className={style.inputDateSelectors}>
+			<div className={styles.inputDateSelectors}>
 				<InputDateSelector options={moment.months()} changeDate={changeMonth} value={date.getMonth()} isMonth />
 				<InputDateSelector
 					options={Array.from(
@@ -89,28 +84,28 @@ const InputDate = <T extends FieldValues>({ isPeriod = false, control, name }: I
 					value={date.getFullYear()}
 				/>
 			</div>
-			<div className={style.inputDateSelect__arrowButtons}>
+			<div className={styles.inputDateSelect__arrowButtons}>
 				<button
-					type="button"
+					type={InputTypeList.Button}
 					onClick={increaseMonth}
 					disabled={nextMonthButtonDisabled}
-					className={style.inputDateSelect__arrowButton}>
-					<div className={cn(style.inputDateSelect__monthArrow, style.inputDateSelect__arrow__next)}></div>
+					className={styles.inputDateSelect__arrowButton}>
+					<div className={cn(styles.inputDateSelect__monthArrow, styles.inputDateSelect__arrow__next)}></div>
 				</button>
 				<button
-					type="button"
+					type={InputTypeList.Button}
 					onClick={increaseYear}
 					disabled={nextYearButtonDisabled}
-					className={style.inputDateSelect__arrowButton}>
-					<div className={cn(style.inputDateSelect__yearArrow, style.inputDateSelect__arrow__next)}></div>
+					className={styles.inputDateSelect__arrowButton}>
+					<div className={cn(styles.inputDateSelect__yearArrow, styles.inputDateSelect__arrow__next)}></div>
 				</button>
 			</div>
 		</div>
 	);
 
 	return (
-		<div className={style.date__wrapper}>
-			<p className={style.date__label}>{isPeriod ? "Дата или период" : "Выбор даты"}</p>
+		<div className={styles.date__wrapper}>
+			{isLabel && <p className={styles.date__label}>{isPeriod ? "Дата или период" : "Выбор даты"}</p>}
 			{isPeriod ? (
 				<DatePicker
 					onChange={handleChangeDates}
@@ -122,9 +117,9 @@ const InputDate = <T extends FieldValues>({ isPeriod = false, control, name }: I
 					placeholderText="__.__.___"
 					dateFormat="dd.MM.yy"
 					showIcon
-					calendarIconClassName={style.calendarIcon}
-					icon={calendarIcon(style.calendarIcon__img)}
-					className={style.date}
+					calendarIconClassName={styles.calendarIcon}
+					icon={calendarIcon(styles.calendarIcon__img)}
+					className={styles.date}
 					readOnly={false}
 					todayButton="Сегодня"
 					renderCustomHeader={CustomHeader}
@@ -143,9 +138,9 @@ const InputDate = <T extends FieldValues>({ isPeriod = false, control, name }: I
 					placeholderText="__.__.___"
 					dateFormat="dd.MM.yy"
 					showIcon
-					calendarIconClassName={style.calendarIcon}
-					icon={calendarIcon(style.calendarIcon__img)}
-					className={style.date}
+					calendarIconClassName={styles.calendarIcon}
+					icon={calendarIcon(styles.calendarIcon__img)}
+					className={styles.date}
 					readOnly={false}
 					todayButton="Сегодня"
 					renderCustomHeader={CustomHeader}

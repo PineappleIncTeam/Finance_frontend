@@ -22,7 +22,7 @@ function UserAgreementPage() {
 		});
 	};
 
-	const UserAgreementArticle = () => {
+	const renderUserAgreementArticle = () => {
 		return (
 			<>
 				<h1 className={styles.agreementArticleTitle}>Пользовательское соглашение</h1>
@@ -61,7 +61,7 @@ function UserAgreementPage() {
 	return (
 		<div className={styles.agreementPageWrap}>
 			<div className={styles.agreementPageContainer}>
-				<div className={styles.agreementPageContent}>{UserAgreementArticle()}</div>
+				<div className={styles.agreementPageContent}>{renderUserAgreementArticle()}</div>
 			</div>
 		</div>
 	);

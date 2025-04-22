@@ -1,7 +1,7 @@
 import { StaticImageData } from "next/image";
 import { Control, FieldValues, Path } from "react-hook-form";
 
-import { MouseEvent, ReactNode } from "react";
+import { MouseEvent } from "react";
 
 import { IAddCategoryExpensesForm, IEditTransactionForm } from "../components/ComponentsTypes";
 
@@ -138,13 +138,6 @@ export interface IAddCategory {
 	open: boolean;
 	request: (data: IAddCategoryExpensesForm) => Promise<void>;
 	onCancelClick: () => void;
-}
-
-export interface ICategoryResponse {
-	className?: string;
-	title?: string;
-	open: boolean;
-	children?: ReactNode;
 }
 
 export interface ITransactionDelete {

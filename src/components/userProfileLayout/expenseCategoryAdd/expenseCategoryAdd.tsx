@@ -18,8 +18,6 @@ export const ExpenseCategoryAddModal = ({ open, addClick }: IExpensesModals) => 
 	const { control, handleSubmit } = useForm<IAddCategoryExpensesForm>({
 		defaultValues: {
 			name: "",
-			// amount: "",
-			// targetAmount: "",
 			// eslint-disable-next-line camelcase
 			is_income: true,
 			// eslint-disable-next-line camelcase
@@ -28,9 +26,7 @@ export const ExpenseCategoryAddModal = ({ open, addClick }: IExpensesModals) => 
 		mode: "all",
 		delayError: 200,
 	});
-	const onSubmit = () => {
-		console.log("submit");
-	};
+	const onSubmit = () => undefined;
 	return (
 		<dialog open={open} className={styles.backgroundModal}>
 			<div onClick={(e) => e.stopPropagation()} role="textbox" className={styles.addExpensesCategoryModalWrap}>
@@ -47,26 +43,6 @@ export const ExpenseCategoryAddModal = ({ open, addClick }: IExpensesModals) => 
 							subtitle="Не более 14 символов"
 						/>
 					</div>
-					{/* <div className={styles.addExpensesCategoryFormData}>
-						<p className={styles.addExpensesCategoryFormData__label}>Введите сумму</p>
-						<AppInput
-							control={control}
-							label={"Введите сумму"}
-							type={InputTypeList.Text}
-							name={"amount"}
-							placeholder={"0.00"}
-						/>
-					</div> */}
-					{/* <div className={styles.addExpensesCategoryFormData}>
-						<p className={styles.addExpensesCategoryFormData__label}>Введите целевую сумму</p>
-						<AppInput
-							control={control}
-							label={"Введите целевую сумму"}
-							type={InputTypeList.Text}
-							name={"targetAmount"}
-							placeholder={"0.00"}
-						/>
-					</div> */}
 					<div className={styles.buttonsContainer}>
 						<Button variant={ButtonType.Outlined}>Отменить</Button>
 						<Button variant={ButtonType.Contained} onClick={addClick}>

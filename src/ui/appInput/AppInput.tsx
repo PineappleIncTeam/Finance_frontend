@@ -41,6 +41,7 @@ const AppInput = <T extends FieldValues>({
 					placeholder={placeholder}
 					className={styles.inputWrap__input}
 					autoComplete={autoComplete}
+					name={name}
 					value={value as TAppInputValue}
 					disabled={disabled}
 				/>

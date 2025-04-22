@@ -84,7 +84,7 @@ function ProfitMoney() {
 											placeholder="0.00 ₽"
 										/>
 									</div>
-									<AddButton onClick={() => resetTimer()} type="submit" />
+									<AddButton onClick={() => resetTimer()} type={InputTypeList.Submit} />
 								</div>
 							</div>
 							<div className={styles.detailsContainer}>
@@ -101,7 +101,7 @@ function ProfitMoney() {
 											placeholder="0.00 ₽"
 										/>
 									</div>
-									<AddButton onClick={() => resetTimer()} type="submit" />
+									<AddButton onClick={() => resetTimer()} type={InputTypeList.Submit} />
 								</div>
 							</div>
 						</div>

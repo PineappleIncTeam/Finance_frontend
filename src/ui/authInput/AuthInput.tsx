@@ -27,6 +27,7 @@ const AuthInput = ({ label, type, placeholder, autoComplete, subtitle, error, ..
 					{...field}
 					type={type === InputTypeList.Password ? passwordType : type}
 					placeholder={placeholder}
+					name={props.name}
 					className={styles.inputWrap__input}
 					autoComplete={autoComplete}
 					value={value}

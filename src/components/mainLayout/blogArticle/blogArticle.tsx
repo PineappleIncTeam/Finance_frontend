@@ -22,14 +22,14 @@ export default function BlogArticle({ image, date, title, articleContent, id }: 
 
 	const numberSeconds = 1500;
 
-	const tooltip = () => {
+	const renderTooltip = () => {
 		setIsArticleShareTooltipShown(true);
 		return setTimeout(() => setIsArticleShareTooltipShown(false), numberSeconds);
 	};
 
 	const clickShare = () => {
 		shared(id || "");
-		tooltip();
+		renderTooltip();
 	};
 
 	return (

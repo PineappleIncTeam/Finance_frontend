@@ -2,7 +2,7 @@ import { useState, useRef, useEffect, Key, useLayoutEffect } from "react";
 
 import { IInputDateSelector } from "../../../types/common/UiKitProps";
 
-import style from "./inputDateSelector.module.scss";
+import styles from "./inputDateSelector.module.scss";
 
 const InputDateSelector = ({ options, changeDate, value, isMonth = false }: IInputDateSelector) => {
 	const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -58,7 +58,7 @@ const InputDateSelector = ({ options, changeDate, value, isMonth = false }: IInp
 	function renderSelectorOptions() {
 		return (
 			isOpen && (
-				<div className={style.selectContainer__options} ref={optionsContainerRef}>
+				<div className={styles.selectContainer__options} ref={optionsContainerRef}>
 					{options?.map((option, index: Key) => {
 						const optionValue = isMonth ? index : option;
 						const isSelected = optionValue === selectedValue;
@@ -67,12 +67,12 @@ const InputDateSelector = ({ options, changeDate, value, isMonth = false }: IInp
 							<div
 								key={index}
 								ref={isSelected ? selectedOptionRef : null}
-								className={`${style.selectContainer__option} ${
-									isSelected ? style.selectContainer__optionSelected : ""
+								className={`${styles.selectContainer__option} ${
+									isSelected ? styles.selectContainer__optionSelected : ""
 								}`}
 								role="listitem"
 								onClick={() => handleOptionClick(optionValue as number)}>
-								<p className={style.selectContainer__optionValue}>{option}</p>
+								<p className={styles.selectContainer__optionValue}>{option}</p>
 							</div>
 						);
 					})}
@@ -81,8 +81,8 @@ const InputDateSelector = ({ options, changeDate, value, isMonth = false }: IInp
 		);
 	}
 	return (
-		<div className={style.selectContainer} ref={selectRef}>
-			<div onClick={toggleDropdown} className={style.selectContainer__field} role="listbox">
+		<div className={styles.selectContainer} ref={selectRef}>
+			<div onClick={toggleDropdown} className={styles.selectContainer__field} role="listbox">
 				{isMonth ? options && options[selectedValue] : selectedValue}
 			</div>
 			{renderSelectorOptions()}

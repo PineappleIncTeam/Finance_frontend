@@ -251,7 +251,7 @@ export default function Expenses() {
 	};
 
 	const onSubmit = async (data: IExpensesAddCategoryTransactionForm & IExpensesCategoryForm) => {
-		if (setIsDeleteSuccessCategory) {
+		if (isDeleteSuccessCategory) {
 			return;
 		}
 		data.date = currentDate();

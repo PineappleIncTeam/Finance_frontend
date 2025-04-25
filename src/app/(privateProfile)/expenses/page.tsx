@@ -335,7 +335,7 @@ export default function Expenses() {
 	return (
 		<div className={styles.expensesPageWrap}>
 			<div className={styles.expensesPageContainer}>
-				<form className={styles.expensesFormContentWrapper} onSubmit={handleSubmit(onSubmit)}>
+				<form className={styles.expensesFormContentWrapper}>
 					<h1 className={styles.headerTitle}>Расходы</h1>
 					<div className={styles.expensesByDateContainer}>
 						<div className={styles.totalMonthlyWrapper}>
@@ -370,7 +370,7 @@ export default function Expenses() {
 						<AddButton
 							onClick={() => {
 								resetTimer();
-								onSubmit;
+								handleSubmit(onSubmit);
 							}}
 							type={InputTypeList.Button}
 						/>

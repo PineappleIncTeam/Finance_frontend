@@ -251,6 +251,7 @@ export default function Expenses() {
 	};
 
 	const onSubmit = async (data: IExpensesAddCategoryTransactionForm & IExpensesCategoryForm) => {
+		resetTimer();
 		data.date = currentDate();
 		try {
 			if (baseUrl && data !== null) {
@@ -367,13 +368,7 @@ export default function Expenses() {
 								placeholder={"0.00"}
 							/>
 						</div>
-						<AddButton
-							onClick={() => {
-								resetTimer();
-								handleSubmit(onSubmit);
-							}}
-							type={InputTypeList.Button}
-						/>
+						<AddButton onClick={handleSubmit(onSubmit)} type={InputTypeList.Button} />
 					</div>
 				</form>
 				{isOpen && <CategoryAddModal open={isOpen} onCancelClick={() => setIsOpen(false)} request={addCategory} />}

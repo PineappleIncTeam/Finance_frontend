@@ -56,16 +56,6 @@ export const CategoryAddModal = ({ open, request, onCancelClick }: IAddCategory)
 							error={formHelpers.getAddCategoryError(errors)}
 						/>
 					</div>
-					{/* <div className={styles.addCategoryFormData}>
-						<p className={styles.addCategoryFormData__label}>Введите сумму</p>
-						<AppInput
-							control={control}
-							label={"Введите сумму"}
-							type={InputTypeList.Text}
-							name={"amount"}
-							placeholder={"0.00"}
-						/>
-					</div> */}
 					<div className={styles.buttonsContainer}>
 						<Button variant={ButtonType.Outlined} onClick={() => onCancelClick()}>
 							Отменить

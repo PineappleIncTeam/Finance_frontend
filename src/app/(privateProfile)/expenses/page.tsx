@@ -309,6 +309,7 @@ export default function Expenses() {
 				if (response.status === axios.HttpStatusCode.Ok) {
 					setIsEdit(false);
 					setIsEditSuccess(true);
+					setResponseApiRequestModal(ResponseApiRequestModalInitialState);
 					setResponseApiRequestModal({
 						open: true,
 						title: "Сумма успешно изменена",

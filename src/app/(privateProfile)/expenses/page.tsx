@@ -82,7 +82,7 @@ export default function Expenses() {
 	const ResponseApiRequestModalInitialState = {
 		open: false,
 		title: "",
-		width: "",
+		styles: "",
 	};
 
 	const [responseApiRequestModal, setResponseApiRequestModal] = useState(ResponseApiRequestModalInitialState);
@@ -194,7 +194,7 @@ export default function Expenses() {
 					setResponseApiRequestModal({
 						open: true,
 						title: "Категория успешно добавлена",
-						width: styles.categoryAddSuccess__modal,
+						styles: styles.categoryAddSuccess__modal,
 					});
 					setTimeout(() => {
 						setResponseApiRequestModal(ResponseApiRequestModalInitialState);
@@ -224,7 +224,7 @@ export default function Expenses() {
 					setResponseApiRequestModal({
 						open: true,
 						title: "Категория успешно удалена",
-						width: styles.categoryDeleteSuccess__modal,
+						styles: styles.categoryDeleteSuccess__modal,
 					});
 					setTimeout(() => {
 						setResponseApiRequestModal(ResponseApiRequestModalInitialState);
@@ -280,7 +280,7 @@ export default function Expenses() {
 					setResponseApiRequestModal({
 						open: true,
 						title: "Запись успешно удалена",
-						width: styles.recordDeleteSuccess__modal,
+						styles: styles.recordDeleteSuccess__modal,
 					});
 					setTimeout(() => {
 						setResponseApiRequestModal(ResponseApiRequestModalInitialState);
@@ -313,7 +313,7 @@ export default function Expenses() {
 					setResponseApiRequestModal({
 						open: true,
 						title: "Сумма успешно изменена",
-						width: styles.recordEditSuccess__modal,
+						styles: styles.recordEditSuccess__modal,
 					});
 					setTimeout(() => {
 						setResponseApiRequestModal(ResponseApiRequestModalInitialState);
@@ -373,16 +373,8 @@ export default function Expenses() {
 					</div>
 				</form>
 				{isOpen && <CategoryAddModal open={isOpen} onCancelClick={() => setIsOpen(false)} request={addCategory} />}
-				<ResponseApiRequestModal
-					open={responseApiRequestModal.open}
-					title={responseApiRequestModal.title}
-					className={styles.categoryAddSuccess__modal}
-				/>
-				<ResponseApiRequestModal
-					open={responseApiRequestModal.open}
-					title={responseApiRequestModal.title}
-					className={styles.categoryDeleteSuccess__modal}
-				/>
+				<ResponseApiRequestModal open={responseApiRequestModal.open} title={responseApiRequestModal.title} />
+				<ResponseApiRequestModal open={responseApiRequestModal.open} title={responseApiRequestModal.title} />
 				<div className={styles.expensesTransactionsWrapper}>
 					<h1 className={styles.expensesTransactionHeader}>Последние операции по расходам</h1>
 					{fiveOperationsNames &&
@@ -408,19 +400,11 @@ export default function Expenses() {
 						cancelRemove={() => setIsDeleteOperationApprove(false)}
 					/>
 				)}
-				<ResponseApiRequestModal
-					open={responseApiRequestModal.open}
-					title={responseApiRequestModal.title}
-					className={styles.recordDeleteSuccess__modal}
-				/>
+				<ResponseApiRequestModal open={responseApiRequestModal.open} title={responseApiRequestModal.title} />
 				{isEdit && (
 					<EditTransactionModal open={isEdit} id={isId} request={editTransaction} cancelEdit={() => setIsEdit(false)} />
 				)}
-				<ResponseApiRequestModal
-					open={responseApiRequestModal.open}
-					title={responseApiRequestModal.title}
-					className={styles.recordEditSuccess__modal}
-				/>
+				<ResponseApiRequestModal open={responseApiRequestModal.open} title={responseApiRequestModal.title} />
 			</div>
 		</div>
 	);

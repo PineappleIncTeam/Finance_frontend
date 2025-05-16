@@ -33,6 +33,7 @@ import {
 	IAddCategoryExpensesForm,
 	IEditTransactionForm,
 	IExpenseTransaction,
+	IRemoveCategoryExpenses,
 } from "../../../types/components/ComponentsTypes";
 
 import { AddExpensesCategory } from "../../../services/api/userProfile/AddExpensesCategory";
@@ -53,6 +54,7 @@ import { RecordDeleteModal } from "../../../components/userProfileLayout/recordD
 import { EditExpensesCategoryTransaction } from "../../../services/api/userProfile/EditExpensesTransaction";
 import { EditTransactionModal } from "../../../components/userProfileLayout/editTransaction/editTransaction";
 import { ResponseApiRequestModal } from "../../../components/userProfileLayout/responseActionExpenses/responseApiRequestModal";
+import { CategoryDeleteModal } from "../../../components/userProfileLayout/categoryDelete/categoryDelete";
 
 import styles from "./expenses.module.scss";
 
@@ -69,6 +71,8 @@ export default function Expenses() {
 	const [isId, setIsId] = useState<string>("");
 	const [isEdit, setIsEdit] = useState<boolean>(false);
 	const [isEditSuccess, setIsEditSuccess] = useState<boolean>(false);
+	const [isCategoryDelete, setIsCategoryDelete] = useState<boolean>(false);
+	const [isCategory, setIsCategory] = useState<string>("");
 
 	const { control, handleSubmit } = useForm<IExpensesAddCategoryTransactionForm & IExpensesCategoryForm>({
 		defaultValues: {
@@ -180,7 +184,7 @@ export default function Expenses() {
 		if (isDeleteOperationSuccess || isEditSuccess) {
 			setFiveOperationsNames(getFiveOperationsNames);
 		}
-	}, [fiveOperationsNames, fiveOperations, options, isDeleteOperationSuccess, isEditSuccess]);
+	}, [fiveOperationsNames, fiveOperations, options, isDeleteOperationSuccess, isEditSuccess, setFiveOperationsNames]);
 
 	const interval = 2000;
 
@@ -215,7 +219,11 @@ export default function Expenses() {
 		}
 	};
 
-	const onRemoveClick = async (id: number) => {
+	const onRemoveClick = async (data: IRemoveCategoryExpenses) => {
+		const id = data.id;
+		const name = data.name;
+		setIsCategoryDelete(true);
+		setIsCategory(name);
 		try {
 			if (baseUrl && id !== null) {
 				const response = await RemoveExpensesCategory(baseUrl, id);
@@ -309,7 +317,6 @@ export default function Expenses() {
 				if (response.status === axios.HttpStatusCode.Ok) {
 					setIsEdit(false);
 					setIsEditSuccess(true);
-					setResponseApiRequestModal(ResponseApiRequestModalInitialState);
 					setResponseApiRequestModal({
 						open: true,
 						title: "Сумма успешно изменена",
@@ -372,6 +379,7 @@ export default function Expenses() {
 						<AddButton onClick={handleSubmit(onSubmit)} type={InputTypeList.Button} />
 					</div>
 				</form>
+				{isCategoryDelete && <CategoryDeleteModal open={isCategoryDelete} category={isCategory} />}
 				{isOpen && <CategoryAddModal open={isOpen} onCancelClick={() => setIsOpen(false)} request={addCategory} />}
 				<ResponseApiRequestModal open={responseApiRequestModal.open} title={responseApiRequestModal.title} />
 				<ResponseApiRequestModal open={responseApiRequestModal.open} title={responseApiRequestModal.title} />

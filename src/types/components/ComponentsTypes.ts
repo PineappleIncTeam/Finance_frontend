@@ -116,7 +116,7 @@ export interface IAddCategoryExpensesForm {
 
 export interface IRemoveCategoryExpenses {
 	name: string;
-	id: string;
+	id: number;
 }
 
 export interface IEditTransactionForm {

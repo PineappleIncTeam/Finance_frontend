@@ -3,7 +3,7 @@ import { Control, FieldValues, Path } from "react-hook-form";
 
 import { MouseEvent } from "react";
 
-import { IAddCategoryExpensesForm, IEditTransactionForm } from "../components/ComponentsTypes";
+import { IAddCategoryExpensesForm, IEditTransactionForm, IRemoveCategoryExpenses } from "../components/ComponentsTypes";
 
 export type CustomLayout = () => Element;
 
@@ -126,7 +126,7 @@ export interface ICategorySelect<T extends FieldValues> {
 	name: Path<T>;
 	placeholder?: string;
 	onAddCategory: () => void;
-	onRemoveCategory?: (categoryId: number) => void;
+	onRemoveCategory?: (data: IRemoveCategoryExpenses) => void;
 }
 
 export interface IExpensesModals {
@@ -167,4 +167,9 @@ export interface IResponseApiRequestModal {
 	className?: string;
 	width?: number | string;
 	color?: string;
+}
+
+export interface ICategoryDeleteModal {
+	open: boolean;
+	category: string;
 }

@@ -33,7 +33,7 @@ import {
 	IAddCategoryExpensesForm,
 	IEditTransactionForm,
 	IExpenseTransaction,
-	IRemoveCategoryExpenses,
+	IRemoveCategory,
 } from "../../../types/components/ComponentsTypes";
 
 import { AddExpensesCategory } from "../../../services/api/userProfile/AddExpensesCategory";
@@ -219,9 +219,9 @@ export default function Expenses() {
 		}
 	};
 
-	const onRemoveClick = async (data: IRemoveCategoryExpenses) => {
-		const id = data.id;
-		const name = data.name;
+	const onRemoveClick = async (data: IRemoveCategory) => {
+		const id = data.categoryId;
+		const name = data.categoryName;
 		setIsCategoryDelete(true);
 		setIsCategory(name);
 		try {

@@ -114,9 +114,9 @@ export interface IAddCategoryExpensesForm {
 	is_outcome: boolean;
 }
 
-export interface IRemoveCategoryExpenses {
-	name: string;
-	id: number;
+export interface IRemoveCategory {
+	categoryName: string;
+	categoryId: number;
 }
 
 export interface IEditTransactionForm {

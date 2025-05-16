@@ -33,7 +33,6 @@ import {
 	IAddCategoryExpensesForm,
 	IEditTransactionForm,
 	IExpenseTransaction,
-	IRemoveCategory,
 } from "../../../types/components/ComponentsTypes";
 
 import { AddExpensesCategory } from "../../../services/api/userProfile/AddExpensesCategory";
@@ -219,14 +218,12 @@ export default function Expenses() {
 		}
 	};
 
-	const onRemoveClick = async (data: IRemoveCategory) => {
-		const id = data.categoryId;
-		const name = data.categoryName;
+	const onRemoveClick = async (categoryId: number, categoryName: string) => {
 		setIsCategoryDelete(true);
-		setIsCategory(name);
+		setIsCategory(categoryName);
 		try {
-			if (baseUrl && id !== null) {
-				const response = await RemoveExpensesCategory(baseUrl, id);
+			if (baseUrl && categoryId !== null) {
+				const response = await RemoveExpensesCategory(baseUrl, categoryId);
 				if (response.status === axios.HttpStatusCode.Ok) {
 					setIsDeleteSuccessCategory(true);
 					setResponseApiRequestModal({

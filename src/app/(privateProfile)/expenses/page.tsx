@@ -360,9 +360,7 @@ export default function Expenses() {
 								options={options}
 								control={control}
 								onAddCategory={() => setIsOpen(true)}
-								onRemoveCategory={() => {
-									setIsCategoryDelete(true);
-								}}
+								onRemoveCategory={() => setIsCategoryDelete(true)}
 							/>
 						</div>
 						<div className={styles.expensesDetailsContainer__sum}>

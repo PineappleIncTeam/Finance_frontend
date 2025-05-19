@@ -126,7 +126,7 @@ export interface ICategorySelect<T extends FieldValues> {
 	name: Path<T>;
 	placeholder?: string;
 	onAddCategory: () => void;
-	onRemoveCategory?: (categoryId: number, categoryName: string) => void;
+	onRemoveCategory?: (categoryId: number) => void;
 }
 
 export interface IExpensesModals {

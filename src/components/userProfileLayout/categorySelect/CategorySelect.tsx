@@ -54,9 +54,9 @@ export const CategorySelect = <T extends FieldValues>({
 		setIsOpen(!isOpen);
 	};
 
-	const handleRemoveCategory = (categoryId: number, categoryName: string) => {
+	const handleRemoveCategory = (categoryId: number) => {
 		if (onRemoveCategory) {
-			onRemoveCategory(categoryId, categoryName);
+			onRemoveCategory(categoryId);
 		}
 	};
 
@@ -84,7 +84,7 @@ export const CategorySelect = <T extends FieldValues>({
 									className={styles.selectContainer__removeButton}
 									onClick={(event) => {
 										event.stopPropagation();
-										handleRemoveCategory(option.id, option.name);
+										handleRemoveCategory(option.id);
 									}}>
 									<CloseIcon classNames={styles.selectContainer__selectIcon} />
 								</button>

@@ -172,4 +172,6 @@ export interface IResponseApiRequestModal {
 export interface ICategoryDeleteModal {
 	open: boolean;
 	category: string;
+	requestDeleteApi?: (categoryId: number, categoryName: string) => Promise<void>;
+	onCancelClick: () => void;
 }

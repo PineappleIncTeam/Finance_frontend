@@ -43,7 +43,7 @@ import { GetCategoriesAll } from "../../../services/api/userProfile/GetCategorie
 
 import { IOptionsResponse, ITransactionsResponse } from "../../../types/api/Expenses";
 
-// import { RemoveExpensesCategory } from "../../../services/api/userProfile/RemoveExpensesCategory";
+import { RemoveExpensesCategory } from "../../../services/api/userProfile/RemoveExpensesCategory";
 
 import { AddExpensesCategoryTransaction } from "../../../services/api/userProfile/AddExpensesCategoryTransaction";
 
@@ -64,7 +64,7 @@ export default function Expenses() {
 	const [fiveOperations, setFiveOperations] = useState<string[] | any>([]);
 	const [fiveOperationsNames, setFiveOperationsNames] = useState<string[] | any>([]);
 	const [options, setOptions] = useState<string[] | any>([]);
-	// const [isDeleteSuccessCategory, setIsDeleteSuccessCategory] = useState<boolean>(false);
+	const [isDeleteSuccessCategory, setIsDeleteSuccessCategory] = useState<boolean>(false);
 	const [isDeleteOperationApprove, setIsDeleteOperationApprove] = useState<boolean>(false);
 	const [isDeleteOperationSuccess, setIsDeleteOperationSuccess] = useState<boolean>(false);
 	const [isId, setIsId] = useState<string>("");
@@ -131,18 +131,10 @@ export default function Expenses() {
 			}
 		};
 		getCategoryOptions();
-		if (
-			isAddSuccess
-			// || isDeleteSuccessCategory
-		) {
+		if (isAddSuccess || isDeleteSuccessCategory) {
 			getCategoryOptions();
 		}
-	}, [
-		baseUrl,
-		isAddSuccess,
-		// isDeleteSuccessCategory,
-		router,
-	]);
+	}, [baseUrl, isAddSuccess, isDeleteSuccessCategory, router]);
 
 	useEffect(() => {
 		const getFiveOperations = async () => {
@@ -227,35 +219,34 @@ export default function Expenses() {
 	};
 
 	const onRemoveClick = async (categoryId: number, categoryName: string) => {
-		setIsCategoryDelete(true);
 		setIsCategory(categoryName);
-		// try {
-		// 	if (baseUrl && categoryId !== null) {
-		// 		const response = await RemoveExpensesCategory(baseUrl, categoryId);
-		// 		if (response.status === axios.HttpStatusCode.Ok) {
-		// 			setIsDeleteSuccessCategory(true);
-		// 			setResponseApiRequestModal({
-		// 				open: true,
-		// 				title: "Категория успешно удалена",
-		// 				styles: styles.categoryDeleteSuccess__modal,
-		// 			});
-		// 			setTimeout(() => {
-		// 				setResponseApiRequestModal(ResponseApiRequestModalInitialState);
-		// 				setIsDeleteSuccessCategory(false);
-		// 			}, interval);
-		// 		}
-		// 	}
-		// } catch (error) {
-		// 	if (
-		// 		axios.isAxiosError(error) &&
-		// 		error.response &&
-		// 		error.response.status &&
-		// 		error.response.status >= axios.HttpStatusCode.InternalServerError &&
-		// 		error.response.status < ApiResponseCode.SERVER_ERROR_STATUS_MAX
-		// 	) {
-		// 		router.push(MainPath.ServerError);
-		// 	}
-		// }
+		try {
+			if (baseUrl && categoryId !== null) {
+				const response = await RemoveExpensesCategory(baseUrl, categoryId);
+				if (response.status === axios.HttpStatusCode.Ok) {
+					setIsDeleteSuccessCategory(true);
+					setResponseApiRequestModal({
+						open: true,
+						title: "Категория успешно удалена",
+						styles: styles.categoryDeleteSuccess__modal,
+					});
+					setTimeout(() => {
+						setResponseApiRequestModal(ResponseApiRequestModalInitialState);
+						setIsDeleteSuccessCategory(false);
+					}, interval);
+				}
+			}
+		} catch (error) {
+			if (
+				axios.isAxiosError(error) &&
+				error.response &&
+				error.response.status &&
+				error.response.status >= axios.HttpStatusCode.InternalServerError &&
+				error.response.status < ApiResponseCode.SERVER_ERROR_STATUS_MAX
+			) {
+				router.push(MainPath.ServerError);
+			}
+		}
 	};
 
 	const currentDate = () => {
@@ -369,7 +360,9 @@ export default function Expenses() {
 								options={options}
 								control={control}
 								onAddCategory={() => setIsOpen(true)}
-								onRemoveCategory={onRemoveClick}
+								onRemoveCategory={() => {
+									setIsCategoryDelete(true);
+								}}
 							/>
 						</div>
 						<div className={styles.expensesDetailsContainer__sum}>
@@ -384,7 +377,14 @@ export default function Expenses() {
 						<AddButton onClick={handleSubmit(onSubmit)} type={InputTypeList.Button} />
 					</div>
 				</form>
-				{isCategoryDelete && <CategoryDeleteModal open={isCategoryDelete} category={isCategory} />}
+				{isCategoryDelete && (
+					<CategoryDeleteModal
+						open={isCategoryDelete}
+						category={isCategory}
+						requestDeleteApi={onRemoveClick}
+						onCancelClick={() => setIsCategoryDelete(false)}
+					/>
+				)}
 				{isOpen && <CategoryAddModal open={isOpen} onCancelClick={() => setIsOpen(false)} request={addCategory} />}
 				<ResponseApiRequestModal open={responseApiRequestModal.open} title={responseApiRequestModal.title} />
 				<ResponseApiRequestModal open={responseApiRequestModal.open} title={responseApiRequestModal.title} />

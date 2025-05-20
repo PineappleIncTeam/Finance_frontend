@@ -70,7 +70,7 @@ export default function Expenses() {
 	const [isId, setIsId] = useState<string>("");
 	const [isEdit, setIsEdit] = useState<boolean>(false);
 	const [isEditSuccess, setIsEditSuccess] = useState<boolean>(false);
-	const [isCategoryDelete, setIsCategoryDelete] = useState<boolean>(false);
+	const [isCategoryDeleteModalOpen, setIsCategoryDeleteModalOpen] = useState<boolean>(false);
 	const [isCategory, setIsCategory] = useState<string>("");
 
 	const { control, handleSubmit } = useForm<IExpensesAddCategoryTransactionForm & IExpensesCategoryForm>({
@@ -360,7 +360,7 @@ export default function Expenses() {
 								options={options}
 								control={control}
 								onAddCategory={() => setIsOpen(true)}
-								onRemoveCategory={() => setIsCategoryDelete(true)}
+								onRemoveCategory={() => setIsCategoryDeleteModalOpen(true)}
 							/>
 						</div>
 						<div className={styles.expensesDetailsContainer__sum}>
@@ -375,12 +375,12 @@ export default function Expenses() {
 						<AddButton onClick={handleSubmit(onSubmit)} type={InputTypeList.Button} />
 					</div>
 				</form>
-				{isCategoryDelete && (
+				{isCategoryDeleteModalOpen && (
 					<CategoryDeleteModal
-						open={isCategoryDelete}
+						open={isCategoryDeleteModalOpen}
 						category={isCategory}
 						requestDeleteApi={onRemoveClick}
-						onCancelClick={() => setIsCategoryDelete(false)}
+						// onCancelClick={() => setIsCategoryDeleteModalOpen(false)}
 					/>
 				)}
 				{isOpen && <CategoryAddModal open={isOpen} onCancelClick={() => setIsOpen(false)} request={addCategory} />}

@@ -219,14 +219,17 @@ export default function Expenses() {
 		}
 	};
 
-	const onRemoveClick = async (id: string, name: string) => {
+	const onRemoveCategoryClick = (id: number, name: string) => {
 		setIsCategory(name);
-		setIsIdForDeleteCategory(id);
+		setIsIdForDeleteCategory(String(id));
 		console.log(name);
 		console.log(id);
+	};
+
+	const removeApiRequest = async (id: number) => {
 		try {
 			if (baseUrl && id !== null) {
-				const response = await RemoveExpensesCategory(baseUrl, id);
+				const response = await RemoveExpensesCategory(baseUrl, String(id));
 				if (response.status === axios.HttpStatusCode.Ok) {
 					setIsDeleteSuccessCategory(true);
 					setResponseApiRequestModal({
@@ -364,7 +367,7 @@ export default function Expenses() {
 								options={options}
 								control={control}
 								onAddCategory={() => setIsOpen(true)}
-								onRemoveCategory={() => setIsCategoryDeleteModalOpen(true)}
+								onRemoveCategory={() => [setIsCategoryDeleteModalOpen(true), onRemoveCategoryClick]}
 							/>
 						</div>
 						<div className={styles.expensesDetailsContainer__sum}>
@@ -384,7 +387,7 @@ export default function Expenses() {
 						open={isCategoryDeleteModalOpen}
 						category={isCategory}
 						id={isIdForDeleteCategory}
-						requestDeleteApi={onRemoveClick}
+						requestDeleteApi={removeApiRequest}
 						onCancelClick={() => setIsCategoryDeleteModalOpen(false)}
 					/>
 				)}

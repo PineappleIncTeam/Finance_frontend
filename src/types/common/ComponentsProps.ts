@@ -126,7 +126,7 @@ export interface ICategorySelect<T extends FieldValues> {
 	name: Path<T>;
 	placeholder?: string;
 	onAddCategory: () => void;
-	onRemoveCategory?: (categoryId: number) => void;
+	onRemoveCategory?: (categoryId: number, categoryName: string) => void;
 }
 
 export interface IExpensesModals {
@@ -173,6 +173,6 @@ export interface ICategoryDeleteModal {
 	open: boolean;
 	category: string;
 	id: string;
-	requestDeleteApi: (id: string, name: string) => Promise<void>;
+	requestDeleteApi: (id: number, name: string) => Promise<void>;
 	onCancelClick: () => void;
 }

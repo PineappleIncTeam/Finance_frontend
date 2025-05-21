@@ -10,7 +10,7 @@ import styles from "./categoryDelete.module.scss";
 export const CategoryDeleteModal = ({ open, category, onCancelClick, id, requestDeleteApi }: ICategoryDeleteModal) => {
 	const onRemoveClick = () => {
 		if (id !== null && category !== null) {
-			requestDeleteApi(id, category);
+			requestDeleteApi(+id, category);
 		}
 	};
 

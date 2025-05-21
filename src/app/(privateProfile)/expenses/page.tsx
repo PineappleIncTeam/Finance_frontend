@@ -221,9 +221,7 @@ export default function Expenses() {
 
 	const onRemoveClick = async (id: string, name: string) => {
 		setIsCategory(name);
-		if (id !== null) {
-			setIsIdForDeleteCategory(id);
-		}
+		setIsIdForDeleteCategory(id);
 		console.log(name);
 		console.log(id);
 		try {

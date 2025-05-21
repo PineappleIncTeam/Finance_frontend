@@ -81,6 +81,7 @@ export const CategorySelect = <T extends FieldValues>({
 								role="button">
 								<p className={styles.selectContainer__optionValue}>{option.name}</p>
 								<button
+									type={InputTypeList.Button}
 									className={styles.selectContainer__removeButton}
 									onClick={(event) => {
 										event.stopPropagation();

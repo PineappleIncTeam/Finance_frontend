@@ -72,7 +72,8 @@ export default function Expenses() {
 	const [isEditSuccess, setIsEditSuccess] = useState<boolean>(false);
 	const [isCategoryDeleteModalOpen, setIsCategoryDeleteModalOpen] = useState<boolean>(false);
 	const [isCategory, setIsCategory] = useState<string>("");
-	const [isIdForDeleteCategory, setIsIdForDeleteCategory] = useState<number>();
+	const defaultStateValue = 0;
+	const [isIdForDeleteCategory, setIsIdForDeleteCategory] = useState<number>(defaultStateValue);
 
 	const { control, handleSubmit } = useForm<IExpensesAddCategoryTransactionForm & IExpensesCategoryForm>({
 		defaultValues: {

@@ -7,7 +7,7 @@ import Title from "../../../ui/title/Title";
 
 import styles from "./categoryDelete.module.scss";
 
-export const CategoryDeleteModal = ({ open, category }: ICategoryDeleteModal) => {
+export const CategoryDeleteModal = ({ open, category, onCancelClick, id, requestDeleteApi }: ICategoryDeleteModal) => {
 	return (
 		<dialog open={open} className={styles.backgroundModal}>
 			<div onClick={(e) => e.stopPropagation()} role="textbox" className={styles.deleteCategoryModalContainer}>
@@ -16,9 +16,13 @@ export const CategoryDeleteModal = ({ open, category }: ICategoryDeleteModal) =>
 					Вы хотите удалить категорию {category} или оправить ее в архив ?
 				</p>
 				<div className={styles.buttonsContainer}>
-					<Button variant={ButtonType.Faded}>Удалить</Button>
+					<Button variant={ButtonType.Faded} onClick={() => requestDeleteApi(id, category)}>
+						Удалить
+					</Button>
 					<Button variant={ButtonType.Faded}>В архив</Button>
-					<Button variant={ButtonType.Outlined}>Отменить</Button>
+					<Button variant={ButtonType.Outlined} onClick={() => onCancelClick()}>
+						Отменить
+					</Button>
 				</div>
 			</div>
 		</dialog>

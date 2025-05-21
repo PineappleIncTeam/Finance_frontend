@@ -72,6 +72,7 @@ export default function Expenses() {
 	const [isEditSuccess, setIsEditSuccess] = useState<boolean>(false);
 	const [isCategoryDeleteModalOpen, setIsCategoryDeleteModalOpen] = useState<boolean>(false);
 	const [isCategory, setIsCategory] = useState<string>("");
+	const [isIdForDeleteCategory, setIsIdForDeleteCategory] = useState<number>(null);
 
 	const { control, handleSubmit } = useForm<IExpensesAddCategoryTransactionForm & IExpensesCategoryForm>({
 		defaultValues: {
@@ -218,11 +219,14 @@ export default function Expenses() {
 		}
 	};
 
-	const onRemoveClick = async (categoryId: number, categoryName: string) => {
-		setIsCategory(categoryName);
+	const onRemoveClick = async (id: number, name: string) => {
+		setIsCategory(name);
+		setIsIdForDeleteCategory(id);
+		console.log(name);
+		console.log(id);
 		try {
-			if (baseUrl && categoryId !== null) {
-				const response = await RemoveExpensesCategory(baseUrl, categoryId);
+			if (baseUrl && id !== null) {
+				const response = await RemoveExpensesCategory(baseUrl, id);
 				if (response.status === axios.HttpStatusCode.Ok) {
 					setIsDeleteSuccessCategory(true);
 					setResponseApiRequestModal({
@@ -379,8 +383,9 @@ export default function Expenses() {
 					<CategoryDeleteModal
 						open={isCategoryDeleteModalOpen}
 						category={isCategory}
+						id={isIdForDeleteCategory}
 						requestDeleteApi={onRemoveClick}
-						// onCancelClick={() => setIsCategoryDeleteModalOpen(false)}
+						onCancelClick={() => setIsCategoryDeleteModalOpen(false)}
 					/>
 				)}
 				{isOpen && <CategoryAddModal open={isOpen} onCancelClick={() => setIsOpen(false)} request={addCategory} />}

@@ -1,6 +1,9 @@
 import { StaticImageData } from "next/image";
 import { Control, FieldValues, Path } from "react-hook-form";
+
 import { MouseEvent } from "react";
+
+import { IAddCategoryExpensesForm, IEditTransactionForm } from "../components/ComponentsTypes";
 
 export type CustomLayout = () => Element;
 
@@ -123,5 +126,53 @@ export interface ICategorySelect<T extends FieldValues> {
 	name: Path<T>;
 	placeholder?: string;
 	onAddCategory: () => void;
-	onRemoveCategory?: (categoryId: number) => void;
+	onRemoveCategory?: (categoryId: number, categoryName: string) => void;
+}
+
+export interface IExpensesModals {
+	open: boolean;
+	addClick?: () => void;
+}
+
+export interface IAddCategory {
+	open: boolean;
+	request: (data: IAddCategoryExpensesForm) => Promise<void>;
+	onCancelClick: () => void;
+}
+
+export interface ITransactionDelete {
+	open: boolean;
+	remove: () => Promise<void>;
+	cancelRemove: () => void;
+}
+
+export interface ITransactionDeleteSuccess {
+	open: boolean;
+}
+
+export interface IEditTransaction {
+	open: boolean;
+	id: string;
+	request: (id: string, data: IEditTransactionForm) => Promise<void>;
+	cancelEdit: () => void;
+}
+
+export interface IEditTransactionSuccess {
+	open: boolean;
+}
+
+export interface IResponseApiRequestModal {
+	open: boolean;
+	title?: string;
+	className?: string;
+	width?: number | string;
+	color?: string;
+}
+
+export interface ICategoryDeleteModal {
+	open: boolean;
+	category: string;
+	id: string;
+	requestDeleteApi: (id: number, name: string) => Promise<void>;
+	onCancelClick: () => void;
 }

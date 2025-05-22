@@ -1,36 +1,97 @@
-/* eslint-disable camelcase */
 "use client";
 
+import { useRouter } from "next/navigation";
 import { Key, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+import axios, { AxiosResponse } from "axios";
+
+import handleLogout from "../../../helpers/logout";
 
 import ExpensesTransaction from "../../../components/userProfileLayout/expensesTransaction/expensesTransaction";
-import { expensesTransactions } from "../../../mocks/ExpensesTransaction";
 
-import AppInput from "../../../ui/appInput/AppInput";
 import { InputTypeList } from "../../../helpers/Input";
-import { IExpensesInputForm, IExpensesSelectForm } from "../../../types/pages/Expenses";
-import { Select } from "../../../ui/select/Select";
+
+import { IExpensesAddCategoryTransactionForm, IExpensesCategoryForm } from "../../../types/pages/Expenses";
 
 import InputDate from "../../../ui/inputDate/inputDate";
-import handleLogout from "../../../helpers/logout";
+
 import { getCorrectBaseUrl } from "../../../utils/baseUrlConverter";
+
+import { ApiResponseCode } from "../../../helpers/apiResponseCode";
+import { GetFiveTransactions } from "../../../services/api/userProfile/GetFiveTransactions";
+
 import useLogoutTimer from "../../../hooks/useLogoutTimer";
 import { CategorySelect } from "../../../components/userProfileLayout/categorySelect/CategorySelect";
 
 import AddButton from "../../../components/userProfileLayout/addButton/addButton";
 
+import AppInput from "../../../ui/appInput/AppInput";
+
+import { CategoryAddModal } from "../../../components/userProfileLayout/categoryAdd/categoryAddModal";
+
+import {
+	IAddCategoryExpensesForm,
+	IEditTransactionForm,
+	IExpenseTransaction,
+} from "../../../types/components/ComponentsTypes";
+
+import { AddExpensesCategory } from "../../../services/api/userProfile/AddExpensesCategory";
+
+import { MainPath } from "../../../services/router/routes";
+
+import { GetCategoriesAll } from "../../../services/api/userProfile/GetCategoriesAll";
+
+import { IOptionsResponse, ITransactionsResponse } from "../../../types/api/Expenses";
+
+import { RemoveExpensesCategory } from "../../../services/api/userProfile/RemoveExpensesCategory";
+
+import { AddExpensesCategoryTransaction } from "../../../services/api/userProfile/AddExpensesCategoryTransaction";
+
+import { RemoveExpensesCategoryTransaction } from "../../../services/api/userProfile/RemoveExpensesTransaction";
+
+import { RecordDeleteModal } from "../../../components/userProfileLayout/recordDelete/recordDelete";
+import { EditExpensesCategoryTransaction } from "../../../services/api/userProfile/EditExpensesTransaction";
+import { EditTransactionModal } from "../../../components/userProfileLayout/editTransaction/editTransaction";
+import { ResponseApiRequestModal } from "../../../components/userProfileLayout/responseActionExpenses/responseApiRequestModal";
+import { CategoryDeleteModal } from "../../../components/userProfileLayout/categoryDelete/categoryDelete";
+
 import styles from "./expenses.module.scss";
 
 export default function Expenses() {
 	const [baseUrl, setBaseUrl] = useState<string>();
-	const { control } = useForm<IExpensesInputForm & IExpensesSelectForm>({
+	const [isAddSuccess, setIsAddSuccess] = useState<boolean>(false);
+	const [isOpen, setIsOpen] = useState<boolean>(false);
+	const [fiveOperations, setFiveOperations] = useState<string[] | any>([]);
+	const [fiveOperationsNames, setFiveOperationsNames] = useState<string[] | any>([]);
+	const [options, setOptions] = useState<string[] | any>([]);
+	const [isDeleteSuccessCategory, setIsDeleteSuccessCategory] = useState<boolean>(false);
+	const [isDeleteOperationApprove, setIsDeleteOperationApprove] = useState<boolean>(false);
+	const [isDeleteOperationSuccess, setIsDeleteOperationSuccess] = useState<boolean>(false);
+	const [isId, setIsId] = useState<string>("");
+	const [isEdit, setIsEdit] = useState<boolean>(false);
+	const [isEditSuccess, setIsEditSuccess] = useState<boolean>(false);
+	const [isCategoryDeleteModalOpen, setIsCategoryDeleteModalOpen] = useState<boolean>(false);
+	const [isCategory, setIsCategory] = useState<string>("");
+	const [isIdForDeleteCategory, setIsIdForDeleteCategory] = useState<string>("");
+
+	const { control, handleSubmit } = useForm<IExpensesAddCategoryTransactionForm & IExpensesCategoryForm>({
 		defaultValues: {
-			sum: "",
+			amount: "",
+			type: "outcome",
 		},
 		mode: "all",
 		delayError: 200,
 	});
+
+	const ResponseApiRequestModalInitialState = {
+		open: false,
+		title: "",
+		styles: "",
+	};
+
+	const [responseApiRequestModal, setResponseApiRequestModal] = useState(ResponseApiRequestModalInitialState);
+
+	const router = useRouter();
 
 	useEffect(() => {
 		setBaseUrl(getCorrectBaseUrl());
@@ -42,6 +103,246 @@ export default function Expenses() {
 	useEffect(() => {
 		resetTimer();
 	}, [request, resetTimer]);
+
+	useEffect(() => {
+		const data = {
+			// eslint-disable-next-line camelcase
+			is_income: false,
+			// eslint-disable-next-line camelcase
+			is_outcome: true,
+		};
+		const getCategoryOptions = async () => {
+			try {
+				if (baseUrl) {
+					const response: AxiosResponse<IOptionsResponse> = await GetCategoriesAll(baseUrl, data);
+					if (response !== null && response.status === axios.HttpStatusCode.Ok) {
+						setOptions(response.data);
+					}
+				}
+			} catch (error) {
+				if (
+					axios.isAxiosError(error) &&
+					error.response &&
+					error.response.status &&
+					error.response.status >= axios.HttpStatusCode.InternalServerError &&
+					error.response.status < ApiResponseCode.SERVER_ERROR_STATUS_MAX
+				) {
+					router.push(MainPath.ServerError);
+				}
+			}
+		};
+		getCategoryOptions();
+		if (isAddSuccess || isDeleteSuccessCategory) {
+			getCategoryOptions();
+		}
+	}, [baseUrl, isAddSuccess, isDeleteSuccessCategory, router]);
+
+	useEffect(() => {
+		const getFiveOperations = async () => {
+			const data = {
+				type: "outcome",
+			};
+			try {
+				if (baseUrl) {
+					const response: AxiosResponse<ITransactionsResponse> = await GetFiveTransactions(baseUrl, data);
+					if (response !== null && response.status === axios.HttpStatusCode.Ok) {
+						setFiveOperations(response.data);
+					}
+				}
+			} catch (error) {
+				if (
+					axios.isAxiosError(error) &&
+					error.response &&
+					error.response.status &&
+					error.response.status >= axios.HttpStatusCode.InternalServerError &&
+					error.response.status < ApiResponseCode.SERVER_ERROR_STATUS_MAX
+				) {
+					router.push(MainPath.ServerError);
+				}
+			}
+		};
+		getFiveOperations();
+		if (isDeleteOperationSuccess || isEditSuccess) {
+			getFiveOperations();
+		}
+	}, [baseUrl, isDeleteOperationSuccess, isEditSuccess, router]);
+
+	useEffect(() => {
+		const getFiveOperationsNames = () => {
+			const fiveOperationsNames: string[] | any = [];
+			fiveOperations.forEach((element: { categories: number; target: string; amount: string }) => {
+				options.forEach((option: { id: number; name: string }) => {
+					if (element.categories === option.id) {
+						element.target = option.name;
+						fiveOperationsNames.push(element);
+					}
+				});
+			});
+			return fiveOperationsNames;
+		};
+		setFiveOperationsNames(getFiveOperationsNames);
+		if (isDeleteOperationSuccess || isEditSuccess) {
+			setFiveOperationsNames(getFiveOperationsNames);
+		}
+	}, [fiveOperationsNames, fiveOperations, options, isDeleteOperationSuccess, isEditSuccess, setFiveOperationsNames]);
+
+	const interval = 2000;
+
+	const addCategory = async (data: IAddCategoryExpensesForm) => {
+		try {
+			if (baseUrl && data !== null) {
+				const response = await AddExpensesCategory(baseUrl, data);
+				if (response.status === axios.HttpStatusCode.Created) {
+					setIsOpen(false);
+					setIsAddSuccess(true);
+					setResponseApiRequestModal({
+						open: true,
+						title: "Категория успешно добавлена",
+						styles: styles.categoryAddSuccess__modal,
+					});
+					setTimeout(() => {
+						setResponseApiRequestModal(ResponseApiRequestModalInitialState);
+						setIsAddSuccess(false);
+					}, interval);
+				}
+			}
+		} catch (error) {
+			if (
+				axios.isAxiosError(error) &&
+				error.response &&
+				error.response.status &&
+				error.response.status >= axios.HttpStatusCode.InternalServerError &&
+				error.response.status < ApiResponseCode.SERVER_ERROR_STATUS_MAX
+			) {
+				router.push(MainPath.ServerError);
+			}
+		}
+	};
+
+	const onRemoveCategoryClick = (id: number, name: string) => {
+		setIsCategory(name);
+		setIsIdForDeleteCategory(String(id));
+		console.log(name);
+		console.log(id);
+	};
+
+	const removeApiRequest = async (id: number) => {
+		try {
+			if (baseUrl && id !== null) {
+				const response = await RemoveExpensesCategory(baseUrl, String(id));
+				if (response.status === axios.HttpStatusCode.Ok) {
+					setIsDeleteSuccessCategory(true);
+					setResponseApiRequestModal({
+						open: true,
+						title: "Категория успешно удалена",
+						styles: styles.categoryDeleteSuccess__modal,
+					});
+					setTimeout(() => {
+						setResponseApiRequestModal(ResponseApiRequestModalInitialState);
+						setIsDeleteSuccessCategory(false);
+					}, interval);
+				}
+			}
+		} catch (error) {
+			if (
+				axios.isAxiosError(error) &&
+				error.response &&
+				error.response.status &&
+				error.response.status >= axios.HttpStatusCode.InternalServerError &&
+				error.response.status < ApiResponseCode.SERVER_ERROR_STATUS_MAX
+			) {
+				router.push(MainPath.ServerError);
+			}
+		}
+	};
+
+	const currentDate = () => {
+		const endDate = 10;
+		return new Date().toISOString().slice(0, endDate);
+	};
+
+	const onSubmit = async (data: IExpensesAddCategoryTransactionForm & IExpensesCategoryForm) => {
+		resetTimer();
+		data.date = currentDate();
+		try {
+			if (baseUrl && data !== null) {
+				await AddExpensesCategoryTransaction(baseUrl, data);
+			}
+		} catch (error) {
+			if (
+				axios.isAxiosError(error) &&
+				error.response &&
+				error.response.status &&
+				error.response.status >= axios.HttpStatusCode.InternalServerError &&
+				error.response.status < ApiResponseCode.SERVER_ERROR_STATUS_MAX
+			) {
+				router.push(MainPath.ServerError);
+			}
+		}
+	};
+
+	const deleteTransaction = async (id: string) => {
+		try {
+			if (baseUrl) {
+				const response = await RemoveExpensesCategoryTransaction(baseUrl, id);
+				if ((response.status = axios.HttpStatusCode.Ok)) {
+					setIsDeleteOperationApprove(false);
+					setIsDeleteOperationSuccess(true);
+					setResponseApiRequestModal({
+						open: true,
+						title: "Запись успешно удалена",
+						styles: styles.recordDeleteSuccess__modal,
+					});
+					setTimeout(() => {
+						setResponseApiRequestModal(ResponseApiRequestModalInitialState);
+						setIsDeleteOperationSuccess(false);
+					}, interval);
+				}
+			}
+		} catch (error) {
+			if (
+				axios.isAxiosError(error) &&
+				error.response &&
+				error.response.status &&
+				error.response.status >= axios.HttpStatusCode.InternalServerError &&
+				error.response.status < ApiResponseCode.SERVER_ERROR_STATUS_MAX
+			) {
+				router.push(MainPath.ServerError);
+			}
+		}
+	};
+
+	const editTransaction = async (id: string, data: IEditTransactionForm) => {
+		data.date = currentDate();
+		try {
+			if (baseUrl && data !== null) {
+				const response = await EditExpensesCategoryTransaction(baseUrl, id, data);
+				if (response.status === axios.HttpStatusCode.Ok) {
+					setIsEdit(false);
+					setIsEditSuccess(true);
+					setResponseApiRequestModal({
+						open: true,
+						title: "Сумма успешно изменена",
+						styles: styles.recordEditSuccess__modal,
+					});
+					setTimeout(() => {
+						setResponseApiRequestModal(ResponseApiRequestModalInitialState);
+						setIsEditSuccess(false);
+					}, interval);
+				}
+			}
+		} catch (error) {
+			if (
+				axios.isAxiosError(error) &&
+				error.response &&
+				error.response.status &&
+				error.response.status >= axios.HttpStatusCode.InternalServerError &&
+				error.response.status < ApiResponseCode.SERVER_ERROR_STATUS_MAX
+			) {
+				router.push(MainPath.ServerError);
+			}
+		}
+	};
 
 	return (
 		<div className={styles.expensesPageWrap}>
@@ -61,14 +362,12 @@ export default function Expenses() {
 					<div className={styles.expensesDetailsContainer}>
 						<div className={styles.expensesDetailsContainer__category}>
 							<CategorySelect
-								name={"expenses"}
-								label={"Постоянные"}
-								options={[
-									{ id: 1, name: "Продукты", is_income: false, is_outcome: true, is_deleted: false },
-									{ id: 2, name: "Зарплата", is_income: true, is_outcome: false, is_deleted: false },
-								]}
+								name={"categories"}
+								label={"Категория"}
+								options={options}
 								control={control}
-								onAddCategory={() => undefined}
+								onAddCategory={() => setIsOpen(true)}
+								onRemoveCategory={() => [setIsCategoryDeleteModalOpen(true), onRemoveCategoryClick]}
 							/>
 						</div>
 						<div className={styles.expensesDetailsContainer__sum}>
@@ -76,44 +375,55 @@ export default function Expenses() {
 								control={control}
 								label={"Сумма"}
 								type={InputTypeList.Number}
-								name={"number"}
-								placeholder={"0.00 ₽"}
+								name={"amount"}
+								placeholder={"0.00"}
 							/>
 						</div>
-						<AddButton onClick={() => resetTimer()} type={InputTypeList.Submit} />
-					</div>
-					<div className={styles.expensesDetailsContainer}>
-						<div className={styles.expensesDetailsContainer__category}>
-							<Select name={"expenses"} label={"Временные"} options={[""]} />
-						</div>
-						<div className={styles.expensesDetailsContainer__sum}>
-							<AppInput
-								control={control}
-								label={"Сумма"}
-								type={InputTypeList.Number}
-								name={"number"}
-								placeholder="0.00 ₽"
-							/>
-						</div>
-						<AddButton onClick={() => resetTimer()} type={InputTypeList.Submit}>
-							Добавить
-						</AddButton>
+						<AddButton onClick={handleSubmit(onSubmit)} type={InputTypeList.Button} />
 					</div>
 				</form>
+				{isCategoryDeleteModalOpen && (
+					<CategoryDeleteModal
+						open={isCategoryDeleteModalOpen}
+						category={isCategory}
+						id={isIdForDeleteCategory}
+						requestDeleteApi={removeApiRequest}
+						onCancelClick={() => setIsCategoryDeleteModalOpen(false)}
+					/>
+				)}
+				{isOpen && <CategoryAddModal open={isOpen} onCancelClick={() => setIsOpen(false)} request={addCategory} />}
+				<ResponseApiRequestModal open={responseApiRequestModal.open} title={responseApiRequestModal.title} />
+				<ResponseApiRequestModal open={responseApiRequestModal.open} title={responseApiRequestModal.title} />
 				<div className={styles.expensesTransactionsWrapper}>
 					<h1 className={styles.expensesTransactionHeader}>Последние операции по расходам</h1>
-					{expensesTransactions &&
-						expensesTransactions.map((expensesData, index: Key) => (
+					{fiveOperationsNames &&
+						fiveOperationsNames.map((expensesData: IExpenseTransaction, index: Key) => (
 							<li key={index}>
 								<ExpensesTransaction
-									firstDate={expensesData.firstDate}
-									secondDate={expensesData.secondDate}
-									purpose={expensesData.purpose}
-									sum={expensesData.sum}
+									date={expensesData.date}
+									target={expensesData.target}
+									amount={expensesData.amount}
+									type={""}
+									categories={0}
+									id={expensesData.id}
+									onDeleteClick={() => [setIsDeleteOperationApprove(true), setIsId(expensesData.id)]}
+									editClick={() => [setIsEdit(true), setIsId(expensesData.id)]}
 								/>
 							</li>
 						))}
 				</div>
+				{isDeleteOperationApprove && (
+					<RecordDeleteModal
+						open={isDeleteOperationApprove}
+						remove={() => deleteTransaction(isId)}
+						cancelRemove={() => setIsDeleteOperationApprove(false)}
+					/>
+				)}
+				<ResponseApiRequestModal open={responseApiRequestModal.open} title={responseApiRequestModal.title} />
+				{isEdit && (
+					<EditTransactionModal open={isEdit} id={isId} request={editTransaction} cancelEdit={() => setIsEdit(false)} />
+				)}
+				<ResponseApiRequestModal open={responseApiRequestModal.open} title={responseApiRequestModal.title} />
 			</div>
 		</div>
 	);

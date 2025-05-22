@@ -89,6 +89,12 @@ class FormHelpers {
 				return errorDefault;
 		}
 	};
+
+	getAddCategoryError = (errors: FieldErrors) => {
+		if (errors) {
+			return "Не верные данные";
+		}
+	};
 }
 
 export const formHelpers = new FormHelpers();

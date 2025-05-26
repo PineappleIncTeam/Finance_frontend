@@ -23,7 +23,11 @@ export const CategoryDeleteModal = ({
 
 	const onArchiveClick = () => {
 		if (id !== null) {
-			requestArchiveApi(id);
+			const data = {
+				// eslint-disable-next-line camelcase
+				is_deleted: true,
+			};
+			requestArchiveApi(id, data);
 		}
 	};
 

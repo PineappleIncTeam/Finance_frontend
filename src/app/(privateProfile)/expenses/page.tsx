@@ -367,7 +367,7 @@ export default function Expenses() {
 								options={options}
 								control={control}
 								onAddCategory={() => setIsOpen(true)}
-								onRemoveCategory={() => [setIsCategoryDeleteModalOpen(true), onRemoveCategoryClick]}
+								onRemoveCategory={(id, name) => [setIsCategoryDeleteModalOpen(true), onRemoveCategoryClick(id, name)]}
 							/>
 						</div>
 						<div className={styles.expensesDetailsContainer__sum}>

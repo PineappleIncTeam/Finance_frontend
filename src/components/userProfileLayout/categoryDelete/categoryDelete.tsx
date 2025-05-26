@@ -7,10 +7,23 @@ import Title from "../../../ui/title/Title";
 
 import styles from "./categoryDelete.module.scss";
 
-export const CategoryDeleteModal = ({ open, category, onCancelClick, id, requestDeleteApi }: ICategoryDeleteModal) => {
+export const CategoryDeleteModal = ({
+	open,
+	category,
+	onCancelClick,
+	id,
+	requestDeleteApi,
+	requestArchiveApi,
+}: ICategoryDeleteModal) => {
 	const onRemoveClick = () => {
 		if (id !== null && category !== null) {
 			requestDeleteApi(+id, category);
+		}
+	};
+
+	const onArchiveClick = () => {
+		if (id !== null) {
+			requestArchiveApi(id);
 		}
 	};
 
@@ -25,7 +38,9 @@ export const CategoryDeleteModal = ({ open, category, onCancelClick, id, request
 					<Button variant={ButtonType.Faded} onClick={() => onRemoveClick()}>
 						Удалить
 					</Button>
-					<Button variant={ButtonType.Faded}>В архив</Button>
+					<Button variant={ButtonType.Faded} onClick={() => onArchiveClick()}>
+						В архив
+					</Button>
 					<Button variant={ButtonType.Outlined} onClick={() => onCancelClick()}>
 						Отменить
 					</Button>

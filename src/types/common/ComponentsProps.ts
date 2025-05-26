@@ -173,6 +173,7 @@ export interface ICategoryDeleteModal {
 	open: boolean;
 	category: string;
 	id: string;
+	requestArchiveApi: (id: string) => Promise<void>;
 	requestDeleteApi: (id: number, name: string) => Promise<void>;
 	onCancelClick: () => void;
 }

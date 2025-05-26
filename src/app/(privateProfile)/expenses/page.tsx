@@ -54,6 +54,7 @@ import { EditExpensesCategoryTransaction } from "../../../services/api/userProfi
 import { EditTransactionModal } from "../../../components/userProfileLayout/editTransaction/editTransaction";
 import { ResponseApiRequestModal } from "../../../components/userProfileLayout/responseActionExpenses/responseApiRequestModal";
 import { CategoryDeleteModal } from "../../../components/userProfileLayout/categoryDelete/categoryDelete";
+import { ArchiveCategory } from "../../../services/api/userProfile/ArchiveCategory";
 
 import styles from "./expenses.module.scss";
 
@@ -73,6 +74,7 @@ export default function Expenses() {
 	const [isCategoryDeleteModalOpen, setIsCategoryDeleteModalOpen] = useState<boolean>(false);
 	const [isCategory, setIsCategory] = useState<string>("");
 	const [isIdForDeleteCategory, setIsIdForDeleteCategory] = useState<string>("");
+	const [isCategoryArchive, setIsCategoryArchive] = useState<boolean>(false);
 
 	const { control, handleSubmit } = useForm<IExpensesAddCategoryTransactionForm & IExpensesCategoryForm>({
 		defaultValues: {
@@ -132,10 +134,10 @@ export default function Expenses() {
 			}
 		};
 		getCategoryOptions();
-		if (isAddSuccess || isDeleteSuccessCategory) {
+		if (isAddSuccess || isDeleteSuccessCategory || isCategoryArchive) {
 			getCategoryOptions();
 		}
-	}, [baseUrl, isAddSuccess, isDeleteSuccessCategory, router]);
+	}, [baseUrl, isAddSuccess, isDeleteSuccessCategory, isCategoryArchive, router]);
 
 	useEffect(() => {
 		const getFiveOperations = async () => {
@@ -222,8 +224,6 @@ export default function Expenses() {
 	const onRemoveCategoryClick = (id: number, name: string) => {
 		setIsCategory(name);
 		setIsIdForDeleteCategory(String(id));
-		console.log(name);
-		console.log(id);
 	};
 
 	const removeApiRequest = async (id: number) => {
@@ -344,6 +344,37 @@ export default function Expenses() {
 		}
 	};
 
+	const archiveCategory = async (id: string) => {
+		try {
+			if (baseUrl && id !== null) {
+				const isDeleted = true;
+				const response = await ArchiveCategory(baseUrl, String(id), isDeleted);
+				if (response.status === axios.HttpStatusCode.Ok) {
+					setIsCategoryArchive(true);
+					setResponseApiRequestModal({
+						open: true,
+						title: "Категория успешно перенесена в «Архив»",
+						styles: styles.categoryArchiveSuccess_modal,
+					});
+					setTimeout(() => {
+						setResponseApiRequestModal(ResponseApiRequestModalInitialState);
+						setIsCategoryArchive(false);
+					}, interval);
+				}
+			}
+		} catch (error) {
+			if (
+				axios.isAxiosError(error) &&
+				error.response &&
+				error.response.status &&
+				error.response.status >= axios.HttpStatusCode.InternalServerError &&
+				error.response.status < ApiResponseCode.SERVER_ERROR_STATUS_MAX
+			) {
+				router.push(MainPath.ServerError);
+			}
+		}
+	};
+
 	return (
 		<div className={styles.expensesPageWrap}>
 			<div className={styles.expensesPageContainer}>
@@ -388,9 +419,11 @@ export default function Expenses() {
 						category={isCategory}
 						id={isIdForDeleteCategory}
 						requestDeleteApi={removeApiRequest}
+						requestArchiveApi={archiveCategory}
 						onCancelClick={() => setIsCategoryDeleteModalOpen(false)}
 					/>
 				)}
+				<ResponseApiRequestModal open={responseApiRequestModal.open} title={responseApiRequestModal.title} />
 				{isOpen && <CategoryAddModal open={isOpen} onCancelClick={() => setIsOpen(false)} request={addCategory} />}
 				<ResponseApiRequestModal open={responseApiRequestModal.open} title={responseApiRequestModal.title} />
 				<ResponseApiRequestModal open={responseApiRequestModal.open} title={responseApiRequestModal.title} />

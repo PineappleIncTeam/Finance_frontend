@@ -339,3 +339,13 @@
 		}
 	}
 }
+
+.categoryArchiveSuccess_modal {
+	width: 548px; 
+
+	@media (max-width: 490px) {
+		& {
+			width: 340px;
+		}
+	}
+}

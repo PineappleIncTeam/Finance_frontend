@@ -353,6 +353,7 @@ export default function Expenses() {
 			if (baseUrl && id !== null) {
 				const response = await ArchiveCategory(baseUrl, id, data);
 				if (response.status === axios.HttpStatusCode.Ok) {
+					setIsCategoryDeleteModalOpen(false);
 					setIsCategoryArchive(true);
 					setResponseApiRequestModal({
 						open: true,

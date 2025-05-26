@@ -32,3 +32,7 @@ export interface IEditOperation {
 	date: string;
 	amount: number;
 }
+
+export interface IArchiveCategory {
+	is_deleted: boolean;
+}

@@ -345,10 +345,13 @@ export default function Expenses() {
 	};
 
 	const archiveCategory = async (id: string) => {
+		const data = {
+			// eslint-disable-next-line camelcase
+			is_deleted: true,
+		};
 		try {
 			if (baseUrl && id !== null) {
-				const isDeleted = true;
-				const response = await ArchiveCategory(baseUrl, String(id), isDeleted);
+				const response = await ArchiveCategory(baseUrl, id, data);
 				if (response.status === axios.HttpStatusCode.Ok) {
 					setIsCategoryArchive(true);
 					setResponseApiRequestModal({

@@ -4,6 +4,7 @@ import { Control, FieldValues, Path } from "react-hook-form";
 import { MouseEvent } from "react";
 
 import { IAddCategoryExpensesForm, IEditTransactionForm } from "../components/ComponentsTypes";
+import { IArchiveCategory } from "../pages/Expenses";
 
 export type CustomLayout = () => Element;
 
@@ -173,7 +174,7 @@ export interface ICategoryDeleteModal {
 	open: boolean;
 	category: string;
 	id: string;
-	requestArchiveApi: (id: string) => Promise<void>;
+	requestArchiveApi: (id: string, data: IArchiveCategory) => Promise<void>;
 	requestDeleteApi: (id: number, name: string) => Promise<void>;
 	onCancelClick: () => void;
 }

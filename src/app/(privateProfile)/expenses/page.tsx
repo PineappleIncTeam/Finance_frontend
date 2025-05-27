@@ -389,12 +389,11 @@ export default function Expenses() {
 					setAllOperations(response.data);
 					allOperations.forEach((element: IOperation) => {
 						if (element.categories === id) {
-							return false;
+							return true;
 						}
-						return true;
 					});
 				}
-			}
+			} else return false;
 		} catch (error) {
 			if (
 				axios.isAxiosError(error) &&

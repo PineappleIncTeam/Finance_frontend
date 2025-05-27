@@ -17,7 +17,7 @@ export const CategoryDeleteModal = ({
 	checkCategoryForOperation,
 }: ICategoryDeleteModal) => {
 	const onRemoveClick = () => {
-		if (id !== null && checkCategoryForOperation(+id) && category !== null) {
+		if (id !== null && !checkCategoryForOperation(+id) && category !== null) {
 			requestDeleteApi(id, category);
 		}
 	};

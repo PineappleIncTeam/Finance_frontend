@@ -14,10 +14,11 @@ export const CategoryDeleteModal = ({
 	id,
 	requestDeleteApi,
 	requestArchiveApi,
+	checkCategoryForOperation,
 }: ICategoryDeleteModal) => {
 	const onRemoveClick = () => {
-		if (id !== null && category !== null) {
-			requestDeleteApi(+id, category);
+		if (id !== null && checkCategoryForOperation(+id) && category !== null) {
+			requestDeleteApi(id, category);
 		}
 	};
 

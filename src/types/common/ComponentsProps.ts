@@ -175,6 +175,7 @@ export interface ICategoryDeleteModal {
 	category: string;
 	id: string;
 	requestArchiveApi: (id: string, data: IArchiveCategory) => Promise<void>;
-	requestDeleteApi: (id: number, name: string) => Promise<void>;
+	requestDeleteApi: (id: string, name: string) => Promise<void>;
 	onCancelClick: () => void;
+	checkCategoryForOperation: (id: number) => Promise<void>;
 }

@@ -41,7 +41,7 @@ import { MainPath } from "../../../services/router/routes";
 
 import { GetCategoriesAll } from "../../../services/api/userProfile/GetCategoriesAll";
 
-import { IOptionsResponse, ITransactionsResponse } from "../../../types/api/Expenses";
+import { IOperation, IOptionsResponse, ITransactionsResponse } from "../../../types/api/Expenses";
 
 import { RemoveExpensesCategory } from "../../../services/api/userProfile/RemoveExpensesCategory";
 
@@ -55,6 +55,7 @@ import { EditTransactionModal } from "../../../components/userProfileLayout/edit
 import { ResponseApiRequestModal } from "../../../components/userProfileLayout/responseActionExpenses/responseApiRequestModal";
 import { CategoryDeleteModal } from "../../../components/userProfileLayout/categoryDelete/categoryDelete";
 import { ArchiveCategory } from "../../../services/api/userProfile/ArchiveCategory";
+import { GetOperationsAll } from "../../../services/api/userProfile/GetOperationsAll";
 
 import styles from "./expenses.module.scss";
 
@@ -75,6 +76,7 @@ export default function Expenses() {
 	const [isCategory, setIsCategory] = useState<string>("");
 	const [isIdForDeleteCategory, setIsIdForDeleteCategory] = useState<string>("");
 	const [isCategoryArchive, setIsCategoryArchive] = useState<boolean>(false);
+	const [allOperations, setAllOperations] = useState<IOperation[]>([]);
 
 	const { control, handleSubmit } = useForm<IExpensesAddCategoryTransactionForm & IExpensesCategoryForm>({
 		defaultValues: {
@@ -226,7 +228,7 @@ export default function Expenses() {
 		setIsIdForDeleteCategory(String(id));
 	};
 
-	const removeApiRequest = async (id: number) => {
+	const removeApiRequest = async (id: string) => {
 		try {
 			if (baseUrl && id !== null) {
 				const response = await RemoveExpensesCategory(baseUrl, String(id));
@@ -379,6 +381,33 @@ export default function Expenses() {
 		}
 	};
 
+	const checkCategoryForOperations = async (id: number) => {
+		try {
+			if (baseUrl) {
+				const response: AxiosResponse<IOperation[]> = await GetOperationsAll(baseUrl);
+				if (response !== null && response.status === axios.HttpStatusCode.Ok) {
+					setAllOperations(response.data);
+					allOperations.forEach((element: IOperation) => {
+						if (element.categories === id) {
+							return false;
+						}
+						return true;
+					});
+				}
+			}
+		} catch (error) {
+			if (
+				axios.isAxiosError(error) &&
+				error.response &&
+				error.response.status &&
+				error.response.status >= axios.HttpStatusCode.InternalServerError &&
+				error.response.status < ApiResponseCode.SERVER_ERROR_STATUS_MAX
+			) {
+				router.push(MainPath.ServerError);
+			}
+		}
+	};
+
 	return (
 		<div className={styles.expensesPageWrap}>
 			<div className={styles.expensesPageContainer}>
@@ -424,6 +453,7 @@ export default function Expenses() {
 						id={isIdForDeleteCategory}
 						requestDeleteApi={removeApiRequest}
 						requestArchiveApi={archiveCategory}
+						checkCategoryForOperation={checkCategoryForOperations}
 						onCancelClick={() => setIsCategoryDeleteModalOpen(false)}
 					/>
 				)}

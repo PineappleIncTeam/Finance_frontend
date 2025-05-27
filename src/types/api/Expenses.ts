@@ -7,3 +7,12 @@ export interface ITransactionsResponse {
 	target: string;
 	amount: string;
 }
+
+export interface IOperation {
+	id: number;
+	type: string;
+	amount: string;
+	date: string;
+	categories: number;
+	target: string;
+}

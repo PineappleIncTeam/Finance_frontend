@@ -393,7 +393,7 @@ export default function Expenses() {
 						}
 					});
 				}
-			} else return false;
+			}
 		} catch (error) {
 			if (
 				axios.isAxiosError(error) &&
@@ -403,10 +403,9 @@ export default function Expenses() {
 				error.response.status < ApiResponseCode.SERVER_ERROR_STATUS_MAX
 			) {
 				router.push(MainPath.ServerError);
-				return false;
 			}
-			return false;
 		}
+		return false;
 	};
 
 	return (

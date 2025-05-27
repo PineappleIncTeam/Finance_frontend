@@ -16,12 +16,6 @@ export const CategoryDeleteModal = ({
 	requestArchiveApi,
 	checkCategoryForOperation,
 }: ICategoryDeleteModal) => {
-	const onRemoveClick = () => {
-		if (id !== null && !checkCategoryForOperation(+id) && category !== null) {
-			requestDeleteApi(id, category);
-		}
-	};
-
 	const onArchiveClick = () => {
 		if (id !== null) {
 			const data = {
@@ -29,6 +23,12 @@ export const CategoryDeleteModal = ({
 				is_deleted: true,
 			};
 			requestArchiveApi(id, data);
+		}
+	};
+
+	const onRemoveClick = () => {
+		if (id !== null && category !== null) {
+			checkCategoryForOperation(+id) ? onArchiveClick() : requestDeleteApi(id, category);
 		}
 	};
 

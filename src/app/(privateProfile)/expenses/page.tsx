@@ -404,7 +404,9 @@ export default function Expenses() {
 				error.response.status < ApiResponseCode.SERVER_ERROR_STATUS_MAX
 			) {
 				router.push(MainPath.ServerError);
+				return false;
 			}
+			return false;
 		}
 	};
 

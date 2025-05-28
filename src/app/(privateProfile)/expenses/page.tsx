@@ -387,11 +387,7 @@ export default function Expenses() {
 				const response: AxiosResponse<IOperation[]> = await GetOperationsAll(baseUrl);
 				if (response !== null && response.status === axios.HttpStatusCode.Ok) {
 					setAllOperations(response.data);
-					allOperations.forEach((element: IOperation) => {
-						if (element.categories === id) {
-							return true;
-						}
-					});
+					allOperations.find((element: IOperation) => element.categories === id);
 				}
 			}
 		} catch (error) {

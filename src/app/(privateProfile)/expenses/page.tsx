@@ -364,6 +364,7 @@ export default function Expenses() {
 					});
 					setTimeout(() => {
 						setResponseApiRequestModal(ResponseApiRequestModalInitialState);
+						setIsDeleteSuccessCategory(false);
 						setIsCategoryArchive(false);
 					}, interval);
 				}

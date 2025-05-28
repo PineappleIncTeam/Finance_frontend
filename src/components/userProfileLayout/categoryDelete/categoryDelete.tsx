@@ -29,8 +29,8 @@ export const CategoryDeleteModal = ({
 	const onRemoveClick = async () => {
 		try {
 			console.log(id);
-			console.log(typeof id);
-			const response = await checkCategoryForOperation(+id);
+			console.log(typeof Number(id));
+			const response = await checkCategoryForOperation(Number(id));
 			console.log(response);
 			if (response) {
 				onArchiveClick();

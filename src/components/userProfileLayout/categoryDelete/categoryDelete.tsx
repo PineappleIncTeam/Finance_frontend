@@ -4,6 +4,7 @@ import { ButtonType } from "../../../helpers/buttonFieldValues";
 
 import Button from "../../../ui/Button/button";
 import Title from "../../../ui/title/Title";
+import { IOperation } from "../../../types/api/Expenses";
 
 import styles from "./categoryDelete.module.scss";
 
@@ -14,7 +15,6 @@ export const CategoryDeleteModal = ({
 	id,
 	requestDeleteApi,
 	requestArchiveApi,
-	checkCategoryForOperation,
 	operations,
 }: ICategoryDeleteModal) => {
 	const onArchiveClick = () => {
@@ -28,18 +28,9 @@ export const CategoryDeleteModal = ({
 	};
 
 	const onRemoveClick = async () => {
-		try {
-			console.log(id);
-			console.log(typeof Number(id));
-			console.log(operations);
-			const response = await checkCategoryForOperation(Number(id));
-			console.log(response);
-			if (response) {
-				onArchiveClick();
-			} else requestDeleteApi(id, category);
-		} catch (error) {
-			console.error("ошибка:", error);
-		}
+		return operations.find((element: IOperation) => element.categories === Number(id))
+			? onArchiveClick()
+			: requestDeleteApi(id, category);
 	};
 
 	return (

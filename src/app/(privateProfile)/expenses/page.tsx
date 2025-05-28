@@ -223,7 +223,7 @@ export default function Expenses() {
 		}
 	};
 
-	const onRemoveCategoryClick = (id: number, name: string) => {
+	const handleIdName = (id: number, name: string) => {
 		setIsCategory(name);
 		setIsIdForDeleteCategory(String(id));
 	};
@@ -381,14 +381,12 @@ export default function Expenses() {
 		}
 	};
 
-	const checkCategoryForOperations = async (id: number) => {
+	const getAllOperations = async () => {
 		try {
 			if (baseUrl) {
 				const response: AxiosResponse<IOperation[]> = await GetOperationsAll(baseUrl);
 				if (response !== null && response.status === axios.HttpStatusCode.Ok) {
 					setAllOperations(response.data);
-					console.log(response.data);
-					allOperations.find((element: IOperation) => element.categories === id);
 				}
 			}
 		} catch (error) {
@@ -402,7 +400,6 @@ export default function Expenses() {
 				router.push(MainPath.ServerError);
 			}
 		}
-		return false;
 	};
 
 	return (
@@ -428,7 +425,11 @@ export default function Expenses() {
 								options={options}
 								control={control}
 								onAddCategory={() => setIsOpen(true)}
-								onRemoveCategory={(id, name) => [setIsCategoryDeleteModalOpen(true), onRemoveCategoryClick(id, name)]}
+								onRemoveCategory={(id, name) => [
+									setIsCategoryDeleteModalOpen(true),
+									handleIdName(id, name),
+									getAllOperations(),
+								]}
 							/>
 						</div>
 						<div className={styles.expensesDetailsContainer__sum}>
@@ -450,7 +451,6 @@ export default function Expenses() {
 						id={isIdForDeleteCategory}
 						requestDeleteApi={removeApiRequest}
 						requestArchiveApi={archiveCategory}
-						checkCategoryForOperation={checkCategoryForOperations}
 						onCancelClick={() => setIsCategoryDeleteModalOpen(false)}
 						operations={allOperations}
 					/>

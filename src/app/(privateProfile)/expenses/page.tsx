@@ -233,6 +233,7 @@ export default function Expenses() {
 			if (baseUrl && id !== null) {
 				const response = await RemoveExpensesCategory(baseUrl, String(id));
 				if (response.status === axios.HttpStatusCode.Ok) {
+					setIsCategoryDeleteModalOpen(false);
 					setIsDeleteSuccessCategory(true);
 					setResponseApiRequestModal({
 						open: true,
@@ -241,7 +242,6 @@ export default function Expenses() {
 					});
 					setTimeout(() => {
 						setResponseApiRequestModal(ResponseApiRequestModalInitialState);
-						setIsDeleteSuccessCategory(false);
 					}, interval);
 				}
 			}

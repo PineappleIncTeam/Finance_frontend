@@ -5,6 +5,7 @@ import { MouseEvent } from "react";
 
 import { IAddCategoryExpensesForm, IEditTransactionForm } from "../components/ComponentsTypes";
 import { IArchiveCategory } from "../pages/Expenses";
+import { IOperation } from "../api/Expenses";
 
 export type CustomLayout = () => Element;
 
@@ -178,4 +179,5 @@ export interface ICategoryDeleteModal {
 	requestDeleteApi: (id: string, name: string) => Promise<void>;
 	onCancelClick: () => void;
 	checkCategoryForOperation: (id: number) => Promise<boolean>;
+	operations: IOperation[];
 }

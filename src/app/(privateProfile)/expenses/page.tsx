@@ -387,6 +387,7 @@ export default function Expenses() {
 				const response: AxiosResponse<IOperation[]> = await GetOperationsAll(baseUrl);
 				if (response !== null && response.status === axios.HttpStatusCode.Ok) {
 					setAllOperations(response.data);
+					console.log(response.data);
 					allOperations.find((element: IOperation) => element.categories === id);
 				}
 			}
@@ -451,6 +452,7 @@ export default function Expenses() {
 						requestArchiveApi={archiveCategory}
 						checkCategoryForOperation={checkCategoryForOperations}
 						onCancelClick={() => setIsCategoryDeleteModalOpen(false)}
+						operations={allOperations}
 					/>
 				)}
 				<ResponseApiRequestModal open={responseApiRequestModal.open} title={responseApiRequestModal.title} />

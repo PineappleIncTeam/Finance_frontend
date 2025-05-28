@@ -15,6 +15,7 @@ export const CategoryDeleteModal = ({
 	requestDeleteApi,
 	requestArchiveApi,
 	checkCategoryForOperation,
+	operations,
 }: ICategoryDeleteModal) => {
 	const onArchiveClick = () => {
 		if (id !== null) {
@@ -30,6 +31,7 @@ export const CategoryDeleteModal = ({
 		try {
 			console.log(id);
 			console.log(typeof Number(id));
+			console.log(operations);
 			const response = await checkCategoryForOperation(Number(id));
 			console.log(response);
 			if (response) {

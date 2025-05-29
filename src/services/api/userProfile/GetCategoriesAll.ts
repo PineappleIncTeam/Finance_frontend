@@ -1,9 +1,9 @@
 import axios from "axios";
 
 import { expensesCategoriesAllEndPoint } from "../auth/apiConstants";
-import { ICategoriesAll } from "../../../types/pages/Expenses";
+import { ICategoriesTypes } from "../../../types/pages/Expenses";
 
-export const GetCategoriesAll = async (baseUrl: string, data: ICategoriesAll) => {
+export const GetCategoriesAll = async (baseUrl: string, data: ICategoriesTypes) => {
 	return await axios(`${baseUrl}/${expensesCategoriesAllEndPoint}`, {
 		method: "GET",
 		data: data,

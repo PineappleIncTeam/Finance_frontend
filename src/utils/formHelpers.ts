@@ -17,6 +17,8 @@ import {
 	errorPasswordStrengthWeak,
 	errorPasswordStrengthMedium,
 	errorPasswordNumber,
+	errorNewCategoryName,
+	financePattern,
 } from "../helpers/authConstants";
 
 enum ErrorTypes {
@@ -90,9 +92,10 @@ class FormHelpers {
 		}
 	};
 
-	getAddCategoryError = (errors: FieldErrors) => {
-		if (errors) {
-			return "Не верные данные";
+	getAddCategoryError = (newCategoryName: string) => {
+		const noError = newCategoryName.match(financePattern);
+		if (!noError) {
+			return errorNewCategoryName;
 		}
 	};
 }

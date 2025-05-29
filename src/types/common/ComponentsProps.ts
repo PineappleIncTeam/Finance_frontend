@@ -73,13 +73,6 @@ export interface IFooter {
 	isMainPage?: boolean;
 }
 
-export interface IExpensesTransaction {
-	firstDateFormat: string;
-	secondDateFormat?: string;
-	purpose: string;
-	sum: string;
-}
-
 export interface IArchiveItem {
 	archiveItemValue: string;
 	onMouseEnter: undefined | ((event: MouseEvent<HTMLDivElement>) => void);
@@ -129,11 +122,6 @@ export interface ICategorySelect<T extends FieldValues> {
 	placeholder?: string;
 	onAddCategory: () => void;
 	onRemoveCategory?: (categoryId: number, categoryName: string) => void;
-}
-
-export interface IExpensesModals {
-	open: boolean;
-	addClick?: () => void;
 }
 
 export interface IAddCategory {

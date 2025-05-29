@@ -19,7 +19,7 @@ export interface IExpensesSelectForm {
 	expenses?: string;
 }
 
-export interface ICategoriesAll {
+export interface ICategoriesTypes {
 	is_income: boolean;
 	is_outcome: boolean;
 }

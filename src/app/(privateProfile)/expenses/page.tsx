@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { Key, useEffect, useState } from "react";
+import { Key, useCallback, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import axios, { AxiosResponse } from "axios";
 
@@ -29,11 +29,7 @@ import AppInput from "../../../ui/appInput/AppInput";
 
 import { CategoryAddModal } from "../../../components/userProfileLayout/categoryAdd/categoryAddModal";
 
-import {
-	IAddCategoryExpensesForm,
-	IEditTransactionForm,
-	IExpenseTransaction,
-} from "../../../types/components/ComponentsTypes";
+import { IAddCategoryExpensesForm, IEditTransactionForm } from "../../../types/components/ComponentsTypes";
 
 import { AddExpensesCategory } from "../../../services/api/userProfile/AddExpensesCategory";
 
@@ -41,7 +37,7 @@ import { MainPath } from "../../../services/router/routes";
 
 import { GetCategoriesAll } from "../../../services/api/userProfile/GetCategoriesAll";
 
-import { IOperation, IOptionsResponse, ITransactionsResponse } from "../../../types/api/Expenses";
+import { IOperation } from "../../../types/api/Expenses";
 
 import { RemoveExpensesCategory } from "../../../services/api/userProfile/RemoveExpensesCategory";
 
@@ -56,6 +52,7 @@ import { ResponseApiRequestModal } from "../../../components/userProfileLayout/r
 import { CategoryDeleteModal } from "../../../components/userProfileLayout/categoryDelete/categoryDelete";
 import { ArchiveCategory } from "../../../services/api/userProfile/ArchiveCategory";
 import { GetOperationsAll } from "../../../services/api/userProfile/GetOperationsAll";
+import { ICategoryOption } from "../../../types/common/ComponentsProps";
 
 import styles from "./expenses.module.scss";
 
@@ -63,9 +60,9 @@ export default function Expenses() {
 	const [baseUrl, setBaseUrl] = useState<string>();
 	const [isAddSuccess, setIsAddSuccess] = useState<boolean>(false);
 	const [isOpen, setIsOpen] = useState<boolean>(false);
-	const [fiveOperations, setFiveOperations] = useState<string[] | any>([]);
-	const [fiveOperationsNames, setFiveOperationsNames] = useState<string[] | any>([]);
-	const [options, setOptions] = useState<string[] | any>([]);
+	const [fiveOperations, setFiveOperations] = useState<IOperation[]>([]);
+	const [fiveOperationsNames, setFiveOperationsNames] = useState<IOperation[]>([]);
+	const [options, setOptions] = useState<ICategoryOption[]>([]);
 	const [isDeleteSuccessCategory, setIsDeleteSuccessCategory] = useState<boolean>(false);
 	const [isDeleteOperationApprove, setIsDeleteOperationApprove] = useState<boolean>(false);
 	const [isDeleteOperationSuccess, setIsDeleteOperationSuccess] = useState<boolean>(false);
@@ -97,6 +94,43 @@ export default function Expenses() {
 
 	const router = useRouter();
 
+	const getFiveOperations = useCallback(async () => {
+		const data = {
+			type: "outcome",
+		};
+		try {
+			if (baseUrl) {
+				const response: AxiosResponse<IOperation[]> = await GetFiveTransactions(baseUrl, data);
+				if (response !== null && response.status === axios.HttpStatusCode.Ok) {
+					setFiveOperations(response.data);
+				}
+			}
+		} catch (error) {
+			if (
+				axios.isAxiosError(error) &&
+				error.response &&
+				error.response.status &&
+				error.response.status >= axios.HttpStatusCode.InternalServerError &&
+				error.response.status < ApiResponseCode.SERVER_ERROR_STATUS_MAX
+			) {
+				router.push(MainPath.ServerError);
+			}
+		}
+	}, [baseUrl, router]);
+
+	const getFiveOperationsNames = useCallback(() => {
+		const fiveOperationsNames: IOperation[] = [];
+		fiveOperations.forEach((element: IOperation) => {
+			options.forEach((option: ICategoryOption) => {
+				if (element.categories === option.id) {
+					element.target = option.name;
+					fiveOperationsNames.push(element);
+				}
+			});
+		});
+		return fiveOperationsNames;
+	}, [fiveOperations, options]);
+
 	useEffect(() => {
 		setBaseUrl(getCorrectBaseUrl());
 	}, []);
@@ -115,10 +149,11 @@ export default function Expenses() {
 			// eslint-disable-next-line camelcase
 			is_outcome: true,
 		};
-		const getCategoryOptions = async () => {
+
+		const getAllCategoriesOptions = async () => {
 			try {
 				if (baseUrl) {
-					const response: AxiosResponse<IOptionsResponse> = await GetCategoriesAll(baseUrl, data);
+					const response: AxiosResponse<ICategoryOption[]> = await GetCategoriesAll(baseUrl, data);
 					if (response !== null && response.status === axios.HttpStatusCode.Ok) {
 						setOptions(response.data);
 					}
@@ -135,60 +170,25 @@ export default function Expenses() {
 				}
 			}
 		};
-		getCategoryOptions();
+		getAllCategoriesOptions();
 		if (isAddSuccess || isDeleteSuccessCategory || isCategoryArchive) {
-			getCategoryOptions();
+			getAllCategoriesOptions();
 		}
 	}, [baseUrl, isAddSuccess, isDeleteSuccessCategory, isCategoryArchive, router]);
 
 	useEffect(() => {
-		const getFiveOperations = async () => {
-			const data = {
-				type: "outcome",
-			};
-			try {
-				if (baseUrl) {
-					const response: AxiosResponse<ITransactionsResponse> = await GetFiveTransactions(baseUrl, data);
-					if (response !== null && response.status === axios.HttpStatusCode.Ok) {
-						setFiveOperations(response.data);
-					}
-				}
-			} catch (error) {
-				if (
-					axios.isAxiosError(error) &&
-					error.response &&
-					error.response.status &&
-					error.response.status >= axios.HttpStatusCode.InternalServerError &&
-					error.response.status < ApiResponseCode.SERVER_ERROR_STATUS_MAX
-				) {
-					router.push(MainPath.ServerError);
-				}
-			}
-		};
 		getFiveOperations();
 		if (isDeleteOperationSuccess || isEditSuccess) {
 			getFiveOperations();
 		}
-	}, [baseUrl, isDeleteOperationSuccess, isEditSuccess, router]);
+	}, [isDeleteOperationSuccess, isEditSuccess, getFiveOperations]);
 
 	useEffect(() => {
-		const getFiveOperationsNames = () => {
-			const fiveOperationsNames: string[] | any = [];
-			fiveOperations.forEach((element: { categories: number; target: string; amount: string }) => {
-				options.forEach((option: { id: number; name: string }) => {
-					if (element.categories === option.id) {
-						element.target = option.name;
-						fiveOperationsNames.push(element);
-					}
-				});
-			});
-			return fiveOperationsNames;
-		};
 		setFiveOperationsNames(getFiveOperationsNames);
 		if (isDeleteOperationSuccess || isEditSuccess) {
 			setFiveOperationsNames(getFiveOperationsNames);
 		}
-	}, [fiveOperationsNames, fiveOperations, options, isDeleteOperationSuccess, isEditSuccess, setFiveOperationsNames]);
+	}, [isDeleteOperationSuccess, isEditSuccess, getFiveOperationsNames]);
 
 	const interval = 2000;
 
@@ -463,7 +463,7 @@ export default function Expenses() {
 				<div className={styles.expensesTransactionsWrapper}>
 					<h1 className={styles.expensesTransactionHeader}>Последние операции по расходам</h1>
 					{fiveOperationsNames &&
-						fiveOperationsNames.map((expensesData: IExpenseTransaction, index: Key) => (
+						fiveOperationsNames.map((expensesData: IOperation, index: Key) => (
 							<li key={index}>
 								<ExpensesTransaction
 									date={expensesData.date}
@@ -472,8 +472,8 @@ export default function Expenses() {
 									type={""}
 									categories={0}
 									id={expensesData.id}
-									onDeleteClick={() => [setIsDeleteOperationApprove(true), setIsId(expensesData.id)]}
-									editClick={() => [setIsEdit(true), setIsId(expensesData.id)]}
+									onDeleteClick={() => [setIsDeleteOperationApprove(true), setIsId(String(expensesData.id))]}
+									editClick={() => [setIsEdit(true), setIsId(String(expensesData.id))]}
 								/>
 							</li>
 						))}

@@ -47,7 +47,7 @@ export interface IExpenseTransaction {
 	target: string;
 	type: string;
 	categories: number;
-	id: string;
+	id: number;
 	onDeleteClick: () => void;
 	editClick: () => void;
 }

@@ -53,7 +53,7 @@ export const CategoryAddModal = ({ open, request, onCancelClick }: IAddCategory)
 							type={InputTypeList.Text}
 							placeholder={"Название категории"}
 							subtitle="Не более 14 символов"
-							error={formHelpers.getAddCategoryError(errors)}
+							error={formHelpers.getAddCategoryError(errors, control._formValues.name)}
 						/>
 					</div>
 					<div className={styles.buttonsContainer}>

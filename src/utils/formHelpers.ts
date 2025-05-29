@@ -92,9 +92,9 @@ class FormHelpers {
 		}
 	};
 
-	getAddCategoryError = (newCategoryName: string) => {
-		const noError = newCategoryName.match(financePattern);
-		if (!noError) {
+	getAddCategoryError = (errors: FieldErrors, name: string) => {
+		const noError = name.match(financePattern);
+		if (errors || !noError) {
 			return errorNewCategoryName;
 		}
 	};

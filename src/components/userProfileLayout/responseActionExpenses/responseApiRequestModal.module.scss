@@ -1,6 +1,4 @@
 .backgroundModal {
-	display: flex;
-	justify-content: center;
 	position: fixed;
 	background: transparent;
 	width: 100%;
@@ -11,13 +9,17 @@
 }
 
 .modalContainer {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	margin-inline: auto;
+	padding-top: 30px;
 	width: 376px;
 	height: 92px;
 	background: var(--color-pure-light);
-	text-align: center;
-	padding-top: 30px;
-	margin-inline: auto;
 	border-radius: 12px;
+	text-align: center;
 	box-shadow: 0px 4px 20px 0px var(--color-black-eight-part);
 
 	&__title {

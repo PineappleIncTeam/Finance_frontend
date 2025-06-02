@@ -4,6 +4,8 @@ export const emailPattern =
 export const passwordPattern =
 	/^(?=.*\d)(?=.*[a-z])(?!.*(.)\1{2,})(?=.*[A-Z])(?!.*\d{4,}|\d{2}[\\/-]\d{2}[\\/-]\d{4})(?!.*[^a-zA-Z\d!#/\\='"<>{}@,.$%[\]^&*()~_|:;+?^-])[^\s]{6,50}$/;
 
+export const financePattern = /^(?=.*[^\W\d])(?!^[\d\W]+$).+$/;
+
 export const errorDefault = "";
 export const errorRequiredField = "Не заполнено обязательное поле.";
 export const errorEmailIncorrect = "Не верный формат ввода почты.";
@@ -24,3 +26,5 @@ export const errorPasswordStrengthWeak =
 	"Ваш пароль считается слабым. Рекомендуем использовать минимум 8 символов и включить специальные символы для повышения его надежности.";
 export const errorPasswordStrengthMedium =
 	"Ваш пароль считается средним. Для повышения надёжности рекомендуем использовать минимум 15 символов, строчные и заглавные буквы, цифры и включить специальные символы.";
+export const errorFinanceNameIncorrect =
+	"Название категории должно содержать хотя бы 1 символ, который не является цифрой или пробелом, и не состоит только из цифр.";

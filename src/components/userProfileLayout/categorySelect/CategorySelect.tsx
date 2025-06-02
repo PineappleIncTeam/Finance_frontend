@@ -54,9 +54,9 @@ export const CategorySelect = <T extends FieldValues>({
 		setIsOpen(!isOpen);
 	};
 
-	const handleRemoveCategory = (categoryId: number) => {
+	const handleRemoveCategory = (categoryId: number, categoryName: string) => {
 		if (onRemoveCategory) {
-			onRemoveCategory(categoryId);
+			onRemoveCategory(categoryId, categoryName);
 		}
 	};
 
@@ -81,10 +81,11 @@ export const CategorySelect = <T extends FieldValues>({
 								role="button">
 								<p className={styles.selectContainer__optionValue}>{option.name}</p>
 								<button
+									type={InputTypeList.Button}
 									className={styles.selectContainer__removeButton}
 									onClick={(event) => {
 										event.stopPropagation();
-										handleRemoveCategory(option.id);
+										handleRemoveCategory(option.id, option.name);
 									}}>
 									<CloseIcon classNames={styles.selectContainer__selectIcon} />
 								</button>

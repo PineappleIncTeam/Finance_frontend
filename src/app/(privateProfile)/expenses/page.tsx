@@ -180,17 +180,17 @@ export default function Expenses() {
 
 	useEffect(() => {
 		getFiveOperations();
-		if (isDeleteOperationSuccess || isEditSuccess) {
+		if (isDeleteOperationSuccess || isEditSuccess || isAddSuccess) {
 			getFiveOperations();
 		}
-	}, [isDeleteOperationSuccess, isEditSuccess, getFiveOperations]);
+	}, [isDeleteOperationSuccess, isEditSuccess, isAddSuccess, getFiveOperations]);
 
 	useEffect(() => {
 		setFiveOperationsNames(getFiveOperationsNames);
-		if (isDeleteOperationSuccess || isEditSuccess) {
+		if (isDeleteOperationSuccess || isEditSuccess || isAddSuccess) {
 			setFiveOperationsNames(getFiveOperationsNames);
 		}
-	}, [isDeleteOperationSuccess, isEditSuccess, getFiveOperationsNames]);
+	}, [isDeleteOperationSuccess, isEditSuccess, isAddSuccess, getFiveOperationsNames]);
 
 	const interval = 2000;
 

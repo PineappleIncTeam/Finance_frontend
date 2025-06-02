@@ -53,6 +53,7 @@ import { CategoryDeleteModal } from "../../../components/userProfileLayout/categ
 import { ArchiveCategory } from "../../../services/api/userProfile/ArchiveCategory";
 import { GetOperationsAll } from "../../../services/api/userProfile/GetOperationsAll";
 import { ICategoryOption } from "../../../types/common/ComponentsProps";
+import { getCurrentDate } from "../../../utils/getCurrentDate";
 
 import styles from "./expenses.module.scss";
 
@@ -93,6 +94,7 @@ export default function Expenses() {
 	const [responseApiRequestModal, setResponseApiRequestModal] = useState(ResponseApiRequestModalInitialState);
 
 	const router = useRouter();
+	const endDate = 10;
 
 	const getFiveOperations = useCallback(async () => {
 		const data = {
@@ -131,6 +133,33 @@ export default function Expenses() {
 		return fiveOperationsNames;
 	}, [fiveOperations, options]);
 
+	const getAllCategoriesOptions = useCallback(async () => {
+		const data = {
+			// eslint-disable-next-line camelcase
+			is_income: false,
+			// eslint-disable-next-line camelcase
+			is_outcome: true,
+		};
+		try {
+			if (baseUrl) {
+				const response: AxiosResponse<ICategoryOption[]> = await GetCategoriesAll(baseUrl, data);
+				if (response !== null && response.status === axios.HttpStatusCode.Ok) {
+					setOptions(response.data);
+				}
+			}
+		} catch (error) {
+			if (
+				axios.isAxiosError(error) &&
+				error.response &&
+				error.response.status &&
+				error.response.status >= axios.HttpStatusCode.InternalServerError &&
+				error.response.status < ApiResponseCode.SERVER_ERROR_STATUS_MAX
+			) {
+				router.push(MainPath.ServerError);
+			}
+		}
+	}, [baseUrl, router]);
+
 	useEffect(() => {
 		setBaseUrl(getCorrectBaseUrl());
 	}, []);
@@ -143,38 +172,11 @@ export default function Expenses() {
 	}, [request, resetTimer]);
 
 	useEffect(() => {
-		const data = {
-			// eslint-disable-next-line camelcase
-			is_income: false,
-			// eslint-disable-next-line camelcase
-			is_outcome: true,
-		};
-
-		const getAllCategoriesOptions = async () => {
-			try {
-				if (baseUrl) {
-					const response: AxiosResponse<ICategoryOption[]> = await GetCategoriesAll(baseUrl, data);
-					if (response !== null && response.status === axios.HttpStatusCode.Ok) {
-						setOptions(response.data);
-					}
-				}
-			} catch (error) {
-				if (
-					axios.isAxiosError(error) &&
-					error.response &&
-					error.response.status &&
-					error.response.status >= axios.HttpStatusCode.InternalServerError &&
-					error.response.status < ApiResponseCode.SERVER_ERROR_STATUS_MAX
-				) {
-					router.push(MainPath.ServerError);
-				}
-			}
-		};
 		getAllCategoriesOptions();
 		if (isAddSuccess || isDeleteSuccessCategory || isCategoryArchive) {
 			getAllCategoriesOptions();
 		}
-	}, [baseUrl, isAddSuccess, isDeleteSuccessCategory, isCategoryArchive, router]);
+	}, [getAllCategoriesOptions, isAddSuccess, isDeleteSuccessCategory, isCategoryArchive]);
 
 	useEffect(() => {
 		getFiveOperations();
@@ -258,14 +260,9 @@ export default function Expenses() {
 		}
 	};
 
-	const currentDate = () => {
-		const endDate = 10;
-		return new Date().toISOString().slice(0, endDate);
-	};
-
 	const onSubmit = async (data: IExpensesAddCategoryTransactionForm & IExpensesCategoryForm) => {
 		resetTimer();
-		data.date = currentDate();
+		data.date = getCurrentDate(endDate);
 		try {
 			if (baseUrl && data !== null) {
 				await AddExpensesCategoryTransaction(baseUrl, data);
@@ -315,7 +312,7 @@ export default function Expenses() {
 	};
 
 	const editTransaction = async (id: string, data: IEditTransactionForm) => {
-		data.date = currentDate();
+		data.date = getCurrentDate(endDate);
 		try {
 			if (baseUrl && data !== null) {
 				const response = await EditExpensesCategoryTransaction(baseUrl, id, data);

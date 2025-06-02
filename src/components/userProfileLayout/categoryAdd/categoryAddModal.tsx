@@ -12,6 +12,7 @@ import { ButtonType } from "../../../helpers/buttonFieldValues";
 import Button from "../../../ui/Button/button";
 
 import { formHelpers } from "../../../utils/formHelpers";
+import { financePattern } from "../../../helpers/authConstants";
 
 import styles from "./categoryAddModal.module.scss";
 
@@ -53,7 +54,8 @@ export const CategoryAddModal = ({ open, request, onCancelClick }: IAddCategory)
 							type={InputTypeList.Text}
 							placeholder={"Название категории"}
 							subtitle="Не более 14 символов"
-							error={formHelpers.getAddCategoryError(errors, control._formValues.name)}
+							error={formHelpers.getAddCategoryError(errors)}
+							rules={{ required: true, pattern: financePattern }}
 						/>
 					</div>
 					<div className={styles.buttonsContainer}>

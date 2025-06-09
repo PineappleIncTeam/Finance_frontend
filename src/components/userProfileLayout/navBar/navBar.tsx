@@ -24,6 +24,10 @@ import { getCorrectBaseUrl } from "../../../utils/baseUrlConverter";
 
 import styles from "./navBar.module.scss";
 
+const handleLogoutClick = () => {
+  handleLogout(getCorrectBaseUrl());
+  
+};
 const NavBar = ({ onClick }: INavBar) => {
 	const pathname = usePathname();
 	const [open, setOpen] = useState<boolean>(false);
@@ -192,7 +196,9 @@ const NavBar = ({ onClick }: INavBar) => {
 					<Link href={""}>
 						<p className={styles.supportWrap__link}>Поддержка</p>
 					</Link>
-					<Image src={infoIcon} alt={"Info"} />
+					<div role="button" onClick={handleLogoutClick} className={styles.exit}>
+						<Image src={infoIcon} alt={"info"} />
+					</div>
 				</div>
 			</div>
 		</header>

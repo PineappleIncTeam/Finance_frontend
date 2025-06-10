@@ -5,5 +5,5 @@ export const vkIdConfig = VKID.Config.init({
 	redirectUrl: String(process.env.REDIRECT_URL),
 	state: process.env.STATE,
 	codeChallenge: process.env.CODE_CHALLENGE,
-	scope: "emil phone",
+	scope: "email phone",
 });

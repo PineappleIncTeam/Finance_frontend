@@ -1,18 +1,13 @@
 import * as VKID from "@vkid/sdk";
-import pkceChallenge from "pkce-challenge";
 
 import { UserProfilePath } from "../services/router/routes";
 import { getCorrectBaseUrl } from "../utils/baseUrlConverter";
-
-const generateCodeChallenge = async (): Promise<string> => {
-	const challenge = await pkceChallenge();
-	return challenge.code_challenge;
-};
+import { generateCodeChallenge, generateState } from "../utils/generateAuthTokens";
 
 export const vkIdConfig = VKID.Config.init({
 	app: Number(process.env.CLIENT_ID),
 	redirectUrl: `${getCorrectBaseUrl()}${UserProfilePath.ProfitMoney}`,
-	state: String(generateCodeChallenge()),
+	state: generateState(),
 	codeChallenge: String(generateCodeChallenge()),
 	scope: "email phone",
 });

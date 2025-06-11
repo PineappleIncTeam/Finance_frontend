@@ -14,5 +14,5 @@ export const vkIdConfig = VKID.Config.init({
 	redirectUrl: `${getCorrectBaseUrl()}${UserProfilePath.ProfitMoney}`,
 	state: String(generateCodeChallenge()),
 	codeChallenge: String(generateCodeChallenge()),
-	scope: "emil phone",
+	scope: "email phone",
 });

@@ -234,7 +234,7 @@ const handleLogoutClick = () => {
 					<Link href={""}>
 						<p className={styles.supportWrap__link}>Поддержка</p>
 					</Link>
-					<button onClick={handleLogoutClick} className={styles.exit}>
+					<button style={{ cursor: "pointer", backgroundColor: "transparent" }} onClick={handleLogoutClick} className={styles.exit}>
 					  <Image src={infoIcon} alt={"info"} />
 					</button>
 				</div>

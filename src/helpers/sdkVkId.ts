@@ -6,7 +6,7 @@ import { getCorrectBaseUrl } from "../utils/baseUrlConverter";
 
 const generateCodeChallenge = async (): Promise<string> => {
 	const challenge = await pkceChallenge();
-	return challenge.codeChallenge;
+	return challenge.code_challenge;
 };
 
 export const vkIdConfig = VKID.Config.init({

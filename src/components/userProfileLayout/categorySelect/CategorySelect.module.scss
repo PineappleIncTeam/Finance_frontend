@@ -39,8 +39,6 @@
 
 		transition: border-color 0.2s ease-in-out;
 
-		
-
 		@media (min-width: 1025px) {
 			&:hover {
 				border-color: var(--color-dark-spring-green);
@@ -63,9 +61,7 @@
 		color: var(--color-ash-grey);
 		white-space: nowrap;
 		overflow: hidden;
-		text-overflow: ellipsis; 
-		
-
+		text-overflow: ellipsis;
 
 		@media (max-width: 550px) {
 			font-size: 1.6rem;
@@ -81,8 +77,6 @@
 		align-items: center;
 		gap: 8px;
 		overflow: hidden;
-		
-		
 
 		@media (max-width: 550px) {
 			font-size: 1.6rem;
@@ -93,10 +87,10 @@
 	&__selectedText {
 		display: flex;
 		align-items: center;
-		overflow: hidden; 
+		overflow: hidden;
 		white-space: nowrap;
 		text-overflow: ellipsis;
-	  }
+	}
 	&__selectIcon {
 		width: 20px;
 		height: 20px;
@@ -148,8 +142,6 @@
 			overflow: hidden;
 			text-overflow: ellipsis;
 		}
-		
-
 	}
 
 	&__option {

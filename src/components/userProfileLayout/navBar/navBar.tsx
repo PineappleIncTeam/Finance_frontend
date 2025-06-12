@@ -68,10 +68,6 @@ const handleLogout = async () => {
 	};
 
 const { resetTimer } = useLogoutTimer(handleLogout); 	
-const handleLogoutClick = () => {
-  handleLogout();
-  
-};
 
 
 	const handleClickOutside = (
@@ -234,7 +230,7 @@ const handleLogoutClick = () => {
 					<Link href={""}>
 						<p className={styles.supportWrap__link}>Поддержка</p>
 					</Link>
-					<button style={{ cursor: "pointer", backgroundColor: "transparent" }} onClick={handleLogoutClick} className={styles.exit}>
+					<button  onClick={handleLogout} className={styles.supportWrap__logoutaction}>
 					  <Image src={infoIcon} alt={"info"} />
 					</button>
 				</div>

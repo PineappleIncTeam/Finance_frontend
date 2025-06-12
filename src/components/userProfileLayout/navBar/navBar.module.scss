@@ -191,6 +191,12 @@
 	color: var(--color-pure-light);
 }
 
+.supportWrap__logoutaction {
+	cursor: pointer;
+	background-color: transparent;
+	
+}
+
 .closeAction {
 	display: none;
 	border: none;

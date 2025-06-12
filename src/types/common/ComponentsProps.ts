@@ -168,3 +168,7 @@ export interface ICategoryDeleteModal {
 	onCancelClick: () => void;
 	operations: IOperation[];
 }
+
+export interface ICurtainVk {
+	handleError: () => void;
+}

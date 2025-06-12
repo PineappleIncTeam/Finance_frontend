@@ -42,9 +42,10 @@
 		text-align: right;
 	}
 
-	@media(max-width: 1440px) {
+	@media (max-width: 1440px) {
 		& {
-			&:nth-child(1), &:nth-child(3) {
+			&:nth-child(1),
+			&:nth-child(3) {
 				margin-left: 6px;
 			}
 		}

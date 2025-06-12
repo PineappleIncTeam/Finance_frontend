@@ -24,20 +24,16 @@ import CalculatorIcon from "../../../assets/script/privateProfileNavBar/Calculat
 import infoIcon from "../../../assets/components/navBar/infoIcon.svg";
 import crossIcon from "../../../assets/components/navBar/crossIcon.svg";
 
-
 import styles from "./navBar.module.scss";
 
-
 const NavBar = ({ onClick }: INavBar) => {
-  const pathname = usePathname();
-  const [open, setOpen] = useState<boolean>(false);
-  const [baseUrl, setBaseUrl] = useState<string>();
-  const modalRef = useRef<HTMLDivElement | null>(null);
-  const router = useRouter();
+	const pathname = usePathname();
+	const [open, setOpen] = useState<boolean>(false);
+	const [baseUrl, setBaseUrl] = useState<string>();
+	const modalRef = useRef<HTMLDivElement | null>(null);
+	const router = useRouter();
 
-
-
-const handleLogout = async () => {
+	const handleLogout = async () => {
 		try {
 			if (baseUrl) {
 				const response = await logoutUser(baseUrl);
@@ -67,8 +63,7 @@ const handleLogout = async () => {
 		}
 	};
 
-const { resetTimer } = useLogoutTimer(handleLogout); 	
-
+	const { resetTimer } = useLogoutTimer(handleLogout);
 
 	const handleClickOutside = (
 		event: MouseEvent,
@@ -230,8 +225,8 @@ const { resetTimer } = useLogoutTimer(handleLogout);
 					<Link href={""}>
 						<p className={styles.supportWrap__link}>Поддержка</p>
 					</Link>
-					<button  onClick={handleLogout} className={styles.supportWrap__logoutaction}>
-					  <Image src={infoIcon} alt={"info"} />
+					<button onClick={handleLogout} className={styles.supportWrap__logoutaction}>
+						<Image src={infoIcon} alt={"info"} />
 					</button>
 				</div>
 			</div>

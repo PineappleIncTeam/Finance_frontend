@@ -510,7 +510,7 @@
 
 .analyticsListOfOperationsContainer {
 	display: flex;
-	align-items: end;
+	align-items: flex-end;
 	gap: 20px;
 	font-size: 2rem;
 	font-weight: 400;
@@ -816,7 +816,7 @@
 		padding: 20px;
 	}
 	.analyticsDiagramExpenses {
-		align-items: start;
+		align-items: flex-start;
 	}
 	.analyticsDiagramExpensesInfo {
 		&__title {
@@ -873,7 +873,7 @@
 
 	.analyticsDiagramAnalysis {
 		flex-direction: column;
-		align-items: start;
+		align-items: flex-start;
 	}
 
 	.analyticsDiagramAnalysisWrapper {
@@ -905,7 +905,7 @@
 	.analyticsListOfOperationsContainer {
 		display: flex;
 		flex-direction: column;
-		align-items: start;
+		align-items: flex-start;
 		gap: 13px;
 	}
 	.analyticsListOfOperationsButtonContent {

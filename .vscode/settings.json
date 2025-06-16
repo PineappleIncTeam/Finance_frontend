@@ -8,11 +8,13 @@
         "formik",
         "freenance",
         "jspdf",
+        "pkce",
         "Signin",
         "Signup",
         "Stek",
         "tablexls",
-        "timepicker"
+        "timepicker",
+        "vkid"
     ],
     "cSpell.language": "en,en-GB,en-US,lorem,ru,ru-RU"
 }

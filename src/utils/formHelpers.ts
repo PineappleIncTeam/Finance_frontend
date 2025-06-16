@@ -17,6 +17,7 @@ import {
 	errorPasswordStrengthWeak,
 	errorPasswordStrengthMedium,
 	errorPasswordNumber,
+	errorFinanceNameIncorrect,
 } from "../helpers/authConstants";
 
 enum ErrorTypes {
@@ -85,6 +86,17 @@ class FormHelpers {
 				return errorRequiredField;
 			case ErrorTypes.PATTERN:
 				return errorEmailIncorrect;
+			default:
+				return errorDefault;
+		}
+	};
+
+	getAddCategoryError = (errors: FieldErrors) => {
+		switch (errors.name?.type) {
+			case ErrorTypes.REQUIRED:
+				return errorRequiredField;
+			case ErrorTypes.PATTERN:
+				return errorFinanceNameIncorrect;
 			default:
 				return errorDefault;
 		}

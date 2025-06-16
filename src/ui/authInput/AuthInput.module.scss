@@ -19,7 +19,7 @@
 	padding: 15px;
 	border-radius: 8px;
 	border: 1.5px solid var(--color-gainsboro);
-	
+
 	@media (max-width: 550px) {
 		padding: 10px 15px;
 	}
@@ -58,8 +58,8 @@
 	}
 }
 
-.inputWrap__input[type='number']::-webkit-outer-spin-button,
-.inputWrap__input[type='number']::-webkit-inner-spin-button {
+.inputWrap__input[type="number"]::-webkit-outer-spin-button,
+.inputWrap__input[type="number"]::-webkit-inner-spin-button {
 	-webkit-appearance: none;
 }
 

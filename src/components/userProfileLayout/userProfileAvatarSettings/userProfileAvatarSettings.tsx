@@ -7,7 +7,7 @@ import { avatarTemplates } from "../../../mocks/AvatarTemplates";
 
 import userAvatar from "../../../assets/components/userProfile/userPhoto.svg";
 import editProfileIcon from "../../../assets/components/userProfile/editProfile.svg";
-import Button from "../../../ui/Button/button";
+import Button from "../../../ui/Button/Button1";
 import { ButtonType } from "../../../helpers/buttonFieldValues";
 
 import styles from "./userProfileAvatarSettings.module.scss";

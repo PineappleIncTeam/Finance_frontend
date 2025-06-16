@@ -6,7 +6,7 @@ import { DeleteIcon } from "../../../assets/script/expenses/DeleteIcon";
 import { Selector } from "../../../ui/selector/Selector";
 import Switcher from "../../../ui/switcher/switcher";
 
-import Button from "../../../ui/Button/button";
+import Button from "../../../ui/Button/Button1";
 import { ButtonType } from "../../../helpers/buttonFieldValues";
 import { InputTypeList } from "../../../helpers/Input";
 

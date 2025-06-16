@@ -5,7 +5,7 @@ import AppInput from "../../../ui/appInput/AppInput";
 
 import { RadioButton } from "../../../ui/radio/radioButton";
 
-import Button from "../../../ui/Button/button";
+import Button from "../../../ui/Button/Button1";
 import { ButtonType } from "../../../helpers/buttonFieldValues";
 import { InputTypeList } from "../../../helpers/Input";
 

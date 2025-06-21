@@ -9,13 +9,14 @@ import { InputTypeList } from "../../helpers/Input";
 import { defaultOptions } from "../../helpers/passwordStrengthOption";
 import { TAuthInputForm, IAuthInput } from "../../types/common/UiKitProps";
 import showPassword from "../../assets/pages/signUp/showPassword.svg";
+import { errorPasswordStrengthMedium } from "../../helpers/authConstants";
 
 import styles from "./AuthInput.module.scss";
 
 const AuthInput = ({ label, type, placeholder, autoComplete, subtitle, error, ...props }: IAuthInput) => {
 	const { field, fieldState } = useController<TAuthInputForm>(props);
 	const [passwordType, setPasswordType] = useState<InputTypeList>(InputTypeList.Password);
-	const [customMessage, setCustomMessage] = useState<string | null>(null);
+	const [isMediumPassword, setIsMediumPassword] = useState(false);
 	const togglePasswordVisibility = () =>
 		setPasswordType(passwordType === InputTypeList.Password ? InputTypeList.Text : InputTypeList.Password);
 
@@ -23,19 +24,11 @@ const AuthInput = ({ label, type, placeholder, autoComplete, subtitle, error, ..
 		if (type === InputTypeList.Password && field.value && typeof field.value === "string") {
 			try {
 				const result = passwordStrength(field.value, defaultOptions);
-				if (result.value === "Medium") {
-					setCustomMessage(
-						"Ваш пароль соответствует требованиям безопасности. Для повышения надёжности рекомендуем использовать не менее 15 символов, заглавные буквы и специальные символы"
-					);
-				} else {
-					setCustomMessage(null);
-				}
-			} catch (e) {
-				console.error("Ошибка проверки пароля:", e);
-				setCustomMessage(null);
+				setIsMediumPassword(result.value === "Medium");
+				// eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
+			} catch (error: unknown) {
+				setIsMediumPassword(false);
 			}
-		} else {
-			setCustomMessage(null);
 		}
 	}, [field.value, type]);
 
@@ -64,12 +57,12 @@ const AuthInput = ({ label, type, placeholder, autoComplete, subtitle, error, ..
 				)}
 			</div>
 			{fieldState.error && <p className={styles.inputWrap__error}>{fieldState.error.message || (error as string)}</p>}
-			{!fieldState.error && !error && customMessage && (
+			{!fieldState.error && !error && isMediumPassword && (
 				<p className={cn(styles.inputWrap__subtitle, styles.inputWrap__subtitle_green)}>
-					{customMessage}
+					{errorPasswordStrengthMedium}
 				</p>
 			)}
-			
+
 			{subtitle && !error && <p className={styles.inputWrap__subtitle}>{subtitle}</p>}
 		</div>
 	);

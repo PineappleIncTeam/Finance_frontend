@@ -1,10 +1,11 @@
-FROM node:18-alpine
+FROM node:20-alpine
 WORKDIR /app
 RUN npm install --global pm2
 COPY package.json package-lock.json ./
 RUN npm install --legacy-peer-deps
 COPY . .
 RUN npm run build
-EXPOSE 3000
+RUN npm run build-sb
+EXPOSE 3000 8080
 USER node
-CMD [ "pm2-runtime", "npm", "--", "start" ]   
+CMD ["pm2-runtime", "ecosystem.config.js"]

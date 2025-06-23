@@ -26,6 +26,7 @@ export const UserProfilePrivateAppSettings = () => {
 					label="Валюта"
 					options={["Российский рубль", "Американский доллар"]}
 					control={control}
+					placeholder="Выбор валюты"
 				/>
 				<Switcher control={control} name={"darkTheme"} label={"Темная тема"} />
 				<Switcher control={control} name={"finAssistant"} label={"Финансовый помощник"} />

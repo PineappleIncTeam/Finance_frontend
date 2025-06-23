@@ -17,12 +17,12 @@ export const defaultOptions: Options<string> = [
 		id: 2,
 		value: "Medium",
 		minDiversity: 4,
-		minLength: 10,
+		minLength: 6,
 	},
 	{
 		id: 3,
 		value: "Strong",
 		minDiversity: 4,
-		minLength: 12,
+		minLength: 15,
 	},
 ];

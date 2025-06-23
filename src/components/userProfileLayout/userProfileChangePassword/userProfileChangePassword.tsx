@@ -48,7 +48,7 @@ export const UserProfileChangePassword = () => {
 					control={control}
 					type={InputTypeList.Password}
 					name={"oldPassword"}
-					placeholder="Текущий пароль"
+					placeholder="Пароль"
 					rules={{ required: true }}
 					error={errors.oldPassword}
 				/>
@@ -57,7 +57,7 @@ export const UserProfileChangePassword = () => {
 					control={control}
 					type={InputTypeList.Password}
 					name={"newPassword"}
-					placeholder="Новый пароль"
+					placeholder="Пароль"
 					rules={{
 						required: true,
 						validate: passwordValidate,
@@ -69,7 +69,7 @@ export const UserProfileChangePassword = () => {
 					control={control}
 					type={InputTypeList.Password}
 					name={"repeatPassword"}
-					placeholder="Подтвердить пароль"
+					placeholder="Пароль"
 					rules={{ required: true, validate: validateRepeatPassword }}
 					error={errors.repeatPassword}
 				/>

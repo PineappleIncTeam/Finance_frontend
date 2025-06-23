@@ -34,6 +34,7 @@ export const UserProfilePrivateData = () => {
 					label={"Nickname"}
 					type={"text"}
 					control={control}
+					placeholder="Имя"
 					name="nickname"
 					rules={{
 						maxLength: {
@@ -47,8 +48,14 @@ export const UserProfilePrivateData = () => {
 					<RadioButton control={control} name="gender" value="male" label="Муж." />
 					<RadioButton control={control} name="gender" value="female" label="Жен." />
 				</div>
-				<AppInput label={"Введите страну"} type={"text"} name={"country"} control={control} />
-				<AppInput label={"Email"} type={"text"} name={"email"} control={control} disabled />
+				<AppInput
+					label={"Введите страну"}
+					type={"text"}
+					name={"country"}
+					control={control}
+					placeholder="Введите страну"
+				/>
+				<AppInput label={"Email"} type={"text"} name={"email"} control={control} placeholder="myemail.ru" disabled />
 			</div>
 			<Button variant={ButtonType.Outlined} type={InputTypeList.Submit}>
 				Сохранить

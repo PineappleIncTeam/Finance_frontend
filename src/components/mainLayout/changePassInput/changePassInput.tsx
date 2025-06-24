@@ -1,23 +1,79 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useController } from "react-hook-form";
 import cn from "classnames";
 import Image from "next/image";
+
+import { passwordStrength } from "check-password-strength"; 
+
+import { defaultOptions } from "../../../helpers/passwordStrengthOption"; 
 
 import { IChangePassInput, TChangePassForm } from "../../../types/common/UiKitProps";
 import { InputTypeList } from "../../../helpers/Input";
 
 import showPassword from "../../../assets/pages/signUp/showPassword.svg";
 
+import {
+    errorPasswordStrengthTooWeak,
+    errorPasswordStrengthWeak,
+    errorPasswordStrengthMedium,
+    errorPasswordStrengthStrong,
+} from "../../../helpers/authConstants";
+
 import styles from "./changePassInput.module.scss";
 
 const ChangePassInput = ({ label, type, placeholder, autoComplete, subtitle, error, ...props }: IChangePassInput) => {
 	const { field, fieldState } = useController<TChangePassForm>(props);
 	const [passwordType, setPasswordType] = useState<InputTypeList>(InputTypeList.Password);
-
+	const [currentPasswordStrengthText, setCurrentPasswordStrengthText] = useState<string | null>(null);
 	const togglePasswordVisibility = () =>
 		setPasswordType(passwordType === InputTypeList.Password ? InputTypeList.Text : InputTypeList.Password);
 
+	useEffect(() => {
+        if (type === InputTypeList.Password && field.value && typeof field.value === "string") {
+                const result = passwordStrength(field.value, defaultOptions);
+                let strengthMessage: string | null = null;
+
+                switch (result.value) {
+                    case "Too weak":
+                        strengthMessage = errorPasswordStrengthTooWeak;
+                        break;
+                    case "Weak":
+                        strengthMessage = errorPasswordStrengthWeak;
+                        break;
+                    case "Medium":
+                        strengthMessage = errorPasswordStrengthMedium;
+                        break;
+                    case "Strong":
+                        strengthMessage = errorPasswordStrengthStrong;
+                        break;
+                    default:
+                        strengthMessage = null;
+                }
+                setCurrentPasswordStrengthText(strengthMessage);
+        } else {
+            setCurrentPasswordStrengthText(null);
+        }
+    }, [field.value, type]);
+
 	const inputValue = typeof field.value === "boolean" ? String(field.value) : field.value;
+
+	let messageToDisplay: string | null = null;
+    let messageClassName = "";
+
+    if (fieldState.error) {
+        messageToDisplay = fieldState.error.message || (error as string) || null;
+        messageClassName = styles.inputWrap__error;
+    } else if (type === InputTypeList.Password && currentPasswordStrengthText) {
+        messageToDisplay = currentPasswordStrengthText;
+		messageClassName = cn(
+            styles.inputWrap__subtitle,
+            styles.inputWrap__subtitle_green 
+        );
+    } else if (subtitle && !error) {
+        messageToDisplay = subtitle;
+        messageClassName = styles.inputWrap__subtitle;
+    }
+
 
 	return (
 		<div className={styles.inputWrap}>
@@ -40,8 +96,7 @@ const ChangePassInput = ({ label, type, placeholder, autoComplete, subtitle, err
 					</button>
 				)}
 			</div>
-			{fieldState.error && <p className={styles.inputWrap__error}>{fieldState.error.message || (error as string)}</p>}
-			{subtitle && !error && <p className={styles.inputWrap__subtitle}>{subtitle}</p>}
+			{messageToDisplay && <p className={messageClassName}>{messageToDisplay}</p>}
 		</div>
 	);
 };

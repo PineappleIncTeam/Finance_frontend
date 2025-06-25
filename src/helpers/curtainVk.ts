@@ -7,4 +7,6 @@ export const curtainVK = (handleError: ICurtainVk) => {
 	floatingOneTap
 		.render({ appName: "freenance-app", scheme: VKID.Scheme.LIGHT, lang: VKID.Languages.RUS })
 		.on(VKID.WidgetEvents.ERROR, handleError);
+
+	VKID.Auth.login();
 };

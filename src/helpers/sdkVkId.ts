@@ -11,3 +11,5 @@ export const vkIdConfig = VKID.Config.init({
 	codeChallenge: String(generateCodeChallenge()),
 	scope: "email phone",
 });
+
+export const vkAuthLogin = VKID.Auth.login({});

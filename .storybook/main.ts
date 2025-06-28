@@ -1,20 +1,24 @@
 import type { StorybookConfig } from "@storybook/nextjs";
 
 const config: StorybookConfig = {
-  "stories": [
-    // "../src/services/storybook/**/*.mdx",
+  stories: [
     "../src/ui/**/*.stories.@(js|jsx|mjs|ts|tsx)"
   ],
-  "addons": [
+  addons: [
     "@storybook/addon-onboarding"
   ],
-  "framework": {
-    "name": "@storybook/nextjs",
-    "options": {}
+  framework: {
+    name: "@storybook/nextjs",
+    options: {}
   },
-  "staticDirs": [
-    "../public"
-  ]
+  staticDirs: ["../public"],
+  // Добавляем переопределение publicPath:
+  webpackFinal: async (config, { configType }) => {
+    if (config.output) {
+      config.output.publicPath = "/sb/";
+    }
+    return config;
+  }
 };
 
 export default config;

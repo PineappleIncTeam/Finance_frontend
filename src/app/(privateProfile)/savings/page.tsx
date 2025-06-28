@@ -17,6 +17,7 @@ import {
 import { ISavingsInputForm, ISavingsSelectForm } from "../../../types/pages/Savings";
 import SavingsTransaction from "../../../components/userProfileLayout/savingsTransaction/savingsTransaction";
 import AppInput from "../../../ui/appInput/AppInput";
+import InputDate from "../../../ui/inputDate/inputDate";
 import { CategorySelect } from "../../../components/userProfileLayout/categorySelect/CategorySelect";
 import AddButton from "../../../components/userProfileLayout/addButton/addButton";
 import { savingsTransactions } from "../../../mocks/SavingsTransaction";
@@ -220,7 +221,7 @@ function Savings() {
 							</div>
 							<div className={styles.dateSelectionWrapper}>
 								<p className={styles.dateSelectionWrapper__description}>Выбор даты</p>
-								<AppInput control={control} label={"Выбор даты"} type={InputTypeList.Date} name={"date"} />
+								<InputDate control={control} name={"date"} /> {}
 							</div>
 						</div>
 						<div className={styles.savingsDetailsContainer}>

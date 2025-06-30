@@ -1,18 +1,20 @@
 import { useForm } from "react-hook-form";
 import Image from "next/image";
 
-import { IUserAvatar } from "../../../types/pages/userProfileSettings";
-import { InputTypeList } from "../../../helpers/Input";
-import { avatarTemplates } from "../../../mocks/AvatarTemplates";
+import { IUserAvatar } from "../../../../types/pages/userProfileSettings";
+import { InputTypeList } from "../../../../helpers/Input";
+import { avatarTemplates } from "../../../../mocks/AvatarTemplates";
 
-import userAvatar from "../../../assets/components/userProfile/userPhoto.svg";
-import editProfileIcon from "../../../assets/components/userProfile/editProfile.svg";
-import Button from "../../../ui/Button/Button1";
-import { ButtonType } from "../../../helpers/buttonFieldValues";
+// import userAvatar from "../../../assets/components/userProfile/userPhoto.svg";
+// import editProfileIcon from "../../../assets/components/userProfile/editProfile.svg";
+import userAvatar from "../../../../assets/components/userProfile/userPhoto.svg";
+import editProfileIcon from "../../../../assets/components/userProfile/editProfile.svg";
+import Button from "../../../../ui/Button/Button1";
+import { ButtonType } from "../../../../helpers/buttonFieldValues";
 
-import styles from "./userProfileAvatarSettings.module.scss";
+import styles from "./privateProfileAvatarSettings.module.scss";
 
-export const UserProfileAvatarSettings = () => {
+export const PrivateProfileAvatarSettings = () => {
 	const { register } = useForm<IUserAvatar>({
 		mode: "all",
 		delayError: 200,

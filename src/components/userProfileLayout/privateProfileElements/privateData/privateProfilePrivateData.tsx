@@ -1,17 +1,17 @@
 import { useForm } from "react-hook-form";
 
-import { IPrivateDataFrom } from "../../../types/pages/userProfileSettings";
-import AppInput from "../../../ui/appInput/AppInput";
+import { IPrivateDataFrom } from "../../../../types/pages/userProfileSettings";
+import AppInput from "../../../../ui/appInput/AppInput";
 
-import { RadioButton } from "../../../ui/radio/radioButton";
+import { RadioButton } from "../../../../ui/radio/radioButton";
 
-import Button from "../../../ui/Button/Button1";
-import { ButtonType } from "../../../helpers/buttonFieldValues";
-import { InputTypeList } from "../../../helpers/Input";
+import Button from "../../../../ui/Button/Button1";
+import { ButtonType } from "../../../../helpers/buttonFieldValues";
+import { InputTypeList } from "../../../../helpers/Input";
 
-import styles from "./userProfilePrivateData.module.scss";
+import styles from "./privateProfilePrivateData.module.scss";
 
-export const UserProfilePrivateData = () => {
+export const PrivateProfilePrivateData = () => {
 	const {
 		control,
 		formState: { errors },

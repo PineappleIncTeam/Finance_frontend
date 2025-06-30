@@ -1,18 +1,18 @@
 import { useForm } from "react-hook-form";
 
-import { IPrivateAppSettings } from "../../../types/pages/userProfileSettings";
+import { IPrivateAppSettings } from "../../../../types/pages/userProfileSettings";
 
-import { DeleteIcon } from "../../../assets/script/expenses/DeleteIcon";
-import { Selector } from "../../../ui/selector/Selector";
-import Switcher from "../../../ui/switcher/switcher";
+import { DeleteIcon } from "../../../../assets/script/expenses/DeleteIcon";
+import { Selector } from "../../../../ui/selector/Selector";
+import Switcher from "../../../../ui/switcher/switcher";
 
-import Button from "../../../ui/Button/Button1";
-import { ButtonType } from "../../../helpers/buttonFieldValues";
-import { InputTypeList } from "../../../helpers/Input";
+import Button from "../../../../ui/Button/Button1";
+import { ButtonType } from "../../../../helpers/buttonFieldValues";
+import { InputTypeList } from "../../../../helpers/Input";
 
-import styles from "./userProfilePrivateAppSettings.module.scss";
+import styles from "./privateProfilePrivateAppSettings.module.scss";
 
-export const UserProfilePrivateAppSettings = () => {
+export const PrivateProfilePrivateAppSettings = () => {
 	const { control } = useForm<IPrivateAppSettings>({
 		mode: "all",
 		delayError: 200,

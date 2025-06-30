@@ -1,20 +1,20 @@
 import { useForm } from "react-hook-form";
 
-import { IChangePasswordForm } from "../../../types/pages/userProfileSettings";
-import AppInput from "../../../ui/appInput/AppInput";
+import { IChangePasswordForm } from "../../../../types/pages/userProfileSettings";
+import AppInput from "../../../../ui/appInput/AppInput";
 
-import { errorPasswordRepeat } from "../../../helpers/authConstants";
+import { errorPasswordRepeat } from "../../../../helpers/authConstants";
 
-import { InputTypeList } from "../../../helpers/Input";
+import { InputTypeList } from "../../../../helpers/Input";
 
-import { passwordValidate } from "../../../utils/passwordValidate";
+import { passwordValidate } from "../../../../utils/passwordValidate";
 
-import Button from "../../../ui/Button/Button1";
-import { ButtonType } from "../../../helpers/buttonFieldValues";
+import Button from "../../../../ui/Button/Button1";
+import { ButtonType } from "../../../../helpers/buttonFieldValues";
 
-import styles from "./userProfileChangePassword.module.scss";
+import styles from "./privateProfileChangePassword.module.scss";
 
-export const UserProfileChangePassword = () => {
+export const PrivateProfileChangePassword = () => {
 	const {
 		formState: { errors },
 		control,

@@ -9,7 +9,7 @@
     "preCommitLint": "next lint --quiet",
     "prePushBuild": "next build . --no-lint",
     "sb:dev": "storybook dev -p 6006",
-    "sb:prod": "npx http-server ./storybook-static . -p 8080",
+    "sb:prod": "npx http-server ./storybook-static -p 8080",
     "build-sb": "storybook build",
     "lint": "next lint",
     "lint:fix": "npm run lint -- --fix",

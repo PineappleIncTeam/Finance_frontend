@@ -10,15 +10,8 @@ const config: StorybookConfig = {
   framework: {
     name: "@storybook/nextjs",
     options: {}
-  },
-  staticDirs: ["../public"],
-  // Добавляем переопределение publicPath:
-  webpackFinal: async (config, { configType }) => {
-    if (config.output) {
-      config.output.publicPath = "/sb/";
-    }
-    return config;
-  }
+  ],
+  staticDirs: ["../public"]
 };
 
 export default config;

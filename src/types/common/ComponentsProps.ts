@@ -34,12 +34,6 @@ export interface IPrivateProfileSidebar {
 	name?: string;
 }
 
-export interface ICurrentRate {
-	dollar?: string;
-	euro?: string;
-	crypto?: string;
-}
-
 export interface INavBar {
 	onClick?: () => void;
 }

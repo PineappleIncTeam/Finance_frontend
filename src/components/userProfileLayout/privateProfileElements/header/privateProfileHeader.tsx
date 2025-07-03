@@ -1,15 +1,14 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import cn from "classnames";
 
 import { format } from "date-fns";
 
-import { ICurrentRate } from "../../../../types/common/ComponentsProps";
+import CurrencyHeader from "../../../currencyHeader/currencyHeader";
 
 import styles from "./privateProfileHeader.module.scss";
 
-const PrivateProfileHeader = ({ dollar, euro, crypto }: ICurrentRate) => {
+const PrivateProfileHeader = () => {
 	const [currentDate, setCurrentDate] = useState<string>("");
 
 	useEffect(() => {
@@ -20,9 +19,7 @@ const PrivateProfileHeader = ({ dollar, euro, crypto }: ICurrentRate) => {
 		<div className={styles.userProfileHeaderWrap}>
 			<div className={styles.userProfileHeaderContainer}>
 				<p className={styles.userProfileHeaderContainer__titles}>Курсы валют ЦБ РФ на {currentDate} </p>
-				<p className={cn(styles.userProfileHeaderContainer__titles, styles.userProfileHeaderContainer__exchange)}>
-					$ {dollar || 0} € {euro || 0} ₿ {crypto || 0}
-				</p>
+				<CurrencyHeader />
 			</div>
 		</div>
 	);

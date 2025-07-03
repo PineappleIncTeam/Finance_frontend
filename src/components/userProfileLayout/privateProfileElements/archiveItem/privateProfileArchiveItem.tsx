@@ -2,7 +2,7 @@ import { DeleteIcon } from "../../../../assets/script/expenses/DeleteIcon";
 import ResetIcon from "../../../../assets/script/privateProfileNavBar/ResetIcon";
 import { IArchiveItem } from "../../../../types/common/ComponentsProps";
 
-import styles from "./PrivateProfileArchiveItem.module.scss";
+import styles from "./privateProfileArchiveItem1.module.scss";
 
 export const PrivateProfileArchiveItem = ({ archiveItemValue, onMouseEnter, onMouseLeave }: IArchiveItem) => {
 	return (

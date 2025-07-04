@@ -5,11 +5,11 @@ import cn from "classnames";
 
 import { format } from "date-fns";
 
-import { ICurrentRate } from "../../../types/common/ComponentsProps";
+import { ICurrentRate } from "../../../../types/common/ComponentsProps";
 
-import styles from "./userProfileHeader.module.scss";
+import styles from "./privateProfileHeader.module.scss";
 
-const UserProfileHeader = ({ dollar, euro, crypto }: ICurrentRate) => {
+const PrivateProfileHeader = ({ dollar, euro, crypto }: ICurrentRate) => {
 	const [currentDate, setCurrentDate] = useState<string>("");
 
 	useEffect(() => {
@@ -28,4 +28,4 @@ const UserProfileHeader = ({ dollar, euro, crypto }: ICurrentRate) => {
 	);
 };
 
-export default UserProfileHeader;
+export default PrivateProfileHeader;

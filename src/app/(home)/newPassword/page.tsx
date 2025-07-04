@@ -17,7 +17,7 @@ import { getCorrectBaseUrl } from "../../../utils/baseUrlConverter";
 import { ResetPasswordWithEmail } from "../../../services/api/auth/ResetPasswordWithEmail";
 import { MainPath } from "../../../services/router/routes";
 import { ApiResponseCode } from "../../../helpers/apiResponseCode";
-import Button from "../../../ui/Button/button";
+import Button from "../../../ui/Button/Button1";
 import { ButtonType } from "../../../helpers/buttonFieldValues";
 
 import styles from "./newPassword.module.scss";

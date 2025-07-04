@@ -1,6 +1,7 @@
 import { dirname } from "path";
 import { fileURLToPath } from "url";
 
+import storybook from "eslint-plugin-storybook";
 import { FlatCompat } from "@eslint/eslintrc";
 import eslintJs from "@eslint/js";
 import eslintTs from "typescript-eslint";
@@ -37,6 +38,7 @@ export default eslintTs.config(
             "browser": true, 
         },
     }),
+    storybook.configs["flat/recommended"],
     {
         languageOptions: {
             parser: parserTs,
@@ -170,5 +172,6 @@ export default eslintTs.config(
             ]
         }
 
-    }
+    },
+
 );

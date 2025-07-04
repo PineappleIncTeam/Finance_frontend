@@ -1,17 +1,17 @@
 import { useForm } from "react-hook-form";
 
-import { IPrivateDataFrom } from "../../../types/pages/userProfileSettings";
-import AppInput from "../../../ui/appInput/AppInput";
+import { IPrivateDataFrom } from "../../../../types/pages/userProfileSettings";
+import AppInput from "../../../../ui/appInput/AppInput";
 
-import { RadioButton } from "../../../ui/radio/radioButton";
+import { RadioButton } from "../../../../ui/radio/radioButton";
 
-import Button from "../../../ui/Button/button";
-import { ButtonType } from "../../../helpers/buttonFieldValues";
-import { InputTypeList } from "../../../helpers/Input";
+import Button from "../../../../ui/Button/Button1";
+import { ButtonType } from "../../../../helpers/buttonFieldValues";
+import { InputTypeList } from "../../../../helpers/Input";
 
-import styles from "./userProfilePrivateData.module.scss";
+import styles from "./privateProfilePrivateData.module.scss";
 
-export const UserProfilePrivateData = () => {
+export const PrivateProfilePrivateData = () => {
 	const {
 		control,
 		formState: { errors },
@@ -34,6 +34,7 @@ export const UserProfilePrivateData = () => {
 					label={"Nickname"}
 					type={"text"}
 					control={control}
+					placeholder="Имя"
 					name="nickname"
 					rules={{
 						maxLength: {
@@ -47,8 +48,14 @@ export const UserProfilePrivateData = () => {
 					<RadioButton control={control} name="gender" value="male" label="Муж." />
 					<RadioButton control={control} name="gender" value="female" label="Жен." />
 				</div>
-				<AppInput label={"Введите страну"} type={"text"} name={"country"} control={control} />
-				<AppInput label={"Email"} type={"text"} name={"email"} control={control} disabled />
+				<AppInput
+					label={"Введите страну"}
+					type={"text"}
+					name={"country"}
+					control={control}
+					placeholder="Введите страну"
+				/>
+				<AppInput label={"Email"} type={"text"} name={"email"} control={control} placeholder="myemail.ru" disabled />
 			</div>
 			<Button variant={ButtonType.Outlined} type={InputTypeList.Submit}>
 				Сохранить

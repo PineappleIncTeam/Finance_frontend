@@ -1,13 +1,13 @@
-import { UserProfileArchive } from "../components/userProfileLayout/userProfileArchive/userProfileArchive";
-import { UserProfileAvatarSettings } from "../components/userProfileLayout/userProfileAvatarSettings/userProfileAvatarSettings";
-import { UserProfileChangePassword } from "../components/userProfileLayout/userProfileChangePassword/userProfileChangePassword";
-import { UserProfilePrivateAppSettings } from "../components/userProfileLayout/userProfilePrivateAppSettings/userProfilePrivateAppSettings";
-import { UserProfilePrivateData } from "../components/userProfileLayout/userProfilePrivateData/userProfilePrivateData";
+import { PrivateProfileArchive } from "../components/userProfileLayout/privateProfileElements/archive/privateProfileArchive";
+import { PrivateProfileAvatarSettings } from "../components/userProfileLayout/privateProfileElements/avatarSettings/privateProfileAvatarSettings";
+import { PrivateProfileChangePassword } from "../components/userProfileLayout/privateProfileElements/changePassword/privateProfileChangePassword";
+import { PrivateProfilePrivateAppSettings } from "../components/userProfileLayout/privateProfileElements/privateAppSettings/privateProfilePrivateAppSettings";
+import { PrivateProfilePrivateData } from "../components/userProfileLayout/privateProfileElements/privateData/privateProfilePrivateData";
 
 export const sidebarNavMenu = [
-	{ title: "Личные данные", content: UserProfilePrivateData },
-	{ title: "Аватар", content: UserProfileAvatarSettings },
-	{ title: "Сменить пароль", content: UserProfileChangePassword },
-	{ title: "Настройки", content: UserProfilePrivateAppSettings },
-	{ title: "Архив", content: UserProfileArchive },
+	{ title: "Личные данные", content: PrivateProfilePrivateData },
+	{ title: "Аватар", content: PrivateProfileAvatarSettings },
+	{ title: "Сменить пароль", content: PrivateProfileChangePassword },
+	{ title: "Настройки", content: PrivateProfilePrivateAppSettings },
+	{ title: "Архив", content: PrivateProfileArchive },
 ];

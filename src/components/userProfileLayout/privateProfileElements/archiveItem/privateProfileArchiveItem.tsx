@@ -1,10 +1,10 @@
-import { DeleteIcon } from "../../../assets/script/expenses/DeleteIcon";
-import ResetIcon from "../../../assets/script/privateProfileNavBar/ResetIcon";
-import { IArchiveItem } from "../../../types/common/ComponentsProps";
+import { DeleteIcon } from "../../../../assets/script/expenses/DeleteIcon";
+import ResetIcon from "../../../../assets/script/privateProfileNavBar/ResetIcon";
+import { IArchiveItem } from "../../../../types/common/ComponentsProps";
 
-import styles from "./userProfileArchiveItem.module.scss";
+import styles from "./privateProfileArchiveItem1.module.scss";
 
-export const UserProfileArchiveItem = ({ archiveItemValue, onMouseEnter, onMouseLeave }: IArchiveItem) => {
+export const PrivateProfileArchiveItem = ({ archiveItemValue, onMouseEnter, onMouseLeave }: IArchiveItem) => {
 	return (
 		<div className={styles.archiveItemWrapper}>
 			<p className={styles.archiveItemWrapper__title}>{archiveItemValue}</p>

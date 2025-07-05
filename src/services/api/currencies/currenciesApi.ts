@@ -7,17 +7,40 @@ interface ICurrencyItem {
 	value: number;
 }
 
-export const fetchCurrencyRates = async () => {
-	const response = await axios.get<ICurrencyItem[]>(`${getCorrectBaseUrl}/currency`);
+export interface ICurrencyRates {
+	dollar: number;
+	euro: number;
+	crypto: number;
+}
 
-	const rates: Record<string, number> = {};
-	response.data.forEach((item) => {
-		rates[item.title.toLowerCase()] = item.value;
-	});
+export const fetchCurrencyRates = async (): Promise<ICurrencyRates> => {
+	const baseUrl = getCorrectBaseUrl();
 
-	return {
-		dollar: rates.usd || 0,
-		euro: rates.eur || 0,
-		crypto: rates.btc || 0,
-	};
+	try {
+		const response = await axios.get<ICurrencyItem[]>(`${baseUrl}/currency`, {
+			method: "GET",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			withCredentials: true,
+		});
+
+		const rates: Record<string, number> = {};
+		response.data.forEach((item) => {
+			rates[item.title.toLowerCase()] = item.value;
+		});
+
+		return {
+			dollar: rates.usd || 0,
+			euro: rates.eur || 0,
+			crypto: rates.btc || 0,
+		};
+	} catch (error) {
+		console.error("Currency fetch error:", error);
+		return {
+			dollar: 0,
+			euro: 0,
+			crypto: 0,
+		};
+	}
 };

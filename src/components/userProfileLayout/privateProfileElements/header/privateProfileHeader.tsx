@@ -55,7 +55,7 @@ const PrivateProfileHeader = () => {
 				) {
 					router.push(MainPath.ServerError);
 				}
-				throw new Error("Currency fetch error:", error);
+				throw new Error("Currency fetch error:", { cause: error });
 			}
 		};
 

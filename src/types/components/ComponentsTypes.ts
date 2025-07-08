@@ -123,3 +123,14 @@ export interface IEditTransactionForm {
 	date: string;
 	amount: number;
 }
+
+export interface ICurrencyItem {
+	title: string;
+	value: number;
+}
+
+export interface ICurrencyRates {
+	dollar: number;
+	euro: number;
+	crypto: number;
+}

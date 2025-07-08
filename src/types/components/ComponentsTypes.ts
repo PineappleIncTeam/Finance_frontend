@@ -125,8 +125,8 @@ export interface IEditTransactionForm {
 }
 
 export interface ICurrencyItem {
-	title: string;
-	value: number;
+	currency: string;
+	rate: number;
 }
 
 export interface ICurrencyRates {

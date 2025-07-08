@@ -15,4 +15,4 @@ export const expensesCategoriesAllEndPoint = "api/v1/categories/all/";
 export const expensesCategoryTransactionEndPoint = "api/v1/operations";
 export const expensesCategoryTransactionsAllEndPoint = "api/v1/operations/all/";
 
-export const currencyEndpoint = "api/v1/currencies/";
+export const currencyEndpoint = "api/v1/currency/";

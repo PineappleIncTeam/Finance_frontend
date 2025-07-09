@@ -1,16 +1,5 @@
 /* eslint-disable camelcase */
-import { Proc } from "pm2";
-
-interface INextProc extends Proc {
-  script: string;
-  args: string[];
-  watch: boolean;
-  env: object
-}
-
-type EcosystemConfig = {
-  apps: INextProc[]
-}
+import { EcosystemConfig } from "./src/types/common/CiCdTypes";
 
 const config: EcosystemConfig = {
   apps: [

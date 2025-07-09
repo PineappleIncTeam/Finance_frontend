@@ -8,7 +8,7 @@ COPY . .
 RUN mkdir -p .storybook/public
 RUN npm run build
 RUN npm run build-sb
-RUN tsc ecosystem.config.ts
+RUN tsc ecosystem.config.ts --skipLibCheck
 EXPOSE 3000 8080
 USER node
 CMD ["pm2-runtime", "ecosystem.config.js"]

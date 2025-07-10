@@ -17,7 +17,7 @@ import { InputTypeList } from "../../../helpers/Input";
 import { errorPasswordRepeat, passwordPattern } from "../../../helpers/authConstants";
 import { getCorrectBaseUrl } from "../../../utils/baseUrlConverter";
 import { formHelpers } from "../../../utils/formHelpers";
-import Button from "../../../ui/Button/button";
+import Button from "../../../ui/Button/Button1";
 import { ButtonType } from "../../../helpers/buttonFieldValues";
 
 import styles from "./changePassword.module.scss";

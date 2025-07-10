@@ -1,9 +1,10 @@
 import { dirname } from "path";
 import { fileURLToPath } from "url";
+
+import storybook from "eslint-plugin-storybook";
 import { FlatCompat } from "@eslint/eslintrc";
-import { fixupPluginRules } from "@eslint/compat";
-import eslintJs from '@eslint/js';
-import eslintTs from 'typescript-eslint';
+import eslintJs from "@eslint/js";
+import eslintTs from "typescript-eslint";
 import parserTs from "@typescript-eslint/parser";
 
 import eslintReact from "eslint-plugin-react";
@@ -15,7 +16,6 @@ import eslintRedux from "eslint-plugin-react-redux";
 import eslintHooks from "eslint-plugin-hooks";
 import eslintTypescript from "@typescript-eslint/eslint-plugin";
 import eslintImport from "eslint-plugin-import";
-
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -38,6 +38,7 @@ export default eslintTs.config(
             "browser": true, 
         },
     }),
+    storybook.configs["flat/recommended"],
     {
         languageOptions: {
             parser: parserTs,
@@ -171,5 +172,6 @@ export default eslintTs.config(
             ]
         }
 
-    }
+    },
+
 );

@@ -15,13 +15,13 @@
 			background-image: url("../../../assets/pages/signUp/backgroundForTablet.webp");
 		}
 	}
-	
+
 	@media screen and (max-width: 1240px) {
 		& {
 			background-size: 1100px 800px;
 		}
 	}
-	
+
 	@media screen and (max-width: 1120px) {
 		& {
 			background-image: url("../../../assets/pages/signUp/backgroundForTabletMini.webp");
@@ -32,7 +32,7 @@
 			padding-left: 80px;
 		}
 	}
-	
+
 	@media screen and (max-width: 910px) {
 		& {
 			background-image: url("../../../assets/pages/signUp/backgroundForPhone.webp");
@@ -40,12 +40,10 @@
 			align-items: center;
 		}
 	}
-	
+
 	@media screen and (max-width: 550px) {
 		& {
 			background-image: none;
 		}
 	}
-	
 }
-

@@ -3,7 +3,7 @@ import Link from "next/link";
 
 import { MainPath } from "../../../services/router/routes";
 import meditatingMan from "../../../assets/pages/notFound/meditatingMan.webp";
-import Button from "../../../ui/Button/button";
+import Button from "../../../ui/Button/Button1";
 import { ButtonType } from "../../../helpers/buttonFieldValues";
 import { InputTypeList } from "../../../helpers/Input";
 

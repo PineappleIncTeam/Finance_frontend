@@ -11,7 +11,7 @@ import { formatCalculateNumber } from "../../../utils/formatCalculateNumber";
 import { getCorrectBaseUrl } from "../../../utils/baseUrlConverter";
 import { InputTypeList } from "../../../helpers/Input";
 import handleLogout from "../../../helpers/logout";
-import Button from "../../../ui/Button/button";
+import Button from "../../../ui/Button/Button1";
 import { ButtonType } from "../../../helpers/buttonFieldValues";
 
 import styles from "./calculator.module.scss";

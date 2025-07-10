@@ -1,16 +1,16 @@
 import Image from "next/image";
 import Link from "next/link";
 
-import { IRenderNavItem, IRenderProfileItem, ISidebarMenu } from "../../../types/common/ComponentsProps";
-import { MainPath } from "../../../services/router/routes";
-import { sidebarNavMenu } from "../../../helpers/sidebarNavMenu";
+import { ISidebarMenu, IRenderProfileItem, IRenderNavItem } from "../../../../types/common/ComponentsProps";
+import { sidebarNavMenu } from "../../../../helpers/sidebarNavMenu";
+import { MainPath } from "../../../../services/router/routes";
 
-import arrowRightIcon from "../../../assets/components/userProfile/arrowRight.svg";
-import navigationArrowIcon from "../../../assets/components/userProfile/navigationArrow.svg";
+import arrowRightIcon from "../../../../assets/components/userProfile/arrowRight.svg";
+import navigationArrowIcon from "../../../../assets/components/userProfile/navigationArrow.svg";
 
-import styles from "./userProfileSidebarMenu.module.scss";
+import styles from "./privateProfileSidebarMenu.module.scss";
 
-export const UserProfileSidebarMenu = ({ handleClick }: ISidebarMenu) => {
+export const PrivateProfileSidebarMenu = ({ handleClick }: ISidebarMenu) => {
 	const renderProfileItem = ({ title, handleClick }: IRenderProfileItem) => {
 		return (
 			<button className={styles.profileItemActionWrap} onClick={() => handleClick(title)} key={title}>

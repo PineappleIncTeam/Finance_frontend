@@ -1,3 +1,5 @@
+"use client";
+
 import * as VKID from "@vkid/sdk";
 
 import { ICurtainVk } from "../../../types/common/ComponentsProps";

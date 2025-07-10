@@ -6,6 +6,8 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import axios, { AxiosError } from "axios";
 
+import * as VKID from "@vkid/sdk";
+
 import { ISignUpForm } from "../../../types/components/ComponentsTypes";
 import AuthInput from "../../../ui/authInput/AuthInput";
 import Title from "../../../ui/title/Title";
@@ -16,7 +18,6 @@ import { registration } from "../../../services/api/auth/Registration";
 import { MainPath } from "../../../services/router/routes";
 import { getCorrectBaseUrl } from "../../../utils/baseUrlConverter";
 import { ApiResponseCode } from "../../../helpers/apiResponseCode";
-import { vkLink } from "../../../mocks/linkSetup";
 import CustomCheckbox from "../../../ui/checkBox/checkBox";
 import Button from "../../../ui/Button/button";
 import { ButtonType } from "../../../helpers/buttonFieldValues";
@@ -79,6 +80,16 @@ const SignUpForm = () => {
 			return router.push(MainPath.NotFound);
 		}
 	};
+
+	const floatingOneTap = new VKID.FloatingOneTap();
+
+	const authCurtainRenderObj = () => {
+		return { appName: "freenance-app", scheme: VKID.Scheme.LIGHT, lang: VKID.Languages.RUS };
+	};
+
+	function handleOpenAuthCurtain() {
+		floatingOneTap.render(authCurtainRenderObj());
+	}
 
 	return (
 		<form className={styles.signUpFormWrap} onSubmit={handleSubmit(onSubmit)}>
@@ -144,9 +155,12 @@ const SignUpForm = () => {
 				</div>
 				<p className={styles.signUpFormContainer__auth}>
 					Войти через{" "}
-					<a href={vkLink} rel="nofollow noreferrer" target="_blank" className={styles.signUpFormContainer__auth_link}>
+					<button
+						className={styles.signUpFormContainer__auth_link}
+						type={InputTypeList.Button}
+						onClick={() => handleOpenAuthCurtain()}>
 						Вконтакте
-					</a>
+					</button>
 				</p>
 			</div>
 		</form>

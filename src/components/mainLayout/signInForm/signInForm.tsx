@@ -6,6 +6,8 @@ import { useRouter } from "next/navigation";
 import axios from "axios";
 import Link from "next/link";
 
+import * as VKID from "@vkid/sdk";
+
 import useAppDispatch from "../../../hooks/useAppDispatch";
 
 import { ICorrectSignInForm, ISignInForm } from "../../../types/components/ComponentsTypes";
@@ -84,6 +86,16 @@ const SignInForm = () => {
 		router.push(UserProfilePath.ProfitMoney);
 	};
 
+	const floatingOneTap = new VKID.FloatingOneTap();
+
+	const authCurtainRenderObj = () => {
+		return { appName: "freenance-app", scheme: VKID.Scheme.LIGHT, lang: VKID.Languages.RUS };
+	};
+
+	function handleOpenAuthCurtain() {
+		floatingOneTap.render(authCurtainRenderObj());
+	}
+
 	return (
 		<form className={styles.signInFormWrap} onSubmit={handleSubmit(onSubmit)}>
 			<div className={styles.signInFormContainer}>
@@ -126,13 +138,12 @@ const SignInForm = () => {
 				</div>
 				<p className={styles.signInFormContainer__auth}>
 					Войти через{" "}
-					<a
-						href="https://vk.com/"
-						rel="nofollow noreferrer"
-						target="_blank"
-						className={styles.signInFormContainer__auth_link}>
+					<button
+						className={styles.signInFormContainer__auth_link}
+						type={InputTypeList.Button}
+						onClick={() => handleOpenAuthCurtain()}>
 						Вконтакте
-					</a>
+					</button>
 				</p>
 			</div>
 			{isOpen && <InviteModal isOpen={isOpen} onClose={handleModalClose} />}

@@ -1,5 +1,3 @@
-"use client";
-
 import SignInForm from "../../../components/mainLayout/signInForm/signInForm";
 
 import styles from "./signIn.module.scss";

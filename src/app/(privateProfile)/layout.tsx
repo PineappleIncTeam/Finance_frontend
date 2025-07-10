@@ -2,8 +2,8 @@ import "../reset.css";
 import "../globals.css";
 
 import NavBar from "../../components/userProfileLayout/navBar/navBar";
-import UserProfileHeader from "../../components/userProfileLayout/userProfileHeader/userProfileHeader";
-import UserProfileSidebar from "../../components/userProfileLayout/userProfileSidebar/userProfileSidebar";
+import UserProfileHeader from "../../components/userProfileLayout/privateProfileElements/header/privateProfileHeader";
+import UserProfileSidebar from "../../components/userProfileLayout/privateProfileElements/sidebarBlock/privateProfileSidebar";
 
 import styles from "./privateProfile.module.scss";
 

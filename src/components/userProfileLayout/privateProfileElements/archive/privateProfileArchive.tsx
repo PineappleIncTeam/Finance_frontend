@@ -1,14 +1,14 @@
 import { useEffect, useRef, useState } from "react";
 
-import { IHandleMouseEnterArchiveItem } from "../../../types/common/ComponentsProps";
-import { SimpleTooltip } from "../simpleTooltip/simpleTooltip";
-import { UserProfileArchiveItem } from "../userProfileArchiveItem/userProfileArchiveItem";
+import { PrivateProfileArchiveItem } from "../archiveItem/privateProfileArchiveItem";
+import { IHandleMouseEnterArchiveItem } from "../../../../types/common/ComponentsProps";
+import { SimpleTooltip } from "../../simpleTooltip/simpleTooltip";
 
-import { archiveList } from "../../../mocks/PrivateProfileArchive";
+import { archiveList } from "../../../../mocks/PrivateProfileArchive";
 
-import styles from "./userProfileArchive.module.scss";
+import styles from "./privateProfileArchive.module.scss";
 
-export const UserProfileArchive = () => {
+export const PrivateProfileArchive = () => {
 	const tooltipInitialState = {
 		show: false,
 		content: "",
@@ -72,7 +72,7 @@ export const UserProfileArchive = () => {
 				<div className={styles.archiveItemsContainer} ref={scrollableBlockRef}>
 					{archiveList.map((archiveItemValue, index) => {
 						return (
-							<UserProfileArchiveItem
+							<PrivateProfileArchiveItem
 								archiveItemValue={archiveItemValue}
 								key={index}
 								onMouseEnter={isSmallScreen ? undefined : (e) => handleMouseEnter(e, "Восстановить")}

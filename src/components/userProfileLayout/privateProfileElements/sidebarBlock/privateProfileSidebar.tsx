@@ -7,23 +7,23 @@ import { useRouter } from "next/navigation";
 import axios from "axios";
 import { format } from "date-fns";
 
-import { IUserProfileSidebar } from "../../../types/common/ComponentsProps";
-import NavBar from "../navBar/navBar";
-import { BurgerMenu } from "../burgerMenu/burgerMenu";
-import { UserProfileSidebarMenu } from "../userProfileSidebarMenu/userProfileSidebarMenu";
-import { MainPath } from "../../../services/router/routes";
-import { logoutUser } from "../../../services/api/auth/Logout";
-import { getCorrectBaseUrl } from "../../../utils/baseUrlConverter";
-import { ApiResponseCode } from "../../../helpers/apiResponseCode";
-import { sidebarNavMenu } from "../../../helpers/sidebarNavMenu";
+import { IPrivateProfileSidebar } from "../../../../types/common/ComponentsProps";
+import NavBar from "../../navBar/navBar";
+import { BurgerMenu } from "../../burgerMenu/burgerMenu";
+import { PrivateProfileSidebarMenu } from "../sidebarMenu/privateProfileSidebarMenu";
+import { MainPath } from "../../../../services/router/routes";
+import { logoutUser } from "../../../../services/api/auth/Logout";
+import { getCorrectBaseUrl } from "../../../../utils/baseUrlConverter";
+import { ApiResponseCode } from "../../../../helpers/apiResponseCode";
+import { sidebarNavMenu } from "../../../../helpers/sidebarNavMenu";
 
-import userAvatar from "../../../assets/components/userProfile/userPhoto.svg";
-import burgerIcon from "../../../assets/components/userProfile/burger.svg";
-import infoIcon from "../../../assets/components/userProfile/infoIcon.svg";
+import userAvatar from "../../../../assets/components/userProfile/userPhoto.svg";
+import burgerIcon from "../../../../assets/components/userProfile/burger.svg";
+import infoIcon from "../../../../assets/components/userProfile/infoIcon.svg";
 
-import styles from "./userProfileSidebar.module.scss";
+import styles from "./privateProfileSidebar.module.scss";
 
-const UserProfileSidebar = ({ avatar, name, balance }: IUserProfileSidebar) => {
+const PrivateProfileSidebarBlock = ({ avatar, name, balance }: IPrivateProfileSidebar) => {
 	const [currentDate, setCurrentDate] = useState<string>("");
 	const [isOpen, setIsOpen] = useState<boolean>(false);
 	const [baseUrl, setBaseUrl] = useState<string>();
@@ -126,7 +126,7 @@ const UserProfileSidebar = ({ avatar, name, balance }: IUserProfileSidebar) => {
 							</div>
 						</div>
 						<div className={styles.sidebarMenuWrapper}>
-							<UserProfileSidebarMenu handleClick={handleOpenItemClick} />
+							<PrivateProfileSidebarMenu handleClick={handleOpenItemClick} />
 						</div>
 
 						<button onClick={() => setIsOpen(!isOpen)} className={styles.burgerActionWrap}>
@@ -139,11 +139,11 @@ const UserProfileSidebar = ({ avatar, name, balance }: IUserProfileSidebar) => {
 			<BurgerMenu showMenu={showMenu} setShowMenu={setShowMenu}>
 				<div className={styles.burgerMenu__wrapper}>
 					{renderSelectedMenuItem()}
-					<UserProfileSidebarMenu handleClick={handleItemClick} />
+					<PrivateProfileSidebarMenu handleClick={handleItemClick} />
 				</div>
 			</BurgerMenu>
 		</>
 	);
 };
 
-export default UserProfileSidebar;
+export default PrivateProfileSidebarBlock;

@@ -9,7 +9,7 @@ import Title from "../../../ui/title/Title";
 
 import { ButtonType } from "../../../helpers/buttonFieldValues";
 
-import Button from "../../../ui/Button/button";
+import Button from "../../../ui/Button/Button1";
 
 import { formHelpers } from "../../../utils/formHelpers";
 import { financePattern } from "../../../helpers/authConstants";

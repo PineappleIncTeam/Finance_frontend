@@ -1,7 +1,7 @@
 import { StaticImageData } from "next/image";
 import { Control, FieldValues, Path } from "react-hook-form";
 
-import { MouseEvent } from "react";
+import { MouseEvent, ReactNode } from "react";
 
 import { IAddCategoryExpensesForm, IEditTransactionForm } from "../components/ComponentsTypes";
 import { IArchiveCategory } from "../pages/Expenses";
@@ -28,16 +28,10 @@ export interface IBlogCard {
 	id?: string;
 }
 
-export interface IUserProfileSidebar {
+export interface IPrivateProfileSidebar {
 	avatar?: string;
 	balance?: string;
 	name?: string;
-}
-
-export interface ICurrentRate {
-	dollar?: string;
-	euro?: string;
-	crypto?: string;
 }
 
 export interface INavBar {
@@ -167,6 +161,12 @@ export interface ICategoryDeleteModal {
 	requestDeleteApi: (id: string, name: string) => Promise<void>;
 	onCancelClick: () => void;
 	operations: IOperation[];
+}
+
+export interface IHighlightWrapper {
+	children: ReactNode;
+	padding?: string;
+	shadowColor?: string;
 }
 
 export interface ICurtainVk {

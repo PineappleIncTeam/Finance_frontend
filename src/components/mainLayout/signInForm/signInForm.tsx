@@ -23,7 +23,7 @@ import { MainPath, UserProfilePath } from "../../../services/router/routes";
 import { ApiResponseCode } from "../../../helpers/apiResponseCode";
 import { loginUser } from "../../../services/api/auth/Login";
 import { setAutoLoginStatus } from "../../../services/redux/features/autoLogin/autoLoginSlice";
-import Button from "../../../ui/Button/button";
+import Button from "../../../ui/Button/Button1";
 import { ButtonType } from "../../../helpers/buttonFieldValues";
 
 import styles from "./signInForm.module.scss";

@@ -10,7 +10,7 @@ import useAppDispatch from "../../../hooks/useAppDispatch";
 import { MainPath } from "../../../services/router/routes";
 import { setCookieStatus } from "../../../services/redux/features/cookieStatus/cookieStatusSlice";
 import cookieStatusSelector from "../../../services/redux/features/cookieStatus/cookieStatusSelector";
-import Button from "../../../ui/Button/button";
+import Button from "../../../ui/Button/Button1";
 import { ButtonType } from "../../../helpers/buttonFieldValues";
 import { InputTypeList } from "../../../helpers/Input";
 

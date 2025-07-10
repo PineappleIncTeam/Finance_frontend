@@ -1,20 +1,20 @@
 import { useForm } from "react-hook-form";
 
-import { IChangePasswordForm } from "../../../types/pages/userProfileSettings";
-import AppInput from "../../../ui/appInput/AppInput";
+import { IChangePasswordForm } from "../../../../types/pages/userProfileSettings";
+import AppInput from "../../../../ui/appInput/AppInput";
 
-import { errorPasswordRepeat } from "../../../helpers/authConstants";
+import { errorPasswordRepeat } from "../../../../helpers/authConstants";
 
-import { InputTypeList } from "../../../helpers/Input";
+import { InputTypeList } from "../../../../helpers/Input";
 
-import { passwordValidate } from "../../../utils/passwordValidate";
+import { passwordValidate } from "../../../../utils/passwordValidate";
 
-import Button from "../../../ui/Button/button";
-import { ButtonType } from "../../../helpers/buttonFieldValues";
+import Button from "../../../../ui/Button/Button1";
+import { ButtonType } from "../../../../helpers/buttonFieldValues";
 
-import styles from "./userProfileChangePassword.module.scss";
+import styles from "./privateProfileChangePassword.module.scss";
 
-export const UserProfileChangePassword = () => {
+export const PrivateProfileChangePassword = () => {
 	const {
 		formState: { errors },
 		control,
@@ -48,6 +48,7 @@ export const UserProfileChangePassword = () => {
 					control={control}
 					type={InputTypeList.Password}
 					name={"oldPassword"}
+					placeholder="Текущий пароль"
 					rules={{ required: true }}
 					error={errors.oldPassword}
 				/>
@@ -56,6 +57,7 @@ export const UserProfileChangePassword = () => {
 					control={control}
 					type={InputTypeList.Password}
 					name={"newPassword"}
+					placeholder="Новый пароль"
 					rules={{
 						required: true,
 						validate: passwordValidate,
@@ -67,6 +69,7 @@ export const UserProfileChangePassword = () => {
 					control={control}
 					type={InputTypeList.Password}
 					name={"repeatPassword"}
+					placeholder="Подтвердите пароль"
 					rules={{ required: true, validate: validateRepeatPassword }}
 					error={errors.repeatPassword}
 				/>

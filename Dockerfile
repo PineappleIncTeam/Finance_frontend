@@ -9,4 +9,4 @@ RUN mkdir -p .storybook/public
 RUN npm run build && npm run build-sb && tsc ecosystem.config.ts --skipLibCheck
 EXPOSE 3000 8080
 USER node
-CMD ["sh", "-c", "sleep 10 && pm2-runtime ecosystem.config.js"]
+CMD ["sh", "-c", "sleep 60 && pm2-runtime ecosystem.config.js"]

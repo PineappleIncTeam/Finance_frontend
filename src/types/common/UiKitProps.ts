@@ -24,7 +24,7 @@ export interface IButton {
 	children?: ReactElement;
 }
 
-type THeaderButtonStyle = "contained" | "outlined";
+export type THeaderButtonStyle = "contained" | "outlined";
 
 export interface IHeaderButton extends ButtonHTMLAttributes<HTMLButtonElement> {
 	className?: string;
@@ -33,12 +33,13 @@ export interface IHeaderButton extends ButtonHTMLAttributes<HTMLButtonElement> {
 	children?: ReactNode;
 }
 
-type TAppButtonStyle = "contained" | "outlined" | "warning" | "notification" | "faded";
+export type TAppButtonStyle = "contained" | "outlined" | "warning" | "notification" | "faded";
+export type TAppButtonType = "button" | "submit";
 
 export interface IAppButton extends ButtonHTMLAttributes<HTMLButtonElement> {
 	className?: string;
 	onClick?: () => void;
-	type?: "button" | "submit";
+	type?: TAppButtonType;
 	isLarge?: boolean;
 	variant: TAppButtonStyle;
 	children?: ReactNode;

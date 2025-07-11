@@ -49,8 +49,8 @@ export const DefaultVariant: Story = {
 	// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 	// @ts-ignore
 	args: {
-		label: "Селект",
-		options: ["Вариант 1", "Вариант 2"],
+		label: "Select",
+		options: ["Variant 1", "Variant 2"],
 		disabled: false,
 	},
 };

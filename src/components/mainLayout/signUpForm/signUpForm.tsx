@@ -85,7 +85,7 @@ export default function SignUpForm() {
 		}
 	};
 
-	const vkIdConfig = VKID.Config.init({
+	VKID.Config.init({
 		app: Number(process.env.NEXT_PUBLIC_VK_APP_ID),
 		redirectUrl: `${getCorrectBaseUrl()}${UserProfilePath.ProfitMoney}`,
 		state: generateState(),
@@ -124,7 +124,7 @@ export default function SignUpForm() {
 				// eslint-disable-next-line camelcase
 				device_id: payload.device_id,
 				// eslint-disable-next-line camelcase
-				code_verifier: vkIdConfig[codeVerifier],
+				code_verifier: codeVerifier,
 			};
 			vkAuth(data);
 		});

@@ -4,3 +4,14 @@ export interface ISignupFormValues {
 	password: string;
 	confirmPassword: string;
 }
+
+export interface ILoginSuccessPayload {
+	code: string;
+	device_id: string;
+}
+
+export interface IVkAuthRequest {
+	code: string;
+	code_verifier: string;
+	device_id: string;
+}

@@ -25,13 +25,17 @@ import { loginUser } from "../../../services/api/auth/Login";
 import { setAutoLoginStatus } from "../../../services/redux/features/autoLogin/autoLoginSlice";
 import Button from "../../../ui/Button/Button1";
 import { ButtonType } from "../../../helpers/buttonFieldValues";
+import { generateCodeVerifier, generateState } from "../../../utils/generateAuthTokens";
+import { AuthVk } from "../../../services/api/auth/VkAuth";
+import { ILoginSuccessPayload, IVkAuthRequest } from "../../../types/pages/Authorization";
 
 import styles from "./signInForm.module.scss";
 
-const SignInForm = () => {
-	const [baseUrl, setBaseUrl] = useState<string>();
+export default function SignInForm() {
+	const [baseUrl, setBaseUrl] = useState<string>("");
 	const [errorMessage, setErrorMessage] = useState<string>("");
 	const [isOpen, setIsOpen] = useState<boolean>(false);
+	const [codeVerifier, setCodeVerifier] = useState<string>("");
 
 	const dispatch = useAppDispatch();
 
@@ -53,6 +57,10 @@ const SignInForm = () => {
 
 	useEffect(() => {
 		setBaseUrl(getCorrectBaseUrl());
+	}, []);
+
+	useEffect(() => {
+		setCodeVerifier(String(generateCodeVerifier()));
 	}, []);
 
 	const onSubmit = async (data: ISignInForm) => {
@@ -86,14 +94,61 @@ const SignInForm = () => {
 		router.push(UserProfilePath.ProfitMoney);
 	};
 
+	const vkIdConfig = VKID.Config.init({
+		app: Number(process.env.NEXT_PUBLIC_VK_APP_ID),
+		redirectUrl: `${getCorrectBaseUrl()}${UserProfilePath.ProfitMoney}`,
+		state: generateState(),
+		codeVerifier: String(generateCodeVerifier()),
+		scope: "email phone",
+		responseMode: VKID.ConfigResponseMode.Callback,
+	});
+
 	const floatingOneTap = new VKID.FloatingOneTap();
 
-	const authCurtainRenderObj = () => {
-		return { appName: "freenance-app", scheme: VKID.Scheme.LIGHT, lang: VKID.Languages.RUS };
+	const vkAuth = async (data: IVkAuthRequest) => {
+		try {
+			if (baseUrl) {
+				const response = await AuthVk(baseUrl, data);
+				if (response.status === axios.HttpStatusCode.Ok) {
+					router.push(UserProfilePath.ProfitMoney);
+				}
+			}
+		} catch (error) {
+			if (
+				axios.isAxiosError(error) &&
+				error.response &&
+				error.response.status &&
+				error.response.status >= axios.HttpStatusCode.InternalServerError &&
+				error.response.status < ApiResponseCode.SERVER_ERROR_STATUS_MAX
+			) {
+				router.push(MainPath.ServerError);
+			}
+		}
+	};
+
+	const handleSuccessVkLogin = () => {
+		floatingOneTap.on(VKID.FloatingOneTapInternalEvents.LOGIN_SUCCESS, async (payload: ILoginSuccessPayload) => {
+			const data = {
+				code: payload.code,
+				// eslint-disable-next-line camelcase
+				device_id: payload.device_id,
+				// eslint-disable-next-line camelcase
+				code_verifier: vkIdConfig[codeVerifier],
+			};
+			vkAuth(data);
+		});
+	};
+
+	const authCurtainRenderObj = {
+		appName: "freenance-app",
+		scheme: VKID.Scheme.LIGHT,
+		lang: VKID.Languages.RUS,
 	};
 
 	function handleOpenAuthCurtain() {
-		floatingOneTap.render(authCurtainRenderObj());
+		setCodeVerifier(String(generateCodeVerifier()));
+		floatingOneTap.render(authCurtainRenderObj);
+		handleSuccessVkLogin();
 	}
 
 	return (
@@ -149,6 +204,4 @@ const SignInForm = () => {
 			{isOpen && <InviteModal isOpen={isOpen} onClose={handleModalClose} />}
 		</form>
 	);
-};
-
-export default SignInForm;
+}

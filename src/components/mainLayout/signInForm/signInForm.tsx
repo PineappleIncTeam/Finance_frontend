@@ -126,29 +126,27 @@ export default function SignInForm() {
 		}
 	};
 
-	const handleSuccessVkLogin = () => {
-		floatingOneTap.on(VKID.FloatingOneTapInternalEvents.LOGIN_SUCCESS, async (payload: ILoginSuccessPayload) => {
-			const data = {
-				code: payload.code,
-				// eslint-disable-next-line camelcase
-				device_id: payload.device_id,
-				// eslint-disable-next-line camelcase
-				code_verifier: codeVerifier,
-			};
-			vkAuth(data);
-		});
-	};
+	floatingOneTap.on(VKID.FloatingOneTapInternalEvents.LOGIN_SUCCESS, async (payload: ILoginSuccessPayload) => {
+		const data = {
+			code: payload.code,
+			// eslint-disable-next-line camelcase
+			device_id: payload.device_id,
+			// eslint-disable-next-line camelcase
+			code_verifier: codeVerifier,
+		};
+		vkAuth(data);
+	});
 
 	const authCurtainRenderObj = {
 		appName: "freenance-app",
 		scheme: VKID.Scheme.LIGHT,
 		lang: VKID.Languages.RUS,
+		indent: { top: 30, right: 50 },
 	};
 
 	function handleOpenAuthCurtain() {
 		setCodeVerifier(String(generateCodeVerifier()));
 		floatingOneTap.render(authCurtainRenderObj);
-		handleSuccessVkLogin();
 	}
 
 	return (

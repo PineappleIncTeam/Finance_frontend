@@ -117,7 +117,7 @@ export const DefaultVariant: Story = {
 		placeholder: appInputConstants.commonPlaceholder,
 		disabled: false,
 		defaultValue: "",
-		control: undefined,
+		control: undefined as unknown as Control<FieldValues>,
 		name: "exampleField",
 	},
 };
@@ -130,7 +130,7 @@ export const PasswordVariant: Story = {
 		placeholder: "Введите пароль",
 		disabled: false,
 		defaultValue: "",
-		control: undefined,
+		control: undefined as unknown as Control<FieldValues>,
 		name: "exampleField",
 	},
 };
@@ -144,7 +144,7 @@ export const WithSubtitleVariant: Story = {
 		disabled: false,
 		subtitle: "Дополнительная информация о поле",
 		defaultValue: "",
-		control: undefined,
+		control: undefined as unknown as Control<FieldValues>,
 		name: "exampleField",
 	},
 };
@@ -158,7 +158,7 @@ export const WithErrorVariant: Story = {
 		disabled: false,
 		error: "Текст ошибки",
 		defaultValue: "",
-		control: undefined,
+		control: undefined as unknown as Control<FieldValues>,
 		name: "exampleField",
 	},
 };
@@ -171,7 +171,7 @@ export const DisabledVariant: Story = {
 		placeholder: "Недоступно для ввода",
 		disabled: true,
 		defaultValue: "",
-		control: undefined,
+		control: undefined as unknown as Control<FieldValues>,
 		name: "exampleField",
 	},
 };
@@ -185,7 +185,7 @@ export const EmailVariant: Story = {
 		disabled: false,
 		autoComplete: "email",
 		defaultValue: "",
-		control: undefined,
+		control: undefined as unknown as Control<FieldValues>,
 		name: "exampleField",
 	},
 };
@@ -198,7 +198,7 @@ export const NumberVariant: Story = {
 		placeholder: "Введите число",
 		disabled: false,
 		defaultValue: "",
-		control: undefined,
+		control: undefined as unknown as Control<FieldValues>,
 		name: "exampleField",
 	},
 };
@@ -211,7 +211,7 @@ export const WithDefaultValueVariant: Story = {
 		placeholder: appInputConstants.commonPlaceholder,
 		disabled: false,
 		defaultValue: "Значение по умолчанию",
-		control: undefined,
+		control: undefined as unknown as Control<FieldValues>,
 		name: "exampleField",
 	},
 };

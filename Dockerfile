@@ -8,4 +8,4 @@ RUN mkdir -p .storybook/public
 RUN npm run build
 EXPOSE 3000 8080
 USER node
-CMD ["sh", "-c", "sleep 4 && pm2-runtime ecosystem.config.js"]
+CMD ["pm2-runtime", "ecosystem.config.js"]

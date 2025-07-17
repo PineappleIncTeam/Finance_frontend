@@ -2,26 +2,26 @@ import { Meta, StoryObj } from "@storybook/nextjs";
 import { Control, FieldValues, useForm } from "react-hook-form";
 import React from "react";
 
-import { TAppInputStory } from "../../types/common/StorybookElementProps";
+import { TAuthInputStory } from "../../types/common/StorybookElementProps";
 import { HighlightWrapper } from "../../components/mainLayout/highlightWrapper/HighlightWrapper";
 import { InputTypeList } from "../../helpers/Input";
 import { inputConstants } from "../../helpers/storybookConstants";
 
-import AppInput from "./AppInput";
+import AuthInput from "./AuthInput";
 
-const AppInputStory = (inputProps: TAppInputStory) => {
+const AuthInputStory = (inputProps: TAuthInputStory) => {
 	const { control } = useForm({
 		defaultValues: {
-			exampleField: inputProps.defaultValue || "",
+			email: inputProps.defaultValue || "",
 		},
 	});
 
-	return <AppInput {...inputProps} control={control as unknown as Control<FieldValues>} name="exampleField" />;
+	return <AuthInput {...inputProps} control={control as unknown as Control<FieldValues>} name="email" />;
 };
 
 const meta = {
-	title: "UI/AppInput",
-	component: AppInputStory,
+	title: "UI/AuthInput",
+	component: AuthInputStory,
 	tags: ["autodocs"],
 	parameters: {
 		layout: "centered",
@@ -104,21 +104,21 @@ const meta = {
 			},
 		},
 	},
-} satisfies Meta<typeof AppInputStory>;
+} satisfies Meta<typeof AuthInputStory>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const DefaultVariant: Story = {
 	args: {
-		key: "defaultVariant",
+		key: "defaultAuthVariant",
 		label: "Поле ввода",
 		type: InputTypeList.Text,
 		placeholder: inputConstants.commonPlaceholder,
 		disabled: false,
 		defaultValue: "",
 		control: undefined as unknown as Control<FieldValues>,
-		name: "exampleField",
+		name: "email",
 	},
 };
 
@@ -131,7 +131,7 @@ export const PasswordVariant: Story = {
 		disabled: false,
 		defaultValue: "",
 		control: undefined as unknown as Control<FieldValues>,
-		name: "exampleField",
+		name: "password",
 	},
 };
 
@@ -145,7 +145,7 @@ export const WithSubtitleVariant: Story = {
 		subtitle: "Дополнительная информация о поле",
 		defaultValue: "",
 		control: undefined as unknown as Control<FieldValues>,
-		name: "exampleField",
+		name: "email",
 	},
 };
 
@@ -159,7 +159,7 @@ export const WithErrorVariant: Story = {
 		error: "Текст ошибки",
 		defaultValue: "",
 		control: undefined as unknown as Control<FieldValues>,
-		name: "exampleField",
+		name: "email",
 	},
 };
 
@@ -172,7 +172,7 @@ export const DisabledVariant: Story = {
 		disabled: true,
 		defaultValue: "",
 		control: undefined as unknown as Control<FieldValues>,
-		name: "exampleField",
+		name: "email",
 	},
 };
 
@@ -186,20 +186,33 @@ export const EmailVariant: Story = {
 		autoComplete: "email",
 		defaultValue: "",
 		control: undefined as unknown as Control<FieldValues>,
-		name: "exampleField",
+		name: "email",
 	},
 };
 
-export const NumberVariant: Story = {
+export const AgreementVariant: Story = {
 	args: {
-		key: "numberVariant",
-		label: "Число",
-		type: InputTypeList.Number,
-		placeholder: "Введите число",
+		key: "agreementVariant",
+		label: "Я соглашаюсь с политикой конфиденциальности",
+		type: InputTypeList.Checkbox,
+		placeholder: "",
 		disabled: false,
 		defaultValue: "",
 		control: undefined as unknown as Control<FieldValues>,
-		name: "exampleField",
+		name: "agreementField",
+	},
+};
+
+export const AutoAuthVariant: Story = {
+	args: {
+		key: "numberVariant",
+		label: "Запомнить меня",
+		type: InputTypeList.Checkbox,
+		placeholder: "",
+		disabled: false,
+		defaultValue: "",
+		control: undefined as unknown as Control<FieldValues>,
+		name: "isAutoAuth",
 	},
 };
 
@@ -212,6 +225,6 @@ export const WithDefaultValueVariant: Story = {
 		disabled: false,
 		defaultValue: "Значение по умолчанию",
 		control: undefined as unknown as Control<FieldValues>,
-		name: "exampleField",
+		name: "email",
 	},
 };

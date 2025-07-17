@@ -34,12 +34,6 @@ export interface IPrivateProfileSidebar {
 	name?: string;
 }
 
-export interface ICurrentRate {
-	dollar?: string;
-	euro?: string;
-	crypto?: string;
-}
-
 export interface INavBar {
 	onClick?: () => void;
 }
@@ -173,4 +167,8 @@ export interface IHighlightWrapper {
 	children: ReactNode;
 	padding?: string;
 	shadowColor?: string;
+}
+
+export interface ICurtainVk {
+	handleError: () => void;
 }

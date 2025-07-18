@@ -88,7 +88,6 @@ export default function Expenses() {
 	const ResponseApiRequestModalInitialState = {
 		open: false,
 		title: "",
-		styles: "",
 	};
 
 	const [responseApiRequestModal, setResponseApiRequestModal] = useState(ResponseApiRequestModalInitialState);
@@ -204,7 +203,6 @@ export default function Expenses() {
 					setResponseApiRequestModal({
 						open: true,
 						title: "Категория успешно добавлена",
-						styles: styles.categoryAddSuccess__modal,
 					});
 					setTimeout(() => {
 						setResponseApiRequestModal(ResponseApiRequestModalInitialState);
@@ -240,7 +238,6 @@ export default function Expenses() {
 					setResponseApiRequestModal({
 						open: true,
 						title: "Категория успешно удалена",
-						styles: styles.categoryDeleteSuccess__modal,
 					});
 					setTimeout(() => {
 						setResponseApiRequestModal(ResponseApiRequestModalInitialState);
@@ -290,7 +287,6 @@ export default function Expenses() {
 					setResponseApiRequestModal({
 						open: true,
 						title: "Запись успешно удалена",
-						styles: styles.recordDeleteSuccess__modal,
 					});
 					setTimeout(() => {
 						setResponseApiRequestModal(ResponseApiRequestModalInitialState);
@@ -322,7 +318,6 @@ export default function Expenses() {
 					setResponseApiRequestModal({
 						open: true,
 						title: "Сумма успешно изменена",
-						styles: styles.recordEditSuccess__modal,
 					});
 					setTimeout(() => {
 						setResponseApiRequestModal(ResponseApiRequestModalInitialState);
@@ -357,7 +352,6 @@ export default function Expenses() {
 					setResponseApiRequestModal({
 						open: true,
 						title: "Категория успешно перенесена в «Архив»",
-						styles: styles.categoryArchiveSuccess_modal,
 					});
 					setTimeout(() => {
 						setResponseApiRequestModal(ResponseApiRequestModalInitialState);

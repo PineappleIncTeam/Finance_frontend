@@ -55,6 +55,8 @@ export default function SignInForm() {
 
 	const router = useRouter();
 
+	// const vkAppId = Number(process.env.NEXT_PUBLIC_VK_APP_ID);
+
 	useEffect(() => {
 		setBaseUrl(getCorrectBaseUrl());
 	}, []);
@@ -95,7 +97,7 @@ export default function SignInForm() {
 	};
 
 	VKID.Config.init({
-		app: Number(process.env.NEXT_PUBLIC_VK_APP_ID),
+		app: 0,
 		redirectUrl: `${getCorrectBaseUrl()}${UserProfilePath.ProfitMoney}`,
 		state: generateState(),
 		codeVerifier: String(generateCodeVerifier()),

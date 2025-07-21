@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import axios, { AxiosError } from "axios";
-
+import { env } from "next-runtime-env";
 import * as VKID from "@vkid/sdk";
 
 import { ISignUpForm } from "../../../types/components/ComponentsTypes";
@@ -50,9 +50,70 @@ export default function SignUpForm() {
 
 	const router = useRouter();
 
+	const vkAppId = Number(env("NEXT_PUBLIC_VK_APP_ID"));
+
+	const authCurtainRenderObj: VKID.FloatingOneTapParams = {
+		appName: "freenance-app",
+		scheme: VKID.Scheme.LIGHT,
+		lang: VKID.Languages.RUS,
+		indent: { top: 30, right: 50 },
+	};
+
 	useEffect(() => {
 		setBaseUrl(getCorrectBaseUrl());
 	}, []);
+
+	useEffect(() => {
+		setCodeVerifier(String(generateCodeVerifier()));
+	}, []);
+
+	VKID.Config.init({
+		app: vkAppId,
+		redirectUrl: `${getCorrectBaseUrl()}${UserProfilePath.ProfitMoney}`,
+		state: generateState(),
+		codeVerifier: String(generateCodeVerifier()),
+		scope: "email phone",
+		responseMode: VKID.ConfigResponseMode.Callback,
+	});
+
+	const floatingOneTap = new VKID.FloatingOneTap();
+
+	async function authVkIdService(authData: IVkAuthRequest) {
+		try {
+			if (baseUrl) {
+				const response = await AuthVk(baseUrl, authData);
+				if (response.status === axios.HttpStatusCode.Ok) {
+					router.push(UserProfilePath.ProfitMoney);
+				}
+			}
+		} catch (error) {
+			if (
+				axios.isAxiosError(error) &&
+				error.response &&
+				error.response.status &&
+				error.response.status >= axios.HttpStatusCode.InternalServerError &&
+				error.response.status < ApiResponseCode.SERVER_ERROR_STATUS_MAX
+			) {
+				router.push(MainPath.ServerError);
+			}
+		}
+	}
+
+	floatingOneTap.on(VKID.FloatingOneTapInternalEvents.LOGIN_SUCCESS, async (payload: ILoginSuccessPayload) => {
+		const data = {
+			code: payload.code,
+			// eslint-disable-next-line camelcase
+			device_id: payload.device_id,
+			// eslint-disable-next-line camelcase
+			code_verifier: codeVerifier,
+		};
+		authVkIdService(data);
+	});
+
+	function handleOpenAuthCurtain() {
+		setCodeVerifier(String(generateCodeVerifier()));
+		floatingOneTap.render(authCurtainRenderObj);
+	}
 
 	const validateRepeatPassword = (value: string | boolean | undefined) => {
 		const password = watch(InputTypeList.Password);
@@ -84,61 +145,6 @@ export default function SignUpForm() {
 			return router.push(MainPath.NotFound);
 		}
 	};
-
-	VKID.Config.init({
-		app: Number(process.env.NEXT_PUBLIC_VK_APP_ID),
-		redirectUrl: `${getCorrectBaseUrl()}${UserProfilePath.ProfitMoney}`,
-		state: generateState(),
-		codeVerifier: String(generateCodeVerifier()),
-		scope: "email phone",
-		responseMode: VKID.ConfigResponseMode.Callback,
-	});
-
-	const floatingOneTap = new VKID.FloatingOneTap();
-
-	const vkAuth = async (data: IVkAuthRequest) => {
-		try {
-			if (baseUrl) {
-				const response = await AuthVk(baseUrl, data);
-				if (response.status === axios.HttpStatusCode.Ok) {
-					router.push(UserProfilePath.ProfitMoney);
-				}
-			}
-		} catch (error) {
-			if (
-				axios.isAxiosError(error) &&
-				error.response &&
-				error.response.status &&
-				error.response.status >= axios.HttpStatusCode.InternalServerError &&
-				error.response.status < ApiResponseCode.SERVER_ERROR_STATUS_MAX
-			) {
-				router.push(MainPath.ServerError);
-			}
-		}
-	};
-
-	floatingOneTap.on(VKID.FloatingOneTapInternalEvents.LOGIN_SUCCESS, async (payload: ILoginSuccessPayload) => {
-		const data = {
-			code: payload.code,
-			// eslint-disable-next-line camelcase
-			device_id: payload.device_id,
-			// eslint-disable-next-line camelcase
-			code_verifier: codeVerifier,
-		};
-		vkAuth(data);
-	});
-
-	const authCurtainRenderObj: VKID.FloatingOneTapParams = {
-		appName: "freenance-app",
-		scheme: VKID.Scheme.LIGHT,
-		lang: VKID.Languages.RUS,
-		indent: { top: 30, right: 50 },
-	};
-
-	function handleOpenAuthCurtain() {
-		setCodeVerifier(String(generateCodeVerifier()));
-		floatingOneTap.render(authCurtainRenderObj);
-	}
 
 	return (
 		<form className={styles.signUpFormWrap} onSubmit={handleSubmit(onSubmit)}>

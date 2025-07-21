@@ -64,7 +64,9 @@ export default function SignUpForm() {
 	}, []);
 
 	useEffect(() => {
-		setCodeVerifier(String(generateCodeVerifier()));
+		(async () => {
+			await setCodeVerifier(String(await generateCodeVerifier()));
+		})();
 	}, []);
 
 	VKID.Config.init({

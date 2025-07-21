@@ -2,10 +2,10 @@ import axios from "axios";
 
 import { ILoginSuccessPayload } from "../../../types/pages/Authorization";
 
-import { vkAuth } from "./apiConstants";
+import { vkAuthorisationEndPoint } from "./apiConstants";
 
-export const AuthVk = async (baseUrl: string, data: ILoginSuccessPayload) => {
-	return await axios(`${baseUrl}/${vkAuth}`, {
+export const authApiVkService = async (baseUrl: string, data: ILoginSuccessPayload) => {
+	return await axios(`${baseUrl}/${vkAuthorisationEndPoint}`, {
 		method: "POST",
 		data: data,
 		headers: {

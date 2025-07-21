@@ -26,7 +26,7 @@ import { setAutoLoginStatus } from "../../../services/redux/features/autoLogin/a
 import Button from "../../../ui/Button/Button1";
 import { ButtonType } from "../../../helpers/buttonFieldValues";
 import { generateCodeVerifier, generateState } from "../../../utils/generateAuthTokens";
-import { AuthVk } from "../../../services/api/auth/VkAuth";
+import { authApiVkService } from "../../../services/api/auth/VkAuth";
 import { ILoginSuccessPayload, IVkAuthRequest } from "../../../types/pages/Authorization";
 
 import styles from "./signInForm.module.scss";
@@ -86,7 +86,7 @@ export default function SignInForm() {
 	async function authVkIdService(authData: IVkAuthRequest) {
 		try {
 			if (baseUrl) {
-				const response = await AuthVk(baseUrl, authData);
+				const response = await authApiVkService(baseUrl, authData);
 				if (response.status === axios.HttpStatusCode.Ok) {
 					router.push(UserProfilePath.ProfitMoney);
 				}

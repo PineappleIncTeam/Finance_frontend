@@ -105,6 +105,8 @@ export default function SignInForm() {
 	}
 
 	floatingOneTap.on(VKID.FloatingOneTapInternalEvents.LOGIN_SUCCESS, async (payload: ILoginSuccessPayload) => {
+		console.log(codeVerifier);
+		
 		const data = {
 			code: payload.code,
 			// eslint-disable-next-line camelcase
@@ -115,8 +117,8 @@ export default function SignInForm() {
 		authVkIdService(data);
 	});
 
-	function handleOpenAuthCurtain() {
-		setCodeVerifier(String(generateCodeVerifier()));
+	async function handleOpenAuthCurtain() {
+		setCodeVerifier(String(await generateCodeVerifier()));
 		floatingOneTap.render(authCurtainRenderObj);
 	}
 

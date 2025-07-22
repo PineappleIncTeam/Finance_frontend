@@ -40,7 +40,7 @@ class FormHelpers {
 
 	constructPasswordMessage = (password: string) => {
 		const messages = [];
-		const minPasswordLength = 8;
+		const minPasswordLength = 6;
 		if (password.length >= minPasswordLength && !/(?=.*\d)/.test(password)) {
 			messages.push(errorPasswordNumber);
 		}

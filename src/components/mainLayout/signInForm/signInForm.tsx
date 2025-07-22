@@ -73,7 +73,7 @@ export default function SignInForm() {
 	}, []);
 
 	VKID.Config.init({
-		app: vkAppId,
+		app: 0,
 		redirectUrl: `${getCorrectBaseUrl()}${UserProfilePath.ProfitMoney}`,
 		state: generateState(),
 		codeVerifier: String(generateCodeVerifier()),

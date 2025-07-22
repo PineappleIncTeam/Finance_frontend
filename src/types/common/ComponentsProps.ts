@@ -168,3 +168,7 @@ export interface IHighlightWrapper {
 	padding?: string;
 	shadowColor?: string;
 }
+
+export interface ICurtainVk {
+	handleError: () => void;
+}

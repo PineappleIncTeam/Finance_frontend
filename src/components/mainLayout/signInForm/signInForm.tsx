@@ -5,6 +5,8 @@ import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 import Link from "next/link";
+import { env } from "next-runtime-env";
+import * as VKID from "@vkid/sdk";
 
 import useAppDispatch from "../../../hooks/useAppDispatch";
 
@@ -23,13 +25,17 @@ import { loginUser } from "../../../services/api/auth/Login";
 import { setAutoLoginStatus } from "../../../services/redux/features/autoLogin/autoLoginSlice";
 import Button from "../../../ui/Button/Button1";
 import { ButtonType } from "../../../helpers/buttonFieldValues";
+import { generateCodeVerifier, generateState } from "../../../utils/generateAuthTokens";
+import { AuthVk } from "../../../services/api/auth/VkAuth";
+import { ILoginSuccessPayload, IVkAuthRequest } from "../../../types/pages/Authorization";
 
 import styles from "./signInForm.module.scss";
 
-const SignInForm = () => {
-	const [baseUrl, setBaseUrl] = useState<string>();
+export default function SignInForm() {
+	const [baseUrl, setBaseUrl] = useState<string>("");
 	const [errorMessage, setErrorMessage] = useState<string>("");
 	const [isOpen, setIsOpen] = useState<boolean>(false);
+	const [codeVerifier, setCodeVerifier] = useState<string>("");
 
 	const dispatch = useAppDispatch();
 
@@ -49,9 +55,70 @@ const SignInForm = () => {
 
 	const router = useRouter();
 
+	const vkAppId = Number(env("NEXT_PUBLIC_VK_APP_ID"));
+
+	const authCurtainRenderObj = {
+		appName: "freenance-app",
+		scheme: VKID.Scheme.LIGHT,
+		lang: VKID.Languages.RUS,
+		indent: { top: 30, right: 50 },
+	};
+
 	useEffect(() => {
 		setBaseUrl(getCorrectBaseUrl());
 	}, []);
+
+	useEffect(() => {
+		setCodeVerifier(String(generateCodeVerifier()));
+	}, []);
+
+	VKID.Config.init({
+		app: vkAppId,
+		redirectUrl: `${getCorrectBaseUrl()}${UserProfilePath.ProfitMoney}`,
+		state: generateState(),
+		codeVerifier: String(generateCodeVerifier()),
+		scope: "email phone",
+		responseMode: VKID.ConfigResponseMode.Callback,
+	});
+
+	const floatingOneTap = new VKID.FloatingOneTap();
+
+	async function authVkIdService(authData: IVkAuthRequest) {
+		try {
+			if (baseUrl) {
+				const response = await AuthVk(baseUrl, authData);
+				if (response.status === axios.HttpStatusCode.Ok) {
+					router.push(UserProfilePath.ProfitMoney);
+				}
+			}
+		} catch (error) {
+			if (
+				axios.isAxiosError(error) &&
+				error.response &&
+				error.response.status &&
+				error.response.status >= axios.HttpStatusCode.InternalServerError &&
+				error.response.status < ApiResponseCode.SERVER_ERROR_STATUS_MAX
+			) {
+				router.push(MainPath.ServerError);
+			}
+		}
+	}
+
+	floatingOneTap.on(VKID.FloatingOneTapInternalEvents.LOGIN_SUCCESS, async (payload: ILoginSuccessPayload) => {
+		const data = {
+			code: payload.code,
+			// eslint-disable-next-line camelcase
+			device_id: payload.device_id,
+			// eslint-disable-next-line camelcase
+			code_verifier: codeVerifier,
+		};
+		authVkIdService(data);
+	});
+
+	function handleOpenAuthCurtain() {
+		setCodeVerifier(String(generateCodeVerifier()));
+		floatingOneTap.render(authCurtainRenderObj);
+	}
 
 	const onSubmit = async (data: ISignInForm) => {
 		try {
@@ -126,18 +193,15 @@ const SignInForm = () => {
 				</div>
 				<p className={styles.signInFormContainer__auth}>
 					Войти через{" "}
-					<a
-						href="https://vk.com/"
-						rel="nofollow noreferrer"
-						target="_blank"
-						className={styles.signInFormContainer__auth_link}>
+					<button
+						className={styles.signInFormContainer__auth_link}
+						type={InputTypeList.Button}
+						onClick={() => handleOpenAuthCurtain()}>
 						Вконтакте
-					</a>
+					</button>
 				</p>
 			</div>
 			{isOpen && <InviteModal isOpen={isOpen} onClose={handleModalClose} />}
 		</form>
 	);
-};
-
-export default SignInForm;
+}

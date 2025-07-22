@@ -6,7 +6,6 @@ RUN npm install --legacy-peer-deps
 COPY . .
 RUN mkdir -p .storybook/public
 RUN npm run build
-RUN npm run build-sb
 EXPOSE 3000 8080
 USER node
 CMD ["pm2-runtime", "ecosystem.config.js"]

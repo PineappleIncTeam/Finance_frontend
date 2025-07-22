@@ -2,7 +2,7 @@ export const emailPattern =
 	/^(?![.\s-])\s*(?=.{8,30}$)(?!.*\.\.)[a-zA-Z0-9_.+-`~½=!#%^|$*{}&’']+@([a-zA-Z0-9]+([-_.][a-zA-Z0-9]+)*)+\.[a-zA-Z0-9]+\s*$/i;
 
 export const passwordPattern =
-	/^(?=.*\d)(?=.*[a-z])(?!.*(.)\1{2,})(?=.*[A-Z])(?!.*\d{4,}|\d{2}[\\/-]\d{2}[\\/-]\d{4})(?!.*[^a-zA-Z\d!#/\\='"<>{}@,.$%[\]^&*()~_|:;+?^-])[^\s]{6,50}$/;
+	/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!#/\\='"<>{}@,.$%[\]^&*()~_|:;+?^-])(?!.*(.)\1{2,})(?!.*\d{4,}|\d{2}[\\/-]\d{2}[\\/-]\d{4})(?!.*[^a-zA-Z\d!#/\\='"<>{}@,.$%[\]^&*()~_|:;+?^-])[^\s]{8,50}$/;
 
 export const financePattern = /^(?=.*[^\W\d])(?!^[\d\W]+$).+$/;
 
@@ -12,7 +12,7 @@ export const errorEmailIncorrect = "Не верный формат ввода п
 export const errorEmailExist = "Такого адреса не существует.";
 export const errorPasswordIncorrect = "Не верный пароль.";
 export const errorPasswordRules = "Пароль не соответствует требованиям безопасности.";
-export const errorPasswordLength = "Пароль должен содержать не менее 6 знаков.";
+export const errorPasswordLength = "Пароль должен содержать не менее 8 знаков.";
 export const errorPasswordUppercase = "Пароль должен содержать букву верхнего регистра.";
 export const errorPasswordNumber = "Пароль должен содержать хотя бы одну цифру.";
 export const errorPasswordRepeat = "Введенный пароль не совпадает.";

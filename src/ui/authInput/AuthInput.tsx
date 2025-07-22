@@ -9,11 +9,7 @@ import { InputTypeList } from "../../helpers/Input";
 import { defaultOptions } from "../../helpers/passwordStrengthOption";
 import { TAuthInputForm, IAuthInput } from "../../types/common/UiKitProps";
 import showPassword from "../../assets/pages/signUp/showPassword.svg";
-import {
-	errorPasswordStrengthMedium,
-	errorPasswordStrengthStrong,
-	errorPasswordStrengthWeak,
-} from "../../helpers/authConstants";
+import { errorPasswordStrengthMedium, errorPasswordStrengthStrong } from "../../helpers/authConstants";
 
 import styles from "./AuthInput.module.scss";
 
@@ -22,7 +18,6 @@ const AuthInput = ({ label, type, placeholder, autoComplete, subtitle, error, ..
 	const [passwordType, setPasswordType] = useState<InputTypeList>(InputTypeList.Password);
 	const [isMediumPassword, setIsMediumPassword] = useState<boolean>(false);
 	const [isStrongPassword, setIsStrongPassword] = useState<boolean>(false);
-	const [isWeakPassword, setIsWeakPassword] = useState<boolean>(false);
 	const togglePasswordVisibility = () =>
 		setPasswordType(passwordType === InputTypeList.Password ? InputTypeList.Text : InputTypeList.Password);
 
@@ -30,12 +25,10 @@ const AuthInput = ({ label, type, placeholder, autoComplete, subtitle, error, ..
 		if (type === InputTypeList.Password && field.value && typeof field.value === "string") {
 			try {
 				const result = passwordStrength(field.value, defaultOptions);
-				setIsWeakPassword(result.value === "Weak");
 				setIsMediumPassword(result.value === "Medium");
 				setIsStrongPassword(result.value === "Strong");
 				// eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
 			} catch (error: unknown) {
-				setIsWeakPassword(false);
 				setIsMediumPassword(false);
 				setIsStrongPassword(false);
 			}
@@ -67,9 +60,7 @@ const AuthInput = ({ label, type, placeholder, autoComplete, subtitle, error, ..
 				)}
 			</div>
 			{fieldState.error && <p className={styles.inputWrap__error}>{fieldState.error.message || (error as string)}</p>}
-			{!fieldState.error && !error && isWeakPassword && (
-				<p className={cn(styles.inputWrap__subtitle, styles.inputWrap__error)}>{errorPasswordStrengthWeak}</p>
-			)}
+
 			{!fieldState.error && !error && isMediumPassword && (
 				<p className={cn(styles.inputWrap__subtitle, styles.inputWrap__subtitle_green)}>
 					{errorPasswordStrengthMedium}

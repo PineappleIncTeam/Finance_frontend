@@ -60,6 +60,7 @@ const AuthInput = ({ label, type, placeholder, autoComplete, subtitle, error, ..
 				)}
 			</div>
 			{fieldState.error && <p className={styles.inputWrap__error}>{fieldState.error.message || (error as string)}</p>}
+
 			{!fieldState.error && !error && isMediumPassword && (
 				<p className={cn(styles.inputWrap__subtitle, styles.inputWrap__subtitle_green)}>
 					{errorPasswordStrengthMedium}

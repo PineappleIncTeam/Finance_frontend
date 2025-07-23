@@ -39,5 +39,8 @@ spec:
           limits:
             memory: "64Mi"
             cpu: "50m"
+        envFrom:
+            - secretRef:
+                name: finance-qa-front-secret
         ports:
         - containerPort: 80

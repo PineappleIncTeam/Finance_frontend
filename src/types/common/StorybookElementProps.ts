@@ -1,7 +1,7 @@
 import { JSX } from "react";
 import { FieldValues, UseControllerProps } from "react-hook-form";
 
-import { IAppInput, IAuthInput, ICustomCheckbox, TAuthInputForm } from "./UiKitProps";
+import { IAppInput, IAuthInput, ICustomCheckbox, ICustomInputDate, TAuthInputForm } from "./UiKitProps";
 
 export type TAppInputStory = JSX.IntrinsicAttributes &
 	IAppInput<FieldValues> & {
@@ -19,4 +19,9 @@ export type TCheckboxStory<T extends FieldValues> = JSX.IntrinsicAttributes &
 		defaultValue?: boolean;
 		label?: string;
 		disabled?: boolean;
+	};
+
+export type TInputDateStory<T extends FieldValues> = JSX.IntrinsicAttributes &
+	ICustomInputDate<T> & {
+		defaultValue?: Date | [Date | null, Date | null];
 	};

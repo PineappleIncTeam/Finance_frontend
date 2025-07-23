@@ -123,7 +123,7 @@ export const EmptyDateVariant: Story = {
 		key: "emptyDateVariant",
 		isPeriod: false,
 		isLabel: true,
-		defaultValue: null,
+		defaultValue: new Date(),
 		control: undefined as unknown as Control<FieldValues>,
 		name: "emptyDate",
 	},

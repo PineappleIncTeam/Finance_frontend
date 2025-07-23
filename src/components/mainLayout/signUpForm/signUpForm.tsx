@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import axios, { AxiosError } from "axios";
-import { env } from "next-runtime-env";
+// import { env } from "next-runtime-env";
 import * as VKID from "@vkid/sdk";
 
 import { ISignUpForm } from "../../../types/components/ComponentsTypes";
@@ -50,7 +50,7 @@ export default function SignUpForm() {
 
 	const router = useRouter();
 
-	const vkAppId = Number(env("NEXT_PUBLIC_VK_APP_ID"));
+	// const vkAppId = Number(env("NEXT_PUBLIC_VK_APP_ID"));
 
 	const authCurtainRenderObj: VKID.FloatingOneTapParams = {
 		appName: "freenance-app",
@@ -68,7 +68,7 @@ export default function SignUpForm() {
 	}, []);
 
 	VKID.Config.init({
-		app: vkAppId,
+		app: 0,
 		redirectUrl: `${getCorrectBaseUrl()}${UserProfilePath.ProfitMoney}`,
 		state: generateState(),
 		codeVerifier: String(generateCodeVerifier()),

@@ -8,39 +8,29 @@ import {
 	ICustomInputDate,
 	IRadioButton,
 	ISelector,
+	ISwitcher,
 	TAuthInputForm,
 } from "./UiKitProps";
 
-export type TAppInputStory = JSX.IntrinsicAttributes &
-	IAppInput<FieldValues> & {
-		defaultValue: string;
-	};
+export type BaseElementStoryProps<T = unknown> = JSX.IntrinsicAttributes & {
+	disabled?: boolean;
+	defaultValue?: T;
+};
 
-export type TAuthInputStory = JSX.IntrinsicAttributes &
-	IAuthInput &
-	UseControllerProps<TAuthInputForm> & {
-		defaultValue: string;
-	};
+export type TAppInputStory = Required<BaseElementStoryProps<string>> & IAppInput<FieldValues>;
 
-export type TCheckboxStory<T extends FieldValues> = JSX.IntrinsicAttributes &
+export type TAuthInputStory = Required<BaseElementStoryProps<string>> & IAuthInput & UseControllerProps<TAuthInputForm>;
+
+export type TInputDateStory<T extends FieldValues> = BaseElementStoryProps<Date | [Date | null, Date | null]> &
+	ICustomInputDate<T>;
+
+export type TRadioButtonStory<T extends FieldValues> = BaseElementStoryProps & IRadioButton<T>;
+
+export type TSelectorStory<T extends TAuthInputForm> = BaseElementStoryProps<string> & ISelector<T>;
+
+export type TSwitcherStory<T extends TAuthInputForm> = BaseElementStoryProps<boolean> & ISwitcher<T>;
+
+export type TCheckboxStory<T extends FieldValues> = BaseElementStoryProps<boolean> &
 	ICustomCheckbox<T> & {
-		defaultValue?: boolean;
 		label?: string;
-		disabled?: boolean;
-	};
-
-export type TInputDateStory<T extends FieldValues> = JSX.IntrinsicAttributes &
-	ICustomInputDate<T> & {
-		defaultValue?: Date | [Date | null, Date | null];
-	};
-
-export type TRadioButtonStory<T extends FieldValues> = JSX.IntrinsicAttributes &
-	IRadioButton<T> & {
-		disabled?: boolean;
-	};
-
-export type TSelectorStory<T extends TAuthInputForm> = JSX.IntrinsicAttributes &
-	ISelector<T> & {
-		defaultValue?: string;
-		disabled?: boolean;
 	};

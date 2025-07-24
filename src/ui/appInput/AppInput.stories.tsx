@@ -5,7 +5,7 @@ import React from "react";
 import { TAppInputStory } from "../../types/common/StorybookElementProps";
 import { HighlightWrapper } from "../../components/mainLayout/highlightWrapper/HighlightWrapper";
 import { InputTypeList } from "../../helpers/Input";
-import { inputConstants } from "../../helpers/storybookConstants";
+import { fieldConstants } from "../../helpers/storybookConstants";
 
 import AppInput from "./AppInput";
 
@@ -104,6 +104,14 @@ const meta = {
 			},
 		},
 	},
+	args: {
+		control: undefined as unknown as Control<FieldValues>,
+		name: "exampleField",
+		disabled: false,
+		defaultValue: "",
+		type: InputTypeList.Text,
+		placeholder: fieldConstants.commonPlaceholder,
+	},
 } satisfies Meta<typeof AppInputStory>;
 
 export default meta;
@@ -113,12 +121,6 @@ export const DefaultVariant: Story = {
 	args: {
 		key: "defaultVariant",
 		label: "Поле ввода",
-		type: InputTypeList.Text,
-		placeholder: inputConstants.commonPlaceholder,
-		disabled: false,
-		defaultValue: "",
-		control: undefined as unknown as Control<FieldValues>,
-		name: "exampleField",
 	},
 };
 
@@ -128,10 +130,6 @@ export const PasswordVariant: Story = {
 		label: "Пароль",
 		type: InputTypeList.Password,
 		placeholder: "Введите пароль",
-		disabled: false,
-		defaultValue: "",
-		control: undefined as unknown as Control<FieldValues>,
-		name: "exampleField",
 	},
 };
 
@@ -139,13 +137,7 @@ export const WithSubtitleVariant: Story = {
 	args: {
 		key: "withSubtitleVariant",
 		label: "Поле с подсказкой",
-		type: InputTypeList.Text,
-		placeholder: inputConstants.commonPlaceholder,
-		disabled: false,
 		subtitle: "Дополнительная информация о поле",
-		defaultValue: "",
-		control: undefined as unknown as Control<FieldValues>,
-		name: "exampleField",
 	},
 };
 
@@ -153,13 +145,7 @@ export const WithErrorVariant: Story = {
 	args: {
 		key: "withErrorVariant",
 		label: "Поле с ошибкой",
-		type: InputTypeList.Text,
-		placeholder: inputConstants.commonPlaceholder,
-		disabled: false,
 		error: "Текст ошибки",
-		defaultValue: "",
-		control: undefined as unknown as Control<FieldValues>,
-		name: "exampleField",
 	},
 };
 
@@ -167,12 +153,8 @@ export const DisabledVariant: Story = {
 	args: {
 		key: "disabledVariant",
 		label: "Отключенное поле",
-		type: InputTypeList.Text,
 		placeholder: "Недоступно для ввода",
 		disabled: true,
-		defaultValue: "",
-		control: undefined as unknown as Control<FieldValues>,
-		name: "exampleField",
 	},
 };
 
@@ -182,11 +164,7 @@ export const EmailVariant: Story = {
 		label: "Email",
 		type: InputTypeList.Email,
 		placeholder: "Введите email",
-		disabled: false,
 		autoComplete: "email",
-		defaultValue: "",
-		control: undefined as unknown as Control<FieldValues>,
-		name: "exampleField",
 	},
 };
 
@@ -196,10 +174,6 @@ export const NumberVariant: Story = {
 		label: "Число",
 		type: InputTypeList.Number,
 		placeholder: "Введите число",
-		disabled: false,
-		defaultValue: "",
-		control: undefined as unknown as Control<FieldValues>,
-		name: "exampleField",
 	},
 };
 
@@ -207,11 +181,6 @@ export const WithDefaultValueVariant: Story = {
 	args: {
 		key: "withDefaultValueVariant",
 		label: "Поле с значением по умолчанию",
-		type: InputTypeList.Text,
-		placeholder: inputConstants.commonPlaceholder,
-		disabled: false,
 		defaultValue: "Значение по умолчанию",
-		control: undefined as unknown as Control<FieldValues>,
-		name: "exampleField",
 	},
 };

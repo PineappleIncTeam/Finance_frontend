@@ -76,6 +76,11 @@ const meta = {
 			},
 		},
 	},
+	args: {
+		control: undefined as unknown as Control<FieldValues>,
+		disabled: false,
+		defaultValue: false,
+	},
 } satisfies Meta<typeof CheckboxStory>;
 
 export default meta;
@@ -85,9 +90,6 @@ export const DefaultVariant: Story = {
 	args: {
 		key: "defaultCheckboxVariant",
 		label: "Стандартный чекбокс",
-		disabled: false,
-		defaultValue: false,
-		control: undefined as unknown as Control<FieldValues>,
 		name: "defaultCheckbox",
 	},
 };
@@ -96,9 +98,7 @@ export const CheckedVariant: Story = {
 	args: {
 		key: "checkedVariant",
 		label: "Отмеченный чекбокс",
-		disabled: false,
 		defaultValue: true,
-		control: undefined as unknown as Control<FieldValues>,
 		name: "checkedCheckbox",
 	},
 };
@@ -108,8 +108,6 @@ export const DisabledVariant: Story = {
 		key: "disabledVariant",
 		label: "Отключенный чекбокс",
 		disabled: true,
-		defaultValue: false,
-		control: undefined as unknown as Control<FieldValues>,
 		name: "disabledCheckbox",
 	},
 };
@@ -120,7 +118,6 @@ export const DisabledCheckedVariant: Story = {
 		label: "Отключенный отмеченный чекбокс",
 		disabled: true,
 		defaultValue: true,
-		control: undefined as unknown as Control<FieldValues>,
 		name: "disabledCheckedCheckbox",
 	},
 };
@@ -129,9 +126,6 @@ export const AgreementVariant: Story = {
 	args: {
 		key: "agreementVariant",
 		label: "Я соглашаюсь с политикой конфиденциальности",
-		disabled: false,
-		defaultValue: false,
-		control: undefined as unknown as Control<FieldValues>,
 		name: "agreementField",
 	},
 };
@@ -140,9 +134,6 @@ export const RememberMeVariant: Story = {
 	args: {
 		key: "rememberMeVariant",
 		label: "Запомнить меня",
-		disabled: false,
-		defaultValue: false,
-		control: undefined as unknown as Control<FieldValues>,
 		name: "isRememberMe",
 	},
 };

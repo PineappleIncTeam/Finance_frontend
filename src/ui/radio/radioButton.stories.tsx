@@ -75,6 +75,10 @@ const meta = {
 			},
 		},
 	},
+	args: {
+		control: undefined as unknown as Control<FieldValues>,
+		disabled: false,
+	},
 } satisfies Meta<typeof RadioButtonStory>;
 
 export default meta;
@@ -84,8 +88,6 @@ export const DefaultVariant: Story = {
 	args: {
 		key: "defaultRadioButtonVariant",
 		label: "Стандартная радиокнопка",
-		disabled: false,
-		control: undefined as unknown as Control<FieldValues>,
 		name: "defaultRadioGroup",
 		value: "option1",
 	},
@@ -95,8 +97,6 @@ export const SecondOptionVariant: Story = {
 	args: {
 		key: "secondOptionVariant",
 		label: "Вторая опция",
-		disabled: false,
-		control: undefined as unknown as Control<FieldValues>,
 		name: "defaultRadioGroup",
 		value: "option2",
 	},
@@ -107,7 +107,6 @@ export const DisabledVariant: Story = {
 		key: "disabledVariant",
 		label: "Отключенная радиокнопка",
 		disabled: true,
-		control: undefined as unknown as Control<FieldValues>,
 		name: "disabledRadioGroup",
 		value: "option1",
 	},
@@ -117,8 +116,6 @@ export const GenderMaleVariant: Story = {
 	args: {
 		key: "genderMaleVariant",
 		label: "Мужской",
-		disabled: false,
-		control: undefined as unknown as Control<FieldValues>,
 		name: "gender",
 		value: "male",
 	},
@@ -128,8 +125,6 @@ export const GenderFemaleVariant: Story = {
 	args: {
 		key: "genderFemaleVariant",
 		label: "Женский",
-		disabled: false,
-		control: undefined as unknown as Control<FieldValues>,
 		name: "gender",
 		value: "female",
 	},

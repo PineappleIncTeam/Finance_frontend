@@ -74,6 +74,8 @@ const meta = {
 	args: {
 		name: "email",
 		control: undefined as unknown as Control<FieldValues>,
+		disabled: false,
+		defaultValue: false,
 	},
 } satisfies Meta<typeof SwitcherStory>;
 
@@ -84,8 +86,6 @@ export const DefaultVariant: Story = {
 	args: {
 		key: "defaultSwitcherVariant",
 		label: "Стандартный переключатель",
-		defaultValue: false,
-		disabled: false,
 	},
 };
 
@@ -94,7 +94,6 @@ export const EnabledVariant: Story = {
 		key: "enabledVariant",
 		label: "Включенный переключатель",
 		defaultValue: true,
-		disabled: false,
 	},
 };
 
@@ -102,7 +101,6 @@ export const DisabledVariant: Story = {
 	args: {
 		key: "disabledVariant",
 		label: "Отключенный переключатель",
-		defaultValue: false,
 		disabled: true,
 	},
 };
@@ -120,8 +118,6 @@ export const NotificationsVariant: Story = {
 	args: {
 		key: "notificationsVariant",
 		label: "Получать уведомления",
-		defaultValue: false,
-		disabled: false,
 	},
 };
 
@@ -129,7 +125,5 @@ export const DarkThemeVariant: Story = {
 	args: {
 		key: "darkThemeVariant",
 		label: "Темная тема",
-		defaultValue: false,
-		disabled: false,
 	},
 };

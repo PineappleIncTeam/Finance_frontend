@@ -3,8 +3,9 @@ import { Control, FieldValues, useForm } from "react-hook-form";
 import React from "react";
 
 import { TSelectorStory } from "../../types/common/StorybookElementProps";
-import { HighlightWrapper } from "../../components/mainLayout/highlightWrapper/HighlightWrapper";
 import { TAuthInputForm } from "../../types/common/UiKitProps";
+import { HighlightWrapper } from "../../components/mainLayout/highlightWrapper/HighlightWrapper";
+import { fieldConstants } from "../../helpers/storybookConstants";
 
 import { Selector } from "./Selector";
 
@@ -90,7 +91,11 @@ const meta = {
 		},
 	},
 	args: {
+		control: undefined as unknown as Control<FieldValues>,
+		disabled: false,
 		name: "email",
+		defaultValue: "",
+		label: fieldConstants.commonSelectorLabel,
 	},
 } satisfies Meta<typeof SelectorStory>;
 
@@ -100,24 +105,26 @@ type Story = StoryObj<typeof meta>;
 export const DefaultVariant: Story = {
 	args: {
 		key: "defaultSelectorVariant",
-		label: "Выберите опцию",
 		placeholder: "Опция N",
 		options: ["Опция 1", "Опция 2", "Опция 3"],
-		defaultValue: "",
-		disabled: false,
-		control: undefined as unknown as Control<FieldValues>,
+	},
+};
+
+export const DisabledVariant: Story = {
+	args: {
+		key: "disabledSelectorVariant",
+		placeholder: "Опция N",
+		options: ["Опция 1", "Опция 2", "Опция 3"],
+		disabled: true,
 	},
 };
 
 export const WithDefaultValueVariant: Story = {
 	args: {
 		key: "withDefaultValueVariant",
-		label: "Выберите опцию",
 		placeholder: "Опция N",
 		options: ["Опция 1", "Опция 2", "Опция 3"],
 		defaultValue: "Опция 2",
-		disabled: false,
-		control: undefined as unknown as Control<FieldValues>,
 	},
 };
 
@@ -126,9 +133,6 @@ export const WithoutLabelVariant: Story = {
 		key: "withoutLabelVariant",
 		placeholder: "Опция N",
 		options: ["Опция 1", "Опция 2", "Опция 3"],
-		defaultValue: "",
-		disabled: false,
-		control: undefined as unknown as Control<FieldValues>,
 	},
 };
 
@@ -138,9 +142,6 @@ export const CountrySelectVariant: Story = {
 		label: "Выберите страну",
 		placeholder: "Страна...",
 		options: ["Россия", "США", "Германия", "Франция", "Япония", "Китай"],
-		defaultValue: "",
-		disabled: false,
-		control: undefined as unknown as Control<FieldValues>,
 	},
 };
 
@@ -150,9 +151,6 @@ export const CitySelectVariant: Story = {
 		label: "Выберите город",
 		placeholder: "Город...",
 		options: ["Москва", "Санкт-Петербург", "Новосибирск", "Екатеринбург", "Казань"],
-		defaultValue: "",
-		disabled: false,
-		control: undefined as unknown as Control<FieldValues>,
 	},
 };
 
@@ -162,8 +160,5 @@ export const CurrencySelectVariant: Story = {
 		label: "Валюта",
 		placeholder: "Выберите валюту",
 		options: ["RUB", "USD", "EUR"],
-		defaultValue: "",
-		disabled: false,
-		control: undefined as unknown as Control<FieldValues>,
 	},
 };

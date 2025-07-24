@@ -58,7 +58,8 @@ const meta = {
 		},
 	},
 	args: {
-		type: "button",
+		type: ["button", "submit"] as unknown as TAppButtonType,
+		className: "buttonStyle",
 		isLarge: false,
 		variant: "contained",
 		children: <>Button</>,
@@ -70,26 +71,19 @@ type Story = StoryObj<typeof meta>;
 
 export const DefaultVariant: Story = {
 	args: {
-		type: ["button", "submit"] as unknown as TAppButtonType,
-		className: "buttonStyle",
-		variant: "contained",
-		isLarge: false,
+		variant: "contained" as unknown as TAppButtonStyle,
 	},
 };
 
 export const SubmitVariant: Story = {
 	args: {
 		type: "submit" as unknown as TAppButtonType,
-		className: "buttonStyle",
 		variant: ["contained", "outlined", "warning", "notification", "faded"] as unknown as TAppButtonStyle,
-		isLarge: false,
 	},
 };
 
 export const LargeVariant: Story = {
 	args: {
-		type: ["button", "submit"] as unknown as TAppButtonType,
-		className: "buttonStyle",
 		variant: ["contained", "outlined", "warning", "notification", "faded"] as unknown as TAppButtonStyle,
 		isLarge: true,
 	},
@@ -97,45 +91,30 @@ export const LargeVariant: Story = {
 
 export const ContainedVariant: Story = {
 	args: {
-		type: ["button", "submit"] as unknown as TAppButtonType,
-		className: "buttonStyle",
 		variant: "contained" as unknown as TAppButtonStyle,
-		isLarge: false,
 	},
 };
 
 export const OutlinedVariant: Story = {
 	args: {
-		type: ["button", "submit"] as unknown as TAppButtonType,
-		className: "buttonStyle",
 		variant: "outlined" as unknown as TAppButtonStyle,
-		isLarge: false,
 	},
 };
 
 export const WarningVariant: Story = {
 	args: {
-		type: ["button", "submit"] as unknown as TAppButtonType,
-		className: "buttonStyle",
 		variant: "outlined" as unknown as TAppButtonStyle,
-		isLarge: false,
 	},
 };
 
 export const NotificationVariant: Story = {
 	args: {
-		type: ["button", "submit"] as unknown as TAppButtonType,
-		className: "buttonStyle",
 		variant: "notification" as unknown as TAppButtonStyle,
-		isLarge: false,
 	},
 };
 
 export const FadedVariant: Story = {
 	args: {
-		type: ["button", "submit"] as unknown as TAppButtonType,
-		className: "buttonStyle",
 		variant: "faded" as unknown as TAppButtonStyle,
-		isLarge: false,
 	},
 };

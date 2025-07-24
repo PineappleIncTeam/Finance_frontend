@@ -69,6 +69,10 @@ const meta = {
 			},
 		},
 	},
+	args: {
+		control: undefined as unknown as Control<FieldValues>,
+		isPeriod: false,
+	},
 } satisfies Meta<typeof InputDateStory>;
 
 export default meta;
@@ -77,10 +81,8 @@ type Story = StoryObj<typeof meta>;
 export const DefaultVariant: Story = {
 	args: {
 		key: "defaultDateVariant",
-		isPeriod: false,
 		isLabel: true,
 		defaultValue: new Date(),
-		control: undefined as unknown as Control<FieldValues>,
 		name: "defaultDate",
 	},
 };
@@ -91,7 +93,6 @@ export const PeriodVariant: Story = {
 		isPeriod: true,
 		isLabel: true,
 		defaultValue: [new Date(), new Date(new Date().setDate(new Date().getDate() + weekDayCount))],
-		control: undefined as unknown as Control<FieldValues>,
 		name: "periodDate",
 	},
 };
@@ -99,10 +100,8 @@ export const PeriodVariant: Story = {
 export const WithoutLabelVariant: Story = {
 	args: {
 		key: "withoutLabelVariant",
-		isPeriod: false,
 		isLabel: false,
 		defaultValue: new Date(),
-		control: undefined as unknown as Control<FieldValues>,
 		name: "withoutLabelDate",
 	},
 };
@@ -113,7 +112,6 @@ export const PeriodWithoutLabelVariant: Story = {
 		isPeriod: true,
 		isLabel: false,
 		defaultValue: [new Date(), new Date(new Date().setDate(new Date().getDate() + weekDayCount))],
-		control: undefined as unknown as Control<FieldValues>,
 		name: "periodWithoutLabelDate",
 	},
 };
@@ -121,10 +119,8 @@ export const PeriodWithoutLabelVariant: Story = {
 export const EmptyDateVariant: Story = {
 	args: {
 		key: "emptyDateVariant",
-		isPeriod: false,
 		isLabel: true,
 		defaultValue: new Date(),
-		control: undefined as unknown as Control<FieldValues>,
 		name: "emptyDate",
 	},
 };
@@ -135,7 +131,6 @@ export const EmptyPeriodVariant: Story = {
 		isPeriod: true,
 		isLabel: true,
 		defaultValue: [null, null],
-		control: undefined as unknown as Control<FieldValues>,
 		name: "emptyPeriodDate",
 	},
 };

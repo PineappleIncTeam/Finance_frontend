@@ -1,7 +1,15 @@
 import { JSX } from "react";
 import { FieldValues, UseControllerProps } from "react-hook-form";
 
-import { IAppInput, IAuthInput, ICustomCheckbox, ICustomInputDate, IRadioButton, TAuthInputForm } from "./UiKitProps";
+import {
+	IAppInput,
+	IAuthInput,
+	ICustomCheckbox,
+	ICustomInputDate,
+	IRadioButton,
+	ISelector,
+	TAuthInputForm,
+} from "./UiKitProps";
 
 export type TAppInputStory = JSX.IntrinsicAttributes &
 	IAppInput<FieldValues> & {
@@ -28,5 +36,11 @@ export type TInputDateStory<T extends FieldValues> = JSX.IntrinsicAttributes &
 
 export type TRadioButtonStory<T extends FieldValues> = JSX.IntrinsicAttributes &
 	IRadioButton<T> & {
+		disabled?: boolean;
+	};
+
+export type TSelectorStory<T extends TAuthInputForm> = JSX.IntrinsicAttributes &
+	ISelector<T> & {
+		defaultValue?: string;
 		disabled?: boolean;
 	};

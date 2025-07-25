@@ -4,7 +4,7 @@ export const emailPattern =
 export const passwordPattern =
 	/^(?=.*\d)(?=.*[a-z])(?!.*(.)\1{2,})(?=.*[A-Z])(?!.*\d{4,}|\d{2}[\\/-]\d{2}[\\/-]\d{4})(?!.*[^a-zA-Z\d!#/\\='"<>{}@,.$%[\]^&*()~_|:;+?^-])[^\s]{6,50}$/;
 
-export const financePattern = /^(?=.*[^\W\d])(?!^[\d\W]+$).+$/;
+export const financePattern = /^(?=.*[а-яА-ЯёЁa-zA-Z])[\p{L}0-9\s\-_]+$/u;
 
 export const errorDefault = "";
 export const errorRequiredField = "Не заполнено обязательное поле.";

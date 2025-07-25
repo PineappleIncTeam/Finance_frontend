@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import DatePicker, { registerLocale } from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
 import { ru } from "date-fns/locale/ru";
 import cn from "classnames";
 import { FieldValues, useController } from "react-hook-form";
 import moment from "moment";
+import "react-datepicker/dist/react-datepicker.css";
 
 import { ICustomHeaderInputDate, ICustomInputDate } from "../../types/common/UiKitProps";
 import InputDateSelector from "../../components/userProfileLayout/inputDateSelector/inputDateSelector";
@@ -103,52 +103,56 @@ const InputDate = <T extends FieldValues>({ isPeriod = false, control, name, isL
 		</div>
 	);
 
+	function renderCorrectDatePicker() {
+		return isPeriod ? (
+			<DatePicker
+				onChange={handleChangeDates}
+				startDate={startDate}
+				endDate={endDate}
+				selectsRange
+				selectedDates={startDate && endDate ? [startDate, endDate] : []}
+				locale={"ru"}
+				placeholderText="__.__.___"
+				dateFormat="dd.MM.yy"
+				showIcon
+				calendarIconClassName={styles.calendarIcon}
+				icon={calendarIcon(styles.calendarIcon__img)}
+				className={styles.date}
+				readOnly={false}
+				todayButton="Сегодня"
+				renderCustomHeader={CustomHeader}
+				closeOnScroll={true}
+				popperPlacement="bottom-start"
+				value={value}
+				name={name}
+			/>
+		) : (
+			<DatePicker
+				selected={value}
+				onChange={handleChangeCurrentDate}
+				onMonthChange={handleChangeCurrentDate}
+				onYearChange={handleChangeCurrentDate}
+				locale={"ru"}
+				placeholderText="__.__.___"
+				dateFormat="dd.MM.yy"
+				showIcon
+				calendarIconClassName={styles.calendarIcon}
+				icon={calendarIcon(styles.calendarIcon__img)}
+				className={styles.date}
+				readOnly={false}
+				todayButton="Сегодня"
+				renderCustomHeader={CustomHeader}
+				closeOnScroll={true}
+				popperPlacement="bottom-start"
+				name={name}
+			/>
+		);
+	}
+
 	return (
 		<div className={styles.date__wrapper}>
 			{isLabel && <p className={styles.date__label}>{isPeriod ? "Дата или период" : "Выбор даты"}</p>}
-			{isPeriod ? (
-				<DatePicker
-					onChange={handleChangeDates}
-					startDate={startDate}
-					endDate={endDate}
-					selectsRange
-					selectedDates={startDate && endDate ? [startDate, endDate] : []}
-					locale={"ru"}
-					placeholderText="__.__.___"
-					dateFormat="dd.MM.yy"
-					showIcon
-					calendarIconClassName={styles.calendarIcon}
-					icon={calendarIcon(styles.calendarIcon__img)}
-					className={styles.date}
-					readOnly={false}
-					todayButton="Сегодня"
-					renderCustomHeader={CustomHeader}
-					closeOnScroll={true}
-					popperPlacement="bottom-start"
-					value={value}
-					name={name}
-				/>
-			) : (
-				<DatePicker
-					selected={value}
-					onChange={handleChangeCurrentDate}
-					onMonthChange={handleChangeCurrentDate}
-					onYearChange={handleChangeCurrentDate}
-					locale={"ru"}
-					placeholderText="__.__.___"
-					dateFormat="dd.MM.yy"
-					showIcon
-					calendarIconClassName={styles.calendarIcon}
-					icon={calendarIcon(styles.calendarIcon__img)}
-					className={styles.date}
-					readOnly={false}
-					todayButton="Сегодня"
-					renderCustomHeader={CustomHeader}
-					closeOnScroll={true}
-					popperPlacement="bottom-start"
-					name={name}
-				/>
-			)}
+			{renderCorrectDatePicker()}
 		</div>
 	);
 };

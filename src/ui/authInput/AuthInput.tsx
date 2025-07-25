@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import cn from "classnames";
 import Image from "next/image";
 import { useController } from "react-hook-form";
-
 import { passwordStrength } from "check-password-strength";
 
 import { InputTypeList } from "../../helpers/Input";

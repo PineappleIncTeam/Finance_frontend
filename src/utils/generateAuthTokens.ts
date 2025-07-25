@@ -13,6 +13,11 @@ export const generateCodeChallenge = async () => {
 	return challenge.code_challenge;
 };
 
+export const generateCodeVerifier = async () => {
+	const challenge = await generatePkceChallenge();
+	return challenge.code_verifier;
+};
+
 export const generateState = () => {
 	let result = "";
 

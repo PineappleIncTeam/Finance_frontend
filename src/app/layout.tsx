@@ -1,5 +1,7 @@
 import "./reset.css";
 import "./globals.css";
+
+import { PublicEnvScript } from "next-runtime-env";
 import cn from "classnames";
 
 import ProviderList from "../services/redux/provider";
@@ -32,6 +34,9 @@ export default function RootLayout({
 }>) {
 	return (
 		<html lang="en">
+			<head>
+				<PublicEnvScript />
+			</head>
 			<body className={cn(rubik.className, manrope.className)}>
 				<ProviderList>{children}</ProviderList>
 			</body>

@@ -21,7 +21,7 @@ import { ApiResponseCode } from "../../../helpers/apiResponseCode";
 import CustomCheckbox from "../../../ui/checkBox/checkBox";
 import Button from "../../../ui/Button/Button1";
 import { ButtonType } from "../../../helpers/buttonFieldValues";
-import { generateCodeVerifier, generateState } from "../../../utils/generateAuthTokens";
+import { generatePkceChallenge, generateState } from "../../../utils/generateAuthTokens";
 import { authApiVkService } from "../../../services/api/auth/VkAuth";
 import { ILoginSuccessPayload, IVkAuthRequest } from "../../../types/pages/Authorization";
 
@@ -65,7 +65,7 @@ export default function SignUpForm() {
 
 	useEffect(() => {
 		(async () => {
-			await setCodeVerifier(String(await generateCodeVerifier()));
+			await setCodeVerifier(String((await generatePkceChallenge()).code_verifier));
 		})();
 	}, []);
 
@@ -73,7 +73,7 @@ export default function SignUpForm() {
 		app: vkAppId,
 		redirectUrl: `${getCorrectBaseUrl()}${UserProfilePath.ProfitMoney}`,
 		state: generateState(),
-		codeVerifier: String(generateCodeVerifier()),
+		codeVerifier: String(generatePkceChallenge()),
 		scope: "email phone",
 		responseMode: VKID.ConfigResponseMode.Callback,
 	});
@@ -113,7 +113,7 @@ export default function SignUpForm() {
 	});
 
 	function handleOpenAuthCurtain() {
-		setCodeVerifier(String(generateCodeVerifier()));
+		// setCodeVerifier(String(generateCodeVerifier()));
 		floatingOneTap.render(authCurtainRenderObj);
 	}
 

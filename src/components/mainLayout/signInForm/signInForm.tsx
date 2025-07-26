@@ -83,7 +83,7 @@ export default function SignInForm() {
 		app: vkAppId,
 		redirectUrl: `${getCorrectBaseUrl()}${UserProfilePath.ProfitMoney}`,
 		state: generateState(),
-		codeChallenge: String(pkceCodeSet.code_challenge),
+		codeChallenge: String(pkceCodeSet?.code_challenge ?? ""),
 		scope: "email phone",
 		responseMode: VKID.ConfigResponseMode.Callback,
 		mode: VKID.ConfigAuthMode.InNewWindow,
@@ -118,7 +118,7 @@ export default function SignInForm() {
 			// eslint-disable-next-line camelcase
 			device_id: payload.device_id,
 			// eslint-disable-next-line camelcase
-			code_verifier: pkceCodeSet.code_verifier,
+			code_verifier: pkceCodeSet?.code_verifier ?? "",
 		};
 		authVkIdService(data);
 	});

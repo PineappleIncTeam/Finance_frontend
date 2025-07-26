@@ -25,17 +25,22 @@ import { loginUser } from "../../../services/api/auth/Login";
 import { setAutoLoginStatus } from "../../../services/redux/features/autoLogin/autoLoginSlice";
 import Button from "../../../ui/Button/Button1";
 import { ButtonType } from "../../../helpers/buttonFieldValues";
-import { generateCodeVerifier, generateState } from "../../../utils/generateAuthTokens";
+import { generatePkceChallenge, generateState } from "../../../utils/generateAuthTokens";
 import { authApiVkService } from "../../../services/api/auth/VkAuth";
 import { ILoginSuccessPayload, IVkAuthRequest } from "../../../types/pages/Authorization";
 
 import styles from "./signInForm.module.scss";
 
+interface IPkceCodeSet {
+	code_verifier: string;
+	code_challenge: string;
+}
+
 export default function SignInForm() {
 	const [baseUrl, setBaseUrl] = useState<string>("");
 	const [errorMessage, setErrorMessage] = useState<string>("");
 	const [isOpen, setIsOpen] = useState<boolean>(false);
-	const [codeVerifier, setCodeVerifier] = useState<string>("");
+	const [pkceCodeSet, setPkceCodeSet] = useState<IPkceCodeSet>();
 
 	const dispatch = useAppDispatch();
 
@@ -70,7 +75,7 @@ export default function SignInForm() {
 
 	useEffect(() => {
 		(async () => {
-			await setCodeVerifier(String(await generateCodeVerifier()));
+			await setPkceCodeSet(await generatePkceChallenge());
 		})();
 	}, []);
 
@@ -78,9 +83,10 @@ export default function SignInForm() {
 		app: vkAppId,
 		redirectUrl: `${getCorrectBaseUrl()}${UserProfilePath.ProfitMoney}`,
 		state: generateState(),
-		codeVerifier: String(generateCodeVerifier()),
+		codeChallenge: String(pkceCodeSet.code_challenge),
 		scope: "email phone",
 		responseMode: VKID.ConfigResponseMode.Callback,
+		mode: VKID.ConfigAuthMode.InNewWindow,
 	});
 
 	const floatingOneTap = new VKID.FloatingOneTap();
@@ -112,13 +118,13 @@ export default function SignInForm() {
 			// eslint-disable-next-line camelcase
 			device_id: payload.device_id,
 			// eslint-disable-next-line camelcase
-			code_verifier: codeVerifier,
+			code_verifier: pkceCodeSet.code_verifier,
 		};
 		authVkIdService(data);
 	});
 
 	async function handleOpenAuthCurtain() {
-		await setCodeVerifier(String(await generateCodeVerifier()));
+		await setPkceCodeSet(await generatePkceChallenge());
 
 		floatingOneTap.render(authCurtainRenderObj);
 	}

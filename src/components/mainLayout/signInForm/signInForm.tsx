@@ -91,6 +91,16 @@ export default function SignInForm() {
 
 	const floatingOneTap = new VKID.FloatingOneTap();
 
+	function createVkIdServiceData(authCode: string, deviceID: string): IVkAuthRequest {
+		return {
+			code: authCode,
+			// eslint-disable-next-line camelcase
+			code_verifier: deviceID,
+			// eslint-disable-next-line camelcase
+			device_id: pkceCodeSet?.code_verifier ?? "",
+		};
+	}
+
 	async function authVkIdService(authData: IVkAuthRequest) {
 		try {
 			if (baseUrl) {
@@ -112,16 +122,13 @@ export default function SignInForm() {
 		}
 	}
 
-	floatingOneTap.on(VKID.FloatingOneTapInternalEvents.LOGIN_SUCCESS, async (payload: ILoginSuccessPayload) => {
-		const data = {
-			code: payload.code,
-			// eslint-disable-next-line camelcase
-			device_id: payload.device_id,
-			// eslint-disable-next-line camelcase
-			code_verifier: pkceCodeSet?.code_verifier ?? "",
-		};
-		authVkIdService(data);
-	});
+	floatingOneTap.on(
+		VKID.FloatingOneTapInternalEvents.LOGIN_SUCCESS,
+		// eslint-disable-next-line camelcase
+		async ({ code, device_id }: ILoginSuccessPayload) => {
+			authVkIdService(createVkIdServiceData(code, device_id));
+		},
+	);
 
 	async function handleOpenAuthCurtain() {
 		await setPkceCodeSet(await generatePkceChallenge());

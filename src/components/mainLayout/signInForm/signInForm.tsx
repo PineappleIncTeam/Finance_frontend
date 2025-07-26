@@ -91,16 +91,6 @@ export default function SignInForm() {
 
 	const floatingOneTap = new VKID.FloatingOneTap();
 
-	function createVkIdServiceData(authCode: string, deviceID: string): IVkAuthRequest {
-		return {
-			code: authCode,
-			// eslint-disable-next-line camelcase
-			code_verifier: deviceID,
-			// eslint-disable-next-line camelcase
-			device_id: pkceCodeSet?.code_verifier ?? "",
-		};
-	}
-
 	async function authVkIdService(authData: IVkAuthRequest) {
 		try {
 			if (baseUrl) {
@@ -110,15 +100,17 @@ export default function SignInForm() {
 				}
 			}
 		} catch (error) {
-			if (
-				axios.isAxiosError(error) &&
-				error.response &&
-				error.response.status &&
-				error.response.status >= axios.HttpStatusCode.InternalServerError &&
-				error.response.status < ApiResponseCode.SERVER_ERROR_STATUS_MAX
-			) {
-				router.push(MainPath.ServerError);
-			}
+			console.log(error);
+
+			// if (
+			// 	axios.isAxiosError(error) &&
+			// 	error.response &&
+			// 	error.response.status &&
+			// 	error.response.status >= axios.HttpStatusCode.InternalServerError &&
+			// 	error.response.status < ApiResponseCode.SERVER_ERROR_STATUS_MAX
+			// ) {
+			// 	router.push(MainPath.ServerError);
+			// }
 		}
 	}
 
@@ -126,12 +118,20 @@ export default function SignInForm() {
 		VKID.FloatingOneTapInternalEvents.LOGIN_SUCCESS,
 		// eslint-disable-next-line camelcase
 		async ({ code, device_id }: ILoginSuccessPayload) => {
-			authVkIdService(createVkIdServiceData(code, device_id));
+			const data = {
+				code: code,
+				// eslint-disable-next-line camelcase
+				code_verifier: pkceCodeSet?.code_verifier ?? "",
+				// eslint-disable-next-line camelcase
+				device_id: device_id,
+			};
+
+			authVkIdService(data);
 		},
 	);
 
 	async function handleOpenAuthCurtain() {
-		await setPkceCodeSet(await generatePkceChallenge());
+		// await setPkceCodeSet(await generatePkceChallenge());
 
 		floatingOneTap.render(authCurtainRenderObj);
 	}

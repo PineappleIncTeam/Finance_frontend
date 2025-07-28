@@ -4,7 +4,7 @@ import { TCommonFunction, TTimerRefState } from "../types/components/ComponentsT
 
 /**
  * @category Auth Hooks
- * 
+ *
  * Хук для автоматического выхода пользователя после периода неактивности.
  * Создает таймер, который вызывает переданный callback через заданное время (по умолчанию 15 минут).
  * Предоставляет метод для сброса таймера при активности пользователя.
@@ -23,9 +23,9 @@ import { TCommonFunction, TTimerRefState } from "../types/components/ComponentsT
  *   console.log('User logged out due to inactivity');
  *   // Реальная логика выхода
  * };
- * 
+ *
  * const { resetTimer } = useLogoutTimer(logout);
- * 
+ *
  * // Сброс таймера при активности
  * <button onClick={() => {
  *   resetTimer();
@@ -76,7 +76,7 @@ export const useLogoutTimer = (callback: TCommonFunction) => {
 	useEffect(() => {
 		window.addEventListener("mousemove", resetTimer);
 		return () => window.removeEventListener("mousemove", resetTimer);
-	// eslint-disable-next-line react-hooks/exhaustive-deps
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	const resetTimer = () => {

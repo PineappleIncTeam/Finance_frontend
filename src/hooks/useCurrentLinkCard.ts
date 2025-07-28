@@ -2,9 +2,9 @@ import { useCallback } from "react";
 
 /**
  * @category Blog Hooks
- * 
+ *
  * Хук для генерации и копирования ссылки на карточку блога с учетом текущего URL.
- * Автоматически определяет, нужно ли преобразовывать URL (замена `blog` на `blogPage`) 
+ * Автоматически определяет, нужно ли преобразовывать URL (замена `blog` на `blogPage`)
  * и копирует итоговую ссылку в буфер обмена.
  *
  * @param {string} id - Уникальный идентификатор карточки блога.
@@ -13,7 +13,7 @@ import { useCallback } from "react";
  * @example
  * // Использование в компоненте карточки блога
  * const copyLink = useCurrentLinkCard();
- * 
+ *
  * <button onClick={() => copyLink("123")}>
  *   Скопировать ссылку
  * </button>

@@ -3,9 +3,9 @@
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
-import axios from "axios";
+import axios, { isAxiosError } from "axios";
 import Link from "next/link";
-
+// import { env } from "next-runtime-env";
 import * as VKID from "@vkid/sdk";
 
 import useAppDispatch from "../../../hooks/useAppDispatch";
@@ -15,7 +15,7 @@ import AuthInput from "../../../ui/authInput/AuthInput";
 import Title from "../../../ui/title/Title";
 import CustomCheckbox from "../../../ui/checkBox/checkBox";
 import InviteModal from "../inviteModal/inviteModal";
-import { emailPattern, passwordPattern } from "../../../helpers/authConstants";
+import { emailPattern, errorDataLogOn, errorProfileActivation, passwordPattern } from "../../../helpers/authConstants";
 import { formHelpers } from "../../../utils/formHelpers";
 import { getCorrectBaseUrl } from "../../../utils/baseUrlConverter";
 import { InputTypeList } from "../../../helpers/Input";
@@ -33,7 +33,6 @@ import styles from "./signInForm.module.scss";
 
 export default function SignInForm() {
 	const [baseUrl, setBaseUrl] = useState<string>("");
-	const [errorMessage, setErrorMessage] = useState<string>("");
 	const [isOpen, setIsOpen] = useState<boolean>(false);
 	const [codeVerifier, setCodeVerifier] = useState<string>("");
 
@@ -41,6 +40,7 @@ export default function SignInForm() {
 
 	const {
 		formState: { errors },
+		setError,
 		control,
 		handleSubmit,
 	} = useForm<ISignInForm>({
@@ -55,6 +55,15 @@ export default function SignInForm() {
 
 	const router = useRouter();
 
+	// const vkAppId = Number(env("NEXT_PUBLIC_VK_APP_ID"));
+
+	const authCurtainRenderObj = {
+		appName: "freenance-app",
+		scheme: VKID.Scheme.LIGHT,
+		lang: VKID.Languages.RUS,
+		indent: { top: 30, right: 50 },
+	};
+
 	useEffect(() => {
 		setBaseUrl(getCorrectBaseUrl());
 	}, []);
@@ -63,39 +72,8 @@ export default function SignInForm() {
 		setCodeVerifier(String(generateCodeVerifier()));
 	}, []);
 
-	const onSubmit = async (data: ISignInForm) => {
-		try {
-			setErrorMessage("");
-			if (baseUrl && data.password) {
-				const correctUserData: ICorrectSignInForm = {
-					email: data.email ?? "",
-					password: data.password,
-				};
-				await loginUser(baseUrl, correctUserData);
-				setIsOpen(true);
-				if (data.isAutoAuth) dispatch(setAutoLoginStatus(data.isAutoAuth));
-			}
-		} catch (error) {
-			if (
-				axios.isAxiosError(error) &&
-				error.response &&
-				error.response.status &&
-				error.response.status >= axios.HttpStatusCode.InternalServerError &&
-				error.response.status < ApiResponseCode.SERVER_ERROR_STATUS_MAX
-			) {
-				return router.push(MainPath.ServerError);
-			}
-			setErrorMessage("Введены некорректный email или пароль");
-		}
-	};
-
-	const handleModalClose = () => {
-		setIsOpen(false);
-		router.push(UserProfilePath.ProfitMoney);
-	};
-
 	VKID.Config.init({
-		app: Number(process.env.NEXT_PUBLIC_VK_APP_ID),
+		app: 0,
 		redirectUrl: `${getCorrectBaseUrl()}${UserProfilePath.ProfitMoney}`,
 		state: generateState(),
 		codeVerifier: String(generateCodeVerifier()),
@@ -105,10 +83,10 @@ export default function SignInForm() {
 
 	const floatingOneTap = new VKID.FloatingOneTap();
 
-	const vkAuth = async (data: IVkAuthRequest) => {
+	async function authVkIdService(authData: IVkAuthRequest) {
 		try {
 			if (baseUrl) {
-				const response = await AuthVk(baseUrl, data);
+				const response = await AuthVk(baseUrl, authData);
 				if (response.status === axios.HttpStatusCode.Ok) {
 					router.push(UserProfilePath.ProfitMoney);
 				}
@@ -124,7 +102,7 @@ export default function SignInForm() {
 				router.push(MainPath.ServerError);
 			}
 		}
-	};
+	}
 
 	floatingOneTap.on(VKID.FloatingOneTapInternalEvents.LOGIN_SUCCESS, async (payload: ILoginSuccessPayload) => {
 		const data = {
@@ -134,20 +112,52 @@ export default function SignInForm() {
 			// eslint-disable-next-line camelcase
 			code_verifier: codeVerifier,
 		};
-		vkAuth(data);
+		authVkIdService(data);
 	});
-
-	const authCurtainRenderObj = {
-		appName: "freenance-app",
-		scheme: VKID.Scheme.LIGHT,
-		lang: VKID.Languages.RUS,
-		indent: { top: 30, right: 50 },
-	};
 
 	function handleOpenAuthCurtain() {
 		setCodeVerifier(String(generateCodeVerifier()));
 		floatingOneTap.render(authCurtainRenderObj);
 	}
+
+	const onSubmit = async (data: ISignInForm) => {
+		try {
+			if (baseUrl && data.password) {
+				const correctUserData: ICorrectSignInForm = {
+					email: data.email ?? "",
+					password: data.password,
+				};
+				await loginUser(baseUrl, correctUserData);
+				setIsOpen(true);
+				if (data.isAutoAuth) dispatch(setAutoLoginStatus(data.isAutoAuth));
+			}
+		} catch (error) {
+			if (isAxiosError(error) && error?.response?.status === axios.HttpStatusCode.BadRequest) {
+				setError("email", {
+					type: "server",
+					message: errorDataLogOn,
+				});
+			} else if (isAxiosError(error) && error?.response?.status === axios.HttpStatusCode.Forbidden) {
+				setError("email", {
+					type: "server",
+					message: errorProfileActivation,
+				});
+			} else if (
+				axios.isAxiosError(error) &&
+				error.response &&
+				error.response.status &&
+				error.response.status >= axios.HttpStatusCode.InternalServerError &&
+				error.response.status < ApiResponseCode.SERVER_ERROR_STATUS_MAX
+			) {
+				return router.push(MainPath.ServerError);
+			}
+		}
+	};
+
+	const handleModalClose = () => {
+		setIsOpen(false);
+		router.push(UserProfilePath.ProfitMoney);
+	};
 
 	return (
 		<form className={styles.signInFormWrap} onSubmit={handleSubmit(onSubmit)}>
@@ -180,7 +190,6 @@ export default function SignInForm() {
 						Забыли пароль?
 					</Link>
 				</div>
-				{errorMessage && <p className={styles.errorMessage}>{errorMessage}</p>}
 				<Button variant={ButtonType.Notification} type={InputTypeList.Submit} className={styles.button}>
 					Вход
 				</Button>

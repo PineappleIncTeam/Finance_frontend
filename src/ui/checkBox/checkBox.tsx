@@ -1,5 +1,4 @@
 import React from "react";
-
 import { FieldValues, Path, PathValue, useController } from "react-hook-form";
 
 import { ICustomCheckbox } from "../../types/common/UiKitProps";

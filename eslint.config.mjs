@@ -125,6 +125,7 @@ export default eslintTs.config(
             "@typescript-eslint/no-empty-function": "error",
             "@typescript-eslint/no-unused-expressions": "warn",
             "@typescript-eslint/no-empty-interface": "warn",
+            "@typescript-eslint/ban-ts-comment": "warn",
             "@typescript-eslint/naming-convention": [
                 "error",
                 {

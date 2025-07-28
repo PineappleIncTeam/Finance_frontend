@@ -14,7 +14,7 @@ import { MainPath } from "../../../services/router/routes";
 import { mockLocalhostStr, mockLocalhostUrl } from "../../../services/api/auth/apiConstants";
 import { ApiResponseCode } from "../../../helpers/apiResponseCode";
 import { InputTypeList } from "../../../helpers/Input";
-import { errorPasswordRepeat, passwordPattern } from "../../../helpers/authConstants";
+import { errorPasswordRepeat, errorUidOrToken, passwordPattern } from "../../../helpers/authConstants";
 import { getCorrectBaseUrl } from "../../../utils/baseUrlConverter";
 import { formHelpers } from "../../../utils/formHelpers";
 import Button from "../../../ui/Button/Button1";
@@ -36,6 +36,7 @@ export default function ChangePassword() {
 	const {
 		control,
 		handleSubmit,
+		setError,
 		reset,
 		watch,
 		formState: { errors },
@@ -67,11 +68,14 @@ export default function ChangePassword() {
 				data.token = token;
 				await SetNewPassword(baseUrl, data);
 				router.push(MainPath.Login);
-			} else {
-				return router.push(MainPath.ServerError);
 			}
 		} catch (error) {
-			if (
+			if (error && error.status === axios.HttpStatusCode.BadRequest) {
+				setError("password", {
+					type: "server",
+					message: errorUidOrToken,
+				});
+			} else if (
 				axios.isAxiosError(error) &&
 				error.response &&
 				error.response.status >= ApiResponseCode.SERVER_ERROR_STATUS_MIN &&

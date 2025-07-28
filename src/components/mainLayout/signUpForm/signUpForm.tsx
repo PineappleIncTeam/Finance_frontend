@@ -11,7 +11,12 @@ import * as VKID from "@vkid/sdk";
 import { ISignUpForm } from "../../../types/components/ComponentsTypes";
 import AuthInput from "../../../ui/authInput/AuthInput";
 import Title from "../../../ui/title/Title";
-import { emailPattern, errorPasswordRepeat, passwordPattern } from "../../../helpers/authConstants";
+import {
+	emailPattern,
+	errorPasswordRepeat,
+	errorUserWithExistEmailRegistration,
+	passwordPattern,
+} from "../../../helpers/authConstants";
 import { formHelpers } from "../../../utils/formHelpers";
 import { InputTypeList } from "../../../helpers/Input";
 import { registration } from "../../../services/api/auth/Registration";
@@ -35,6 +40,7 @@ export default function SignUpForm() {
 		formState: { isValid, errors },
 		control,
 		watch,
+		setError,
 		handleSubmit,
 	} = useForm<ISignUpForm>({
 		defaultValues: {
@@ -133,7 +139,12 @@ export default function SignUpForm() {
 				return router.push(MainPath.ServerError);
 			}
 		} catch (error) {
-			if (
+			if (isAxiosError(error) && error.status === axios.HttpStatusCode.BadRequest) {
+				setError("email", {
+					type: "server",
+					message: errorUserWithExistEmailRegistration,
+				});
+			} else if (
 				isAxiosError(error) &&
 				error.response &&
 				error.response.status &&
@@ -142,7 +153,6 @@ export default function SignUpForm() {
 			) {
 				return router.push(MainPath.ServerError);
 			}
-			return router.push(MainPath.NotFound);
 		}
 	};
 

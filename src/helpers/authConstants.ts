@@ -29,3 +29,8 @@ export const errorPasswordStrengthMedium =
 export const errorPasswordStrengthStrong = "Вы используете надёжный пароль";
 export const errorFinanceNameIncorrect =
 	"Название категории должно содержать хотя бы 1 символ, который не является цифрой или пробелом, и не состоит только из цифр.";
+export const errorUserWithExistEmailRegistration = "Пользователь с таким Email уже зарегистрирован";
+export const errorDataLogOn = "Невозможно войти с предоставленными учётными данными";
+export const errorProfileActivation = "Ваш профиль не активирован";
+export const errorEmailIsNotRegister = "Такой адрес не зарегистрирован в приложении.";
+export const errorUidOrToken = "Неверный код восстановления. Попробуйте восстановить пароль еще раз.";

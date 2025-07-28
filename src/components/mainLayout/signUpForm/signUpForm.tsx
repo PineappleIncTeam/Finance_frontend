@@ -139,7 +139,7 @@ export default function SignUpForm() {
 				return router.push(MainPath.ServerError);
 			}
 		} catch (error) {
-			if (isAxiosError(error) && error.status === axios.HttpStatusCode.BadRequest) {
+			if (isAxiosError(error) && error?.response?.status === axios.HttpStatusCode.BadRequest) {
 				setError("email", {
 					type: "server",
 					message: errorUserWithExistEmailRegistration,

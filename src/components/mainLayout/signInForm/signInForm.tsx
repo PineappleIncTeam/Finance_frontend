@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
-import axios from "axios";
+import axios, { isAxiosError } from "axios";
 import Link from "next/link";
 // import { env } from "next-runtime-env";
 import * as VKID from "@vkid/sdk";
@@ -132,12 +132,12 @@ export default function SignInForm() {
 				if (data.isAutoAuth) dispatch(setAutoLoginStatus(data.isAutoAuth));
 			}
 		} catch (error) {
-			if (error && error.status === axios.HttpStatusCode.BadRequest) {
+			if (isAxiosError(error) && error?.response?.status === axios.HttpStatusCode.BadRequest) {
 				setError("email", {
 					type: "server",
 					message: errorDataLogOn,
 				});
-			} else if (error && error.status === axios.HttpStatusCode.Forbidden) {
+			} else if (isAxiosError(error) && error?.response?.status === axios.HttpStatusCode.Forbidden) {
 				setError("email", {
 					type: "server",
 					message: errorProfileActivation,

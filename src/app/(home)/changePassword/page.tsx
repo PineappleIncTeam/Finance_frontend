@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useSearchParams, useRouter } from "next/navigation";
-import axios from "axios";
+import axios, { isAxiosError } from "axios";
 
 import { IChangePassword, IChangePasswordForm } from "../../../types/pages/Password";
 import Title from "../../../ui/title/Title";
@@ -70,7 +70,7 @@ export default function ChangePassword() {
 				router.push(MainPath.Login);
 			}
 		} catch (error) {
-			if (error && error.status === axios.HttpStatusCode.BadRequest) {
+			if (isAxiosError(error) && error?.response?.status === axios.HttpStatusCode.BadRequest) {
 				setError("password", {
 					type: "server",
 					message: errorUidOrToken,

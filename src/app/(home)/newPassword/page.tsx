@@ -73,7 +73,7 @@ export default function NewPassword() {
 				}
 			}
 		} catch (error) {
-			if (error && error.status === axios.HttpStatusCode.BadRequest) {
+			if (isAxiosError(error) && error?.response?.status === axios.HttpStatusCode.BadRequest) {
 				setError("email", {
 					type: "server",
 					message: errorEmailIsNotRegister,

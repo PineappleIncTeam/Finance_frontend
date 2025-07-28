@@ -83,6 +83,10 @@ export default function NewPassword() {
 		}
 	};
 
+	function handleReturnBack() {
+		router.push(MainPath.Login);
+	}
+
 	return (
 		<div className={styles.newPasswordWrap}>
 			<form className={styles.newPasswordFormContainer} onSubmit={handleSubmit(onSubmit)}>
@@ -93,7 +97,6 @@ export default function NewPassword() {
 						open={isNewPasswordModalShown}
 						toggle={() => newPasswordModalVisible(false)}
 					/>
-					<p className={styles.inputLabel}>Введите почту</p>
 					<AuthInput
 						control={control}
 						label="Введите почту"
@@ -104,8 +107,12 @@ export default function NewPassword() {
 						rules={{ required: true, pattern: emailPattern }}
 					/>
 					<div className={styles.newPasswordFormContainer__buttons}>
-						<Button variant={ButtonType.Outlined} type={InputTypeList.Submit} className={styles.button}>
-							Назад
+						<Button
+							variant={ButtonType.Outlined}
+							type={InputTypeList.Button}
+							className={styles.button}
+							onClick={handleReturnBack}>
+							Отменить
 						</Button>
 						<Button variant={ButtonType.Notification} type={InputTypeList.Submit} className={styles.button}>
 							Восстановить

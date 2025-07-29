@@ -80,7 +80,8 @@
 		& {
 			flex-direction: column-reverse;
 			gap: 10px;
-			> * {
+			
+			button {
 				width: 100%;
 			}
 		}

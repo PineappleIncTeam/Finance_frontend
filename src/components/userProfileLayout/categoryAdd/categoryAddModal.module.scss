@@ -73,6 +73,9 @@
 			flex-direction: column-reverse;
 			padding: 14px 0;
 			gap: 8px;
+			> * {
+				width: 100%;
+			}
 		}
 	}
 }

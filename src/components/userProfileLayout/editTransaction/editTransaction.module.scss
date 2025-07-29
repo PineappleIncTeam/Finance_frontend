@@ -80,6 +80,9 @@
 		& {
 			flex-direction: column-reverse;
 			gap: 10px;
+			> * {
+				width: 100%;
+			}
 		}
 	}
 }

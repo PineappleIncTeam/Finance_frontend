@@ -47,25 +47,9 @@
 .changeAmountFormData {
 	padding: 22px 0;
 
-	&__label {
-		display: none;
-	}
-
 	@media (max-width: 550px) {
 		& {
 			padding: 6px 0;
-		}
-	}
-
-	@media (max-width: 490px) {
-		& {
-			&__label {
-				display: inline-block;
-				font-size: 1.6rem;
-				line-height: 2.2rem;
-				margin-bottom: 4px;
-				color: var(--color-dark-cyan-blue);
-			}
 		}
 	}
 }

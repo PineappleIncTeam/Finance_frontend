@@ -4,7 +4,7 @@ export interface IExpensesInputForm {
 	sum?: string;
 }
 
-export interface IExpensesAddCategoryTransactionForm {
+export interface IAddCategoryTransactionForm {
 	date: string;
 	amount: string;
 	type: string;

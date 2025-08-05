@@ -1,8 +1,10 @@
 /* eslint-disable camelcase */
 "use client";
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+import axios, { AxiosResponse } from "axios";
+import { useRouter } from "next/navigation";
 
 import useLogoutTimer from "../../../hooks/useLogoutTimer";
 
@@ -14,7 +16,7 @@ import {
 	TIndexState,
 	TSavingsFieldState,
 } from "../../../types/components/ComponentsTypes";
-import { ISavingsInputForm, ISavingsSelectForm } from "../../../types/pages/Savings";
+import { ISavingsSelectForm } from "../../../types/pages/Savings";
 import SavingsTransaction from "../../../components/userProfileLayout/savingsTransaction/savingsTransaction";
 import InputDate from "../../../ui/inputDate/inputDate";
 import AppInput from "../../../ui/appInput/AppInput";
@@ -30,12 +32,20 @@ import { CheckIcon } from "../../../assets/script/savings/CheckIcon";
 import { MoreIcon } from "../../../assets/script/savings/MoreIcon";
 import { SortIcon } from "../../../assets/script/savings/SortIcon";
 
+import { IOperation } from "../../../types/api/Expenses";
+import { GetOperationsAll } from "../../../services/api/userProfile/GetOperationsAll";
+import { ApiResponseCode } from "../../../helpers/apiResponseCode";
+import { IAddCategoryTransactionForm } from "../../../types/pages/Expenses";
+
+import { MainPath } from "../../../services/router/routes";
+
 import styles from "./savings.module.scss";
 
 function Savings() {
-	const { control } = useForm<ISavingsInputForm & ISavingsSelectForm>({
+	const { control } = useForm<IAddCategoryTransactionForm & ISavingsSelectForm>({
 		defaultValues: {
-			sum: "",
+			amount: "",
+			type: "savings",
 		},
 		mode: "all",
 		delayError: 200,
@@ -53,6 +63,9 @@ function Savings() {
 	const [baseUrl, setBaseUrl] = useState<string>();
 	const { request } = handleLogout(baseUrl);
 	const { resetTimer } = useLogoutTimer(request);
+	const [allOperations, setAllOperations] = useState<IOperation[]>([]);
+
+	const router = useRouter();
 
 	const initialItems = [
 		{ category: "Обучение ребенка", target: "210 000.00", sum: "200 000.00", status: "В процессе" },
@@ -99,6 +112,26 @@ function Savings() {
 			sortTargetOrder === SortOrderStateValue.asc ? SortOrderStateValue.desc : SortOrderStateValue.asc,
 		);
 	};
+	const getAllOperations = useCallback(async () => {
+		try {
+			if (baseUrl) {
+				const response: AxiosResponse<IOperation[]> = await GetOperationsAll(baseUrl);
+				if (response !== null && response.status === axios.HttpStatusCode.Ok) {
+					setAllOperations(response.data);
+				}
+			}
+		} catch (error) {
+			if (
+				axios.isAxiosError(error) &&
+				error.response &&
+				error.response.status &&
+				error.response.status >= axios.HttpStatusCode.InternalServerError &&
+				error.response.status < ApiResponseCode.SERVER_ERROR_STATUS_MAX
+			) {
+				router.push(MainPath.ServerError);
+			}
+		}
+	}, [baseUrl, router]);
 
 	useEffect(() => {
 		setBaseUrl(getCorrectBaseUrl());
@@ -108,8 +141,12 @@ function Savings() {
 		resetTimer();
 	}, [request, resetTimer]);
 
+	useEffect(() => {
+		getAllOperations();
+	}, [getAllOperations]);
+
 	function renderSavingsItemList() {
-		return items.map((item, index) => {
+		return allOperations.map((item, index) => {
 			return (
 				<li
 					key={index}
@@ -126,7 +163,7 @@ function Savings() {
 									onChange={(e) => setEditValue(e.target.value)}
 								/>
 							) : (
-								<p className={styles.inputEditWrapper__textCategory}>{item.category}</p>
+								<p className={styles.inputEditWrapper__textCategory}>{item.categories}</p>
 							)}
 							<div
 								className={styles.editIcon}
@@ -136,7 +173,7 @@ function Savings() {
 								onClick={() =>
 									editIndex === index && editField === SavingsFieldValues.category
 										? handleSaveClick()
-										: handleEditClick({ index, field: SavingsFieldValues.category, value: item.category })
+										: handleEditClick({ index, field: SavingsFieldValues.category, value: item.target })
 								}
 								role="button">
 								{editIndex === index && editField === SavingsFieldValues.category ? <CheckIcon /> : <EditIcon />}
@@ -173,10 +210,10 @@ function Savings() {
 					</div>
 
 					<div className={styles.wrapperListContentBlock__sum}>
-						<p>{item.sum}</p>
+						<p>{item.amount}</p>
 					</div>
 					<div className={styles.wrapperListContentBlock__status}>
-						<p>{item.status}</p>
+						<p>{item.target}</p>
 					</div>
 					<div
 						className={styles.wrapperListContentBlock__actionElement}
@@ -244,7 +281,7 @@ function Savings() {
 									control={control}
 									label={"Сумма"}
 									type={InputTypeList.Number}
-									name={"number"}
+									name={"amount"}
 									placeholder={"0.00 ₽"}
 								/>
 							</div>

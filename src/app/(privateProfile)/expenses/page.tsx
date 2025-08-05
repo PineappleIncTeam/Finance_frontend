@@ -11,7 +11,7 @@ import ExpensesTransaction from "../../../components/userProfileLayout/expensesT
 
 import { InputTypeList } from "../../../helpers/Input";
 
-import { IExpensesAddCategoryTransactionForm, IExpensesCategoryForm } from "../../../types/pages/Expenses";
+import { IAddCategoryTransactionForm, IExpensesCategoryForm } from "../../../types/pages/Expenses";
 
 import InputDate from "../../../ui/inputDate/inputDate";
 
@@ -76,7 +76,7 @@ export default function Expenses() {
 	const [isCategoryArchive, setIsCategoryArchive] = useState<boolean>(false);
 	const [allOperations, setAllOperations] = useState<IOperation[]>([]);
 
-	const { control, handleSubmit } = useForm<IExpensesAddCategoryTransactionForm & IExpensesCategoryForm>({
+	const { control, handleSubmit } = useForm<IAddCategoryTransactionForm & IExpensesCategoryForm>({
 		defaultValues: {
 			amount: "",
 			type: "outcome",
@@ -257,7 +257,7 @@ export default function Expenses() {
 		}
 	};
 
-	const onSubmit = async (data: IExpensesAddCategoryTransactionForm & IExpensesCategoryForm) => {
+	const onSubmit = async (data: IAddCategoryTransactionForm & IExpensesCategoryForm) => {
 		resetTimer();
 		data.date = getCurrentDate(endDate);
 		try {

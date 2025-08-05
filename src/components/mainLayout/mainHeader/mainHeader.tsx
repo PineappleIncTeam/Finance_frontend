@@ -7,7 +7,7 @@ import { Dispatch, RefObject, SetStateAction, useEffect, useRef, useState } from
 import cn from "classnames";
 import axios, { AxiosResponse } from "axios";
 
-import useAppSelector from "../../../hooks/useAppSelector";
+import { useAppSelector } from "../../../services/redux/hooks/useAppSelector";
 
 import { IValidateTokenResponse } from "../../../types/api/Auth";
 import { getCorrectBaseUrl } from "../../../utils/baseUrlConverter";

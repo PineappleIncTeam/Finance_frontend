@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { useState } from "react";
 
-import useCurrentLinkCard from "../../../hooks/useCurrentLinkCard";
+import { useCurrentLinkCard } from "../../../hooks/useCurrentLinkCard";
 
 import { IBlogArticle } from "../../../types/common/ComponentsProps";
 import { BlogArticleShareTooltip } from "../blogArticleShareTooltip/blogArticleShareTooltip";

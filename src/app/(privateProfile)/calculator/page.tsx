@@ -5,7 +5,7 @@ import React, { useState, useEffect, ChangeEvent } from "react";
 import { AiFillInfoCircle } from "react-icons/ai";
 import { CgClose } from "react-icons/cg";
 
-import useLogoutTimer from "../../../hooks/useLogoutTimer";
+import { useLogoutTimer } from "../../../hooks/useLogoutTimer";
 
 import { formatCalculateNumber } from "../../../utils/formatCalculateNumber";
 import { getCorrectBaseUrl } from "../../../utils/baseUrlConverter";

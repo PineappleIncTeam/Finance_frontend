@@ -8,6 +8,9 @@ export interface IExpensesAddCategoryTransactionForm {
 	date: string;
 	amount: string;
 	type: string;
+	name: string;
+	is_income: boolean;
+	is_outcome: boolean;
 }
 
 export interface IExpensesCategoryForm {

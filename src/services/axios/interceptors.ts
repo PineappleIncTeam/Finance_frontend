@@ -20,7 +20,7 @@ const processQueue = (_error?: Error) => {
 
 export const setupAxiosInterceptors = () => {
 	// eslint-disable-next-line react-hooks/rules-of-hooks
-	const [baseUrl, setBaseUrl] = useState<string>();
+	const [baseUrl, setBaseUrl] = useState<string>("");
 
 	// eslint-disable-next-line react-hooks/rules-of-hooks
 	useEffect(() => {

@@ -16,7 +16,7 @@ import {
 	TIndexState,
 	TSavingsFieldState,
 } from "../../../types/components/ComponentsTypes";
-import { ISavingsSelectForm, ITargetAdd } from "../../../types/pages/Savings";
+import { ISavingsSelectForm, ITargetAddForm } from "../../../types/pages/Savings";
 import SavingsTransaction from "../../../components/userProfileLayout/savingsTransaction/savingsTransaction";
 import InputDate from "../../../ui/inputDate/inputDate";
 import AppInput from "../../../ui/appInput/AppInput";
@@ -32,7 +32,6 @@ import { CheckIcon } from "../../../assets/script/savings/CheckIcon";
 import { MoreIcon } from "../../../assets/script/savings/MoreIcon";
 import { SortIcon } from "../../../assets/script/savings/SortIcon";
 import { ApiResponseCode } from "../../../helpers/apiResponseCode";
-import { IAddCategoryTransactionForm } from "../../../types/pages/Expenses";
 
 import { MainPath } from "../../../services/router/routes";
 
@@ -44,7 +43,7 @@ import { AddTarget } from "../../../services/api/userProfile/AddTarget";
 import styles from "./savings.module.scss";
 
 function Savings() {
-	const { control, handleSubmit } = useForm<IAddCategoryTransactionForm & ISavingsSelectForm>({
+	const { control, handleSubmit } = useForm<ITargetAddForm & ISavingsSelectForm>({
 		defaultValues: {
 			amount: "",
 			type: "savings",
@@ -114,7 +113,7 @@ function Savings() {
 			sortTargetOrder === SortOrderStateValue.asc ? SortOrderStateValue.desc : SortOrderStateValue.asc,
 		);
 	};
-	const onSubmit = async (data: IAddCategoryTransactionForm & ITargetAdd) => {
+	const onSubmit = async (data: ISavingsSelectForm & ITargetAddForm) => {
 		resetTimer();
 		try {
 			if (baseUrl && data !== null) {
@@ -283,7 +282,7 @@ function Savings() {
 						<div className={styles.savingsDetailsContainer}>
 							<div className={styles.savingsDetailsContainer__category}>
 								<CategorySelect
-									name={"savings"}
+									name={"name"}
 									label={"Накопления"}
 									options={[
 										{ id: 1, name: "Обучение ребенка", is_income: false, is_outcome: true, is_deleted: false },

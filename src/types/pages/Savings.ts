@@ -5,10 +5,12 @@ export interface ISavingsInputForm {
 }
 
 export interface ISavingsSelectForm {
-	savings?: string;
+	date: string;
+	amount: string;
+	type: string;
 }
 
-export interface ITargetAdd {
+export interface ITargetAddForm {
 	name: string;
 	amount: string;
 }

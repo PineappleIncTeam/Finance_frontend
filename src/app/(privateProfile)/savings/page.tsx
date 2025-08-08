@@ -31,13 +31,13 @@ import { EditIcon } from "../../../assets/script/expenses/EditIcon";
 import { CheckIcon } from "../../../assets/script/savings/CheckIcon";
 import { MoreIcon } from "../../../assets/script/savings/MoreIcon";
 import { SortIcon } from "../../../assets/script/savings/SortIcon";
-
-import { IOperation } from "../../../types/api/Expenses";
-import { GetOperationsAll } from "../../../services/api/userProfile/GetOperationsAll";
 import { ApiResponseCode } from "../../../helpers/apiResponseCode";
 import { IAddCategoryTransactionForm } from "../../../types/pages/Expenses";
 
 import { MainPath } from "../../../services/router/routes";
+
+import { ITarget } from "../../../types/api/Savings";
+import { GetTargetsAll } from "../../../services/api/userProfile/GetTargetsAll";
 
 import styles from "./savings.module.scss";
 
@@ -63,7 +63,7 @@ function Savings() {
 	const [baseUrl, setBaseUrl] = useState<string>();
 	const { request } = handleLogout(baseUrl);
 	const { resetTimer } = useLogoutTimer(request);
-	const [allOperations, setAllOperations] = useState<IOperation[]>([]);
+	const [allTargets, setAllTargets] = useState<ITarget[]>([]);
 
 	const router = useRouter();
 
@@ -112,12 +112,12 @@ function Savings() {
 			sortTargetOrder === SortOrderStateValue.asc ? SortOrderStateValue.desc : SortOrderStateValue.asc,
 		);
 	};
-	const getAllOperations = useCallback(async () => {
+	const getAllTargets = useCallback(async () => {
 		try {
 			if (baseUrl) {
-				const response: AxiosResponse<IOperation[]> = await GetOperationsAll(baseUrl);
+				const response: AxiosResponse<ITarget[]> = await GetTargetsAll(baseUrl);
 				if (response !== null && response.status === axios.HttpStatusCode.Ok) {
-					setAllOperations(response.data);
+					setAllTargets(response.data);
 				}
 			}
 		} catch (error) {
@@ -142,11 +142,11 @@ function Savings() {
 	}, [request, resetTimer]);
 
 	useEffect(() => {
-		getAllOperations();
-	}, [getAllOperations]);
+		getAllTargets();
+	}, [getAllTargets]);
 
 	function renderSavingsItemList() {
-		return allOperations.map((item, index) => {
+		return allTargets.map((item, index) => {
 			return (
 				<li
 					key={index}
@@ -163,7 +163,7 @@ function Savings() {
 									onChange={(e) => setEditValue(e.target.value)}
 								/>
 							) : (
-								<p className={styles.inputEditWrapper__textCategory}>{item.categories}</p>
+								<p className={styles.inputEditWrapper__textCategory}>{item.name}</p>
 							)}
 							<div
 								className={styles.editIcon}
@@ -173,7 +173,7 @@ function Savings() {
 								onClick={() =>
 									editIndex === index && editField === SavingsFieldValues.category
 										? handleSaveClick()
-										: handleEditClick({ index, field: SavingsFieldValues.category, value: item.target })
+										: handleEditClick({ index, field: SavingsFieldValues.category, value: item.name })
 								}
 								role="button">
 								{editIndex === index && editField === SavingsFieldValues.category ? <CheckIcon /> : <EditIcon />}
@@ -191,7 +191,7 @@ function Savings() {
 								onClick={() =>
 									editIndex === index && editField === SavingsFieldValues.target
 										? handleSaveClick()
-										: handleEditClick({ index, field: SavingsFieldValues.target, value: item.target })
+										: handleEditClick({ index, field: SavingsFieldValues.target, value: item.name })
 								}
 								role="button">
 								{editIndex === index && editField === SavingsFieldValues.target ? <CheckIcon /> : <EditIcon />}
@@ -204,7 +204,7 @@ function Savings() {
 									onChange={(e) => setEditValue(e.target.value)}
 								/>
 							) : (
-								<p className={styles.inputEditWrapper__textTarget}>{item.target}</p>
+								<p className={styles.inputEditWrapper__textTarget}>{item.name}</p>
 							)}
 						</div>
 					</div>
@@ -213,7 +213,7 @@ function Savings() {
 						<p>{item.amount}</p>
 					</div>
 					<div className={styles.wrapperListContentBlock__status}>
-						<p>{item.target}</p>
+						<p>{item.status}</p>
 					</div>
 					<div
 						className={styles.wrapperListContentBlock__actionElement}

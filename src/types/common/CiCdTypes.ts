@@ -10,3 +10,5 @@ interface INextProc extends Proc {
 export type EcosystemConfig = {
 	apps: INextProc[];
 };
+
+export type TVoidCallback = () => void;

@@ -5,55 +5,35 @@ import { Key, useCallback, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import axios, { AxiosResponse } from "axios";
 
-import handleLogout from "../../../helpers/logout";
-
-import ExpensesTransaction from "../../../components/userProfileLayout/expensesTransaction/expensesTransaction";
-
-import { InputTypeList } from "../../../helpers/Input";
+import useLogoutTimer from "../../../hooks/useLogoutTimer";
 
 import { IExpensesAddCategoryTransactionForm, IExpensesCategoryForm } from "../../../types/pages/Expenses";
-
-import InputDate from "../../../ui/inputDate/inputDate";
-
-import { getCorrectBaseUrl } from "../../../utils/baseUrlConverter";
-
-import { ApiResponseCode } from "../../../helpers/apiResponseCode";
-import { GetFiveTransactions } from "../../../services/api/userProfile/GetFiveTransactions";
-
-import useLogoutTimer from "../../../hooks/useLogoutTimer";
-import { CategorySelect } from "../../../components/userProfileLayout/categorySelect/CategorySelect";
-
-import AddButton from "../../../components/userProfileLayout/addButton/addButton";
-
-import AppInput from "../../../ui/appInput/AppInput";
-
-import { CategoryAddModal } from "../../../components/userProfileLayout/categoryAdd/categoryAddModal";
-
 import { IAddCategoryExpensesForm, IEditTransactionForm } from "../../../types/components/ComponentsTypes";
-
-import { AddExpensesCategory } from "../../../services/api/userProfile/AddExpensesCategory";
-
-import { MainPath } from "../../../services/router/routes";
-
-import { GetCategoriesAll } from "../../../services/api/userProfile/GetCategoriesAll";
-
 import { IOperation } from "../../../types/api/Expenses";
-
-import { RemoveExpensesCategory } from "../../../services/api/userProfile/RemoveExpensesCategory";
-
-import { AddExpensesCategoryTransaction } from "../../../services/api/userProfile/AddExpensesCategoryTransaction";
-
-import { RemoveExpensesCategoryTransaction } from "../../../services/api/userProfile/RemoveExpensesTransaction";
-
+import { ICategoryOption } from "../../../types/common/ComponentsProps";
+import InputDate from "../../../ui/inputDate/inputDate";
+import AppInput from "../../../ui/appInput/AppInput";
+import ExpensesTransaction from "../../../components/userProfileLayout/expensesTransaction/expensesTransaction";
+import { CategorySelect } from "../../../components/userProfileLayout/categorySelect/CategorySelect";
+import AddButton from "../../../components/userProfileLayout/addButton/addButton";
+import { CategoryAddModal } from "../../../components/userProfileLayout/categoryAdd/categoryAddModal";
 import { RecordDeleteModal } from "../../../components/userProfileLayout/recordDelete/recordDelete";
-import { EditExpensesCategoryTransaction } from "../../../services/api/userProfile/EditExpensesTransaction";
 import { EditTransactionModal } from "../../../components/userProfileLayout/editTransaction/editTransaction";
 import { ResponseApiRequestModal } from "../../../components/userProfileLayout/responseActionExpenses/responseApiRequestModal";
 import { CategoryDeleteModal } from "../../../components/userProfileLayout/categoryDelete/categoryDelete";
+import { AddExpensesCategory } from "../../../services/api/userProfile/AddExpensesCategory";
+import { RemoveExpensesCategory } from "../../../services/api/userProfile/RemoveExpensesCategory";
+import { AddExpensesCategoryTransaction } from "../../../services/api/userProfile/AddExpensesCategoryTransaction";
+import { RemoveExpensesCategoryTransaction } from "../../../services/api/userProfile/RemoveExpensesTransaction";
+import { EditExpensesCategoryTransaction } from "../../../services/api/userProfile/EditExpensesTransaction";
 import { ArchiveCategory } from "../../../services/api/userProfile/ArchiveCategory";
-import { GetOperationsAll } from "../../../services/api/userProfile/GetOperationsAll";
-import { ICategoryOption } from "../../../types/common/ComponentsProps";
+import { MainPath } from "../../../services/router/routes";
+import { userProfileApi } from "../../../services/api/userProfile";
 import { getCurrentDate } from "../../../utils/getCurrentDate";
+import { getCorrectBaseUrl } from "../../../utils/baseUrlConverter";
+import { InputTypeList } from "../../../helpers/Input";
+import { ApiResponseCode } from "../../../helpers/apiResponseCode";
+import handleLogout from "../../../helpers/logout";
 
 import styles from "./expenses.module.scss";
 
@@ -101,7 +81,7 @@ export default function Expenses() {
 		};
 		try {
 			if (baseUrl) {
-				const response: AxiosResponse<IOperation[]> = await GetFiveTransactions(baseUrl, data);
+				const response: AxiosResponse<IOperation[]> = await userProfileApi.GetFiveTransactions(baseUrl, data);
 				if (response !== null && response.status === axios.HttpStatusCode.Ok) {
 					setFiveOperations(response.data);
 				}
@@ -141,7 +121,7 @@ export default function Expenses() {
 		};
 		try {
 			if (baseUrl) {
-				const response: AxiosResponse<ICategoryOption[]> = await GetCategoriesAll(baseUrl, data);
+				const response: AxiosResponse<ICategoryOption[]> = await userProfileApi.GetCategoriesAll(baseUrl, data);
 				if (response !== null && response.status === axios.HttpStatusCode.Ok) {
 					setOptions(response.data);
 				}
@@ -376,7 +356,7 @@ export default function Expenses() {
 	const getAllOperations = async () => {
 		try {
 			if (baseUrl) {
-				const response: AxiosResponse<IOperation[]> = await GetOperationsAll(baseUrl);
+				const response: AxiosResponse<IOperation[]> = await userProfileApi.GetOperationsAll(baseUrl);
 				if (response !== null && response.status === axios.HttpStatusCode.Ok) {
 					setAllOperations(response.data);
 				}

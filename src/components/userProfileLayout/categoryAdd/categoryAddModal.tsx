@@ -46,7 +46,6 @@ export const CategoryAddModal = ({ open, request, onCancelClick }: IAddCategory)
 				<form className={styles.addCategoryFormContainer} onSubmit={handleSubmit(onSubmit)}>
 					<Title title={"Добавление категории"} />
 					<div className={styles.addCategoryFormData}>
-						<p className={styles.addCategoryFormData__label}>Введите название категории</p>
 						<AppInput
 							control={control}
 							label={"Введите название категории"}

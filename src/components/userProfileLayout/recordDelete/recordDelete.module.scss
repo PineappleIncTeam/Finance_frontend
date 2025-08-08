@@ -61,8 +61,13 @@
 
 	@media (max-width: 470px) {
 		& {
+			padding: 0;
 			flex-direction: column-reverse;
 			gap: 8px;
+
+			button {
+				width: 100%;
+			}
 		}
 	}
 }

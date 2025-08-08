@@ -47,7 +47,6 @@ export const EditTransactionModal = ({ open, id, request, cancelEdit }: IEditTra
 					<form className={styles.changeAmountModalContainer__form} onSubmit={handleSubmit(onSubmit)}>
 						<Title title={"Изменение суммы"} />
 						<div className={styles.changeAmountFormData}>
-							<p className={styles.changeAmountFormData__label}>Введите новое числовое значение</p>
 							<AppInput
 								control={control}
 								label={"Введите новое числовое значение"}

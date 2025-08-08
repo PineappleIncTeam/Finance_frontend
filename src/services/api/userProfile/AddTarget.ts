@@ -1,9 +1,9 @@
 import axios from "axios";
 
 import { targetsEndPoint } from "../auth/apiConstants";
-import { ITargetAdd } from "../../../types/pages/Savings";
+import { ITargetAddForm } from "../../../types/pages/Savings";
 
-export const AddTarget = async (baseUrl: string, data: ITargetAdd) => {
+export const AddTarget = async (baseUrl: string, data: ITargetAddForm) => {
 	return await axios(`${baseUrl}/${targetsEndPoint}`, {
 		method: "POST",
 		data: data,

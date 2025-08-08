@@ -16,7 +16,7 @@ import {
 	TIndexState,
 	TSavingsFieldState,
 } from "../../../types/components/ComponentsTypes";
-import { ISavingsSelectForm } from "../../../types/pages/Savings";
+import { ISavingsSelectForm, ITargetAdd } from "../../../types/pages/Savings";
 import SavingsTransaction from "../../../components/userProfileLayout/savingsTransaction/savingsTransaction";
 import InputDate from "../../../ui/inputDate/inputDate";
 import AppInput from "../../../ui/appInput/AppInput";
@@ -39,10 +39,12 @@ import { MainPath } from "../../../services/router/routes";
 import { ITarget } from "../../../types/api/Savings";
 import { GetTargetsAll } from "../../../services/api/userProfile/GetTargetsAll";
 
+import { AddTarget } from "../../../services/api/userProfile/AddTarget";
+
 import styles from "./savings.module.scss";
 
 function Savings() {
-	const { control } = useForm<IAddCategoryTransactionForm & ISavingsSelectForm>({
+	const { control, handleSubmit } = useForm<IAddCategoryTransactionForm & ISavingsSelectForm>({
 		defaultValues: {
 			amount: "",
 			type: "savings",
@@ -111,6 +113,24 @@ function Savings() {
 		setSortTargetOrder(
 			sortTargetOrder === SortOrderStateValue.asc ? SortOrderStateValue.desc : SortOrderStateValue.asc,
 		);
+	};
+	const onSubmit = async (data: IAddCategoryTransactionForm & ITargetAdd) => {
+		resetTimer();
+		try {
+			if (baseUrl && data !== null) {
+				await AddTarget(baseUrl, data);
+			}
+		} catch (error) {
+			if (
+				axios.isAxiosError(error) &&
+				error.response &&
+				error.response.status &&
+				error.response.status >= axios.HttpStatusCode.InternalServerError &&
+				error.response.status < ApiResponseCode.SERVER_ERROR_STATUS_MAX
+			) {
+				router.push(MainPath.ServerError);
+			}
+		}
 	};
 	const getAllTargets = useCallback(async () => {
 		try {
@@ -286,7 +306,7 @@ function Savings() {
 								/>
 							</div>
 
-							<AddButton onClick={() => resetTimer()} type={InputTypeList.Submit} />
+							<AddButton onClick={handleSubmit(onSubmit)} type={InputTypeList.Submit} />
 						</div>
 					</div>
 					<div className={styles.savingsFormContentWrapperList}>

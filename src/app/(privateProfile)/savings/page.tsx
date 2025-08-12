@@ -39,6 +39,8 @@ import { ITarget } from "../../../types/api/Savings";
 import { GetTargetsAll } from "../../../services/api/userProfile/GetTargetsAll";
 
 import { AddTarget } from "../../../services/api/userProfile/AddTarget";
+import { ICategoryOption } from "../../../types/common/ComponentsProps";
+import { GetCategoriesAll } from "../../../services/api/userProfile/GetCategoriesAll";
 
 import styles from "./savings.module.scss";
 
@@ -65,6 +67,7 @@ function Savings() {
 	const { request } = handleLogout(baseUrl);
 	const { resetTimer } = useLogoutTimer(request);
 	const [allTargets, setAllTargets] = useState<ITarget[]>([]);
+	const [options, setOptions] = useState<ICategoryOption[]>([]);
 
 	const router = useRouter();
 
@@ -152,6 +155,33 @@ function Savings() {
 		}
 	}, [baseUrl, router]);
 
+	const getAllCategoriesOptions = useCallback(async () => {
+		const data = {
+			// eslint-disable-next-line camelcase
+			is_income: true,
+			// eslint-disable-next-line camelcase
+			is_outcome: false,
+		};
+		try {
+			if (baseUrl) {
+				const response: AxiosResponse<ICategoryOption[]> = await GetCategoriesAll(baseUrl, data);
+				if (response !== null && response.status === axios.HttpStatusCode.Ok) {
+					setOptions(response.data);
+				}
+			}
+		} catch (error) {
+			if (
+				axios.isAxiosError(error) &&
+				error.response &&
+				error.response.status &&
+				error.response.status >= axios.HttpStatusCode.InternalServerError &&
+				error.response.status < ApiResponseCode.SERVER_ERROR_STATUS_MAX
+			) {
+				router.push(MainPath.ServerError);
+			}
+		}
+	}, [baseUrl, router]);
+
 	useEffect(() => {
 		setBaseUrl(getCorrectBaseUrl());
 	}, []);
@@ -163,6 +193,10 @@ function Savings() {
 	useEffect(() => {
 		getAllTargets();
 	}, [getAllTargets]);
+
+	useEffect(() => {
+		getAllCategoriesOptions();
+	}, [getAllCategoriesOptions]);
 
 	function renderSavingsItemList() {
 		return allTargets.map((item, index) => {
@@ -284,12 +318,7 @@ function Savings() {
 								<CategorySelect
 									name={"name"}
 									label={"Накопления"}
-									options={[
-										{ id: 1, name: "Обучение ребенка", is_income: false, is_outcome: true, is_deleted: false },
-										{ id: 2, name: "Машина", is_income: false, is_outcome: true, is_deleted: false },
-										{ id: 3, name: "Квартира", is_income: false, is_outcome: true, is_deleted: false },
-										{ id: 4, name: "Отпуск 2024", is_income: false, is_outcome: true, is_deleted: false },
-									]}
+									options={options}
 									placeholder="Выберите категорию"
 									control={control}
 									onAddCategory={() => undefined}

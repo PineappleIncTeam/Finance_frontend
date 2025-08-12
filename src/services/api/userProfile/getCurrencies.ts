@@ -11,5 +11,6 @@ export const fetchCurrencyRates = async (baseUrl: string): Promise<AxiosResponse
 			"Content-Type": "application/json",
 		},
 		withCredentials: true,
+		withTokenRefresh: true,
 	});
 };

@@ -49,13 +49,13 @@ axios.interceptors.response.use(
 			isRefreshing = true;
 
 			try {
-				await refreshToken(originalRequest.baseURL);
+				await refreshToken(originalRequest.baseURL ?? "");
 				processQueue();
 
 				return axios(originalRequest);
 			} catch (refreshError) {
 				processQueue(refreshError as Error);
-				await logoutUser(originalRequest.baseURL);
+				await logoutUser(originalRequest.baseURL ?? "");
 
 				if (typeof window !== "undefined") {
 					window.location.href = MainPath.Login;

@@ -177,7 +177,7 @@ function Savings() {
 
 	const getFiveOperations = useCallback(async () => {
 		const data = {
-			type: "outcome",
+			type: "targets",
 		};
 		try {
 			if (baseUrl) {

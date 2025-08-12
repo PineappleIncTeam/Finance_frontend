@@ -41,6 +41,8 @@ import { GetTargetsAll } from "../../../services/api/userProfile/GetTargetsAll";
 import { AddTarget } from "../../../services/api/userProfile/AddTarget";
 import { ICategoryOption } from "../../../types/common/ComponentsProps";
 import { GetCategoriesAll } from "../../../services/api/userProfile/GetCategoriesAll";
+import { IOperation } from "../../../types/api/Expenses";
+import { GetFiveTransactions } from "../../../services/api/userProfile/GetFiveTransactions";
 
 import styles from "./savings.module.scss";
 
@@ -68,18 +70,9 @@ function Savings() {
 	const { resetTimer } = useLogoutTimer(request);
 	const [allTargets, setAllTargets] = useState<ITarget[]>([]);
 	const [options, setOptions] = useState<ICategoryOption[]>([]);
+	const [fiveOperations, setFiveOperations] = useState<IOperation[]>([]);
 
 	const router = useRouter();
-
-	const initialItems = [
-		{ category: "Обучение ребенка", target: "210 000.00", sum: "200 000.00", status: "В процессе" },
-		{ category: "Машина", target: "4 000 000.00", sum: "4 000 000.00", status: "Достигнута" },
-		{ category: "Квартира", target: "10 000 000.00", sum: "100 000.00", status: "В процессе" },
-		{ category: "Дом у моря", target: "1 000 000 000.00", sum: "1 000 000.00", status: "В процессе" },
-		{ category: "Дача", target: "5 000 000.00", sum: "115 000.00", status: "В процессе" },
-	];
-
-	const [items, setItems] = useState(initialItems);
 	const handleEditClick = ({ index, field, value }: IEditActionProps) => {
 		setEditIndex(index);
 		setEditField(field);
@@ -96,22 +89,22 @@ function Savings() {
 	};
 
 	const handleSortBySum = () => {
-		const sortedItems = [...items].sort((a, b) => {
-			const sumA = parseFloat(a.sum.replace(/[^0-9.-]+/g, ""));
-			const sumB = parseFloat(b.sum.replace(/[^0-9.-]+/g, ""));
+		const sortedFiveOperations = [...fiveOperations].sort((a, b) => {
+			const sumA = parseFloat(a.amount.replace(/[^0-9.-]+/g, ""));
+			const sumB = parseFloat(b.amount.replace(/[^0-9.-]+/g, ""));
 			return sortOrder === SortOrderStateValue.asc ? sumA - sumB : sumB - sumA;
 		});
-		setItems(sortedItems);
+		setFiveOperations(sortedFiveOperations);
 		setSortOrder(sortOrder === SortOrderStateValue.asc ? SortOrderStateValue.desc : SortOrderStateValue.asc);
 	};
 
 	const handleSortByTarget = () => {
-		const sortedItems = [...items].sort((a, b) => {
+		const sortedFiveOperations = [...fiveOperations].sort((a, b) => {
 			const targetA = parseFloat(a.target.replace(/[^0-9.-]+/g, ""));
 			const targetB = parseFloat(b.target.replace(/[^0-9.-]+/g, ""));
 			return sortTargetOrder === SortOrderStateValue.asc ? targetA - targetB : targetB - targetA;
 		});
-		setItems(sortedItems);
+		setFiveOperations(sortedFiveOperations);
 		setSortTargetOrder(
 			sortTargetOrder === SortOrderStateValue.asc ? SortOrderStateValue.desc : SortOrderStateValue.asc,
 		);
@@ -182,6 +175,30 @@ function Savings() {
 		}
 	}, [baseUrl, router]);
 
+	const getFiveOperations = useCallback(async () => {
+		const data = {
+			type: "outcome",
+		};
+		try {
+			if (baseUrl) {
+				const response: AxiosResponse<IOperation[]> = await GetFiveTransactions(baseUrl, data);
+				if (response !== null && response.status === axios.HttpStatusCode.Ok) {
+					setFiveOperations(response.data);
+				}
+			}
+		} catch (error) {
+			if (
+				axios.isAxiosError(error) &&
+				error.response &&
+				error.response.status &&
+				error.response.status >= axios.HttpStatusCode.InternalServerError &&
+				error.response.status < ApiResponseCode.SERVER_ERROR_STATUS_MAX
+			) {
+				router.push(MainPath.ServerError);
+			}
+		}
+	}, [baseUrl, router]);
+
 	useEffect(() => {
 		setBaseUrl(getCorrectBaseUrl());
 	}, []);
@@ -197,6 +214,10 @@ function Savings() {
 	useEffect(() => {
 		getAllCategoriesOptions();
 	}, [getAllCategoriesOptions]);
+
+	useEffect(() => {
+		getFiveOperations();
+	}, [getFiveOperations]);
 
 	function renderSavingsItemList() {
 		return allTargets.map((item, index) => {

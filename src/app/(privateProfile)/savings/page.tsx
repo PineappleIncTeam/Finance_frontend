@@ -1,20 +1,22 @@
 /* eslint-disable camelcase */
 "use client";
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+import axios, { AxiosResponse } from "axios";
+import { useRouter } from "next/navigation";
 
 import useLogoutTimer from "../../../hooks/useLogoutTimer";
 
 import {
+	IAddCategoryExpensesForm,
 	IEditActionProps,
-	ISavingsTransaction,
 	SavingsFieldValues,
 	SortOrderStateValue,
 	TIndexState,
 	TSavingsFieldState,
 } from "../../../types/components/ComponentsTypes";
-import { ISavingsInputForm, ISavingsSelectForm } from "../../../types/pages/Savings";
+import { ISavingsSelectForm, ITargetAddForm } from "../../../types/pages/Savings";
 import SavingsTransaction from "../../../components/userProfileLayout/savingsTransaction/savingsTransaction";
 import InputDate from "../../../ui/inputDate/inputDate";
 import AppInput from "../../../ui/appInput/AppInput";
@@ -29,13 +31,28 @@ import { EditIcon } from "../../../assets/script/expenses/EditIcon";
 import { CheckIcon } from "../../../assets/script/savings/CheckIcon";
 import { MoreIcon } from "../../../assets/script/savings/MoreIcon";
 import { SortIcon } from "../../../assets/script/savings/SortIcon";
+import { ApiResponseCode } from "../../../helpers/apiResponseCode";
+
+import { MainPath } from "../../../services/router/routes";
+
+import { ITarget } from "../../../types/api/Savings";
+import { GetTargetsAll } from "../../../services/api/userProfile/GetTargetsAll";
+
+import { AddTarget } from "../../../services/api/userProfile/AddTarget";
+import { ICategoryOption } from "../../../types/common/ComponentsProps";
+import { GetCategoriesAll } from "../../../services/api/userProfile/GetCategoriesAll";
+import { IOperation } from "../../../types/api/Expenses";
+import { GetFiveTransactions } from "../../../services/api/userProfile/GetFiveTransactions";
+import { CategoryAddModal } from "../../../components/userProfileLayout/categoryAdd/categoryAddModal";
+import { AddExpensesCategory } from "../../../services/api/userProfile/AddExpensesCategory";
 
 import styles from "./savings.module.scss";
 
 function Savings() {
-	const { control } = useForm<ISavingsInputForm & ISavingsSelectForm>({
+	const { control, handleSubmit } = useForm<ITargetAddForm & ISavingsSelectForm>({
 		defaultValues: {
-			sum: "",
+			amount: "",
+			type: "savings",
 		},
 		mode: "all",
 		delayError: 200,
@@ -53,16 +70,12 @@ function Savings() {
 	const [baseUrl, setBaseUrl] = useState<string>();
 	const { request } = handleLogout(baseUrl);
 	const { resetTimer } = useLogoutTimer(request);
+	const [allTargets, setAllTargets] = useState<ITarget[]>([]);
+	const [options, setOptions] = useState<ICategoryOption[]>([]);
+	const [fiveOperations, setFiveOperations] = useState<IOperation[]>([]);
+	const [isAddCategoryModalOpen, setIsCategoryModalOpen] = useState<boolean>(true);
 
-	const initialItems = [
-		{ category: "Обучение ребенка", target: "210 000.00", sum: "200 000.00", status: "В процессе" },
-		{ category: "Машина", target: "4 000 000.00", sum: "4 000 000.00", status: "Достигнута" },
-		{ category: "Квартира", target: "10 000 000.00", sum: "100 000.00", status: "В процессе" },
-		{ category: "Дом у моря", target: "1 000 000 000.00", sum: "1 000 000.00", status: "В процессе" },
-		{ category: "Дача", target: "5 000 000.00", sum: "115 000.00", status: "В процессе" },
-	];
-
-	const [items, setItems] = useState(initialItems);
+	const router = useRouter();
 	const handleEditClick = ({ index, field, value }: IEditActionProps) => {
 		setEditIndex(index);
 		setEditField(field);
@@ -79,25 +92,135 @@ function Savings() {
 	};
 
 	const handleSortBySum = () => {
-		const sortedItems = [...items].sort((a, b) => {
-			const sumA = parseFloat(a.sum.replace(/[^0-9.-]+/g, ""));
-			const sumB = parseFloat(b.sum.replace(/[^0-9.-]+/g, ""));
+		const sortedAllTargets = [...allTargets].sort((a, b) => {
+			const sumA = parseFloat(a.current_sum.toString().replace(/[^0-9.-]+/g, ""));
+			const sumB = parseFloat(b.current_sum.toString().replace(/[^0-9.-]+/g, ""));
 			return sortOrder === SortOrderStateValue.asc ? sumA - sumB : sumB - sumA;
 		});
-		setItems(sortedItems);
+		setAllTargets(sortedAllTargets);
 		setSortOrder(sortOrder === SortOrderStateValue.asc ? SortOrderStateValue.desc : SortOrderStateValue.asc);
 	};
 
 	const handleSortByTarget = () => {
-		const sortedItems = [...items].sort((a, b) => {
-			const targetA = parseFloat(a.target.replace(/[^0-9.-]+/g, ""));
-			const targetB = parseFloat(b.target.replace(/[^0-9.-]+/g, ""));
+		const sortedAllTargets = [...allTargets].sort((a, b) => {
+			const targetA = parseFloat(a.amount.toString().replace(/[^0-9.-]+/g, ""));
+			const targetB = parseFloat(b.amount.toString().replace(/[^0-9.-]+/g, ""));
 			return sortTargetOrder === SortOrderStateValue.asc ? targetA - targetB : targetB - targetA;
 		});
-		setItems(sortedItems);
+		setAllTargets(sortedAllTargets);
 		setSortTargetOrder(
 			sortTargetOrder === SortOrderStateValue.asc ? SortOrderStateValue.desc : SortOrderStateValue.asc,
 		);
+	};
+	const onSubmit = async (data: ISavingsSelectForm & ITargetAddForm) => {
+		resetTimer();
+		try {
+			if (baseUrl && data !== null) {
+				await AddTarget(baseUrl, data);
+			}
+		} catch (error) {
+			if (
+				axios.isAxiosError(error) &&
+				error.response &&
+				error.response.status &&
+				error.response.status >= axios.HttpStatusCode.InternalServerError &&
+				error.response.status < ApiResponseCode.SERVER_ERROR_STATUS_MAX
+			) {
+				router.push(MainPath.ServerError);
+			}
+		}
+	};
+	const getAllTargets = useCallback(async () => {
+		try {
+			if (baseUrl) {
+				const response: AxiosResponse<ITarget[]> = await GetTargetsAll(baseUrl);
+				if (response !== null && response.status === axios.HttpStatusCode.Ok) {
+					setAllTargets(response.data);
+				}
+			}
+		} catch (error) {
+			if (
+				axios.isAxiosError(error) &&
+				error.response &&
+				error.response.status &&
+				error.response.status >= axios.HttpStatusCode.InternalServerError &&
+				error.response.status < ApiResponseCode.SERVER_ERROR_STATUS_MAX
+			) {
+				router.push(MainPath.ServerError);
+			}
+		}
+	}, [baseUrl, router]);
+
+	const getAllCategoriesOptions = useCallback(async () => {
+		const data = {
+			// eslint-disable-next-line camelcase
+			is_income: true,
+			// eslint-disable-next-line camelcase
+			is_outcome: false,
+		};
+		try {
+			if (baseUrl) {
+				const response: AxiosResponse<ICategoryOption[]> = await GetCategoriesAll(baseUrl, data);
+				if (response !== null && response.status === axios.HttpStatusCode.Ok) {
+					setOptions(response.data);
+				}
+			}
+		} catch (error) {
+			if (
+				axios.isAxiosError(error) &&
+				error.response &&
+				error.response.status &&
+				error.response.status >= axios.HttpStatusCode.InternalServerError &&
+				error.response.status < ApiResponseCode.SERVER_ERROR_STATUS_MAX
+			) {
+				router.push(MainPath.ServerError);
+			}
+		}
+	}, [baseUrl, router]);
+
+	const getFiveOperations = useCallback(async () => {
+		const data = {
+			type: "targets",
+		};
+		try {
+			if (baseUrl) {
+				const response: AxiosResponse<IOperation[]> = await GetFiveTransactions(baseUrl, data);
+				if (response !== null && response.status === axios.HttpStatusCode.Ok) {
+					setFiveOperations(response.data);
+				}
+			}
+		} catch (error) {
+			if (
+				axios.isAxiosError(error) &&
+				error.response &&
+				error.response.status &&
+				error.response.status >= axios.HttpStatusCode.InternalServerError &&
+				error.response.status < ApiResponseCode.SERVER_ERROR_STATUS_MAX
+			) {
+				router.push(MainPath.ServerError);
+			}
+		}
+	}, [baseUrl, router]);
+
+	const addCategory = async (data: IAddCategoryExpensesForm) => {
+		try {
+			if (baseUrl && data !== null) {
+				const response = await AddExpensesCategory(baseUrl, data);
+				if (response.status === axios.HttpStatusCode.Created) {
+					setIsCategoryModalOpen(false);
+				}
+			}
+		} catch (error) {
+			if (
+				axios.isAxiosError(error) &&
+				error.response &&
+				error.response.status &&
+				error.response.status >= axios.HttpStatusCode.InternalServerError &&
+				error.response.status < ApiResponseCode.SERVER_ERROR_STATUS_MAX
+			) {
+				router.push(MainPath.ServerError);
+			}
+		}
 	};
 
 	useEffect(() => {
@@ -108,8 +231,20 @@ function Savings() {
 		resetTimer();
 	}, [request, resetTimer]);
 
+	useEffect(() => {
+		getAllTargets();
+	}, [getAllTargets]);
+
+	useEffect(() => {
+		getAllCategoriesOptions();
+	}, [getAllCategoriesOptions]);
+
+	useEffect(() => {
+		getFiveOperations();
+	}, [getFiveOperations]);
+
 	function renderSavingsItemList() {
-		return items.map((item, index) => {
+		return allTargets.map((item, index) => {
 			return (
 				<li
 					key={index}
@@ -126,7 +261,7 @@ function Savings() {
 									onChange={(e) => setEditValue(e.target.value)}
 								/>
 							) : (
-								<p className={styles.inputEditWrapper__textCategory}>{item.category}</p>
+								<p className={styles.inputEditWrapper__textCategory}>{item.name}</p>
 							)}
 							<div
 								className={styles.editIcon}
@@ -136,7 +271,7 @@ function Savings() {
 								onClick={() =>
 									editIndex === index && editField === SavingsFieldValues.category
 										? handleSaveClick()
-										: handleEditClick({ index, field: SavingsFieldValues.category, value: item.category })
+										: handleEditClick({ index, field: SavingsFieldValues.category, value: item.name })
 								}
 								role="button">
 								{editIndex === index && editField === SavingsFieldValues.category ? <CheckIcon /> : <EditIcon />}
@@ -154,7 +289,7 @@ function Savings() {
 								onClick={() =>
 									editIndex === index && editField === SavingsFieldValues.target
 										? handleSaveClick()
-										: handleEditClick({ index, field: SavingsFieldValues.target, value: item.target })
+										: handleEditClick({ index, field: SavingsFieldValues.target, value: item.name })
 								}
 								role="button">
 								{editIndex === index && editField === SavingsFieldValues.target ? <CheckIcon /> : <EditIcon />}
@@ -167,13 +302,13 @@ function Savings() {
 									onChange={(e) => setEditValue(e.target.value)}
 								/>
 							) : (
-								<p className={styles.inputEditWrapper__textTarget}>{item.target}</p>
+								<p className={styles.inputEditWrapper__textTarget}>{item.name}</p>
 							)}
 						</div>
 					</div>
 
 					<div className={styles.wrapperListContentBlock__sum}>
-						<p>{item.sum}</p>
+						<p>{item.amount}</p>
 					</div>
 					<div className={styles.wrapperListContentBlock__status}>
 						<p>{item.status}</p>
@@ -195,14 +330,16 @@ function Savings() {
 		});
 	}
 
-	const renderSavingsTransactions = (transactions: ISavingsTransaction[]) => {
+	const renderSavingsTransactions = (transactions: IOperation[]) => {
 		return transactions.map((savingsData, index) => (
 			<li key={index}>
 				<SavingsTransaction
-					firstDate={savingsData.firstDate}
-					secondDate={savingsData.secondDate}
-					purpose={savingsData.purpose}
-					sum={savingsData.sum}
+					date={savingsData.date}
+					target={savingsData.target}
+					amount={savingsData.amount}
+					id={savingsData.id}
+					type={""}
+					categories={0}
 				/>
 			</li>
 		));
@@ -226,14 +363,9 @@ function Savings() {
 						<div className={styles.savingsDetailsContainer}>
 							<div className={styles.savingsDetailsContainer__category}>
 								<CategorySelect
-									name={"savings"}
+									name={"name"}
 									label={"Накопления"}
-									options={[
-										{ id: 1, name: "Обучение ребенка", is_income: false, is_outcome: true, is_deleted: false },
-										{ id: 2, name: "Машина", is_income: false, is_outcome: true, is_deleted: false },
-										{ id: 3, name: "Квартира", is_income: false, is_outcome: true, is_deleted: false },
-										{ id: 4, name: "Отпуск 2024", is_income: false, is_outcome: true, is_deleted: false },
-									]}
+									options={options}
 									placeholder="Выберите категорию"
 									control={control}
 									onAddCategory={() => undefined}
@@ -244,13 +376,20 @@ function Savings() {
 									control={control}
 									label={"Сумма"}
 									type={InputTypeList.Number}
-									name={"number"}
+									name={"amount"}
 									placeholder={"0.00 ₽"}
 								/>
 							</div>
 
-							<AddButton onClick={() => resetTimer()} type={InputTypeList.Submit} />
+							<AddButton onClick={handleSubmit(onSubmit)} type={InputTypeList.Submit} />
 						</div>
+						{isAddCategoryModalOpen && (
+							<CategoryAddModal
+								open={isAddCategoryModalOpen}
+								onCancelClick={() => setIsCategoryModalOpen(false)}
+								request={addCategory}
+							/>
+						)}
 					</div>
 					<div className={styles.savingsFormContentWrapperList}>
 						<div className={styles.wrapperList__header}>
@@ -283,7 +422,7 @@ function Savings() {
 				<div className={styles.savingsTransactionWrapper}>
 					<h2 className={styles.savingsTransactionHeader}>Последние операции по накоплениям</h2>
 					<ul className={styles.savingsTransaction}>
-						{savingsTransactions && renderSavingsTransactions(savingsTransactions)}
+						{savingsTransactions && renderSavingsTransactions(fiveOperations)}
 					</ul>
 				</div>
 			</div>

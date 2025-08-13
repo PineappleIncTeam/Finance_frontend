@@ -2,20 +2,19 @@ import { useState } from "react";
 
 import { DeleteIcon } from "../../../assets/script/expenses/DeleteIcon";
 import { EditIcon } from "../../../assets/script/expenses/EditIcon";
-import { ISavingsTransaction } from "../../../types/components/ComponentsTypes";
 import { ExpensesTooltip } from "../expensesTooltip/expensesTooltip";
+import { IOperation } from "../../../types/api/Expenses";
 
 import styles from "./savingsTransaction.module.scss";
 
-const SavingsTransaction = ({ firstDate, secondDate, purpose, sum }: ISavingsTransaction) => {
+const SavingsTransaction = ({ date, amount, target }: IOperation) => {
 	const [isTooltipShown, setIsTooltipShown] = useState<boolean>(false);
 
 	return (
 		<div className={styles.savingsTransactionContainer}>
-			<p className={styles.transactionData}>{firstDate}</p>
-			<p className={styles.transactionData}>{secondDate}</p>
-			<p className={styles.transactionData}>{purpose}</p>
-			<p className={styles.transactionData}>{sum}</p>
+			<p className={styles.transactionData}>{date}</p>
+			<p className={styles.transactionData}>{target}</p>
+			<p className={styles.transactionData}>{amount}</p>
 			<div className={styles.savingsTransactionContainer__actionsWrapper}>
 				<DeleteIcon classNames={styles.deleteIcon} />
 				<div onMouseMove={() => setIsTooltipShown(true)} onMouseOut={() => setIsTooltipShown(false)}>

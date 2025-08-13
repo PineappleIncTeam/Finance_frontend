@@ -10,7 +10,6 @@ import useLogoutTimer from "../../../hooks/useLogoutTimer";
 
 import {
 	IEditActionProps,
-	ISavingsTransaction,
 	SavingsFieldValues,
 	SortOrderStateValue,
 	TIndexState,
@@ -43,6 +42,7 @@ import { ICategoryOption } from "../../../types/common/ComponentsProps";
 import { GetCategoriesAll } from "../../../services/api/userProfile/GetCategoriesAll";
 import { IOperation } from "../../../types/api/Expenses";
 import { GetFiveTransactions } from "../../../services/api/userProfile/GetFiveTransactions";
+import { CategoryAddModal } from "../../../components/userProfileLayout/categoryAdd/categoryAddModal";
 
 import styles from "./savings.module.scss";
 
@@ -71,6 +71,7 @@ function Savings() {
 	const [allTargets, setAllTargets] = useState<ITarget[]>([]);
 	const [options, setOptions] = useState<ICategoryOption[]>([]);
 	const [fiveOperations, setFiveOperations] = useState<IOperation[]>([]);
+	const [isAddCategoryModalOpen, setIsCategoryModalOpen] = useState<boolean>(true);
 
 	const router = useRouter();
 	const handleEditClick = ({ index, field, value }: IEditActionProps) => {
@@ -89,22 +90,22 @@ function Savings() {
 	};
 
 	const handleSortBySum = () => {
-		const sortedFiveOperations = [...fiveOperations].sort((a, b) => {
-			const sumA = parseFloat(a.amount.replace(/[^0-9.-]+/g, ""));
-			const sumB = parseFloat(b.amount.replace(/[^0-9.-]+/g, ""));
+		const sortedAllTargets = [...allTargets].sort((a, b) => {
+			const sumA = parseFloat(a.current_sum.toString().replace(/[^0-9.-]+/g, ""));
+			const sumB = parseFloat(b.current_sum.toString().replace(/[^0-9.-]+/g, ""));
 			return sortOrder === SortOrderStateValue.asc ? sumA - sumB : sumB - sumA;
 		});
-		setFiveOperations(sortedFiveOperations);
+		setAllTargets(sortedAllTargets);
 		setSortOrder(sortOrder === SortOrderStateValue.asc ? SortOrderStateValue.desc : SortOrderStateValue.asc);
 	};
 
 	const handleSortByTarget = () => {
-		const sortedFiveOperations = [...fiveOperations].sort((a, b) => {
-			const targetA = parseFloat(a.target.replace(/[^0-9.-]+/g, ""));
-			const targetB = parseFloat(b.target.replace(/[^0-9.-]+/g, ""));
+		const sortedAllTargets = [...allTargets].sort((a, b) => {
+			const targetA = parseFloat(a.amount.toString().replace(/[^0-9.-]+/g, ""));
+			const targetB = parseFloat(b.amount.toString().replace(/[^0-9.-]+/g, ""));
 			return sortTargetOrder === SortOrderStateValue.asc ? targetA - targetB : targetB - targetA;
 		});
-		setFiveOperations(sortedFiveOperations);
+		setAllTargets(sortedAllTargets);
 		setSortTargetOrder(
 			sortTargetOrder === SortOrderStateValue.asc ? SortOrderStateValue.desc : SortOrderStateValue.asc,
 		);
@@ -306,14 +307,16 @@ function Savings() {
 		});
 	}
 
-	const renderSavingsTransactions = (transactions: ISavingsTransaction[]) => {
+	const renderSavingsTransactions = (transactions: IOperation[]) => {
 		return transactions.map((savingsData, index) => (
 			<li key={index}>
 				<SavingsTransaction
-					firstDate={savingsData.firstDate}
-					secondDate={savingsData.secondDate}
-					purpose={savingsData.purpose}
-					sum={savingsData.sum}
+					date={savingsData.date}
+					target={savingsData.target}
+					amount={savingsData.amount}
+					id={savingsData.id}
+					type={""}
+					categories={0}
 				/>
 			</li>
 		));
@@ -357,6 +360,13 @@ function Savings() {
 
 							<AddButton onClick={handleSubmit(onSubmit)} type={InputTypeList.Submit} />
 						</div>
+						{isAddCategoryModalOpen && (
+							<CategoryAddModal
+								open={isAddCategoryModalOpen}
+								onCancelClick={() => setIsCategoryModalOpen(false)}
+								request={undefined}
+							/>
+						)}
 					</div>
 					<div className={styles.savingsFormContentWrapperList}>
 						<div className={styles.wrapperList__header}>
@@ -389,7 +399,7 @@ function Savings() {
 				<div className={styles.savingsTransactionWrapper}>
 					<h2 className={styles.savingsTransactionHeader}>Последние операции по накоплениям</h2>
 					<ul className={styles.savingsTransaction}>
-						{savingsTransactions && renderSavingsTransactions(savingsTransactions)}
+						{savingsTransactions && renderSavingsTransactions(fiveOperations)}
 					</ul>
 				</div>
 			</div>

@@ -9,6 +9,7 @@ import { useRouter } from "next/navigation";
 import useLogoutTimer from "../../../hooks/useLogoutTimer";
 
 import {
+	IAddCategoryExpensesForm,
 	IEditActionProps,
 	SavingsFieldValues,
 	SortOrderStateValue,
@@ -43,6 +44,7 @@ import { GetCategoriesAll } from "../../../services/api/userProfile/GetCategorie
 import { IOperation } from "../../../types/api/Expenses";
 import { GetFiveTransactions } from "../../../services/api/userProfile/GetFiveTransactions";
 import { CategoryAddModal } from "../../../components/userProfileLayout/categoryAdd/categoryAddModal";
+import { AddExpensesCategory } from "../../../services/api/userProfile/AddExpensesCategory";
 
 import styles from "./savings.module.scss";
 
@@ -199,6 +201,27 @@ function Savings() {
 			}
 		}
 	}, [baseUrl, router]);
+
+	const addCategory = async (data: IAddCategoryExpensesForm) => {
+		try {
+			if (baseUrl && data !== null) {
+				const response = await AddExpensesCategory(baseUrl, data);
+				if (response.status === axios.HttpStatusCode.Created) {
+					setIsCategoryModalOpen(false);
+				}
+			}
+		} catch (error) {
+			if (
+				axios.isAxiosError(error) &&
+				error.response &&
+				error.response.status &&
+				error.response.status >= axios.HttpStatusCode.InternalServerError &&
+				error.response.status < ApiResponseCode.SERVER_ERROR_STATUS_MAX
+			) {
+				router.push(MainPath.ServerError);
+			}
+		}
+	};
 
 	useEffect(() => {
 		setBaseUrl(getCorrectBaseUrl());
@@ -364,7 +387,7 @@ function Savings() {
 							<CategoryAddModal
 								open={isAddCategoryModalOpen}
 								onCancelClick={() => setIsCategoryModalOpen(false)}
-								request={undefined}
+								request={addCategory}
 							/>
 						)}
 					</div>

@@ -73,7 +73,7 @@ function Savings() {
 	const [allTargets, setAllTargets] = useState<ITarget[]>([]);
 	const [options, setOptions] = useState<ICategoryOption[]>([]);
 	const [fiveOperations, setFiveOperations] = useState<IOperation[]>([]);
-	const [isAddCategoryModalOpen, setIsCategoryModalOpen] = useState<boolean>(true);
+	const [isAddCategoryModalOpen, setIsCategoryModalOpen] = useState<boolean>(false);
 
 	const router = useRouter();
 	const handleEditClick = ({ index, field, value }: IEditActionProps) => {
@@ -368,7 +368,7 @@ function Savings() {
 									options={options}
 									placeholder="Выберите категорию"
 									control={control}
-									onAddCategory={() => undefined}
+									onAddCategory={() => setIsCategoryModalOpen(true)}
 								/>
 							</div>
 							<div className={styles.savingsDetailsContainer__sum}>

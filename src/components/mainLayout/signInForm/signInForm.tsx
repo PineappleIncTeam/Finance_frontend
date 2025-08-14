@@ -137,7 +137,7 @@ export default function SignInForm() {
 					type: "server",
 					message: errorDataLogOn,
 				});
-			} else if (isAxiosError(error) && error?.response?.status === axios.HttpStatusCode.Forbidden) {
+			} else if (isAxiosError(error) && error?.response?.status === axios.HttpStatusCode.Unauthorized) {
 				setError("email", {
 					type: "server",
 					message: errorProfileActivation,

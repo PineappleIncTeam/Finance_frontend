@@ -43,6 +43,7 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# storybook
+# documentation (storybook and tsdoc)
 *storybook.log
 storybook-static
+/docs

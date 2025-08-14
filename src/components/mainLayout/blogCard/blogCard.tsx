@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 
-import useCurrentLinkCard from "../../../hooks/useCurrentLinkCard";
+import { useCurrentLinkCard } from "../../../hooks/useCurrentLinkCard";
 
 import { IBlogCard } from "../../../types/common/ComponentsProps";
 import { InputTypeList } from "../../../helpers/Input";

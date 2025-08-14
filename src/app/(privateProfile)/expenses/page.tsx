@@ -20,7 +20,7 @@ import { getCorrectBaseUrl } from "../../../utils/baseUrlConverter";
 import { ApiResponseCode } from "../../../helpers/apiResponseCode";
 import { GetFiveTransactions } from "../../../services/api/userProfile/GetFiveTransactions";
 
-import useLogoutTimer from "../../../hooks/useLogoutTimer";
+import { useLogoutTimer } from "../../../hooks/useLogoutTimer";
 import { CategorySelect } from "../../../components/userProfileLayout/categorySelect/CategorySelect";
 
 import AddButton from "../../../components/userProfileLayout/addButton/addButton";

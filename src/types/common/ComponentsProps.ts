@@ -6,6 +6,7 @@ import { MouseEvent, ReactNode } from "react";
 import { IAddCategoryExpensesForm, IEditTransactionForm } from "../components/ComponentsTypes";
 import { IArchiveCategory } from "../pages/Expenses";
 import { IOperation } from "../api/Expenses";
+import { CategoryType } from "../../helpers/categoryTypes";
 
 export type CustomLayout = () => Element;
 
@@ -122,6 +123,7 @@ export interface IAddCategory {
 	open: boolean;
 	request: (data: IAddCategoryExpensesForm) => Promise<void>;
 	onCancelClick: () => void;
+	type: CategoryType;
 }
 
 export interface ITransactionDelete {

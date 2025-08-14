@@ -45,6 +45,7 @@ import { IOperation } from "../../../types/api/Expenses";
 import { GetFiveTransactions } from "../../../services/api/userProfile/GetFiveTransactions";
 import { CategoryAddModal } from "../../../components/userProfileLayout/categoryAdd/categoryAddModal";
 import { AddExpensesCategory } from "../../../services/api/userProfile/AddExpensesCategory";
+import { CategoryType } from "../../../helpers/categoryTypes";
 
 import styles from "./savings.module.scss";
 
@@ -388,6 +389,7 @@ function Savings() {
 								open={isAddCategoryModalOpen}
 								onCancelClick={() => setIsCategoryModalOpen(false)}
 								request={addCategory}
+								type={CategoryType.Income}
 							/>
 						)}
 					</div>

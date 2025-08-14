@@ -54,6 +54,7 @@ import { ArchiveCategory } from "../../../services/api/userProfile/ArchiveCatego
 import { GetOperationsAll } from "../../../services/api/userProfile/GetOperationsAll";
 import { ICategoryOption } from "../../../types/common/ComponentsProps";
 import { getCurrentDate } from "../../../utils/getCurrentDate";
+import { CategoryType } from "../../../helpers/categoryTypes";
 
 import styles from "./expenses.module.scss";
 
@@ -448,7 +449,14 @@ export default function Expenses() {
 					/>
 				)}
 				<ResponseApiRequestModal open={responseApiRequestModal.open} title={responseApiRequestModal.title} />
-				{isOpen && <CategoryAddModal open={isOpen} onCancelClick={() => setIsOpen(false)} request={addCategory} />}
+				{isOpen && (
+					<CategoryAddModal
+						open={isOpen}
+						onCancelClick={() => setIsOpen(false)}
+						request={addCategory}
+						type={CategoryType.Outcome}
+					/>
+				)}
 				<ResponseApiRequestModal open={responseApiRequestModal.open} title={responseApiRequestModal.title} />
 				<ResponseApiRequestModal open={responseApiRequestModal.open} title={responseApiRequestModal.title} />
 				<div className={styles.expensesTransactionsWrapper}>

@@ -13,10 +13,11 @@ import Button from "../../../ui/Button/Button1";
 
 import { formHelpers } from "../../../utils/formHelpers";
 import { financePattern } from "../../../helpers/authConstants";
+import { CategoryType } from "../../../helpers/categoryTypes";
 
 import styles from "./categoryAddModal.module.scss";
 
-export const CategoryAddModal = ({ open, request, onCancelClick }: IAddCategory) => {
+export const CategoryAddModal = ({ open, request, onCancelClick, type }: IAddCategory) => {
 	const {
 		control,
 		handleSubmit,
@@ -27,8 +28,7 @@ export const CategoryAddModal = ({ open, request, onCancelClick }: IAddCategory)
 			// eslint-disable-next-line camelcase
 			is_income: false,
 			// eslint-disable-next-line camelcase
-			is_outcome: true,
-			// amount: "",
+			is_outcome: false,
 		},
 		mode: "all",
 		delayError: 200,
@@ -36,6 +36,9 @@ export const CategoryAddModal = ({ open, request, onCancelClick }: IAddCategory)
 
 	const onSubmit = async (data: IAddCategoryExpensesForm) => {
 		if (data !== null) {
+			// eslint-disable-next-line camelcase
+			type === CategoryType.Income ? (data.is_income = true) : (data.is_outcome = true);
+			console.log(data);
 			await request(data);
 		}
 	};

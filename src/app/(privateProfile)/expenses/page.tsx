@@ -41,8 +41,6 @@ import { IOperation } from "../../../types/api/Expenses";
 
 import { RemoveExpensesCategory } from "../../../services/api/userProfile/RemoveExpensesCategory";
 
-import { AddExpensesCategoryTransaction } from "../../../services/api/userProfile/AddExpensesCategoryTransaction";
-
 import { RemoveExpensesCategoryTransaction } from "../../../services/api/userProfile/RemoveExpensesTransaction";
 
 import { RecordDeleteModal } from "../../../components/userProfileLayout/recordDelete/recordDelete";
@@ -262,7 +260,19 @@ export default function Expenses() {
 		data.date = getCurrentDate(endDate);
 		try {
 			if (baseUrl && data !== null) {
-				await AddExpensesCategoryTransaction(baseUrl, data);
+				const response = await AddExpensesCategory(baseUrl, data);
+				if (response.status === axios.HttpStatusCode.Created) {
+					setIsOpen(false);
+					setIsAddSuccess(true);
+					setResponseApiRequestModal({
+						open: true,
+						title: "Запись успешно добавлена",
+					});
+					setTimeout(() => {
+						setResponseApiRequestModal(ResponseApiRequestModalInitialState);
+						setIsAddSuccess(false);
+					}, interval);
+				}
 			}
 		} catch (error) {
 			if (
@@ -273,6 +283,14 @@ export default function Expenses() {
 				error.response.status < ApiResponseCode.SERVER_ERROR_STATUS_MAX
 			) {
 				router.push(MainPath.ServerError);
+			} else {
+				setResponseApiRequestModal({
+					open: true,
+					title: "Запись не была добавлена",
+				});
+				setTimeout(() => {
+					setResponseApiRequestModal(ResponseApiRequestModalInitialState);
+				}, interval);
 			}
 		}
 	};

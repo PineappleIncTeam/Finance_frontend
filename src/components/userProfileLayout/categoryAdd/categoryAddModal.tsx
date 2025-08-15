@@ -37,7 +37,9 @@ export const CategoryAddModal = ({ open, request, onCancelClick, type }: IAddCat
 	const onSubmit = async (data: IAddCategoryExpensesForm) => {
 		if (data !== null) {
 			// eslint-disable-next-line camelcase
-			type === CategoryType.Income ? (data.is_income = true) : (data.is_outcome = true);
+			data.is_income = type === CategoryType.Income ? true : false;
+			// eslint-disable-next-line camelcase
+			data.is_outcome = type === CategoryType.Outcome ? true : false;
 			console.log(data);
 			await request(data);
 		}

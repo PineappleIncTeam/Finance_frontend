@@ -4,18 +4,8 @@ const stateCharset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ012345
 const stateCharsetLength = 64;
 const stateLength = 32;
 
-const generatePkceChallenge = async () => {
+export const generatePkceChallenge = async () => {
 	return await pkceChallenge();
-};
-
-export const generateCodeChallenge = async () => {
-	const challenge = await generatePkceChallenge();
-	return challenge.code_challenge;
-};
-
-export const generateCodeVerifier = async () => {
-	const challenge = await generatePkceChallenge();
-	return challenge.code_verifier;
 };
 
 export const generateState = () => {

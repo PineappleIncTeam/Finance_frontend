@@ -384,14 +384,6 @@ function Savings() {
 
 							<AddButton onClick={handleSubmit(onSubmit)} type={InputTypeList.Submit} />
 						</div>
-						{isAddCategoryModalOpen && (
-							<CategoryAddModal
-								open={isAddCategoryModalOpen}
-								onCancelClick={() => setIsCategoryModalOpen(false)}
-								request={addCategory}
-								type={CategoryType.Income}
-							/>
-						)}
 					</div>
 					<div className={styles.savingsFormContentWrapperList}>
 						<div className={styles.wrapperList__header}>
@@ -421,6 +413,14 @@ function Savings() {
 						</div>
 					</div>
 				</form>
+				{isAddCategoryModalOpen && (
+					<CategoryAddModal
+						open={isAddCategoryModalOpen}
+						onCancelClick={() => setIsCategoryModalOpen(false)}
+						request={addCategory}
+						type={CategoryType.Income}
+					/>
+				)}
 				<div className={styles.savingsTransactionWrapper}>
 					<h2 className={styles.savingsTransactionHeader}>Последние операции по накоплениям</h2>
 					<ul className={styles.savingsTransaction}>

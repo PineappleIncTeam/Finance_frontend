@@ -35,14 +35,11 @@ export const CategoryAddModal = ({ open, request, onCancelClick, type }: IAddCat
 	});
 
 	const onSubmit = async (data: IAddCategoryExpensesForm) => {
-		console.log(data);
-		console.log(type);
 		if (data !== null) {
 			// eslint-disable-next-line camelcase
 			data.is_income = type === CategoryType.Income ? true : false;
 			// eslint-disable-next-line camelcase
 			data.is_outcome = type === CategoryType.Outcome ? true : false;
-			console.log(data);
 			await request(data);
 		}
 	};

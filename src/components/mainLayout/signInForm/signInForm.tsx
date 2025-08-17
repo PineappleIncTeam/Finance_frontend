@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
-import axios from "axios";
+import axios, { isAxiosError } from "axios";
 import Link from "next/link";
 // import { env } from "next-runtime-env";
 import * as VKID from "@vkid/sdk";
@@ -15,7 +15,7 @@ import AuthInput from "../../../ui/authInput/AuthInput";
 import Title from "../../../ui/title/Title";
 import CustomCheckbox from "../../../ui/checkBox/checkBox";
 import InviteModal from "../inviteModal/inviteModal";
-import { emailPattern, passwordPattern } from "../../../helpers/authConstants";
+import { emailPattern, errorDataLogOn, errorProfileActivation, passwordPattern } from "../../../helpers/authConstants";
 import { formHelpers } from "../../../utils/formHelpers";
 import { getCorrectBaseUrl } from "../../../utils/baseUrlConverter";
 import { InputTypeList } from "../../../helpers/Input";
@@ -33,7 +33,6 @@ import styles from "./signInForm.module.scss";
 
 export default function SignInForm() {
 	const [baseUrl, setBaseUrl] = useState<string>("");
-	const [errorMessage, setErrorMessage] = useState<string>("");
 	const [isOpen, setIsOpen] = useState<boolean>(false);
 	const [codeVerifier, setCodeVerifier] = useState<string>("");
 
@@ -41,6 +40,7 @@ export default function SignInForm() {
 
 	const {
 		formState: { errors },
+		setError,
 		control,
 		handleSubmit,
 	} = useForm<ISignInForm>({
@@ -122,7 +122,6 @@ export default function SignInForm() {
 
 	const onSubmit = async (data: ISignInForm) => {
 		try {
-			setErrorMessage("");
 			if (baseUrl && data.password) {
 				const correctUserData: ICorrectSignInForm = {
 					email: data.email ?? "",
@@ -133,7 +132,17 @@ export default function SignInForm() {
 				if (data.isAutoAuth) dispatch(setAutoLoginStatus(data.isAutoAuth));
 			}
 		} catch (error) {
-			if (
+			if (isAxiosError(error) && error?.response?.status === axios.HttpStatusCode.BadRequest) {
+				setError("email", {
+					type: "server",
+					message: errorDataLogOn,
+				});
+			} else if (isAxiosError(error) && error?.response?.status === axios.HttpStatusCode.Forbidden) {
+				setError("email", {
+					type: "server",
+					message: errorProfileActivation,
+				});
+			} else if (
 				axios.isAxiosError(error) &&
 				error.response &&
 				error.response.status &&
@@ -142,7 +151,6 @@ export default function SignInForm() {
 			) {
 				return router.push(MainPath.ServerError);
 			}
-			setErrorMessage("Введены некорректный email или пароль");
 		}
 	};
 
@@ -182,7 +190,6 @@ export default function SignInForm() {
 						Забыли пароль?
 					</Link>
 				</div>
-				{errorMessage && <p className={styles.errorMessage}>{errorMessage}</p>}
 				<Button variant={ButtonType.Notification} type={InputTypeList.Submit} className={styles.button}>
 					Вход
 				</Button>

@@ -44,20 +44,9 @@
 .addCategoryFormData {
 	padding: 18px 0;
 
-	&__label {
-		display: none;
-	}
-
 	@media (max-width: 490px) {
 		& {
 			padding: 8px 0;
-
-			&__label {
-				display: inline-block;
-				font-size: 1.6rem;
-				line-height: 2.2rem;
-				color: var(--color-dark-cyan-blue);
-			}
 		}
 	}
 }
@@ -73,6 +62,10 @@
 			flex-direction: column-reverse;
 			padding: 14px 0;
 			gap: 8px;
+
+			button {
+				width: 100%;
+			}
 		}
 	}
 }

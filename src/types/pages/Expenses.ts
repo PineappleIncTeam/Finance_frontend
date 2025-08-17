@@ -6,16 +6,15 @@ export interface IExpensesInputForm {
 
 export interface IExpensesAddCategoryTransactionForm {
 	date: string;
-	amount: string;
-	type: string;
-	name: string;
-	is_income: boolean;
-	is_outcome: boolean;
+	amount: number | string;
+	categories: string;
+	type: "income" | "outcome";
 }
 
 export interface IExpensesCategoryForm {
-	target: string;
-	categories: string;
+	name: string;
+	is_income: boolean;
+	is_outcome: boolean;
 }
 
 export interface IExpensesSelectForm {

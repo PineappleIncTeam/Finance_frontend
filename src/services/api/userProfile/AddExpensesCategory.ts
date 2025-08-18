@@ -11,5 +11,6 @@ export const AddExpensesCategory = async (baseUrl: string, data: IAddCategoryExp
 			"Content-Type": "application/json",
 		},
 		withCredentials: true,
+		withTokenRefresh: true,
 	});
 };

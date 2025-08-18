@@ -41,8 +41,6 @@ import { IOperation } from "../../../types/api/Expenses";
 
 import { RemoveExpensesCategory } from "../../../services/api/userProfile/RemoveExpensesCategory";
 
-import { AddExpensesCategoryTransaction } from "../../../services/api/userProfile/AddExpensesCategoryTransaction";
-
 import { RemoveExpensesCategoryTransaction } from "../../../services/api/userProfile/RemoveExpensesTransaction";
 
 import { RecordDeleteModal } from "../../../components/userProfileLayout/recordDelete/recordDelete";
@@ -52,6 +50,7 @@ import { ResponseApiRequestModal } from "../../../components/userProfileLayout/r
 import { CategoryDeleteModal } from "../../../components/userProfileLayout/categoryDelete/categoryDelete";
 import { ArchiveCategory } from "../../../services/api/userProfile/ArchiveCategory";
 import { GetOperationsAll } from "../../../services/api/userProfile/GetOperationsAll";
+import { AddExpensesCategoryTransaction } from "../../../services/api/userProfile/AddExpensesCategoryTransaction";
 import { ICategoryOption } from "../../../types/common/ComponentsProps";
 import { getCurrentDate } from "../../../utils/getCurrentDate";
 
@@ -79,6 +78,7 @@ export default function Expenses() {
 	const { control, handleSubmit } = useForm<IExpensesAddCategoryTransactionForm & IExpensesCategoryForm>({
 		defaultValues: {
 			amount: "",
+			categories: "",
 			type: "outcome",
 		},
 		mode: "all",
@@ -259,10 +259,27 @@ export default function Expenses() {
 
 	const onSubmit = async (data: IExpensesAddCategoryTransactionForm & IExpensesCategoryForm) => {
 		resetTimer();
-		data.date = getCurrentDate(endDate);
+		const transactionData: IExpensesAddCategoryTransactionForm = {
+			date: getCurrentDate(endDate),
+			amount: Number(data.amount),
+			categories: data.categories,
+			type: "outcome",
+		};
 		try {
 			if (baseUrl && data !== null) {
-				await AddExpensesCategoryTransaction(baseUrl, data);
+				const response = await AddExpensesCategoryTransaction(baseUrl, transactionData);
+				if (response.status === axios.HttpStatusCode.Created) {
+					setIsOpen(false);
+					setIsAddSuccess(true);
+					setResponseApiRequestModal({
+						open: true,
+						title: "Запись успешно добавлена",
+					});
+					setTimeout(() => {
+						setResponseApiRequestModal(ResponseApiRequestModalInitialState);
+						setIsAddSuccess(false);
+					}, interval);
+				}
 			}
 		} catch (error) {
 			if (
@@ -273,6 +290,14 @@ export default function Expenses() {
 				error.response.status < ApiResponseCode.SERVER_ERROR_STATUS_MAX
 			) {
 				router.push(MainPath.ServerError);
+			} else {
+				setResponseApiRequestModal({
+					open: true,
+					title: "Запись не была добавлена",
+				});
+				setTimeout(() => {
+					setResponseApiRequestModal(ResponseApiRequestModalInitialState);
+				}, interval);
 			}
 		}
 	};

@@ -11,5 +11,6 @@ export const GetCategoriesAll = async (baseUrl: string, data: ICategoriesTypes) 
 			"Content-Type": "application/json",
 		},
 		withCredentials: true,
+		withTokenRefresh: true,
 	});
 };

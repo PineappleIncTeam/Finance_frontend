@@ -5,54 +5,37 @@ import { Key, useCallback, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import axios, { AxiosResponse } from "axios";
 
-import handleLogout from "../../../helpers/logout";
-
-import ExpensesTransaction from "../../../components/userProfileLayout/expensesTransaction/expensesTransaction";
-
-import { InputTypeList } from "../../../helpers/Input";
+import useLogoutTimer from "../../../hooks/useLogoutTimer";
 
 import { IExpensesAddCategoryTransactionForm, IExpensesCategoryForm } from "../../../types/pages/Expenses";
-
-import InputDate from "../../../ui/inputDate/inputDate";
-
-import { getCorrectBaseUrl } from "../../../utils/baseUrlConverter";
-
-import { ApiResponseCode } from "../../../helpers/apiResponseCode";
-import { GetFiveTransactions } from "../../../services/api/userProfile/GetFiveTransactions";
-
-import useLogoutTimer from "../../../hooks/useLogoutTimer";
-import { CategorySelect } from "../../../components/userProfileLayout/categorySelect/CategorySelect";
-
-import AddButton from "../../../components/userProfileLayout/addButton/addButton";
-
-import AppInput from "../../../ui/appInput/AppInput";
-
-import { CategoryAddModal } from "../../../components/userProfileLayout/categoryAdd/categoryAddModal";
-
 import { IAddCategoryExpensesForm, IEditTransactionForm } from "../../../types/components/ComponentsTypes";
-
-import { AddExpensesCategory } from "../../../services/api/userProfile/AddExpensesCategory";
-
-import { MainPath } from "../../../services/router/routes";
-
-import { GetCategoriesAll } from "../../../services/api/userProfile/GetCategoriesAll";
-
+import { ICategoryOption } from "../../../types/common/ComponentsProps";
 import { IOperation } from "../../../types/api/Expenses";
-
-import { RemoveExpensesCategory } from "../../../services/api/userProfile/RemoveExpensesCategory";
-
-import { RemoveExpensesCategoryTransaction } from "../../../services/api/userProfile/RemoveExpensesTransaction";
-
+import InputDate from "../../../ui/inputDate/inputDate";
+import AppInput from "../../../ui/appInput/AppInput";
+import ExpensesTransaction from "../../../components/userProfileLayout/expensesTransaction/expensesTransaction";
 import { RecordDeleteModal } from "../../../components/userProfileLayout/recordDelete/recordDelete";
-import { EditExpensesCategoryTransaction } from "../../../services/api/userProfile/EditExpensesTransaction";
 import { EditTransactionModal } from "../../../components/userProfileLayout/editTransaction/editTransaction";
 import { ResponseApiRequestModal } from "../../../components/userProfileLayout/responseActionExpenses/responseApiRequestModal";
 import { CategoryDeleteModal } from "../../../components/userProfileLayout/categoryDelete/categoryDelete";
+import { CategorySelect } from "../../../components/userProfileLayout/categorySelect/CategorySelect";
+import AddButton from "../../../components/userProfileLayout/addButton/addButton";
+import { CategoryAddModal } from "../../../components/userProfileLayout/categoryAdd/categoryAddModal";
+import { GetFiveTransactions } from "../../../services/api/userProfile/GetFiveTransactions";
+import { AddExpensesCategory } from "../../../services/api/userProfile/AddExpensesCategory";
+import { MainPath } from "../../../services/router/routes";
+import { GetCategoriesAll } from "../../../services/api/userProfile/GetCategoriesAll";
+import { RemoveExpensesCategory } from "../../../services/api/userProfile/RemoveExpensesCategory";
+import { RemoveExpensesCategoryTransaction } from "../../../services/api/userProfile/RemoveExpensesTransaction";
+import { EditExpensesCategoryTransaction } from "../../../services/api/userProfile/EditExpensesTransaction";
 import { ArchiveCategory } from "../../../services/api/userProfile/ArchiveCategory";
 import { GetOperationsAll } from "../../../services/api/userProfile/GetOperationsAll";
 import { AddExpensesCategoryTransaction } from "../../../services/api/userProfile/AddExpensesCategoryTransaction";
-import { ICategoryOption } from "../../../types/common/ComponentsProps";
+import { getCorrectBaseUrl } from "../../../utils/baseUrlConverter";
 import { getCurrentDate } from "../../../utils/getCurrentDate";
+import { ApiResponseCode } from "../../../helpers/apiResponseCode";
+import handleLogout from "../../../helpers/logout";
+import { InputTypeList } from "../../../helpers/Input";
 
 import styles from "./expenses.module.scss";
 

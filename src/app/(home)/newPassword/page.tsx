@@ -2,22 +2,21 @@
 
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-
-import { useRouter } from "next/navigation";
 import axios, { AxiosError } from "axios";
+import { useRouter } from "next/navigation";
 
 import { INewPassword } from "../../../types/pages/Password";
 import AuthInput from "../../../ui/authInput/AuthInput";
 import Title from "../../../ui/title/Title";
+import Button from "../../../ui/Button/Button1";
 import NewPasswordModal from "../../../components/mainLayout/newPasswordModal/newPasswordModal";
+import { resetPasswordWithEmail } from "../../../services/api/auth/ResetPasswordWithEmail";
+import { MainPath } from "../../../services/router/routes";
 import { formHelpers } from "../../../utils/formHelpers";
 import { emailPattern, errorEmailIsNotRegister } from "../../../helpers/authConstants";
 import { InputTypeList } from "../../../helpers/Input";
 import { getCorrectBaseUrl } from "../../../utils/baseUrlConverter";
-import { ResetPasswordWithEmail } from "../../../services/api/auth/ResetPasswordWithEmail";
-import { MainPath } from "../../../services/router/routes";
 import { ApiResponseCode } from "../../../helpers/apiResponseCode";
-import Button from "../../../ui/Button/Button1";
 import { ButtonType } from "../../../helpers/buttonFieldValues";
 
 import styles from "./newPassword.module.scss";
@@ -67,7 +66,7 @@ export default function NewPassword() {
 	const restoreButtonClick = async (data: INewPassword) => {
 		try {
 			if (baseUrl) {
-				const response = await ResetPasswordWithEmail(baseUrl, data);
+				const response = await resetPasswordWithEmail(baseUrl, data);
 				if (response !== null && response.status === axios.HttpStatusCode.NoContent) {
 					newPasswordModalVisible(true);
 				}

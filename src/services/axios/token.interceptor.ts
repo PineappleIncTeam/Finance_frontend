@@ -2,7 +2,7 @@ import axios from "axios";
 
 import { IFailedOriginalRequest, IPromiseCallback } from "../../types/axios/commonTypes";
 import { refreshToken } from "../api/userProfile/refreshToken";
-import { logoutUser } from "../api/auth/Logout";
+import { logoutUser } from "../api/auth/logoutUser";
 import { MainPath } from "../router/routes";
 
 declare module "axios" {

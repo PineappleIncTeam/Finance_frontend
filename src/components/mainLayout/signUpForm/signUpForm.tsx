@@ -9,26 +9,26 @@ import axios, { AxiosError } from "axios";
 import * as VKID from "@vkid/sdk";
 
 import { ISignUpForm } from "../../../types/components/ComponentsTypes";
+import { ILoginSuccessPayload, IVkAuthRequest } from "../../../types/pages/Authorization";
 import AuthInput from "../../../ui/authInput/AuthInput";
 import Title from "../../../ui/title/Title";
+import CustomCheckbox from "../../../ui/checkBox/checkBox";
+import Button from "../../../ui/Button/Button1";
+import { registration } from "../../../services/api/auth/registration";
+import { authVkService } from "../../../services/api/auth/authVkService";
+import { MainPath, UserProfilePath } from "../../../services/router/routes";
+import { formHelpers } from "../../../utils/formHelpers";
+import { generateCodeVerifier, generateState } from "../../../utils/generateAuthTokens";
+import { getCorrectBaseUrl } from "../../../utils/baseUrlConverter";
+import { InputTypeList } from "../../../helpers/Input";
+import { ApiResponseCode } from "../../../helpers/apiResponseCode";
+import { ButtonType } from "../../../helpers/buttonFieldValues";
 import {
 	emailPattern,
 	errorPasswordRepeat,
 	errorUserWithExistEmailRegistration,
 	passwordPattern,
 } from "../../../helpers/authConstants";
-import { formHelpers } from "../../../utils/formHelpers";
-import { InputTypeList } from "../../../helpers/Input";
-import { registration } from "../../../services/api/auth/Registration";
-import { MainPath, UserProfilePath } from "../../../services/router/routes";
-import { getCorrectBaseUrl } from "../../../utils/baseUrlConverter";
-import { ApiResponseCode } from "../../../helpers/apiResponseCode";
-import CustomCheckbox from "../../../ui/checkBox/checkBox";
-import Button from "../../../ui/Button/Button1";
-import { ButtonType } from "../../../helpers/buttonFieldValues";
-import { generateCodeVerifier, generateState } from "../../../utils/generateAuthTokens";
-import { AuthVk } from "../../../services/api/auth/VkAuth";
-import { ILoginSuccessPayload, IVkAuthRequest } from "../../../types/pages/Authorization";
 
 import styles from "./signUpForm.module.scss";
 
@@ -87,7 +87,7 @@ export default function SignUpForm() {
 	async function authVkIdService(authData: IVkAuthRequest) {
 		try {
 			if (baseUrl) {
-				const response = await AuthVk(baseUrl, authData);
+				const response = await authVkService(baseUrl, authData);
 				if (response.status === axios.HttpStatusCode.Ok) {
 					router.push(UserProfilePath.ProfitMoney);
 				}

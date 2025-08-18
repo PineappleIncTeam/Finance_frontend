@@ -11,23 +11,23 @@ import * as VKID from "@vkid/sdk";
 import useAppDispatch from "../../../hooks/useAppDispatch";
 
 import { ICorrectSignInForm, ISignInForm } from "../../../types/components/ComponentsTypes";
+import { ILoginSuccessPayload, IVkAuthRequest } from "../../../types/pages/Authorization";
 import AuthInput from "../../../ui/authInput/AuthInput";
 import Title from "../../../ui/title/Title";
 import CustomCheckbox from "../../../ui/checkBox/checkBox";
+import Button from "../../../ui/Button/Button1";
 import InviteModal from "../inviteModal/inviteModal";
+import { loginUser } from "../../../services/api/auth/loginUser";
+import { setAutoLoginStatus } from "../../../services/redux/features/autoLogin/autoLoginSlice";
+import { authVkService } from "../../../services/api/auth/authVkService";
+import { MainPath, UserProfilePath } from "../../../services/router/routes";
 import { emailPattern, errorDataLogOn, errorProfileActivation, passwordPattern } from "../../../helpers/authConstants";
+import { InputTypeList } from "../../../helpers/Input";
+import { ApiResponseCode } from "../../../helpers/apiResponseCode";
+import { ButtonType } from "../../../helpers/buttonFieldValues";
 import { formHelpers } from "../../../utils/formHelpers";
 import { getCorrectBaseUrl } from "../../../utils/baseUrlConverter";
-import { InputTypeList } from "../../../helpers/Input";
-import { MainPath, UserProfilePath } from "../../../services/router/routes";
-import { ApiResponseCode } from "../../../helpers/apiResponseCode";
-import { loginUser } from "../../../services/api/auth/Login";
-import { setAutoLoginStatus } from "../../../services/redux/features/autoLogin/autoLoginSlice";
-import Button from "../../../ui/Button/Button1";
-import { ButtonType } from "../../../helpers/buttonFieldValues";
 import { generateCodeVerifier, generateState } from "../../../utils/generateAuthTokens";
-import { AuthVk } from "../../../services/api/auth/VkAuth";
-import { ILoginSuccessPayload, IVkAuthRequest } from "../../../types/pages/Authorization";
 
 import styles from "./signInForm.module.scss";
 
@@ -86,7 +86,7 @@ export default function SignInForm() {
 	async function authVkIdService(authData: IVkAuthRequest) {
 		try {
 			if (baseUrl) {
-				const response = await AuthVk(baseUrl, authData);
+				const response = await authVkService(baseUrl, authData);
 				if (response.status === axios.HttpStatusCode.Ok) {
 					router.push(UserProfilePath.ProfitMoney);
 				}

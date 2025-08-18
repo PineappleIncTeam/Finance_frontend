@@ -7,17 +7,17 @@ import axios, { isAxiosError } from "axios";
 
 import { IChangePassword, IChangePasswordForm } from "../../../types/pages/Password";
 import Title from "../../../ui/title/Title";
-import Button from "../../../ui/Button/Button1";
 import ChangePassInput from "../../../components/mainLayout/changePassInput/changePassInput";
 import ChangePasswordModal from "../../../components/mainLayout/changePasswordModal/changePasswordModal";
+import { SetNewPassword } from "../../../services/api/auth/SetNewPassword";
 import { MainPath } from "../../../services/router/routes";
 import { mockLocalhostStr, mockLocalhostUrl } from "../../../services/api/auth/apiConstants";
-import { setNewPassword } from "../../../services/api/auth/SetNewPassword";
 import { ApiResponseCode } from "../../../helpers/apiResponseCode";
 import { InputTypeList } from "../../../helpers/Input";
 import { errorPasswordRepeat, errorUidOrToken, passwordPattern } from "../../../helpers/authConstants";
 import { getCorrectBaseUrl } from "../../../utils/baseUrlConverter";
 import { formHelpers } from "../../../utils/formHelpers";
+import Button from "../../../ui/Button/Button1";
 import { ButtonType } from "../../../helpers/buttonFieldValues";
 
 import styles from "./changePassword.module.scss";
@@ -66,7 +66,7 @@ export default function ChangePassword() {
 			if (baseUrl && !isLocalhost && uid && token) {
 				data.uid = uid;
 				data.token = token;
-				await setNewPassword(baseUrl, data);
+				await SetNewPassword(baseUrl, data);
 				router.push(MainPath.Login);
 			}
 		} catch (error) {

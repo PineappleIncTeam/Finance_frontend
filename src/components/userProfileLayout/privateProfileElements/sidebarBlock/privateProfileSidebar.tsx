@@ -12,7 +12,7 @@ import NavBar from "../../navBar/navBar";
 import { BurgerMenu } from "../../burgerMenu/burgerMenu";
 import { PrivateProfileSidebarMenu } from "../sidebarMenu/privateProfileSidebarMenu";
 import { MainPath } from "../../../../services/router/routes";
-import { logoutUser } from "../../../../services/api/auth/logoutUser";
+import { logoutUser } from "../../../../services/api/auth/Logout";
 import { getCorrectBaseUrl } from "../../../../utils/baseUrlConverter";
 import { ApiResponseCode } from "../../../../helpers/apiResponseCode";
 import { sidebarNavMenu } from "../../../../helpers/sidebarNavMenu";

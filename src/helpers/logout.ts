@@ -2,7 +2,7 @@ import { useRouter } from "next/navigation";
 
 import axios from "axios";
 
-import { logoutUser } from "../services/api/auth/logoutUser";
+import { logoutUser } from "../services/api/auth/Logout";
 
 import { MainPath } from "../services/router/routes";
 

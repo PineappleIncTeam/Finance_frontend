@@ -5,36 +5,53 @@ import { Key, useCallback, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import axios, { AxiosResponse } from "axios";
 
+import handleLogout from "../../../helpers/logout";
+
+import ExpensesTransaction from "../../../components/userProfileLayout/expensesTransaction/expensesTransaction";
+
+import { InputTypeList } from "../../../helpers/Input";
+
+import { IExpensesAddCategoryTransactionForm, IExpensesCategoryForm } from "../../../types/pages/Expenses";
+
+import InputDate from "../../../ui/inputDate/inputDate";
+
+import { getCorrectBaseUrl } from "../../../utils/baseUrlConverter";
+
+import { ApiResponseCode } from "../../../helpers/apiResponseCode";
+import { GetFiveTransactions } from "../../../services/api/userProfile/GetFiveTransactions";
+
 import useLogoutTimer from "../../../hooks/useLogoutTimer";
+import { CategorySelect } from "../../../components/userProfileLayout/categorySelect/CategorySelect";
+
+import AddButton from "../../../components/userProfileLayout/addButton/addButton";
+
+import AppInput from "../../../ui/appInput/AppInput";
+
+import { CategoryAddModal } from "../../../components/userProfileLayout/categoryAdd/categoryAddModal";
 
 import { IAddCategoryExpensesForm, IEditTransactionForm } from "../../../types/components/ComponentsTypes";
-import { IExpensesAddCategoryTransactionForm, IExpensesCategoryForm } from "../../../types/pages/Expenses";
-import { ICategoryOption } from "../../../types/common/ComponentsProps";
+
+import { AddExpensesCategory } from "../../../services/api/userProfile/AddExpensesCategory";
+
+import { MainPath } from "../../../services/router/routes";
+
+import { GetCategoriesAll } from "../../../services/api/userProfile/GetCategoriesAll";
+
 import { IOperation } from "../../../types/api/Expenses";
-import InputDate from "../../../ui/inputDate/inputDate";
-import AppInput from "../../../ui/appInput/AppInput";
-import ExpensesTransaction from "../../../components/userProfileLayout/expensesTransaction/expensesTransaction";
-import { CategorySelect } from "../../../components/userProfileLayout/categorySelect/CategorySelect";
-import AddButton from "../../../components/userProfileLayout/addButton/addButton";
-import { CategoryAddModal } from "../../../components/userProfileLayout/categoryAdd/categoryAddModal";
+
+import { RemoveExpensesCategory } from "../../../services/api/userProfile/RemoveExpensesCategory";
+
+import { RemoveExpensesCategoryTransaction } from "../../../services/api/userProfile/RemoveExpensesTransaction";
+
 import { RecordDeleteModal } from "../../../components/userProfileLayout/recordDelete/recordDelete";
+import { EditExpensesCategoryTransaction } from "../../../services/api/userProfile/EditExpensesTransaction";
 import { EditTransactionModal } from "../../../components/userProfileLayout/editTransaction/editTransaction";
 import { ResponseApiRequestModal } from "../../../components/userProfileLayout/responseActionExpenses/responseApiRequestModal";
 import { CategoryDeleteModal } from "../../../components/userProfileLayout/categoryDelete/categoryDelete";
-import { MainPath } from "../../../services/router/routes";
-import { getFiveTransactions } from "../../../services/api/userProfile/GetFiveTransactions";
-import { getCategoriesAll } from "../../../services/api/userProfile/GetCategoriesAll";
-import { addExpensesCategory } from "../../../services/api/userProfile/AddExpensesCategory";
-import { removeExpensesCategory } from "../../../services/api/userProfile/RemoveExpensesCategory";
-import { addExpensesCategoryTransaction } from "../../../services/api/userProfile/AddExpensesCategoryTransaction";
-import { removeExpensesCategoryTransaction } from "../../../services/api/userProfile/RemoveExpensesTransaction";
-import { editExpensesCategoryTransaction } from "../../../services/api/userProfile/EditExpensesTransaction";
-import { archiveCategory } from "../../../services/api/userProfile/ArchiveCategory";
-import { getOperationsAll } from "../../../services/api/userProfile/GetOperationsAll";
-import handleLogout from "../../../helpers/logout";
-import { InputTypeList } from "../../../helpers/Input";
-import { ApiResponseCode } from "../../../helpers/apiResponseCode";
-import { getCorrectBaseUrl } from "../../../utils/baseUrlConverter";
+import { ArchiveCategory } from "../../../services/api/userProfile/ArchiveCategory";
+import { GetOperationsAll } from "../../../services/api/userProfile/GetOperationsAll";
+import { AddExpensesCategoryTransaction } from "../../../services/api/userProfile/AddExpensesCategoryTransaction";
+import { ICategoryOption } from "../../../types/common/ComponentsProps";
 import { getCurrentDate } from "../../../utils/getCurrentDate";
 
 import styles from "./expenses.module.scss";
@@ -58,15 +75,6 @@ export default function Expenses() {
 	const [isCategoryArchive, setIsCategoryArchive] = useState<boolean>(false);
 	const [allOperations, setAllOperations] = useState<IOperation[]>([]);
 
-	const ResponseApiRequestModalInitialState = {
-		open: false,
-		title: "",
-	};
-
-	const [responseApiRequestModal, setResponseApiRequestModal] = useState(ResponseApiRequestModalInitialState);
-
-	const router = useRouter();
-
 	const { control, handleSubmit } = useForm<IExpensesAddCategoryTransactionForm & IExpensesCategoryForm>({
 		defaultValues: {
 			amount: "",
@@ -77,10 +85,14 @@ export default function Expenses() {
 		delayError: 200,
 	});
 
-	const { request } = handleLogout(baseUrl);
-	const { resetTimer } = useLogoutTimer(request);
+	const ResponseApiRequestModalInitialState = {
+		open: false,
+		title: "",
+	};
 
-	const interval = 2000;
+	const [responseApiRequestModal, setResponseApiRequestModal] = useState(ResponseApiRequestModalInitialState);
+
+	const router = useRouter();
 	const endDate = 10;
 
 	const getFiveOperations = useCallback(async () => {
@@ -89,7 +101,7 @@ export default function Expenses() {
 		};
 		try {
 			if (baseUrl) {
-				const response: AxiosResponse<IOperation[]> = await getFiveTransactions(baseUrl, data);
+				const response: AxiosResponse<IOperation[]> = await GetFiveTransactions(baseUrl, data);
 				if (response !== null && response.status === axios.HttpStatusCode.Ok) {
 					setFiveOperations(response.data);
 				}
@@ -129,7 +141,7 @@ export default function Expenses() {
 		};
 		try {
 			if (baseUrl) {
-				const response: AxiosResponse<ICategoryOption[]> = await getCategoriesAll(baseUrl, data);
+				const response: AxiosResponse<ICategoryOption[]> = await GetCategoriesAll(baseUrl, data);
 				if (response !== null && response.status === axios.HttpStatusCode.Ok) {
 					setOptions(response.data);
 				}
@@ -150,6 +162,9 @@ export default function Expenses() {
 	useEffect(() => {
 		setBaseUrl(getCorrectBaseUrl());
 	}, []);
+
+	const { request } = handleLogout(baseUrl);
+	const { resetTimer } = useLogoutTimer(request);
 
 	useEffect(() => {
 		resetTimer();
@@ -176,10 +191,12 @@ export default function Expenses() {
 		}
 	}, [isDeleteOperationSuccess, isEditSuccess, isAddSuccess, getFiveOperationsNames]);
 
+	const interval = 2000;
+
 	const addCategory = async (data: IAddCategoryExpensesForm) => {
 		try {
 			if (baseUrl && data !== null) {
-				const response = await addExpensesCategory(baseUrl, data);
+				const response = await AddExpensesCategory(baseUrl, data);
 				if (response.status === axios.HttpStatusCode.Created) {
 					setIsOpen(false);
 					setIsAddSuccess(true);
@@ -214,7 +231,7 @@ export default function Expenses() {
 	const removeApiRequest = async (id: string) => {
 		try {
 			if (baseUrl && id !== null) {
-				const response = await removeExpensesCategory(baseUrl, String(id));
+				const response = await RemoveExpensesCategory(baseUrl, String(id));
 				if (response.status === axios.HttpStatusCode.Ok) {
 					setIsCategoryDeleteModalOpen(false);
 					setIsDeleteSuccessCategory(true);
@@ -240,123 +257,6 @@ export default function Expenses() {
 		}
 	};
 
-	const deleteTransaction = async (id: string) => {
-		try {
-			if (baseUrl) {
-				const response = await removeExpensesCategoryTransaction(baseUrl, id);
-				if ((response.status = axios.HttpStatusCode.Ok)) {
-					setIsDeleteOperationApprove(false);
-					setIsDeleteOperationSuccess(true);
-					setResponseApiRequestModal({
-						open: true,
-						title: "Запись успешно удалена",
-					});
-					setTimeout(() => {
-						setResponseApiRequestModal(ResponseApiRequestModalInitialState);
-						setIsDeleteOperationSuccess(false);
-					}, interval);
-				}
-			}
-		} catch (error) {
-			if (
-				axios.isAxiosError(error) &&
-				error.response &&
-				error.response.status &&
-				error.response.status >= axios.HttpStatusCode.InternalServerError &&
-				error.response.status < ApiResponseCode.SERVER_ERROR_STATUS_MAX
-			) {
-				router.push(MainPath.ServerError);
-			}
-		}
-	};
-
-	const editTransaction = async (id: string, data: IEditTransactionForm) => {
-		data.date = getCurrentDate(endDate);
-		try {
-			if (baseUrl && data !== null) {
-				const response = await editExpensesCategoryTransaction(baseUrl, id, data);
-				if (response.status === axios.HttpStatusCode.Ok) {
-					setIsEdit(false);
-					setIsEditSuccess(true);
-					setResponseApiRequestModal({
-						open: true,
-						title: "Сумма успешно изменена",
-					});
-					setTimeout(() => {
-						setResponseApiRequestModal(ResponseApiRequestModalInitialState);
-						setIsEditSuccess(false);
-					}, interval);
-				}
-			}
-		} catch (error) {
-			if (
-				axios.isAxiosError(error) &&
-				error.response &&
-				error.response.status &&
-				error.response.status >= axios.HttpStatusCode.InternalServerError &&
-				error.response.status < ApiResponseCode.SERVER_ERROR_STATUS_MAX
-			) {
-				router.push(MainPath.ServerError);
-			}
-		}
-	};
-
-	const archiveCurrentCategory = async (id: string) => {
-		const data = {
-			// eslint-disable-next-line camelcase
-			is_deleted: true,
-		};
-		try {
-			if (baseUrl && id !== null) {
-				const response = await archiveCategory(baseUrl, id, data);
-				if (response.status === axios.HttpStatusCode.Ok) {
-					setIsCategoryDeleteModalOpen(false);
-					setIsCategoryArchive(true);
-					setResponseApiRequestModal({
-						open: true,
-						title: "Категория успешно перенесена в «Архив»",
-					});
-					setTimeout(() => {
-						setResponseApiRequestModal(ResponseApiRequestModalInitialState);
-						setIsDeleteSuccessCategory(false);
-						setIsCategoryArchive(false);
-					}, interval);
-				}
-			}
-		} catch (error) {
-			if (
-				axios.isAxiosError(error) &&
-				error.response &&
-				error.response.status &&
-				error.response.status >= axios.HttpStatusCode.InternalServerError &&
-				error.response.status < ApiResponseCode.SERVER_ERROR_STATUS_MAX
-			) {
-				router.push(MainPath.ServerError);
-			}
-		}
-	};
-
-	const getAllOperations = async () => {
-		try {
-			if (baseUrl) {
-				const response: AxiosResponse<IOperation[]> = await getOperationsAll(baseUrl);
-				if (response !== null && response.status === axios.HttpStatusCode.Ok) {
-					setAllOperations(response.data);
-				}
-			}
-		} catch (error) {
-			if (
-				axios.isAxiosError(error) &&
-				error.response &&
-				error.response.status &&
-				error.response.status >= axios.HttpStatusCode.InternalServerError &&
-				error.response.status < ApiResponseCode.SERVER_ERROR_STATUS_MAX
-			) {
-				router.push(MainPath.ServerError);
-			}
-		}
-	};
-
 	const onSubmit = async (data: IExpensesAddCategoryTransactionForm & IExpensesCategoryForm) => {
 		resetTimer();
 		const transactionData: IExpensesAddCategoryTransactionForm = {
@@ -367,7 +267,7 @@ export default function Expenses() {
 		};
 		try {
 			if (baseUrl && data !== null) {
-				const response = await addExpensesCategoryTransaction(baseUrl, transactionData);
+				const response = await AddExpensesCategoryTransaction(baseUrl, transactionData);
 				if (response.status === axios.HttpStatusCode.Created) {
 					setIsOpen(false);
 					setIsAddSuccess(true);
@@ -398,6 +298,123 @@ export default function Expenses() {
 				setTimeout(() => {
 					setResponseApiRequestModal(ResponseApiRequestModalInitialState);
 				}, interval);
+			}
+		}
+	};
+
+	const deleteTransaction = async (id: string) => {
+		try {
+			if (baseUrl) {
+				const response = await RemoveExpensesCategoryTransaction(baseUrl, id);
+				if ((response.status = axios.HttpStatusCode.Ok)) {
+					setIsDeleteOperationApprove(false);
+					setIsDeleteOperationSuccess(true);
+					setResponseApiRequestModal({
+						open: true,
+						title: "Запись успешно удалена",
+					});
+					setTimeout(() => {
+						setResponseApiRequestModal(ResponseApiRequestModalInitialState);
+						setIsDeleteOperationSuccess(false);
+					}, interval);
+				}
+			}
+		} catch (error) {
+			if (
+				axios.isAxiosError(error) &&
+				error.response &&
+				error.response.status &&
+				error.response.status >= axios.HttpStatusCode.InternalServerError &&
+				error.response.status < ApiResponseCode.SERVER_ERROR_STATUS_MAX
+			) {
+				router.push(MainPath.ServerError);
+			}
+		}
+	};
+
+	const editTransaction = async (id: string, data: IEditTransactionForm) => {
+		data.date = getCurrentDate(endDate);
+		try {
+			if (baseUrl && data !== null) {
+				const response = await EditExpensesCategoryTransaction(baseUrl, id, data);
+				if (response.status === axios.HttpStatusCode.Ok) {
+					setIsEdit(false);
+					setIsEditSuccess(true);
+					setResponseApiRequestModal({
+						open: true,
+						title: "Сумма успешно изменена",
+					});
+					setTimeout(() => {
+						setResponseApiRequestModal(ResponseApiRequestModalInitialState);
+						setIsEditSuccess(false);
+					}, interval);
+				}
+			}
+		} catch (error) {
+			if (
+				axios.isAxiosError(error) &&
+				error.response &&
+				error.response.status &&
+				error.response.status >= axios.HttpStatusCode.InternalServerError &&
+				error.response.status < ApiResponseCode.SERVER_ERROR_STATUS_MAX
+			) {
+				router.push(MainPath.ServerError);
+			}
+		}
+	};
+
+	const archiveCategory = async (id: string) => {
+		const data = {
+			// eslint-disable-next-line camelcase
+			is_deleted: true,
+		};
+		try {
+			if (baseUrl && id !== null) {
+				const response = await ArchiveCategory(baseUrl, id, data);
+				if (response.status === axios.HttpStatusCode.Ok) {
+					setIsCategoryDeleteModalOpen(false);
+					setIsCategoryArchive(true);
+					setResponseApiRequestModal({
+						open: true,
+						title: "Категория успешно перенесена в «Архив»",
+					});
+					setTimeout(() => {
+						setResponseApiRequestModal(ResponseApiRequestModalInitialState);
+						setIsDeleteSuccessCategory(false);
+						setIsCategoryArchive(false);
+					}, interval);
+				}
+			}
+		} catch (error) {
+			if (
+				axios.isAxiosError(error) &&
+				error.response &&
+				error.response.status &&
+				error.response.status >= axios.HttpStatusCode.InternalServerError &&
+				error.response.status < ApiResponseCode.SERVER_ERROR_STATUS_MAX
+			) {
+				router.push(MainPath.ServerError);
+			}
+		}
+	};
+
+	const getAllOperations = async () => {
+		try {
+			if (baseUrl) {
+				const response: AxiosResponse<IOperation[]> = await GetOperationsAll(baseUrl);
+				if (response !== null && response.status === axios.HttpStatusCode.Ok) {
+					setAllOperations(response.data);
+				}
+			}
+		} catch (error) {
+			if (
+				axios.isAxiosError(error) &&
+				error.response &&
+				error.response.status &&
+				error.response.status >= axios.HttpStatusCode.InternalServerError &&
+				error.response.status < ApiResponseCode.SERVER_ERROR_STATUS_MAX
+			) {
+				router.push(MainPath.ServerError);
 			}
 		}
 	};
@@ -450,7 +467,7 @@ export default function Expenses() {
 						category={isCategory}
 						id={isIdForDeleteCategory}
 						requestDeleteApi={removeApiRequest}
-						requestArchiveApi={archiveCurrentCategory}
+						requestArchiveApi={archiveCategory}
 						onCancelClick={() => setIsCategoryDeleteModalOpen(false)}
 						operations={allOperations}
 					/>

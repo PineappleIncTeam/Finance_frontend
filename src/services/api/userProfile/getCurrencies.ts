@@ -4,7 +4,7 @@ import { ICurrencyItem } from "../../../types/components/ComponentsTypes";
 
 import { currencyEndpoint } from "../auth/apiConstants";
 
-export const getCurrencyRates = async (baseUrl: string): Promise<AxiosResponse<ICurrencyItem[]>> => {
+export const fetchCurrencyRates = async (baseUrl: string): Promise<AxiosResponse<ICurrencyItem[]>> => {
 	return await axios(`${baseUrl}/${currencyEndpoint}`, {
 		method: "GET",
 		headers: {

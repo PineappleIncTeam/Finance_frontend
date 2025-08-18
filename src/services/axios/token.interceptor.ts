@@ -33,7 +33,7 @@ axios.interceptors.response.use(
 		const originalRequest: IFailedOriginalRequest = error.config;
 
 		if (
-			error.response?.status === axios.HttpStatusCode.Unauthorized &&
+			error.response?.status === axios.HttpStatusCode.Forbidden &&
 			originalRequest.withTokenRefresh &&
 			!originalRequest._retry
 		) {

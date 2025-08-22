@@ -55,10 +55,31 @@ axios.interceptors.response.use(
 				return axios(originalRequest);
 			} catch (refreshError) {
 				processQueue(refreshError as Error);
-				await logoutUser(originalRequest.baseURL ?? "");
 
-				if (typeof window !== "undefined") {
-					window.location.href = MainPath.Login;
+				try {
+					const response = await logoutUser(originalRequest.baseURL ?? "");
+					if (response.status >= axios.HttpStatusCode.Ok && response.status < axios.HttpStatusCode.MultipleChoices) {
+						window.location.href = MainPath.Login;
+					}
+				} catch (error) {
+					if (
+						axios.isAxiosError(error) &&
+						error.response &&
+						error.response.status &&
+						error.response.status >= axios.HttpStatusCode.BadRequest &&
+						error.response.status < axios.HttpStatusCode.InternalServerError
+					) {
+						window.location.href = MainPath.Login;
+					}
+					if (
+						axios.isAxiosError(error) &&
+						error.response &&
+						error.response.status &&
+						error.response.status >= axios.HttpStatusCode.InternalServerError &&
+						error.response.status < axios.HttpStatusCode.NetworkAuthenticationRequired + 1
+					) {
+						return (window.location.href = MainPath.ServerError);
+					}
 				}
 
 				return Promise.reject(refreshError);

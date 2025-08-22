@@ -11,5 +11,6 @@ export const GetFiveTransactions = async (baseUrl: string, data: IFiveOperations
 			"Content-Type": "application/json",
 		},
 		withCredentials: true,
+		withTokenRefresh: true,
 	});
 };

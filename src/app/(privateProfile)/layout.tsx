@@ -4,6 +4,7 @@ import "../globals.css";
 import NavBar from "../../components/userProfileLayout/navBar/navBar";
 import UserProfileHeader from "../../components/userProfileLayout/privateProfileElements/header/privateProfileHeader";
 import UserProfileSidebar from "../../components/userProfileLayout/privateProfileElements/sidebarBlock/privateProfileSidebar";
+import AxiosInterceptorInitElement from "../../components/userProfileLayout/axiosInterceptorInitElement/axiosInterceptorInitElement";
 
 import styles from "./privateProfile.module.scss";
 
@@ -22,6 +23,7 @@ export default function RootLayout({
 	return (
 		<html lang="en">
 			<body>
+				<AxiosInterceptorInitElement />
 				<div className={styles.privateProfileWrap}>
 					<div className={styles.privateProfile__navBar}>
 						<NavBar />

@@ -11,5 +11,6 @@ export const EditExpensesCategoryTransaction = async (baseUrl: string, id: strin
 			"Content-Type": "application/json",
 		},
 		withCredentials: true,
+		withTokenRefresh: true,
 	});
 };

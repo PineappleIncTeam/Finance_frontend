@@ -11,5 +11,6 @@ export const ArchiveCategory = async (baseUrl: string, id: string, data: IArchiv
 			"Content-Type": "application/json",
 		},
 		withCredentials: true,
+		withTokenRefresh: true,
 	});
 };

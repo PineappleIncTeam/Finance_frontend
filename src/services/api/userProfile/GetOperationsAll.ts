@@ -9,5 +9,6 @@ export const GetOperationsAll = async (baseUrl: string) => {
 			"Content-Type": "application/json",
 		},
 		withCredentials: true,
+		withTokenRefresh: true,
 	});
 };

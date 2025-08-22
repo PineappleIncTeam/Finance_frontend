@@ -9,5 +9,6 @@ export const RemoveExpensesCategory = async (baseUrl: string, id: string) => {
 			"Content-Type": "application/json",
 		},
 		withCredentials: true,
+		withTokenRefresh: true,
 	});
 };

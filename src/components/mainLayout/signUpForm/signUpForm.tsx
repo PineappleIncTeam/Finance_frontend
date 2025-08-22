@@ -26,8 +26,8 @@ import { ApiResponseCode } from "../../../helpers/apiResponseCode";
 import CustomCheckbox from "../../../ui/checkBox/checkBox";
 import Button from "../../../ui/Button/Button1";
 import { ButtonType } from "../../../helpers/buttonFieldValues";
-import { generateCodeVerifier, generateState } from "../../../utils/generateAuthTokens";
-import { AuthVk } from "../../../services/api/auth/VkAuth";
+import { generatePkceChallenge, generateState } from "../../../utils/generateAuthTokens";
+import { authApiVkService } from "../../../services/api/auth/VkAuth";
 import { ILoginSuccessPayload, IVkAuthRequest } from "../../../types/pages/Authorization";
 
 import styles from "./signUpForm.module.scss";
@@ -70,14 +70,16 @@ export default function SignUpForm() {
 	}, []);
 
 	useEffect(() => {
-		setCodeVerifier(String(generateCodeVerifier()));
+		(async () => {
+			await setCodeVerifier(String((await generatePkceChallenge()).code_verifier));
+		})();
 	}, []);
 
 	VKID.Config.init({
 		app: 0,
 		redirectUrl: `${getCorrectBaseUrl()}${UserProfilePath.ProfitMoney}`,
 		state: generateState(),
-		codeVerifier: String(generateCodeVerifier()),
+		codeVerifier: String(generatePkceChallenge()),
 		scope: "email phone",
 		responseMode: VKID.ConfigResponseMode.Callback,
 	});
@@ -87,7 +89,7 @@ export default function SignUpForm() {
 	async function authVkIdService(authData: IVkAuthRequest) {
 		try {
 			if (baseUrl) {
-				const response = await AuthVk(baseUrl, authData);
+				const response = await authApiVkService(baseUrl, authData);
 				if (response.status === axios.HttpStatusCode.Ok) {
 					router.push(UserProfilePath.ProfitMoney);
 				}
@@ -117,7 +119,7 @@ export default function SignUpForm() {
 	});
 
 	function handleOpenAuthCurtain() {
-		setCodeVerifier(String(generateCodeVerifier()));
+		// setCodeVerifier(String(generateCodeVerifier()));
 		floatingOneTap.render(authCurtainRenderObj);
 	}
 

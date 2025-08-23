@@ -3,14 +3,39 @@ import { createSlice } from "@reduxjs/toolkit";
 // const authTokenStorage = localStorage.getItem("token");
 // const balanceSum = localStorage.getItem("balans");
 
-const initialState = {
+interface IUserState {
+	token: string | null;
+	balanceString: number;
+	balanceCosts: number;
+	balanceBase: string;
+	userData: {
+		name: string;
+		email: string;
+		nickname: string;
+		country: string;
+		gender: string;
+		loading: boolean;
+		error: string | null;
+	};
+}
+
+const initialState: IUserState = {
 	token: null,
 	balanceString: 0,
 	balanceCosts: 0,
 	balanceBase: "balanceSum",
+	userData: {
+		name: "",
+		email: "",
+		nickname: "",
+		country: "",
+		gender: "",
+		loading: false,
+		error: null,
+	},
 };
 
-const slice = createSlice({
+const userSlice = createSlice({
 	name: "user",
 	initialState,
 	reducers: {
@@ -26,14 +51,14 @@ const slice = createSlice({
 			state.token = null;
 		},
 		stringBalance(state, action) {
-			state.balanceString = action.payload.balansString;
+			state.balanceString = action.payload.balanceString;
 		},
 		costsBalance(state, action) {
-			state.balanceCosts = action.payload.balansCosts;
+			state.balanceCosts = action.payload.balanceCosts;
 		},
 	},
 });
 
-export const { setUser, removeUser, stringBalance, costsBalance } = slice.actions;
+export const { setUser, removeUser, stringBalance, costsBalance } = userSlice.actions;
 
-export default slice.reducer;
+export default userSlice.reducer;

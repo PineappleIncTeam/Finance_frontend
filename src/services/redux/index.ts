@@ -4,6 +4,7 @@ import { persistStore, persistReducer, FLUSH, PAUSE, PERSIST, PURGE, REGISTER, R
 import dataReducer from "./features/infoPart/InfoPartSlice";
 import cookieStatusSlice from "./features/cookieStatus/cookieStatusSlice";
 import autoLoginSlice from "./features/autoLogin/autoLoginSlice";
+import userReducer from "./features/userData/UserDataSlice";
 
 import persistConfig from "./persist/persistConfig";
 
@@ -11,6 +12,7 @@ const RootReducer = combineReducers({
 	data: dataReducer,
 	cookieStatus: cookieStatusSlice,
 	autoLogin: autoLoginSlice,
+	user: userReducer,
 });
 
 const persistedRootReducer = persistReducer(persistConfig, RootReducer);

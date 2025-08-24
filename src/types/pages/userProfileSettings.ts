@@ -1,6 +1,6 @@
 export interface IPrivateDataFrom {
 	nickname: string;
-	gender: TGender;
+	gender: string;
 	country: string;
 	email: string;
 }

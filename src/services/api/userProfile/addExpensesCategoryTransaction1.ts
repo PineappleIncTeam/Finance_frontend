@@ -1,11 +1,11 @@
 import axios from "axios";
 
 import { expensesCategoryTransactionEndPoint } from "../auth/apiConstants";
-import { IFiveOperations } from "../../../types/pages/Expenses";
+import { IExpensesAddCategoryTransactionForm } from "../../../types/pages/Expenses";
 
-export const GetFiveTransactions = async (baseUrl: string, data: IFiveOperations) => {
+export const addExpensesCategoryTransaction = async (baseUrl: string, data: IExpensesAddCategoryTransactionForm) => {
 	return await axios(`${baseUrl}/${expensesCategoryTransactionEndPoint}/`, {
-		method: "GET",
+		method: "POST",
 		data: data,
 		headers: {
 			"Content-Type": "application/json",

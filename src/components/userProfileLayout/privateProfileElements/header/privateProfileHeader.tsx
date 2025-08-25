@@ -8,7 +8,7 @@ import { useRouter } from "next/navigation";
 
 import { MainPath } from "../../../../services/router/routes";
 import { ApiResponseCode } from "../../../../helpers/apiResponseCode";
-import { fetchCurrencyRates } from "../../../../services/api/userProfile/getCurrencies";
+import { getCurrencyRates } from "../../../../services/api/userProfile/getCurrencyRates";
 import { getCorrectBaseUrl } from "../../../../utils/baseUrlConverter";
 
 import styles from "./privateProfileHeader.module.scss";
@@ -32,7 +32,7 @@ const PrivateProfileHeader = () => {
 	const loadCurrencyData = async () => {
 		try {
 			const baseUrl = getCorrectBaseUrl();
-			const response = await fetchCurrencyRates(baseUrl);
+			const response = await getCurrencyRates(baseUrl);
 
 			if (response.status === axios.HttpStatusCode.Ok) {
 				startCurrencyTransition(() => {

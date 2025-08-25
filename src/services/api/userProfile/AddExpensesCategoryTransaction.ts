@@ -11,5 +11,6 @@ export const AddExpensesCategoryTransaction = async (baseUrl: string, data: IAdd
 			"Content-Type": "application/json",
 		},
 		withCredentials: true,
+		withTokenRefresh: true,
 	});
 };

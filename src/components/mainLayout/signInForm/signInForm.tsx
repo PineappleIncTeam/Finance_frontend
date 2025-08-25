@@ -21,12 +21,12 @@ import { getCorrectBaseUrl } from "../../../utils/baseUrlConverter";
 import { InputTypeList } from "../../../helpers/Input";
 import { MainPath, UserProfilePath } from "../../../services/router/routes";
 import { ApiResponseCode } from "../../../helpers/apiResponseCode";
-import { loginUser } from "../../../services/api/auth/Login";
+import { loginUser } from "../../../services/api/auth/loginUser";
 import { setAutoLoginStatus } from "../../../services/redux/features/autoLogin/autoLoginSlice";
 import Button from "../../../ui/Button/Button1";
 import { ButtonType } from "../../../helpers/buttonFieldValues";
 import { generateCodeVerifier, generateState } from "../../../utils/generateAuthTokens";
-import { AuthVk } from "../../../services/api/auth/VkAuth";
+import { authVkService } from "../../../services/api/auth/authVkService";
 import { ILoginSuccessPayload, IVkAuthRequest } from "../../../types/pages/Authorization";
 
 import styles from "./signInForm.module.scss";
@@ -86,7 +86,7 @@ export default function SignInForm() {
 	async function authVkIdService(authData: IVkAuthRequest) {
 		try {
 			if (baseUrl) {
-				const response = await AuthVk(baseUrl, authData);
+				const response = await authVkService(baseUrl, authData);
 				if (response.status === axios.HttpStatusCode.Ok) {
 					router.push(UserProfilePath.ProfitMoney);
 				}
@@ -137,7 +137,7 @@ export default function SignInForm() {
 					type: "server",
 					message: errorDataLogOn,
 				});
-			} else if (isAxiosError(error) && error?.response?.status === axios.HttpStatusCode.Forbidden) {
+			} else if (isAxiosError(error) && error?.response?.status === axios.HttpStatusCode.Unauthorized) {
 				setError("email", {
 					type: "server",
 					message: errorProfileActivation,

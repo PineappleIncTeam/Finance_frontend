@@ -13,7 +13,7 @@ import { formHelpers } from "../../../utils/formHelpers";
 import { emailPattern, errorEmailIsNotRegister } from "../../../helpers/authConstants";
 import { InputTypeList } from "../../../helpers/Input";
 import { getCorrectBaseUrl } from "../../../utils/baseUrlConverter";
-import { resetPasswordWithEmail } from "../../../services/api/auth/resetPasswordWithEmail1";
+import { resetPasswordWithEmail } from "../../../services/api/auth/resetPasswordWithEmail";
 import { MainPath } from "../../../services/router/routes";
 import { ApiResponseCode } from "../../../helpers/apiResponseCode";
 import Button from "../../../ui/Button/Button1";

@@ -19,7 +19,7 @@ import {
 } from "../../../helpers/authConstants";
 import { formHelpers } from "../../../utils/formHelpers";
 import { InputTypeList } from "../../../helpers/Input";
-import { registration } from "../../../services/api/auth/registration1";
+import { registration } from "../../../services/api/auth/registration";
 import { MainPath, UserProfilePath } from "../../../services/router/routes";
 import { getCorrectBaseUrl } from "../../../utils/baseUrlConverter";
 import { ApiResponseCode } from "../../../helpers/apiResponseCode";

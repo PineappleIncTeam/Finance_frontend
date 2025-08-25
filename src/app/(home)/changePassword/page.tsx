@@ -9,7 +9,7 @@ import { IChangePassword, IChangePasswordForm } from "../../../types/pages/Passw
 import Title from "../../../ui/title/Title";
 import ChangePassInput from "../../../components/mainLayout/changePassInput/changePassInput";
 import ChangePasswordModal from "../../../components/mainLayout/changePasswordModal/changePasswordModal";
-import { setNewPassword } from "../../../services/api/auth/setNewPassword1";
+import { setNewPassword } from "../../../services/api/auth/setNewPassword";
 import { MainPath } from "../../../services/router/routes";
 import { mockLocalhostStr, mockLocalhostUrl } from "../../../services/api/auth/apiConstants";
 import { ApiResponseCode } from "../../../helpers/apiResponseCode";

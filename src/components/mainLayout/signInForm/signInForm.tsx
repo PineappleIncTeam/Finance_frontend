@@ -8,7 +8,7 @@ import Link from "next/link";
 // import { env } from "next-runtime-env";
 import * as VKID from "@vkid/sdk";
 
-import useAppDispatch from "../../../hooks/useAppDispatch";
+import { useAppDispatch } from "../../../services/redux/hooks/useAppDispatch";
 
 import { ICorrectSignInForm, ISignInForm } from "../../../types/components/ComponentsTypes";
 import AuthInput from "../../../ui/authInput/AuthInput";

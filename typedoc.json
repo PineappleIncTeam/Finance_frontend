@@ -1,0 +1,10 @@
+{
+    "entryPoints": [
+        "./src/hooks/*",
+        "./src/services/redux/hooks/*"
+    ],
+    "out": "docs",
+    "categoryOrder": ["UI Utilities", "Auth Utilities", "Other"],
+    "groupOrder": ["Modules", "Categories"],
+    "sort": ["source-order"],
+}

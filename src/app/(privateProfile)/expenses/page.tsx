@@ -5,7 +5,7 @@ import { Key, useCallback, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import axios, { AxiosResponse } from "axios";
 
-import useLogoutTimer from "../../../hooks/useLogoutTimer";
+import { useLogoutTimer } from "../../../hooks/useLogoutTimer";
 
 import { IExpensesAddCategoryTransactionForm, IExpensesCategoryForm } from "../../../types/pages/Expenses";
 import { IAddCategoryExpensesForm, IEditTransactionForm } from "../../../types/components/ComponentsTypes";

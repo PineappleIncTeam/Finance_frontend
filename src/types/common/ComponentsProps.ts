@@ -7,6 +7,7 @@ import { IAddCategoryExpensesForm, IEditTransactionForm } from "../components/Co
 import { IArchiveCategory } from "../pages/Expenses";
 import { IOperation } from "../api/Expenses";
 import { CategoryType } from "../../helpers/categoryTypes";
+import { ISavingsTargetAddForm } from "../pages/Savings";
 
 export type CustomLayout = () => Element;
 
@@ -173,4 +174,10 @@ export interface IHighlightWrapper {
 
 export interface ICurtainVk {
 	handleError: () => void;
+}
+
+export interface ISavingsCategory {
+	open: boolean;
+	request: (data: ISavingsTargetAddForm) => Promise<void>;
+	onCancelClick: () => void;
 }

@@ -6,11 +6,11 @@ export interface ISavingsInputForm {
 
 export interface ISavingsSelectForm {
 	date: string;
-	amount: string;
+	amount: number;
 	type: string;
 }
 
-export interface ITargetAddForm {
+export interface ISavingsTargetAddForm {
 	name: string;
-	amount: string;
+	amount: number;
 }

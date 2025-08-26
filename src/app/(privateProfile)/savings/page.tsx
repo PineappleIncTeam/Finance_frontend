@@ -9,14 +9,13 @@ import { useRouter } from "next/navigation";
 import useLogoutTimer from "../../../hooks/useLogoutTimer";
 
 import {
-	IAddCategoryExpensesForm,
 	IEditActionProps,
 	SavingsFieldValues,
 	SortOrderStateValue,
 	TIndexState,
 	TSavingsFieldState,
 } from "../../../types/components/ComponentsTypes";
-import { ISavingsSelectForm, ITargetAddForm } from "../../../types/pages/Savings";
+import { ISavingsSelectForm, ISavingsTargetAddForm } from "../../../types/pages/Savings";
 import SavingsTransaction from "../../../components/userProfileLayout/savingsTransaction/savingsTransaction";
 import InputDate from "../../../ui/inputDate/inputDate";
 import AppInput from "../../../ui/appInput/AppInput";
@@ -37,22 +36,19 @@ import { MainPath } from "../../../services/router/routes";
 
 import { ITarget } from "../../../types/api/Savings";
 import { GetTargetsAll } from "../../../services/api/userProfile/GetTargetsAll";
-
-import { AddTarget } from "../../../services/api/userProfile/AddTarget";
 import { ICategoryOption } from "../../../types/common/ComponentsProps";
 import { GetCategoriesAll } from "../../../services/api/userProfile/GetCategoriesAll";
 import { IOperation } from "../../../types/api/Expenses";
 import { GetFiveTransactions } from "../../../services/api/userProfile/GetFiveTransactions";
-import { CategoryAddModal } from "../../../components/userProfileLayout/categoryAdd/categoryAddModal";
-import { AddExpensesCategory } from "../../../services/api/userProfile/AddExpensesCategory";
-import { CategoryType } from "../../../helpers/categoryTypes";
+import { AddSavingsTarget } from "../../../services/api/userProfile/AddSavingsTarget";
+import { SavingsAddTargetModal } from "../../../components/userProfileLayout/savingsCategory/savingsCategory";
 
 import styles from "./savings.module.scss";
 
 function Savings() {
-	const { control, handleSubmit } = useForm<ITargetAddForm & ISavingsSelectForm>({
+	const { control, handleSubmit } = useForm<ISavingsTargetAddForm & ISavingsSelectForm>({
 		defaultValues: {
-			amount: "",
+			amount: 0,
 			type: "savings",
 		},
 		mode: "all",
@@ -116,11 +112,11 @@ function Savings() {
 			sortTargetOrder === SortOrderStateValue.asc ? SortOrderStateValue.desc : SortOrderStateValue.asc,
 		);
 	};
-	const onSubmit = async (data: ISavingsSelectForm & ITargetAddForm) => {
+	const onSubmit = async (data: ISavingsSelectForm & ISavingsTargetAddForm) => {
 		resetTimer();
 		try {
 			if (baseUrl && data !== null) {
-				await AddTarget(baseUrl, data);
+				await AddSavingsTarget(baseUrl, data);
 			}
 		} catch (error) {
 			if (
@@ -206,16 +202,16 @@ function Savings() {
 		}
 	}, [baseUrl, router]);
 
-	const addCategory = async (data: IAddCategoryExpensesForm) => {
+	const addSavingsCategory = async (data: ISavingsTargetAddForm) => {
 		try {
 			if (baseUrl && data !== null) {
-				const response = await AddExpensesCategory(baseUrl, data);
+				const response = await AddSavingsTarget(baseUrl, data);
 				if (response.status === axios.HttpStatusCode.Created) {
 					setIsAddCategorySuccess(true);
 					setIsCategoryModalOpen(false);
 					setTimeout(() => {
-						(setIsAddCategorySuccess(false), interval);
-					});
+						setIsAddCategorySuccess(false);
+					}, interval);
 				}
 			}
 		} catch (error) {
@@ -427,11 +423,10 @@ function Savings() {
 					</div>
 				</form>
 				{isAddCategoryModalOpen && (
-					<CategoryAddModal
+					<SavingsAddTargetModal
 						open={isAddCategoryModalOpen}
 						onCancelClick={() => setIsCategoryModalOpen(false)}
-						request={addCategory}
-						type={CategoryType.Income}
+						request={addSavingsCategory}
 					/>
 				)}
 				<div className={styles.savingsTransactionWrapper}>

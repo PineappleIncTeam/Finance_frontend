@@ -75,6 +75,9 @@ function Savings() {
 	const [options, setOptions] = useState<ICategoryOption[]>([]);
 	const [fiveOperations, setFiveOperations] = useState<IOperation[]>([]);
 	const [isAddCategoryModalOpen, setIsCategoryModalOpen] = useState<boolean>(false);
+	const [isAddCategorySuccess, setIsAddCategorySuccess] = useState<boolean>(false);
+
+	const interval = 2000;
 
 	const router = useRouter();
 	const handleEditClick = ({ index, field, value }: IEditActionProps) => {
@@ -208,7 +211,11 @@ function Savings() {
 			if (baseUrl && data !== null) {
 				const response = await AddExpensesCategory(baseUrl, data);
 				if (response.status === axios.HttpStatusCode.Created) {
+					setIsAddCategorySuccess(true);
 					setIsCategoryModalOpen(false);
+					setTimeout(() => {
+						(setIsAddCategorySuccess(false), interval);
+					});
 				}
 			}
 		} catch (error) {
@@ -234,11 +241,17 @@ function Savings() {
 
 	useEffect(() => {
 		getAllTargets();
-	}, [getAllTargets]);
+		if (isAddCategorySuccess) {
+			getAllTargets();
+		}
+	}, [getAllTargets, isAddCategorySuccess]);
 
 	useEffect(() => {
 		getAllCategoriesOptions();
-	}, [getAllCategoriesOptions]);
+		if (isAddCategorySuccess) {
+			getAllCategoriesOptions();
+		}
+	}, [getAllCategoriesOptions, isAddCategorySuccess]);
 
 	useEffect(() => {
 		getFiveOperations();

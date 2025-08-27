@@ -4,8 +4,8 @@ import { useState } from "react";
 import cn from "classnames";
 import Link from "next/link";
 
-import useAppSelector from "../../../hooks/useAppSelector";
-import useAppDispatch from "../../../hooks/useAppDispatch";
+import { useAppSelector } from "../../../services/redux/hooks/useAppSelector";
+import { useAppDispatch } from "../../../services/redux/hooks/useAppDispatch";
 
 import { MainPath } from "../../../services/router/routes";
 import { setCookieStatus } from "../../../services/redux/features/cookieStatus/cookieStatusSlice";

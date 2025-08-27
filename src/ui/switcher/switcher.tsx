@@ -1,10 +1,8 @@
 import React from "react";
-
 import { FieldValues, useController } from "react-hook-form";
 
-import { InputTypeList } from "../../helpers/Input";
-
 import { ISwitcher } from "../../types/common/UiKitProps";
+import { InputTypeList } from "../../helpers/Input";
 
 import styles from "./switcher.module.scss";
 

@@ -1,7 +1,7 @@
 import { FieldValues, useController } from "react-hook-form";
 
-import { InputTypeList } from "../../helpers/Input";
 import { IRadioButton } from "../../types/common/UiKitProps";
+import { InputTypeList } from "../../helpers/Input";
 
 import styles from "./radioButton.module.scss";
 

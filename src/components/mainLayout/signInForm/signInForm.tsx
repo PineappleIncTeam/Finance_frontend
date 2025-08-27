@@ -3,42 +3,36 @@
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
-import axios from "axios";
+import axios, { isAxiosError } from "axios";
 import Link from "next/link";
 import { env } from "next-runtime-env";
 import * as VKID from "@vkid/sdk";
 
-import useAppDispatch from "../../../hooks/useAppDispatch";
+import { useAppDispatch } from "../../../services/redux/hooks/useAppDispatch";
 
+import { IPkceCodeSet, IVKLoginSuccessPayload, IVkAuthRequest } from "../../../types/pages/Authorization";
 import { ICorrectSignInForm, ISignInForm } from "../../../types/components/ComponentsTypes";
 import AuthInput from "../../../ui/authInput/AuthInput";
 import Title from "../../../ui/title/Title";
 import CustomCheckbox from "../../../ui/checkBox/checkBox";
+import Button from "../../../ui/Button/Button1";
 import InviteModal from "../inviteModal/inviteModal";
-import { emailPattern, passwordPattern } from "../../../helpers/authConstants";
+import { emailPattern, errorDataLogOn, errorProfileActivation, passwordPattern } from "../../../helpers/authConstants";
 import { formHelpers } from "../../../utils/formHelpers";
 import { getCorrectBaseUrl } from "../../../utils/baseUrlConverter";
 import { InputTypeList } from "../../../helpers/Input";
 import { MainPath, UserProfilePath } from "../../../services/router/routes";
 import { ApiResponseCode } from "../../../helpers/apiResponseCode";
-import { loginUser } from "../../../services/api/auth/Login";
+import { loginUser } from "../../../services/api/auth/loginUser";
 import { setAutoLoginStatus } from "../../../services/redux/features/autoLogin/autoLoginSlice";
-import Button from "../../../ui/Button/Button1";
+import { authApiVkService } from "../../../services/api/auth/authVkService";
 import { ButtonType } from "../../../helpers/buttonFieldValues";
 import { generatePkceChallenge, generateState } from "../../../utils/generateAuthTokens";
-import { authApiVkService } from "../../../services/api/auth/VkAuth";
-import { ILoginSuccessPayload, IVkAuthRequest } from "../../../types/pages/Authorization";
 
 import styles from "./signInForm.module.scss";
 
-interface IPkceCodeSet {
-	code_verifier: string;
-	code_challenge: string;
-}
-
 export default function SignInForm() {
 	const [baseUrl, setBaseUrl] = useState<string>("");
-	const [errorMessage, setErrorMessage] = useState<string>("");
 	const [isOpen, setIsOpen] = useState<boolean>(false);
 	const [pkceCodeSet, setPkceCodeSet] = useState<IPkceCodeSet>();
 
@@ -46,6 +40,7 @@ export default function SignInForm() {
 
 	const {
 		formState: { errors },
+		setError,
 		control,
 		handleSubmit,
 	} = useForm<ISignInForm>({
@@ -100,24 +95,22 @@ export default function SignInForm() {
 				}
 			}
 		} catch (error) {
-			console.log(error);
-
-			// if (
-			// 	axios.isAxiosError(error) &&
-			// 	error.response &&
-			// 	error.response.status &&
-			// 	error.response.status >= axios.HttpStatusCode.InternalServerError &&
-			// 	error.response.status < ApiResponseCode.SERVER_ERROR_STATUS_MAX
-			// ) {
-			// 	router.push(MainPath.ServerError);
-			// }
+			if (
+				axios.isAxiosError(error) &&
+				error.response &&
+				error.response.status &&
+				error.response.status >= axios.HttpStatusCode.InternalServerError &&
+				error.response.status < ApiResponseCode.SERVER_ERROR_STATUS_MAX
+			) {
+				router.push(MainPath.ServerError);
+			}
 		}
 	}
 
 	floatingOneTap.on(
 		VKID.FloatingOneTapInternalEvents.LOGIN_SUCCESS,
 		// eslint-disable-next-line camelcase
-		async ({ code, device_id }: ILoginSuccessPayload) => {
+		async ({ code, device_id }: IVKLoginSuccessPayload) => {
 			const data = {
 				code: code,
 				// eslint-disable-next-line camelcase
@@ -131,14 +124,13 @@ export default function SignInForm() {
 	);
 
 	async function handleOpenAuthCurtain() {
-		// await setPkceCodeSet(await generatePkceChallenge());
+		await setPkceCodeSet(await generatePkceChallenge());
 
 		floatingOneTap.render(authCurtainRenderObj);
 	}
 
 	const onSubmit = async (data: ISignInForm) => {
 		try {
-			setErrorMessage("");
 			if (baseUrl && data.password) {
 				const correctUserData: ICorrectSignInForm = {
 					email: data.email ?? "",
@@ -149,7 +141,17 @@ export default function SignInForm() {
 				if (data.isAutoAuth) dispatch(setAutoLoginStatus(data.isAutoAuth));
 			}
 		} catch (error) {
-			if (
+			if (isAxiosError(error) && error?.response?.status === axios.HttpStatusCode.BadRequest) {
+				setError("email", {
+					type: "server",
+					message: errorDataLogOn,
+				});
+			} else if (isAxiosError(error) && error?.response?.status === axios.HttpStatusCode.Unauthorized) {
+				setError("email", {
+					type: "server",
+					message: errorProfileActivation,
+				});
+			} else if (
 				axios.isAxiosError(error) &&
 				error.response &&
 				error.response.status &&
@@ -158,7 +160,6 @@ export default function SignInForm() {
 			) {
 				return router.push(MainPath.ServerError);
 			}
-			setErrorMessage("Введены некорректный email или пароль");
 		}
 	};
 
@@ -198,7 +199,6 @@ export default function SignInForm() {
 						Забыли пароль?
 					</Link>
 				</div>
-				{errorMessage && <p className={styles.errorMessage}>{errorMessage}</p>}
 				<Button variant={ButtonType.Notification} type={InputTypeList.Submit} className={styles.button}>
 					Вход
 				</Button>

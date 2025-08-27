@@ -7,12 +7,12 @@ import { useEffect, useRef, useState, Dispatch, SetStateAction, RefObject } from
 import cn from "classnames";
 import axios from "axios";
 
-import { logoutUser } from "../../../services/api/auth/Logout";
+import { logoutUser } from "../../../services/api/auth/logoutUser";
 import { MainPath, UserProfilePath } from "../../../services/router/routes";
 import { ApiResponseCode } from "../../../helpers/apiResponseCode";
 import { INavBar } from "../../../types/common/ComponentsProps";
 import { COLORS } from "../../../helpers/colorSet";
-import useLogoutTimer from "../../../hooks/useLogoutTimer";
+import { useLogoutTimer } from "../../../hooks/useLogoutTimer";
 import { getCorrectBaseUrl } from "../../../utils/baseUrlConverter";
 
 import logo from "../../../assets/components/logo.png";

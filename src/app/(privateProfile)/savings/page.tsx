@@ -4,7 +4,7 @@
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 
-import useLogoutTimer from "../../../hooks/useLogoutTimer";
+import { useLogoutTimer } from "../../../hooks/useLogoutTimer";
 
 import {
 	IEditActionProps,
@@ -16,6 +16,7 @@ import {
 } from "../../../types/components/ComponentsTypes";
 import { ISavingsInputForm, ISavingsSelectForm } from "../../../types/pages/Savings";
 import SavingsTransaction from "../../../components/userProfileLayout/savingsTransaction/savingsTransaction";
+import InputDate from "../../../ui/inputDate/inputDate";
 import AppInput from "../../../ui/appInput/AppInput";
 import { CategorySelect } from "../../../components/userProfileLayout/categorySelect/CategorySelect";
 import AddButton from "../../../components/userProfileLayout/addButton/addButton";
@@ -219,8 +220,7 @@ function Savings() {
 								<p className={styles.totalAmountWrapper__sum}>4 112 500 ₽</p>
 							</div>
 							<div className={styles.dateSelectionWrapper}>
-								<p className={styles.dateSelectionWrapper__description}>Выбор даты</p>
-								<AppInput control={control} label={"Выбор даты"} type={InputTypeList.Date} name={"date"} />
+								<InputDate control={control} name={"date"} />
 							</div>
 						</div>
 						<div className={styles.savingsDetailsContainer}>

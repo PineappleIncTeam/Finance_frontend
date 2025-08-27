@@ -9,32 +9,38 @@ import { env } from "next-runtime-env";
 import * as VKID from "@vkid/sdk";
 
 import { ISignUpForm } from "../../../types/components/ComponentsTypes";
+import { IPkceCodeSet, IVKLoginSuccessPayload, IVkAuthRequest } from "../../../types/pages/Authorization";
 import AuthInput from "../../../ui/authInput/AuthInput";
 import Title from "../../../ui/title/Title";
-import { emailPattern, errorPasswordRepeat, passwordPattern } from "../../../helpers/authConstants";
+import Button from "../../../ui/Button/Button1";
+import {
+	emailPattern,
+	errorPasswordRepeat,
+	errorUserWithExistEmailRegistration,
+	passwordPattern,
+} from "../../../helpers/authConstants";
 import { formHelpers } from "../../../utils/formHelpers";
 import { InputTypeList } from "../../../helpers/Input";
-import { registration } from "../../../services/api/auth/Registration";
+import { registration } from "../../../services/api/auth/registration";
 import { MainPath, UserProfilePath } from "../../../services/router/routes";
+import { authApiVkService } from "../../../services/api/auth/authVkService";
 import { getCorrectBaseUrl } from "../../../utils/baseUrlConverter";
 import { ApiResponseCode } from "../../../helpers/apiResponseCode";
 import CustomCheckbox from "../../../ui/checkBox/checkBox";
-import Button from "../../../ui/Button/Button1";
 import { ButtonType } from "../../../helpers/buttonFieldValues";
 import { generatePkceChallenge, generateState } from "../../../utils/generateAuthTokens";
-import { authApiVkService } from "../../../services/api/auth/VkAuth";
-import { ILoginSuccessPayload, IVkAuthRequest } from "../../../types/pages/Authorization";
 
 import styles from "./signUpForm.module.scss";
 
 export default function SignUpForm() {
 	const [baseUrl, setBaseUrl] = useState<string>("");
-	const [codeVerifier, setCodeVerifier] = useState<string>("");
+	const [pkceCodeSet, setPkceCodeSet] = useState<IPkceCodeSet>();
 
 	const {
 		formState: { isValid, errors },
 		control,
 		watch,
+		setError,
 		handleSubmit,
 	} = useForm<ISignUpForm>({
 		defaultValues: {
@@ -65,7 +71,7 @@ export default function SignUpForm() {
 
 	useEffect(() => {
 		(async () => {
-			await setCodeVerifier(String((await generatePkceChallenge()).code_verifier));
+			await setPkceCodeSet(await generatePkceChallenge());
 		})();
 	}, []);
 
@@ -73,9 +79,10 @@ export default function SignUpForm() {
 		app: vkAppId,
 		redirectUrl: `${getCorrectBaseUrl()}${UserProfilePath.ProfitMoney}`,
 		state: generateState(),
-		codeVerifier: String(generatePkceChallenge()),
+		codeChallenge: String(pkceCodeSet?.code_challenge ?? ""),
 		scope: "email phone",
 		responseMode: VKID.ConfigResponseMode.Callback,
+		mode: VKID.ConfigAuthMode.InNewWindow,
 	});
 
 	const floatingOneTap = new VKID.FloatingOneTap();
@@ -101,19 +108,25 @@ export default function SignUpForm() {
 		}
 	}
 
-	floatingOneTap.on(VKID.FloatingOneTapInternalEvents.LOGIN_SUCCESS, async (payload: ILoginSuccessPayload) => {
-		const data = {
-			code: payload.code,
-			// eslint-disable-next-line camelcase
-			device_id: payload.device_id,
-			// eslint-disable-next-line camelcase
-			code_verifier: codeVerifier,
-		};
-		authVkIdService(data);
-	});
+	floatingOneTap.on(
+		VKID.FloatingOneTapInternalEvents.LOGIN_SUCCESS,
+		// eslint-disable-next-line camelcase
+		async ({ code, device_id }: IVKLoginSuccessPayload) => {
+			const data = {
+				code: code,
+				// eslint-disable-next-line camelcase
+				code_verifier: pkceCodeSet?.code_verifier ?? "",
+				// eslint-disable-next-line camelcase
+				device_id: device_id,
+			};
 
-	function handleOpenAuthCurtain() {
-		// setCodeVerifier(String(generateCodeVerifier()));
+			authVkIdService(data);
+		},
+	);
+
+	async function handleOpenAuthCurtain() {
+		await setPkceCodeSet(await generatePkceChallenge());
+
 		floatingOneTap.render(authCurtainRenderObj);
 	}
 
@@ -135,7 +148,12 @@ export default function SignUpForm() {
 				return router.push(MainPath.ServerError);
 			}
 		} catch (error) {
-			if (
+			if (isAxiosError(error) && error?.response?.status === axios.HttpStatusCode.BadRequest) {
+				setError("email", {
+					type: "server",
+					message: errorUserWithExistEmailRegistration,
+				});
+			} else if (
 				isAxiosError(error) &&
 				error.response &&
 				error.response.status &&
@@ -144,7 +162,6 @@ export default function SignUpForm() {
 			) {
 				return router.push(MainPath.ServerError);
 			}
-			return router.push(MainPath.NotFound);
 		}
 	};
 

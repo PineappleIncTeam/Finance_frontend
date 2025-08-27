@@ -10,7 +10,7 @@ import { IUserValidationResponse } from "../../../types/api/Auth";
 import Spinner from "../../../ui/spinner/spinner";
 import { getCorrectBaseUrl } from "../../../utils/baseUrlConverter";
 import { mockLocalhostStr, mockLocalhostUrl } from "../../../services/api/auth/apiConstants";
-import { userActivation } from "../../../services/api/auth/userActivation";
+import { setUserActivation } from "../../../services/api/auth/setUserActivation";
 import { MainPath } from "../../../services/router/routes";
 import { ApiResponseCode } from "../../../helpers/apiResponseCode";
 
@@ -69,7 +69,7 @@ const Activate = () => {
 				if (baseUrl && !isLocalhost && uid && token) {
 					const userData = { uid, token };
 					setLoad(true);
-					const response: AxiosResponse<IUserValidationResponse> = await userActivation(baseUrl, userData);
+					const response: AxiosResponse<IUserValidationResponse> = await setUserActivation(baseUrl, userData);
 					setLoad(false);
 
 					if (response.status === axios.HttpStatusCode.Ok) {

@@ -2,8 +2,9 @@ export const mockLocalhostStr = "localhost";
 export const mockLocalhostUrl = "127.0.0.1";
 
 export const signupEndpoint = "api/v1/auth/users/";
-export const signInEndpoint = "api/v1/auth/token/login/";
+export const signInEndpoint = "api/v1/auth/login/";
 export const logoutEndpoint = "api/v1/auth/logout/";
+export const refreshTokenEndpoint = "api/v1/auth/refresh/";
 export const validateTokenEndpoint = "api/v1/auth/users/me/";
 export const userActivationEndpoint = "api/v1/auth/users/activation/";
 

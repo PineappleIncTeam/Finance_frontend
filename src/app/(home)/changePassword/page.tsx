@@ -3,18 +3,18 @@
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useSearchParams, useRouter } from "next/navigation";
-import axios from "axios";
+import axios, { isAxiosError } from "axios";
 
 import { IChangePassword, IChangePasswordForm } from "../../../types/pages/Password";
 import Title from "../../../ui/title/Title";
 import ChangePassInput from "../../../components/mainLayout/changePassInput/changePassInput";
 import ChangePasswordModal from "../../../components/mainLayout/changePasswordModal/changePasswordModal";
-import { SetNewPassword } from "../../../services/api/auth/SetNewPassword";
+import { setNewPassword } from "../../../services/api/auth/setNewPassword";
 import { MainPath } from "../../../services/router/routes";
 import { mockLocalhostStr, mockLocalhostUrl } from "../../../services/api/auth/apiConstants";
 import { ApiResponseCode } from "../../../helpers/apiResponseCode";
 import { InputTypeList } from "../../../helpers/Input";
-import { errorPasswordRepeat, passwordPattern } from "../../../helpers/authConstants";
+import { errorPasswordRepeat, errorUidOrToken, passwordPattern } from "../../../helpers/authConstants";
 import { getCorrectBaseUrl } from "../../../utils/baseUrlConverter";
 import { formHelpers } from "../../../utils/formHelpers";
 import Button from "../../../ui/Button/Button1";
@@ -36,6 +36,7 @@ export default function ChangePassword() {
 	const {
 		control,
 		handleSubmit,
+		setError,
 		reset,
 		watch,
 		formState: { errors },
@@ -65,13 +66,16 @@ export default function ChangePassword() {
 			if (baseUrl && !isLocalhost && uid && token) {
 				data.uid = uid;
 				data.token = token;
-				await SetNewPassword(baseUrl, data);
+				await setNewPassword(baseUrl, data);
 				router.push(MainPath.Login);
-			} else {
-				return router.push(MainPath.ServerError);
 			}
 		} catch (error) {
-			if (
+			if (isAxiosError(error) && error?.response?.status === axios.HttpStatusCode.BadRequest) {
+				setError("password", {
+					type: "server",
+					message: errorUidOrToken,
+				});
+			} else if (
 				axios.isAxiosError(error) &&
 				error.response &&
 				error.response.status >= ApiResponseCode.SERVER_ERROR_STATUS_MIN &&

@@ -124,7 +124,7 @@ export default function SignInForm() {
 	);
 
 	async function handleOpenAuthCurtain() {
-		await setPkceCodeSet(await generatePkceChallenge());
+		// await setPkceCodeSet(await generatePkceChallenge());
 
 		floatingOneTap.render(authCurtainRenderObj);
 	}

@@ -5,12 +5,14 @@ import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import axios, { AxiosError } from "axios";
-// import { env } from "next-runtime-env";
+import { env } from "next-runtime-env";
 import * as VKID from "@vkid/sdk";
 
 import { ISignUpForm } from "../../../types/components/ComponentsTypes";
+import { IPkceCodeSet, IVKLoginSuccessPayload, IVkAuthRequest } from "../../../types/pages/Authorization";
 import AuthInput from "../../../ui/authInput/AuthInput";
 import Title from "../../../ui/title/Title";
+import Button from "../../../ui/Button/Button1";
 import {
 	emailPattern,
 	errorPasswordRepeat,
@@ -19,22 +21,20 @@ import {
 } from "../../../helpers/authConstants";
 import { formHelpers } from "../../../utils/formHelpers";
 import { InputTypeList } from "../../../helpers/Input";
-import { registration } from "../../../services/api/auth/Registration";
+import { registration } from "../../../services/api/auth/registration";
 import { MainPath, UserProfilePath } from "../../../services/router/routes";
+import { authApiVkService } from "../../../services/api/auth/authVkService";
 import { getCorrectBaseUrl } from "../../../utils/baseUrlConverter";
 import { ApiResponseCode } from "../../../helpers/apiResponseCode";
 import CustomCheckbox from "../../../ui/checkBox/checkBox";
-import Button from "../../../ui/Button/Button1";
 import { ButtonType } from "../../../helpers/buttonFieldValues";
-import { generateCodeVerifier, generateState } from "../../../utils/generateAuthTokens";
-import { AuthVk } from "../../../services/api/auth/VkAuth";
-import { ILoginSuccessPayload, IVkAuthRequest } from "../../../types/pages/Authorization";
+import { generatePkceChallenge, generateState } from "../../../utils/generateAuthTokens";
 
 import styles from "./signUpForm.module.scss";
 
 export default function SignUpForm() {
 	const [baseUrl, setBaseUrl] = useState<string>("");
-	const [codeVerifier, setCodeVerifier] = useState<string>("");
+	const [pkceCodeSet, setPkceCodeSet] = useState<IPkceCodeSet>();
 
 	const {
 		formState: { isValid, errors },
@@ -56,7 +56,7 @@ export default function SignUpForm() {
 
 	const router = useRouter();
 
-	// const vkAppId = Number(env("NEXT_PUBLIC_VK_APP_ID"));
+	const vkAppId = Number(env("NEXT_PUBLIC_VK_APP_ID"));
 
 	const authCurtainRenderObj: VKID.FloatingOneTapParams = {
 		appName: "freenance-app",
@@ -70,16 +70,19 @@ export default function SignUpForm() {
 	}, []);
 
 	useEffect(() => {
-		setCodeVerifier(String(generateCodeVerifier()));
+		(async () => {
+			await setPkceCodeSet(await generatePkceChallenge());
+		})();
 	}, []);
 
 	VKID.Config.init({
-		app: 0,
+		app: vkAppId,
 		redirectUrl: `${getCorrectBaseUrl()}${UserProfilePath.ProfitMoney}`,
 		state: generateState(),
-		codeVerifier: String(generateCodeVerifier()),
+		codeChallenge: String(pkceCodeSet?.code_challenge ?? ""),
 		scope: "email phone",
 		responseMode: VKID.ConfigResponseMode.Callback,
+		mode: VKID.ConfigAuthMode.InNewWindow,
 	});
 
 	const floatingOneTap = new VKID.FloatingOneTap();
@@ -87,7 +90,7 @@ export default function SignUpForm() {
 	async function authVkIdService(authData: IVkAuthRequest) {
 		try {
 			if (baseUrl) {
-				const response = await AuthVk(baseUrl, authData);
+				const response = await authApiVkService(baseUrl, authData);
 				if (response.status === axios.HttpStatusCode.Ok) {
 					router.push(UserProfilePath.ProfitMoney);
 				}
@@ -105,19 +108,23 @@ export default function SignUpForm() {
 		}
 	}
 
-	floatingOneTap.on(VKID.FloatingOneTapInternalEvents.LOGIN_SUCCESS, async (payload: ILoginSuccessPayload) => {
-		const data = {
-			code: payload.code,
-			// eslint-disable-next-line camelcase
-			device_id: payload.device_id,
-			// eslint-disable-next-line camelcase
-			code_verifier: codeVerifier,
-		};
-		authVkIdService(data);
-	});
+	floatingOneTap.on(
+		VKID.FloatingOneTapInternalEvents.LOGIN_SUCCESS,
+		// eslint-disable-next-line camelcase
+		async ({ code, device_id }: IVKLoginSuccessPayload) => {
+			const data = {
+				code: code,
+				// eslint-disable-next-line camelcase
+				code_verifier: pkceCodeSet?.code_verifier ?? "",
+				// eslint-disable-next-line camelcase
+				device_id: device_id,
+			};
 
-	function handleOpenAuthCurtain() {
-		setCodeVerifier(String(generateCodeVerifier()));
+			authVkIdService(data);
+		},
+	);
+
+	async function handleOpenAuthCurtain() {
 		floatingOneTap.render(authCurtainRenderObj);
 	}
 

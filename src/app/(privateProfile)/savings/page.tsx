@@ -6,7 +6,7 @@ import { useForm } from "react-hook-form";
 import axios, { AxiosResponse } from "axios";
 import { useRouter } from "next/navigation";
 
-import useLogoutTimer from "../../../hooks/useLogoutTimer";
+import { useLogoutTimer } from "../../../hooks/useLogoutTimer";
 
 import {
 	IEditActionProps,
@@ -35,14 +35,14 @@ import { ApiResponseCode } from "../../../helpers/apiResponseCode";
 import { MainPath } from "../../../services/router/routes";
 
 import { ITarget } from "../../../types/api/Savings";
-import { GetTargetsAll } from "../../../services/api/userProfile/GetTargetsAll";
+import { getTargetsAll } from "../../../services/api/userProfile/getAllTargets";
 import { ICategoryOption } from "../../../types/common/ComponentsProps";
-import { GetCategoriesAll } from "../../../services/api/userProfile/GetCategoriesAll";
 import { IOperation } from "../../../types/api/Expenses";
-import { GetFiveTransactions } from "../../../services/api/userProfile/GetFiveTransactions";
-import { AddSavingsTarget } from "../../../services/api/userProfile/AddSavingsTarget";
+import { addSavingsTarget } from "../../../services/api/userProfile/addSavingsTarget";
 import { SavingsAddTargetModal } from "../../../components/userProfileLayout/savingsCategory/savingsCategory";
 import { SavingsTargetStatus, SavingsTargetStatusName } from "../../../helpers/targetStatus";
+import { getAllExpensesCategories } from "../../../services/api/userProfile/getAllExpensesCategories";
+import { getFiveExpensesTransactions } from "../../../services/api/userProfile/getFiveExpensesTransactions";
 
 import styles from "./savings.module.scss";
 
@@ -117,7 +117,7 @@ function Savings() {
 		resetTimer();
 		try {
 			if (baseUrl && data !== null) {
-				await AddSavingsTarget(baseUrl, data);
+				await addSavingsTarget(baseUrl, data);
 			}
 		} catch (error) {
 			if (
@@ -134,7 +134,7 @@ function Savings() {
 	const getAllTargets = useCallback(async () => {
 		try {
 			if (baseUrl) {
-				const response: AxiosResponse<ITarget[]> = await GetTargetsAll(baseUrl);
+				const response: AxiosResponse<ITarget[]> = await getTargetsAll(baseUrl);
 				if (response !== null && response.status === axios.HttpStatusCode.Ok) {
 					setAllTargets(response.data);
 				}
@@ -161,7 +161,7 @@ function Savings() {
 		};
 		try {
 			if (baseUrl) {
-				const response: AxiosResponse<ICategoryOption[]> = await GetCategoriesAll(baseUrl, data);
+				const response: AxiosResponse<ICategoryOption[]> = await getAllExpensesCategories(baseUrl, data);
 				if (response !== null && response.status === axios.HttpStatusCode.Ok) {
 					setOptions(response.data);
 				}
@@ -185,7 +185,7 @@ function Savings() {
 		};
 		try {
 			if (baseUrl) {
-				const response: AxiosResponse<IOperation[]> = await GetFiveTransactions(baseUrl, data);
+				const response: AxiosResponse<IOperation[]> = await getFiveExpensesTransactions(baseUrl, data);
 				if (response !== null && response.status === axios.HttpStatusCode.Ok) {
 					setFiveOperations(response.data);
 				}
@@ -206,7 +206,7 @@ function Savings() {
 	const addSavingsCategory = async (data: ISavingsTargetAddForm) => {
 		try {
 			if (baseUrl && data !== null) {
-				const response = await AddSavingsTarget(baseUrl, data);
+				const response = await addSavingsTarget(baseUrl, data);
 				if (response.status === axios.HttpStatusCode.Created) {
 					setIsAddCategorySuccess(true);
 					setIsCategoryModalOpen(false);

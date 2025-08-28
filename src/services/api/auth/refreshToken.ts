@@ -1,6 +1,6 @@
 import axios from "axios";
 
-import { refreshTokenEndpoint } from "../auth/apiConstants";
+import { refreshTokenEndpoint } from "./apiConstants";
 
 export const refreshToken = async (baseURL: string) => {
 	const tenSeconds = 10000;

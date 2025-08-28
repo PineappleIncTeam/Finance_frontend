@@ -2,7 +2,7 @@ import axios from "axios";
 
 import { targetsEndPoint } from "../auth/apiConstants";
 
-export const GetTargetsAll = async (baseUrl: string) => {
+export const getTargetsAll = async (baseUrl: string) => {
 	return await axios(`${baseUrl}/${targetsEndPoint}`, {
 		method: "GET",
 		headers: {

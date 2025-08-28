@@ -2,7 +2,7 @@ import axios from "axios";
 
 import { expensesCategoryTransactionsAllEndPoint } from "../auth/apiConstants";
 
-export const GetOperationsAll = async (baseUrl: string) => {
+export const getAllExpensesOperations = async (baseUrl: string) => {
 	return await axios(`${baseUrl}/${expensesCategoryTransactionsAllEndPoint}`, {
 		method: "GET",
 		headers: {

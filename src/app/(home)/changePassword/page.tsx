@@ -9,7 +9,7 @@ import { IChangePassword, IChangePasswordForm } from "../../../types/pages/Passw
 import Title from "../../../ui/title/Title";
 import ChangePassInput from "../../../components/mainLayout/changePassInput/changePassInput";
 import ChangePasswordModal from "../../../components/mainLayout/changePasswordModal/changePasswordModal";
-import { SetNewPassword } from "../../../services/api/auth/SetNewPassword";
+import { setNewPassword } from "../../../services/api/auth/setNewPassword";
 import { MainPath } from "../../../services/router/routes";
 import { mockLocalhostStr, mockLocalhostUrl } from "../../../services/api/auth/apiConstants";
 import { ApiResponseCode } from "../../../helpers/apiResponseCode";
@@ -66,7 +66,7 @@ export default function ChangePassword() {
 			if (baseUrl && !isLocalhost && uid && token) {
 				data.uid = uid;
 				data.token = token;
-				await SetNewPassword(baseUrl, data);
+				await setNewPassword(baseUrl, data);
 				router.push(MainPath.Login);
 			}
 		} catch (error) {

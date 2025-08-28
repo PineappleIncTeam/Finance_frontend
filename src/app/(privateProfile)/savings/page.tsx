@@ -59,7 +59,7 @@ function Savings() {
 
 	const [editField, setEditField] = useState<TSavingsFieldState>(null);
 	const [editIndex, setEditIndex] = useState<TIndexState>(null);
-	const [editValue, setEditValue] = useState<string>("");
+	const [editValue, setEditValue] = useState<string | number>("");
 
 	const [openMoreIndex, setOpenMoreIndex] = useState<TIndexState>(null);
 
@@ -306,7 +306,7 @@ function Savings() {
 								onClick={() =>
 									editIndex === index && editField === SavingsFieldValues.amount
 										? handleSaveClick()
-										: handleEditClick({ index, field: SavingsFieldValues.amount, value: item.name })
+										: handleEditClick({ index, field: SavingsFieldValues.amount, value: item.amount })
 								}
 								role="button">
 								{editIndex === index && editField === SavingsFieldValues.amount ? <CheckIcon /> : <EditIcon />}
@@ -314,18 +314,18 @@ function Savings() {
 							{editIndex === index && editField === SavingsFieldValues.amount ? (
 								<input
 									className={`${styles.inputEdit} ${styles.inputEdit__target}`}
-									type={InputTypeList.Text}
+									type={InputTypeList.Number}
 									value={editValue}
 									onChange={(e) => setEditValue(e.target.value)}
 								/>
 							) : (
-								<p className={styles.inputEditWrapper__textTarget}>{item.name}</p>
+								<p className={styles.inputEditWrapper__textTarget}>{item.amount}</p>
 							)}
 						</div>
 					</div>
 
 					<div className={styles.wrapperListContentBlock__sum}>
-						<p>{item.amount}</p>
+						<p>{item.current_sum}</p>
 					</div>
 					<div className={styles.wrapperListContentBlock__status}>
 						<p>{renderSavingsStatus(item.status)}</p>

@@ -101,7 +101,7 @@ export type TIndexState = number | null;
 export interface IEditActionProps {
 	index: number;
 	field: SavingsFieldValues;
-	value: string;
+	value: string | number;
 }
 
 export type TCommonFunction = () => void;

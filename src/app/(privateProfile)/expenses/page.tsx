@@ -8,7 +8,6 @@ import axios, { AxiosResponse } from "axios";
 import { useLogoutTimer } from "../../../hooks/useLogoutTimer";
 import { getCorrectBaseUrl } from "../../../utils/baseUrlConverter";
 import { IAddCategoryTransactionForm, IExpensesCategoryForm } from "../../../types/pages/Expenses";
-
 import { IAddCategoryExpensesForm, IEditTransactionForm } from "../../../types/components/ComponentsTypes";
 import { ICategoryOption } from "../../../types/common/ComponentsProps";
 import { IOperation } from "../../../types/api/Expenses";
@@ -25,8 +24,8 @@ import { CategoryAddModal } from "../../../components/userProfileLayout/category
 import { getFiveExpensesTransactions } from "../../../services/api/userProfile/getFiveExpensesTransactions";
 import { addExpensesCategory } from "../../../services/api/userProfile/addExpensesCategory";
 import { MainPath } from "../../../services/router/routes";
-import { AddExpensesCategoryTransaction } from "../../../services/api/userProfile/AddExpensesCategoryTransaction";
-import { getAllExpensesCategories } from "../../../services/api/userProfile/getAllCategories";
+import { addExpensesCategoryTransaction } from "../../../services/api/userProfile/AddExpensesCategoryTransaction";
+
 import { removeExpensesCategory } from "../../../services/api/userProfile/removeExpensesCategory";
 import { removeExpensesCategoryTransaction } from "../../../services/api/userProfile/removeExpensesCategoryTransaction";
 import { editExpensesCategoryTransaction } from "../../../services/api/userProfile/editExpensesTransaction";
@@ -37,6 +36,7 @@ import { CategoryType } from "../../../helpers/categoryTypes";
 import { ApiResponseCode } from "../../../helpers/apiResponseCode";
 import handleLogout from "../../../helpers/logout";
 import { InputTypeList } from "../../../helpers/Input";
+import { getAllExpensesCategories } from "../../../services/api/userProfile/getAllExpensesCategories";
 
 import styles from "./expenses.module.scss";
 
@@ -250,7 +250,7 @@ export default function Expenses() {
 		};
 		try {
 			if (baseUrl && data !== null) {
-				const response = await AddExpensesCategoryTransaction(baseUrl, transactionData);
+				const response = await addExpensesCategoryTransaction(baseUrl, transactionData);
 				if (response.status === axios.HttpStatusCode.Created) {
 					setIsOpen(false);
 					setIsAddSuccess(true);

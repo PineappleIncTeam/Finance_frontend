@@ -18,3 +18,11 @@ export interface ICookieStatus {
 export interface IAutoLoginState {
 	isAutoLogin: boolean;
 }
+
+export interface IUserData {
+	name: string;
+	email: string;
+	nickname: string;
+	country: string;
+	gender: string;
+}

@@ -1,9 +1,10 @@
 import { useForm } from "react-hook-form";
 import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
 
 import { IPrivateDataFrom } from "../../../../types/pages/userProfileSettings";
 import AppInput from "../../../../ui/appInput/AppInput";
+import useAppDispatch from "../../../../hooks/useAppDispatch";
+import useAppSelector from "../../../../hooks/useAppSelector";
 
 import { RadioButton } from "../../../../ui/radio/radioButton";
 
@@ -17,8 +18,8 @@ import { userSelector } from "../../../../services/redux/features/userData/userD
 import styles from "./privateProfilePrivateData.module.scss";
 
 export const PrivateProfilePrivateData = () => {
-	const dispatch = useDispatch();
-	const { userData } = useSelector(userSelector);
+	const dispatch = useAppDispatch();
+	const { userData } = useAppSelector(userSelector);
 
 	const {
 		control,

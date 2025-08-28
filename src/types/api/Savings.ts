@@ -1,4 +1,4 @@
-import { TargetStatusType } from "../../helpers/targetStatus";
+import { SavingsTargetStatus } from "../../helpers/targetStatus";
 
 export interface ITarget {
 	id: number;
@@ -6,5 +6,5 @@ export interface ITarget {
 	user_id: string;
 	amount: number;
 	current_sum: number;
-	status: TargetStatusType;
+	status: SavingsTargetStatus;
 }

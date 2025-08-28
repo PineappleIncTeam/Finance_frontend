@@ -85,8 +85,8 @@ export interface ISavingsItem {
 }
 
 export enum SavingsFieldValues {
-	category = "category",
-	target = "target",
+	name = "name",
+	amount = "amount",
 }
 
 export enum SortOrderStateValue {

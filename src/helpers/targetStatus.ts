@@ -1,4 +1,4 @@
-export enum TargetStatusType {
-	InProgress = "in_progress",
-	Achieved = "achieved",
+export enum SavingsTargetStatus {
+	inProgress = "in_progress",
+	achieved = "achieved",
 }

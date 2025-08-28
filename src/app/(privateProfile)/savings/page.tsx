@@ -42,6 +42,7 @@ import { IOperation } from "../../../types/api/Expenses";
 import { GetFiveTransactions } from "../../../services/api/userProfile/GetFiveTransactions";
 import { AddSavingsTarget } from "../../../services/api/userProfile/AddSavingsTarget";
 import { SavingsAddTargetModal } from "../../../components/userProfileLayout/savingsCategory/savingsCategory";
+import { SavingsTargetStatus } from "../../../helpers/targetStatus";
 
 import styles from "./savings.module.scss";
 
@@ -253,6 +254,10 @@ function Savings() {
 		getFiveOperations();
 	}, [getFiveOperations]);
 
+	function renderSavingsStatus(status: SavingsTargetStatus) {
+		return status === SavingsTargetStatus.inProgress ? SavingsTargetStatus.inProgress : SavingsTargetStatus.achieved;
+	}
+
 	function renderSavingsItemList() {
 		return allTargets.map((item, index) => {
 			return (
@@ -263,7 +268,7 @@ function Savings() {
 					className={editIndex === index ? styles.activeEditItem : ""}>
 					<div className={styles.wrapperListContentBlock__category}>
 						<div className={styles.inputEditWrapper}>
-							{editIndex === index && editField === SavingsFieldValues.category ? (
+							{editIndex === index && editField === SavingsFieldValues.name ? (
 								<input
 									className={styles.inputEdit}
 									type={InputTypeList.Text}
@@ -279,12 +284,12 @@ function Savings() {
 									display: hoveredIndex === index || editIndex === index ? "flex" : "none",
 								}}
 								onClick={() =>
-									editIndex === index && editField === SavingsFieldValues.category
+									editIndex === index && editField === SavingsFieldValues.name
 										? handleSaveClick()
-										: handleEditClick({ index, field: SavingsFieldValues.category, value: item.name })
+										: handleEditClick({ index, field: SavingsFieldValues.name, value: item.name })
 								}
 								role="button">
-								{editIndex === index && editField === SavingsFieldValues.category ? <CheckIcon /> : <EditIcon />}
+								{editIndex === index && editField === SavingsFieldValues.name ? <CheckIcon /> : <EditIcon />}
 							</div>
 						</div>
 					</div>
@@ -297,14 +302,14 @@ function Savings() {
 									display: hoveredIndex === index || editIndex === index ? "flex" : "none",
 								}}
 								onClick={() =>
-									editIndex === index && editField === SavingsFieldValues.target
+									editIndex === index && editField === SavingsFieldValues.amount
 										? handleSaveClick()
-										: handleEditClick({ index, field: SavingsFieldValues.target, value: item.name })
+										: handleEditClick({ index, field: SavingsFieldValues.amount, value: item.name })
 								}
 								role="button">
-								{editIndex === index && editField === SavingsFieldValues.target ? <CheckIcon /> : <EditIcon />}
+								{editIndex === index && editField === SavingsFieldValues.amount ? <CheckIcon /> : <EditIcon />}
 							</div>
-							{editIndex === index && editField === SavingsFieldValues.target ? (
+							{editIndex === index && editField === SavingsFieldValues.amount ? (
 								<input
 									className={`${styles.inputEdit} ${styles.inputEdit__target}`}
 									type={InputTypeList.Text}
@@ -321,7 +326,7 @@ function Savings() {
 						<p>{item.amount}</p>
 					</div>
 					<div className={styles.wrapperListContentBlock__status}>
-						<p>{item.status}</p>
+						<p>{renderSavingsStatus(item.status)}</p>
 					</div>
 					<div
 						className={styles.wrapperListContentBlock__actionElement}

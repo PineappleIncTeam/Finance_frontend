@@ -42,7 +42,7 @@ import { IOperation } from "../../../types/api/Expenses";
 import { GetFiveTransactions } from "../../../services/api/userProfile/GetFiveTransactions";
 import { AddSavingsTarget } from "../../../services/api/userProfile/AddSavingsTarget";
 import { SavingsAddTargetModal } from "../../../components/userProfileLayout/savingsCategory/savingsCategory";
-import { SavingsTargetStatus } from "../../../helpers/targetStatus";
+import { SavingsTargetStatus, SavingsTargetStatusName } from "../../../helpers/targetStatus";
 
 import styles from "./savings.module.scss";
 
@@ -255,7 +255,9 @@ function Savings() {
 	}, [getFiveOperations]);
 
 	function renderSavingsStatus(status: SavingsTargetStatus) {
-		return status === SavingsTargetStatus.inProgress ? SavingsTargetStatus.inProgress : SavingsTargetStatus.achieved;
+		return status === SavingsTargetStatus.inProgress
+			? SavingsTargetStatusName.inProgress
+			: SavingsTargetStatusName.achieved;
 	}
 
 	function renderSavingsItemList() {

@@ -24,8 +24,7 @@ import { CategoryAddModal } from "../../../components/userProfileLayout/category
 import { getFiveExpensesTransactions } from "../../../services/api/userProfile/getFiveExpensesTransactions";
 import { addExpensesCategory } from "../../../services/api/userProfile/addExpensesCategory";
 import { MainPath } from "../../../services/router/routes";
-import { addExpensesCategoryTransaction } from "../../../services/api/userProfile/AddExpensesCategoryTransaction";
-
+import { addExpensesCategoryTransaction } from "../../../services/api/userProfile/addExpensesCategoryTransaction";
 import { removeExpensesCategory } from "../../../services/api/userProfile/removeExpensesCategory";
 import { removeExpensesCategoryTransaction } from "../../../services/api/userProfile/removeExpensesCategoryTransaction";
 import { editExpensesCategoryTransaction } from "../../../services/api/userProfile/editExpensesTransaction";

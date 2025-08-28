@@ -38,11 +38,11 @@ import { ITarget } from "../../../types/api/Savings";
 import { getTargetsAll } from "../../../services/api/userProfile/getAllTargets";
 import { ICategoryOption } from "../../../types/common/ComponentsProps";
 import { IOperation } from "../../../types/api/Expenses";
-import { addSavingsTarget } from "../../../services/api/userProfile/addSavingsTarget";
 import { SavingsAddTargetModal } from "../../../components/userProfileLayout/savingsCategory/savingsCategory";
 import { SavingsTargetStatus, SavingsTargetStatusName } from "../../../helpers/targetStatus";
 import { getAllExpensesCategories } from "../../../services/api/userProfile/getAllExpensesCategories";
 import { getFiveExpensesTransactions } from "../../../services/api/userProfile/getFiveExpensesTransactions";
+import { addSavingsTarget } from "../../../services/api/auth/addSavingsTarget";
 
 import styles from "./savings.module.scss";
 

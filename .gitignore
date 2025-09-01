@@ -39,6 +39,10 @@ yarn-error.log*
 # vercel
 .vercel
 
+# deploy
+/ecosystem.config.js
+/src/types/common/*.js
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts

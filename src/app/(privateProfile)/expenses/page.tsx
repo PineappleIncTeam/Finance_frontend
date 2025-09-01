@@ -34,7 +34,7 @@ import { addExpensesCategoryTransaction } from "../../../services/api/userProfil
 import { getCorrectBaseUrl } from "../../../utils/baseUrlConverter";
 import { getCurrentDate } from "../../../utils/getCurrentDate";
 import { ApiResponseCode } from "../../../helpers/apiResponseCode";
-import handleLogout from "../../../helpers/logout";
+import handleLogout from "../../../helpers/logoutTimeoutHandler";
 import { InputTypeList } from "../../../helpers/Input";
 
 import styles from "./expenses.module.scss";

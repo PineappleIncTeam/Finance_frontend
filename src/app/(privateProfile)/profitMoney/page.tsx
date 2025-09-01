@@ -11,7 +11,7 @@ import { Select } from "../../../ui/select/Select";
 import AppInput from "../../../ui/appInput/AppInput";
 import IncomeTransaction from "../../../components/userProfileLayout/incomeTransaction/incomeTransaction";
 import { InputTypeList } from "../../../helpers/Input";
-import handleLogout from "../../../helpers/logout";
+import handleLogout from "../../../helpers/logoutTimeoutHandler";
 import { formatMoney } from "../../../utils/formatData";
 import { getCorrectBaseUrl } from "../../../utils/baseUrlConverter";
 import { incomeTransactions } from "../../../mocks/IncomeTransaction";

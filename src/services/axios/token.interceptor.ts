@@ -1,8 +1,9 @@
 import axios from "axios";
 
 import { IFailedOriginalRequest, IPromiseCallback } from "../../types/axios/commonTypes";
+import { AuthTypes } from "../../types/pages/Authorization";
 import { refreshToken } from "../api/auth/refreshToken";
-import { logoutUser } from "../api/auth/logoutUser";
+import { baseLogoutUser } from "../api/auth/baseLogoutUser";
 import { MainPath } from "../router/routes";
 
 declare module "axios" {
@@ -57,9 +58,18 @@ axios.interceptors.response.use(
 				processQueue(refreshError as Error);
 
 				try {
-					const response = await logoutUser(originalRequest.baseURL ?? "");
-					if (response.status >= axios.HttpStatusCode.Ok && response.status < axios.HttpStatusCode.MultipleChoices) {
-						window.location.href = MainPath.Login;
+					const authType: AuthTypes = await ((localStorage.getItem("authType") as AuthTypes) || AuthTypes.baseAuth);
+
+					if (authType === AuthTypes.baseAuth) {
+						const response = await baseLogoutUser(originalRequest.baseURL ?? "");
+
+						if (response.status >= axios.HttpStatusCode.Ok && response.status < axios.HttpStatusCode.MultipleChoices) {
+							await localStorage.removeItem("authType");
+
+							window.location.href = MainPath.Login;
+						}
+					} else {
+						// vk auth logout
 					}
 				} catch (error) {
 					if (

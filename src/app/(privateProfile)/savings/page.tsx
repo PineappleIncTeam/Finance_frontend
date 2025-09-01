@@ -23,7 +23,7 @@ import AddButton from "../../../components/userProfileLayout/addButton/addButton
 import { savingsTransactions } from "../../../mocks/SavingsTransaction";
 import { InputTypeList } from "../../../helpers/Input";
 import { getCorrectBaseUrl } from "../../../utils/baseUrlConverter";
-import handleLogout from "../../../helpers/logout";
+import handleLogout from "../../../helpers/logoutTimeoutHandler";
 
 import { EditIcon } from "../../../assets/script/expenses/EditIcon";
 import { CheckIcon } from "../../../assets/script/savings/CheckIcon";

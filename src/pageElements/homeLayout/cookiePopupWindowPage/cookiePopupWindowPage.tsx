@@ -50,6 +50,7 @@ const CookiePopupWindowPage = () => {
 					onClick={() => dispatch(setCookieStatus("confirmed"))}
 					className={styles.textContentBlock__button}
 					type={InputTypeList.Button}
+					data-testid="cookiePopupWindow__actionElement"
 					isLarge>
 					Хорошо, принимаю
 				</Button>

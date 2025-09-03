@@ -33,7 +33,7 @@ import { getAllExpensesOperations } from "../../../services/api/userProfile/getA
 import { getCurrentDate } from "../../../utils/getCurrentDate";
 import { CategoryType } from "../../../helpers/categoryTypes";
 import { ApiResponseCode } from "../../../helpers/apiResponseCode";
-import handleLogout from "../../../helpers/logout";
+import handleLogout from "../../../helpers/logoutTimeoutHandler";
 import { InputTypeList } from "../../../helpers/Input";
 import { getAllExpensesCategories } from "../../../services/api/userProfile/getAllExpensesCategories";
 

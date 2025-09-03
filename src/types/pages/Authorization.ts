@@ -20,3 +20,8 @@ export interface IPkceCodeSet {
 	code_verifier: string;
 	code_challenge: string;
 }
+
+export enum AuthTypes {
+	baseAuth = "baseAuth",
+	vkServiceAuth = "vkServiceAuth",
+}

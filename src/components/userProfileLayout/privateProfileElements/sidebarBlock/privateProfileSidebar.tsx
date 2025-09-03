@@ -7,12 +7,13 @@ import { useRouter } from "next/navigation";
 import axios from "axios";
 import { format } from "date-fns";
 
+import { AuthTypes } from "../../../../types/pages/Authorization";
 import { IPrivateProfileSidebar } from "../../../../types/common/ComponentsProps";
 import NavBar from "../../navBar/navBar";
 import { BurgerMenu } from "../../burgerMenu/burgerMenu";
 import { PrivateProfileSidebarMenu } from "../sidebarMenu/privateProfileSidebarMenu";
 import { MainPath } from "../../../../services/router/routes";
-import { logoutUser } from "../../../../services/api/auth/logoutUser";
+import { baseLogoutUser } from "../../../../services/api/auth/baseLogoutUser";
 import { getCorrectBaseUrl } from "../../../../utils/baseUrlConverter";
 import { ApiResponseCode } from "../../../../helpers/apiResponseCode";
 import { sidebarNavMenu } from "../../../../helpers/sidebarNavMenu";
@@ -42,9 +43,17 @@ const PrivateProfileSidebarBlock = ({ avatar, name, balance }: IPrivateProfileSi
 	const handleLogout = async () => {
 		try {
 			if (baseUrl) {
-				const response = await logoutUser(baseUrl);
-				if (response.status >= axios.HttpStatusCode.Ok && response.status < axios.HttpStatusCode.MultipleChoices) {
-					router.push(MainPath.Main);
+				const authType: AuthTypes = await ((localStorage.getItem("authType") as AuthTypes) || AuthTypes.baseAuth);
+
+				if (authType === AuthTypes.baseAuth) {
+					const response = await baseLogoutUser(baseUrl);
+					if (response.status >= axios.HttpStatusCode.Ok && response.status < axios.HttpStatusCode.MultipleChoices) {
+						await localStorage.removeItem("authType");
+
+						router.push(MainPath.Main);
+					}
+				} else {
+					// vk auth logout
 				}
 			}
 		} catch (error) {

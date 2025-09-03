@@ -56,7 +56,7 @@ export default function SignUpForm() {
 
 	const router = useRouter();
 
-	const vkAppId = Number(env("NEXT_PUBLIC_VK_APP_ID"));
+	const vkAppId = Number(env("NEXT_PUBLIC_VK_APP_ID") ?? 0);
 
 	const authCurtainRenderObj: VKID.FloatingOneTapParams = {
 		appName: "freenance-app",
@@ -76,7 +76,7 @@ export default function SignUpForm() {
 	}, []);
 
 	VKID.Config.init({
-		app: vkAppId,
+		app: vkAppId ?? 0,
 		redirectUrl: `${getCorrectBaseUrl()}${UserProfilePath.ProfitMoney}`,
 		state: generateState(),
 		codeChallenge: String(pkceCodeSet?.code_challenge ?? ""),

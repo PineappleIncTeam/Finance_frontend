@@ -10,7 +10,7 @@ import * as VKID from "@vkid/sdk";
 
 import { useAppDispatch } from "../../../services/redux/hooks/useAppDispatch";
 
-import { IPkceCodeSet, IVKLoginSuccessPayload, IVkAuthRequest } from "../../../types/pages/Authorization";
+import { AuthTypes, IPkceCodeSet, IVKLoginSuccessPayload, IVkAuthRequest } from "../../../types/pages/Authorization";
 import { ICorrectSignInForm, ISignInForm } from "../../../types/components/ComponentsTypes";
 import AuthInput from "../../../ui/authInput/AuthInput";
 import Title from "../../../ui/title/Title";
@@ -55,7 +55,7 @@ export default function SignInForm() {
 
 	const router = useRouter();
 
-	const vkAppId = Number(env("NEXT_PUBLIC_VK_APP_ID"));
+	const vkAppId = Number(env("NEXT_PUBLIC_VK_APP_ID") ?? 0);
 
 	const authCurtainRenderObj = {
 		appName: "freenance-app",
@@ -75,7 +75,7 @@ export default function SignInForm() {
 	}, []);
 
 	VKID.Config.init({
-		app: vkAppId,
+		app: vkAppId ?? 0,
 		redirectUrl: `${getCorrectBaseUrl()}${UserProfilePath.ProfitMoney}`,
 		state: generateState(),
 		codeChallenge: String(pkceCodeSet?.code_challenge ?? ""),
@@ -91,7 +91,9 @@ export default function SignInForm() {
 			if (baseUrl) {
 				const response = await authApiVkService(baseUrl, authData);
 				if (response.status === axios.HttpStatusCode.Ok) {
-					router.push(UserProfilePath.ProfitMoney);
+					localStorage.setItem("authType", AuthTypes.vkServiceAuth);
+
+					await router.push(UserProfilePath.ProfitMoney);
 				}
 			}
 		} catch (error) {
@@ -136,7 +138,11 @@ export default function SignInForm() {
 				};
 				await loginUser(baseUrl, correctUserData);
 				setIsOpen(true);
-				if (data.isAutoAuth) dispatch(setAutoLoginStatus(data.isAutoAuth));
+				localStorage.setItem("authType", AuthTypes.baseAuth);
+
+				if (data.isAutoAuth) {
+					dispatch(setAutoLoginStatus(data.isAutoAuth));
+				}
 			}
 		} catch (error) {
 			if (isAxiosError(error) && error?.response?.status === axios.HttpStatusCode.BadRequest) {

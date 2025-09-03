@@ -43,6 +43,8 @@ import { SavingsTargetStatus, SavingsTargetStatusName } from "../../../helpers/t
 import { getAllExpensesCategories } from "../../../services/api/userProfile/getAllExpensesCategories";
 import { getFiveExpensesTransactions } from "../../../services/api/userProfile/getFiveExpensesTransactions";
 import { addSavingsTarget } from "../../../services/api/auth/addSavingsTarget";
+import { removeSavingsTarget } from "../../../services/api/userProfile/removeSavingsTarget";
+import { CategoryDeleteModal } from "../../../components/userProfileLayout/categoryDelete/categoryDelete";
 
 import styles from "./savings.module.scss";
 
@@ -73,6 +75,10 @@ function Savings() {
 	const [fiveOperations, setFiveOperations] = useState<IOperation[]>([]);
 	const [isAddCategoryModalOpen, setIsCategoryModalOpen] = useState<boolean>(false);
 	const [isAddCategorySuccess, setIsAddCategorySuccess] = useState<boolean>(false);
+	const [isDeleteTargetModalOpen, setIsDeleteTargetModalOpen] = useState<boolean>(false);
+	const [isDeleteTargetSuccess, setIsDeleteTargetSuccess] = useState<boolean>(false);
+	const [savingsTargetName, setSavingsTargetName] = useState<string>("");
+	const [savingsTargetId, setSavingsTargetId] = useState<string>("");
 
 	const interval = 2000;
 
@@ -228,6 +234,28 @@ function Savings() {
 		}
 	};
 
+	const deleteSavingsCategory = async (id: string) => {
+		try {
+			if (baseUrl && id !== null) {
+				const response = await removeSavingsTarget(baseUrl, String(id));
+				if (response.status === axios.HttpStatusCode.Ok) {
+					setIsDeleteTargetModalOpen(false);
+					setIsDeleteTargetSuccess(true);
+				}
+			}
+		} catch (error) {
+			if (
+				axios.isAxiosError(error) &&
+				error.response &&
+				error.response.status &&
+				error.response.status >= axios.HttpStatusCode.InternalServerError &&
+				error.response.status < ApiResponseCode.SERVER_ERROR_STATUS_MAX
+			) {
+				router.push(MainPath.ServerError);
+			}
+		}
+	};
+
 	useEffect(() => {
 		setBaseUrl(getCorrectBaseUrl());
 	}, []);
@@ -238,10 +266,10 @@ function Savings() {
 
 	useEffect(() => {
 		getAllTargets();
-		if (isAddCategorySuccess) {
+		if (isAddCategorySuccess || isDeleteTargetSuccess) {
 			getAllTargets();
 		}
-	}, [getAllTargets, isAddCategorySuccess]);
+	}, [getAllTargets, isAddCategorySuccess, isDeleteTargetSuccess]);
 
 	useEffect(() => {
 		getAllCategoriesOptions();
@@ -253,6 +281,11 @@ function Savings() {
 	useEffect(() => {
 		getFiveOperations();
 	}, [getFiveOperations]);
+
+	const handleIdName = (id: number, name: string) => {
+		setSavingsTargetName(name);
+		setSavingsTargetId(String(id));
+	};
 
 	function renderSavingsStatus(status: SavingsTargetStatus) {
 		return status === SavingsTargetStatus.inProgress
@@ -386,6 +419,7 @@ function Savings() {
 									placeholder="Выберите категорию"
 									control={control}
 									onAddCategory={() => setIsCategoryModalOpen(true)}
+									onRemoveCategory={(id, name) => [setIsDeleteTargetModalOpen(true), handleIdName(id, name)]}
 								/>
 							</div>
 							<div className={styles.savingsDetailsContainer__sum}>
@@ -434,6 +468,15 @@ function Savings() {
 						open={isAddCategoryModalOpen}
 						onCancelClick={() => setIsCategoryModalOpen(false)}
 						request={addSavingsCategory}
+					/>
+				)}
+				{isDeleteTargetModalOpen && (
+					<CategoryDeleteModal
+						open={isDeleteTargetModalOpen}
+						category={savingsTargetName}
+						id={savingsTargetId}
+						requestDeleteApi={deleteSavingsCategory}
+						onCancelClick={() => setIsDeleteTargetModalOpen(false)}
 					/>
 				)}
 				<div className={styles.savingsTransactionWrapper}>

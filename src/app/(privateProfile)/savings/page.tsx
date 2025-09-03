@@ -477,6 +477,8 @@ function Savings() {
 						id={savingsTargetId}
 						requestDeleteApi={deleteSavingsCategory}
 						onCancelClick={() => setIsDeleteTargetModalOpen(false)}
+						requestArchiveApi={() => undefined}
+						operations={[]}
 					/>
 				)}
 				<div className={styles.savingsTransactionWrapper}>

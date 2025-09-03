@@ -160,10 +160,10 @@ export interface ICategoryDeleteModal {
 	open: boolean;
 	category: string;
 	id: string;
-	requestArchiveApi?: (id: string, data: IArchiveCategory) => Promise<void>;
+	requestArchiveApi: (id: string, data: IArchiveCategory) => Promise<void>;
 	requestDeleteApi: (id: string, name: string) => Promise<void>;
 	onCancelClick: () => void;
-	operations?: IOperation[];
+	operations: IOperation[];
 }
 
 export interface IHighlightWrapper {

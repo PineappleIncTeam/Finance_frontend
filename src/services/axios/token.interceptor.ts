@@ -5,6 +5,7 @@ import { AuthTypes } from "../../types/pages/Authorization";
 import { refreshToken } from "../api/auth/refreshToken";
 import { baseLogoutUser } from "../api/auth/baseLogoutUser";
 import { MainPath } from "../router/routes";
+import { mockLocalhostStr, mockLocalhostUrl } from "../api/auth/apiConstants";
 
 declare module "axios" {
 	// eslint-disable-next-line @typescript-eslint/naming-convention
@@ -72,12 +73,16 @@ axios.interceptors.response.use(
 						// vk auth logout
 					}
 				} catch (error) {
+					const isLocalhost =
+						window.location.hostname.includes(mockLocalhostStr) || window.location.hostname.includes(mockLocalhostUrl);
+
 					if (
 						axios.isAxiosError(error) &&
 						error.response &&
 						error.response.status &&
 						error.response.status >= axios.HttpStatusCode.BadRequest &&
-						error.response.status < axios.HttpStatusCode.InternalServerError
+						error.response.status < axios.HttpStatusCode.InternalServerError &&
+						!isLocalhost
 					) {
 						window.location.href = MainPath.Login;
 					}

@@ -5,7 +5,7 @@ export const signupEndpoint = "api/v1/auth/users/";
 export const signInEndpoint = "api/v1/auth/login/";
 export const logoutEndpoint = "api/v1/auth/logout/";
 export const refreshTokenEndpoint = "api/v1/auth/refresh/";
-export const validateTokenEndpoint = "api/v1/auth/users/me/";
+export const validateTokenEndpoint = "api/v1/auth/auth/check/";
 export const userActivationEndpoint = "api/v1/auth/users/activation/";
 
 export const resetPasswordWithEmailEndPoint = "api/v1/auth/users/reset_password/";

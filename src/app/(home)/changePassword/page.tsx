@@ -59,18 +59,35 @@ export default function ChangePassword() {
 		return value === password || errorPasswordRepeat;
 	};
 
-	const saveButtonClick = async (data: IChangePassword) => {
+	const handleChangePasswordModal = () => {
+		setIsChangePasswordModalShown(true);
+		setTimeout(async () => {
+			await setIsChangePasswordModalShown(false);
+			router.push(MainPath.Login);
+		}, secondsCount);
+	};
+
+	const onSubmit = async (data: IChangePasswordForm) => {
+		const apiData: IChangePassword = {
+			// eslint-disable-next-line camelcase
+			new_password: data.password,
+			// eslint-disable-next-line camelcase
+			re_new_password: data.re_password,
+			token: token ?? "",
+			uid: uid ?? "",
+		};
+
 		try {
 			const isLocalhost =
 				window.location.hostname.includes(mockLocalhostStr) || window.location.hostname.includes(mockLocalhostUrl);
 			if (baseUrl && !isLocalhost && uid && token) {
-				data.uid = uid;
-				data.token = token;
-				await setNewPassword(baseUrl, data);
-				router.push(MainPath.Login);
+				apiData.uid = uid;
+				apiData.token = token;
+				await setNewPassword(baseUrl, apiData);
+				handleChangePasswordModal();
 			}
 		} catch (error) {
-			if (isAxiosError(error) && error?.response?.status === axios.HttpStatusCode.BadRequest) {
+			if (isAxiosError(error) && error?.response?.status === axios.HttpStatusCode.Forbidden) {
 				setError("password", {
 					type: "server",
 					message: errorUidOrToken,
@@ -84,25 +101,6 @@ export default function ChangePassword() {
 				return router.push(MainPath.ServerError);
 			}
 		}
-	};
-
-	const onSubmit = async (data: IChangePasswordForm) => {
-		const apiData: IChangePassword = {
-			// eslint-disable-next-line camelcase
-			new_password: data.password,
-			// eslint-disable-next-line camelcase
-			re_new_password: data.re_password,
-			token: token ?? "",
-			uid: uid ?? "",
-		};
-		await saveButtonClick(apiData);
-		handleChangePasswordModal();
-		reset();
-	};
-
-	const handleChangePasswordModal = () => {
-		setIsChangePasswordModalShown(true);
-		setTimeout(() => setIsChangePasswordModalShown(false), secondsCount);
 	};
 
 	return (

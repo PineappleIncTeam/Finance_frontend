@@ -4,7 +4,7 @@ import { targetsEndPoint } from "../auth/apiConstants";
 import { ISavingsTargetAddForm } from "../../../types/pages/Savings";
 
 export const addSavingsTarget = async (baseUrl: string, data: ISavingsTargetAddForm) => {
-	return await axios(`${baseUrl}/${targetsEndPoint}`, {
+	return await axios(`${baseUrl}/${targetsEndPoint}/`, {
 		method: "POST",
 		data: data,
 		headers: {

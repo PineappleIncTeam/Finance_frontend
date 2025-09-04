@@ -112,7 +112,7 @@ export interface ICategoryOption {
 
 export interface ICategorySelect<T extends FieldValues> {
 	label: string;
-	options: ICategoryOption[];
+	options: ICategoryOption[] | ISavingsTargetName[];
 	control: Control<T>;
 	name: Path<T>;
 	placeholder?: string;
@@ -180,4 +180,8 @@ export interface ISavingsCategory {
 	open: boolean;
 	request: (data: ISavingsTargetAddForm) => Promise<void>;
 	onCancelClick: () => void;
+}
+
+export interface ISavingsTargetName {
+	name: string;
 }

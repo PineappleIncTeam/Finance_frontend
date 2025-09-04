@@ -36,11 +36,10 @@ import { MainPath } from "../../../services/router/routes";
 
 import { ITarget } from "../../../types/api/Savings";
 import { getTargetsAll } from "../../../services/api/userProfile/getAllTargets";
-import { ICategoryOption } from "../../../types/common/ComponentsProps";
+import { ISavingsTargetName } from "../../../types/common/ComponentsProps";
 import { IOperation } from "../../../types/api/Expenses";
 import { SavingsAddTargetModal } from "../../../components/userProfileLayout/savingsCategory/savingsCategory";
 import { SavingsTargetStatus, SavingsTargetStatusName } from "../../../helpers/targetStatus";
-import { getAllExpensesCategories } from "../../../services/api/userProfile/getAllExpensesCategories";
 import { getFiveExpensesTransactions } from "../../../services/api/userProfile/getFiveExpensesTransactions";
 import { addSavingsTarget } from "../../../services/api/auth/addSavingsTarget";
 import { removeSavingsTarget } from "../../../services/api/userProfile/removeSavingsTarget";
@@ -71,7 +70,7 @@ function Savings() {
 	const { request } = handleLogout(baseUrl);
 	const { resetTimer } = useLogoutTimer(request);
 	const [allTargets, setAllTargets] = useState<ITarget[]>([]);
-	const [options, setOptions] = useState<ICategoryOption[]>([]);
+	const [allTargetsNames, setAllTargetsNames] = useState<ISavingsTargetName[]>([]);
 	const [fiveOperations, setFiveOperations] = useState<IOperation[]>([]);
 	const [isAddCategoryModalOpen, setIsCategoryModalOpen] = useState<boolean>(false);
 	const [isAddCategorySuccess, setIsAddCategorySuccess] = useState<boolean>(false);
@@ -158,33 +157,6 @@ function Savings() {
 		}
 	}, [baseUrl, router]);
 
-	const getAllCategoriesOptions = useCallback(async () => {
-		const data = {
-			// eslint-disable-next-line camelcase
-			is_income: true,
-			// eslint-disable-next-line camelcase
-			is_outcome: false,
-		};
-		try {
-			if (baseUrl) {
-				const response: AxiosResponse<ICategoryOption[]> = await getAllExpensesCategories(baseUrl, data);
-				if (response !== null && response.status === axios.HttpStatusCode.Ok) {
-					setOptions(response.data);
-				}
-			}
-		} catch (error) {
-			if (
-				axios.isAxiosError(error) &&
-				error.response &&
-				error.response.status &&
-				error.response.status >= axios.HttpStatusCode.InternalServerError &&
-				error.response.status < ApiResponseCode.SERVER_ERROR_STATUS_MAX
-			) {
-				router.push(MainPath.ServerError);
-			}
-		}
-	}, [baseUrl, router]);
-
 	const getFiveOperations = useCallback(async () => {
 		const data = {
 			type: "targets",
@@ -256,6 +228,11 @@ function Savings() {
 		}
 	};
 
+	const getTargetsNames = useCallback((targets: ITarget[]) => {
+		const names: ISavingsTargetName[] = targets.map((target) => ({ name: target.name }));
+		return setAllTargetsNames(names ?? []);
+	}, []);
+
 	useEffect(() => {
 		setBaseUrl(getCorrectBaseUrl());
 	}, []);
@@ -266,17 +243,12 @@ function Savings() {
 
 	useEffect(() => {
 		getAllTargets();
+		getTargetsNames(allTargets);
 		if (isAddCategorySuccess || isDeleteTargetSuccess) {
 			getAllTargets();
+			getTargetsNames(allTargets);
 		}
-	}, [getAllTargets, isAddCategorySuccess, isDeleteTargetSuccess]);
-
-	useEffect(() => {
-		getAllCategoriesOptions();
-		if (isAddCategorySuccess) {
-			getAllCategoriesOptions();
-		}
-	}, [getAllCategoriesOptions, isAddCategorySuccess]);
+	}, [getAllTargets, getTargetsNames, allTargets, isAddCategorySuccess, isDeleteTargetSuccess]);
 
 	useEffect(() => {
 		getFiveOperations();
@@ -415,7 +387,7 @@ function Savings() {
 								<CategorySelect
 									name={"name"}
 									label={"Накопления"}
-									options={options}
+									options={allTargetsNames}
 									placeholder="Выберите категорию"
 									control={control}
 									onAddCategory={() => setIsCategoryModalOpen(true)}

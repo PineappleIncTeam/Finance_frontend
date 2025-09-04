@@ -1,7 +1,10 @@
 import { useForm } from "react-hook-form";
 import Image from "next/image";
 
-import { IUserAvatar } from "../../../../types/pages/userProfileSettings";
+import useAppDispatch from "../../../../hooks/useAppDispatch";
+import { userDataActions } from "../../../../services/redux/features/userData/UserDataActions";
+import { IPrivateAppSettings, IUserAvatar } from "../../../../types/pages/userProfileSettings";
+
 import { InputTypeList } from "../../../../helpers/Input";
 import { avatarTemplates } from "../../../../mocks/AvatarTemplates";
 
@@ -15,10 +18,21 @@ import { ButtonType } from "../../../../helpers/buttonFieldValues";
 import styles from "./privateProfileAvatarSettings.module.scss";
 
 export const PrivateProfileAvatarSettings = () => {
+	const dispatch = useAppDispatch();
+	const { handleSubmit } = useForm<IPrivateAppSettings>({ mode: "all", delayError: 200 });
 	const { register } = useForm<IUserAvatar>({
 		mode: "all",
 		delayError: 200,
 	});
+
+	const onSubmit = (data: IPrivateAppSettings) => {
+		const payload = {
+			currency: data.currency,
+			theme: data.darkTheme ? "dark" : "light",
+			assistant: data.finAssistant,
+		};
+		dispatch(userDataActions.update({ settings: payload }));
+	};
 
 	return (
 		<form className={styles.avatarForm}>
@@ -34,6 +48,7 @@ export const PrivateProfileAvatarSettings = () => {
 									id="userAvatar"
 									className={styles.avatar__input}
 									{...register("personalAvatar")}
+									onSubmit={handleSubmit(onSubmit)}
 								/>
 								<Image src={editProfileIcon} alt={"editProfile"} className={styles.avatar__editIcon} />
 							</label>

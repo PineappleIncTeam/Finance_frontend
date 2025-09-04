@@ -3,6 +3,7 @@ export interface IPrivateDataFrom {
 	gender: string;
 	country: string;
 	email: string;
+	avatar: string;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars

@@ -12,8 +12,8 @@ import Button from "../../../../ui/Button/Button1";
 import { ButtonType } from "../../../../helpers/buttonFieldValues";
 import { InputTypeList } from "../../../../helpers/Input";
 
-import { userDataActions } from "../../../../services/redux/features/userData/userDataActions";
-import { userSelector } from "../../../../services/redux/features/userData/userDataSelector";
+import { userDataActions } from "../../../../services/redux/features/userData/UserDataActions";
+import { userSelector } from "../../../../services/redux/features/userData/UserDataSelector";
 
 import styles from "./privateProfilePrivateData.module.scss";
 
@@ -28,10 +28,11 @@ export const PrivateProfilePrivateData = () => {
 		reset,
 	} = useForm<IPrivateDataFrom>({
 		defaultValues: {
-			nickname: userData.nickname,
-			country: userData.country,
-			gender: userData.gender,
-			email: userData.email,
+			nickname: userData?.nickname || "",
+			country: userData?.country || "",
+			gender: userData?.gender || "male",
+			email: userData?.email || "",
+			avatar: userData?.avatar || "",
 		},
 		mode: "all",
 		delayError: 200,
@@ -43,10 +44,11 @@ export const PrivateProfilePrivateData = () => {
 
 	useEffect(() => {
 		reset({
-			nickname: userData.nickname,
-			country: userData.country,
-			gender: userData.gender,
-			email: userData.email,
+			nickname: userData?.nickname || "",
+			country: userData?.country || "",
+			gender: userData?.gender || "male",
+			email: userData?.email || "",
+			avatar: userData?.avatar || "",
 		});
 	}, [userData, reset]);
 
@@ -56,6 +58,7 @@ export const PrivateProfilePrivateData = () => {
 				nickname: data.nickname,
 				country: data.country,
 				gender: data.gender,
+				avatar: data.avatar,
 			}),
 		);
 	};

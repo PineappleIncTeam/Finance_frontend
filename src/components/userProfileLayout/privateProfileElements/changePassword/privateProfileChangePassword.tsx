@@ -12,6 +12,8 @@ import { passwordValidate } from "../../../../utils/passwordValidate";
 import Button from "../../../../ui/Button/Button1";
 import { ButtonType } from "../../../../helpers/buttonFieldValues";
 
+import { changePassword } from "../../../../services/api/auth/changePassword";
+
 import styles from "./privateProfileChangePassword.module.scss";
 
 export const PrivateProfileChangePassword = () => {
@@ -31,7 +33,11 @@ export const PrivateProfileChangePassword = () => {
 	});
 
 	const onSubmit = async (data: IChangePasswordForm) => {
-		return data;
+		try {
+			await changePassword({ oldPassword: data.oldPassword, newPassword: data.newPassword });
+		} catch (e) {
+			console.error(e);
+		}
 	};
 
 	const validateRepeatPassword = (value: string | boolean | undefined) => {

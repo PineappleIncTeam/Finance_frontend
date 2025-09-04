@@ -1,5 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+import { userDataActions } from "./UserDataActions";
+
 // const authTokenStorage = localStorage.getItem("token");
 // const balanceSum = localStorage.getItem("balans");
 
@@ -14,8 +16,14 @@ interface IUserState {
 		nickname: string;
 		country: string;
 		gender: string;
+		avatar?: string;
 		loading: boolean;
 		error: string | null;
+	};
+	settings: {
+		currency: string;
+		theme: string;
+		assistant: boolean;
 	};
 }
 
@@ -32,6 +40,11 @@ const initialState: IUserState = {
 		gender: "",
 		loading: false,
 		error: null,
+	},
+	settings: {
+		currency: "",
+		theme: "",
+		assistant: false,
 	},
 };
 
@@ -56,6 +69,24 @@ const userSlice = createSlice({
 		costsBalance(state, action) {
 			state.balanceCosts = action.payload.balanceCosts;
 		},
+	},
+	extraReducers: (builder) => {
+		builder
+			.addCase(userDataActions.pending, (state) => {
+				state.userData.loading = true;
+				state.userData.error = null;
+			})
+			.addCase(userDataActions.fulfilled, (state, action) => {
+				state.userData.loading = false;
+				state.userData = {
+					...state.userData,
+					...action.payload,
+				};
+			})
+			.addCase(userDataActions.rejected, (state, action) => {
+				state.userData.loading = false;
+				state.userData.error = action.payload || "Ошибка при загрузке данных";
+			});
 	},
 });
 

@@ -92,7 +92,6 @@ export default function ChangePassword() {
 					type: "server",
 					message: errorUidOrToken,
 				});
-				reset();
 			} else if (
 				axios.isAxiosError(error) &&
 				error.response &&

@@ -1,4 +1,3 @@
-/* eslint-disable camelcase */
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
@@ -36,7 +35,6 @@ import { MainPath } from "../../../services/router/routes";
 
 import { ITarget } from "../../../types/api/Savings";
 import { getTargetsAll } from "../../../services/api/userProfile/getAllTargets";
-import { ISavingsTargetName } from "../../../types/common/ComponentsProps";
 import { IOperation } from "../../../types/api/Expenses";
 import { SavingsAddTargetModal } from "../../../components/userProfileLayout/savingsCategory/savingsCategory";
 import { SavingsTargetStatus, SavingsTargetStatusName } from "../../../helpers/targetStatus";
@@ -70,7 +68,6 @@ function Savings() {
 	const { request } = handleLogout(baseUrl);
 	const { resetTimer } = useLogoutTimer(request);
 	const [allTargets, setAllTargets] = useState<ITarget[]>([]);
-	const [allTargetsNames, setAllTargetsNames] = useState<ISavingsTargetName[]>([]);
 	const [fiveOperations, setFiveOperations] = useState<IOperation[]>([]);
 	const [isAddCategoryModalOpen, setIsCategoryModalOpen] = useState<boolean>(false);
 	const [isAddCategorySuccess, setIsAddCategorySuccess] = useState<boolean>(false);
@@ -228,11 +225,6 @@ function Savings() {
 		}
 	};
 
-	const getTargetsNames = useCallback((targets: ITarget[]) => {
-		const names: ISavingsTargetName[] = targets.map((target) => ({ name: target.name }));
-		return setAllTargetsNames(names ?? []);
-	}, []);
-
 	useEffect(() => {
 		setBaseUrl(getCorrectBaseUrl());
 	}, []);
@@ -243,12 +235,10 @@ function Savings() {
 
 	useEffect(() => {
 		getAllTargets();
-		getTargetsNames(allTargets);
 		if (isAddCategorySuccess || isDeleteTargetSuccess) {
 			getAllTargets();
-			getTargetsNames(allTargets);
 		}
-	}, [getAllTargets, getTargetsNames, allTargets, isAddCategorySuccess, isDeleteTargetSuccess]);
+	}, [getAllTargets, isAddCategorySuccess, isDeleteTargetSuccess]);
 
 	useEffect(() => {
 		getFiveOperations();
@@ -387,7 +377,7 @@ function Savings() {
 								<CategorySelect
 									name={"name"}
 									label={"Накопления"}
-									options={allTargetsNames}
+									options={allTargets}
 									placeholder="Выберите категорию"
 									control={control}
 									onAddCategory={() => setIsCategoryModalOpen(true)}

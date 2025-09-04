@@ -8,6 +8,7 @@ import { IArchiveCategory } from "../pages/Expenses";
 import { IOperation } from "../api/Expenses";
 import { CategoryType } from "../../helpers/categoryTypes";
 import { ISavingsTargetAddForm } from "../pages/Savings";
+import { ITarget } from "../api/Savings";
 
 export type CustomLayout = () => Element;
 
@@ -112,7 +113,7 @@ export interface ICategoryOption {
 
 export interface ICategorySelect<T extends FieldValues> {
 	label: string;
-	options: ICategoryOption[] | ISavingsTargetName[];
+	options: ICategoryOption[] | ITarget[];
 	control: Control<T>;
 	name: Path<T>;
 	placeholder?: string;

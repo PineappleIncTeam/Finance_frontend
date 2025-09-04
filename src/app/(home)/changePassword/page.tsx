@@ -70,7 +70,7 @@ export default function ChangePassword() {
 				router.push(MainPath.Login);
 			}
 		} catch (error) {
-			if (isAxiosError(error) && error?.response?.status === axios.HttpStatusCode.BadRequest) {
+			if (isAxiosError(error) && error?.response?.status === axios.HttpStatusCode.Forbidden) {
 				setError("password", {
 					type: "server",
 					message: errorUidOrToken,

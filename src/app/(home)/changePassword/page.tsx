@@ -59,31 +59,12 @@ export default function ChangePassword() {
 		return value === password || errorPasswordRepeat;
 	};
 
-	const saveButtonClick = async (data: IChangePassword) => {
-		try {
-			const isLocalhost =
-				window.location.hostname.includes(mockLocalhostStr) || window.location.hostname.includes(mockLocalhostUrl);
-			if (baseUrl && !isLocalhost && uid && token) {
-				data.uid = uid;
-				data.token = token;
-				await setNewPassword(baseUrl, data);
-				router.push(MainPath.Login);
-			}
-		} catch (error) {
-			if (isAxiosError(error) && error?.response?.status === axios.HttpStatusCode.Forbidden) {
-				setError("password", {
-					type: "server",
-					message: errorUidOrToken,
-				});
-			} else if (
-				axios.isAxiosError(error) &&
-				error.response &&
-				error.response.status >= ApiResponseCode.SERVER_ERROR_STATUS_MIN &&
-				error.response.status < ApiResponseCode.SERVER_ERROR_STATUS_MAX
-			) {
-				return router.push(MainPath.ServerError);
-			}
-		}
+	const handleChangePasswordModal = () => {
+		setIsChangePasswordModalShown(true);
+		setTimeout(async () => {
+			await setIsChangePasswordModalShown(false);
+			router.push(MainPath.Login);
+		}, secondsCount);
 	};
 
 	const onSubmit = async (data: IChangePasswordForm) => {
@@ -95,14 +76,32 @@ export default function ChangePassword() {
 			token: token ?? "",
 			uid: uid ?? "",
 		};
-		await saveButtonClick(apiData);
-		handleChangePasswordModal();
-		reset();
-	};
 
-	const handleChangePasswordModal = () => {
-		setIsChangePasswordModalShown(true);
-		setTimeout(() => setIsChangePasswordModalShown(false), secondsCount);
+		try {
+			const isLocalhost =
+				window.location.hostname.includes(mockLocalhostStr) || window.location.hostname.includes(mockLocalhostUrl);
+			if (baseUrl && !isLocalhost && uid && token) {
+				apiData.uid = uid;
+				apiData.token = token;
+				await setNewPassword(baseUrl, apiData);
+				handleChangePasswordModal();
+			}
+		} catch (error) {
+			if (isAxiosError(error) && error?.response?.status === axios.HttpStatusCode.Forbidden) {
+				setError("password", {
+					type: "server",
+					message: errorUidOrToken,
+				});
+				reset();
+			} else if (
+				axios.isAxiosError(error) &&
+				error.response &&
+				error.response.status >= ApiResponseCode.SERVER_ERROR_STATUS_MIN &&
+				error.response.status < ApiResponseCode.SERVER_ERROR_STATUS_MAX
+			) {
+				return router.push(MainPath.ServerError);
+			}
+		}
 	};
 
 	return (

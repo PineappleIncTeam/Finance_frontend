@@ -249,6 +249,7 @@ export default function Expenses() {
 		};
 		try {
 			if (baseUrl && data !== null) {
+				console.log(data);
 				const response = await addExpensesCategoryTransaction(baseUrl, transactionData);
 				if (response.status === axios.HttpStatusCode.Created) {
 					setIsOpen(false);

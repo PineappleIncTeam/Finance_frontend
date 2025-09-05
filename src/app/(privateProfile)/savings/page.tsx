@@ -39,9 +39,11 @@ import { IOperation } from "../../../types/api/Expenses";
 import { SavingsAddTargetModal } from "../../../components/userProfileLayout/savingsCategory/savingsCategory";
 import { SavingsTargetStatus, SavingsTargetStatusName } from "../../../helpers/targetStatus";
 import { getFiveExpensesTransactions } from "../../../services/api/userProfile/getFiveExpensesTransactions";
-import { addSavingsTarget } from "../../../services/api/auth/addSavingsTarget";
+import { addSavingsTarget } from "../../../services/api/userProfile/addSavingsTarget";
 import { removeSavingsTarget } from "../../../services/api/userProfile/removeSavingsTarget";
 import { CategoryDeleteModal } from "../../../components/userProfileLayout/categoryDelete/categoryDelete";
+import { editSavingsCurrentSum } from "../../../services/api/userProfile/editSavingsCurrentSum";
+import { getCurrentDate } from "../../../utils/getCurrentDate";
 
 import styles from "./savings.module.scss";
 
@@ -77,6 +79,7 @@ function Savings() {
 	const [savingsTargetId, setSavingsTargetId] = useState<string>("");
 
 	const interval = 2000;
+	const endDate = 10;
 
 	const router = useRouter();
 	const handleEditClick = ({ index, field, value }: IEditActionProps) => {
@@ -116,11 +119,11 @@ function Savings() {
 		);
 	};
 	const onSubmit = async (data: ISavingsSelectForm & ISavingsTargetAddForm) => {
-		console.log(data);
 		resetTimer();
+		((data.date = getCurrentDate(endDate)), console.log(data));
 		try {
 			if (baseUrl && data !== null) {
-				await addSavingsTarget(baseUrl, data);
+				await editSavingsCurrentSum(baseUrl, data);
 			}
 		} catch (error) {
 			if (

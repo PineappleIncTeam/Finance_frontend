@@ -116,6 +116,7 @@ function Savings() {
 		);
 	};
 	const onSubmit = async (data: ISavingsSelectForm & ISavingsTargetAddForm) => {
+		console.log(data);
 		resetTimer();
 		try {
 			if (baseUrl && data !== null) {

@@ -15,7 +15,6 @@ import autoLoginSelector from "../../../services/redux/features/autoLogin/autoLo
 import { validateToken } from "../../../services/api/auth/validateToken";
 import { MainPath, UserProfilePath } from "../../../services/router/routes";
 import { mockLocalhostStr, mockLocalhostUrl } from "../../../services/api/auth/apiConstants";
-import { ApiResponseCode } from "../../../helpers/apiResponseCode";
 
 import logo from "../../../assets/layouts/main/logo.webp";
 import burger from "../../../assets/layouts/main/burger.svg";
@@ -68,7 +67,7 @@ const MainHeader = () => {
 				error.response &&
 				error.response.status &&
 				error.response.status >= axios.HttpStatusCode.InternalServerError &&
-				error.response.status < ApiResponseCode.SERVER_ERROR_STATUS_MAX
+				error.response.status <= axios.HttpStatusCode.NetworkAuthenticationRequired
 			) {
 				return router.push(MainPath.ServerError);
 			}

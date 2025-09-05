@@ -13,7 +13,7 @@ import InputDate from "../../../ui/inputDate/inputDate";
 import { Selector } from "../../../ui/selector/Selector";
 import { IAnalyticsInputForm } from "../../../types/pages/Analytics";
 import { InputTypeList } from "../../../helpers/Input";
-import generateRandomColors from "../../../utils/generateRandomColor";
+import { generateRandomColors } from "../../../utils/generateRandomColor";
 import { analyticsIncomeTransactions } from "../../../mocks/AnalyticsIncomeTransaction";
 import { analyticsExpensesTransactions } from "../../../mocks/AnalyticsExpensesTransaction";
 import { analyticsSavingsTransactions } from "../../../mocks/AnalyticsSavingsTransaction";

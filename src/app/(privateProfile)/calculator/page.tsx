@@ -10,7 +10,7 @@ import { useLogoutTimer } from "../../../hooks/useLogoutTimer";
 import { formatCalculateNumber } from "../../../utils/formatCalculateNumber";
 import { getCorrectBaseUrl } from "../../../utils/baseUrlConverter";
 import { InputTypeList } from "../../../helpers/Input";
-import handleLogout from "../../../helpers/logoutTimeoutHandler";
+import { useHandleLogout } from "../../../hooks/useHandleLogout";
 import Button from "../../../ui/Button/Button1";
 import { ButtonType } from "../../../helpers/buttonFieldValues";
 
@@ -27,7 +27,7 @@ export default function Calculator() {
 	const [isMobile, setIsMobile] = useState(window.innerWidth <= mobileSCreenWidthValue);
 	const [activeButton, setActiveButton] = useState<string | null>("realEstate");
 	const [baseUrl, setBaseUrl] = useState<string>();
-	const { request } = handleLogout(baseUrl);
+	const { request } = useHandleLogout(baseUrl);
 	const { resetTimer } = useLogoutTimer(request);
 
 	useEffect(() => {

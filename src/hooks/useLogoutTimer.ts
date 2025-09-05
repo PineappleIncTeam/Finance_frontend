@@ -3,8 +3,9 @@ import { useCallback, useEffect, useRef } from "react";
 import { TCommonFunction, TTimerRefState } from "../types/components/ComponentsTypes";
 
 /**
- * @category Auth Hooks
+ * @category Authentication Hooks
  *
+ * @description
  * Хук для автоматического выхода пользователя после периода неактивности.
  * Создает таймер, который вызывает переданный callback через заданное время (по умолчанию 15 минут).
  * Предоставляет метод для сброса таймера при активности пользователя.

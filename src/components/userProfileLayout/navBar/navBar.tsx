@@ -13,7 +13,6 @@ import { AuthTypes } from "../../../types/pages/Authorization";
 import { INavBar } from "../../../types/common/ComponentsProps";
 import { baseLogoutUser } from "../../../services/api/auth/baseLogoutUser";
 import { MainPath, UserProfilePath } from "../../../services/router/routes";
-import { ApiResponseCode } from "../../../helpers/apiResponseCode";
 import { COLORS } from "../../../helpers/colorSet";
 import { getCorrectBaseUrl } from "../../../utils/baseUrlConverter";
 
@@ -66,7 +65,7 @@ const NavBar = ({ onClick }: INavBar) => {
 				error.response &&
 				error.response.status &&
 				error.response.status >= axios.HttpStatusCode.InternalServerError &&
-				error.response.status < ApiResponseCode.SERVER_ERROR_STATUS_MAX
+				error.response.status <= axios.HttpStatusCode.NetworkAuthenticationRequired
 			) {
 				return router.push(MainPath.ServerError);
 			}

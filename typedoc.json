@@ -1,7 +1,11 @@
 {
     "entryPoints": [
         "./src/hooks/*",
-        "./src/services/redux/hooks/*"
+        "./src/services/redux/hooks/*",
+        "./src/utils/formatData.ts",
+        "./src/utils/generateAuthTokens.ts",
+        "./src/utils/generateRandomColor.tsx",
+        "./src/utils/formatCalculateNumber.ts",
     ],
     "out": "docs",
     "categoryOrder": ["UI Utilities", "Auth Utilities", "Other"],

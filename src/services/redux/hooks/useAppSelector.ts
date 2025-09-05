@@ -5,6 +5,7 @@ import { RootState } from "..";
 /**
  * @category Redux Hooks
  *
+ * @description
  * Типизированная версия хука `useSelector` для Redux, привязанная к типу состояния вашего хранилища.
  * Обеспечивает типобезопасность при выборке данных из Redux-стора.
  *

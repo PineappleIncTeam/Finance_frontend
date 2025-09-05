@@ -23,7 +23,7 @@ import AddButton from "../../../components/userProfileLayout/addButton/addButton
 import { savingsTransactions } from "../../../mocks/SavingsTransaction";
 import { InputTypeList } from "../../../helpers/Input";
 import { getCorrectBaseUrl } from "../../../utils/baseUrlConverter";
-import handleLogout from "../../../helpers/logoutTimeoutHandler";
+import { useHandleLogout } from "../../../hooks/useHandleLogout";
 
 import { EditIcon } from "../../../assets/script/expenses/EditIcon";
 import { CheckIcon } from "../../../assets/script/savings/CheckIcon";
@@ -51,7 +51,7 @@ function Savings() {
 	const [sortOrder, setSortOrder] = useState<SortOrderStateValue>(SortOrderStateValue.asc);
 	const [sortTargetOrder, setSortTargetOrder] = useState<SortOrderStateValue>(SortOrderStateValue.asc);
 	const [baseUrl, setBaseUrl] = useState<string>();
-	const { request } = handleLogout(baseUrl);
+	const { request } = useHandleLogout(baseUrl);
 	const { resetTimer } = useLogoutTimer(request);
 
 	const initialItems = [

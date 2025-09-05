@@ -6,6 +6,9 @@ import { MouseEvent, ReactNode } from "react";
 import { IAddCategoryExpensesForm, IEditTransactionForm } from "../components/ComponentsTypes";
 import { IArchiveCategory } from "../pages/Expenses";
 import { IOperation } from "../api/Expenses";
+import { CategoryType } from "../../helpers/categoryTypes";
+import { ISavingsTargetAddForm } from "../pages/Savings";
+import { ITarget } from "../api/Savings";
 
 export type CustomLayout = () => Element;
 
@@ -110,7 +113,7 @@ export interface ICategoryOption {
 
 export interface ICategorySelect<T extends FieldValues> {
 	label: string;
-	options: ICategoryOption[];
+	options: ICategoryOption[] | ITarget[];
 	control: Control<T>;
 	name: Path<T>;
 	placeholder?: string;
@@ -122,6 +125,7 @@ export interface IAddCategory {
 	open: boolean;
 	request: (data: IAddCategoryExpensesForm) => Promise<void>;
 	onCancelClick: () => void;
+	type: CategoryType;
 }
 
 export interface ITransactionDelete {
@@ -157,7 +161,7 @@ export interface ICategoryDeleteModal {
 	open: boolean;
 	category: string;
 	id: string;
-	requestArchiveApi: (id: string, data: IArchiveCategory) => Promise<void>;
+	requestArchiveApi: (id: string, data: IArchiveCategory) => Promise<void> | undefined;
 	requestDeleteApi: (id: string, name: string) => Promise<void>;
 	onCancelClick: () => void;
 	operations: IOperation[];
@@ -171,4 +175,14 @@ export interface IHighlightWrapper {
 
 export interface ICurtainVk {
 	handleError: () => void;
+}
+
+export interface ISavingsCategory {
+	open: boolean;
+	request: (data: ISavingsTargetAddForm) => Promise<void>;
+	onCancelClick: () => void;
+}
+
+export interface ISavingsTargetName {
+	name: string;
 }

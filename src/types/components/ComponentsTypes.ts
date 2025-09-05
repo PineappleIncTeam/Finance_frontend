@@ -85,8 +85,8 @@ export interface ISavingsItem {
 }
 
 export enum SavingsFieldValues {
-	category = "category",
-	target = "target",
+	name = "name",
+	amount = "amount",
 }
 
 export enum SortOrderStateValue {
@@ -101,7 +101,7 @@ export type TIndexState = number | null;
 export interface IEditActionProps {
 	index: number;
 	field: SavingsFieldValues;
-	value: string;
+	value: string | number;
 }
 
 export type TCommonFunction = () => void;

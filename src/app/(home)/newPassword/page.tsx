@@ -15,7 +15,6 @@ import { InputTypeList } from "../../../helpers/Input";
 import { getCorrectBaseUrl } from "../../../utils/baseUrlConverter";
 import { resetPasswordWithEmail } from "../../../services/api/auth/resetPasswordWithEmail";
 import { MainPath } from "../../../services/router/routes";
-import { ApiResponseCode } from "../../../helpers/apiResponseCode";
 import Button from "../../../ui/Button/Button1";
 import { ButtonType } from "../../../helpers/buttonFieldValues";
 
@@ -80,8 +79,8 @@ export default function NewPassword() {
 			} else if (
 				isAxiosError(error) &&
 				error.response &&
-				error.response.status >= ApiResponseCode.SERVER_ERROR_STATUS_MIN &&
-				error.response.status < ApiResponseCode.SERVER_ERROR_STATUS_MAX
+				error.response.status >= axios.HttpStatusCode.InternalServerError &&
+				error.response.status <= axios.HttpStatusCode.NetworkAuthenticationRequired
 			) {
 				return router.push(MainPath.ServerError);
 			}

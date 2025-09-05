@@ -15,7 +15,6 @@ import { PrivateProfileSidebarMenu } from "../sidebarMenu/privateProfileSidebarM
 import { MainPath } from "../../../../services/router/routes";
 import { baseLogoutUser } from "../../../../services/api/auth/baseLogoutUser";
 import { getCorrectBaseUrl } from "../../../../utils/baseUrlConverter";
-import { ApiResponseCode } from "../../../../helpers/apiResponseCode";
 import { sidebarNavMenu } from "../../../../helpers/sidebarNavMenu";
 
 import userAvatar from "../../../../assets/components/userProfile/userPhoto.svg";
@@ -71,7 +70,7 @@ const PrivateProfileSidebarBlock = ({ avatar, name, balance }: IPrivateProfileSi
 				error.response &&
 				error.response.status &&
 				error.response.status >= axios.HttpStatusCode.InternalServerError &&
-				error.response.status < ApiResponseCode.SERVER_ERROR_STATUS_MAX
+				error.response.status <= axios.HttpStatusCode.NetworkAuthenticationRequired
 			) {
 				return router.push(MainPath.ServerError);
 			}

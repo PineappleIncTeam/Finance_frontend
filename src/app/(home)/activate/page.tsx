@@ -12,7 +12,6 @@ import { getCorrectBaseUrl } from "../../../utils/baseUrlConverter";
 import { mockLocalhostStr, mockLocalhostUrl } from "../../../services/api/auth/apiConstants";
 import { setUserActivation } from "../../../services/api/auth/setUserActivation";
 import { MainPath } from "../../../services/router/routes";
-import { ApiResponseCode } from "../../../helpers/apiResponseCode";
 
 import logo from "../../../assets/pages/activate/logo.webp";
 import warning from "../../../assets/pages/activate/warning.svg";
@@ -103,7 +102,7 @@ const Activate = () => {
 					error.response &&
 					error.response.status &&
 					error.response.status >= axios.HttpStatusCode.InternalServerError &&
-					error.response.status < ApiResponseCode.SERVER_ERROR_STATUS_MAX
+					error.response.status <= axios.HttpStatusCode.NetworkAuthenticationRequired
 				) {
 					return router.push(MainPath.ServerError);
 				}

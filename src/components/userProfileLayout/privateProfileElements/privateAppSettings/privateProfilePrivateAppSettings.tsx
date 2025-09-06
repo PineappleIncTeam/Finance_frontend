@@ -35,7 +35,7 @@ export const PrivateProfilePrivateAppSettings = () => {
 	const onSubmit = (data: IPrivateAppSettings) => {
 		const payload = {
 			currency: data.currency,
-			darkTheme: data.darkTheme ? "dark" : "light",
+			darkTheme: data.darkTheme,
 			finAssistant: data.finAssistant,
 		};
 		dispatch(userDataActions.update({ settings: payload }));

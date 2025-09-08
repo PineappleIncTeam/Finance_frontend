@@ -52,7 +52,6 @@ function Savings() {
 		defaultValues: {
 			amount: 0,
 			type: "savings",
-			id: null,
 		},
 		mode: "all",
 		delayError: 200,

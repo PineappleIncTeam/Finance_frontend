@@ -28,7 +28,6 @@ export const CategorySelect = <T extends FieldValues>({
 
 	const [isOpen, setIsOpen] = useState<boolean>(false);
 	const [selectedValue, setSelectedValue] = useState<number | null>(value);
-	const [selectedName, setSelectedName] = useState<string>(name);
 	const selectRef = useRef<HTMLDivElement>(null);
 
 	useEffect(() => {
@@ -49,11 +48,6 @@ export const CategorySelect = <T extends FieldValues>({
 		setSelectedValue(optionValue);
 		onChange(optionValue);
 		setIsOpen(false);
-	};
-
-	const handleNameOptionClick = (optionName: string) => {
-		setSelectedName(optionName);
-		onChange(optionName);
 	};
 
 	const toggleDropdown = () => {
@@ -83,7 +77,7 @@ export const CategorySelect = <T extends FieldValues>({
 							<div
 								key={index}
 								className={styles.selectContainer__option}
-								onClick={() => [handleOptionClick(option.id), handleNameOptionClick(option.name)]}
+								onClick={() => [handleOptionClick(option.id)]}
 								role="button">
 								<p className={styles.selectContainer__optionValue}>{option.name}</p>
 								<button
@@ -103,7 +97,7 @@ export const CategorySelect = <T extends FieldValues>({
 	}
 
 	const renderSelectedValue = () => {
-		const selectedOption = options.find((option) => option.id === selectedValue && option.name === selectedName);
+		const selectedOption = options.find((option) => option.id === selectedValue);
 		return selectedOption ? (
 			<span className={cn(styles.selectContainer__selectedValue)}>
 				<span className={styles.selectContainer__selectedText}>{selectedOption.name} </span>

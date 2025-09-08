@@ -7,9 +7,9 @@ import { AboutUsTeam } from "../../../mocks/AboutUsTeam";
 import styles from "./aboutUs.module.scss";
 
 function AboutUs() {
-	function renderCardsList(AboutUsTeam: ITeamMember[]) {
-		return AboutUsTeam.length ? (
-			AboutUsTeam.map(({ teamRole, photo }: IAboutUsCard) => (
+	function renderCardsList(aboutUsTeam: ITeamMember[]) {
+		return aboutUsTeam.length ? (
+			aboutUsTeam.map(({ teamRole, photo }: IAboutUsCard) => (
 				<AboutUsCard photo={photo} teamRole={teamRole} key={teamRole} />
 			))
 		) : (

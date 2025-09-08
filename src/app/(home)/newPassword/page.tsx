@@ -15,14 +15,13 @@ import { InputTypeList } from "../../../helpers/Input";
 import { getCorrectBaseUrl } from "../../../utils/baseUrlConverter";
 import { resetPasswordWithEmail } from "../../../services/api/auth/resetPasswordWithEmail";
 import { MainPath } from "../../../services/router/routes";
-import { ApiResponseCode } from "../../../helpers/apiResponseCode";
-import Button from "../../../ui/Button/Button1";
+import Button from "../../../ui/Button/Button";
 import { ButtonType } from "../../../helpers/buttonFieldValues";
 
 import styles from "./newPassword.module.scss";
 
 export default function NewPassword() {
-	const [isNewPasswordModalShown, setIsNewPasswordModalShown] = useState<boolean>(false);
+	const [isNewPasswordModalOpen, setIsNewPasswordModalOpen] = useState<boolean>(false);
 	const [email, setEmail] = useState<string>("");
 	const [baseUrl, setBaseUrl] = useState<string>();
 
@@ -56,7 +55,7 @@ export default function NewPassword() {
 	};
 
 	const newPasswordModalVisible = (prop: boolean) => {
-		setIsNewPasswordModalShown(prop);
+		setIsNewPasswordModalOpen(prop);
 	};
 
 	const isAxiosError = (error: unknown): error is AxiosError => {
@@ -80,8 +79,8 @@ export default function NewPassword() {
 			} else if (
 				isAxiosError(error) &&
 				error.response &&
-				error.response.status >= ApiResponseCode.SERVER_ERROR_STATUS_MIN &&
-				error.response.status < ApiResponseCode.SERVER_ERROR_STATUS_MAX
+				error.response.status >= axios.HttpStatusCode.InternalServerError &&
+				error.response.status <= axios.HttpStatusCode.NetworkAuthenticationRequired
 			) {
 				return router.push(MainPath.ServerError);
 			}
@@ -97,11 +96,7 @@ export default function NewPassword() {
 			<form className={styles.newPasswordFormContainer} onSubmit={handleSubmit(onSubmit)}>
 				<div className={styles.newPasswordFormContainer__content}>
 					<Title title={"Восстановление пароля"} />
-					<NewPasswordModal
-						email={email}
-						open={isNewPasswordModalShown}
-						toggle={() => newPasswordModalVisible(false)}
-					/>
+					<NewPasswordModal email={email} open={isNewPasswordModalOpen} toggle={() => newPasswordModalVisible(false)} />
 					<AuthInput
 						control={control}
 						label="Введите почту"

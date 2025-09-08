@@ -5,36 +5,35 @@ import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import axios, { isAxiosError } from "axios";
 import Link from "next/link";
-// import { env } from "next-runtime-env";
+import { env } from "next-runtime-env";
 import * as VKID from "@vkid/sdk";
 
-import useAppDispatch from "../../../hooks/useAppDispatch";
+import { useAppDispatch } from "../../../services/redux/hooks/useAppDispatch";
 
+import { AuthTypes, IPkceCodeSet, IVKLoginSuccessPayload, IVkAuthRequest } from "../../../types/pages/Authorization";
 import { ICorrectSignInForm, ISignInForm } from "../../../types/components/ComponentsTypes";
 import AuthInput from "../../../ui/authInput/AuthInput";
 import Title from "../../../ui/title/Title";
 import CustomCheckbox from "../../../ui/checkBox/checkBox";
+import Button from "../../../ui/Button/Button";
 import InviteModal from "../inviteModal/inviteModal";
 import { emailPattern, errorDataLogOn, errorProfileActivation, passwordPattern } from "../../../helpers/authConstants";
 import { formHelpers } from "../../../utils/formHelpers";
 import { getCorrectBaseUrl } from "../../../utils/baseUrlConverter";
 import { InputTypeList } from "../../../helpers/Input";
 import { MainPath, UserProfilePath } from "../../../services/router/routes";
-import { ApiResponseCode } from "../../../helpers/apiResponseCode";
 import { loginUser } from "../../../services/api/auth/loginUser";
 import { setAutoLoginStatus } from "../../../services/redux/features/autoLogin/autoLoginSlice";
-import Button from "../../../ui/Button/Button1";
+import { authApiVkService } from "../../../services/api/auth/authVkService";
 import { ButtonType } from "../../../helpers/buttonFieldValues";
-import { generateCodeVerifier, generateState } from "../../../utils/generateAuthTokens";
-import { authVkService } from "../../../services/api/auth/authVkService";
-import { ILoginSuccessPayload, IVkAuthRequest } from "../../../types/pages/Authorization";
+import { generatePkceChallenge, generateState } from "../../../utils/generateAuthTokens";
 
 import styles from "./signInForm.module.scss";
 
 export default function SignInForm() {
 	const [baseUrl, setBaseUrl] = useState<string>("");
-	const [isOpen, setIsOpen] = useState<boolean>(false);
-	const [codeVerifier, setCodeVerifier] = useState<string>("");
+	const [isInviteModalOpen, setIsInviteModalOpen] = useState<boolean>(false);
+	const [pkceCodeSet, setPkceCodeSet] = useState<IPkceCodeSet>();
 
 	const dispatch = useAppDispatch();
 
@@ -55,7 +54,7 @@ export default function SignInForm() {
 
 	const router = useRouter();
 
-	// const vkAppId = Number(env("NEXT_PUBLIC_VK_APP_ID"));
+	const vkAppId = Number(env("NEXT_PUBLIC_VK_APP_ID") ?? 0);
 
 	const authCurtainRenderObj = {
 		appName: "freenance-app",
@@ -69,16 +68,19 @@ export default function SignInForm() {
 	}, []);
 
 	useEffect(() => {
-		setCodeVerifier(String(generateCodeVerifier()));
+		(async () => {
+			await setPkceCodeSet(await generatePkceChallenge());
+		})();
 	}, []);
 
 	VKID.Config.init({
-		app: 0,
+		app: vkAppId ?? 0,
 		redirectUrl: `${getCorrectBaseUrl()}${UserProfilePath.ProfitMoney}`,
 		state: generateState(),
-		codeVerifier: String(generateCodeVerifier()),
+		codeChallenge: String(pkceCodeSet?.code_challenge ?? ""),
 		scope: "email phone",
 		responseMode: VKID.ConfigResponseMode.Callback,
+		mode: VKID.ConfigAuthMode.InNewWindow,
 	});
 
 	const floatingOneTap = new VKID.FloatingOneTap();
@@ -86,9 +88,11 @@ export default function SignInForm() {
 	async function authVkIdService(authData: IVkAuthRequest) {
 		try {
 			if (baseUrl) {
-				const response = await authVkService(baseUrl, authData);
+				const response = await authApiVkService(baseUrl, authData);
 				if (response.status === axios.HttpStatusCode.Ok) {
-					router.push(UserProfilePath.ProfitMoney);
+					localStorage.setItem("authType", AuthTypes.vkServiceAuth);
+
+					await router.push(UserProfilePath.ProfitMoney);
 				}
 			}
 		} catch (error) {
@@ -97,26 +101,30 @@ export default function SignInForm() {
 				error.response &&
 				error.response.status &&
 				error.response.status >= axios.HttpStatusCode.InternalServerError &&
-				error.response.status < ApiResponseCode.SERVER_ERROR_STATUS_MAX
+				error.response.status <= axios.HttpStatusCode.NetworkAuthenticationRequired
 			) {
 				router.push(MainPath.ServerError);
 			}
 		}
 	}
 
-	floatingOneTap.on(VKID.FloatingOneTapInternalEvents.LOGIN_SUCCESS, async (payload: ILoginSuccessPayload) => {
-		const data = {
-			code: payload.code,
-			// eslint-disable-next-line camelcase
-			device_id: payload.device_id,
-			// eslint-disable-next-line camelcase
-			code_verifier: codeVerifier,
-		};
-		authVkIdService(data);
-	});
+	floatingOneTap.on(
+		VKID.FloatingOneTapInternalEvents.LOGIN_SUCCESS,
+		// eslint-disable-next-line camelcase
+		async ({ code, device_id }: IVKLoginSuccessPayload) => {
+			const data = {
+				code: code,
+				// eslint-disable-next-line camelcase
+				code_verifier: pkceCodeSet?.code_verifier ?? "",
+				// eslint-disable-next-line camelcase
+				device_id: device_id,
+			};
 
-	function handleOpenAuthCurtain() {
-		setCodeVerifier(String(generateCodeVerifier()));
+			authVkIdService(data);
+		},
+	);
+
+	async function handleOpenAuthCurtain() {
 		floatingOneTap.render(authCurtainRenderObj);
 	}
 
@@ -128,8 +136,12 @@ export default function SignInForm() {
 					password: data.password,
 				};
 				await loginUser(baseUrl, correctUserData);
-				setIsOpen(true);
-				if (data.isAutoAuth) dispatch(setAutoLoginStatus(data.isAutoAuth));
+				setIsInviteModalOpen(true);
+				localStorage.setItem("authType", AuthTypes.baseAuth);
+
+				if (data.isAutoAuth) {
+					dispatch(setAutoLoginStatus(data.isAutoAuth));
+				}
 			}
 		} catch (error) {
 			if (isAxiosError(error) && error?.response?.status === axios.HttpStatusCode.BadRequest) {
@@ -147,7 +159,7 @@ export default function SignInForm() {
 				error.response &&
 				error.response.status &&
 				error.response.status >= axios.HttpStatusCode.InternalServerError &&
-				error.response.status < ApiResponseCode.SERVER_ERROR_STATUS_MAX
+				error.response.status <= axios.HttpStatusCode.NetworkAuthenticationRequired
 			) {
 				return router.push(MainPath.ServerError);
 			}
@@ -155,7 +167,7 @@ export default function SignInForm() {
 	};
 
 	const handleModalClose = () => {
-		setIsOpen(false);
+		setIsInviteModalOpen(false);
 		router.push(UserProfilePath.ProfitMoney);
 	};
 
@@ -208,7 +220,7 @@ export default function SignInForm() {
 					</button>
 				</p>
 			</div>
-			{isOpen && <InviteModal isOpen={isOpen} onClose={handleModalClose} />}
+			{isInviteModalOpen && <InviteModal isOpen={isInviteModalOpen} onClose={handleModalClose} />}
 		</form>
 	);
 }

@@ -7,14 +7,14 @@ import { useRouter } from "next/navigation";
 import axios from "axios";
 import { format } from "date-fns";
 
+import { AuthTypes } from "../../../../types/pages/Authorization";
 import { IPrivateProfileSidebar } from "../../../../types/common/ComponentsProps";
 import NavBar from "../../navBar/navBar";
 import { BurgerMenu } from "../../burgerMenu/burgerMenu";
 import { PrivateProfileSidebarMenu } from "../sidebarMenu/privateProfileSidebarMenu";
 import { MainPath } from "../../../../services/router/routes";
-import { logoutUser } from "../../../../services/api/auth/logoutUser";
+import { baseLogoutUser } from "../../../../services/api/auth/baseLogoutUser";
 import { getCorrectBaseUrl } from "../../../../utils/baseUrlConverter";
-import { ApiResponseCode } from "../../../../helpers/apiResponseCode";
 import { sidebarNavMenu } from "../../../../helpers/sidebarNavMenu";
 
 import userAvatar from "../../../../assets/components/userProfile/userPhoto.svg";
@@ -25,7 +25,7 @@ import styles from "./privateProfileSidebar.module.scss";
 
 const PrivateProfileSidebarBlock = ({ avatar, name, balance }: IPrivateProfileSidebar) => {
 	const [currentDate, setCurrentDate] = useState<string>("");
-	const [isOpen, setIsOpen] = useState<boolean>(false);
+	const [isNavBarOpen, setIsNavBarOpen] = useState<boolean>(false);
 	const [baseUrl, setBaseUrl] = useState<string>();
 	const [showMenu, setShowMenu] = useState<boolean>(false);
 	const [selectedMenuItem, setSelectedMenuItem] = useState<string>("Личные данные");
@@ -42,9 +42,17 @@ const PrivateProfileSidebarBlock = ({ avatar, name, balance }: IPrivateProfileSi
 	const handleLogout = async () => {
 		try {
 			if (baseUrl) {
-				const response = await logoutUser(baseUrl);
-				if (response.status >= axios.HttpStatusCode.Ok && response.status < axios.HttpStatusCode.MultipleChoices) {
-					router.push(MainPath.Main);
+				const authType: AuthTypes = await ((localStorage.getItem("authType") as AuthTypes) || AuthTypes.baseAuth);
+
+				if (authType === AuthTypes.baseAuth) {
+					const response = await baseLogoutUser(baseUrl);
+					if (response.status >= axios.HttpStatusCode.Ok && response.status < axios.HttpStatusCode.MultipleChoices) {
+						await localStorage.removeItem("authType");
+
+						router.push(MainPath.Main);
+					}
+				} else {
+					// vk auth logout
 				}
 			}
 		} catch (error) {
@@ -62,7 +70,7 @@ const PrivateProfileSidebarBlock = ({ avatar, name, balance }: IPrivateProfileSi
 				error.response &&
 				error.response.status &&
 				error.response.status >= axios.HttpStatusCode.InternalServerError &&
-				error.response.status < ApiResponseCode.SERVER_ERROR_STATUS_MAX
+				error.response.status <= axios.HttpStatusCode.NetworkAuthenticationRequired
 			) {
 				return router.push(MainPath.ServerError);
 			}
@@ -129,13 +137,13 @@ const PrivateProfileSidebarBlock = ({ avatar, name, balance }: IPrivateProfileSi
 							<PrivateProfileSidebarMenu handleClick={handleOpenItemClick} />
 						</div>
 
-						<button onClick={() => setIsOpen(!isOpen)} className={styles.burgerActionWrap}>
+						<button onClick={() => setIsNavBarOpen(!isNavBarOpen)} className={styles.burgerActionWrap}>
 							<Image src={burgerIcon} alt={"burger"} className={styles.burgerActionWrap_icon} />
 						</button>
 					</div>
 				</div>
 			</div>
-			{isOpen && <NavBar onClick={() => setIsOpen(!isOpen)} />}
+			{isNavBarOpen && <NavBar onClick={() => setIsNavBarOpen(!isNavBarOpen)} />}
 			<BurgerMenu showMenu={showMenu} setShowMenu={setShowMenu}>
 				<div className={styles.burgerMenu__wrapper}>
 					{renderSelectedMenuItem()}

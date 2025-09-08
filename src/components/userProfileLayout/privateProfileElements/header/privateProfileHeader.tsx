@@ -7,7 +7,6 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 
 import { MainPath } from "../../../../services/router/routes";
-import { ApiResponseCode } from "../../../../helpers/apiResponseCode";
 import { getCurrencyRates } from "../../../../services/api/userProfile/getCurrencyRates";
 import { getCorrectBaseUrl } from "../../../../utils/baseUrlConverter";
 
@@ -47,7 +46,7 @@ const PrivateProfileHeader = () => {
 				error.response &&
 				error.response.status &&
 				error.response.status >= axios.HttpStatusCode.InternalServerError &&
-				error.response.status < ApiResponseCode.SERVER_ERROR_STATUS_MAX
+				error.response.status <= axios.HttpStatusCode.NetworkAuthenticationRequired
 			) {
 				router.push(MainPath.ServerError);
 			}

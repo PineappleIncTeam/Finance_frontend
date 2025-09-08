@@ -7,12 +7,13 @@ import { useEffect, useRef, useState, Dispatch, SetStateAction, RefObject } from
 import cn from "classnames";
 import axios from "axios";
 
-import { logoutUser } from "../../../services/api/auth/logoutUser";
-import { MainPath, UserProfilePath } from "../../../services/router/routes";
-import { ApiResponseCode } from "../../../helpers/apiResponseCode";
+import { useLogoutTimer } from "../../../hooks/useLogoutTimer";
+
+import { AuthTypes } from "../../../types/pages/Authorization";
 import { INavBar } from "../../../types/common/ComponentsProps";
+import { baseLogoutUser } from "../../../services/api/auth/baseLogoutUser";
+import { MainPath, UserProfilePath } from "../../../services/router/routes";
 import { COLORS } from "../../../helpers/colorSet";
-import useLogoutTimer from "../../../hooks/useLogoutTimer";
 import { getCorrectBaseUrl } from "../../../utils/baseUrlConverter";
 
 import logo from "../../../assets/components/logo.png";
@@ -28,7 +29,7 @@ import styles from "./navBar.module.scss";
 
 const NavBar = ({ onClick }: INavBar) => {
 	const pathname = usePathname();
-	const [open, setOpen] = useState<boolean>(false);
+	const [isPathOpen, setIsPathOpen] = useState<boolean>(false);
 	const [baseUrl, setBaseUrl] = useState<string>();
 	const modalRef = useRef<HTMLDivElement | null>(null);
 	const router = useRouter();
@@ -36,9 +37,17 @@ const NavBar = ({ onClick }: INavBar) => {
 	const handleLogout = async () => {
 		try {
 			if (baseUrl) {
-				const response = await logoutUser(baseUrl);
-				if (response.status >= axios.HttpStatusCode.Ok && response.status < axios.HttpStatusCode.MultipleChoices) {
-					router.push(MainPath.Main);
+				const authType: AuthTypes = await ((localStorage.getItem("authType") as AuthTypes) || AuthTypes.baseAuth);
+
+				if (authType === AuthTypes.baseAuth) {
+					const response = await baseLogoutUser(baseUrl);
+					if (response.status >= axios.HttpStatusCode.Ok && response.status < axios.HttpStatusCode.MultipleChoices) {
+						await localStorage.removeItem("authType");
+
+						router.push(MainPath.Main);
+					}
+				} else {
+					// vk auth logout
 				}
 			}
 		} catch (error) {
@@ -56,7 +65,7 @@ const NavBar = ({ onClick }: INavBar) => {
 				error.response &&
 				error.response.status &&
 				error.response.status >= axios.HttpStatusCode.InternalServerError &&
-				error.response.status < ApiResponseCode.SERVER_ERROR_STATUS_MAX
+				error.response.status <= axios.HttpStatusCode.NetworkAuthenticationRequired
 			) {
 				return router.push(MainPath.ServerError);
 			}
@@ -78,10 +87,10 @@ const NavBar = ({ onClick }: INavBar) => {
 	useEffect(() => {
 		const handleDocumentClick = (event: MouseEvent) => {
 			if (modalRef.current) {
-				handleClickOutside(event, modalRef, setOpen);
+				handleClickOutside(event, modalRef, setIsPathOpen);
 			}
 		};
-		if (open) {
+		if (isPathOpen) {
 			document.addEventListener("mousedown", handleDocumentClick);
 		} else {
 			document.removeEventListener("mousedown", handleDocumentClick);
@@ -90,10 +99,10 @@ const NavBar = ({ onClick }: INavBar) => {
 		return () => {
 			document.removeEventListener("mousedown", handleDocumentClick);
 		};
-	}, [open]);
+	}, [isPathOpen]);
 
 	useEffect(() => {
-		setOpen(false);
+		setIsPathOpen(false);
 	}, [pathname]);
 
 	useEffect(() => {

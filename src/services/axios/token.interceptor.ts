@@ -1,9 +1,11 @@
 import axios from "axios";
 
 import { IFailedOriginalRequest, IPromiseCallback } from "../../types/axios/commonTypes";
+import { AuthTypes } from "../../types/pages/Authorization";
 import { refreshToken } from "../api/auth/refreshToken";
-import { logoutUser } from "../api/auth/logoutUser";
+import { baseLogoutUser } from "../api/auth/baseLogoutUser";
 import { MainPath } from "../router/routes";
+import { mockLocalhostStr, mockLocalhostUrl } from "../api/auth/apiConstants";
 
 declare module "axios" {
 	// eslint-disable-next-line @typescript-eslint/naming-convention
@@ -57,17 +59,30 @@ axios.interceptors.response.use(
 				processQueue(refreshError as Error);
 
 				try {
-					const response = await logoutUser(originalRequest.baseURL ?? "");
-					if (response.status >= axios.HttpStatusCode.Ok && response.status < axios.HttpStatusCode.MultipleChoices) {
-						window.location.href = MainPath.Login;
+					const authType: AuthTypes = await ((localStorage.getItem("authType") as AuthTypes) || AuthTypes.baseAuth);
+
+					if (authType === AuthTypes.baseAuth) {
+						const response = await baseLogoutUser(originalRequest.baseURL ?? "");
+
+						if (response.status >= axios.HttpStatusCode.Ok && response.status < axios.HttpStatusCode.MultipleChoices) {
+							await localStorage.removeItem("authType");
+
+							window.location.href = MainPath.Login;
+						}
+					} else {
+						// vk auth logout
 					}
 				} catch (error) {
+					const isLocalhost =
+						window.location.hostname.includes(mockLocalhostStr) || window.location.hostname.includes(mockLocalhostUrl);
+
 					if (
 						axios.isAxiosError(error) &&
 						error.response &&
 						error.response.status &&
 						error.response.status >= axios.HttpStatusCode.BadRequest &&
-						error.response.status < axios.HttpStatusCode.InternalServerError
+						error.response.status < axios.HttpStatusCode.InternalServerError &&
+						!isLocalhost
 					) {
 						window.location.href = MainPath.Login;
 					}

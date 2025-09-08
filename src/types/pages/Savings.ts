@@ -5,14 +5,14 @@ export interface ISavingsInputForm {
 }
 
 export interface ISavingsSelectForm {
-	id: number | null;
+	// id: number | null;
 	date: string;
 	amount: number;
 	type: string;
 }
 
 export interface ISavingsTargetAddForm {
-	// id: number;
+	id: number | null;
 	name: string;
 	amount: number;
 }

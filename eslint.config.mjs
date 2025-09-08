@@ -38,7 +38,7 @@ export default eslintTs.config(
             "browser": true, 
         },
     }),
-    storybook.configs["flat/recommended"],
+    ...storybook.configs["flat/recommended"],
     {
         languageOptions: {
             parser: parserTs,
@@ -65,6 +65,17 @@ export default eslintTs.config(
             "react-redux": eslintRedux, 
             prettier: eslintPrettier
         },
+        ignores: [
+            "node_modules/**",
+            ".next/**",
+            "out/**",
+            "build/**",
+            "docs/**",
+            "docs/**",
+            "storybook-static/**",
+            "next-env.d.ts",
+            "ecosystem.config.js",
+        ],
         rules: {
             "camelcase": "error",
             "spaced-comment": "error",

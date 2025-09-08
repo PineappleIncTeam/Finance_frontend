@@ -303,6 +303,7 @@ function Analytics() {
 			window.removeEventListener("resize", updateMonthNames);
 			window.removeEventListener("resize", handleResizeIsLabel);
 		};
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	const handleDisplayChange = (event: ChangeEvent<HTMLInputElement>) => {

@@ -13,15 +13,14 @@ export const Selector = <T extends FieldValues>({ label, options, control, name,
 		name,
 		control,
 	});
-
-	const [isOpen, setIsOpen] = useState<boolean>(false);
+	const [isSelectorOpen, setIsSelectorOpen] = useState<boolean>(false);
 	const [selectedValue, setSelectedValue] = useState<string>(value);
 	const selectRef = useRef<HTMLDivElement>(null);
 
 	useEffect(() => {
 		const handleClickOutside = (event: MouseEvent) => {
 			if (selectRef.current && !selectRef.current.contains(event.target as Node)) {
-				setIsOpen(false);
+				setIsSelectorOpen(false);
 			}
 		};
 
@@ -35,16 +34,16 @@ export const Selector = <T extends FieldValues>({ label, options, control, name,
 	const handleOptionClick = (optionValue: string) => {
 		setSelectedValue(optionValue);
 		onChange(optionValue);
-		setIsOpen(false);
+		setIsSelectorOpen(false);
 	};
 
 	const toggleDropdown = () => {
-		setIsOpen(!isOpen);
+		setIsSelectorOpen(!isSelectorOpen);
 	};
 
 	function renderSelectorOptions() {
 		return (
-			isOpen && (
+			isSelectorOpen && (
 				<div className={styles.selectContainer__options} onChange={onChange}>
 					{options &&
 						options.map((option, index: Key) => (
@@ -64,7 +63,11 @@ export const Selector = <T extends FieldValues>({ label, options, control, name,
 			<label className={styles.selectContainer__description}>{label}</label>
 			<div onClick={toggleDropdown} className={styles.selectContainer__field} role="listbox">
 				{selectedValue ? selectedValue : <span className={styles.selectContainer__placeholder}>{placeholder}</span>}
-				<div className={cn(styles.selectContainer__selectIcon, isOpen && styles.selectContainer__selectIcon__active)} />
+				<div
+					className={cn(styles.selectContainer__selectIcon, {
+						[styles.selectContainer__selectIcon__active]: isSelectorOpen,
+					})}
+				/>
 			</div>
 			{renderSelectorOptions()}
 		</div>

@@ -17,7 +17,7 @@ import logo from "../../../assets/pages/activate/logo.webp";
 import warning from "../../../assets/pages/activate/warning.svg";
 import activationBgImg from "../../../assets/pages/activate/activation-bg-img.svg";
 import warningBgImg from "../../../assets/pages/activate/warning-bg-img.svg";
-import Button from "../../../ui/Button/Button1";
+import Button from "../../../ui/Button/Button";
 import { ButtonType } from "../../../helpers/buttonFieldValues";
 
 import styles from "./activate.module.scss";

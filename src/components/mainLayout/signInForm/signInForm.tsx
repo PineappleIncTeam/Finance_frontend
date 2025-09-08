@@ -15,7 +15,7 @@ import { ICorrectSignInForm, ISignInForm } from "../../../types/components/Compo
 import AuthInput from "../../../ui/authInput/AuthInput";
 import Title from "../../../ui/title/Title";
 import CustomCheckbox from "../../../ui/checkBox/checkBox";
-import Button from "../../../ui/Button/Button1";
+import Button from "../../../ui/Button/Button";
 import InviteModal from "../inviteModal/inviteModal";
 import { emailPattern, errorDataLogOn, errorProfileActivation, passwordPattern } from "../../../helpers/authConstants";
 import { formHelpers } from "../../../utils/formHelpers";
@@ -32,7 +32,7 @@ import styles from "./signInForm.module.scss";
 
 export default function SignInForm() {
 	const [baseUrl, setBaseUrl] = useState<string>("");
-	const [isOpen, setIsOpen] = useState<boolean>(false);
+	const [isInviteModalOpen, setIsInviteModalOpen] = useState<boolean>(false);
 	const [pkceCodeSet, setPkceCodeSet] = useState<IPkceCodeSet>();
 
 	const dispatch = useAppDispatch();
@@ -136,7 +136,7 @@ export default function SignInForm() {
 					password: data.password,
 				};
 				await loginUser(baseUrl, correctUserData);
-				setIsOpen(true);
+				setIsInviteModalOpen(true);
 				localStorage.setItem("authType", AuthTypes.baseAuth);
 
 				if (data.isAutoAuth) {
@@ -167,7 +167,7 @@ export default function SignInForm() {
 	};
 
 	const handleModalClose = () => {
-		setIsOpen(false);
+		setIsInviteModalOpen(false);
 		router.push(UserProfilePath.ProfitMoney);
 	};
 
@@ -220,7 +220,7 @@ export default function SignInForm() {
 					</button>
 				</p>
 			</div>
-			{isOpen && <InviteModal isOpen={isOpen} onClose={handleModalClose} />}
+			{isInviteModalOpen && <InviteModal isOpen={isInviteModalOpen} onClose={handleModalClose} />}
 		</form>
 	);
 }

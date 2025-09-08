@@ -8,7 +8,7 @@ import { ExpensesTooltip } from "../expensesTooltip/expensesTooltip";
 import styles from "./expensesTransaction.module.scss";
 
 export default function ExpensesTransaction({ date, target, amount, onDeleteClick, editClick }: IExpenseTransaction) {
-	const [isTooltipShown, setIsTooltipShown] = useState<boolean>(false);
+	const [isTooltipOpen, setIsTooltipOpen] = useState<boolean>(false);
 
 	return (
 		<div className={styles.expensesTransactionContainer}>
@@ -23,11 +23,11 @@ export default function ExpensesTransaction({ date, target, amount, onDeleteClic
 					className={styles.editIconWrapper}
 					role="button"
 					onClick={() => editClick()}
-					onMouseMove={() => setIsTooltipShown(true)}
-					onMouseOut={() => setIsTooltipShown(false)}>
+					onMouseMove={() => setIsTooltipOpen(true)}
+					onMouseOut={() => setIsTooltipOpen(false)}>
 					<EditIcon classNames={styles.editIcon} />
 				</div>
-				<ExpensesTooltip open={isTooltipShown} />
+				<ExpensesTooltip open={isTooltipOpen} />
 			</div>
 		</div>
 	);

@@ -10,7 +10,7 @@ import { EditIcon } from "../../../assets/script/expenses/EditIcon";
 import styles from "./incomeTransaction.module.scss";
 
 export default function IncomeTransaction({ date, purpose, sum }: IIncomeTransaction) {
-	const [isTooltipShown, setIsTooltipShown] = useState<boolean>(false);
+	const [isTooltipOpen, setIsTooltipOpen] = useState<boolean>(false);
 
 	return (
 		<div className={styles.incomeTransactionContainer}>
@@ -22,11 +22,11 @@ export default function IncomeTransaction({ date, purpose, sum }: IIncomeTransac
 				<DeleteIcon classNames={styles.deleteIcon} />
 				<div
 					className={styles.editIconWrapper}
-					onMouseMove={() => setIsTooltipShown(true)}
-					onMouseOut={() => setIsTooltipShown(false)}>
+					onMouseMove={() => setIsTooltipOpen(true)}
+					onMouseOut={() => setIsTooltipOpen(false)}>
 					<EditIcon classNames={styles.editIcon} />
 				</div>
-				<ExpensesTooltip open={isTooltipShown} />
+				<ExpensesTooltip open={isTooltipOpen} />
 			</div>
 		</div>
 	);

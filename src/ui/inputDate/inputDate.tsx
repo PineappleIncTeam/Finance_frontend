@@ -16,15 +16,18 @@ import styles from "./inputDate.module.scss";
 import "./datepicker.scss";
 
 const InputDate = <T extends FieldValues>({ isPeriod = false, control, name, isLabel = true }: ICustomInputDate<T>) => {
+	const [startDate, setStartDate] = useState<Date | null>(null);
+	const [endDate, setEndDate] = useState<Date | null>(null);
+
 	const {
 		field: { onChange, value },
 	} = useController({
 		name,
 		control,
 	});
-	const [startDate, setStartDate] = useState<Date | null>(null);
-	const [endDate, setEndDate] = useState<Date | null>(null);
+
 	const MAX_YEAR_INTERVAL = 100;
+
 	moment.locale("ru");
 	registerLocale("ru", ru);
 

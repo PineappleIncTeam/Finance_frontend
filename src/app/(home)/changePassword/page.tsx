@@ -16,14 +16,14 @@ import { InputTypeList } from "../../../helpers/Input";
 import { errorPasswordRepeat, errorUidOrToken, passwordPattern } from "../../../helpers/authConstants";
 import { getCorrectBaseUrl } from "../../../utils/baseUrlConverter";
 import { formHelpers } from "../../../utils/formHelpers";
-import Button from "../../../ui/Button/Button1";
+import Button from "../../../ui/Button/Button";
 import { ButtonType } from "../../../helpers/buttonFieldValues";
 
 import styles from "./changePassword.module.scss";
 
 export default function ChangePassword() {
 	const [baseUrl, setBaseUrl] = useState<string>();
-	const [isChangePasswordModalShown, setIsChangePasswordModalShown] = useState<boolean>(false);
+	const [isChangePasswordModalOpen, setIsChangePasswordModalOpen] = useState<boolean>(false);
 	const searchParams = useSearchParams();
 	const router = useRouter();
 
@@ -36,7 +36,6 @@ export default function ChangePassword() {
 		control,
 		handleSubmit,
 		setError,
-		reset,
 		watch,
 		formState: { errors },
 	} = useForm<IChangePasswordForm>({
@@ -59,9 +58,9 @@ export default function ChangePassword() {
 	};
 
 	const handleChangePasswordModal = () => {
-		setIsChangePasswordModalShown(true);
+		setIsChangePasswordModalOpen(true);
 		setTimeout(async () => {
-			await setIsChangePasswordModalShown(false);
+			await setIsChangePasswordModalOpen(false);
 			router.push(MainPath.Login);
 		}, secondsCount);
 	};
@@ -107,7 +106,7 @@ export default function ChangePassword() {
 			<form className={styles.changePasswordFormContainer} onSubmit={handleSubmit(onSubmit)}>
 				<div className={styles.changePasswordFormContainer__content}>
 					<Title title={"Изменение пароля"} />
-					<ChangePasswordModal open={isChangePasswordModalShown} />
+					<ChangePasswordModal open={isChangePasswordModalOpen} />
 					<ChangePassInput
 						control={control}
 						label={"Введите новый пароль"}

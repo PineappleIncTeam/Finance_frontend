@@ -25,7 +25,7 @@ import styles from "./privateProfileSidebar.module.scss";
 
 const PrivateProfileSidebarBlock = ({ avatar, name, balance }: IPrivateProfileSidebar) => {
 	const [currentDate, setCurrentDate] = useState<string>("");
-	const [isOpen, setIsOpen] = useState<boolean>(false);
+	const [isNavBarOpen, setIsNavBarOpen] = useState<boolean>(false);
 	const [baseUrl, setBaseUrl] = useState<string>();
 	const [showMenu, setShowMenu] = useState<boolean>(false);
 	const [selectedMenuItem, setSelectedMenuItem] = useState<string>("Личные данные");
@@ -137,13 +137,13 @@ const PrivateProfileSidebarBlock = ({ avatar, name, balance }: IPrivateProfileSi
 							<PrivateProfileSidebarMenu handleClick={handleOpenItemClick} />
 						</div>
 
-						<button onClick={() => setIsOpen(!isOpen)} className={styles.burgerActionWrap}>
+						<button onClick={() => setIsNavBarOpen(!isNavBarOpen)} className={styles.burgerActionWrap}>
 							<Image src={burgerIcon} alt={"burger"} className={styles.burgerActionWrap_icon} />
 						</button>
 					</div>
 				</div>
 			</div>
-			{isOpen && <NavBar onClick={() => setIsOpen(!isOpen)} />}
+			{isNavBarOpen && <NavBar onClick={() => setIsNavBarOpen(!isNavBarOpen)} />}
 			<BurgerMenu showMenu={showMenu} setShowMenu={setShowMenu}>
 				<div className={styles.burgerMenu__wrapper}>
 					{renderSelectedMenuItem()}

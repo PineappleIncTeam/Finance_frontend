@@ -2,14 +2,10 @@ import { useForm } from "react-hook-form";
 
 import { IChangePasswordForm } from "../../../../types/pages/userProfileSettings";
 import AppInput from "../../../../ui/appInput/AppInput";
-
 import { errorPasswordRepeat } from "../../../../helpers/authConstants";
-
 import { InputTypeList } from "../../../../helpers/Input";
-
 import { passwordValidate } from "../../../../utils/passwordValidate";
-
-import Button from "../../../../ui/Button/Button1";
+import Button from "../../../../ui/Button/Button";
 import { ButtonType } from "../../../../helpers/buttonFieldValues";
 
 import styles from "./privateProfileChangePassword.module.scss";

@@ -8,7 +8,7 @@ import { ExpensesTooltip } from "../expensesTooltip/expensesTooltip";
 import styles from "./savingsTransaction.module.scss";
 
 const SavingsTransaction = ({ firstDate, secondDate, purpose, sum }: ISavingsTransaction) => {
-	const [isTooltipShown, setIsTooltipShown] = useState<boolean>(false);
+	const [isTooltipOpen, setIsTooltipOpen] = useState<boolean>(false);
 
 	return (
 		<div className={styles.savingsTransactionContainer}>
@@ -18,11 +18,11 @@ const SavingsTransaction = ({ firstDate, secondDate, purpose, sum }: ISavingsTra
 			<p className={styles.transactionData}>{sum}</p>
 			<div className={styles.savingsTransactionContainer__actionsWrapper}>
 				<DeleteIcon classNames={styles.deleteIcon} />
-				<div onMouseMove={() => setIsTooltipShown(true)} onMouseOut={() => setIsTooltipShown(false)}>
+				<div onMouseMove={() => setIsTooltipOpen(true)} onMouseOut={() => setIsTooltipOpen(false)}>
 					<EditIcon classNames={styles.editIcon} />
 				</div>
 			</div>
-			<ExpensesTooltip open={isTooltipShown} />
+			<ExpensesTooltip open={isTooltipOpen} />
 		</div>
 	);
 };

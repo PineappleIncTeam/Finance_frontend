@@ -1,14 +1,13 @@
 import { useForm } from "react-hook-form";
 
 import { IPrivateAppSettings } from "../../../../types/pages/userProfileSettings";
-
-import { DeleteIcon } from "../../../../assets/script/expenses/DeleteIcon";
 import { Selector } from "../../../../ui/selector/Selector";
 import Switcher from "../../../../ui/switcher/switcher";
-
-import Button from "../../../../ui/Button/Button1";
+import Button from "../../../../ui/Button/Button";
 import { ButtonType } from "../../../../helpers/buttonFieldValues";
 import { InputTypeList } from "../../../../helpers/Input";
+
+import { DeleteIcon } from "../../../../assets/script/expenses/DeleteIcon";
 
 import styles from "./privateProfilePrivateAppSettings.module.scss";
 
@@ -17,6 +16,7 @@ export const PrivateProfilePrivateAppSettings = () => {
 		mode: "all",
 		delayError: 200,
 	});
+
 	return (
 		<form className={styles.privateAppSettingsFormWrap}>
 			<p className={styles.privateAppSettingsFormWrap__title}>Настройки</p>

@@ -12,7 +12,7 @@ import { ISignUpForm } from "../../../types/components/ComponentsTypes";
 import { IPkceCodeSet, IVKLoginSuccessPayload, IVkAuthRequest } from "../../../types/pages/Authorization";
 import AuthInput from "../../../ui/authInput/AuthInput";
 import Title from "../../../ui/title/Title";
-import Button from "../../../ui/Button/Button1";
+import Button from "../../../ui/Button/Button";
 import {
 	emailPattern,
 	errorPasswordRepeat,

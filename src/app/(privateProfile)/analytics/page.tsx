@@ -1,9 +1,7 @@
 "use client";
 
 import { useState, useEffect, ChangeEvent } from "react";
-
 import { useForm } from "react-hook-form";
-
 import { Pie, Bar, Doughnut } from "react-chartjs-2";
 import { Chart as ChartJS, ArcElement, Tooltip, CategoryScale, LinearScale, BarElement } from "chart.js";
 

@@ -29,7 +29,7 @@ import styles from "./navBar.module.scss";
 
 const NavBar = ({ onClick }: INavBar) => {
 	const pathname = usePathname();
-	const [open, setOpen] = useState<boolean>(false);
+	const [isPathOpen, setIsPathOpen] = useState<boolean>(false);
 	const [baseUrl, setBaseUrl] = useState<string>();
 	const modalRef = useRef<HTMLDivElement | null>(null);
 	const router = useRouter();
@@ -87,10 +87,10 @@ const NavBar = ({ onClick }: INavBar) => {
 	useEffect(() => {
 		const handleDocumentClick = (event: MouseEvent) => {
 			if (modalRef.current) {
-				handleClickOutside(event, modalRef, setOpen);
+				handleClickOutside(event, modalRef, setIsPathOpen);
 			}
 		};
-		if (open) {
+		if (isPathOpen) {
 			document.addEventListener("mousedown", handleDocumentClick);
 		} else {
 			document.removeEventListener("mousedown", handleDocumentClick);
@@ -99,10 +99,10 @@ const NavBar = ({ onClick }: INavBar) => {
 		return () => {
 			document.removeEventListener("mousedown", handleDocumentClick);
 		};
-	}, [open]);
+	}, [isPathOpen]);
 
 	useEffect(() => {
-		setOpen(false);
+		setIsPathOpen(false);
 	}, [pathname]);
 
 	useEffect(() => {

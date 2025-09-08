@@ -2,7 +2,7 @@ import { ICategoryDeleteModal } from "../../../types/common/ComponentsProps";
 
 import { ButtonType } from "../../../helpers/buttonFieldValues";
 
-import Button from "../../../ui/Button/Button1";
+import Button from "../../../ui/Button/Button";
 import Title from "../../../ui/title/Title";
 import { IOperation } from "../../../types/api/Expenses";
 

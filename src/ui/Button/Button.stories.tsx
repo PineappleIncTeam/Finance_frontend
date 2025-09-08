@@ -3,7 +3,7 @@ import { Meta, StoryObj } from "@storybook/nextjs";
 import { TAppButtonStyle, TAppButtonType } from "../../types/common/UiKitProps";
 import { HighlightWrapper } from "../../components/mainLayout/highlightWrapper/HighlightWrapper";
 
-import Button from "./Button1";
+import Button from "./Button";
 
 const meta = {
 	title: "UI/Button",

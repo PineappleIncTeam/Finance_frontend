@@ -15,7 +15,6 @@ export const CategorySelect = <T extends FieldValues>({
 	options,
 	control,
 	name,
-	id,
 	placeholder,
 	onAddCategory,
 	onRemoveCategory,
@@ -24,7 +23,6 @@ export const CategorySelect = <T extends FieldValues>({
 		field: { onChange, value },
 	} = useController({
 		name,
-		id,
 		control,
 	});
 

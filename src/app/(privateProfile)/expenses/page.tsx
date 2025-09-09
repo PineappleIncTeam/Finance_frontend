@@ -430,6 +430,7 @@ export default function Expenses() {
 									handleIdName(id, name),
 									getAllOperations(),
 								]}
+								id={"name"}
 							/>
 						</div>
 						<div className={styles.expensesDetailsContainer__sum}>

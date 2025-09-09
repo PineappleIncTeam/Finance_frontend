@@ -50,8 +50,8 @@ import styles from "./savings.module.scss";
 function Savings() {
 	const { control, handleSubmit } = useForm<ISavingsTargetAddForm & ISavingsSelectForm>({
 		defaultValues: {
-			id: null,
 			name: "",
+			id: null,
 			amount: 0,
 			type: "savings",
 		},

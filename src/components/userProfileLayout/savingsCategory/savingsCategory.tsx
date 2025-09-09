@@ -13,8 +13,8 @@ import styles from "./savingsCategory.module.scss";
 export const SavingsAddTargetModal = ({ open, request, onCancelClick }: ISavingsCategory) => {
 	const { control, handleSubmit } = useForm<ISavingsTargetAddForm>({
 		defaultValues: {
-			id: null,
 			name: "",
+			id: null,
 			amount: 0,
 		},
 		mode: "all",

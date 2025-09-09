@@ -388,6 +388,7 @@ function Savings() {
 									control={control}
 									onAddCategory={() => setIsCategoryModalOpen(true)}
 									onRemoveCategory={(id, name) => [setIsDeleteTargetModalOpen(true), handleIdName(id, name)]}
+									id={"id"}
 								/>
 							</div>
 							<div className={styles.savingsDetailsContainer__sum}>

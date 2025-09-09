@@ -13,7 +13,7 @@ export interface ISavingsSelectForm {
 }
 
 export interface ISavingsTargetAddForm {
-	id: number | null;
+	id: number;
 	name: string;
 	amount: number;
 }

@@ -51,6 +51,7 @@ function Savings() {
 	const { control, handleSubmit } = useForm<ISavingsTargetAddForm & ISavingsSelectForm>({
 		defaultValues: {
 			name: "",
+			id: "",
 			amount: 0,
 			type: "savings",
 		},

@@ -46,6 +46,8 @@ export const CategorySelect = <T extends FieldValues>({
 	}, []);
 
 	const handleOptionClick = (optionValue: number, optionName: string) => {
+		console.log(optionValue);
+		console.log(optionName);
 		setSelectedValue(optionValue);
 		setSelectedName(optionName);
 		onChange(optionValue);

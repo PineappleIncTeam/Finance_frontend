@@ -381,7 +381,6 @@ function Savings() {
 						<div className={styles.savingsDetailsContainer}>
 							<div className={styles.savingsDetailsContainer__category}>
 								<CategorySelect
-									id={"id"}
 									name={"name"}
 									label={"Накопления"}
 									options={allTargets}

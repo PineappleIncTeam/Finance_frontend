@@ -116,7 +116,6 @@ export interface ICategorySelect<T extends FieldValues> {
 	options: ICategoryOption[] | ITarget[];
 	control: Control<T>;
 	name: Path<T>;
-	id?: Path<T>;
 	placeholder?: string;
 	onAddCategory: () => void;
 	onRemoveCategory?: (categoryId: number, categoryName: string) => void;

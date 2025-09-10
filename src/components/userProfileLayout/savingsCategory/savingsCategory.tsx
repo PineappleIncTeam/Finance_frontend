@@ -14,7 +14,7 @@ export const SavingsAddTargetModal = ({ open, request, onCancelClick }: ISavings
 	const { control, handleSubmit } = useForm<ISavingsTargetAddForm>({
 		defaultValues: {
 			name: "",
-			id: null,
+			id: "",
 			amount: 0,
 		},
 		mode: "all",

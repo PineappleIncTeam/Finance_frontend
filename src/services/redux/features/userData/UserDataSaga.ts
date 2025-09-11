@@ -6,10 +6,10 @@ import { updateUserData } from "../../../api/auth/updateUserData";
 
 import { userDataActions } from "./UserDataActions";
 
-function* fetchUserDataSaga(): any {
+function* fetchUserDataSaga(action: ReturnType<typeof userDataActions.fetch>): any {
 	try {
 		yield put(userDataActions.pending());
-		const { data } = yield call(getUserData);
+		const { data } = yield call(getUserData(action.payload));
 		yield put(userDataActions.fulfilled(data));
 	} catch (error: any) {
 		yield put(userDataActions.rejected(error?.message ?? "Не удалось загрузить данные"));

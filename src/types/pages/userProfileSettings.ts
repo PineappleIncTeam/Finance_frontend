@@ -1,10 +1,12 @@
 export interface IPrivateDataFrom {
 	nickname: string;
-	gender: TGender;
+	gender: string;
 	country: string;
 	email: string;
+	avatar: string;
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 type TGender = "male" | "female";
 
 export interface IChangePasswordForm {

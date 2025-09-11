@@ -6,6 +6,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 import { format } from "date-fns";
+import { useDispatch } from "react-redux";
 
 import { AuthTypes } from "../../../../types/pages/Authorization";
 import { IPrivateProfileSidebar } from "../../../../types/common/ComponentsProps";
@@ -16,19 +17,28 @@ import { MainPath } from "../../../../services/router/routes";
 import { baseLogoutUser } from "../../../../services/api/auth/baseLogoutUser";
 import { getCorrectBaseUrl } from "../../../../utils/baseUrlConverter";
 import { sidebarNavMenu } from "../../../../helpers/sidebarNavMenu";
+import useAppSelector from "../../../../hooks/useAppSelector";
+import { userSelector } from "../../../../services/redux/features/userData/UserDataSelector";
+import { userDataActions } from "../../../../services/redux/features/userData/UserDataActions";
 
-import userAvatar from "../../../../assets/components/userProfile/userPhoto.svg";
+import defaultAvatar from "../../../../assets/components/userProfile/userPhoto.svg";
 import burgerIcon from "../../../../assets/components/userProfile/burger.svg";
 import infoIcon from "../../../../assets/components/userProfile/infoIcon.svg";
 
 import styles from "./privateProfileSidebar.module.scss";
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const PrivateProfileSidebarBlock = ({ avatar, name, balance }: IPrivateProfileSidebar) => {
 	const [currentDate, setCurrentDate] = useState<string>("");
 	const [isNavBarOpen, setIsNavBarOpen] = useState<boolean>(false);
 	const [baseUrl, setBaseUrl] = useState<string>();
 	const [showMenu, setShowMenu] = useState<boolean>(false);
 	const [selectedMenuItem, setSelectedMenuItem] = useState<string>("Личные данные");
+
+	const userSlice = useAppSelector(userSelector);
+	const userName = userSlice?.userData?.name || "Имя";
+	const userAvatar = userSlice?.userData?.avatar || defaultAvatar;
+	const dispatch = useDispatch();
 
 	const laptopWindowSize = 1100;
 
@@ -37,7 +47,8 @@ const PrivateProfileSidebarBlock = ({ avatar, name, balance }: IPrivateProfileSi
 	useEffect(() => {
 		setCurrentDate(format(new Date(), "dd.MM.yyyy"));
 		setBaseUrl(getCorrectBaseUrl());
-	}, []);
+		dispatch(userDataActions.fetch());
+	}, [dispatch]);
 
 	const handleLogout = async () => {
 		try {
@@ -121,10 +132,10 @@ const PrivateProfileSidebarBlock = ({ avatar, name, balance }: IPrivateProfileSi
 						<div className={styles.userInformationWrap} onClick={handleOpenMenu} role="button">
 							<div className={styles.userInformationWrap_images}>
 								<button className={styles.userInformationWrap_images_action}>
-									<Image src={avatar || userAvatar} alt={"userAvatar"} className={styles.userInformationWrap__avatar} />
+									<Image src={userAvatar} alt={"userAvatar"} className={styles.userInformationWrap__avatar} />
 								</button>
 							</div>
-							<p className={styles.userInformationWrap__name}>{name || "Имя"}</p>
+							<p className={styles.userInformationWrap__name}>{userName}</p>
 							<div className={styles.userInformationAdaptiveContainer}>
 								<div className={styles.userInformationDateWrap}>
 									<p>Ваш баланс на</p>

@@ -4,14 +4,14 @@
 import { Key, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 
-import useLogoutTimer from "../../../hooks/useLogoutTimer";
+import { useLogoutTimer } from "../../../hooks/useLogoutTimer";
 
 import { IExpensesInputForm, IExpensesSelectForm } from "../../../types/pages/Expenses";
 import { Select } from "../../../ui/select/Select";
 import AppInput from "../../../ui/appInput/AppInput";
 import IncomeTransaction from "../../../components/userProfileLayout/incomeTransaction/incomeTransaction";
 import { InputTypeList } from "../../../helpers/Input";
-import handleLogout from "../../../helpers/logout";
+import { useHandleLogout } from "../../../hooks/useHandleLogout";
 import { formatMoney } from "../../../utils/formatData";
 import { getCorrectBaseUrl } from "../../../utils/baseUrlConverter";
 import { incomeTransactions } from "../../../mocks/IncomeTransaction";
@@ -24,7 +24,7 @@ import styles from "./profitMoney.module.scss";
 
 function ProfitMoney() {
 	const [baseUrl, setBaseUrl] = useState<string>();
-	const { request } = handleLogout(baseUrl);
+	const { request } = useHandleLogout(baseUrl);
 	const { resetTimer } = useLogoutTimer(request);
 	const { control } = useForm<IExpensesInputForm & IExpensesSelectForm>({
 		defaultValues: {

@@ -10,13 +10,15 @@ import { IEditTransaction } from "../../../types/common/ComponentsProps";
 
 import { ButtonType } from "../../../helpers/buttonFieldValues";
 
-import Button from "../../../ui/Button/Button1";
+import Button from "../../../ui/Button/Button";
 import Title from "../../../ui/title/Title";
 import { ResponseApiRequestModal } from "../responseActionExpenses/responseApiRequestModal";
 
 import styles from "./editTransaction.module.scss";
 
 export const EditTransactionModal = ({ open, id, request, cancelEdit }: IEditTransaction) => {
+	const [isNegativeBalanceModalOpen, setIsNegativeBalanceModalOpen] = useState<boolean>(false);
+
 	const { control, handleSubmit } = useForm<IEditTransactionForm>({
 		defaultValues: {
 			amount: 0,
@@ -25,15 +27,13 @@ export const EditTransactionModal = ({ open, id, request, cancelEdit }: IEditTra
 		delayError: 200,
 	});
 
-	const [isNegativeBalanceModalShown, setIsNegativeBalanceModalShown] = useState<boolean>(false);
-
 	const interval = 2000;
 
 	const onSubmit = async (data: IEditTransactionForm) => {
 		if (id !== null && data !== null) {
 			if (data.amount === 0 || data.amount < 0) {
-				setIsNegativeBalanceModalShown(true);
-				setTimeout(() => setIsNegativeBalanceModalShown(false), interval);
+				setIsNegativeBalanceModalOpen(true);
+				setTimeout(() => setIsNegativeBalanceModalOpen(false), interval);
 				return;
 			}
 			await request(id, data);
@@ -47,7 +47,6 @@ export const EditTransactionModal = ({ open, id, request, cancelEdit }: IEditTra
 					<form className={styles.changeAmountModalContainer__form} onSubmit={handleSubmit(onSubmit)}>
 						<Title title={"Изменение суммы"} />
 						<div className={styles.changeAmountFormData}>
-							<p className={styles.changeAmountFormData__label}>Введите новое числовое значение</p>
 							<AppInput
 								control={control}
 								label={"Введите новое числовое значение"}
@@ -68,7 +67,7 @@ export const EditTransactionModal = ({ open, id, request, cancelEdit }: IEditTra
 				</div>
 			</dialog>
 			<ResponseApiRequestModal
-				open={isNegativeBalanceModalShown}
+				open={isNegativeBalanceModalOpen}
 				title="Баланс не может быть меньше нуля"
 				className={styles.modalContainer}
 			/>

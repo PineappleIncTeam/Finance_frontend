@@ -5,13 +5,13 @@ import React, { useState, useEffect, ChangeEvent } from "react";
 import { AiFillInfoCircle } from "react-icons/ai";
 import { CgClose } from "react-icons/cg";
 
-import useLogoutTimer from "../../../hooks/useLogoutTimer";
+import { useLogoutTimer } from "../../../hooks/useLogoutTimer";
 
 import { formatCalculateNumber } from "../../../utils/formatCalculateNumber";
 import { getCorrectBaseUrl } from "../../../utils/baseUrlConverter";
 import { InputTypeList } from "../../../helpers/Input";
-import handleLogout from "../../../helpers/logout";
-import Button from "../../../ui/Button/Button1";
+import { useHandleLogout } from "../../../hooks/useHandleLogout";
+import Button from "../../../ui/Button/Button";
 import { ButtonType } from "../../../helpers/buttonFieldValues";
 
 import styles from "./calculator.module.scss";
@@ -27,7 +27,7 @@ export default function Calculator() {
 	const [isMobile, setIsMobile] = useState(window.innerWidth <= mobileSCreenWidthValue);
 	const [activeButton, setActiveButton] = useState<string | null>("realEstate");
 	const [baseUrl, setBaseUrl] = useState<string>();
-	const { request } = handleLogout(baseUrl);
+	const { request } = useHandleLogout(baseUrl);
 	const { resetTimer } = useLogoutTimer(request);
 
 	useEffect(() => {

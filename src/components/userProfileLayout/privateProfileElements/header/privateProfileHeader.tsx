@@ -7,8 +7,7 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 
 import { MainPath } from "../../../../services/router/routes";
-import { ApiResponseCode } from "../../../../helpers/apiResponseCode";
-import { fetchCurrencyRates } from "../../../../services/api/userProfile/getCurrencies";
+import { getCurrencyRates } from "../../../../services/api/userProfile/getCurrencyRates";
 import { getCorrectBaseUrl } from "../../../../utils/baseUrlConverter";
 
 import styles from "./privateProfileHeader.module.scss";
@@ -32,7 +31,7 @@ const PrivateProfileHeader = () => {
 	const loadCurrencyData = async () => {
 		try {
 			const baseUrl = getCorrectBaseUrl();
-			const response = await fetchCurrencyRates(baseUrl);
+			const response = await getCurrencyRates(baseUrl);
 
 			if (response.status === axios.HttpStatusCode.Ok) {
 				startCurrencyTransition(() => {
@@ -47,7 +46,7 @@ const PrivateProfileHeader = () => {
 				error.response &&
 				error.response.status &&
 				error.response.status >= axios.HttpStatusCode.InternalServerError &&
-				error.response.status < ApiResponseCode.SERVER_ERROR_STATUS_MAX
+				error.response.status <= axios.HttpStatusCode.NetworkAuthenticationRequired
 			) {
 				router.push(MainPath.ServerError);
 			}

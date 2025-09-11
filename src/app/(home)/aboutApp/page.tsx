@@ -19,7 +19,7 @@ import ThreeNumIcon from "../../../assets/script/aboutApp/ThreeNumIcon.svg";
 import FourNumIcon from "../../../assets/script/aboutApp/FourNumIcon.svg";
 import VideoElement from "../../../components/mainLayout/videoElement/videoElement";
 import { videoId } from "../../../mocks/VideoId";
-import Button from "../../../ui/Button/Button1";
+import Button from "../../../ui/Button/Button";
 import { ButtonType } from "../../../helpers/buttonFieldValues";
 import { InputTypeList } from "../../../helpers/Input";
 

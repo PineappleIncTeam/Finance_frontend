@@ -74,8 +74,16 @@
 }
 
 .signInFormContainer__auth_link {
+	font-size: 1.6rem;
+	font-weight: 400;
 	color: var(--color-dark-spring-green);
 	cursor: pointer;
+
+	@media (max-width: 550px) {
+		& {
+			font-size: 1.3rem;
+		}
+	}
 }
 
 .actionWrap {

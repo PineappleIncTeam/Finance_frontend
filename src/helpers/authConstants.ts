@@ -4,7 +4,7 @@ export const emailPattern =
 export const passwordPattern =
 	/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!#/\\='"<>{}@,.$%[\]^&*()~_|:;+?^-])(?!.*(.)\1{2,})(?!.*\d{4,}|\d{2}[\\/-]\d{2}[\\/-]\d{4})(?!.*[^a-zA-Z\d!#/\\='"<>{}@,.$%[\]^&*()~_|:;+?^-])[^\s]{6,50}$/;
 
-export const financePattern = /^(?=.*[^\W\d])(?!^[\d\W]+$).+$/;
+export const financePattern = /^(?=.*[а-яА-ЯёЁa-zA-Z])[\p{L}0-9\s\-_]+$/u;
 
 export const errorDefault = "";
 export const errorRequiredField = "Не заполнено обязательное поле.";
@@ -29,3 +29,8 @@ export const errorPasswordStrengthMedium =
 export const errorPasswordStrengthStrong = "Вы используете надёжный пароль";
 export const errorFinanceNameIncorrect =
 	"Название категории должно содержать хотя бы 1 символ, который не является цифрой или пробелом, и не состоит только из цифр.";
+export const errorUserWithExistEmailRegistration = "Пользователь с таким Email уже зарегистрирован";
+export const errorDataLogOn = "Невозможно войти с предоставленными учётными данными";
+export const errorProfileActivation = "Ваш профиль не активирован";
+export const errorEmailIsNotRegister = "Такой адрес не зарегистрирован в приложении.";
+export const errorUidOrToken = "Неверный код восстановления. Попробуйте восстановить пароль еще раз.";

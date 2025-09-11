@@ -1,19 +1,18 @@
 import { useForm } from "react-hook-form";
 
-import { IPrivateAppSettings } from "../../../../types/pages/userProfileSettings";
+import { useAppDispatch } from "../../../../services/redux/hooks/useAppDispatch";
+import { useAppSelector } from "../../../../services/redux/hooks/useAppSelector";
 
-import { DeleteIcon } from "../../../../assets/script/expenses/DeleteIcon";
+import { IPrivateAppSettings } from "../../../../types/pages/userProfileSettings";
 import { Selector } from "../../../../ui/selector/Selector";
 import Switcher from "../../../../ui/switcher/switcher";
-
-import useAppDispatch from "../../../../hooks/useAppDispatch";
-import useAppSelector from "../../../../hooks/useAppSelector";
+import Button from "../../../../ui/Button/Button";
 import { userSelector } from "../../../../services/redux/features/userData/UserDataSelector";
 import { userDataActions } from "../../../../services/redux/features/userData/UserDataActions";
-
-import Button from "../../../../ui/Button/Button1";
 import { ButtonType } from "../../../../helpers/buttonFieldValues";
 import { InputTypeList } from "../../../../helpers/Input";
+
+import { DeleteIcon } from "../../../../assets/script/expenses/DeleteIcon";
 
 import styles from "./privateProfilePrivateAppSettings.module.scss";
 

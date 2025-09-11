@@ -1,31 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+import { IUserState } from "../../../../types/redux/StateTypes";
+
 import { userDataActions } from "./UserDataActions";
 
 // const authTokenStorage = localStorage.getItem("token");
 // const balanceSum = localStorage.getItem("balans");
-
-interface IUserState {
-	token: string | null;
-	balanceString: number;
-	balanceCosts: number;
-	balanceBase: string;
-	userData: {
-		name: string;
-		email: string;
-		nickname: string;
-		country: string;
-		gender: string;
-		avatar?: string;
-		loading: boolean;
-		error: string | null;
-	};
-	settings: {
-		currency: string;
-		theme: string;
-		assistant: boolean;
-	};
-}
 
 const initialState: IUserState = {
 	token: null,

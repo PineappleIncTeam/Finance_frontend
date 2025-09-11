@@ -6,6 +6,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 import { format } from "date-fns";
+import { useDispatch } from "react-redux";
 
 import { IPrivateProfileSidebar } from "../../../../types/common/ComponentsProps";
 import NavBar from "../../navBar/navBar";
@@ -18,6 +19,7 @@ import { ApiResponseCode } from "../../../../helpers/apiResponseCode";
 import { sidebarNavMenu } from "../../../../helpers/sidebarNavMenu";
 import useAppSelector from "../../../../hooks/useAppSelector";
 import { userSelector } from "../../../../services/redux/features/userData/UserDataSelector";
+import { userDataActions } from "../../../../services/redux/features/userData/UserDataActions";
 
 import defaultAvatar from "../../../../assets/components/userProfile/userPhoto.svg";
 import burgerIcon from "../../../../assets/components/userProfile/burger.svg";
@@ -36,6 +38,7 @@ const PrivateProfileSidebarBlock = ({ avatar, name, balance }: IPrivateProfileSi
 	const userSlice = useAppSelector(userSelector);
 	const userName = userSlice?.userData?.name || "Имя";
 	const userAvatar = userSlice?.userData?.avatar || defaultAvatar;
+	const dispatch = useDispatch();
 
 	const laptopWindowSize = 1100;
 
@@ -44,7 +47,8 @@ const PrivateProfileSidebarBlock = ({ avatar, name, balance }: IPrivateProfileSi
 	useEffect(() => {
 		setCurrentDate(format(new Date(), "dd.MM.yyyy"));
 		setBaseUrl(getCorrectBaseUrl());
-	}, []);
+		dispatch(userDataActions.fetch());
+	}, [dispatch]);
 
 	const handleLogout = async () => {
 		try {

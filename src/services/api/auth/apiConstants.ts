@@ -8,7 +8,6 @@ export const validateTokenEndpoint = "api/v1/auth/users/me/";
 export const userActivationEndpoint = "api/v1/auth/users/activation/";
 
 export const resetPasswordWithEmailEndPoint = "api/v1/auth/users/reset_password/";
-export const setNewPasswordEndPoint = "api/v1/auth/users/reset_password_confirm/";
 export const setPasswordEndpoint = "api/v1/auth/users/set_password/";
 
 export const expensesCategoryEndPoint = "api/v1/categories";

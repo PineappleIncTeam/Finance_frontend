@@ -4,7 +4,7 @@ import { targetsEndPoint } from "../auth/apiConstants";
 import { ISavingsTargetAddForm } from "../../../types/pages/Savings";
 
 export const editSavingsCurrentSum = async (baseUrl: string, data: ISavingsTargetAddForm) => {
-	return await axios(`${baseUrl}/${targetsEndPoint}/${String(data.id)}`, {
+	return await axios(`${baseUrl}/${targetsEndPoint}/${String(data.id)}/`, {
 		method: "PUT",
 		data: data,
 		headers: {

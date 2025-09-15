@@ -14,4 +14,5 @@ export interface ISavingsTargetAddForm {
 	id: number | null;
 	name: string;
 	amount: number;
+	current_sum?: number;
 }

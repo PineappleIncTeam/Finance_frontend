@@ -52,7 +52,8 @@ function Savings() {
 		defaultValues: {
 			name: "",
 			id: null,
-			amount: 0,
+			// eslint-disable-next-line camelcase
+			current_sum: 0,
 			type: "savings",
 		},
 		mode: "all",
@@ -127,6 +128,12 @@ function Savings() {
 		return targetData?.id ?? 0;
 	}
 
+	function getTargetAmount(targetName: string) {
+		const targetData = allTargets.find((currentTargetDate: ITarget) => currentTargetDate.name === targetName);
+
+		return targetData?.amount ?? 0;
+	}
+
 	const onSubmit = async (data: ISavingsSelectForm & ISavingsTargetAddForm) => {
 		resetTimer();
 		((data.date = getCurrentDate(endDate)), console.log(data));
@@ -135,7 +142,9 @@ function Savings() {
 				const targetFormData: ISavingsTargetAddForm = {
 					name: data.name,
 					id: getTargetId(data.name),
-					amount: data.amount,
+					amount: getTargetAmount(data.name),
+					// eslint-disable-next-line camelcase
+					current_sum: data.current_sum,
 				};
 				await editSavingsCurrentSum(baseUrl, targetFormData);
 			}
@@ -409,7 +418,7 @@ function Savings() {
 									control={control}
 									label={"Сумма"}
 									type={InputTypeList.Number}
-									name={"amount"}
+									name={"current_sum"}
 									placeholder={"0.00 ₽"}
 								/>
 							</div>

@@ -14,7 +14,11 @@ import {
 	TIndexState,
 	TSavingsFieldState,
 } from "../../../types/components/ComponentsTypes";
-import { ISavingsSelectForm, ISavingsTargetAddForm } from "../../../types/pages/Savings";
+import {
+	ISavingsSelectForm,
+	ISavingsTargetAddForm,
+	ISavingsTargetAddTransactionForm,
+} from "../../../types/pages/Savings";
 import SavingsTransaction from "../../../components/userProfileLayout/savingsTransaction/savingsTransaction";
 import InputDate from "../../../ui/inputDate/inputDate";
 import AppInput from "../../../ui/appInput/AppInput";
@@ -139,12 +143,18 @@ function Savings() {
 		((data.date = getCurrentDate(endDate)), console.log(data));
 		try {
 			if (baseUrl && data !== null) {
-				const targetFormData: ISavingsTargetAddForm = {
-					name: data.name,
-					id: getTargetId(data.name),
-					amount: getTargetAmount(data.name),
-					// eslint-disable-next-line camelcase
-					current_sum: Number(data.current_sum),
+				const targetFormData: ISavingsTargetAddTransactionForm = {
+					type: "targets",
+					amount: Number(data.current_sum),
+					date: data.date,
+					categories: getTargetId(data.name),
+					target: data.amount,
+
+					// name: data.name,
+					// id: getTargetId(data.name),
+					// amount: getTargetAmount(data.name),
+					// // eslint-disable-next-line camelcase
+					// current_sum: Number(data.current_sum),
 				};
 				await editSavingsCurrentSum(baseUrl, targetFormData);
 			}

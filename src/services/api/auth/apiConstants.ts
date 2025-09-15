@@ -16,6 +16,7 @@ export const expensesCategoriesAllEndPoint = "api/v1/categories/all/";
 export const expensesCategoryTransactionEndPoint = "api/v1/operations";
 export const expensesCategoryTransactionsAllEndPoint = "api/v1/operations/all/";
 export const targetsEndPoint = "api/v1/targets";
+export const targetsAddSumEndPoint = "api/v1/operations";
 
 export const currencyEndpoint = "api/v1/currency/";
 

@@ -16,3 +16,11 @@ export interface ISavingsTargetAddForm {
 	amount: number;
 	current_sum?: number;
 }
+
+export interface ISavingsTargetAddTransactionForm {
+	type: "targets";
+	amount: number | string;
+	date: string;
+	categories: number;
+	target: number;
+}

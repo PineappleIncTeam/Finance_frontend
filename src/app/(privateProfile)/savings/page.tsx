@@ -144,7 +144,7 @@ function Savings() {
 					id: getTargetId(data.name),
 					amount: getTargetAmount(data.name),
 					// eslint-disable-next-line camelcase
-					current_sum: data.current_sum,
+					current_sum: Number(data.current_sum),
 				};
 				await editSavingsCurrentSum(baseUrl, targetFormData);
 			}

@@ -120,12 +120,24 @@ function Savings() {
 			sortTargetOrder === SortOrderStateValue.asc ? SortOrderStateValue.desc : SortOrderStateValue.asc,
 		);
 	};
+
+	function getTargetId(targetName: string) {
+		const targetData = allTargets.find((currentTargetData: ITarget) => currentTargetData.name === targetName);
+
+		return targetData?.id ?? 0;
+	}
+
 	const onSubmit = async (data: ISavingsSelectForm & ISavingsTargetAddForm) => {
 		resetTimer();
 		((data.date = getCurrentDate(endDate)), console.log(data));
 		try {
 			if (baseUrl && data !== null) {
-				await editSavingsCurrentSum(baseUrl, data);
+				const targetFormData: ISavingsTargetAddForm = {
+					name: data.name,
+					id: getTargetId(data.name),
+					amount: data.amount,
+				};
+				await editSavingsCurrentSum(baseUrl, targetFormData);
 			}
 		} catch (error) {
 			if (
@@ -139,10 +151,12 @@ function Savings() {
 			}
 		}
 	};
+
 	const getAllTargets = useCallback(async () => {
 		try {
 			if (baseUrl) {
 				const response: AxiosResponse<ITarget[]> = await getTargetsAll(baseUrl);
+
 				if (response !== null && response.status === axios.HttpStatusCode.Ok) {
 					setAllTargets(response.data);
 				}

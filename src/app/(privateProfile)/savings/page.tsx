@@ -214,6 +214,7 @@ function Savings() {
 				<form className={styles.savingsFormContentWrapper}>
 					<h1 className={styles.headerTitle}>Накопления</h1>
 					<div className={styles.savingsFormContentWrapperChoice}>
+					<div className={styles.savingsGridWrapper}> 
 						<div className={styles.savingsByDateContainer}>
 							<div className={styles.totalAmountWrapper}>
 								<p className={styles.totalAmountWrapper__savings}>Общая сумма накоплений </p>
@@ -251,6 +252,7 @@ function Savings() {
 
 							<AddButton onClick={() => resetTimer()} type={InputTypeList.Submit} />
 						</div>
+					</div>
 					</div>
 					<div className={styles.savingsFormContentWrapperList}>
 						<div className={styles.wrapperList__header}>

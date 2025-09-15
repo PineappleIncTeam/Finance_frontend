@@ -53,6 +53,17 @@
 	gap: 20px;
 }
 
+.savingsGridWrapper {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr); 
+	gap: 20px;
+	
+	@media (max-width: 768px) { /* На меньших экранах, например, планшетах */
+    grid-template-columns: 1fr; /* Одна колонка */
+    gap: 16px;
+	}
+}
+
 .savingsByDateContainer {
 	display: flex;
 	gap: 40px;
@@ -578,3 +589,4 @@
 		border-bottom: none;
 	}
 }
+

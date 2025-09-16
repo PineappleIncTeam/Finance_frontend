@@ -8,3 +8,11 @@ export interface ITarget {
 	current_sum: number;
 	status: SavingsTargetStatus;
 }
+
+export interface ISavingsTargetAddTransactionForm {
+	type: "targets";
+	amount: number | string;
+	date: string;
+	categories: number;
+	target: number;
+}

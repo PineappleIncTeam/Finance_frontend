@@ -1,11 +1,11 @@
 import axios from "axios";
 
-import { targetsEndPoint } from "../auth/apiConstants";
-import { ISavingsTargetAddForm } from "../../../types/pages/Savings";
+import { targetsAddSumEndPoint } from "../auth/apiConstants";
+import { ISavingsTargetAddTransactionForm } from "../../../types/api/Savings";
 
-export const editSavingsCurrentSum = async (baseUrl: string, data: ISavingsTargetAddForm) => {
-	return await axios(`${baseUrl}/${targetsEndPoint}/${String(data.id)}/`, {
-		method: "PUT",
+export const editSavingsCurrentSum = async (baseUrl: string, data: ISavingsTargetAddTransactionForm) => {
+	return await axios(`${baseUrl}/${targetsAddSumEndPoint}/`, {
+		method: "POST",
 		data: data,
 		headers: {
 			"Content-Type": "application/json",

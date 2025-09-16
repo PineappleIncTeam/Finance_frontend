@@ -33,7 +33,7 @@ import { ApiResponseCode } from "../../../helpers/apiResponseCode";
 
 import { MainPath } from "../../../services/router/routes";
 
-import { ITarget } from "../../../types/api/Savings";
+import { ISavingsTargetAddTransactionForm, ITarget } from "../../../types/api/Savings";
 import { getTargetsAll } from "../../../services/api/userProfile/getAllTargets";
 import { IOperation } from "../../../types/api/Expenses";
 import { SavingsAddTargetModal } from "../../../components/userProfileLayout/savingsCategory/savingsCategory";
@@ -128,23 +128,17 @@ function Savings() {
 		return targetData?.id ?? 0;
 	}
 
-	function getTargetAmount(targetName: string) {
-		const targetData = allTargets.find((currentTargetDate: ITarget) => currentTargetDate.name === targetName);
-
-		return targetData?.amount ?? 0;
-	}
-
 	const onSubmit = async (data: ISavingsSelectForm & ISavingsTargetAddForm) => {
 		resetTimer();
 		((data.date = getCurrentDate(endDate)), console.log(data));
 		try {
 			if (baseUrl && data !== null) {
-				const targetFormData: ISavingsTargetAddForm = {
-					name: data.name,
-					id: getTargetId(data.name),
-					amount: getTargetAmount(data.name),
-					// eslint-disable-next-line camelcase
-					current_sum: Number(data.current_sum),
+				const targetFormData: ISavingsTargetAddTransactionForm = {
+					type: "targets",
+					amount: Number(data.current_sum),
+					date: data.date,
+					categories: getTargetId(data.name),
+					target: data.amount,
 				};
 				await editSavingsCurrentSum(baseUrl, targetFormData);
 			}

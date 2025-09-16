@@ -55,14 +55,14 @@
 
 .savingsGridWrapper {
 	display: grid;
-	grid-template-columns: repeat(2, 1fr); 
-	gap: 20px;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	grid-column-gap: 20px;
+	grid-row-gap: 18px;
 	
-	@media (max-width: 768px) { /* На меньших экранах, например, планшетах */
-    grid-template-columns: 1fr; /* Одна колонка */
+	@media (max-width: 768px) { 
+    grid-template-columns: repeat(2, 1fr);
     gap: 16px;
 	}
-}
 
 .savingsByDateContainer {
 	display: flex;
@@ -144,6 +144,10 @@
 	@media (max-width: 1100px) {
 		max-width: 360px;
 		margin-right: 56px;
+	}
+
+	@media (max-width: 768px) {
+		width: 100%;
 	}
 }
 .savingsDetailsContainer {
@@ -589,4 +593,14 @@
 		border-bottom: none;
 	}
 }
-
+.totalAmountWrapper,
+.dateSelectionWrapper,
+.savingsDetailsContainer__category,
+.savingsDetailsContainer__sum {
+  @media (max-width: 768px) {
+    max-width: none !important; // ✅ Clear any max-widths
+    margin-right: 0 !important;
+    width: 100% !important;
+  }
+}
+}

@@ -81,6 +81,7 @@ function Savings() {
 	const [savingsTargetName, setSavingsTargetName] = useState<string>("");
 	const [savingsTargetId, setSavingsTargetId] = useState<string>("");
 	const [isSumSavingsAdded, setIsSumSavingsAdded] = useState<boolean>(false);
+	const [fiveOperationsWithNames, setFiveOperationsWithNames] = useState<IOperation[]>([]);
 
 	const interval = 2000;
 	const endDate = 10;
@@ -204,6 +205,19 @@ function Savings() {
 		}
 	}, [baseUrl, router]);
 
+	const getFiveOperationsWithNames = useCallback(() => {
+		const fiveOperationsWithNames: IOperation[] = [];
+		fiveOperations.forEach((element: IOperation) => {
+			allTargets.forEach((option: ITarget) => {
+				if (element.categories === option.id) {
+					element.target = option.name;
+					fiveOperationsWithNames.push(element);
+				}
+			});
+		});
+		return fiveOperationsWithNames;
+	}, [fiveOperations, allTargets]);
+
 	const addSavingsCategory = async (data: ISavingsTargetAddForm) => {
 		try {
 			if (baseUrl && data !== null) {
@@ -250,6 +264,10 @@ function Savings() {
 			}
 		}
 	};
+
+	useEffect(() => {
+		setFiveOperationsWithNames(getFiveOperationsWithNames());
+	}, [getFiveOperationsWithNames]);
 
 	useEffect(() => {
 		setBaseUrl(getCorrectBaseUrl());
@@ -368,19 +386,21 @@ function Savings() {
 		});
 	}
 
-	const renderSavingsTransactions = (transactions: IOperation[]) => {
-		return transactions.map((savingsData, index) => (
-			<li key={index}>
-				<SavingsTransaction
-					date={savingsData.date}
-					target={savingsData.target}
-					amount={savingsData.amount}
-					id={savingsData.id}
-					type={""}
-					categories={0}
-				/>
-			</li>
-		));
+	const renderSavingsTransactions = (fiveOperationsAndNames: IOperation[]) => {
+		if (fiveOperationsWithNames) {
+			return fiveOperationsAndNames.map((savingsData, index) => (
+				<li key={index}>
+					<SavingsTransaction
+						date={savingsData.date}
+						target={savingsData.target}
+						amount={savingsData.amount}
+						id={savingsData.id}
+						type={""}
+						categories={0}
+					/>
+				</li>
+			));
+		}
 	};
 
 	return (

@@ -137,8 +137,7 @@ function Savings() {
 					type: "targets",
 					amount: Number(data.current_sum),
 					date: data.date,
-					categories: getTargetId(data.name),
-					target: data.amount,
+					target: getTargetId(data.name),
 				};
 				await editSavingsCurrentSum(baseUrl, targetFormData);
 			}

@@ -44,6 +44,7 @@ export type TMessageModal = "success" | "warning" | "notification";
 export interface IExpenseTransaction {
 	date: string;
 	amount: string;
+	name?: string;
 	target: string;
 	type: string;
 	categories: number;

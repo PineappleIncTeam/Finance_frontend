@@ -111,7 +111,7 @@ export default function Expenses() {
 		fiveOperations.forEach((element: IOperation) => {
 			options.forEach((option: ICategoryOption) => {
 				if (element.categories === option.id) {
-					element.target = option.name;
+					element.name = option.name;
 					fiveOperationsNames.push(element);
 				}
 			});
@@ -473,13 +473,14 @@ export default function Expenses() {
 							<li key={index}>
 								<ExpensesTransaction
 									date={expensesData.date}
-									target={expensesData.target}
+									name={expensesData.name}
 									amount={expensesData.amount}
 									type={""}
 									categories={0}
 									id={expensesData.id}
 									onDeleteClick={() => [setIsDeleteOperationApprove(true), setIsId(String(expensesData.id))]}
 									editClick={() => [setIsEdit(true), setIsId(String(expensesData.id))]}
+									target={""}
 								/>
 							</li>
 						))}

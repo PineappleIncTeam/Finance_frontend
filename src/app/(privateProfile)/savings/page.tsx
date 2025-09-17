@@ -209,8 +209,8 @@ function Savings() {
 		const fiveOperationsWithNames: IOperation[] = [];
 		fiveOperations.forEach((element: IOperation) => {
 			allTargets.forEach((option: ITarget) => {
-				if (element.categories === option.id) {
-					element.target = option.name;
+				if (element.target === option.id) {
+					element.name = option.name;
 					fiveOperationsWithNames.push(element);
 				}
 			});
@@ -394,9 +394,10 @@ function Savings() {
 						date={savingsData.date}
 						target={savingsData.target}
 						amount={savingsData.amount}
+						name={savingsData.name}
 						id={savingsData.id}
 						type={""}
-						categories={0}
+						categories={savingsData.categories}
 					/>
 				</li>
 			));

@@ -80,6 +80,7 @@ function Savings() {
 	const [isDeleteTargetSuccess, setIsDeleteTargetSuccess] = useState<boolean>(false);
 	const [savingsTargetName, setSavingsTargetName] = useState<string>("");
 	const [savingsTargetId, setSavingsTargetId] = useState<string>("");
+	const [isSumSavingsAdded, setIsSumSavingsAdded] = useState<boolean>(false);
 
 	const interval = 2000;
 	const endDate = 10;
@@ -139,7 +140,10 @@ function Savings() {
 					date: data.date,
 					target: getTargetId(data.name),
 				};
-				await editSavingsCurrentSum(baseUrl, targetFormData);
+				const response = await editSavingsCurrentSum(baseUrl, targetFormData);
+				if (response.status === axios.HttpStatusCode.Created) {
+					setIsSumSavingsAdded(true);
+				}
 			}
 		} catch (error) {
 			if (
@@ -257,10 +261,10 @@ function Savings() {
 
 	useEffect(() => {
 		getAllTargets();
-		if (isAddCategorySuccess || isDeleteTargetSuccess) {
+		if (isAddCategorySuccess || isDeleteTargetSuccess || isSumSavingsAdded) {
 			getAllTargets();
 		}
-	}, [getAllTargets, isAddCategorySuccess, isDeleteTargetSuccess]);
+	}, [getAllTargets, isAddCategorySuccess, isDeleteTargetSuccess, isSumSavingsAdded]);
 
 	useEffect(() => {
 		getFiveOperations();

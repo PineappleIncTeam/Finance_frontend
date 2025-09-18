@@ -593,14 +593,4 @@
 		border-bottom: none;
 	}
 }
-.totalAmountWrapper,
-.dateSelectionWrapper,
-.savingsDetailsContainer__category,
-.savingsDetailsContainer__sum {
-  @media (max-width: 768px) {
-    max-width: none !important; // ✅ Clear any max-widths
-    margin-right: 0 !important;
-    width: 100% !important;
-  }
-}
 }

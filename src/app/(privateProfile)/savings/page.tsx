@@ -297,3 +297,4 @@ function Savings() {
 	</div>
 );
 }
+export default Savings;

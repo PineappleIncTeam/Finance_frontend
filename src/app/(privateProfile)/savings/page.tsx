@@ -393,8 +393,8 @@ function Savings() {
 					<SavingsTransaction
 						date={savingsData.date}
 						target={savingsData.target}
-						amount={savingsData.amount}
 						name={savingsData.name}
+						amount={savingsData.amount}
 						id={savingsData.id}
 						type={""}
 						categories={savingsData.categories}

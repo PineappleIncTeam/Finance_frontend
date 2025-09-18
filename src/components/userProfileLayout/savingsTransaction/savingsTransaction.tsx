@@ -14,8 +14,9 @@ const SavingsTransaction = ({ date, amount, target, name }: IOperation) => {
 		<div className={styles.savingsTransactionContainer}>
 			<p className={styles.transactionData}>{date}</p>
 			<p className={styles.transactionData}>{target}</p>
-			<p className={styles.transactionData}>{amount}</p>
 			<p className={styles.transactionData}>{name}</p>
+			<p className={styles.transactionData}>{amount}</p>
+
 			<div className={styles.savingsTransactionContainer__actionsWrapper}>
 				<DeleteIcon classNames={styles.deleteIcon} />
 				<div onMouseMove={() => setIsTooltipShown(true)} onMouseOut={() => setIsTooltipShown(false)}>

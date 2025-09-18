@@ -64,13 +64,6 @@ export interface IBurgerMenu {
 	setShowMenu: Dispatch<SetStateAction<boolean>>;
 }
 
-export interface ISavingsTransaction {
-	firstDate: string;
-	secondDate: string;
-	purpose: string;
-	sum: string;
-}
-
 export interface IAnalyticsTransactions {
 	firstDate: string;
 	secondDate: string;
@@ -134,4 +127,15 @@ export interface ICurrencyRates {
 	dollar: number;
 	euro: number;
 	crypto: number;
+}
+
+export interface ISavingsTransaction {
+	date: string;
+	amount: string;
+	name?: string;
+	type: string;
+	categories: number;
+	id: number;
+	onDeleteClick: () => void;
+	editClick: () => void;
 }

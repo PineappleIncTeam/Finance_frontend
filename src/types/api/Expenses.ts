@@ -4,6 +4,6 @@ export interface IOperation {
 	amount: string;
 	date: string;
 	categories: number;
-	target: number;
+	target?: number;
 	name?: string;
 }

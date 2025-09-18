@@ -9,6 +9,7 @@ import { useLogoutTimer } from "../../../hooks/useLogoutTimer";
 
 import {
 	IEditActionProps,
+	IEditTransactionForm,
 	SavingsFieldValues,
 	SortOrderStateValue,
 	TIndexState,
@@ -44,6 +45,8 @@ import { removeSavingsTarget } from "../../../services/api/userProfile/removeSav
 import { CategoryDeleteModal } from "../../../components/userProfileLayout/categoryDelete/categoryDelete";
 import { editSavingsCurrentSum } from "../../../services/api/userProfile/editSavingsCurrentSum";
 import { getCurrentDate } from "../../../utils/getCurrentDate";
+import { EditTransactionModal } from "../../../components/userProfileLayout/editTransaction/editTransaction";
+import { editSavingsCategoryTransaction } from "../../../services/api/userProfile/editSavingsTransaction";
 
 import styles from "./savings.module.scss";
 
@@ -82,6 +85,8 @@ function Savings() {
 	const [savingsTargetId, setSavingsTargetId] = useState<string>("");
 	const [isSumSavingsAdded, setIsSumSavingsAdded] = useState<boolean>(false);
 	const [fiveOperationsWithNames, setFiveOperationsWithNames] = useState<IOperation[]>([]);
+	const [isSumEdit, setIsSumEdit] = useState<boolean>(false);
+	const [idSaving, setIdSaving] = useState<string>("");
 
 	const interval = 2000;
 	const endDate = 10;
@@ -265,6 +270,28 @@ function Savings() {
 		}
 	};
 
+	const editTransaction = async (id: string, data: IEditTransactionForm) => {
+		data.date = getCurrentDate(endDate);
+		try {
+			if (baseUrl && data !== null) {
+				const response = await editSavingsCategoryTransaction(baseUrl, id, data);
+				if (response.status === axios.HttpStatusCode.Ok) {
+					setIsSumEdit(false);
+				}
+			}
+		} catch (error) {
+			if (
+				axios.isAxiosError(error) &&
+				error.response &&
+				error.response.status &&
+				error.response.status >= axios.HttpStatusCode.InternalServerError &&
+				error.response.status < ApiResponseCode.SERVER_ERROR_STATUS_MAX
+			) {
+				router.push(MainPath.ServerError);
+			}
+		}
+	};
+
 	useEffect(() => {
 		setFiveOperationsWithNames(getFiveOperationsWithNames());
 	}, [getFiveOperationsWithNames]);
@@ -392,12 +419,13 @@ function Savings() {
 				<li key={index}>
 					<SavingsTransaction
 						date={savingsData.date}
-						target={savingsData.target}
 						name={savingsData.name}
 						amount={savingsData.amount}
 						id={savingsData.id}
 						type={""}
 						categories={savingsData.categories}
+						onDeleteClick={() => undefined}
+						editClick={() => [setIsSumEdit(true), setIdSaving(String(savingsData.id))]}
 					/>
 				</li>
 			));
@@ -496,6 +524,14 @@ function Savings() {
 						{savingsTransactions && renderSavingsTransactions(fiveOperations)}
 					</ul>
 				</div>
+				{isSumEdit && (
+					<EditTransactionModal
+						open={isSumEdit}
+						id={idSaving}
+						request={editTransaction}
+						cancelEdit={() => setIsSumEdit(false)}
+					/>
+				)}
 			</div>
 		</div>
 	);

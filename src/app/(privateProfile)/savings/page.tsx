@@ -21,7 +21,6 @@ import InputDate from "../../../ui/inputDate/inputDate";
 import AppInput from "../../../ui/appInput/AppInput";
 import { CategorySelect } from "../../../components/userProfileLayout/categorySelect/CategorySelect";
 import AddButton from "../../../components/userProfileLayout/addButton/addButton";
-import { savingsTransactions } from "../../../mocks/SavingsTransaction";
 import { InputTypeList } from "../../../helpers/Input";
 import { getCorrectBaseUrl } from "../../../utils/baseUrlConverter";
 import handleLogout from "../../../helpers/logoutTimeoutHandler";
@@ -520,9 +519,7 @@ function Savings() {
 				)}
 				<div className={styles.savingsTransactionWrapper}>
 					<h2 className={styles.savingsTransactionHeader}>Последние операции по накоплениям</h2>
-					<ul className={styles.savingsTransaction}>
-						{savingsTransactions && renderSavingsTransactions(fiveOperations)}
-					</ul>
+					<ul className={styles.savingsTransaction}>{fiveOperations && renderSavingsTransactions(fiveOperations)}</ul>
 				</div>
 				{isSumEdit && (
 					<EditTransactionModal

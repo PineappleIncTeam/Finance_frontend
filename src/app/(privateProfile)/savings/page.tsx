@@ -209,92 +209,89 @@ function Savings() {
 	};
 
 	return (
-	<div className={styles.savingsPageWrap}>
-		<div className={styles.savingsPageContainer}>
-			<form className={styles.savingsFormContentWrapper}>
-				<h1 className={styles.headerTitle}>Накопления</h1>
+		<div className={styles.savingsPageWrap}>
+			<div className={styles.savingsPageContainer}>
+				<form className={styles.savingsFormContentWrapper}>
+					<h1 className={styles.headerTitle}>Накопления</h1>
 
-				<div className={styles.savingsFormContentWrapperChoice}>
-					<div className={styles.savingsGridWrapper}> 
-						<div className={styles.totalAmountWrapper}>
-							<p className={styles.totalAmountWrapper__savings}>Общая сумма накоплений </p>
-							<p className={styles.totalAmountWrapper__sum}>4 112 500 ₽</p>
+					<div className={styles.savingsFormContentWrapperChoice}>
+						<div className={styles.savingsGridWrapper}>
+							<div className={styles.totalAmountWrapper}>
+								<p className={styles.totalAmountWrapper__savings}>Общая сумма накоплений </p>
+								<p className={styles.totalAmountWrapper__sum}>4 112 500 ₽</p>
+							</div>
+
+							<div className={styles.dateSelectionWrapper}>
+								<InputDate control={control} name={"date"} />
+							</div>
+
+							<div className={styles.savingsDetailsContainer__category}>
+								<CategorySelect
+									name={"savings"}
+									label={"Накопления"}
+									options={[
+										{ id: 1, name: "Обучение ребенка", is_income: false, is_outcome: true, is_deleted: false },
+										{ id: 2, name: "Машина", is_income: false, is_outcome: true, is_deleted: false },
+										{ id: 3, name: "Квартира", is_income: false, is_outcome: true, is_deleted: false },
+										{ id: 4, name: "Отпуск 2024", is_income: false, is_outcome: true, is_deleted: false },
+									]}
+									placeholder="Выберите категорию"
+									control={control}
+									onAddCategory={() => undefined}
+								/>
+							</div>
+
+							<div className={styles.savingsDetailsContainer__sum}>
+								<AppInput
+									control={control}
+									label={"Сумма"}
+									type={InputTypeList.Number}
+									name={"sum"}
+									placeholder={"0.00 ₽"}
+								/>
+								<AddButton onClick={() => resetTimer()} type={InputTypeList.Submit} />
+							</div>
 						</div>
-
-						<div className={styles.dateSelectionWrapper}>
-							<InputDate control={control} name={"date"} />
-						</div>
-
-						<div className={styles.savingsDetailsContainer__category}>
-							<CategorySelect
-								name={"savings"}
-								label={"Накопления"}
-								options={[
-									{ id: 1, name: "Обучение ребенка", is_income: false, is_outcome: true, is_deleted: false },
-									{ id: 2, name: "Машина", is_income: false, is_outcome: true, is_deleted: false },
-									{ id: 3, name: "Квартира", is_income: false, is_outcome: true, is_deleted: false },
-									{ id: 4, name: "Отпуск 2024", is_income: false, is_outcome: true, is_deleted: false },
-								]}
-								placeholder="Выберите категорию"
-								control={control}
-								onAddCategory={() => undefined}
-							/>
-						</div>
-
-						<div className={styles.savingsDetailsContainer__sum}>
-							<AppInput
-								control={control}
-								label={"Сумма"}
-								type={InputTypeList.Number}
-								name={"sum"}
-								placeholder={"0.00 ₽"}
-							/>
-						</div>
-
-						<AddButton onClick={() => resetTimer()} type={InputTypeList.Submit} />
 					</div>
-				</div>
 
-				<div className={styles.savingsFormContentWrapperList}>
-					<div className={styles.wrapperList__header}>
-						<ul className={styles.wrapperListHeaderBlock}>
-							<li className={styles.wrapperListHeaderBlock__category}>Категория</li>
-							<li className={styles.wrapperListHeaderBlock__target}>
-								<div className={styles.wrapperListHeaderBlock__targetPosition}>
-									<p>Цель, ₽</p>
-									<div onClick={handleSortByTarget} role="button">
-										<SortIcon classNames={styles.sortIcon} />
+					<div className={styles.savingsFormContentWrapperList}>
+						<div className={styles.wrapperList__header}>
+							<ul className={styles.wrapperListHeaderBlock}>
+								<li className={styles.wrapperListHeaderBlock__category}>Категория</li>
+								<li className={styles.wrapperListHeaderBlock__target}>
+									<div className={styles.wrapperListHeaderBlock__targetPosition}>
+										<p>Цель, ₽</p>
+										<div onClick={handleSortByTarget} role="button">
+											<SortIcon classNames={styles.sortIcon} />
+										</div>
 									</div>
-								</div>
-							</li>
-							<li className={styles.wrapperListHeaderBlock__sum}>
-								<div className={styles.wrapperListHeaderBlock__sumPosition}>
-									<p>Сумма, ₽</p>
-									<div className={styles.sortIcon} onClick={handleSortBySum} role="button">
-										<SortIcon />
+								</li>
+								<li className={styles.wrapperListHeaderBlock__sum}>
+									<div className={styles.wrapperListHeaderBlock__sumPosition}>
+										<p>Сумма, ₽</p>
+										<div className={styles.sortIcon} onClick={handleSortBySum} role="button">
+											<SortIcon />
+										</div>
 									</div>
-								</div>
-							</li>
-							<li className={styles.wrapperListHeaderBlock__status}>Статус</li>
-						</ul>
-					</div>
+								</li>
+								<li className={styles.wrapperListHeaderBlock__status}>Статус</li>
+							</ul>
+						</div>
 
-					<div className={styles.wrapperList__content}>
-						<ul className={styles.wrapperListContentBlock}>
-							{renderSavingsItemList()}
-						</ul>
+						<div className={styles.wrapperList__content}>
+							<ul className={styles.wrapperListContentBlock}>{renderSavingsItemList()}</ul>
+						</div>
 					</div>
+				</form>
+
+				<div className={styles.savingsTransactionWrapper}>
+					<h2 className={styles.savingsTransactionHeader}>Последние операции по накоплениям</h2>
+					<ul className={styles.savingsTransaction}>
+						{savingsTransactions && renderSavingsTransactions(savingsTransactions)}
+					</ul>
 				</div>
-			</form>
-
-			<div className={styles.savingsTransactionWrapper}>
-				<h2 className={styles.savingsTransactionHeader}>Последние операции по накоплениям</h2>
-				<ul className={styles.savingsTransaction}>
-					{savingsTransactions && renderSavingsTransactions(savingsTransactions)}
-				</ul>
 			</div>
 		</div>
-	</div>
-);
+	);
 }
 export default Savings;

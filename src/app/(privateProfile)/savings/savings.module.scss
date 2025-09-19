@@ -55,29 +55,34 @@
 
 .savingsGridWrapper {
 	display: grid;
-	grid-template-columns: repeat(2, minmax(0, 1fr));
+	grid-template-columns: repeat(2, 1fr);
 	grid-column-gap: 20px;
 	grid-row-gap: 18px;
-	
-	@media (max-width: 768px) { 
-    grid-template-columns: repeat(2, 1fr);
-    gap: 16px;
+
+	@media (max-width: 768px) {
+		grid-template-columns: repeat(2, 1fr);
+		gap: 16px;
 	}
+}
 
 .savingsByDateContainer {
 	display: flex;
 	gap: 40px;
 	height: 118px;
 	width: 100%;
+
 	@media (max-width: 1440px) {
 		gap: 28px;
 	}
+
 	@media (max-width: 1200px) {
 		gap: 24px;
 	}
+
 	@media (max-width: 426px) {
 		gap: 8px;
 	}
+
 	@media (max-width: 550px) {
 		height: 100%;
 	}
@@ -94,9 +99,11 @@
 	@media (max-width: 1500px) {
 		max-width: 310px;
 	}
+
 	@media (max-width: 1100px) {
 		max-width: 360px;
 	}
+
 	@media (max-width: 426px) {
 		padding: 10px 15px;
 	}
@@ -105,6 +112,7 @@
 		font-size: 2rem;
 		font-weight: 400;
 		line-height: 2.8rem;
+
 		@media (max-width: 490px) {
 			font-size: 1.3rem;
 			line-height: 1.8rem;
@@ -116,6 +124,7 @@
 		font-weight: 500;
 		line-height: 3.2rem;
 		margin-top: 9px;
+
 		@media (max-width: 490px) {
 			font-size: 1.6rem;
 			font-weight: 400;
@@ -150,6 +159,7 @@
 		width: 100%;
 	}
 }
+
 .savingsDetailsContainer {
 	display: flex;
 	align-items: flex-end;
@@ -159,9 +169,11 @@
 	@media (max-width: 1440px) {
 		gap: 28px;
 	}
+
 	@media (max-width: 1200px) {
 		gap: 24px;
 	}
+
 	@media (max-width: 426px) {
 		gap: 8px;
 	}
@@ -169,19 +181,27 @@
 	&__category {
 		width: 100%;
 		max-width: 400px;
+
 		@media (max-width: 1500px) {
 			max-width: 310px;
 		}
+
 		@media (max-width: 1100px) {
 			max-width: 360px;
 		}
+
 		@media (max-width: 620px) {
 			width: 47%;
 		}
 	}
+
 	&__sum {
 		width: 100%;
-		max-width: 400px;
+		width: clamp(160px, calc(160px + (406) * ((100vw - 360px) / (1560))), 566px);
+		display: flex;
+		align-items: flex-end;
+		justify-content: space-between;
+		gap: 40px;
 
 		@media (max-width: 1500px) {
 			width: 58%;
@@ -221,7 +241,6 @@
 	width: 100%;
 	overflow-y: auto;
 	overflow-x: hidden;
-
 	height: 100%;
 
 	@media (max-width: 600px) {
@@ -265,7 +284,6 @@
 	width: 100%;
 	background-color: var(--color-silver-gray);
 	padding: 9px 0;
-
 	font-size: 1.6rem;
 	font-weight: 400;
 	line-height: 2.2rem;
@@ -305,12 +323,14 @@
 			min-width: 130px;
 		}
 	}
+
 	&__targetPosition {
 		width: 90%;
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
 	}
+
 	&__sum {
 		width: 23%;
 		display: flex;
@@ -325,12 +345,14 @@
 			min-width: 130px;
 		}
 	}
+
 	&__sumPosition {
 		width: 90%;
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
 	}
+
 	&__status {
 		width: 16%;
 		text-align: center;
@@ -353,7 +375,6 @@
 	height: 40px;
 	width: 100%;
 	padding: 0 25px;
-
 	font-size: 1.6rem;
 	font-weight: 400;
 	line-height: 2.2rem;
@@ -394,6 +415,7 @@
 			min-width: 140px;
 		}
 	}
+
 	&__target {
 		width: 23%;
 		display: flex;
@@ -407,6 +429,7 @@
 			min-width: 130px;
 		}
 	}
+
 	&__sum {
 		width: 23%;
 		text-align: end;
@@ -420,6 +443,7 @@
 			min-width: 130px;
 		}
 	}
+
 	&__status {
 		width: 16%;
 		text-align: center;
@@ -433,6 +457,7 @@
 			min-width: 90px;
 		}
 	}
+
 	&__actionElement {
 		width: 7%;
 		text-align: center;
@@ -447,6 +472,7 @@
 		}
 	}
 }
+
 .editIcon {
 	height: 24px;
 	width: 24px;
@@ -469,6 +495,7 @@
 		opacity: 0.7;
 	}
 }
+
 .inputEdit {
 	text-align: left;
 	font-family: "Rubik", Verdana, Arial, Tahoma, sans-serif;
@@ -592,5 +619,4 @@
 	&:last-child {
 		border-bottom: none;
 	}
-}
 }

@@ -186,3 +186,8 @@ export interface ISavingsCategory {
 export interface ISavingsTargetName {
 	name: string;
 }
+
+export interface IResponseApiModal {
+	text: string;
+	open: boolean;
+}

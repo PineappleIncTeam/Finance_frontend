@@ -46,6 +46,8 @@ import { editSavingsCurrentSum } from "../../../services/api/userProfile/editSav
 import { getCurrentDate } from "../../../utils/getCurrentDate";
 import { EditTransactionModal } from "../../../components/userProfileLayout/editTransaction/editTransaction";
 import { editSavingsCategoryTransaction } from "../../../services/api/userProfile/editSavingsTransaction";
+import { IResponseApiModal } from "../../../types/common/ComponentsProps";
+import { ResponseApiRequestModal } from "../../../components/userProfileLayout/responseActionExpenses/responseApiRequestModal";
 
 import styles from "./savings.module.scss";
 
@@ -61,6 +63,11 @@ function Savings() {
 		mode: "all",
 		delayError: 200,
 	});
+
+	const responseApiModalInitialState = {
+		open: false,
+		text: "",
+	};
 	const [hoveredIndex, setHoveredIndex] = useState<TIndexState>(null);
 
 	const [editField, setEditField] = useState<TSavingsFieldState>(null);
@@ -87,6 +94,7 @@ function Savings() {
 	const [isSumEdit, setIsSumEdit] = useState<boolean>(false);
 	const [idSaving, setIdSaving] = useState<string>("");
 	const [isSumEditedSuccess, setIsSumEditedSuccess] = useState<boolean>(false);
+	const [responseApiModal, setResponseApiModal] = useState<IResponseApiModal>(responseApiModalInitialState);
 
 	const interval = 2000;
 	const endDate = 10;
@@ -278,6 +286,14 @@ function Savings() {
 				if (response.status === axios.HttpStatusCode.Ok) {
 					setIsSumEdit(false);
 					setIsSumEditedSuccess(true);
+					setResponseApiModal({
+						open: true,
+						text: "Сумма успешно изменена",
+					});
+					setTimeout(() => {
+						setResponseApiModal(responseApiModalInitialState);
+						setIsSumEditedSuccess(false);
+					}, interval);
 				}
 			}
 		} catch (error) {
@@ -534,6 +550,7 @@ function Savings() {
 						cancelEdit={() => setIsSumEdit(false)}
 					/>
 				)}
+				<ResponseApiRequestModal open={responseApiModal.open} title={responseApiModal.text} />
 			</div>
 		</div>
 	);

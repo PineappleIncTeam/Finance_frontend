@@ -1,6 +1,6 @@
 .expensesTransactionContainer {
 	display: grid;
-	grid-template-columns: 25% 39% 17% 17%;
+	grid-template-columns: 28% 48% 26%;
 	width: 100%;
 	height: 40px;
 
@@ -11,19 +11,19 @@
 	}
 	@media (max-width: 1440px) {
 		& {
-			grid-template-columns: 28% 37% 21% 11%;
+			grid-template-columns: 28% 39% 30%;
 		}
 	}
 
 	@media (max-width: 800px) {
 		& {
-			grid-template-columns: 33% 25% 25% 14%;
+			grid-template-columns: 33% 32% 32%;
 		}
 	}
 
 	@media (max-width: 490px) {
 		& {
-			grid-template-columns: 25% 25% 29% 19%;
+			grid-template-columns: 31% 31% 36%;
 			height: 36px;
 		}
 	}

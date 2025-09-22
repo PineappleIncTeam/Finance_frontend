@@ -15,7 +15,6 @@ const SavingsTransaction = ({ date, amount, name, onDeleteClick, editClick }: IS
 			<p className={styles.transactionData}>{date}</p>
 			<p className={styles.transactionData}>{name}</p>
 			<p className={styles.transactionData}>{amount}</p>
-
 			<div className={styles.savingsTransactionContainer__actionsWrapper}>
 				<div role="button" onClick={() => onDeleteClick()}>
 					<DeleteIcon classNames={styles.deleteIcon} />

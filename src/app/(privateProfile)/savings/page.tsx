@@ -86,6 +86,7 @@ function Savings() {
 	const [fiveOperationsWithNames, setFiveOperationsWithNames] = useState<IOperation[]>([]);
 	const [isSumEdit, setIsSumEdit] = useState<boolean>(false);
 	const [idSaving, setIdSaving] = useState<string>("");
+	const [isSumEditedSuccess, setIsSumEditedSuccess] = useState<boolean>(false);
 
 	const interval = 2000;
 	const endDate = 10;
@@ -276,6 +277,7 @@ function Savings() {
 				const response = await editSavingsCategoryTransaction(baseUrl, id, data);
 				if (response.status === axios.HttpStatusCode.Ok) {
 					setIsSumEdit(false);
+					setIsSumEditedSuccess(true);
 				}
 			}
 		} catch (error) {
@@ -312,7 +314,10 @@ function Savings() {
 
 	useEffect(() => {
 		getFiveOperations();
-	}, [getFiveOperations]);
+		if (isSumEditedSuccess) {
+			getFiveOperations();
+		}
+	}, [getFiveOperations, isSumEditedSuccess]);
 
 	const handleIdName = (id: number, name: string) => {
 		setSavingsTargetName(name);

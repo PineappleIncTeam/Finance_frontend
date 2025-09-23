@@ -26,7 +26,7 @@ import { addExpensesCategory } from "../../../services/api/userProfile/addExpens
 import { MainPath } from "../../../services/router/routes";
 import { addExpensesCategoryTransaction } from "../../../services/api/userProfile/addExpensesCategoryTransaction";
 import { removeExpensesCategory } from "../../../services/api/userProfile/removeExpensesCategory";
-import { removeExpensesCategoryTransaction } from "../../../services/api/userProfile/removeExpensesCategoryTransaction";
+import { removeTransaction } from "../../../services/api/userProfile/removeTransaction";
 import { editExpensesCategoryTransaction } from "../../../services/api/userProfile/editExpensesTransaction";
 import { archiveCategory } from "../../../services/api/userProfile/archiveCategory";
 import { getAllExpensesOperations } from "../../../services/api/userProfile/getAllExpensesOperations";
@@ -288,7 +288,7 @@ export default function Expenses() {
 	const deleteTransaction = async (id: string) => {
 		try {
 			if (baseUrl) {
-				const response = await removeExpensesCategoryTransaction(baseUrl, id);
+				const response = await removeTransaction(baseUrl, id);
 				if ((response.status = axios.HttpStatusCode.Ok)) {
 					setIsDeleteOperationApprove(false);
 					setIsDeleteOperationSuccess(true);

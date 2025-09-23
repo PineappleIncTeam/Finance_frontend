@@ -48,6 +48,8 @@ import { EditTransactionModal } from "../../../components/userProfileLayout/edit
 import { editSavingsCategoryTransaction } from "../../../services/api/userProfile/editSavingsTransaction";
 import { IResponseApiModal } from "../../../types/common/ComponentsProps";
 import { ResponseApiRequestModal } from "../../../components/userProfileLayout/responseActionExpenses/responseApiRequestModal";
+import { removeTransaction } from "../../../services/api/userProfile/removeTransaction";
+import { RecordDeleteModal } from "../../../components/userProfileLayout/recordDelete/recordDelete";
 
 import styles from "./savings.module.scss";
 
@@ -95,6 +97,8 @@ function Savings() {
 	const [idSaving, setIdSaving] = useState<string>("");
 	const [isSumEditedSuccess, setIsSumEditedSuccess] = useState<boolean>(false);
 	const [responseApiModal, setResponseApiModal] = useState<IResponseApiModal>(responseApiModalInitialState);
+	const [isApprovedRemoveOperation, setIsApprovedRemoveOperation] = useState<boolean>(false);
+	const [isRemovedSuccess, setIsRemovedSuccess] = useState<boolean>(false);
 
 	const interval = 2000;
 	const endDate = 10;
@@ -309,6 +313,36 @@ function Savings() {
 		}
 	};
 
+	const deleteTransaction = async (id: string) => {
+		try {
+			if (baseUrl) {
+				const response = await removeTransaction(baseUrl, id);
+				if ((response.status = axios.HttpStatusCode.Ok)) {
+					setIsApprovedRemoveOperation(false);
+					setIsRemovedSuccess(true);
+					setResponseApiModal({
+						open: true,
+						text: "Запись успешно удалена",
+					});
+					setTimeout(() => {
+						setResponseApiModal(responseApiModalInitialState);
+						setIsRemovedSuccess(false);
+					}, interval);
+				}
+			}
+		} catch (error) {
+			if (
+				axios.isAxiosError(error) &&
+				error.response &&
+				error.response.status &&
+				error.response.status >= axios.HttpStatusCode.InternalServerError &&
+				error.response.status < ApiResponseCode.SERVER_ERROR_STATUS_MAX
+			) {
+				router.push(MainPath.ServerError);
+			}
+		}
+	};
+
 	useEffect(() => {
 		setFiveOperationsWithNames(getFiveOperationsWithNames());
 	}, [getFiveOperationsWithNames]);
@@ -330,10 +364,10 @@ function Savings() {
 
 	useEffect(() => {
 		getFiveOperations();
-		if (isSumEditedSuccess) {
+		if (isSumEditedSuccess || isRemovedSuccess) {
 			getFiveOperations();
 		}
-	}, [getFiveOperations, isSumEditedSuccess]);
+	}, [getFiveOperations, isSumEditedSuccess, isRemovedSuccess]);
 
 	const handleIdName = (id: number, name: string) => {
 		setSavingsTargetName(name);
@@ -444,7 +478,7 @@ function Savings() {
 						id={savingsData.id}
 						type={""}
 						categories={savingsData.categories}
-						onDeleteClick={() => undefined}
+						onDeleteClick={() => [setIsApprovedRemoveOperation(true), setIdSaving(String(savingsData.id))]}
 						editClick={() => [setIsSumEdit(true), setIdSaving(String(savingsData.id))]}
 					/>
 				</li>
@@ -548,6 +582,14 @@ function Savings() {
 						id={idSaving}
 						request={editTransaction}
 						cancelEdit={() => setIsSumEdit(false)}
+					/>
+				)}
+				<ResponseApiRequestModal open={responseApiModal.open} title={responseApiModal.text} />
+				{isApprovedRemoveOperation && (
+					<RecordDeleteModal
+						open={isApprovedRemoveOperation}
+						remove={() => deleteTransaction(idSaving)}
+						cancelRemove={() => setIsApprovedRemoveOperation(false)}
 					/>
 				)}
 				<ResponseApiRequestModal open={responseApiModal.open} title={responseApiModal.text} />

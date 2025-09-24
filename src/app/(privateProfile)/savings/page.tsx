@@ -150,7 +150,7 @@ function Savings() {
 
 	const onSubmit = async (data: ISavingsSelectForm & ISavingsTargetAddForm) => {
 		resetTimer();
-		((data.date = getCurrentDate(endDate)), console.log(data));
+		data.date = getCurrentDate(endDate);
 		try {
 			if (baseUrl && data !== null) {
 				const targetFormData: ISavingsTargetAddTransactionForm = {
@@ -578,7 +578,6 @@ function Savings() {
 						</div>
 					</div>
 				</form>
-				{/* <ResponseApiRequestModal open={responseApiModal.open} title={responseApiModal.text} /> */}
 				{isAddCategoryModalOpen && (
 					<SavingsAddTargetModal
 						open={isAddCategoryModalOpen}
@@ -617,7 +616,6 @@ function Savings() {
 						cancelRemove={() => setIsApprovedRemoveOperation(false)}
 					/>
 				)}
-				{/* <ResponseApiRequestModal open={responseApiModal.open} title={responseApiModal.text} /> */}
 			</div>
 		</div>
 	);

@@ -99,6 +99,7 @@ function Savings() {
 	const [responseApiModal, setResponseApiModal] = useState<IResponseApiModal>(responseApiModalInitialState);
 	const [isApprovedRemoveOperation, setIsApprovedRemoveOperation] = useState<boolean>(false);
 	const [isRemovedSuccess, setIsRemovedSuccess] = useState<boolean>(false);
+	const [isImpossibleDelete, setIsImpossibleDelete] = useState<boolean>(false);
 
 	const interval = 2000;
 	const endDate = 10;
@@ -260,13 +261,36 @@ function Savings() {
 		}
 	};
 
+	function getCategoryStatus(targetId: number) {
+		const targetData = allTargets.find((currentTargetData: ITarget) => currentTargetData.id === targetId);
+		return targetData?.status;
+	}
+
 	const deleteSavingsCategory = async (id: string) => {
 		try {
 			if (baseUrl && id !== null) {
-				const response = await removeSavingsTarget(baseUrl, String(id));
-				if (response.status === axios.HttpStatusCode.Ok) {
-					setIsDeleteTargetModalOpen(false);
-					setIsDeleteTargetSuccess(true);
+				const isAchieved = SavingsTargetStatus.achieved === getCategoryStatus(Number(id));
+				if (isAchieved) {
+					const response = await removeSavingsTarget(baseUrl, String(id));
+					if (response.status === axios.HttpStatusCode.Ok) {
+						setIsDeleteTargetModalOpen(false);
+						setIsDeleteTargetSuccess(true);
+						setResponseApiModal({
+							open: isImpossibleDelete,
+							text: "Категория успешно удалена",
+						});
+						setTimeout(() => {
+							setResponseApiModal(responseApiModalInitialState);
+							setIsDeleteTargetSuccess(false);
+						}, interval);
+					}
+				} else {
+					(setIsImpossibleDelete(true),
+						setResponseApiModal({ open: true, text: "Цель находится в процессе, невозможно удалить" }),
+						setTimeout(() => {
+							setResponseApiModal(responseApiModalInitialState);
+							setIsImpossibleDelete(false);
+						}, interval));
 				}
 			}
 		} catch (error) {
@@ -554,6 +578,7 @@ function Savings() {
 						</div>
 					</div>
 				</form>
+				{/* <ResponseApiRequestModal open={responseApiModal.open} title={responseApiModal.text} /> */}
 				{isAddCategoryModalOpen && (
 					<SavingsAddTargetModal
 						open={isAddCategoryModalOpen}
@@ -592,7 +617,7 @@ function Savings() {
 						cancelRemove={() => setIsApprovedRemoveOperation(false)}
 					/>
 				)}
-				<ResponseApiRequestModal open={responseApiModal.open} title={responseApiModal.text} />
+				{/* <ResponseApiRequestModal open={responseApiModal.open} title={responseApiModal.text} /> */}
 			</div>
 		</div>
 	);

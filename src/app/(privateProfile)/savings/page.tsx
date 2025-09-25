@@ -373,12 +373,14 @@ function Savings() {
 			if (baseUrl) {
 				const response = await returnMoneyAccount(baseUrl, id);
 				if ((response.status = axios.HttpStatusCode.Ok)) {
+					setIsDeleteTargetSuccess(true);
 					setResponseApiModal({
 						open: true,
-						text: "Ваш общий баланс пополнен",
+						text: "Цель успешно удалена",
 					});
 					setTimeout(() => {
 						setResponseApiModal(responseApiModalInitialState);
+						setIsDeleteTargetSuccess(false);
 					}, interval);
 				}
 			}

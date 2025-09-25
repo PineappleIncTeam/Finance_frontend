@@ -50,6 +50,7 @@ import { IResponseApiModal } from "../../../types/common/ComponentsProps";
 import { ResponseApiRequestModal } from "../../../components/userProfileLayout/responseActionExpenses/responseApiRequestModal";
 import { removeTransaction } from "../../../services/api/userProfile/removeTransaction";
 import { RecordDeleteModal } from "../../../components/userProfileLayout/recordDelete/recordDelete";
+import { returnMoneyAccount } from "../../../services/api/userProfile/returnMoneyAccount";
 
 import styles from "./savings.module.scss";
 
@@ -367,6 +368,33 @@ function Savings() {
 		}
 	};
 
+	const returnFundsAccount = async (id: string) => {
+		try {
+			if (baseUrl) {
+				const response = await returnMoneyAccount(baseUrl, id);
+				if ((response.status = axios.HttpStatusCode.Ok)) {
+					setResponseApiModal({
+						open: true,
+						text: "Ваш общий баланс пополнен",
+					});
+					setTimeout(() => {
+						setResponseApiModal(responseApiModalInitialState);
+					}, interval);
+				}
+			}
+		} catch (error) {
+			if (
+				axios.isAxiosError(error) &&
+				error.response &&
+				error.response.status &&
+				error.response.status >= axios.HttpStatusCode.InternalServerError &&
+				error.response.status < ApiResponseCode.SERVER_ERROR_STATUS_MAX
+			) {
+				router.push(MainPath.ServerError);
+			}
+		}
+	};
+
 	useEffect(() => {
 		setFiveOperationsWithNames(getFiveOperationsWithNames());
 	}, [getFiveOperationsWithNames]);
@@ -481,8 +509,12 @@ function Savings() {
 						<MoreIcon />
 						{openMoreIndex === index && (
 							<div className={styles.wrapperListContentMore}>
-								<p className={styles.wrapperListContentMore__close}>Закрыть цель</p>
-								<p>Вернуть средства на счет</p>
+								<div role="button" onClick={() => deleteSavingsCategory(String(item.id))}>
+									<p className={styles.wrapperListContentMore__close}>Закрыть цель</p>
+								</div>
+								<div role="button" onClick={() => returnFundsAccount(String(item.id))}>
+									<p>Вернуть средства на счет</p>
+								</div>
 							</div>
 						)}
 					</div>

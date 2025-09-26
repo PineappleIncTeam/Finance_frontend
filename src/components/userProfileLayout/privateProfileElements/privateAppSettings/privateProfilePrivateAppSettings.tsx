@@ -1,22 +1,38 @@
+import React from "react";
+
 import { useForm } from "react-hook-form";
 
-import { useAppDispatch } from "../../../../services/redux/hooks/useAppDispatch";
 import { useAppSelector } from "../../../../services/redux/hooks/useAppSelector";
 
-import { IPrivateAppSettings } from "../../../../types/pages/userProfileSettings";
-import { Selector } from "../../../../ui/selector/Selector";
-import Switcher from "../../../../ui/switcher/switcher";
-import Button from "../../../../ui/Button/Button";
-import { userSelector } from "../../../../services/redux/features/userData/UserDataSelector";
-import { userDataActions } from "../../../../services/redux/features/userData/UserDataActions";
-import { ButtonType } from "../../../../helpers/buttonFieldValues";
-import { InputTypeList } from "../../../../helpers/Input";
+import { useAppDispatch } from "../../../../services/redux/hooks/useAppDispatch";
 
+import { userSelector } from "../../../../services/redux/features/userData/UserDataSelector";
+
+import { userDataActions } from "../../../../types/redux/sagaActions/storeSaga.actions";
+
+import { getCorrectBaseUrl } from "../../../../utils/baseUrlConverter";
+
+import { updateUserData } from "../../../../services/api/auth/updateUserData";
+
+import { IUserData } from "../../../../types/redux/StoreTypes";
+
+import { InputTypeList } from "../../../../helpers/Input";
+import { ButtonType } from "../../../../helpers/buttonFieldValues";
+
+import Switcher from "../../../../ui/switcher/Switcher";
+import { Selector } from "../../../../ui/selector/Selector";
+import Button from "../../../../ui/Button/Button";
 import { DeleteIcon } from "../../../../assets/script/expenses/DeleteIcon";
 
 import styles from "./privateProfilePrivateAppSettings.module.scss";
 
-export const PrivateProfilePrivateAppSettings = () => {
+export type IPrivateAppSettings = {
+	currency: string;
+	darkTheme: boolean;
+	finAssistant: boolean;
+};
+
+export const PrivateProfilePrivateAppSettings: React.FC = () => {
 	const dispatch = useAppDispatch();
 	const user = useAppSelector(userSelector);
 	const currentSettings = user?.settings || { currency: "USD", theme: "light", assistant: false };
@@ -27,17 +43,26 @@ export const PrivateProfilePrivateAppSettings = () => {
 			darkTheme: currentSettings.theme === "dark",
 			finAssistant: currentSettings.assistant,
 		},
-		mode: "all",
-		delayError: 200,
 	});
 
-	const onSubmit = (data: IPrivateAppSettings) => {
-		const payload = {
-			currency: data.currency,
-			darkTheme: data.darkTheme,
-			finAssistant: data.finAssistant,
-		};
-		dispatch(userDataActions.update({ settings: payload }));
+	const onSubmit = async (data: IPrivateAppSettings) => {
+		dispatch(userDataActions.updatePending());
+		try {
+			const baseUrl = getCorrectBaseUrl();
+			const payload = {
+				settings: {
+					currency: data.currency,
+					theme: data.darkTheme ? "dark" : "light",
+					assistant: data.finAssistant,
+				},
+			} as Partial<IUserData>;
+			const resp = await updateUserData(payload, baseUrl);
+			const updated = resp?.data ?? resp;
+			dispatch(userDataActions.updateFulfilled(updated));
+			dispatch(userDataActions.fulfilled(updated));
+		} catch (err: any) {
+			dispatch(userDataActions.updateRejected(err?.message ?? "Ошибка при обновлении настроек"));
+		}
 	};
 
 	return (

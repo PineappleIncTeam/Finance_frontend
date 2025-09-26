@@ -5,7 +5,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import axios from "axios";
-import { format } from "date-fns";
 import { useDispatch } from "react-redux";
 
 import { AuthTypes } from "../../../../types/pages/Authorization";
@@ -15,11 +14,12 @@ import { BurgerMenu } from "../../burgerMenu/burgerMenu";
 import { PrivateProfileSidebarMenu } from "../sidebarMenu/privateProfileSidebarMenu";
 import { MainPath } from "../../../../services/router/routes";
 import { baseLogoutUser } from "../../../../services/api/auth/baseLogoutUser";
-import { getCorrectBaseUrl } from "../../../../utils/baseUrlConverter";
 import { sidebarNavMenu } from "../../../../helpers/sidebarNavMenu";
-import useAppSelector from "../../../../hooks/useAppSelector";
+import { useAppSelector } from "../../../../services/redux/hooks";
 import { userSelector } from "../../../../services/redux/features/userData/UserDataSelector";
-import { userDataActions } from "../../../../services/redux/features/userData/UserDataActions";
+import { setUser, setLoading, setError } from "../../../../services/redux/features/userData/UserDataSlice";
+import { getUserData } from "../../../../services/api/auth/getUserData";
+import { getCorrectBaseUrl } from "../../../../utils/baseUrlConverter";
 
 import defaultAvatar from "../../../../assets/components/userProfile/userPhoto.svg";
 import burgerIcon from "../../../../assets/components/userProfile/burger.svg";
@@ -29,15 +29,15 @@ import styles from "./privateProfileSidebar.module.scss";
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const PrivateProfileSidebarBlock = ({ avatar, name, balance }: IPrivateProfileSidebar) => {
-	const [currentDate, setCurrentDate] = useState<string>("");
+	const [currentDate] = useState<string>("");
 	const [isNavBarOpen, setIsNavBarOpen] = useState<boolean>(false);
-	const [baseUrl, setBaseUrl] = useState<string>();
+	const [baseUrl] = useState<string>();
 	const [showMenu, setShowMenu] = useState<boolean>(false);
 	const [selectedMenuItem, setSelectedMenuItem] = useState<string>("Личные данные");
 
-	const userSlice = useAppSelector(userSelector);
-	const userName = userSlice?.userData?.name || "Имя";
-	const userAvatar = userSlice?.userData?.avatar || defaultAvatar;
+	const user = useAppSelector(userSelector);
+	const userName = user?.userData?.name || "Имя";
+	const userAvatar = user?.userData?.avatar || defaultAvatar;
 	const dispatch = useDispatch();
 
 	const laptopWindowSize = 1100;
@@ -45,9 +45,19 @@ const PrivateProfileSidebarBlock = ({ avatar, name, balance }: IPrivateProfileSi
 	const router = useRouter();
 
 	useEffect(() => {
-		setCurrentDate(format(new Date(), "dd.MM.yyyy"));
-		setBaseUrl(getCorrectBaseUrl());
-		dispatch(userDataActions.fetch());
+		(async () => {
+			try {
+				dispatch(setLoading(true));
+				const baseUrl = getCorrectBaseUrl();
+				const resp = await getUserData(baseUrl);
+				const data = resp?.data ?? resp;
+				dispatch(setUser(data));
+			} catch (err: any) {
+				dispatch(setError(err?.message ?? "Ошибка при загрузке профиля"));
+			} finally {
+				dispatch(setLoading(false));
+			}
+		})();
 	}, [dispatch]);
 
 	const handleLogout = async () => {

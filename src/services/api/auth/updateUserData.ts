@@ -2,15 +2,16 @@ import axios from "axios";
 
 import { IUserData } from "../../../types/redux/StoreTypes";
 
-import { validateTokenEndpoint } from "./apiConstants";
+import { getUserDataEndpoint } from "./apiConstants";
 
-export const updateUserData = async (userData: Partial<IUserData>, baseURL: string) => {
-	return await axios(`${baseURL}/${validateTokenEndpoint}`, {
+export const updateUserData = async (data: Partial<IUserData>, baseURL: string) => {
+	return await axios(`${baseURL}/${getUserDataEndpoint}`, {
 		method: "PATCH",
+		data: data,
 		headers: {
 			"Content-Type": "application/json",
 		},
 		withCredentials: true,
-		data: userData,
+		withTokenRefresh: true,
 	});
 };

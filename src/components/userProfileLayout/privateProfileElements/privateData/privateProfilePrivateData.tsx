@@ -1,66 +1,99 @@
-import { useForm } from "react-hook-form";
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 
-import { IPrivateDataFrom } from "../../../../types/pages/userProfileSettings";
+import { useForm } from "react-hook-form";
+
+import { useAppDispatch } from "../../../../services/redux/hooks/useAppDispatch";
+
+import { useAppSelector } from "../../../../services/redux/hooks/useAppSelector";
+
+import { userDataActions } from "../../../../types/redux/sagaActions/storeSaga.actions";
+
+import { userSelector } from "../../../../services/redux/features/userData/UserDataSelector";
+
+import { getCorrectBaseUrl } from "../../../../utils/baseUrlConverter";
+
+import { getUserData } from "../../../../services/api/auth/getUserData";
+
+import { updateUserData } from "../../../../services/api/auth/updateUserData";
+
+import { ButtonType } from "../../../../helpers/buttonFieldValues";
+
 import AppInput from "../../../../ui/appInput/AppInput";
-import useAppDispatch from "../../../../hooks/useAppDispatch";
-import useAppSelector from "../../../../hooks/useAppSelector";
 
 import { RadioButton } from "../../../../ui/radio/radioButton";
 
 import Button from "../../../../ui/Button/Button";
-import { ButtonType } from "../../../../helpers/buttonFieldValues";
-import { InputTypeList } from "../../../../helpers/Input";
 
-import { userDataActions } from "../../../../services/redux/features/userData/UserDataActions";
-import { userSelector } from "../../../../services/redux/features/userData/UserDataSelector";
+import { InputTypeList } from "../../../../helpers/Input";
 
 import styles from "./privateProfilePrivateData.module.scss";
 
-export const PrivateProfilePrivateData = () => {
+export type IPrivateDataForm = {
+	nickname: string;
+	gender: string;
+	country: string;
+	email?: string;
+	avatar?: string;
+};
+
+export const PrivateProfilePrivateData: React.FC = () => {
 	const dispatch = useAppDispatch();
 	const { userData } = useAppSelector(userSelector);
 
 	const {
-		control,
 		handleSubmit,
-		formState: { errors },
 		reset,
-	} = useForm<IPrivateDataFrom>({
+		control,
+		formState: { errors },
+	} = useForm<IPrivateDataForm>({
 		defaultValues: {
 			nickname: userData?.nickname || "",
-			country: userData?.country || "",
 			gender: userData?.gender || "male",
+			country: userData?.country || "",
 			email: userData?.email || "",
 			avatar: userData?.avatar || "",
 		},
-		mode: "all",
-		delayError: 200,
 	});
 
 	useEffect(() => {
-		dispatch(userDataActions.pending());
+		(async () => {
+			dispatch(userDataActions.pending());
+			try {
+				const baseUrl = getCorrectBaseUrl();
+				const resp = await getUserData(baseUrl);
+				const data = resp?.data ?? resp;
+				dispatch(userDataActions.fulfilled(data));
+			} catch (err: any) {
+				dispatch(userDataActions.rejected(err?.message ?? "Ошибка при загрузке профиля"));
+			}
+		})();
 	}, [dispatch]);
 
 	useEffect(() => {
 		reset({
 			nickname: userData?.nickname || "",
-			country: userData?.country || "",
 			gender: userData?.gender || "male",
+			country: userData?.country || "",
 			email: userData?.email || "",
-			avatar: userData?.avatar || "",
 		});
 	}, [userData, reset]);
 
-	const onSubmit = (data: IPrivateDataFrom) => {
-		dispatch(
-			userDataActions.update({
+	const onSubmit = async (data: IPrivateDataForm) => {
+		dispatch(userDataActions.updatePending());
+		try {
+			const baseUrl = getCorrectBaseUrl();
+			const payload: any = {
 				nickname: data.nickname,
-				country: data.country,
 				gender: data.gender,
-				avatar: data.avatar,
-			}),
-		);
+				country: data.country,
+			};
+			const resp = await updateUserData(payload, baseUrl);
+			const updated = resp?.data ?? resp;
+			dispatch(userDataActions.updateFulfilled(updated));
+			dispatch(userDataActions.fulfilled(updated));
+		} catch (err: any) {
+			dispatch(userDataActions.updateRejected(err?.message ?? "Ошибка при обновлении"));
+		}
 	};
 
 	return (

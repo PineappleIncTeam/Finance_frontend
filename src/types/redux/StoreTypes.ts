@@ -25,4 +25,8 @@ export interface IUserData {
 	nickname: string;
 	country: string;
 	gender: string;
+	currency?: string;
+	darkTheme?: "dark" | "light";
+	finAssistant?: boolean;
+	personalAvatar?: string;
 }

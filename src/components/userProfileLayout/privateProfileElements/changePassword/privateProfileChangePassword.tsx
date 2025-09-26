@@ -6,33 +6,38 @@ import { errorPasswordRepeat } from "../../../../helpers/authConstants";
 import { InputTypeList } from "../../../../helpers/Input";
 import { passwordValidate } from "../../../../utils/passwordValidate";
 import Button from "../../../../ui/Button/Button";
+import { useAppDispatch } from "../../../../services/redux/hooks/useAppDispatch";
+import {
+	changePasswordPending,
+	changePasswordFulfilled,
+	changePasswordRejected,
+} from "../../../../services/redux/features/userData/UserDataSlice";
 import { ButtonType } from "../../../../helpers/buttonFieldValues";
 
 import { changePassword } from "../../../../services/api/auth/changePassword";
 
 import styles from "./privateProfileChangePassword.module.scss";
 
-export const PrivateProfileChangePassword = () => {
+export const PrivateProfileChangePassword: React.FC = () => {
+	const dispatch = useAppDispatch();
 	const {
-		formState: { errors },
-		control,
 		handleSubmit,
 		watch,
+		reset,
+		control,
+		formState: { errors },
 	} = useForm<IChangePasswordForm>({
-		defaultValues: {
-			oldPassword: "",
-			newPassword: "",
-			repeatPassword: "",
-		},
-		mode: "all",
-		delayError: 200,
+		defaultValues: { oldPassword: "", newPassword: "", repeatPassword: "" },
 	});
 
 	const onSubmit = async (data: IChangePasswordForm) => {
+		dispatch(changePasswordPending());
 		try {
 			await changePassword({ oldPassword: data.oldPassword, newPassword: data.newPassword });
-		} catch (e) {
-			console.error(e);
+			dispatch(changePasswordFulfilled(null));
+			reset();
+		} catch (err: any) {
+			dispatch(changePasswordRejected(err?.message ?? "Ошибка при смене пароля"));
 		}
 	};
 

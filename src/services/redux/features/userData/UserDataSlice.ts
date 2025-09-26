@@ -1,8 +1,6 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 import { IUserState } from "../../../../types/redux/StateTypes";
-
-import { userDataActions } from "./UserDataActions";
 
 // const authTokenStorage = localStorage.getItem("token");
 // const balanceSum = localStorage.getItem("balans");
@@ -32,44 +30,58 @@ const userSlice = createSlice({
 	name: "user",
 	initialState,
 	reducers: {
-		setUser(state, action) {
-			localStorage.setItem("token", action.payload.token);
-			state.token = action.payload.token;
+		setUser(state, action: PayloadAction<Partial<IUserState["userData"]> & { token?: string }>) {
+			const payload: any = action.payload || {};
+			state.userData = {
+				...(state.userData || {}),
+				...(payload.userData || payload),
+			} as IUserState["userData"];
+			if (payload.token) state.token = payload.token;
+			state.userData.loading = false;
+			state.userData.error = null;
 		},
-		setBalance(state, action) {
-			localStorage.setItem("token", action.payload.token);
-			state.token = action.payload.token;
+		updateUserFields(state, action: PayloadAction<Partial<IUserState["userData"]>>) {
+			state.userData = {
+				...(state.userData || {}),
+				...(action.payload || {}),
+			} as IUserState["userData"];
+		},
+		setLoading(state, action: PayloadAction<boolean>) {
+			state.userData.loading = action.payload;
+			if (action.payload) state.userData.error = null;
+		},
+		setError(state, action: PayloadAction<string | null>) {
+			state.userData.error = action.payload;
+			state.userData.loading = false;
 		},
 		removeUser(state) {
 			state.token = null;
+			state.userData = initialState.userData;
 		},
-		stringBalance(state, action) {
-			state.balanceString = action.payload.balanceString;
+
+		changePasswordPending(state) {
+			state.userData.loading = true;
+			state.userData.error = null;
 		},
-		costsBalance(state, action) {
-			state.balanceCosts = action.payload.balanceCosts;
+		changePasswordFulfilled(state) {
+			state.userData.loading = false;
+			state.userData.error = null;
 		},
-	},
-	extraReducers: (builder) => {
-		builder
-			.addCase(userDataActions.pending, (state) => {
-				state.userData.loading = true;
-				state.userData.error = null;
-			})
-			.addCase(userDataActions.fulfilled, (state, action) => {
-				state.userData.loading = false;
-				state.userData = {
-					...state.userData,
-					...action.payload,
-				};
-			})
-			.addCase(userDataActions.rejected, (state, action) => {
-				state.userData.loading = false;
-				state.userData.error = action.payload || "Ошибка при загрузке данных";
-			});
+		changePasswordRejected(state, action: PayloadAction<string | null>) {
+			state.userData.loading = false;
+			state.userData.error = action.payload ?? "Ошибка смены пароля";
+		},
 	},
 });
 
-export const { setUser, removeUser, stringBalance, costsBalance } = userSlice.actions;
-
+export const {
+	setUser,
+	updateUserFields,
+	setLoading,
+	setError,
+	removeUser,
+	changePasswordPending,
+	changePasswordFulfilled,
+	changePasswordRejected,
+} = userSlice.actions;
 export default userSlice.reducer;

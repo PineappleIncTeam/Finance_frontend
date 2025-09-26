@@ -22,6 +22,8 @@ export interface IUserAvatar {
 
 export interface IPrivateAppSettings {
 	currency: string;
-	darkTheme: boolean;
+	darkTheme: string;
 	finAssistant: boolean;
+	personalAvatar: string | undefined;
+	templateAvatar: string;
 }

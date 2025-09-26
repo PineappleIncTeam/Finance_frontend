@@ -6,6 +6,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useRef, useState, Dispatch, SetStateAction, RefObject } from "react";
 import cn from "classnames";
 import axios from "axios";
+import { env } from "next-runtime-env";
 
 import { useLogoutTimer } from "../../../hooks/useLogoutTimer";
 
@@ -14,7 +15,6 @@ import { INavBar } from "../../../types/common/ComponentsProps";
 import { baseLogoutUser } from "../../../services/api/auth/baseLogoutUser";
 import { MainPath, UserProfilePath } from "../../../services/router/routes";
 import { COLORS } from "../../../helpers/colorSet";
-import { getCorrectBaseUrl } from "../../../utils/baseUrlConverter";
 
 import logo from "../../../assets/components/logo.png";
 import IncomeIcon from "../../../assets/script/privateProfileNavBar/IncomeIcon";
@@ -30,9 +30,10 @@ import styles from "./navBar.module.scss";
 const NavBar = ({ onClick }: INavBar) => {
 	const pathname = usePathname();
 	const [isPathOpen, setIsPathOpen] = useState<boolean>(false);
-	const [baseUrl, setBaseUrl] = useState<string>();
 	const modalRef = useRef<HTMLDivElement | null>(null);
 	const router = useRouter();
+
+	const baseUrl = String(env("NEXT_PUBLIC_BASE_URL") ?? "");
 
 	const handleLogout = async () => {
 		try {
@@ -104,10 +105,6 @@ const NavBar = ({ onClick }: INavBar) => {
 	useEffect(() => {
 		setIsPathOpen(false);
 	}, [pathname]);
-
-	useEffect(() => {
-		setBaseUrl(getCorrectBaseUrl());
-	}, []);
 
 	const renderNavigationElements = () => {
 		return (

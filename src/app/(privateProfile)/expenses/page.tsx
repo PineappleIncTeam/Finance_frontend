@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import { Key, useCallback, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import axios, { AxiosResponse } from "axios";
+import { env } from "next-runtime-env";
 
 import { useLogoutTimer } from "../../../hooks/useLogoutTimer";
 
@@ -31,7 +32,7 @@ import { editExpensesCategoryTransaction } from "../../../services/api/userProfi
 import { archiveCategory } from "../../../services/api/userProfile/archiveCategory";
 import { getAllExpensesOperations } from "../../../services/api/userProfile/getAllExpensesOperations";
 import { addExpensesCategoryTransaction } from "../../../services/api/userProfile/addExpensesCategoryTransaction";
-import { getCorrectBaseUrl } from "../../../utils/baseUrlConverter";
+
 import { getCurrentDate } from "../../../utils/getCurrentDate";
 import { useHandleLogout } from "../../../hooks/useHandleLogout";
 import { InputTypeList } from "../../../helpers/Input";
@@ -44,7 +45,6 @@ export default function Expenses() {
 		title: "",
 	};
 
-	const [baseUrl, setBaseUrl] = useState<string>();
 	const [isAddSuccess, setIsAddSuccess] = useState<boolean>(false);
 	const [fiveOperations, setFiveOperations] = useState<IOperation[]>([]);
 	const [fiveOperationsNames, setFiveOperationsNames] = useState<IOperation[]>([]);
@@ -75,6 +75,8 @@ export default function Expenses() {
 	});
 
 	const router = useRouter();
+
+	const baseUrl = String(env("NEXT_PUBLIC_BASE_URL") ?? "");
 
 	const { request } = useHandleLogout(baseUrl);
 	const { resetTimer } = useLogoutTimer(request);
@@ -145,10 +147,6 @@ export default function Expenses() {
 			}
 		}
 	}, [baseUrl, router]);
-
-	useEffect(() => {
-		setBaseUrl(getCorrectBaseUrl());
-	}, []);
 
 	useEffect(() => {
 		resetTimer();

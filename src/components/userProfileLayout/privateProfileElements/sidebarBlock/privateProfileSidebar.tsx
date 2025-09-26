@@ -6,6 +6,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 import { format } from "date-fns";
+import { env } from "next-runtime-env";
 
 import { AuthTypes } from "../../../../types/pages/Authorization";
 import { IPrivateProfileSidebar } from "../../../../types/common/ComponentsProps";
@@ -14,7 +15,6 @@ import { BurgerMenu } from "../../burgerMenu/burgerMenu";
 import { PrivateProfileSidebarMenu } from "../sidebarMenu/privateProfileSidebarMenu";
 import { MainPath } from "../../../../services/router/routes";
 import { baseLogoutUser } from "../../../../services/api/auth/baseLogoutUser";
-import { getCorrectBaseUrl } from "../../../../utils/baseUrlConverter";
 import { sidebarNavMenu } from "../../../../helpers/sidebarNavMenu";
 
 import userAvatar from "../../../../assets/components/userProfile/userPhoto.svg";
@@ -26,17 +26,16 @@ import styles from "./privateProfileSidebar.module.scss";
 const PrivateProfileSidebarBlock = ({ avatar, name, balance }: IPrivateProfileSidebar) => {
 	const [currentDate, setCurrentDate] = useState<string>("");
 	const [isNavBarOpen, setIsNavBarOpen] = useState<boolean>(false);
-	const [baseUrl, setBaseUrl] = useState<string>();
 	const [showMenu, setShowMenu] = useState<boolean>(false);
 	const [selectedMenuItem, setSelectedMenuItem] = useState<string>("Личные данные");
 
 	const laptopWindowSize = 1100;
+	const baseUrl = String(env("NEXT_PUBLIC_BASE_URL") ?? "");
 
 	const router = useRouter();
 
 	useEffect(() => {
 		setCurrentDate(format(new Date(), "dd.MM.yyyy"));
-		setBaseUrl(getCorrectBaseUrl());
 	}, []);
 
 	const handleLogout = async () => {

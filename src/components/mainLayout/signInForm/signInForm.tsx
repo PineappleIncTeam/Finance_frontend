@@ -19,7 +19,6 @@ import Button from "../../../ui/Button/Button";
 import InviteModal from "../inviteModal/inviteModal";
 import { emailPattern, errorDataLogOn, errorProfileActivation, passwordPattern } from "../../../helpers/authConstants";
 import { formHelpers } from "../../../utils/formHelpers";
-import { getCorrectBaseUrl } from "../../../utils/baseUrlConverter";
 import { InputTypeList } from "../../../helpers/Input";
 import { MainPath, UserProfilePath } from "../../../services/router/routes";
 import { loginUser } from "../../../services/api/auth/loginUser";
@@ -31,7 +30,6 @@ import { generatePkceChallenge, generateState } from "../../../utils/generateAut
 import styles from "./signInForm.module.scss";
 
 export default function SignInForm() {
-	const [baseUrl, setBaseUrl] = useState<string>("");
 	const [isInviteModalOpen, setIsInviteModalOpen] = useState<boolean>(false);
 	const [pkceCodeSet, setPkceCodeSet] = useState<IPkceCodeSet>();
 
@@ -55,6 +53,7 @@ export default function SignInForm() {
 	const router = useRouter();
 
 	const vkAppId = Number(env("NEXT_PUBLIC_VK_APP_ID") ?? 0);
+	const baseUrl = String(env("NEXT_PUBLIC_BASE_URL") ?? "");
 
 	const authCurtainRenderObj = {
 		appName: "freenance-app",
@@ -64,10 +63,6 @@ export default function SignInForm() {
 	};
 
 	useEffect(() => {
-		setBaseUrl(getCorrectBaseUrl());
-	}, []);
-
-	useEffect(() => {
 		(async () => {
 			await setPkceCodeSet(await generatePkceChallenge());
 		})();
@@ -75,7 +70,7 @@ export default function SignInForm() {
 
 	VKID.Config.init({
 		app: vkAppId ?? 0,
-		redirectUrl: `${getCorrectBaseUrl()}${UserProfilePath.ProfitMoney}`,
+		redirectUrl: `${baseUrl}${UserProfilePath.ProfitMoney}`,
 		state: generateState(),
 		codeChallenge: String(pkceCodeSet?.code_challenge ?? ""),
 		scope: "email phone",

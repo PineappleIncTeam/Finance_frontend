@@ -6,11 +6,12 @@ import { usePathname, useRouter } from "next/navigation";
 import { Dispatch, RefObject, SetStateAction, useEffect, useRef, useState } from "react";
 import cn from "classnames";
 import axios, { AxiosResponse } from "axios";
+import { env } from "next-runtime-env";
 
 import { useAppSelector } from "../../../services/redux/hooks/useAppSelector";
 
 import { IValidateTokenResponse } from "../../../types/api/Auth";
-import { getCorrectBaseUrl } from "../../../utils/baseUrlConverter";
+
 import autoLoginSelector from "../../../services/redux/features/autoLogin/autoLoginSelector";
 import { validateToken } from "../../../services/api/auth/validateToken";
 import { MainPath, UserProfilePath } from "../../../services/router/routes";
@@ -27,7 +28,6 @@ import styles from "./mainHeader.module.scss";
 const MainHeader = () => {
 	const pathname = usePathname();
 	const [isHeaderModalOpen, setIsHeaderModalOpen] = useState<boolean>(false);
-	const [baseUrl, setBaseUrl] = useState<string>();
 	const modalRef = useRef<HTMLDivElement | null>(null);
 	const router = useRouter();
 
@@ -43,9 +43,7 @@ const MainHeader = () => {
 		}
 	};
 
-	useEffect(() => {
-		setBaseUrl(getCorrectBaseUrl());
-	}, []);
+	const baseUrl = String(env("NEXT_PUBLIC_BASE_URL") ?? "");
 
 	useEffect(() => {
 		try {

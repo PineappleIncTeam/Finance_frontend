@@ -1,9 +1,10 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useSearchParams, useRouter } from "next/navigation";
 import axios, { isAxiosError } from "axios";
+import { env } from "next-runtime-env";
 
 import { IChangePassword, IChangePasswordForm } from "../../../types/pages/Password";
 import Title from "../../../ui/title/Title";
@@ -14,7 +15,7 @@ import { MainPath } from "../../../services/router/routes";
 import { mockLocalhostStr, mockLocalhostUrl } from "../../../services/api/auth/apiConstants";
 import { InputTypeList } from "../../../helpers/Input";
 import { errorPasswordRepeat, errorUidOrToken, passwordPattern } from "../../../helpers/authConstants";
-import { getCorrectBaseUrl } from "../../../utils/baseUrlConverter";
+
 import { formHelpers } from "../../../utils/formHelpers";
 import Button from "../../../ui/Button/Button";
 import { ButtonType } from "../../../helpers/buttonFieldValues";
@@ -22,13 +23,14 @@ import { ButtonType } from "../../../helpers/buttonFieldValues";
 import styles from "./changePassword.module.scss";
 
 export default function ChangePassword() {
-	const [baseUrl, setBaseUrl] = useState<string>();
 	const [isChangePasswordModalOpen, setIsChangePasswordModalOpen] = useState<boolean>(false);
 	const searchParams = useSearchParams();
 	const router = useRouter();
 
 	const uid = searchParams.get("uid");
 	const token = searchParams.get("token");
+
+	const baseUrl = String(env("NEXT_PUBLIC_BASE_URL") ?? "");
 
 	const secondsCount = 4000;
 
@@ -47,10 +49,6 @@ export default function ChangePassword() {
 		mode: "all",
 		delayError: 200,
 	});
-
-	useEffect(() => {
-		setBaseUrl(getCorrectBaseUrl());
-	}, []);
 
 	const validateRepeatPassword = (value: string) => {
 		const password = watch("password");

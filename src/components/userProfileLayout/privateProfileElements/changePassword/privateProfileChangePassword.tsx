@@ -34,7 +34,7 @@ export const PrivateProfileChangePassword: React.FC = () => {
 		dispatch(changePasswordPending());
 		try {
 			await changePassword({ oldPassword: data.oldPassword, newPassword: data.newPassword });
-			dispatch(changePasswordFulfilled(null));
+			dispatch(changePasswordFulfilled());
 			reset();
 		} catch (err: any) {
 			dispatch(changePasswordRejected(err?.message ?? "Ошибка при смене пароля"));

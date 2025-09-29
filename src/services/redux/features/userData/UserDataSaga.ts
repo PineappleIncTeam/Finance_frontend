@@ -15,8 +15,12 @@ function* fetchUserDataSaga(action: ReturnType<typeof userDataActions.pending>) 
 	try {
 		const { payload } = action;
 
-		const userEmailData: AxiosResponse<IUserEmailDataResponse> = yield call(getUserEmailData, { baseURL: payload.baseURL });
-		const userProfileData: AxiosResponse<IUserProfileDataResponse> = yield call(getUserProfileData, { baseURL: payload.baseURL });
+		const userEmailData: AxiosResponse<IUserEmailDataResponse> = yield call(getUserEmailData, {
+			baseURL: payload.baseURL,
+		});
+		const userProfileData: AxiosResponse<IUserProfileDataResponse> = yield call(getUserProfileData, {
+			baseURL: payload.baseURL,
+		});
 
 		const userData: IFetchUserDataResponse = {
 			// ...userProfileData,

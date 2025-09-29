@@ -3,6 +3,7 @@
 
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+import { env } from "next-runtime-env";
 
 import { useLogoutTimer } from "../../../hooks/useLogoutTimer";
 
@@ -22,7 +23,7 @@ import { CategorySelect } from "../../../components/userProfileLayout/categorySe
 import AddButton from "../../../components/userProfileLayout/addButton/addButton";
 import { savingsTransactions } from "../../../mocks/SavingsTransaction";
 import { InputTypeList } from "../../../helpers/Input";
-import { getCorrectBaseUrl } from "../../../utils/baseUrlConverter";
+
 import { useHandleLogout } from "../../../hooks/useHandleLogout";
 
 import { EditIcon } from "../../../assets/script/expenses/EditIcon";
@@ -50,7 +51,9 @@ function Savings() {
 
 	const [sortOrder, setSortOrder] = useState<SortOrderStateValue>(SortOrderStateValue.asc);
 	const [sortTargetOrder, setSortTargetOrder] = useState<SortOrderStateValue>(SortOrderStateValue.asc);
-	const [baseUrl, setBaseUrl] = useState<string>();
+
+	const baseUrl = String(env("NEXT_PUBLIC_BASE_URL") ?? "");
+
 	const { request } = useHandleLogout(baseUrl);
 	const { resetTimer } = useLogoutTimer(request);
 
@@ -99,10 +102,6 @@ function Savings() {
 			sortTargetOrder === SortOrderStateValue.asc ? SortOrderStateValue.desc : SortOrderStateValue.asc,
 		);
 	};
-
-	useEffect(() => {
-		setBaseUrl(getCorrectBaseUrl());
-	}, []);
 
 	useEffect(() => {
 		resetTimer();

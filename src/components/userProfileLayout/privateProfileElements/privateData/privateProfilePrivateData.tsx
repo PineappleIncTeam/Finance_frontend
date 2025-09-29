@@ -31,7 +31,7 @@ export const PrivateProfilePrivateData = () => {
 	} = useForm<IPrivateDataForm>({
 		defaultValues: {
 			nickname: userData.userData?.nickname || "",
-			gender: userData.userData?.gender || "M",
+			gender: userData.userData?.gender || "male",
 			countryName: userData.userData?.country_name || "",
 			email: userData.userData?.email || "",
 		},
@@ -44,7 +44,7 @@ export const PrivateProfilePrivateData = () => {
 	const resetFieldsData = () => {
 		reset({
 			nickname: userProfileData?.nickname || "",
-			gender: userProfileData?.gender || "M",
+			gender: userProfileData?.gender || "male",
 			countryName: userProfileData?.country_name || "",
 			email: userProfileData?.email || "",
 		});
@@ -54,7 +54,7 @@ export const PrivateProfilePrivateData = () => {
 		const updatingUserDataRequest: TChangeUserProfileDataRequest = {
 			nickname: data.nickname,
 			gender: data.gender,
-			country: 0, // need to fix
+			country: 1, // need to fix
 
 			avatar: userProfileData.avatar,
 			defaultAvatar: userProfileData.defaultAvatar,

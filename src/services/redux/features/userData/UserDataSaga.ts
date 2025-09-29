@@ -20,8 +20,8 @@ function* fetchUserDataSaga(action: ReturnType<typeof userDataActions.pending>) 
 		const userData: IFetchUserDataResponse = {
 			// ...userProfileData,
 			nickname: userProfileData.nickname ? userProfileData.nickname : "",
-			gender: userProfileData.gender ? userProfileData.gender : "M",
-			country: 0, // need to fix
+			gender: userProfileData.gender ? userProfileData.gender : "male",
+			country: 1, // need to fix
 			// eslint-disable-next-line camelcase
 			country_name: userProfileData.country_name ? userProfileData.country_name : "",
 			avatar: userProfileData.avatar ? userProfileData.avatar : "",

@@ -120,7 +120,7 @@ const PrivateProfileSidebarBlock = () => {
 	function renderUserAvatarImage() {
 		let userAvatarSource = mockAvatar;
 
-		if (userProfileData.avatar.length) {
+		if (userProfileData.avatar && userProfileData.avatar?.length) {
 			userAvatarSource = userProfileData.avatar;
 		} else {
 			if (userProfileData.defaultAvatar !== 0 && userProfileData.defaultAvatar <= defaultAvatarMaxIndex) {

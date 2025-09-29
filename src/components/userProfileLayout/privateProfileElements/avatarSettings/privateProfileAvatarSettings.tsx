@@ -36,7 +36,7 @@ export const PrivateProfileAvatarSettings = () => {
 	const personalAvatar = watch("personalAvatar");
 
 	const onSubmit = async (data: IProfileAvatarForm) => {
-		console.log(data.templateAvatar);
+		console.log(data);
 
 		const userData: TChangeUserProfileDataRequest = {
 			avatar: data?.personalAvatar || "",
@@ -66,7 +66,7 @@ export const PrivateProfileAvatarSettings = () => {
 				<div className={styles.avatar__wrapper}>
 					<div className={styles.avatar__picture}>
 						<Image
-							src={personalAvatar ? URL.createObjectURL(personalAvatar as unknown as File) : userAvatar}
+							src={personalAvatar ? (personalAvatar as unknown as File) : userAvatar}
 							alt="userAvatar"
 							className={styles.avatar__image}
 							width={100}

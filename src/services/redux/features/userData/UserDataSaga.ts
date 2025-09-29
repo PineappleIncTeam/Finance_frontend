@@ -18,7 +18,15 @@ function* fetchUserDataSaga(action: ReturnType<typeof userDataActions.pending>) 
 		const userProfileData: IUserProfileDataResponse = yield call(getUserProfileData, { baseURL: payload.baseURL });
 
 		const userData: IFetchUserDataResponse = {
-			...userProfileData,
+			// ...userProfileData,
+			nickname: userProfileData.nickname ? userProfileData.nickname : "",
+			gender: userProfileData.gender ? userProfileData.gender : "M",
+			country: 0, // need to fix
+			// eslint-disable-next-line camelcase
+			country_name: userProfileData.country_name ? userProfileData.country_name : "",
+			avatar: userProfileData.avatar ? userProfileData.avatar : "",
+			defaultAvatar: userProfileData.defaultAvatar ? userProfileData.defaultAvatar : 0,
+
 			email: userEmailData.email,
 		};
 

@@ -19,7 +19,7 @@ import { IUserData } from "../../../../types/redux/StoreTypes";
 import { InputTypeList } from "../../../../helpers/Input";
 import { ButtonType } from "../../../../helpers/buttonFieldValues";
 
-import Switcher from "../../../../ui/switcher/Switcher";
+import Switcher from "../../../../ui/switcher/switcher";
 import { Selector } from "../../../../ui/selector/Selector";
 import Button from "../../../../ui/Button/Button";
 import { DeleteIcon } from "../../../../assets/script/expenses/DeleteIcon";

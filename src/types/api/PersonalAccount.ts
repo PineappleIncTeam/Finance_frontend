@@ -1,6 +1,6 @@
 import { IChangePasswordForm } from "../pages/userProfileSettings";
 
-export type TGender = "male" | "female";
+export type TGender = "M" | "F";
 
 export interface IChangePasswordPayload {
 	oldPassword: string;

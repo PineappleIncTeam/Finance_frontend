@@ -17,10 +17,12 @@ function* fetchUserDataSaga(action: ReturnType<typeof userDataActions.pending>) 
 		const userEmailData: IUserEmailDataResponse = yield call(getUserEmailData, { baseURL: payload.baseURL });
 		const userProfileData: IUserProfileDataResponse = yield call(getUserProfileData, { baseURL: payload.baseURL });
 
+		console.log(userProfileData);
+
 		const userData: IFetchUserDataResponse = {
 			// ...userProfileData,
 			nickname: userProfileData.nickname ? userProfileData.nickname : "",
-			gender: userProfileData.gender ? userProfileData.gender : "male",
+			gender: userProfileData.gender ? userProfileData.gender : "M",
 			country: 1, // need to fix
 			// eslint-disable-next-line camelcase
 			country_name: userProfileData.country_name ? userProfileData.country_name : "",

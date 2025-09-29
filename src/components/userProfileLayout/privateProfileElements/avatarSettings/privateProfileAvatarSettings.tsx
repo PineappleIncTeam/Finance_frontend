@@ -38,10 +38,10 @@ export const PrivateProfileAvatarSettings = () => {
 	const onSubmit = async (data: IProfileAvatarForm) => {
 		const userData: TChangeUserProfileDataRequest = {
 			avatar: data?.personalAvatar || "",
-			defaultAvatar: 0,
+			defaultAvatar: 0, // need to fix
 			nickname: userProfileData.nickname,
 			gender: userProfileData.gender,
-			country: 1,
+			country: 1, // need to fix
 		};
 
 		const updatingUserDataResponse = await updateUserProfileData(userData, baseUrl);

@@ -31,7 +31,7 @@ export const PrivateProfilePrivateData = () => {
 	} = useForm<IPrivateDataForm>({
 		defaultValues: {
 			nickname: userData.userData?.nickname || "",
-			gender: userData.userData?.gender || "male",
+			gender: userData.userData?.gender || "M",
 			countryName: userData.userData?.country_name || "",
 			email: userData.userData?.email || "",
 		},
@@ -44,7 +44,7 @@ export const PrivateProfilePrivateData = () => {
 	const resetFieldsData = () => {
 		reset({
 			nickname: userProfileData?.nickname || "",
-			gender: userProfileData?.gender || "male",
+			gender: userProfileData?.gender || "M",
 			countryName: userProfileData?.country_name || "",
 			email: userProfileData?.email || "",
 		});
@@ -85,8 +85,8 @@ export const PrivateProfilePrivateData = () => {
 					error={errors.nickname?.message}
 				/>
 				<div className={styles.privateDataRadioButtons}>
-					<RadioButton control={control} name="gender" value="male" label="Муж." />
-					<RadioButton control={control} name="gender" value="female" label="Жен." />
+					<RadioButton control={control} name="gender" value="M" label="Муж." />
+					<RadioButton control={control} name="gender" value="F" label="Жен." />
 				</div>
 				<AppInput
 					label={"Введите страну"}

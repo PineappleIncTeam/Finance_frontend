@@ -17,7 +17,7 @@ const initialState: IUserState = {
 		nickname: "",
 		country: 1,
 		country_name: "",
-		gender: "male",
+		gender: "M",
 		avatar: "",
 		defaultAvatar: 0,
 	},

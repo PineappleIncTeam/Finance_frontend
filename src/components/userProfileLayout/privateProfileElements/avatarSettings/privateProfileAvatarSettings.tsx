@@ -1,67 +1,58 @@
+"use client";
+
+import { ChangeEvent } from "react";
 import { useForm } from "react-hook-form";
 import Image from "next/image";
+import { env } from "next-runtime-env";
 
-import { useAppDispatch } from "../../../../services/redux/hooks";
-
-import { setUser, setLoading, setError } from "../../../../services/redux/features/userData/UserDataSlice";
-
-import { updateUserData } from "../../../../services/api/auth/updateUserData";
-
-import { getCorrectBaseUrl } from "../../../../utils/baseUrlConverter";
-
-import { IPrivateAppSettings, IUserAvatar } from "../../../../types/pages/userProfileSettings";
-
-import { IUserData } from "../../../../types/redux/StoreTypes";
-
+import { IProfileAvatarForm } from "../../../../types/components/ComponentsTypes";
+import { TChangeUserProfileDataRequest } from "../../../../types/api/PersonalAccount";
+import Button from "../../../../ui/Button/Button";
+import { useAppDispatch, useAppSelector } from "../../../../services/redux/hooks";
+import { setUser } from "../../../../services/redux/features/userData/UserDataSlice";
+import { userDataSelector } from "../../../../services/redux/features/userData/UserDataSelector";
+import { updateUserProfileData } from "../../../../services/api/userProfile/updateUserData";
+import { ButtonType } from "../../../../helpers/buttonFieldValues";
 import { InputTypeList } from "../../../../helpers/Input";
-
 import { avatarTemplates } from "../../../../mocks/AvatarTemplates";
 
-// import userAvatar from "../../../assets/components/userProfile/userPhoto.svg";
-// import editProfileIcon from "../../../assets/components/userProfile/editProfile.svg";
 import userAvatar from "../../../../assets/components/userProfile/userPhoto.svg";
 import editProfileIcon from "../../../../assets/components/userProfile/editProfile.svg";
-import Button from "../../../../ui/Button/Button";
-import { ButtonType } from "../../../../helpers/buttonFieldValues";
 
 import styles from "./privateProfileAvatarSettings.module.scss";
 
-type IFormData = IPrivateAppSettings & IUserAvatar;
 export const PrivateProfileAvatarSettings = () => {
 	const dispatch = useAppDispatch();
-	const { register, handleSubmit, setValue, watch } = useForm<IFormData>({
+	const { register, handleSubmit, setValue, watch } = useForm<IProfileAvatarForm>({
 		mode: "all",
 		delayError: 200,
 	});
 
+	const userData = useAppSelector(userDataSelector);
+	const userProfileData = userData.userData;
+
+	const baseUrl = String(env("NEXT_PUBLIC_BASE_URL") ?? "");
+
 	const personalAvatar = watch("personalAvatar");
-	// const templateAvatar = watch("templateAvatar");
 
-	const onSubmit = async (data: IFormData) => {
-		try {
-			dispatch(setLoading(true));
-			const baseUrl = getCorrectBaseUrl();
+	const onSubmit = async (data: IProfileAvatarForm) => {
+		console.log(data.templateAvatar);
 
-			const payload: Partial<IUserData> = {
-				currency: data.currency,
-				darkTheme: data.darkTheme ? "dark" : "light",
-				finAssistant: data.finAssistant,
-				personalAvatar: data.personalAvatar || data.templateAvatar,
-			};
+		const userData: TChangeUserProfileDataRequest = {
+			avatar: data?.personalAvatar || "",
+			defaultAvatar: 0,
+			nickname: userProfileData.nickname,
+			gender: userProfileData.gender,
+			country: 0,
+		};
 
-			const resp = await updateUserData(payload, baseUrl);
-			const updated = resp?.data ?? resp;
+		const updatingUserDataResponse = await updateUserProfileData(userData, baseUrl);
+		const updatedData = updatingUserDataResponse?.data ?? updatingUserDataResponse;
 
-			dispatch(setUser(updated));
-			dispatch(setError(null));
-		} catch (error: any) {
-			dispatch(setError(error?.message ?? "Ошибка при обновлении"));
-		} finally {
-			dispatch(setLoading(false));
-		}
+		dispatch(setUser(updatedData));
 	};
 
-	const handleAvatarChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+	const handleAvatarChange = (e: ChangeEvent<HTMLInputElement>) => {
 		if (e.target.files && e.target.files[0]) {
 			setValue("personalAvatar", e.target.files[0].toString());
 		}

@@ -5,60 +5,64 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import axios from "axios";
-import { useDispatch } from "react-redux";
+import { env } from "next-runtime-env";
+
+import { useAppDispatch, useAppSelector } from "../../../../services/redux/hooks";
 
 import { AuthTypes } from "../../../../types/pages/Authorization";
-import { IPrivateProfileSidebar } from "../../../../types/common/ComponentsProps";
+import { IUserSettingsState } from "../../../../types/redux/StateTypes";
+import { userDataActions } from "../../../../types/redux/sagaActions/storeSaga.actions";
 import NavBar from "../../navBar/navBar";
 import { BurgerMenu } from "../../burgerMenu/burgerMenu";
 import { PrivateProfileSidebarMenu } from "../sidebarMenu/privateProfileSidebarMenu";
+import { setUserSettings } from "../../../../services/redux/features/userData/UserDataSlice";
 import { MainPath } from "../../../../services/router/routes";
 import { baseLogoutUser } from "../../../../services/api/auth/baseLogoutUser";
 import { sidebarNavMenu } from "../../../../helpers/sidebarNavMenu";
-import { useAppSelector } from "../../../../services/redux/hooks";
-import { userSelector } from "../../../../services/redux/features/userData/UserDataSelector";
-import { setUser, setLoading, setError } from "../../../../services/redux/features/userData/UserDataSlice";
-import { getUserData } from "../../../../services/api/auth/getUserData";
-import { getCorrectBaseUrl } from "../../../../utils/baseUrlConverter";
+import { userDataSelector } from "../../../../services/redux/features/userData/UserDataSelector";
+import { avatarTemplates } from "../../../../mocks/AvatarTemplates";
 
-import defaultAvatar from "../../../../assets/components/userProfile/userPhoto.svg";
+import mockAvatar from "../../../../assets/components/userProfile/userPhoto.svg";
 import burgerIcon from "../../../../assets/components/userProfile/burger.svg";
 import infoIcon from "../../../../assets/components/userProfile/infoIcon.svg";
 
 import styles from "./privateProfileSidebar.module.scss";
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const PrivateProfileSidebarBlock = ({ avatar, name, balance }: IPrivateProfileSidebar) => {
+const PrivateProfileSidebarBlock = () => {
 	const [currentDate] = useState<string>("");
 	const [isNavBarOpen, setIsNavBarOpen] = useState<boolean>(false);
-	const [baseUrl] = useState<string>();
 	const [showMenu, setShowMenu] = useState<boolean>(false);
 	const [selectedMenuItem, setSelectedMenuItem] = useState<string>("Личные данные");
 
-	const user = useAppSelector(userSelector);
-	const userName = user?.userData?.name || "Имя";
-	const userAvatar = user?.userData?.avatar || defaultAvatar;
-	const dispatch = useDispatch();
+	const router = useRouter();
+	const dispatch = useAppDispatch();
+
+	const userData = useAppSelector(userDataSelector);
+
+	const userProfileData = userData.userData;
+
+	const baseUrl = String(env("NEXT_PUBLIC_BASE_URL") ?? "");
 
 	const laptopWindowSize = 1100;
-
-	const router = useRouter();
+	const defaultAvatarMaxIndex = 8;
 
 	useEffect(() => {
-		(async () => {
-			try {
-				dispatch(setLoading(true));
-				const baseUrl = getCorrectBaseUrl();
-				const resp = await getUserData(baseUrl);
-				const data = resp?.data ?? resp;
-				dispatch(setUser(data));
-			} catch (err: any) {
-				dispatch(setError(err?.message ?? "Ошибка при загрузке профиля"));
-			} finally {
-				dispatch(setLoading(false));
-			}
-		})();
+		dispatch(userDataActions.pending({ baseURL: baseUrl }));
+		dispatch(setUserSettings(getUserSettings()));
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [dispatch]);
+
+	function getUserSettings() {
+		const assistant = localStorage.getItem("assistantChoice");
+		const theme = localStorage.getItem("themeChoice");
+		const currency = localStorage.getItem("currencyChoice");
+
+		return {
+			assistant: assistant === "true",
+			theme: theme || "light",
+			currency: currency || "Российский рубль",
+		} as IUserSettingsState;
+	}
 
 	const handleLogout = async () => {
 		try {
@@ -113,6 +117,20 @@ const PrivateProfileSidebarBlock = ({ avatar, name, balance }: IPrivateProfileSi
 		}
 	};
 
+	function renderUserAvatarImage() {
+		let userAvatarSource = mockAvatar;
+
+		if (userProfileData.avatar.length) {
+			userAvatarSource = userProfileData.avatar;
+		} else {
+			if (userProfileData.defaultAvatar !== 0 && userProfileData.defaultAvatar <= defaultAvatarMaxIndex) {
+				userAvatarSource = avatarTemplates[userProfileData.defaultAvatar - 1];
+			}
+		}
+
+		return <Image src={userAvatarSource} alt="userAvatar" className={styles.userInformationWrap__avatar} />;
+	}
+
 	const renderSelectedMenuItem = () => {
 		const selectedMenu = sidebarNavMenu.find((sidebarNavMenuItem) => sidebarNavMenuItem.title === selectedMenuItem);
 		if (selectedMenu) {
@@ -141,17 +159,15 @@ const PrivateProfileSidebarBlock = ({ avatar, name, balance }: IPrivateProfileSi
 					<div className={styles.userProfileContainer}>
 						<div className={styles.userInformationWrap} onClick={handleOpenMenu} role="button">
 							<div className={styles.userInformationWrap_images}>
-								<button className={styles.userInformationWrap_images_action}>
-									<Image src={userAvatar} alt={"userAvatar"} className={styles.userInformationWrap__avatar} />
-								</button>
+								<button className={styles.userInformationWrap_images_action}>{renderUserAvatarImage()}</button>
 							</div>
-							<p className={styles.userInformationWrap__name}>{userName}</p>
+							<p className={styles.userInformationWrap__name}>{userProfileData.nickname}</p>
 							<div className={styles.userInformationAdaptiveContainer}>
 								<div className={styles.userInformationDateWrap}>
 									<p>Ваш баланс на</p>
 									<p>{currentDate}</p>
 								</div>
-								<p className={styles.userInformationAdaptiveContainer__balance}>{balance || 0} ₽</p>
+								<p className={styles.userInformationAdaptiveContainer__balance}>{0} ₽</p>
 							</div>
 						</div>
 						<div className={styles.sidebarMenuWrapper}>

@@ -13,6 +13,7 @@ import styles from "./privateProfileSidebarMenu.module.scss";
 export const PrivateProfileSidebarMenu = ({ handleClick }: ISidebarMenu) => {
 	const renderProfileItem = ({ title, handleClick }: IRenderProfileItem) => {
 		const isButtonDisabled = title === "Архив";
+
 		return (
 			<button
 				disabled={isButtonDisabled}

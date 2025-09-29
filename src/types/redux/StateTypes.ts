@@ -1,23 +1,27 @@
-export const stateTypes = 0;
+import { TGender } from "../api/PersonalAccount";
+
+export interface IUserDataState {
+	email: string;
+	nickname: string;
+	country: number;
+	country_name: string;
+	gender: TGender;
+	avatar: string;
+	defaultAvatar: number;
+}
+
+export interface IUserSettingsState {
+	currency: string;
+	theme: string;
+	assistant: boolean;
+}
 
 export interface IUserState {
-	token: string | null;
 	balanceString: number;
 	balanceCosts: number;
 	balanceBase: string;
-	userData: {
-		name: string;
-		email: string;
-		nickname: string;
-		country: string;
-		gender: string;
-		avatar?: string;
-		loading: boolean;
-		error: string | null;
-	};
-	settings: {
-		currency: string;
-		theme: string;
-		assistant: boolean;
-	};
+	userData: IUserDataState;
+	settings: IUserSettingsState;
+	loading: boolean;
+	error: string | null;
 }

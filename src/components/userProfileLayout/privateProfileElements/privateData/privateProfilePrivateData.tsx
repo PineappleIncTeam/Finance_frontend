@@ -1,44 +1,27 @@
-import React, { useEffect } from "react";
+"use client";
 
 import { useForm } from "react-hook-form";
+import { env } from "next-runtime-env";
 
 import { useAppDispatch } from "../../../../services/redux/hooks/useAppDispatch";
-
 import { useAppSelector } from "../../../../services/redux/hooks/useAppSelector";
 
-import { userDataActions } from "../../../../types/redux/sagaActions/storeSaga.actions";
-
-import { userSelector } from "../../../../services/redux/features/userData/UserDataSelector";
-
-import { getCorrectBaseUrl } from "../../../../utils/baseUrlConverter";
-
-import { getUserData } from "../../../../services/api/auth/getUserData";
-
-import { updateUserData } from "../../../../services/api/auth/updateUserData";
-
-import { ButtonType } from "../../../../helpers/buttonFieldValues";
-
+import { IPrivateDataForm } from "../../../../types/components/ComponentsTypes";
+import { TChangeUserProfileDataRequest } from "../../../../types/api/PersonalAccount";
 import AppInput from "../../../../ui/appInput/AppInput";
-
 import { RadioButton } from "../../../../ui/radio/radioButton";
-
 import Button from "../../../../ui/Button/Button";
-
+import { updateUserProfileData } from "../../../../services/api/userProfile/updateUserData";
+import { userDataSelector } from "../../../../services/redux/features/userData/UserDataSelector";
+import { ButtonType } from "../../../../helpers/buttonFieldValues";
 import { InputTypeList } from "../../../../helpers/Input";
+import { setUser } from "../../../../services/redux/features/userData/UserDataSlice";
 
 import styles from "./privateProfilePrivateData.module.scss";
 
-export type IPrivateDataForm = {
-	nickname: string;
-	gender: string;
-	country: string;
-	email?: string;
-	avatar?: string;
-};
-
-export const PrivateProfilePrivateData: React.FC = () => {
+export const PrivateProfilePrivateData = () => {
 	const dispatch = useAppDispatch();
-	const { userData } = useAppSelector(userSelector);
+	const userData = useAppSelector(userDataSelector);
 
 	const {
 		handleSubmit,
@@ -47,53 +30,40 @@ export const PrivateProfilePrivateData: React.FC = () => {
 		formState: { errors },
 	} = useForm<IPrivateDataForm>({
 		defaultValues: {
-			nickname: userData?.nickname || "",
-			gender: userData?.gender || "male",
-			country: userData?.country || "",
-			email: userData?.email || "",
-			avatar: userData?.avatar || "",
+			nickname: userData.userData?.nickname || "",
+			gender: userData.userData?.gender || "M",
+			countryName: userData.userData?.country_name || "",
+			email: userData.userData?.email || "",
 		},
 	});
 
-	useEffect(() => {
-		(async () => {
-			dispatch(userDataActions.pending());
-			try {
-				const baseUrl = getCorrectBaseUrl();
-				const resp = await getUserData(baseUrl);
-				const data = resp?.data ?? resp;
-				dispatch(userDataActions.fulfilled(data));
-			} catch (err: any) {
-				dispatch(userDataActions.rejected(err?.message ?? "Ошибка при загрузке профиля"));
-			}
-		})();
-	}, [dispatch]);
+	const userProfileData = userData.userData;
 
-	useEffect(() => {
+	const baseUrl = String(env("NEXT_PUBLIC_BASE_URL") ?? "");
+
+	const resetFieldsData = () => {
 		reset({
-			nickname: userData?.nickname || "",
-			gender: userData?.gender || "male",
-			country: userData?.country || "",
-			email: userData?.email || "",
+			nickname: userProfileData?.nickname || "",
+			gender: userProfileData?.gender || "M",
+			countryName: userProfileData?.country_name || "",
+			email: userProfileData?.email || "",
 		});
-	}, [userData, reset]);
+	};
 
 	const onSubmit = async (data: IPrivateDataForm) => {
-		dispatch(userDataActions.updatePending());
-		try {
-			const baseUrl = getCorrectBaseUrl();
-			const payload: any = {
-				nickname: data.nickname,
-				gender: data.gender,
-				country: data.country,
-			};
-			const resp = await updateUserData(payload, baseUrl);
-			const updated = resp?.data ?? resp;
-			dispatch(userDataActions.updateFulfilled(updated));
-			dispatch(userDataActions.fulfilled(updated));
-		} catch (err: any) {
-			dispatch(userDataActions.updateRejected(err?.message ?? "Ошибка при обновлении"));
-		}
+		const updatingUserDataRequest: TChangeUserProfileDataRequest = {
+			nickname: data.nickname,
+			gender: data.gender,
+			country: 0, // need to fix
+
+			avatar: userProfileData.avatar,
+			defaultAvatar: userProfileData.defaultAvatar,
+		};
+
+		const updateUserDataResponse = await updateUserProfileData(updatingUserDataRequest, baseUrl);
+		const updatedData = updateUserDataResponse?.data ?? updateUserDataResponse;
+		dispatch(setUser(updatedData));
+		resetFieldsData();
 	};
 
 	return (
@@ -121,7 +91,7 @@ export const PrivateProfilePrivateData: React.FC = () => {
 				<AppInput
 					label={"Введите страну"}
 					type={"text"}
-					name={"country"}
+					name={"countryName"}
 					control={control}
 					placeholder="Введите страну"
 				/>

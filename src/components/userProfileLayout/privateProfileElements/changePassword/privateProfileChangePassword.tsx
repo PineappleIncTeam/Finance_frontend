@@ -1,25 +1,21 @@
+"use client";
+
 import { useForm } from "react-hook-form";
+import { env } from "next-runtime-env";
 
 import { IChangePasswordForm } from "../../../../types/pages/userProfileSettings";
+import { IChangingUserProfilePasswordRequest } from "../../../../types/api/PersonalAccount";
 import AppInput from "../../../../ui/appInput/AppInput";
+import Button from "../../../../ui/Button/Button";
+import { changeUserProfilePassword } from "../../../../services/api/userProfile/changePassword";
 import { errorPasswordRepeat } from "../../../../helpers/authConstants";
 import { InputTypeList } from "../../../../helpers/Input";
-import { passwordValidate } from "../../../../utils/passwordValidate";
-import Button from "../../../../ui/Button/Button";
-import { useAppDispatch } from "../../../../services/redux/hooks/useAppDispatch";
-import {
-	changePasswordPending,
-	changePasswordFulfilled,
-	changePasswordRejected,
-} from "../../../../services/redux/features/userData/UserDataSlice";
 import { ButtonType } from "../../../../helpers/buttonFieldValues";
-
-import { changePassword } from "../../../../services/api/auth/changePassword";
+import { passwordValidate } from "../../../../utils/passwordValidate";
 
 import styles from "./privateProfileChangePassword.module.scss";
 
-export const PrivateProfileChangePassword: React.FC = () => {
-	const dispatch = useAppDispatch();
+export const PrivateProfileChangePassword = () => {
 	const {
 		handleSubmit,
 		watch,
@@ -27,18 +23,26 @@ export const PrivateProfileChangePassword: React.FC = () => {
 		control,
 		formState: { errors },
 	} = useForm<IChangePasswordForm>({
-		defaultValues: { oldPassword: "", newPassword: "", repeatPassword: "" },
+		defaultValues: {
+			oldPassword: "",
+			newPassword: "",
+			repeatPassword: "",
+		},
 	});
 
+	const baseUrl = String(env("NEXT_PUBLIC_BASE_URL") ?? "");
+
 	const onSubmit = async (data: IChangePasswordForm) => {
-		dispatch(changePasswordPending());
-		try {
-			await changePassword({ oldPassword: data.oldPassword, newPassword: data.newPassword });
-			dispatch(changePasswordFulfilled());
-			reset();
-		} catch (err: any) {
-			dispatch(changePasswordRejected(err?.message ?? "Ошибка при смене пароля"));
-		}
+		const changePasswordData: IChangingUserProfilePasswordRequest = {
+			data: {
+				oldPassword: data.oldPassword,
+				newPassword: data.newPassword,
+			},
+			baseUrl: baseUrl,
+		};
+
+		await changeUserProfilePassword(changePasswordData);
+		reset();
 	};
 
 	const validateRepeatPassword = (value: string | boolean | undefined) => {

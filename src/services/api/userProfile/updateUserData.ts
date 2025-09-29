@@ -8,6 +8,9 @@ export const updateUserProfileData = async (data: TChangeUserProfileDataRequest,
 	return await axios(`${baseURL}/${userProfileDataEndpoint}`, {
 		method: "PATCH",
 		data: data,
+		headers: {
+			"Content-Type": "multipart/form-data",
+		},
 		withCredentials: true,
 		withTokenRefresh: true,
 	});

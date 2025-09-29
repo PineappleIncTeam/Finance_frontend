@@ -17,7 +17,7 @@ function* fetchUserDataSaga(action: ReturnType<typeof userDataActions.pending>) 
 		const userEmailData: IUserEmailDataResponse = yield call(getUserEmailData, { baseURL: payload.baseURL });
 		const userProfileData: IUserProfileDataResponse = yield call(getUserProfileData, { baseURL: payload.baseURL });
 
-		console.log(userProfileData);
+		console.log(userEmailData);
 
 		const userData: IFetchUserDataResponse = {
 			// ...userProfileData,

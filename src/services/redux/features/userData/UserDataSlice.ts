@@ -21,11 +21,6 @@ const initialState: IUserState = {
 		avatar: "",
 		defaultAvatar: 0,
 	},
-	settings: {
-		currency: "",
-		theme: "",
-		assistant: false,
-	},
 	loading: false,
 	error: null,
 };
@@ -47,11 +42,6 @@ const userDataSlice = createSlice({
 				...(action.payload || {}),
 			} as IUserState["userData"];
 		},
-		setUserSettings(state: IUserState, action: PayloadAction<Partial<IUserSettingsState>>) {
-			state.settings.assistant = action.payload.assistant || false;
-			state.settings.theme = action.payload.theme || "light";
-			state.settings.currency = action.payload.currency || "Российский рубль";
-		},
 	},
 	extraReducers(builder) {
 		builder.addCase(userDataActions.pending, (state: IUserState) => {
@@ -68,5 +58,5 @@ const userDataSlice = createSlice({
 	},
 });
 
-export const { setUser, updateUserFields, setUserSettings } = userDataSlice.actions;
+export const { setUser, updateUserFields } = userDataSlice.actions;
 export default userDataSlice.reducer;

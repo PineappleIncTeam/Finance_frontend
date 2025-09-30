@@ -10,12 +10,10 @@ import { env } from "next-runtime-env";
 import { useAppDispatch, useAppSelector } from "../../../../services/redux/hooks";
 
 import { AuthTypes } from "../../../../types/pages/Authorization";
-import { IUserSettingsState } from "../../../../types/redux/StateTypes";
 import { userDataActions } from "../../../../types/redux/sagaActions/storeSaga.actions";
 import NavBar from "../../navBar/navBar";
 import { BurgerMenu } from "../../burgerMenu/burgerMenu";
 import { PrivateProfileSidebarMenu } from "../sidebarMenu/privateProfileSidebarMenu";
-import { setUserSettings } from "../../../../services/redux/features/userData/UserDataSlice";
 import { MainPath } from "../../../../services/router/routes";
 import { baseLogoutUser } from "../../../../services/api/auth/baseLogoutUser";
 import { sidebarNavMenu } from "../../../../helpers/sidebarNavMenu";
@@ -48,21 +46,8 @@ const PrivateProfileSidebarBlock = () => {
 
 	useEffect(() => {
 		dispatch(userDataActions.pending({ baseURL: baseUrl }));
-		dispatch(setUserSettings(getUserSettings()));
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [dispatch]);
-
-	function getUserSettings() {
-		const assistant = localStorage.getItem("assistantChoice");
-		const theme = localStorage.getItem("themeChoice");
-		const currency = localStorage.getItem("currencyChoice");
-
-		return {
-			assistant: assistant === "true",
-			theme: theme || "light",
-			currency: currency || "Российский рубль",
-		} as IUserSettingsState;
-	}
 
 	const handleLogout = async () => {
 		try {

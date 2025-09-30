@@ -10,8 +10,8 @@ import { IUserSettingsState } from "../../../../types/redux/StateTypes";
 import Switcher from "../../../../ui/switcher/switcher";
 import { Selector } from "../../../../ui/selector/Selector";
 import Button from "../../../../ui/Button/Button";
-import { userDataSelector } from "../../../../services/redux/features/userData/UserDataSelector";
-import { setUserSettings } from "../../../../services/redux/features/userData/UserDataSlice";
+import { userSettingsSelector } from "../../../../services/redux/features/userSettings/userSettingsSelector";
+import { setUserSettings } from "../../../../services/redux/features/userSettings/userSettingsSlice";
 import { InputTypeList } from "../../../../helpers/Input";
 import { ButtonType } from "../../../../helpers/buttonFieldValues";
 
@@ -21,31 +21,21 @@ import styles from "./privateProfilePrivateAppSettings.module.scss";
 
 export const PrivateProfilePrivateAppSettings = () => {
 	const dispatch = useAppDispatch();
-	const userData = useAppSelector(userDataSelector);
-
-	const currentSettings = userData.settings || {
-		currency: "Российский рубль",
-		theme: "light",
-		assistant: false,
-	};
+	const userData = useAppSelector(userSettingsSelector);
 
 	const { control, handleSubmit } = useForm<IPrivateAppSettingsForm>({
 		defaultValues: {
-			currency: currentSettings.currency,
-			darkTheme: currentSettings.theme === "dark",
-			finAssistant: currentSettings.assistant,
+			currency: userData.currency,
+			darkTheme: userData.theme === "dark",
+			finAssistant: userData.assistant,
 		},
 	});
 
 	const onSubmit = async (data: IPrivateAppSettingsForm) => {
-		localStorage.setItem("assistantChoice", String(data.finAssistant));
-		localStorage.setItem("themeChoice", String(data.darkTheme));
-		localStorage.setItem("currencyChoice", data.currency);
-
 		dispatch(
 			setUserSettings({
 				assistant: data.finAssistant,
-				theme: currentSettings.theme === "dark" ? "dark" : "light",
+				theme: userData.theme === "dark" ? "dark" : "light",
 				currency: data.currency,
 			} as IUserSettingsState),
 		);

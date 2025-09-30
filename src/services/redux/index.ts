@@ -6,6 +6,7 @@ import dataReducer from "./features/infoPart/InfoPartSlice";
 import cookieStatusSlice from "./features/cookieStatus/cookieStatusSlice";
 import autoLoginSlice from "./features/autoLogin/autoLoginSlice";
 import userReducer from "./features/userData/UserDataSlice";
+import userSettingsReducer from "./features/userSettings/userSettingsSlice";
 
 // Saga watchers
 import { watchFetchUserData } from "./features/userData/UserDataSaga";
@@ -19,6 +20,7 @@ const RootReducer = combineReducers({
 	cookieStatus: cookieStatusSlice,
 	autoLogin: autoLoginSlice,
 	userData: userReducer,
+	userSettings: userSettingsReducer,
 });
 
 const persistedRootReducer = persistReducer(persistConfig, RootReducer);

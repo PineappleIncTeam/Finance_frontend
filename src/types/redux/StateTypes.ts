@@ -10,18 +10,19 @@ export interface IUserDataState {
 	defaultAvatar: number;
 }
 
+export interface IUserState {
+	balanceString: number;
+	balanceCosts: number;
+	balanceBase: string;
+	userData: IUserDataState;
+	loading: boolean;
+	error: string | null;
+}
+
 export interface IUserSettingsState {
 	currency: string;
 	theme: string;
 	assistant: boolean;
 }
 
-export interface IUserState {
-	balanceString: number;
-	balanceCosts: number;
-	balanceBase: string;
-	userData: IUserDataState;
-	settings: IUserSettingsState;
-	loading: boolean;
-	error: string | null;
-}
+export type TSettingUserSettings = Partial<IUserSettingsState>;

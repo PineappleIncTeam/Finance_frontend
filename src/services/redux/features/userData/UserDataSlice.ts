@@ -4,6 +4,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { IUserDataState, IUserState } from "../../../../types/redux/StateTypes";
 import { userDataActions } from "../../../../types/redux/sagaActions/storeSaga.actions";
 import { IFetchUserDataResponse } from "../../../../types/api/PersonalAccount";
+import { ruCountryNumber } from "../../../../helpers/userDataConstants";
 
 const initialState: IUserState = {
 	balanceString: 0,
@@ -12,7 +13,7 @@ const initialState: IUserState = {
 	userData: {
 		email: "",
 		nickname: "",
-		country: 1,
+		country: ruCountryNumber,
 		country_name: "",
 		gender: "M",
 		avatar: "",

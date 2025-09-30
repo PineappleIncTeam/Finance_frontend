@@ -5,8 +5,8 @@ import { ISavingsCategory } from "../../../types/common/ComponentsProps";
 import AppInput from "../../../ui/appInput/AppInput";
 import Title from "../../../ui/title/Title";
 import { ISavingsTargetAddForm } from "../../../types/pages/Savings";
-import Button from "../../../ui/Button/Button1";
 import { ButtonType } from "../../../helpers/buttonFieldValues";
+import Button from "../../../ui/Button/Button";
 
 import styles from "./savingsCategory.module.scss";
 

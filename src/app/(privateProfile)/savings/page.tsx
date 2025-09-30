@@ -173,7 +173,7 @@ function Savings() {
 				error.response &&
 				error.response.status &&
 				error.response.status >= axios.HttpStatusCode.InternalServerError &&
-				error.response.status < ApiResponseCode.SERVER_ERROR_STATUS_MAX
+				error.response.status < axios.HttpStatusCode.NetworkAuthenticationRequired
 			) {
 				router.push(MainPath.ServerError);
 			}
@@ -195,7 +195,7 @@ function Savings() {
 				error.response &&
 				error.response.status &&
 				error.response.status >= axios.HttpStatusCode.InternalServerError &&
-				error.response.status < ApiResponseCode.SERVER_ERROR_STATUS_MAX
+				error.response.status < axios.HttpStatusCode.NetworkAuthenticationRequired
 			) {
 				router.push(MainPath.ServerError);
 			}
@@ -219,7 +219,7 @@ function Savings() {
 				error.response &&
 				error.response.status &&
 				error.response.status >= axios.HttpStatusCode.InternalServerError &&
-				error.response.status < ApiResponseCode.SERVER_ERROR_STATUS_MAX
+				error.response.status < axios.HttpStatusCode.NetworkAuthenticationRequired
 			) {
 				router.push(MainPath.ServerError);
 			}
@@ -257,7 +257,7 @@ function Savings() {
 				error.response &&
 				error.response.status &&
 				error.response.status >= axios.HttpStatusCode.InternalServerError &&
-				error.response.status < ApiResponseCode.SERVER_ERROR_STATUS_MAX
+				error.response.status < axios.HttpStatusCode.NetworkAuthenticationRequired
 			) {
 				router.push(MainPath.ServerError);
 			}
@@ -302,7 +302,7 @@ function Savings() {
 				error.response &&
 				error.response.status &&
 				error.response.status >= axios.HttpStatusCode.InternalServerError &&
-				error.response.status < ApiResponseCode.SERVER_ERROR_STATUS_MAX
+				error.response.status < axios.HttpStatusCode.NetworkAuthenticationRequired
 			) {
 				router.push(MainPath.ServerError);
 			}
@@ -333,7 +333,7 @@ function Savings() {
 				error.response &&
 				error.response.status &&
 				error.response.status >= axios.HttpStatusCode.InternalServerError &&
-				error.response.status < ApiResponseCode.SERVER_ERROR_STATUS_MAX
+				error.response.status < axios.HttpStatusCode.NetworkAuthenticationRequired
 			) {
 				router.push(MainPath.ServerError);
 			}
@@ -363,7 +363,7 @@ function Savings() {
 				error.response &&
 				error.response.status &&
 				error.response.status >= axios.HttpStatusCode.InternalServerError &&
-				error.response.status < ApiResponseCode.SERVER_ERROR_STATUS_MAX
+				error.response.status < axios.HttpStatusCode.NetworkAuthenticationRequired
 			) {
 				router.push(MainPath.ServerError);
 			}
@@ -392,7 +392,7 @@ function Savings() {
 				error.response &&
 				error.response.status &&
 				error.response.status >= axios.HttpStatusCode.InternalServerError &&
-				error.response.status < ApiResponseCode.SERVER_ERROR_STATUS_MAX
+				error.response.status < axios.HttpStatusCode.NetworkAuthenticationRequired
 			) {
 				router.push(MainPath.ServerError);
 			}

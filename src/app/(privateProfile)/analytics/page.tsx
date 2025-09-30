@@ -1,9 +1,7 @@
 "use client";
 
 import { useState, useEffect, ChangeEvent } from "react";
-
 import { useForm } from "react-hook-form";
-
 import { Pie, Bar, Doughnut } from "react-chartjs-2";
 import { Chart as ChartJS, ArcElement, Tooltip, CategoryScale, LinearScale, BarElement } from "chart.js";
 
@@ -13,7 +11,7 @@ import InputDate from "../../../ui/inputDate/inputDate";
 import { Selector } from "../../../ui/selector/Selector";
 import { IAnalyticsInputForm } from "../../../types/pages/Analytics";
 import { InputTypeList } from "../../../helpers/Input";
-import generateRandomColors from "../../../utils/generateRandomColor";
+import { generateRandomColors } from "../../../utils/generateRandomColor";
 import { analyticsIncomeTransactions } from "../../../mocks/AnalyticsIncomeTransaction";
 import { analyticsExpensesTransactions } from "../../../mocks/AnalyticsExpensesTransaction";
 import { analyticsSavingsTransactions } from "../../../mocks/AnalyticsSavingsTransaction";
@@ -305,6 +303,7 @@ function Analytics() {
 			window.removeEventListener("resize", updateMonthNames);
 			window.removeEventListener("resize", handleResizeIsLabel);
 		};
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	const handleDisplayChange = (event: ChangeEvent<HTMLInputElement>) => {

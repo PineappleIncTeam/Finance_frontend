@@ -15,14 +15,12 @@ import { ICorrectSignInForm, ISignInForm } from "../../../types/components/Compo
 import AuthInput from "../../../ui/authInput/AuthInput";
 import Title from "../../../ui/title/Title";
 import CustomCheckbox from "../../../ui/checkBox/checkBox";
-import Button from "../../../ui/Button/Button1";
+import Button from "../../../ui/Button/Button";
 import InviteModal from "../inviteModal/inviteModal";
 import { emailPattern, errorDataLogOn, errorProfileActivation, passwordPattern } from "../../../helpers/authConstants";
 import { formHelpers } from "../../../utils/formHelpers";
-import { getCorrectBaseUrl } from "../../../utils/baseUrlConverter";
 import { InputTypeList } from "../../../helpers/Input";
 import { MainPath, UserProfilePath } from "../../../services/router/routes";
-import { ApiResponseCode } from "../../../helpers/apiResponseCode";
 import { loginUser } from "../../../services/api/auth/loginUser";
 import { setAutoLoginStatus } from "../../../services/redux/features/autoLogin/autoLoginSlice";
 import { authApiVkService } from "../../../services/api/auth/authVkService";
@@ -32,8 +30,7 @@ import { generatePkceChallenge, generateState } from "../../../utils/generateAut
 import styles from "./signInForm.module.scss";
 
 export default function SignInForm() {
-	const [baseUrl, setBaseUrl] = useState<string>("");
-	const [isOpen, setIsOpen] = useState<boolean>(false);
+	const [isInviteModalOpen, setIsInviteModalOpen] = useState<boolean>(false);
 	const [pkceCodeSet, setPkceCodeSet] = useState<IPkceCodeSet>();
 
 	const dispatch = useAppDispatch();
@@ -56,6 +53,7 @@ export default function SignInForm() {
 	const router = useRouter();
 
 	const vkAppId = Number(env("NEXT_PUBLIC_VK_APP_ID") ?? 0);
+	const baseUrl = String(env("NEXT_PUBLIC_BASE_URL") ?? "");
 
 	const authCurtainRenderObj = {
 		appName: "freenance-app",
@@ -65,10 +63,6 @@ export default function SignInForm() {
 	};
 
 	useEffect(() => {
-		setBaseUrl(getCorrectBaseUrl());
-	}, []);
-
-	useEffect(() => {
 		(async () => {
 			await setPkceCodeSet(await generatePkceChallenge());
 		})();
@@ -76,7 +70,7 @@ export default function SignInForm() {
 
 	VKID.Config.init({
 		app: vkAppId ?? 0,
-		redirectUrl: `${getCorrectBaseUrl()}${UserProfilePath.ProfitMoney}`,
+		redirectUrl: `${baseUrl}${UserProfilePath.ProfitMoney}`,
 		state: generateState(),
 		codeChallenge: String(pkceCodeSet?.code_challenge ?? ""),
 		scope: "email phone",
@@ -102,7 +96,7 @@ export default function SignInForm() {
 				error.response &&
 				error.response.status &&
 				error.response.status >= axios.HttpStatusCode.InternalServerError &&
-				error.response.status < ApiResponseCode.SERVER_ERROR_STATUS_MAX
+				error.response.status <= axios.HttpStatusCode.NetworkAuthenticationRequired
 			) {
 				router.push(MainPath.ServerError);
 			}
@@ -137,7 +131,7 @@ export default function SignInForm() {
 					password: data.password,
 				};
 				await loginUser(baseUrl, correctUserData);
-				setIsOpen(true);
+				setIsInviteModalOpen(true);
 				localStorage.setItem("authType", AuthTypes.baseAuth);
 
 				if (data.isAutoAuth) {
@@ -160,7 +154,7 @@ export default function SignInForm() {
 				error.response &&
 				error.response.status &&
 				error.response.status >= axios.HttpStatusCode.InternalServerError &&
-				error.response.status < ApiResponseCode.SERVER_ERROR_STATUS_MAX
+				error.response.status <= axios.HttpStatusCode.NetworkAuthenticationRequired
 			) {
 				return router.push(MainPath.ServerError);
 			}
@@ -168,7 +162,7 @@ export default function SignInForm() {
 	};
 
 	const handleModalClose = () => {
-		setIsOpen(false);
+		setIsInviteModalOpen(false);
 		router.push(UserProfilePath.ProfitMoney);
 	};
 
@@ -221,7 +215,7 @@ export default function SignInForm() {
 					</button>
 				</p>
 			</div>
-			{isOpen && <InviteModal isOpen={isOpen} onClose={handleModalClose} />}
+			{isInviteModalOpen && <InviteModal isOpen={isInviteModalOpen} onClose={handleModalClose} />}
 		</form>
 	);
 }

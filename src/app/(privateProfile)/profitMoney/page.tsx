@@ -1,8 +1,9 @@
 /* eslint-disable camelcase */
 "use client";
 
-import { Key, useEffect, useState } from "react";
+import { Key, useEffect } from "react";
 import { useForm } from "react-hook-form";
+import { env } from "next-runtime-env";
 
 import { useLogoutTimer } from "../../../hooks/useLogoutTimer";
 
@@ -11,9 +12,9 @@ import { Select } from "../../../ui/select/Select";
 import AppInput from "../../../ui/appInput/AppInput";
 import IncomeTransaction from "../../../components/userProfileLayout/incomeTransaction/incomeTransaction";
 import { InputTypeList } from "../../../helpers/Input";
-import handleLogout from "../../../helpers/logoutTimeoutHandler";
+import { useHandleLogout } from "../../../hooks/useHandleLogout";
 import { formatMoney } from "../../../utils/formatData";
-import { getCorrectBaseUrl } from "../../../utils/baseUrlConverter";
+
 import { incomeTransactions } from "../../../mocks/IncomeTransaction";
 import { CategorySelect } from "../../../components/userProfileLayout/categorySelect/CategorySelect";
 
@@ -23,9 +24,6 @@ import AddButton from "../../../components/userProfileLayout/addButton/addButton
 import styles from "./profitMoney.module.scss";
 
 function ProfitMoney() {
-	const [baseUrl, setBaseUrl] = useState<string>();
-	const { request } = handleLogout(baseUrl);
-	const { resetTimer } = useLogoutTimer(request);
 	const { control } = useForm<IExpensesInputForm & IExpensesSelectForm>({
 		defaultValues: {
 			sum: "",
@@ -34,11 +32,12 @@ function ProfitMoney() {
 		delayError: 200,
 	});
 
-	const incomeMoney = 200000;
+	const baseUrl = String(env("NEXT_PUBLIC_BASE_URL") ?? "");
 
-	useEffect(() => {
-		setBaseUrl(getCorrectBaseUrl());
-	}, []);
+	const { request } = useHandleLogout(baseUrl);
+	const { resetTimer } = useLogoutTimer(request);
+
+	const incomeMoney = 200000;
 
 	useEffect(() => {
 		resetTimer();

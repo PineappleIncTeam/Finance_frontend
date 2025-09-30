@@ -4,6 +4,7 @@ import { useCallback, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import axios, { AxiosResponse } from "axios";
 import { useRouter } from "next/navigation";
+import { env } from "next-runtime-env";
 
 import { useLogoutTimer } from "../../../hooks/useLogoutTimer";
 
@@ -22,14 +23,13 @@ import AppInput from "../../../ui/appInput/AppInput";
 import { CategorySelect } from "../../../components/userProfileLayout/categorySelect/CategorySelect";
 import AddButton from "../../../components/userProfileLayout/addButton/addButton";
 import { InputTypeList } from "../../../helpers/Input";
-import { getCorrectBaseUrl } from "../../../utils/baseUrlConverter";
-import handleLogout from "../../../helpers/logoutTimeoutHandler";
+
+import { useHandleLogout } from "../../../hooks/useHandleLogout";
 
 import { EditIcon } from "../../../assets/script/expenses/EditIcon";
 import { CheckIcon } from "../../../assets/script/savings/CheckIcon";
 import { MoreIcon } from "../../../assets/script/savings/MoreIcon";
 import { SortIcon } from "../../../assets/script/savings/SortIcon";
-import { ApiResponseCode } from "../../../helpers/apiResponseCode";
 
 import { MainPath } from "../../../services/router/routes";
 
@@ -81,8 +81,10 @@ function Savings() {
 
 	const [sortOrder, setSortOrder] = useState<SortOrderStateValue>(SortOrderStateValue.asc);
 	const [sortTargetOrder, setSortTargetOrder] = useState<SortOrderStateValue>(SortOrderStateValue.asc);
-	const [baseUrl, setBaseUrl] = useState<string>();
-	const { request } = handleLogout(baseUrl);
+
+	const baseUrl = String(env("NEXT_PUBLIC_BASE_URL") ?? "");
+
+	const { request } = useHandleLogout(baseUrl);
 	const { resetTimer } = useLogoutTimer(request);
 	const [allTargets, setAllTargets] = useState<ITarget[]>([]);
 	const [fiveOperations, setFiveOperations] = useState<IOperation[]>([]);
@@ -400,10 +402,6 @@ function Savings() {
 	useEffect(() => {
 		setFiveOperationsWithNames(getFiveOperationsWithNames());
 	}, [getFiveOperationsWithNames]);
-
-	useEffect(() => {
-		setBaseUrl(getCorrectBaseUrl());
-	}, []);
 
 	useEffect(() => {
 		resetTimer();

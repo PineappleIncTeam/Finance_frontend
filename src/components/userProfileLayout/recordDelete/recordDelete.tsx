@@ -1,6 +1,6 @@
 import { ButtonType } from "../../../helpers/buttonFieldValues";
 import { ITransactionDelete } from "../../../types/common/ComponentsProps";
-import Button from "../../../ui/Button/Button1";
+import Button from "../../../ui/Button/Button";
 import Title from "../../../ui/title/Title";
 
 import styles from "./recordDelete.module.scss";

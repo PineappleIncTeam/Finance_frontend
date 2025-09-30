@@ -16,15 +16,15 @@ import mockImage from "../../../mocks/images/blogArticleMock.webp";
 import styles from "./blogArticle.module.scss";
 
 export default function BlogArticle({ image, date, title, articleContent, id }: IBlogArticle) {
-	const [isArticleShareTooltipShown, setIsArticleShareTooltipShown] = useState<boolean>(false);
+	const [isArticleShareTooltipOpen, setIsArticleShareTooltipOpen] = useState<boolean>(false);
 
 	const shared = useCurrentLinkCard();
 
 	const numberSeconds = 1500;
 
 	const renderTooltip = () => {
-		setIsArticleShareTooltipShown(true);
-		return setTimeout(() => setIsArticleShareTooltipShown(false), numberSeconds);
+		setIsArticleShareTooltipOpen(true);
+		return setTimeout(() => setIsArticleShareTooltipOpen(false), numberSeconds);
 	};
 
 	const clickShare = () => {
@@ -40,7 +40,7 @@ export default function BlogArticle({ image, date, title, articleContent, id }: 
 					<div className={styles.blogArticleTitleWrapper}>
 						<div className={styles.blogArticleDateShareLinkWrapper}>
 							<p className={styles.blogArticleDate}>{date}</p>
-							{isArticleShareTooltipShown && <BlogArticleShareTooltip open={isArticleShareTooltipShown} />}
+							{isArticleShareTooltipOpen && <BlogArticleShareTooltip open={isArticleShareTooltipOpen} />}
 							<button
 								type={InputTypeList.Button}
 								className={styles.blogArticleShareIconWrap}

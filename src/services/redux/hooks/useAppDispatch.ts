@@ -1,10 +1,11 @@
 import { useDispatch } from "react-redux";
 
-import store from "..";
+import { DispatchTyped } from "..";
 
 /**
  * @category Redux Hooks
  *
+ * @description
  * Типизированный хук для доступа к dispatch-функции Redux-стора.
  * Является обёрткой над стандартным `useDispatch` с предустановленным типом dispatch из стора.
  *
@@ -28,7 +29,5 @@ import store from "..";
  *
  * @see {@link https://redux-toolkit.js.org/usage/usage-with-typescript#getting-the-dispatch-type | Redux Toolkit TypeScript Docs}
  */
-
-type DispatchTyped = typeof store.dispatch;
 
 export const useAppDispatch = () => useDispatch<DispatchTyped>();

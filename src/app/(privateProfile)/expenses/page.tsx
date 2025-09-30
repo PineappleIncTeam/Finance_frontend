@@ -4,9 +4,9 @@ import { useRouter } from "next/navigation";
 import { Key, useCallback, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import axios, { AxiosResponse } from "axios";
+import { env } from "next-runtime-env";
 
 import { useLogoutTimer } from "../../../hooks/useLogoutTimer";
-import { getCorrectBaseUrl } from "../../../utils/baseUrlConverter";
 import { IAddCategoryTransactionForm, IExpensesCategoryForm } from "../../../types/pages/Expenses";
 import { IAddCategoryExpensesForm, IEditTransactionForm } from "../../../types/components/ComponentsTypes";
 import { ICategoryOption } from "../../../types/common/ComponentsProps";
@@ -30,10 +30,10 @@ import { removeTransaction } from "../../../services/api/userProfile/removeTrans
 import { editExpensesCategoryTransaction } from "../../../services/api/userProfile/editExpensesTransaction";
 import { archiveCategory } from "../../../services/api/userProfile/archiveCategory";
 import { getAllExpensesOperations } from "../../../services/api/userProfile/getAllExpensesOperations";
-import { getCurrentDate } from "../../../utils/getCurrentDate";
 import { CategoryType } from "../../../helpers/categoryTypes";
-import { ApiResponseCode } from "../../../helpers/apiResponseCode";
-import handleLogout from "../../../helpers/logoutTimeoutHandler";
+import { getCurrentDate } from "../../../utils/getCurrentDate";
+import { useHandleLogout } from "../../../hooks/useHandleLogout";
+
 import { InputTypeList } from "../../../helpers/Input";
 import { getAllExpensesCategories } from "../../../services/api/userProfile/getAllExpensesCategories";
 
@@ -45,9 +45,7 @@ export default function Expenses() {
 		title: "",
 	};
 
-	const [baseUrl, setBaseUrl] = useState<string>();
 	const [isAddSuccess, setIsAddSuccess] = useState<boolean>(false);
-	const [isOpen, setIsOpen] = useState<boolean>(false);
 	const [fiveOperations, setFiveOperations] = useState<IOperation[]>([]);
 	const [fiveOperationsNames, setFiveOperationsNames] = useState<IOperation[]>([]);
 	const [options, setOptions] = useState<ICategoryOption[]>([]);
@@ -55,14 +53,15 @@ export default function Expenses() {
 	const [isDeleteOperationApprove, setIsDeleteOperationApprove] = useState<boolean>(false);
 	const [isDeleteOperationSuccess, setIsDeleteOperationSuccess] = useState<boolean>(false);
 	const [isId, setIsId] = useState<string>("");
-	const [isEdit, setIsEdit] = useState<boolean>(false);
 	const [isEditSuccess, setIsEditSuccess] = useState<boolean>(false);
-	const [isCategoryDeleteModalOpen, setIsCategoryDeleteModalOpen] = useState<boolean>(false);
 	const [isCategory, setIsCategory] = useState<string>("");
 	const [isIdForDeleteCategory, setIsIdForDeleteCategory] = useState<string>("");
 	const [isCategoryArchive, setIsCategoryArchive] = useState<boolean>(false);
 	const [allOperations, setAllOperations] = useState<IOperation[]>([]);
 	const [responseApiRequestModal, setResponseApiRequestModal] = useState(ResponseApiRequestModalInitialState);
+	const [isEditTransactionModalOpen, setIsEditTransactionModalOpen] = useState<boolean>(false);
+	const [isCategoryAddModalOpen, setIsCategoryAddModalOpen] = useState<boolean>(false);
+	const [isCategoryDeleteModalOpen, setIsCategoryDeleteModalOpen] = useState<boolean>(false);
 
 	const { control, handleSubmit } = useForm<IAddCategoryTransactionForm & IExpensesCategoryForm>({
 		defaultValues: {
@@ -76,7 +75,9 @@ export default function Expenses() {
 
 	const router = useRouter();
 
-	const { request } = handleLogout(baseUrl);
+	const baseUrl = String(env("NEXT_PUBLIC_BASE_URL") ?? "");
+
+	const { request } = useHandleLogout(baseUrl);
 	const { resetTimer } = useLogoutTimer(request);
 
 	const endDate = 10;
@@ -99,7 +100,7 @@ export default function Expenses() {
 				error.response &&
 				error.response.status &&
 				error.response.status >= axios.HttpStatusCode.InternalServerError &&
-				error.response.status < ApiResponseCode.SERVER_ERROR_STATUS_MAX
+				error.response.status <= axios.HttpStatusCode.NetworkAuthenticationRequired
 			) {
 				router.push(MainPath.ServerError);
 			}
@@ -139,16 +140,12 @@ export default function Expenses() {
 				error.response &&
 				error.response.status &&
 				error.response.status >= axios.HttpStatusCode.InternalServerError &&
-				error.response.status < ApiResponseCode.SERVER_ERROR_STATUS_MAX
+				error.response.status <= axios.HttpStatusCode.NetworkAuthenticationRequired
 			) {
 				router.push(MainPath.ServerError);
 			}
 		}
 	}, [baseUrl, router]);
-
-	useEffect(() => {
-		setBaseUrl(getCorrectBaseUrl());
-	}, []);
 
 	useEffect(() => {
 		resetTimer();
@@ -180,7 +177,7 @@ export default function Expenses() {
 			if (baseUrl && data !== null) {
 				const response = await addExpensesCategory(baseUrl, data);
 				if (response.status === axios.HttpStatusCode.Created) {
-					setIsOpen(false);
+					setIsCategoryAddModalOpen(false);
 					setIsAddSuccess(true);
 					setResponseApiRequestModal({
 						open: true,
@@ -198,7 +195,7 @@ export default function Expenses() {
 				error.response &&
 				error.response.status &&
 				error.response.status >= axios.HttpStatusCode.InternalServerError &&
-				error.response.status < ApiResponseCode.SERVER_ERROR_STATUS_MAX
+				error.response.status <= axios.HttpStatusCode.NetworkAuthenticationRequired
 			) {
 				router.push(MainPath.ServerError);
 			}
@@ -232,54 +229,9 @@ export default function Expenses() {
 				error.response &&
 				error.response.status &&
 				error.response.status >= axios.HttpStatusCode.InternalServerError &&
-				error.response.status < ApiResponseCode.SERVER_ERROR_STATUS_MAX
+				error.response.status <= axios.HttpStatusCode.NetworkAuthenticationRequired
 			) {
 				router.push(MainPath.ServerError);
-			}
-		}
-	};
-
-	const onSubmit = async (data: IAddCategoryTransactionForm & IExpensesCategoryForm) => {
-		resetTimer();
-		const transactionData: IAddCategoryTransactionForm = {
-			date: getCurrentDate(endDate),
-			amount: Number(data.amount),
-			categories: data.categories,
-			type: "outcome",
-		};
-		try {
-			if (baseUrl && data !== null) {
-				const response = await addExpensesCategoryTransaction(baseUrl, transactionData);
-				if (response.status === axios.HttpStatusCode.Created) {
-					setIsOpen(false);
-					setIsAddSuccess(true);
-					setResponseApiRequestModal({
-						open: true,
-						title: "Запись успешно добавлена",
-					});
-					setTimeout(() => {
-						setResponseApiRequestModal(ResponseApiRequestModalInitialState);
-						setIsAddSuccess(false);
-					}, interval);
-				}
-			}
-		} catch (error) {
-			if (
-				axios.isAxiosError(error) &&
-				error.response &&
-				error.response.status &&
-				error.response.status >= axios.HttpStatusCode.InternalServerError &&
-				error.response.status < ApiResponseCode.SERVER_ERROR_STATUS_MAX
-			) {
-				router.push(MainPath.ServerError);
-			} else {
-				setResponseApiRequestModal({
-					open: true,
-					title: "Запись не была добавлена",
-				});
-				setTimeout(() => {
-					setResponseApiRequestModal(ResponseApiRequestModalInitialState);
-				}, interval);
 			}
 		}
 	};
@@ -307,7 +259,7 @@ export default function Expenses() {
 				error.response &&
 				error.response.status &&
 				error.response.status >= axios.HttpStatusCode.InternalServerError &&
-				error.response.status < ApiResponseCode.SERVER_ERROR_STATUS_MAX
+				error.response.status <= axios.HttpStatusCode.NetworkAuthenticationRequired
 			) {
 				router.push(MainPath.ServerError);
 			}
@@ -320,7 +272,7 @@ export default function Expenses() {
 			if (baseUrl && data !== null) {
 				const response = await editExpensesCategoryTransaction(baseUrl, id, data);
 				if (response.status === axios.HttpStatusCode.Ok) {
-					setIsEdit(false);
+					setIsEditTransactionModalOpen(false);
 					setIsEditSuccess(true);
 					setResponseApiRequestModal({
 						open: true,
@@ -338,7 +290,7 @@ export default function Expenses() {
 				error.response &&
 				error.response.status &&
 				error.response.status >= axios.HttpStatusCode.InternalServerError &&
-				error.response.status < ApiResponseCode.SERVER_ERROR_STATUS_MAX
+				error.response.status <= axios.HttpStatusCode.NetworkAuthenticationRequired
 			) {
 				router.push(MainPath.ServerError);
 			}
@@ -373,7 +325,7 @@ export default function Expenses() {
 				error.response &&
 				error.response.status &&
 				error.response.status >= axios.HttpStatusCode.InternalServerError &&
-				error.response.status < ApiResponseCode.SERVER_ERROR_STATUS_MAX
+				error.response.status <= axios.HttpStatusCode.NetworkAuthenticationRequired
 			) {
 				router.push(MainPath.ServerError);
 			}
@@ -394,9 +346,54 @@ export default function Expenses() {
 				error.response &&
 				error.response.status &&
 				error.response.status >= axios.HttpStatusCode.InternalServerError &&
-				error.response.status < ApiResponseCode.SERVER_ERROR_STATUS_MAX
+				error.response.status <= axios.HttpStatusCode.NetworkAuthenticationRequired
 			) {
 				router.push(MainPath.ServerError);
+			}
+		}
+	};
+
+	const onSubmit = async (data: IAddCategoryTransactionForm & IExpensesCategoryForm) => {
+		resetTimer();
+		const transactionData: IAddCategoryTransactionForm = {
+			date: getCurrentDate(endDate),
+			amount: Number(data.amount),
+			categories: data.categories,
+			type: "outcome",
+		};
+		try {
+			if (baseUrl && data !== null) {
+				const response = await addExpensesCategoryTransaction(baseUrl, transactionData);
+				if (response.status === axios.HttpStatusCode.Created) {
+					setIsCategoryAddModalOpen(false);
+					setIsAddSuccess(true);
+					setResponseApiRequestModal({
+						open: true,
+						title: "Запись успешно добавлена",
+					});
+					setTimeout(() => {
+						setResponseApiRequestModal(ResponseApiRequestModalInitialState);
+						setIsAddSuccess(false);
+					}, interval);
+				}
+			}
+		} catch (error) {
+			if (
+				axios.isAxiosError(error) &&
+				error.response &&
+				error.response.status &&
+				error.response.status >= axios.HttpStatusCode.InternalServerError &&
+				error.response.status <= axios.HttpStatusCode.NetworkAuthenticationRequired
+			) {
+				router.push(MainPath.ServerError);
+			} else {
+				setResponseApiRequestModal({
+					open: true,
+					title: "Запись не была добавлена",
+				});
+				setTimeout(() => {
+					setResponseApiRequestModal(ResponseApiRequestModalInitialState);
+				}, interval);
 			}
 		}
 	};
@@ -423,7 +420,7 @@ export default function Expenses() {
 								label={"Категория"}
 								options={options}
 								control={control}
-								onAddCategory={() => setIsOpen(true)}
+								onAddCategory={() => setIsCategoryAddModalOpen(true)}
 								onRemoveCategory={(id, name) => [
 									setIsCategoryDeleteModalOpen(true),
 									handleIdName(id, name),
@@ -455,12 +452,12 @@ export default function Expenses() {
 					/>
 				)}
 				<ResponseApiRequestModal open={responseApiRequestModal.open} title={responseApiRequestModal.title} />
-				{isOpen && (
+				{isCategoryAddModalOpen && (
 					<CategoryAddModal
-						open={isOpen}
-						onCancelClick={() => setIsOpen(false)}
-						request={addCategory}
+						open={isCategoryAddModalOpen}
+						onCancelClick={() => setIsCategoryAddModalOpen(false)}
 						type={CategoryType.Outcome}
+						request={addCategory}
 					/>
 				)}
 				<ResponseApiRequestModal open={responseApiRequestModal.open} title={responseApiRequestModal.title} />
@@ -478,7 +475,7 @@ export default function Expenses() {
 									categories={0}
 									id={expensesData.id}
 									onDeleteClick={() => [setIsDeleteOperationApprove(true), setIsId(String(expensesData.id))]}
-									editClick={() => [setIsEdit(true), setIsId(String(expensesData.id))]}
+									editClick={() => [setIsEditTransactionModalOpen(true), setIsId(String(expensesData.id))]}
 									target={""}
 								/>
 							</li>
@@ -492,8 +489,13 @@ export default function Expenses() {
 					/>
 				)}
 				<ResponseApiRequestModal open={responseApiRequestModal.open} title={responseApiRequestModal.title} />
-				{isEdit && (
-					<EditTransactionModal open={isEdit} id={isId} request={editTransaction} cancelEdit={() => setIsEdit(false)} />
+				{isEditTransactionModalOpen && (
+					<EditTransactionModal
+						open={isEditTransactionModalOpen}
+						id={isId}
+						request={editTransaction}
+						cancelEdit={() => setIsEditTransactionModalOpen(false)}
+					/>
 				)}
 				<ResponseApiRequestModal open={responseApiRequestModal.open} title={responseApiRequestModal.title} />
 			</div>

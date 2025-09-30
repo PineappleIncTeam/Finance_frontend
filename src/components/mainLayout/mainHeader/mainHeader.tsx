@@ -6,16 +6,16 @@ import { usePathname, useRouter } from "next/navigation";
 import { Dispatch, RefObject, SetStateAction, useEffect, useRef, useState } from "react";
 import cn from "classnames";
 import axios, { AxiosResponse } from "axios";
+import { env } from "next-runtime-env";
 
 import { useAppSelector } from "../../../services/redux/hooks/useAppSelector";
 
 import { IValidateTokenResponse } from "../../../types/api/Auth";
-import { getCorrectBaseUrl } from "../../../utils/baseUrlConverter";
+
 import autoLoginSelector from "../../../services/redux/features/autoLogin/autoLoginSelector";
 import { validateToken } from "../../../services/api/auth/validateToken";
 import { MainPath, UserProfilePath } from "../../../services/router/routes";
 import { mockLocalhostStr, mockLocalhostUrl } from "../../../services/api/auth/apiConstants";
-import { ApiResponseCode } from "../../../helpers/apiResponseCode";
 
 import logo from "../../../assets/layouts/main/logo.webp";
 import burger from "../../../assets/layouts/main/burger.svg";
@@ -27,8 +27,7 @@ import styles from "./mainHeader.module.scss";
 
 const MainHeader = () => {
 	const pathname = usePathname();
-	const [open, setOpen] = useState<boolean>(false);
-	const [baseUrl, setBaseUrl] = useState<string>();
+	const [isHeaderModalOpen, setIsHeaderModalOpen] = useState<boolean>(false);
 	const modalRef = useRef<HTMLDivElement | null>(null);
 	const router = useRouter();
 
@@ -44,9 +43,7 @@ const MainHeader = () => {
 		}
 	};
 
-	useEffect(() => {
-		setBaseUrl(getCorrectBaseUrl());
-	}, []);
+	const baseUrl = String(env("NEXT_PUBLIC_BASE_URL") ?? "");
 
 	useEffect(() => {
 		try {
@@ -68,7 +65,7 @@ const MainHeader = () => {
 				error.response &&
 				error.response.status &&
 				error.response.status >= axios.HttpStatusCode.InternalServerError &&
-				error.response.status < ApiResponseCode.SERVER_ERROR_STATUS_MAX
+				error.response.status <= axios.HttpStatusCode.NetworkAuthenticationRequired
 			) {
 				return router.push(MainPath.ServerError);
 			}
@@ -82,10 +79,10 @@ const MainHeader = () => {
 	useEffect(() => {
 		const handleDocumentClick = (event: MouseEvent) => {
 			if (modalRef.current) {
-				handleClickOutside(event, modalRef, setOpen);
+				handleClickOutside(event, modalRef, setIsHeaderModalOpen);
 			}
 		};
-		if (open) {
+		if (isHeaderModalOpen) {
 			document.addEventListener("mousedown", handleDocumentClick);
 		} else {
 			document.removeEventListener("mousedown", handleDocumentClick);
@@ -94,10 +91,10 @@ const MainHeader = () => {
 		return () => {
 			document.removeEventListener("mousedown", handleDocumentClick);
 		};
-	}, [open]);
+	}, [isHeaderModalOpen]);
 
 	useEffect(() => {
-		setOpen(false);
+		setIsHeaderModalOpen(false);
 	}, [pathname]);
 
 	const renderNavigationElements = () => {
@@ -129,12 +126,12 @@ const MainHeader = () => {
 
 	const renderModalWindow = () => {
 		return (
-			open && (
+			isHeaderModalOpen && (
 				<div className={styles.modalWindowWrap} ref={modalRef}>
 					<div className={styles.modalWindowContainer}>
 						<div className={styles.menuWrap}>
 							<p className={styles.menuWrap__title}>Меню</p>
-							<button onClick={() => setOpen(false)}>
+							<button onClick={() => setIsHeaderModalOpen(false)}>
 								<Image src={closeElement} alt="Крестик" width={24} height={24} />
 							</button>
 						</div>
@@ -159,7 +156,7 @@ const MainHeader = () => {
 				<Link href={MainPath.Main} className={styles.logoLink}>
 					<Image src={logo} alt="Логотип" width={284} height={56} className={styles.headerContainer__img} />
 				</Link>
-				<button onClick={() => setOpen(!open)}>
+				<button onClick={() => setIsHeaderModalOpen(!isHeaderModalOpen)}>
 					<Image src={burger} alt="Бургер" width={74} height={30} className={styles.headerContainer__burger} />
 				</button>
 				{renderModalWindow()}

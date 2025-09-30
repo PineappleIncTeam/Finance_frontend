@@ -10,6 +10,7 @@ import styles from "./inviteModal.module.scss";
 
 const InviteModal = ({ isOpen, onClose }: IInviteModal) => {
 	useLockScroll(isOpen);
+
 	return (
 		<>
 			{isOpen && (

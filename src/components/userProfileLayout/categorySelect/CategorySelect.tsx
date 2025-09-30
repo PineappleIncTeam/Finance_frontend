@@ -26,7 +26,7 @@ export const CategorySelect = <T extends FieldValues>({
 		control,
 	});
 
-	const [isOpen, setIsOpen] = useState<boolean>(false);
+	const [isCategorySelectOpen, setIsCategorySelectOpen] = useState<boolean>(false);
 	const [selectedValue, setSelectedValue] = useState<number | null>(value);
 	const [selectedName, setSelectedName] = useState<number | string>();
 	const selectRef = useRef<HTMLDivElement>(null);
@@ -34,7 +34,7 @@ export const CategorySelect = <T extends FieldValues>({
 	useEffect(() => {
 		const handleClickOutside = (event: MouseEvent) => {
 			if (selectRef.current && !selectRef.current.contains(event.target as Node)) {
-				setIsOpen(false);
+				setIsCategorySelectOpen(false);
 			}
 		};
 
@@ -50,11 +50,11 @@ export const CategorySelect = <T extends FieldValues>({
 		setSelectedName(optionName);
 		onChange(optionValue);
 		onChange(optionName);
-		setIsOpen(false);
+		setIsCategorySelectOpen(false);
 	};
 
 	const toggleDropdown = () => {
-		setIsOpen(!isOpen);
+		setIsCategorySelectOpen(!isCategorySelectOpen);
 	};
 
 	const handleRemoveCategory = (categoryId: number, categoryName: string) => {
@@ -70,7 +70,7 @@ export const CategorySelect = <T extends FieldValues>({
 
 	function renderSelectorOptions() {
 		return (
-			isOpen && (
+			isCategorySelectOpen && (
 				<div className={styles.selectContainer__options} onChange={onChange}>
 					<button onClick={onAddCategory} type={InputTypeList.Button} className={styles.selectContainer__title}>
 						Добавить категорию
@@ -120,7 +120,9 @@ export const CategorySelect = <T extends FieldValues>({
 				{renderSelectedValue()}
 
 				<Arrow
-					classNames={cn(styles.selectContainer__selectIcon, isOpen && styles.selectContainer__selectIcon__active)}
+					classNames={cn(styles.selectContainer__selectIcon, {
+						[styles.selectContainer__selectIcon__active]: isCategorySelectOpen,
+					})}
 				/>
 			</div>
 			{renderSelectorOptions()}

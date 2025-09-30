@@ -9,7 +9,7 @@ import { avatarTemplates } from "../../../../mocks/AvatarTemplates";
 // import editProfileIcon from "../../../assets/components/userProfile/editProfile.svg";
 import userAvatar from "../../../../assets/components/userProfile/userPhoto.svg";
 import editProfileIcon from "../../../../assets/components/userProfile/editProfile.svg";
-import Button from "../../../../ui/Button/Button1";
+import Button from "../../../../ui/Button/Button";
 import { ButtonType } from "../../../../helpers/buttonFieldValues";
 
 import styles from "./privateProfileAvatarSettings.module.scss";

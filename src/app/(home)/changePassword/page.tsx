@@ -1,9 +1,10 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useSearchParams, useRouter } from "next/navigation";
 import axios, { isAxiosError } from "axios";
+import { env } from "next-runtime-env";
 
 import { IChangePassword, IChangePasswordForm } from "../../../types/pages/Password";
 import Title from "../../../ui/title/Title";
@@ -12,24 +13,24 @@ import ChangePasswordModal from "../../../components/mainLayout/changePasswordMo
 import { setNewPassword } from "../../../services/api/auth/setNewPassword";
 import { MainPath } from "../../../services/router/routes";
 import { mockLocalhostStr, mockLocalhostUrl } from "../../../services/api/auth/apiConstants";
-import { ApiResponseCode } from "../../../helpers/apiResponseCode";
 import { InputTypeList } from "../../../helpers/Input";
 import { errorPasswordRepeat, errorUidOrToken, passwordPattern } from "../../../helpers/authConstants";
-import { getCorrectBaseUrl } from "../../../utils/baseUrlConverter";
+
 import { formHelpers } from "../../../utils/formHelpers";
-import Button from "../../../ui/Button/Button1";
+import Button from "../../../ui/Button/Button";
 import { ButtonType } from "../../../helpers/buttonFieldValues";
 
 import styles from "./changePassword.module.scss";
 
 export default function ChangePassword() {
-	const [baseUrl, setBaseUrl] = useState<string>();
-	const [isChangePasswordModalShown, setIsChangePasswordModalShown] = useState<boolean>(false);
+	const [isChangePasswordModalOpen, setIsChangePasswordModalOpen] = useState<boolean>(false);
 	const searchParams = useSearchParams();
 	const router = useRouter();
 
 	const uid = searchParams.get("uid");
 	const token = searchParams.get("token");
+
+	const baseUrl = String(env("NEXT_PUBLIC_BASE_URL") ?? "");
 
 	const secondsCount = 4000;
 
@@ -37,7 +38,6 @@ export default function ChangePassword() {
 		control,
 		handleSubmit,
 		setError,
-		reset,
 		watch,
 		formState: { errors },
 	} = useForm<IChangePasswordForm>({
@@ -50,40 +50,17 @@ export default function ChangePassword() {
 		delayError: 200,
 	});
 
-	useEffect(() => {
-		setBaseUrl(getCorrectBaseUrl());
-	}, []);
-
 	const validateRepeatPassword = (value: string) => {
 		const password = watch("password");
 		return value === password || errorPasswordRepeat;
 	};
 
-	const saveButtonClick = async (data: IChangePassword) => {
-		try {
-			const isLocalhost =
-				window.location.hostname.includes(mockLocalhostStr) || window.location.hostname.includes(mockLocalhostUrl);
-			if (baseUrl && !isLocalhost && uid && token) {
-				data.uid = uid;
-				data.token = token;
-				await setNewPassword(baseUrl, data);
-				router.push(MainPath.Login);
-			}
-		} catch (error) {
-			if (isAxiosError(error) && error?.response?.status === axios.HttpStatusCode.BadRequest) {
-				setError("password", {
-					type: "server",
-					message: errorUidOrToken,
-				});
-			} else if (
-				axios.isAxiosError(error) &&
-				error.response &&
-				error.response.status >= ApiResponseCode.SERVER_ERROR_STATUS_MIN &&
-				error.response.status < ApiResponseCode.SERVER_ERROR_STATUS_MAX
-			) {
-				return router.push(MainPath.ServerError);
-			}
-		}
+	const handleChangePasswordModal = () => {
+		setIsChangePasswordModalOpen(true);
+		setTimeout(async () => {
+			await setIsChangePasswordModalOpen(false);
+			router.push(MainPath.Login);
+		}, secondsCount);
 	};
 
 	const onSubmit = async (data: IChangePasswordForm) => {
@@ -95,14 +72,31 @@ export default function ChangePassword() {
 			token: token ?? "",
 			uid: uid ?? "",
 		};
-		await saveButtonClick(apiData);
-		handleChangePasswordModal();
-		reset();
-	};
 
-	const handleChangePasswordModal = () => {
-		setIsChangePasswordModalShown(true);
-		setTimeout(() => setIsChangePasswordModalShown(false), secondsCount);
+		try {
+			const isLocalhost =
+				window.location.hostname.includes(mockLocalhostStr) || window.location.hostname.includes(mockLocalhostUrl);
+			if (baseUrl && !isLocalhost && uid && token) {
+				apiData.uid = uid;
+				apiData.token = token;
+				await setNewPassword(baseUrl, apiData);
+				handleChangePasswordModal();
+			}
+		} catch (error) {
+			if (isAxiosError(error) && error?.response?.status === axios.HttpStatusCode.Forbidden) {
+				setError("password", {
+					type: "server",
+					message: errorUidOrToken,
+				});
+			} else if (
+				axios.isAxiosError(error) &&
+				error.response &&
+				error.response.status >= axios.HttpStatusCode.InternalServerError &&
+				error.response.status <= axios.HttpStatusCode.NetworkAuthenticationRequired
+			) {
+				return router.push(MainPath.ServerError);
+			}
+		}
 	};
 
 	return (
@@ -110,7 +104,7 @@ export default function ChangePassword() {
 			<form className={styles.changePasswordFormContainer} onSubmit={handleSubmit(onSubmit)}>
 				<div className={styles.changePasswordFormContainer__content}>
 					<Title title={"Изменение пароля"} />
-					<ChangePasswordModal open={isChangePasswordModalShown} />
+					<ChangePasswordModal open={isChangePasswordModalOpen} />
 					<ChangePassInput
 						control={control}
 						label={"Введите новый пароль"}

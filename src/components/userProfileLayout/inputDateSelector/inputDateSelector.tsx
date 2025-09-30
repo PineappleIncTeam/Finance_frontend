@@ -5,7 +5,7 @@ import { IInputDateSelector } from "../../../types/common/UiKitProps";
 import styles from "./inputDateSelector.module.scss";
 
 const InputDateSelector = ({ options, changeDate, value, isMonth = false }: IInputDateSelector) => {
-	const [isOpen, setIsOpen] = useState<boolean>(false);
+	const [isInputDateSelectorOpen, setIsInputDateSelectorOpen] = useState<boolean>(false);
 	const [selectedValue, setSelectedValue] = useState<number>(value);
 	const selectRef = useRef<HTMLDivElement>(null);
 	const optionsContainerRef = useRef<HTMLDivElement>(null);
@@ -14,7 +14,7 @@ const InputDateSelector = ({ options, changeDate, value, isMonth = false }: IInp
 	useEffect(() => {
 		const handleClickOutside = (event: MouseEvent) => {
 			if (selectRef.current && !selectRef.current.contains(event.target as Node)) {
-				setIsOpen(false);
+				setIsInputDateSelectorOpen(false);
 			}
 		};
 
@@ -30,7 +30,7 @@ const InputDateSelector = ({ options, changeDate, value, isMonth = false }: IInp
 	}, [value]);
 
 	useLayoutEffect(() => {
-		if (isOpen && optionsContainerRef.current && selectedOptionRef.current) {
+		if (isInputDateSelectorOpen && optionsContainerRef.current && selectedOptionRef.current) {
 			const container = optionsContainerRef.current;
 			const selected = selectedOptionRef.current;
 			const containerHeight = container.clientHeight;
@@ -43,21 +43,21 @@ const InputDateSelector = ({ options, changeDate, value, isMonth = false }: IInp
 				behavior: "auto",
 			});
 		}
-	}, [isOpen]);
+	}, [isInputDateSelectorOpen]);
 
 	const handleOptionClick = (optionValue: number) => {
 		setSelectedValue(optionValue);
 		changeDate(optionValue);
-		setIsOpen(false);
+		setIsInputDateSelectorOpen(false);
 	};
 
 	const toggleDropdown = () => {
-		setIsOpen(!isOpen);
+		setIsInputDateSelectorOpen(!isInputDateSelectorOpen);
 	};
 
 	function renderSelectorOptions() {
 		return (
-			isOpen && (
+			isInputDateSelectorOpen && (
 				<div className={styles.selectContainer__options} ref={optionsContainerRef}>
 					{options?.map((option, index: Key) => {
 						const optionValue = isMonth ? index : option;

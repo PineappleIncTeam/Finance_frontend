@@ -12,7 +12,7 @@ import { ISignUpForm } from "../../../types/components/ComponentsTypes";
 import { IPkceCodeSet, IVKLoginSuccessPayload, IVkAuthRequest } from "../../../types/pages/Authorization";
 import AuthInput from "../../../ui/authInput/AuthInput";
 import Title from "../../../ui/title/Title";
-import Button from "../../../ui/Button/Button1";
+import Button from "../../../ui/Button/Button";
 import {
 	emailPattern,
 	errorPasswordRepeat,
@@ -24,8 +24,6 @@ import { InputTypeList } from "../../../helpers/Input";
 import { registration } from "../../../services/api/auth/registration";
 import { MainPath, UserProfilePath } from "../../../services/router/routes";
 import { authApiVkService } from "../../../services/api/auth/authVkService";
-import { getCorrectBaseUrl } from "../../../utils/baseUrlConverter";
-import { ApiResponseCode } from "../../../helpers/apiResponseCode";
 import CustomCheckbox from "../../../ui/checkBox/checkBox";
 import { ButtonType } from "../../../helpers/buttonFieldValues";
 import { generatePkceChallenge, generateState } from "../../../utils/generateAuthTokens";
@@ -33,7 +31,6 @@ import { generatePkceChallenge, generateState } from "../../../utils/generateAut
 import styles from "./signUpForm.module.scss";
 
 export default function SignUpForm() {
-	const [baseUrl, setBaseUrl] = useState<string>("");
 	const [pkceCodeSet, setPkceCodeSet] = useState<IPkceCodeSet>();
 
 	const {
@@ -57,6 +54,7 @@ export default function SignUpForm() {
 	const router = useRouter();
 
 	const vkAppId = Number(env("NEXT_PUBLIC_VK_APP_ID") ?? 0);
+	const baseUrl = String(env("NEXT_PUBLIC_BASE_URL") ?? "");
 
 	const authCurtainRenderObj: VKID.FloatingOneTapParams = {
 		appName: "freenance-app",
@@ -66,10 +64,6 @@ export default function SignUpForm() {
 	};
 
 	useEffect(() => {
-		setBaseUrl(getCorrectBaseUrl());
-	}, []);
-
-	useEffect(() => {
 		(async () => {
 			await setPkceCodeSet(await generatePkceChallenge());
 		})();
@@ -77,7 +71,7 @@ export default function SignUpForm() {
 
 	VKID.Config.init({
 		app: vkAppId ?? 0,
-		redirectUrl: `${getCorrectBaseUrl()}${UserProfilePath.ProfitMoney}`,
+		redirectUrl: `${baseUrl}${UserProfilePath.ProfitMoney}`,
 		state: generateState(),
 		codeChallenge: String(pkceCodeSet?.code_challenge ?? ""),
 		scope: "email phone",
@@ -101,7 +95,7 @@ export default function SignUpForm() {
 				error.response &&
 				error.response.status &&
 				error.response.status >= axios.HttpStatusCode.InternalServerError &&
-				error.response.status < ApiResponseCode.SERVER_ERROR_STATUS_MAX
+				error.response.status <= axios.HttpStatusCode.NetworkAuthenticationRequired
 			) {
 				router.push(MainPath.ServerError);
 			}
@@ -156,7 +150,7 @@ export default function SignUpForm() {
 				error.response &&
 				error.response.status &&
 				error.response.status >= axios.HttpStatusCode.InternalServerError &&
-				error.response.status < ApiResponseCode.SERVER_ERROR_STATUS_MAX
+				error.response.status <= axios.HttpStatusCode.NetworkAuthenticationRequired
 			) {
 				return router.push(MainPath.ServerError);
 			}

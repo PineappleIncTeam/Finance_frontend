@@ -1,9 +1,10 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import axios, { AxiosError } from "axios";
+import { env } from "next-runtime-env";
 
 import { INewPassword } from "../../../types/pages/Password";
 import AuthInput from "../../../ui/authInput/AuthInput";
@@ -12,21 +13,21 @@ import NewPasswordModal from "../../../components/mainLayout/newPasswordModal/ne
 import { formHelpers } from "../../../utils/formHelpers";
 import { emailPattern, errorEmailIsNotRegister } from "../../../helpers/authConstants";
 import { InputTypeList } from "../../../helpers/Input";
-import { getCorrectBaseUrl } from "../../../utils/baseUrlConverter";
+
 import { resetPasswordWithEmail } from "../../../services/api/auth/resetPasswordWithEmail";
 import { MainPath } from "../../../services/router/routes";
-import { ApiResponseCode } from "../../../helpers/apiResponseCode";
-import Button from "../../../ui/Button/Button1";
+import Button from "../../../ui/Button/Button";
 import { ButtonType } from "../../../helpers/buttonFieldValues";
 
 import styles from "./newPassword.module.scss";
 
 export default function NewPassword() {
-	const [isNewPasswordModalShown, setIsNewPasswordModalShown] = useState<boolean>(false);
+	const [isNewPasswordModalOpen, setIsNewPasswordModalOpen] = useState<boolean>(false);
 	const [email, setEmail] = useState<string>("");
-	const [baseUrl, setBaseUrl] = useState<string>();
 
 	const router = useRouter();
+
+	const baseUrl = String(env("NEXT_PUBLIC_BASE_URL") ?? "");
 
 	const secondCount = 7000;
 
@@ -44,10 +45,6 @@ export default function NewPassword() {
 		delayError: 200,
 	});
 
-	useEffect(() => {
-		setBaseUrl(getCorrectBaseUrl());
-	}, []);
-
 	const onSubmit = (data: INewPassword) => {
 		setEmail(data?.email ?? "");
 		restoreButtonClick(data);
@@ -56,7 +53,7 @@ export default function NewPassword() {
 	};
 
 	const newPasswordModalVisible = (prop: boolean) => {
-		setIsNewPasswordModalShown(prop);
+		setIsNewPasswordModalOpen(prop);
 	};
 
 	const isAxiosError = (error: unknown): error is AxiosError => {
@@ -80,8 +77,8 @@ export default function NewPassword() {
 			} else if (
 				isAxiosError(error) &&
 				error.response &&
-				error.response.status >= ApiResponseCode.SERVER_ERROR_STATUS_MIN &&
-				error.response.status < ApiResponseCode.SERVER_ERROR_STATUS_MAX
+				error.response.status >= axios.HttpStatusCode.InternalServerError &&
+				error.response.status <= axios.HttpStatusCode.NetworkAuthenticationRequired
 			) {
 				return router.push(MainPath.ServerError);
 			}
@@ -97,11 +94,7 @@ export default function NewPassword() {
 			<form className={styles.newPasswordFormContainer} onSubmit={handleSubmit(onSubmit)}>
 				<div className={styles.newPasswordFormContainer__content}>
 					<Title title={"Восстановление пароля"} />
-					<NewPasswordModal
-						email={email}
-						open={isNewPasswordModalShown}
-						toggle={() => newPasswordModalVisible(false)}
-					/>
+					<NewPasswordModal email={email} open={isNewPasswordModalOpen} toggle={() => newPasswordModalVisible(false)} />
 					<AuthInput
 						control={control}
 						label="Введите почту"

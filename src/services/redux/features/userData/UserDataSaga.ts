@@ -23,7 +23,6 @@ function* fetchUserDataSaga(action: ReturnType<typeof userDataActions.pending>) 
 		});
 
 		const userData: IFetchUserDataResponse = {
-			// ...userProfileData,
 			nickname: userProfileData.data.nickname ? userProfileData.data.nickname : "",
 			gender: userProfileData.data.gender ? userProfileData.data.gender : "M",
 			country: 1, // need to fix

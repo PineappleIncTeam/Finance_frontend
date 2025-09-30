@@ -1,12 +1,9 @@
 /* eslint-disable camelcase */
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-import { IUserDataState, IUserSettingsState, IUserState } from "../../../../types/redux/StateTypes";
+import { IUserDataState, IUserState } from "../../../../types/redux/StateTypes";
 import { userDataActions } from "../../../../types/redux/sagaActions/storeSaga.actions";
 import { IFetchUserDataResponse } from "../../../../types/api/PersonalAccount";
-
-// const authTokenStorage = localStorage.getItem("token");
-// const balanceSum = localStorage.getItem("balans");
 
 const initialState: IUserState = {
 	balanceString: 0,

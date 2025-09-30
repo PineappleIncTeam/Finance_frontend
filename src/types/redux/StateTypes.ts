@@ -1,4 +1,4 @@
-import { TGender } from "../api/PersonalAccount";
+import { ICountryData, TGender } from "../api/PersonalAccount";
 
 export interface IUserDataState {
 	email: string;
@@ -26,3 +26,9 @@ export interface IUserSettingsState {
 }
 
 export type TSettingUserSettings = Partial<IUserSettingsState>;
+
+export interface ICountriesDataState {
+	countries: ICountryData[];
+	loading: boolean;
+	error: string | null;
+}

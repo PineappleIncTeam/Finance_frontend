@@ -1,12 +1,12 @@
 import axios, { AxiosResponse } from "axios";
 
-import { IGettingUserDataRequest, IUserEmailDataResponse } from "../../../types/api/PersonalAccount";
-
+import { IUserEmailDataResponse } from "../../../types/api/PersonalAccount";
+import { IBaseURLDataRequest } from "../../../types/common/ApiTypes";
 import { getUserEmailDataEndpoint } from "../auth/apiConstants";
 
 export const getUserEmailData = async ({
 	baseURL,
-}: IGettingUserDataRequest): Promise<AxiosResponse<IUserEmailDataResponse>> => {
+}: IBaseURLDataRequest): Promise<AxiosResponse<IUserEmailDataResponse>> => {
 	return await axios(`${baseURL}/${getUserEmailDataEndpoint}`, {
 		method: "GET",
 		headers: {

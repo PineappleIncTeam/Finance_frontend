@@ -10,7 +10,7 @@ import { env } from "next-runtime-env";
 import { useAppDispatch, useAppSelector } from "../../../../services/redux/hooks";
 
 import { AuthTypes } from "../../../../types/pages/Authorization";
-import { userDataActions } from "../../../../types/redux/sagaActions/storeSaga.actions";
+import { countriesDataActions, userDataActions } from "../../../../types/redux/sagaActions/storeSaga.actions";
 import NavBar from "../../navBar/navBar";
 import { BurgerMenu } from "../../burgerMenu/burgerMenu";
 import { PrivateProfileSidebarMenu } from "../sidebarMenu/privateProfileSidebarMenu";
@@ -46,6 +46,7 @@ const PrivateProfileSidebarBlock = () => {
 
 	useEffect(() => {
 		dispatch(userDataActions.pending({ baseURL: baseUrl }));
+		dispatch(countriesDataActions.pending({ baseURL: baseUrl }));
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [dispatch]);
 

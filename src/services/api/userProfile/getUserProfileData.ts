@@ -1,11 +1,12 @@
 import axios, { AxiosResponse } from "axios";
 
-import { IGettingUserDataRequest, IUserProfileDataResponse } from "../../../types/api/PersonalAccount";
+import { IUserProfileDataResponse } from "../../../types/api/PersonalAccount";
 import { userProfileDataEndpoint } from "../auth/apiConstants";
+import { IBaseURLDataRequest } from "../../../types/common/ApiTypes";
 
 export const getUserProfileData = async ({
 	baseURL,
-}: IGettingUserDataRequest): Promise<AxiosResponse<IUserProfileDataResponse>> => {
+}: IBaseURLDataRequest): Promise<AxiosResponse<IUserProfileDataResponse>> => {
 	return await axios(`${baseURL}/${userProfileDataEndpoint}`, {
 		method: "GET",
 		headers: {

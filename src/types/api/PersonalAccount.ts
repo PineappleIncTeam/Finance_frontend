@@ -7,10 +7,6 @@ export interface IChangePasswordPayload {
 	newPassword: string;
 }
 
-export interface IGettingUserDataRequest {
-	baseURL: string;
-}
-
 export interface IUserEmailDataResponse {
 	id: number;
 	email: string;
@@ -40,4 +36,10 @@ export type TChangeUserProfileDataRequest = Omit<IUserProfileDataResponse, "coun
 export interface IChangingUserProfilePasswordRequest {
 	data: Omit<IChangePasswordForm, "repeatPassword">;
 	baseUrl: string;
+}
+
+export interface ICountryData {
+	id: number;
+	name: string;
+	code: string;
 }

@@ -7,21 +7,24 @@ import { useAppDispatch } from "../../../../services/redux/hooks/useAppDispatch"
 import { useAppSelector } from "../../../../services/redux/hooks/useAppSelector";
 
 import { IPrivateDataForm } from "../../../../types/components/ComponentsTypes";
-import { TChangeUserProfileDataRequest } from "../../../../types/api/PersonalAccount";
+import { ICountryData, TChangeUserProfileDataRequest } from "../../../../types/api/PersonalAccount";
 import AppInput from "../../../../ui/appInput/AppInput";
 import { RadioButton } from "../../../../ui/radio/radioButton";
 import Button from "../../../../ui/Button/Button";
 import { updateUserProfileData } from "../../../../services/api/userProfile/updateUserData";
 import { userDataSelector } from "../../../../services/redux/features/userData/UserDataSelector";
+import { countriesDataSelector } from "../../../../services/redux/features/countriesData/countriesDataSelector";
 import { ButtonType } from "../../../../helpers/buttonFieldValues";
 import { InputTypeList } from "../../../../helpers/Input";
 import { setUser } from "../../../../services/redux/features/userData/UserDataSlice";
+import { ruCountryNumber } from "../../../../helpers/userDataConstants";
 
 import styles from "./privateProfilePrivateData.module.scss";
 
 export const PrivateProfilePrivateData = () => {
 	const dispatch = useAppDispatch();
 	const userData = useAppSelector(userDataSelector);
+	const countriesData = useAppSelector(countriesDataSelector);
 
 	const {
 		handleSubmit,
@@ -41,6 +44,13 @@ export const PrivateProfilePrivateData = () => {
 
 	const baseUrl = String(env("NEXT_PUBLIC_BASE_URL") ?? "");
 
+	function getCountryID(countryTitle: string, countriesData: ICountryData[]): number {
+		const upperCaseCountryTitle = countryTitle.toUpperCase();
+		const country = countriesData.find((countryData) => countryData.name === upperCaseCountryTitle);
+
+		return country ? country.id : ruCountryNumber;
+	}
+
 	const resetFieldsData = () => {
 		reset({
 			nickname: userProfileData?.nickname || "",
@@ -54,8 +64,7 @@ export const PrivateProfilePrivateData = () => {
 		const updatingUserDataRequest: TChangeUserProfileDataRequest = {
 			nickname: data.nickname,
 			gender: data.gender,
-			country: 1, // need to fix
-
+			country: getCountryID(data.countryName, countriesData),
 			avatar: userProfileData.avatar,
 			defaultAvatar: userProfileData.defaultAvatar,
 		};

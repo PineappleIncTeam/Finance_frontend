@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import axios from "axios";
+import { format } from "date-fns";
 import { env } from "next-runtime-env";
 
 import { useAppDispatch, useAppSelector } from "../../../../services/redux/hooks";
@@ -27,7 +28,7 @@ import infoIcon from "../../../../assets/components/userProfile/infoIcon.svg";
 import styles from "./privateProfileSidebar.module.scss";
 
 const PrivateProfileSidebarBlock = () => {
-	const [currentDate] = useState<string>("");
+	const [currentDate, setCurrentDate] = useState<string>("");
 	const [isNavBarOpen, setIsNavBarOpen] = useState<boolean>(false);
 	const [showMenu, setShowMenu] = useState<boolean>(false);
 	const [selectedMenuItem, setSelectedMenuItem] = useState<string>("Личные данные");
@@ -43,6 +44,10 @@ const PrivateProfileSidebarBlock = () => {
 
 	const laptopWindowSize = 1100;
 	const defaultAvatarMaxIndex = 8;
+
+	useEffect(() => {
+		setCurrentDate(format(new Date(), "dd.MM.yyyy"));
+	}, []);
 
 	useEffect(() => {
 		dispatch(userDataActions.pending({ baseURL: baseUrl }));

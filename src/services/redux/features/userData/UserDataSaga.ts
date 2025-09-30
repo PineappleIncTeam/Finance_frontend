@@ -10,6 +10,7 @@ import {
 	IUserEmailDataResponse,
 	IUserProfileDataResponse,
 } from "../../../../types/api/PersonalAccount";
+import { ruCountryNumber } from "../../../../helpers/userDataConstants";
 
 function* fetchUserDataSaga(action: ReturnType<typeof userDataActions.pending>) {
 	try {
@@ -25,7 +26,7 @@ function* fetchUserDataSaga(action: ReturnType<typeof userDataActions.pending>) 
 		const userData: IFetchUserDataResponse = {
 			nickname: userProfileData.data.nickname ? userProfileData.data.nickname : "",
 			gender: userProfileData.data.gender ? userProfileData.data.gender : "M",
-			country: 1, // need to fix
+			country: userProfileData.data.country ? userProfileData.data.country : ruCountryNumber,
 			// eslint-disable-next-line camelcase
 			country_name: userProfileData.data.country_name ? userProfileData.data.country_name : "",
 			avatar: userProfileData.data.avatar ? userProfileData.data.avatar : "",

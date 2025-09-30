@@ -1,3 +1,3 @@
 import { RootState } from "../../index";
 
-export const countriesDataSelector = (state: RootState) => state.countriesData;
+export const countriesDataSelector = (state: RootState) => state.countriesData.countries;

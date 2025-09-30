@@ -41,7 +41,7 @@ export const PrivateProfileAvatarSettings = () => {
 			defaultAvatar: 0, // need to fix
 			nickname: userProfileData.nickname,
 			gender: userProfileData.gender,
-			country: 1, // need to fix
+			country: userProfileData.country,
 		};
 
 		const updatingUserDataResponse = await updateUserProfileData(userData, baseUrl);

@@ -9,5 +9,6 @@ export const getTargetsAll = async (baseUrl: string) => {
 			"Content-Type": "application/json",
 		},
 		withCredentials: true,
+		withTokenRefresh: true,
 	});
 };

@@ -11,5 +11,6 @@ export const editSavingsCurrentSum = async (baseUrl: string, data: ISavingsTarge
 			"Content-Type": "application/json",
 		},
 		withCredentials: true,
+		withTokenRefresh: true,
 	});
 };

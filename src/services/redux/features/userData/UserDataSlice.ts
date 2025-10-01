@@ -32,13 +32,7 @@ const userDataSlice = createSlice({
 			state.userData = {
 				...(state.userData || {}),
 				...(payload.userData || payload),
-			} as IUserState["userData"];
-		},
-		updateUserFields(state: IUserState, action: PayloadAction<Partial<IUserDataState>>) {
-			state.userData = {
-				...(state.userData || {}),
-				...(action.payload || {}),
-			} as IUserState["userData"];
+			} as IUserDataState;
 		},
 	},
 	extraReducers(builder) {
@@ -56,5 +50,5 @@ const userDataSlice = createSlice({
 	},
 });
 
-export const { setUser, updateUserFields } = userDataSlice.actions;
+export const { setUser } = userDataSlice.actions;
 export default userDataSlice.reducer;

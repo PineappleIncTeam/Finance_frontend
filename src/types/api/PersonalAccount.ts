@@ -34,8 +34,11 @@ export interface IFetchUserDataResponse {
 export type TChangeUserProfileDataRequest = Omit<IUserProfileDataResponse, "country_name">;
 
 export interface IChangingUserProfilePasswordRequest {
-	data: Omit<IChangePasswordForm, "repeatPassword">;
 	baseUrl: string;
+	data: {
+		current_password: string;
+		new_password: string;
+	};
 }
 
 export interface ICountryData {

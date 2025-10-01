@@ -35,8 +35,10 @@ export const PrivateProfileChangePassword = () => {
 	const onSubmit = async (data: IChangePasswordForm) => {
 		const changePasswordData: IChangingUserProfilePasswordRequest = {
 			data: {
-				oldPassword: data.oldPassword,
-				newPassword: data.newPassword,
+				// eslint-disable-next-line camelcase
+				current_password: data.oldPassword,
+				// eslint-disable-next-line camelcase
+				new_password: data.newPassword,
 			},
 			baseUrl: baseUrl,
 		};

@@ -2,10 +2,10 @@ import axios from "axios";
 
 import { IChangingUserProfilePasswordRequest } from "../../../types/api/PersonalAccount";
 
-import { setNewPasswordEndPoint } from "../auth/apiConstants";
+import { setNewProfilePasswordEndPoint } from "../auth/apiConstants";
 
 export const changeUserProfilePassword = async ({ baseUrl, data }: IChangingUserProfilePasswordRequest) => {
-	return await axios(`${baseUrl}/${setNewPasswordEndPoint}`, {
+	return await axios(`${baseUrl}/${setNewProfilePasswordEndPoint}`, {
 		method: "POST",
 		data: data,
 		headers: {

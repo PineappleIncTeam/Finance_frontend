@@ -8,7 +8,7 @@ import { ISavingsTransaction } from "../../../types/components/ComponentsTypes";
 import styles from "./savingsTransaction.module.scss";
 
 const SavingsTransaction = ({ date, amount, name, onDeleteClick, editClick }: ISavingsTransaction) => {
-	const [isTooltipShown, setIsTooltipShown] = useState<boolean>(false);
+	const [isTooltipOpen, setIsTooltipOpen] = useState<boolean>(false);
 
 	return (
 		<div className={styles.savingsTransactionContainer}>
@@ -22,12 +22,12 @@ const SavingsTransaction = ({ date, amount, name, onDeleteClick, editClick }: IS
 				<div
 					role="button"
 					onClick={() => editClick()}
-					onMouseMove={() => setIsTooltipShown(true)}
-					onMouseOut={() => setIsTooltipShown(false)}>
+					onMouseMove={() => setIsTooltipOpen(true)}
+					onMouseOut={() => setIsTooltipOpen(false)}>
 					<EditIcon classNames={styles.editIcon} />
 				</div>
 			</div>
-			<ExpensesTooltip open={isTooltipShown} />
+			<ExpensesTooltip open={isTooltipOpen} />
 		</div>
 	);
 };

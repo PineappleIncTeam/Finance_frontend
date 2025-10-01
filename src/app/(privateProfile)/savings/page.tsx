@@ -288,12 +288,12 @@ function Savings() {
 						}, interval);
 					}
 				} else {
-					(setIsImpossibleDelete(true),
-						setResponseApiModal({ open: true, text: "Цель находится в процессе, невозможно удалить" }),
-						setTimeout(() => {
-							setResponseApiModal(responseApiModalInitialState);
-							setIsImpossibleDelete(false);
-						}, interval));
+					setIsImpossibleDelete(true);
+					setResponseApiModal({ open: true, text: "Цель находится в процессе, невозможно удалить" });
+					setTimeout(() => {
+						setResponseApiModal(responseApiModalInitialState);
+						setIsImpossibleDelete(false);
+					}, interval);
 				}
 			}
 		} catch (error) {

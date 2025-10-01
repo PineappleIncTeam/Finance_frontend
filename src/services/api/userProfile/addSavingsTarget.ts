@@ -11,5 +11,6 @@ export const addSavingsTarget = async (baseUrl: string, data: ISavingsTargetAddF
 			"Content-Type": "application/json",
 		},
 		withCredentials: true,
+		withTokenRefresh: true,
 	});
 };

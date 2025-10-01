@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { env } from "next-runtime-env";
 
@@ -43,6 +44,15 @@ export const PrivateProfilePrivateData = () => {
 	const userProfileData = userData.userData;
 
 	const baseUrl = String(env("NEXT_PUBLIC_BASE_URL") ?? "");
+
+	useEffect(() => {
+		resetFieldsData();
+
+		return () => {
+			resetFieldsData();
+		};
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
 
 	function getCountryID(countryTitle: string, countriesData: ICountryData[]): number {
 		const upperCaseCountryTitle = countryTitle.toUpperCase();

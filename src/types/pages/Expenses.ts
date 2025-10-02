@@ -7,7 +7,7 @@ export interface IExpensesInputForm {
 export interface IAddCategoryTransactionForm {
 	date: string;
 	amount: number | string;
-	categories: string;
+	categories: number;
 	type: "outcome";
 }
 

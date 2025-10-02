@@ -66,7 +66,7 @@ export default function Expenses() {
 	const { control, handleSubmit } = useForm<IAddCategoryTransactionForm & IExpensesCategoryForm>({
 		defaultValues: {
 			amount: "",
-			categories: "",
+			categories: null,
 			type: "outcome",
 		},
 		mode: "all",
@@ -353,12 +353,19 @@ export default function Expenses() {
 		}
 	};
 
+	function getCategoryId(categoryName: string) {
+		const categoryData = options.find(
+			(currentCategoryData: ICategoryOption) => currentCategoryData.name === categoryName,
+		);
+		return categoryData?.id ?? 0;
+	}
+
 	const onSubmit = async (data: IAddCategoryTransactionForm & IExpensesCategoryForm) => {
 		resetTimer();
 		const transactionData: IAddCategoryTransactionForm = {
 			date: getCurrentDate(endDate),
 			amount: Number(data.amount),
-			categories: data.categories,
+			categories: getCategoryId(data.name),
 			type: "outcome",
 		};
 		try {

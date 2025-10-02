@@ -416,10 +416,10 @@ function Savings() {
 
 	useEffect(() => {
 		getFiveOperations();
-		if (isSumEditedSuccess || isRemovedSuccess) {
+		if (isSumEditedSuccess || isRemovedSuccess || isSumSavingsAdded) {
 			getFiveOperations();
 		}
-	}, [getFiveOperations, isSumEditedSuccess, isRemovedSuccess]);
+	}, [getFiveOperations, isSumEditedSuccess, isRemovedSuccess, isSumSavingsAdded]);
 
 	const handleIdName = (id: number, name: string) => {
 		setSavingsTargetName(name);

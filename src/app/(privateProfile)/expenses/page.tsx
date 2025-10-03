@@ -362,10 +362,11 @@ export default function Expenses() {
 
 	const onSubmit = async (data: IAddCategoryTransactionForm & IExpensesCategoryForm) => {
 		resetTimer();
+		console.log(data);
 		const transactionData: IAddCategoryTransactionForm = {
 			date: getCurrentDate(endDate),
 			amount: Number(data.amount),
-			categories: getCategoryId(data.name),
+			categories: getCategoryId(String(data.categories)),
 			type: "outcome",
 		};
 		try {

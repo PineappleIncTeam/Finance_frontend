@@ -8,35 +8,52 @@ import axios from "axios";
 import { format } from "date-fns";
 import { env } from "next-runtime-env";
 
+import { useAppDispatch, useAppSelector } from "../../../../services/redux/hooks";
+
 import { AuthTypes } from "../../../../types/pages/Authorization";
-import { IPrivateProfileSidebar } from "../../../../types/common/ComponentsProps";
+import { countriesDataActions, userDataActions } from "../../../../types/redux/sagaActions/storeSaga.actions";
 import NavBar from "../../navBar/navBar";
 import { BurgerMenu } from "../../burgerMenu/burgerMenu";
 import { PrivateProfileSidebarMenu } from "../sidebarMenu/privateProfileSidebarMenu";
 import { MainPath } from "../../../../services/router/routes";
 import { baseLogoutUser } from "../../../../services/api/auth/baseLogoutUser";
 import { sidebarNavMenu } from "../../../../helpers/sidebarNavMenu";
+import { userDataSelector } from "../../../../services/redux/features/userData/UserDataSelector";
+import { avatarTemplates } from "../../../../mocks/AvatarTemplates";
 
-import userAvatar from "../../../../assets/components/userProfile/userPhoto.svg";
+import mockAvatar from "../../../../assets/components/userProfile/userPhoto.svg";
 import burgerIcon from "../../../../assets/components/userProfile/burger.svg";
 import infoIcon from "../../../../assets/components/userProfile/infoIcon.svg";
 
 import styles from "./privateProfileSidebar.module.scss";
 
-const PrivateProfileSidebarBlock = ({ avatar, name, balance }: IPrivateProfileSidebar) => {
+const PrivateProfileSidebarBlock = () => {
 	const [currentDate, setCurrentDate] = useState<string>("");
 	const [isNavBarOpen, setIsNavBarOpen] = useState<boolean>(false);
 	const [showMenu, setShowMenu] = useState<boolean>(false);
 	const [selectedMenuItem, setSelectedMenuItem] = useState<string>("Личные данные");
 
-	const laptopWindowSize = 1100;
+	const router = useRouter();
+	const dispatch = useAppDispatch();
+
+	const userData = useAppSelector(userDataSelector);
+
+	const userProfileData = userData.userData;
+
 	const baseUrl = String(env("NEXT_PUBLIC_BASE_URL") ?? "");
 
-	const router = useRouter();
+	const laptopWindowSize = 1100;
+	const defaultAvatarMaxIndex = 8;
 
 	useEffect(() => {
 		setCurrentDate(format(new Date(), "dd.MM.yyyy"));
 	}, []);
+
+	useEffect(() => {
+		dispatch(userDataActions.pending({ baseURL: baseUrl }));
+		dispatch(countriesDataActions.pending({ baseURL: baseUrl }));
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [dispatch]);
 
 	const handleLogout = async () => {
 		try {
@@ -91,6 +108,20 @@ const PrivateProfileSidebarBlock = ({ avatar, name, balance }: IPrivateProfileSi
 		}
 	};
 
+	function renderUserAvatarImage() {
+		let userAvatarSource = mockAvatar;
+
+		if (userProfileData.avatar && userProfileData.avatar?.length) {
+			userAvatarSource = userProfileData.avatar;
+		} else {
+			if (userProfileData.defaultAvatar !== 0 && userProfileData.defaultAvatar <= defaultAvatarMaxIndex) {
+				userAvatarSource = avatarTemplates[userProfileData.defaultAvatar - 1];
+			}
+		}
+
+		return <Image src={userAvatarSource} alt="userAvatar" className={styles.userInformationWrap__avatar} />;
+	}
+
 	const renderSelectedMenuItem = () => {
 		const selectedMenu = sidebarNavMenu.find((sidebarNavMenuItem) => sidebarNavMenuItem.title === selectedMenuItem);
 		if (selectedMenu) {
@@ -119,17 +150,15 @@ const PrivateProfileSidebarBlock = ({ avatar, name, balance }: IPrivateProfileSi
 					<div className={styles.userProfileContainer}>
 						<div className={styles.userInformationWrap} onClick={handleOpenMenu} role="button">
 							<div className={styles.userInformationWrap_images}>
-								<button className={styles.userInformationWrap_images_action}>
-									<Image src={avatar || userAvatar} alt={"userAvatar"} className={styles.userInformationWrap__avatar} />
-								</button>
+								<button className={styles.userInformationWrap_images_action}>{renderUserAvatarImage()}</button>
 							</div>
-							<p className={styles.userInformationWrap__name}>{name || "Имя"}</p>
+							<p className={styles.userInformationWrap__name}>{userProfileData.nickname}</p>
 							<div className={styles.userInformationAdaptiveContainer}>
 								<div className={styles.userInformationDateWrap}>
 									<p>Ваш баланс на</p>
 									<p>{currentDate}</p>
 								</div>
-								<p className={styles.userInformationAdaptiveContainer__balance}>{balance || 0} ₽</p>
+								<p className={styles.userInformationAdaptiveContainer__balance}>{0} ₽</p>
 							</div>
 						</div>
 						<div className={styles.sidebarMenuWrapper}>

@@ -1,33 +1,92 @@
+"use client";
+
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
+import { env } from "next-runtime-env";
 
-import { IPrivateDataFrom } from "../../../../types/pages/userProfileSettings";
+import { useAppDispatch } from "../../../../services/redux/hooks/useAppDispatch";
+import { useAppSelector } from "../../../../services/redux/hooks/useAppSelector";
+
+import { IPrivateDataForm } from "../../../../types/components/ComponentsTypes";
+import { ICountryData, TChangeUserProfileDataRequest } from "../../../../types/api/PersonalAccount";
 import AppInput from "../../../../ui/appInput/AppInput";
-
 import { RadioButton } from "../../../../ui/radio/radioButton";
-
 import Button from "../../../../ui/Button/Button";
+import { updateUserProfileData } from "../../../../services/api/userProfile/updateUserData";
+import { userDataSelector } from "../../../../services/redux/features/userData/UserDataSelector";
+import { countriesDataSelector } from "../../../../services/redux/features/countriesData/countriesDataSelector";
 import { ButtonType } from "../../../../helpers/buttonFieldValues";
 import { InputTypeList } from "../../../../helpers/Input";
+import { setUser } from "../../../../services/redux/features/userData/UserDataSlice";
+import { ruCountryNumber } from "../../../../helpers/userDataConstants";
 
 import styles from "./privateProfilePrivateData.module.scss";
 
 export const PrivateProfilePrivateData = () => {
+	const dispatch = useAppDispatch();
+	const userData = useAppSelector(userDataSelector);
+	const countriesData = useAppSelector(countriesDataSelector);
+
 	const {
+		handleSubmit,
+		reset,
 		control,
 		formState: { errors },
-	} = useForm<IPrivateDataFrom>({
+	} = useForm<IPrivateDataForm>({
 		defaultValues: {
-			nickname: "nickname",
-			country: "country",
-			gender: "male",
-			email: "example@mail.com",
+			nickname: userData.userData?.nickname || "",
+			gender: userData.userData?.gender || "M",
+			countryName: userData.userData?.country_name || "",
+			email: userData.userData?.email || "",
 		},
-		mode: "all",
-		delayError: 200,
 	});
 
+	const userProfileData = userData.userData;
+
+	const baseUrl = String(env("NEXT_PUBLIC_BASE_URL") ?? "");
+
+	useEffect(() => {
+		resetFieldsData();
+
+		return () => {
+			resetFieldsData();
+		};
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
+
+	function getCountryID(countryTitle: string, countriesData: ICountryData[]): number {
+		const upperCaseCountryTitle = countryTitle.toUpperCase();
+		const country = countriesData.find((countryData) => countryData.name === upperCaseCountryTitle);
+
+		return country ? country.id : ruCountryNumber;
+	}
+
+	const resetFieldsData = () => {
+		reset({
+			nickname: userProfileData?.nickname || "",
+			gender: userProfileData?.gender || "M",
+			countryName: userProfileData?.country_name || "",
+			email: userProfileData?.email || "",
+		});
+	};
+
+	const onSubmit = async (data: IPrivateDataForm) => {
+		const updatingUserDataRequest: TChangeUserProfileDataRequest = {
+			nickname: data.nickname,
+			gender: data.gender,
+			country: getCountryID(data.countryName, countriesData),
+			avatar: userProfileData.avatar,
+			defaultAvatar: userProfileData.defaultAvatar,
+		};
+
+		const updateUserDataResponse = await updateUserProfileData(updatingUserDataRequest, baseUrl);
+		const updatedData = updateUserDataResponse?.data ?? updateUserDataResponse;
+		dispatch(setUser(updatedData));
+		resetFieldsData();
+	};
+
 	return (
-		<form className={styles.privateDataForm}>
+		<form className={styles.privateDataForm} onSubmit={handleSubmit(onSubmit)}>
 			<p className={styles.privateDataForm__title}>Личные данные</p>
 			<div className={styles.privateDataSettingsWrap}>
 				<AppInput
@@ -45,18 +104,19 @@ export const PrivateProfilePrivateData = () => {
 					error={errors.nickname?.message}
 				/>
 				<div className={styles.privateDataRadioButtons}>
-					<RadioButton control={control} name="gender" value="male" label="Муж." />
-					<RadioButton control={control} name="gender" value="female" label="Жен." />
+					<RadioButton control={control} name="gender" value="M" label="Муж." />
+					<RadioButton control={control} name="gender" value="F" label="Жен." />
 				</div>
 				<AppInput
 					label={"Введите страну"}
 					type={"text"}
-					name={"country"}
+					name={"countryName"}
 					control={control}
 					placeholder="Введите страну"
 				/>
 				<AppInput label={"Email"} type={"text"} name={"email"} control={control} placeholder="my@email.ru" disabled />
 			</div>
+			{userData.error && <p className={styles.error}>{userData.error}</p>}
 			<Button variant={ButtonType.Outlined} type={InputTypeList.Submit}>
 				Сохранить
 			</Button>

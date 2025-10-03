@@ -12,8 +12,14 @@ import styles from "./privateProfileSidebarMenu.module.scss";
 
 export const PrivateProfileSidebarMenu = ({ handleClick }: ISidebarMenu) => {
 	const renderProfileItem = ({ title, handleClick }: IRenderProfileItem) => {
+		const isButtonDisabled = title === "Архив";
+
 		return (
-			<button className={styles.profileItemActionWrap} onClick={() => handleClick(title)} key={title}>
+			<button
+				disabled={isButtonDisabled}
+				className={styles.profileItemActionWrap}
+				onClick={() => handleClick(title)}
+				key={title}>
 				<p className={styles.profileItemActionWrap__title}>{title}</p>
 				<Image src={arrowRightIcon} alt={""} className={styles.profileItemActionWrap__iconElement} />
 			</button>

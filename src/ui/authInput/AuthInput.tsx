@@ -24,7 +24,9 @@ const AuthInput = ({ label, type, placeholder, autoComplete, subtitle, error, ..
 		if (type === InputTypeList.Password && field.value && typeof field.value === "string") {
 			try {
 				const result = passwordStrength(field.value, defaultOptions);
-				setIsMediumPassword(result.value === "Medium");
+				const inputName = typeof (props as any).name === "string" ? (props as any).name : "";
+				const isRepeatPassword = inputName === "re_password";
+				setIsMediumPassword(result.value === "Medium" && !isRepeatPassword);
 				setIsStrongPassword(result.value === "Strong");
 				// eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
 			} catch (error: unknown) {

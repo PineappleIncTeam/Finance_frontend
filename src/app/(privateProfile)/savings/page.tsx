@@ -433,7 +433,7 @@ function Savings() {
 	}
 
 	function renderSavingsStatusColorText(status: SavingsTargetStatus) {
-		return status === SavingsTargetStatus.achieved ? "text-green" : "text-gray";
+		return status === SavingsTargetStatus.achieved ? "styles.status_green" : "styles.status_gray";
 	}
 
 	function renderSavingsItemList() {

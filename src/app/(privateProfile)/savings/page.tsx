@@ -433,7 +433,7 @@ function Savings() {
 	}
 
 	function renderSavingsStatusColorText(status: SavingsTargetStatus) {
-		return status === SavingsTargetStatus.achieved ? ".status_green" : ".status_gray";
+		return status === SavingsTargetStatus.achieved ? styles.status_green : styles.status_gray;
 	}
 
 	function renderSavingsItemList() {
@@ -504,7 +504,7 @@ function Savings() {
 						<p>{item.current_sum}</p>
 					</div>
 					<div className={styles.wrapperListContentBlock__status}>
-						<p className={styles + renderSavingsStatusColorText(item.status)}>{renderSavingsStatus(item.status)}</p>
+						<p className={renderSavingsStatusColorText(item.status)}>{renderSavingsStatus(item.status)}</p>
 					</div>
 					<div
 						className={styles.wrapperListContentBlock__actionElement}

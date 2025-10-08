@@ -1,5 +1,8 @@
 import { Dispatch, ReactNode, SetStateAction } from "react";
 
+import { TGender } from "../api/PersonalAccount";
+import { IUserAvatar } from "../pages/userProfileSettings";
+
 export interface IUser {
 	age: number;
 	parentalConsent: boolean;
@@ -139,3 +142,17 @@ export interface ISavingsTransaction {
 	onDeleteClick: () => void;
 	editClick: () => void;
 }
+export type IPrivateDataForm = {
+	nickname: string;
+	gender: TGender;
+	countryName: string;
+	email?: string;
+};
+
+export type IPrivateAppSettingsForm = {
+	currency: string;
+	darkTheme: boolean;
+	finAssistant: boolean;
+};
+
+export type IProfileAvatarForm = IUserAvatar;

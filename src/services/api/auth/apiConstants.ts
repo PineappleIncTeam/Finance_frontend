@@ -7,9 +7,13 @@ export const logoutEndpoint = "api/v1/auth/logout/";
 export const refreshTokenEndpoint = "api/v1/auth/refresh/";
 export const validateTokenEndpoint = "api/v1/auth/check/";
 export const userActivationEndpoint = "api/v1/auth/users/activation/";
+export const getUserEmailDataEndpoint = "api/v1/auth/users/me/";
+export const userProfileDataEndpoint = "api/v1/profile/";
+export const countiesDataEndpoint = "api/v1/countries/";
 
 export const resetPasswordWithEmailEndPoint = "api/v1/auth/users/reset_password/";
 export const setNewPasswordEndPoint = "api/v1/password/reset/confirm/";
+export const setNewProfilePasswordEndPoint = "api/v1/auth/users/set_password/";
 
 export const expensesCategoryEndPoint = "api/v1/categories";
 export const expensesCategoriesAllEndPoint = "api/v1/categories/all/";

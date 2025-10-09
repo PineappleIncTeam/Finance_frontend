@@ -1,30 +1,21 @@
 .expensesTransactionContainer {
 	display: grid;
-	grid-template-columns: 25% 39% 17% 17%;
-	width: 100%;
+	grid-template-columns: 30% 34% 24% 12%;
+	width: 98%;
 	height: 40px;
+	padding-left: 8px;
 
 	&__actionsWrapper {
 		display: flex;
-		justify-content: right;
 		margin-top: 6px;
-	}
-	@media (max-width: 1440px) {
-		& {
-			grid-template-columns: 28% 37% 21% 11%;
-		}
-	}
-
-	@media (max-width: 800px) {
-		& {
-			grid-template-columns: 33% 25% 25% 14%;
-		}
 	}
 
 	@media (max-width: 490px) {
 		& {
-			grid-template-columns: 25% 25% 29% 19%;
+			grid-template-columns: 27% 34% 24% 15%;
+			width: 96%;
 			height: 36px;
+			padding-left: 0;
 		}
 	}
 }

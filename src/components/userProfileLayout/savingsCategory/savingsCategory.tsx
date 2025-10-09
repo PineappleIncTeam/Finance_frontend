@@ -1,54 +1,36 @@
 import { useForm } from "react-hook-form";
 
 import { InputTypeList } from "../../../helpers/Input";
-import { IAddCategory } from "../../../types/common/ComponentsProps";
-import { IAddCategoryExpensesForm } from "../../../types/components/ComponentsTypes";
+import { ISavingsCategory } from "../../../types/common/ComponentsProps";
 import AppInput from "../../../ui/appInput/AppInput";
-
 import Title from "../../../ui/title/Title";
-
+import { ISavingsTargetAddForm } from "../../../types/pages/Savings";
 import { ButtonType } from "../../../helpers/buttonFieldValues";
-
 import Button from "../../../ui/Button/Button";
 
-import { formHelpers } from "../../../utils/formHelpers";
-import { financePattern } from "../../../helpers/authConstants";
-import { CategoryType } from "../../../helpers/categoryTypes";
+import styles from "./savingsCategory.module.scss";
 
-import styles from "./categoryAddModal.module.scss";
-
-export const CategoryAddModal = ({ open, request, onCancelClick, type }: IAddCategory) => {
-	const {
-		control,
-		handleSubmit,
-		formState: { errors },
-	} = useForm<IAddCategoryExpensesForm>({
+export const SavingsAddTargetModal = ({ open, request, onCancelClick }: ISavingsCategory) => {
+	const { control, handleSubmit } = useForm<ISavingsTargetAddForm>({
 		defaultValues: {
 			name: "",
-			// eslint-disable-next-line camelcase
-			is_income: false,
-			// eslint-disable-next-line camelcase
-			is_outcome: false,
+			id: null,
+			amount: 0,
 		},
 		mode: "all",
 		delayError: 200,
 	});
 
-	const onSubmit = async (data: IAddCategoryExpensesForm) => {
+	const onSubmit = async (data: ISavingsTargetAddForm) => {
 		if (data !== null) {
-			// eslint-disable-next-line camelcase
-			data.is_income = type === CategoryType.Income ? true : false;
-			// eslint-disable-next-line camelcase
-			data.is_outcome = type === CategoryType.Outcome ? true : false;
 			await request(data);
 		}
 	};
-
 	return (
 		<dialog open={open} className={styles.backgroundModal}>
 			<div onClick={(e) => e.stopPropagation()} role="textbox" className={styles.addCategoryModalWrap}>
 				<form className={styles.addCategoryFormContainer} onSubmit={handleSubmit(onSubmit)}>
-					<Title title={"Добавление категории"} />
+					<Title title={"Добавление категории накопления"} />
 					<div className={styles.addCategoryFormData}>
 						<AppInput
 							control={control}
@@ -57,8 +39,15 @@ export const CategoryAddModal = ({ open, request, onCancelClick, type }: IAddCat
 							type={InputTypeList.Text}
 							placeholder={"Название категории"}
 							subtitle="Не более 14 символов"
-							error={formHelpers.getAddCategoryError(errors)}
-							rules={{ required: true, pattern: financePattern }}
+						/>
+					</div>
+					<div className={styles.addCategoryFormData}>
+						<AppInput
+							control={control}
+							label={"Введите целевую сумму"}
+							type={InputTypeList.Text}
+							name={"amount"}
+							placeholder={"0.00"}
 						/>
 					</div>
 					<div className={styles.buttonsContainer}>

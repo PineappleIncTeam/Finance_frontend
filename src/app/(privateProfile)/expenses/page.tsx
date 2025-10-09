@@ -7,8 +7,7 @@ import axios, { AxiosResponse } from "axios";
 import { env } from "next-runtime-env";
 
 import { useLogoutTimer } from "../../../hooks/useLogoutTimer";
-
-import { IExpensesAddCategoryTransactionForm, IExpensesCategoryForm } from "../../../types/pages/Expenses";
+import { IAddCategoryTransactionForm, IExpensesCategoryForm } from "../../../types/pages/Expenses";
 import { IAddCategoryExpensesForm, IEditTransactionForm } from "../../../types/components/ComponentsTypes";
 import { ICategoryOption } from "../../../types/common/ComponentsProps";
 import { IOperation } from "../../../types/api/Expenses";
@@ -25,17 +24,18 @@ import { CategoryAddModal } from "../../../components/userProfileLayout/category
 import { getFiveExpensesTransactions } from "../../../services/api/userProfile/getFiveExpensesTransactions";
 import { addExpensesCategory } from "../../../services/api/userProfile/addExpensesCategory";
 import { MainPath } from "../../../services/router/routes";
-import { getAllExpensesCategories } from "../../../services/api/userProfile/getAllExpensesCategories";
+import { addExpensesCategoryTransaction } from "../../../services/api/userProfile/addExpensesCategoryTransaction";
 import { removeExpensesCategory } from "../../../services/api/userProfile/removeExpensesCategory";
-import { removeExpensesCategoryTransaction } from "../../../services/api/userProfile/removeExpensesCategoryTransaction";
+import { removeTransaction } from "../../../services/api/userProfile/removeTransaction";
 import { editExpensesCategoryTransaction } from "../../../services/api/userProfile/editExpensesTransaction";
 import { archiveCategory } from "../../../services/api/userProfile/archiveCategory";
 import { getAllExpensesOperations } from "../../../services/api/userProfile/getAllExpensesOperations";
-import { addExpensesCategoryTransaction } from "../../../services/api/userProfile/addExpensesCategoryTransaction";
-
+import { CategoryType } from "../../../helpers/categoryTypes";
 import { getCurrentDate } from "../../../utils/getCurrentDate";
 import { useHandleLogout } from "../../../hooks/useHandleLogout";
+
 import { InputTypeList } from "../../../helpers/Input";
+import { getAllExpensesCategories } from "../../../services/api/userProfile/getAllExpensesCategories";
 
 import styles from "./expenses.module.scss";
 
@@ -59,15 +59,14 @@ export default function Expenses() {
 	const [isCategoryArchive, setIsCategoryArchive] = useState<boolean>(false);
 	const [allOperations, setAllOperations] = useState<IOperation[]>([]);
 	const [responseApiRequestModal, setResponseApiRequestModal] = useState(ResponseApiRequestModalInitialState);
-
 	const [isEditTransactionModalOpen, setIsEditTransactionModalOpen] = useState<boolean>(false);
 	const [isCategoryAddModalOpen, setIsCategoryAddModalOpen] = useState<boolean>(false);
 	const [isCategoryDeleteModalOpen, setIsCategoryDeleteModalOpen] = useState<boolean>(false);
 
-	const { control, handleSubmit } = useForm<IExpensesAddCategoryTransactionForm & IExpensesCategoryForm>({
+	const { control, handleSubmit } = useForm<IAddCategoryTransactionForm & IExpensesCategoryForm>({
 		defaultValues: {
 			amount: "",
-			categories: "",
+			categories: null,
 			type: "outcome",
 		},
 		mode: "all",
@@ -113,7 +112,7 @@ export default function Expenses() {
 		fiveOperations.forEach((element: IOperation) => {
 			options.forEach((option: ICategoryOption) => {
 				if (element.categories === option.id) {
-					element.target = option.name;
+					element.name = option.name;
 					fiveOperationsNames.push(element);
 				}
 			});
@@ -240,7 +239,7 @@ export default function Expenses() {
 	const deleteTransaction = async (id: string) => {
 		try {
 			if (baseUrl) {
-				const response = await removeExpensesCategoryTransaction(baseUrl, id);
+				const response = await removeTransaction(baseUrl, id);
 				if ((response.status = axios.HttpStatusCode.Ok)) {
 					setIsDeleteOperationApprove(false);
 					setIsDeleteOperationSuccess(true);
@@ -354,12 +353,19 @@ export default function Expenses() {
 		}
 	};
 
-	const onSubmit = async (data: IExpensesAddCategoryTransactionForm & IExpensesCategoryForm) => {
+	function getCategoryId(categoryName: string) {
+		const categoryData = options.find(
+			(currentCategoryData: ICategoryOption) => currentCategoryData.name === categoryName,
+		);
+		return categoryData?.id ?? 0;
+	}
+
+	const onSubmit = async (data: IAddCategoryTransactionForm & IExpensesCategoryForm) => {
 		resetTimer();
-		const transactionData: IExpensesAddCategoryTransactionForm = {
+		const transactionData: IAddCategoryTransactionForm = {
 			date: getCurrentDate(endDate),
 			amount: Number(data.amount),
-			categories: data.categories,
+			categories: getCategoryId(String(data.categories)),
 			type: "outcome",
 		};
 		try {
@@ -457,6 +463,7 @@ export default function Expenses() {
 					<CategoryAddModal
 						open={isCategoryAddModalOpen}
 						onCancelClick={() => setIsCategoryAddModalOpen(false)}
+						type={CategoryType.Outcome}
 						request={addCategory}
 					/>
 				)}
@@ -469,13 +476,14 @@ export default function Expenses() {
 							<li key={index}>
 								<ExpensesTransaction
 									date={expensesData.date}
-									target={expensesData.target}
+									name={expensesData.name}
 									amount={expensesData.amount}
 									type={""}
 									categories={0}
 									id={expensesData.id}
 									onDeleteClick={() => [setIsDeleteOperationApprove(true), setIsId(String(expensesData.id))]}
 									editClick={() => [setIsEditTransactionModalOpen(true), setIsId(String(expensesData.id))]}
+									target={""}
 								/>
 							</li>
 						))}

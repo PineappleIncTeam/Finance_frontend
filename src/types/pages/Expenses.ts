@@ -4,10 +4,10 @@ export interface IExpensesInputForm {
 	sum?: string;
 }
 
-export interface IExpensesAddCategoryTransactionForm {
+export interface IAddCategoryTransactionForm {
 	date: string;
 	amount: number | string;
-	categories: string;
+	categories: number | null;
 	type: "outcome";
 }
 

@@ -1,10 +1,10 @@
 import axios from "axios";
 
-import { expensesCategoryTransactionEndPoint } from "../auth/apiConstants";
+import { operationsEndPoint } from "../auth/apiConstants";
 import { IEditOperation } from "../../../types/pages/Expenses";
 
 export const editExpensesCategoryTransaction = async (baseUrl: string, id: string, data: IEditOperation) => {
-	return await axios(`${baseUrl}/${expensesCategoryTransactionEndPoint}/${id}/`, {
+	return await axios(`${baseUrl}/${operationsEndPoint}/${id}/`, {
 		method: "PATCH",
 		data: data,
 		headers: {

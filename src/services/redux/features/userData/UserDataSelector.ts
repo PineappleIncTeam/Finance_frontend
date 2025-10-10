@@ -1,7 +1,3 @@
-import { RootState } from "../../";
+import { RootState } from "../../index";
 
-const userDataSelector = (state: RootState) => {
-	return state.data;
-};
-
-export default userDataSelector;
+export const userDataSelector = (state: RootState) => state.userData;

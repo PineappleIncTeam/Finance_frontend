@@ -1,5 +1,8 @@
 import { Dispatch, ReactNode, SetStateAction } from "react";
 
+import { TGender } from "../api/PersonalAccount";
+import { IUserAvatar } from "../pages/userProfileSettings";
+
 export interface IUser {
 	age: number;
 	parentalConsent: boolean;
@@ -44,6 +47,7 @@ export type TMessageModal = "success" | "warning" | "notification";
 export interface IExpenseTransaction {
 	date: string;
 	amount: string;
+	name?: string;
 	target: string;
 	type: string;
 	categories: number;
@@ -63,13 +67,6 @@ export interface IBurgerMenu {
 	setShowMenu: Dispatch<SetStateAction<boolean>>;
 }
 
-export interface ISavingsTransaction {
-	firstDate: string;
-	secondDate: string;
-	purpose: string;
-	sum: string;
-}
-
 export interface IAnalyticsTransactions {
 	firstDate: string;
 	secondDate: string;
@@ -85,8 +82,8 @@ export interface ISavingsItem {
 }
 
 export enum SavingsFieldValues {
-	category = "category",
-	target = "target",
+	name = "name",
+	amount = "amount",
 }
 
 export enum SortOrderStateValue {
@@ -101,7 +98,7 @@ export type TIndexState = number | null;
 export interface IEditActionProps {
 	index: number;
 	field: SavingsFieldValues;
-	value: string;
+	value: string | number;
 }
 
 export type TCommonFunction = () => void;
@@ -134,3 +131,28 @@ export interface ICurrencyRates {
 	euro: number;
 	crypto: number;
 }
+
+export interface ISavingsTransaction {
+	date: string;
+	amount: string;
+	name?: string;
+	type: string;
+	categories: number;
+	id: number;
+	onDeleteClick: () => void;
+	editClick: () => void;
+}
+export type IPrivateDataForm = {
+	nickname: string;
+	gender: TGender;
+	countryName: string;
+	email?: string;
+};
+
+export type IPrivateAppSettingsForm = {
+	currency: string;
+	darkTheme: boolean;
+	finAssistant: boolean;
+};
+
+export type IProfileAvatarForm = IUserAvatar;

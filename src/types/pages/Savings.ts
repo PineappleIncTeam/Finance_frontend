@@ -5,5 +5,14 @@ export interface ISavingsInputForm {
 }
 
 export interface ISavingsSelectForm {
-	savings?: string;
+	date: string;
+	amount: number;
+	type: string;
+}
+
+export interface ISavingsTargetAddForm {
+	id: number | null;
+	name: string;
+	amount: number;
+	current_sum?: number;
 }

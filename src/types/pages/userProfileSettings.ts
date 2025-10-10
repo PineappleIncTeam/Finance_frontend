@@ -1,11 +1,10 @@
 export interface IPrivateDataFrom {
 	nickname: string;
-	gender: TGender;
+	gender: string;
 	country: string;
 	email: string;
+	avatar: string;
 }
-
-type TGender = "male" | "female";
 
 export interface IChangePasswordForm {
 	oldPassword: string;
@@ -20,6 +19,8 @@ export interface IUserAvatar {
 
 export interface IPrivateAppSettings {
 	currency: string;
-	darkTheme: boolean;
+	darkTheme: string;
 	finAssistant: boolean;
+	personalAvatar: string | undefined;
+	templateAvatar: string;
 }

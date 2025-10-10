@@ -15,7 +15,7 @@
 		"buildEcosystem": "tsc ecosystem.config.ts --skipLibCheck && node scripts/postBuildEcosystem.js",
 		"build-sb": "storybook build",
 		"build-typedoc": "npx typedoc --plugin typedoc-github-theme",
-		"lint": "eslint --ext .js,.jsx,.ts,.tsx,.json ./src ./scripts",
+		"lint": "eslint --ext .js,.jsx,.ts,.tsx ./src ./scripts",
 		"lint:fix": "npm run lint -- --fix",
 		"format": "prettier --write src/**/*.{js,jsx,ts,tsx,css,scss,md,json} --config ./.prettierrc",
 		"index": "git add ."

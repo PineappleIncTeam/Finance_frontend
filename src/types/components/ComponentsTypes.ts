@@ -156,3 +156,7 @@ export type IPrivateAppSettingsForm = {
 };
 
 export type IProfileAvatarForm = IUserAvatar;
+
+export type IInactivityLogoutModal = {
+	open: boolean;
+};

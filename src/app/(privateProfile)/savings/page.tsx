@@ -583,10 +583,8 @@ function Savings() {
 									name={"current_sum"}
 									placeholder={"0.00 ₽"}
 								/>
-								<AddButton onClick={() => resetTimer()} type={InputTypeList.Submit} />
+								<AddButton onClick={handleSubmit(onSubmit)} type={InputTypeList.Submit} />
 							</div>
-
-							<AddButton onClick={handleSubmit(onSubmit)} type={InputTypeList.Submit} />
 						</div>
 					</div>
 

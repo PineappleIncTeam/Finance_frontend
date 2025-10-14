@@ -59,9 +59,34 @@
 	grid-column-gap: 20px;
 	grid-row-gap: 18px;
 
-	@media (max-width: 768px) {
+	@media (max-width: 1100px) {
+		grid-template-columns: 360px auto;
+	}
+
+	@media (max-width: 800px) {
 		grid-template-columns: repeat(2, 1fr);
+	}
+
+	@media (max-width: 768px) {
 		gap: 16px;
+	}
+
+	@media (max-width: 430px) {
+		// grid-template-columns: repeat(2, 190px);
+		gap: 8px;
+		// overflow: hidden;
+	}
+
+	@media (max-width: 410px) {
+		grid-template-columns: repeat(2, 174px);
+	}
+
+	@media (max-width: 390px) {
+		grid-template-columns: repeat(2, 164px);
+	}
+
+	@media (max-width: 370px) {
+		grid-template-columns: repeat(2, 160px);
 	}
 }
 
@@ -193,6 +218,10 @@
 		@media (max-width: 620px) {
 			width: 47%;
 		}
+
+		@media (max-width: 430px) {
+			width: 100%;
+		}
 	}
 
 	&__sum {
@@ -203,16 +232,62 @@
 		justify-content: space-between;
 		gap: 40px;
 
-		@media (max-width: 1500px) {
-			width: 58%;
+		@media (max-width: 1390px) {
+			width: 270px;
+			gap: 20px;
+
+			& > div {
+				min-width: 170px;
+			}
+		}
+
+		@media (max-width: 1350px) {
+			width: 270px;
+
+			& > div {
+				min-width: 140px;
+			}
+		}
+
+		@media (max-width: 1350px) {
+			width: 270px;
+
+			& > div {
+				min-width: 140px;
+			}
 		}
 
 		@media (max-width: 1100px) {
-			max-width: 360px;
+			width: 100%;
+			max-width: 100%;
+			gap: 40px;
+
+			& > div {
+				min-width: 10px;
+			}
 		}
 
 		@media (max-width: 426px) {
 			width: 78%;
+			gap: 8px;
+		}
+
+		@media (max-width: 410px) {
+			& > div {
+				min-width: 128px;
+			}
+		}
+
+		@media (max-width: 390px) {
+			& > div {
+				min-width: 118px;
+			}
+		}
+
+		@media (max-width: 370px) {
+			& > div {
+				min-width: 114px;
+			}
 		}
 	}
 }

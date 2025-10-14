@@ -4,11 +4,11 @@ import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import axios, { AxiosResponse } from "axios";
+import { env } from "next-runtime-env";
 
 import { TMessageModal } from "../../../types/components/ComponentsTypes";
 import { IUserValidationResponse } from "../../../types/api/Auth";
 import Spinner from "../../../ui/spinner/spinner";
-import { getCorrectBaseUrl } from "../../../utils/baseUrlConverter";
 import { mockLocalhostStr, mockLocalhostUrl } from "../../../services/api/auth/apiConstants";
 import { setUserActivation } from "../../../services/api/auth/setUserActivation";
 import { MainPath } from "../../../services/router/routes";
@@ -23,7 +23,6 @@ import { ButtonType } from "../../../helpers/buttonFieldValues";
 import styles from "./activate.module.scss";
 
 const Activate = () => {
-	const [baseUrl, setBaseUrl] = useState<string>();
 	const [load, setLoad] = useState<boolean>(false);
 	const router = useRouter();
 	const searchParams = useSearchParams();
@@ -44,15 +43,13 @@ const Activate = () => {
 	const [messageLogo, setMessageLogo] = useState(logo);
 	const [backgroundImage, setBackgroundImage] = useState(activationBgImg.src);
 
+	const baseUrl = String(env("NEXT_PUBLIC_BASE_URL") ?? "");
+
 	enum ModalMessageTypes {
 		success = "success",
 		warning = "warning",
 		notification = "notification",
 	}
-
-	useEffect(() => {
-		setBaseUrl(getCorrectBaseUrl());
-	}, []);
 
 	useEffect(() => {
 		if (!uid || !token) {

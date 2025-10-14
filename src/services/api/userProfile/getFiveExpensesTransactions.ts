@@ -1,10 +1,10 @@
 import axios from "axios";
 
-import { expensesCategoryTransactionEndPoint } from "../auth/apiConstants";
+import { operationsEndPoint } from "../auth/apiConstants";
 import { IFiveOperations } from "../../../types/pages/Expenses";
 
 export const getFiveExpensesTransactions = async (baseUrl: string, data: IFiveOperations) => {
-	return await axios(`${baseUrl}/${expensesCategoryTransactionEndPoint}/`, {
+	return await axios(`${baseUrl}/${operationsEndPoint}/`, {
 		method: "GET",
 		data: data,
 		headers: {

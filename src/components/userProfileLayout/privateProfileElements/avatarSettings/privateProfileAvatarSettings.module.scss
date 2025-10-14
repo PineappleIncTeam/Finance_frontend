@@ -51,6 +51,7 @@
 .avatar__image {
 	width: 110px;
 	height: 110px;
+	border-radius: 50%;
 
 	@media (max-width: 600px) {
 		width: 60px;
@@ -119,11 +120,25 @@
 
 .templateAvatar__label {
 	display: flex;
+	border-radius: 50%;
+	border: 1px solid transparent;
 	cursor: pointer;
+
+	&:hover {
+		border: 1px solid var(--color-dark-sea-green);
+	}
 
 	@media (max-width: 600px) {
 		width: 60px;
 		height: 60px;
+	}
+}
+
+.templateAvatar__label_active {
+	border: 1px solid var(--color-dark-spring-green);
+
+	&:hover {
+		border: 1px solid var(--color-dark-spring-green);
 	}
 }
 

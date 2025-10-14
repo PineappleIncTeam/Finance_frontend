@@ -1,33 +1,50 @@
+"use client";
+
 import { useForm } from "react-hook-form";
+import { env } from "next-runtime-env";
 
 import { IChangePasswordForm } from "../../../../types/pages/userProfileSettings";
+import { IChangingUserProfilePasswordRequest } from "../../../../types/api/PersonalAccount";
 import AppInput from "../../../../ui/appInput/AppInput";
+import Button from "../../../../ui/Button/Button";
+import { changeUserProfilePassword } from "../../../../services/api/userProfile/changePassword";
 import { errorPasswordRepeat } from "../../../../helpers/authConstants";
 import { InputTypeList } from "../../../../helpers/Input";
-import { passwordValidate } from "../../../../utils/passwordValidate";
-import Button from "../../../../ui/Button/Button";
 import { ButtonType } from "../../../../helpers/buttonFieldValues";
+import { passwordValidate } from "../../../../utils/passwordValidate";
 
 import styles from "./privateProfileChangePassword.module.scss";
 
 export const PrivateProfileChangePassword = () => {
 	const {
-		formState: { errors },
-		control,
 		handleSubmit,
 		watch,
+		reset,
+		control,
+		formState: { errors },
 	} = useForm<IChangePasswordForm>({
 		defaultValues: {
 			oldPassword: "",
 			newPassword: "",
 			repeatPassword: "",
 		},
-		mode: "all",
-		delayError: 200,
 	});
 
+	const baseUrl = String(env("NEXT_PUBLIC_BASE_URL") ?? "");
+
 	const onSubmit = async (data: IChangePasswordForm) => {
-		return data;
+		const changePasswordData: IChangingUserProfilePasswordRequest = {
+			data: {
+				// eslint-disable-next-line camelcase
+				current_password: data.oldPassword,
+				// eslint-disable-next-line camelcase
+				new_password: data.newPassword,
+			},
+			baseUrl: baseUrl,
+		};
+
+		await changeUserProfilePassword(changePasswordData);
+		reset();
 	};
 
 	const validateRepeatPassword = (value: string | boolean | undefined) => {

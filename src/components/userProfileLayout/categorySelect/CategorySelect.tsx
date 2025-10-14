@@ -28,6 +28,7 @@ export const CategorySelect = <T extends FieldValues>({
 
 	const [isCategorySelectOpen, setIsCategorySelectOpen] = useState<boolean>(false);
 	const [selectedValue, setSelectedValue] = useState<number | null>(value);
+	const [selectedName, setSelectedName] = useState<number | string>();
 	const selectRef = useRef<HTMLDivElement>(null);
 
 	useEffect(() => {
@@ -44,9 +45,11 @@ export const CategorySelect = <T extends FieldValues>({
 		};
 	}, []);
 
-	const handleOptionClick = (optionValue: number) => {
+	const handleOptionClick = (optionValue: number, optionName: string) => {
 		setSelectedValue(optionValue);
+		setSelectedName(optionName);
 		onChange(optionValue);
+		onChange(optionName);
 		setIsCategorySelectOpen(false);
 	};
 
@@ -77,7 +80,7 @@ export const CategorySelect = <T extends FieldValues>({
 							<div
 								key={index}
 								className={styles.selectContainer__option}
-								onClick={() => handleOptionClick(option.id)}
+								onClick={() => [handleOptionClick(option.id, option.name)]}
 								role="button">
 								<p className={styles.selectContainer__optionValue}>{option.name}</p>
 								<button
@@ -97,7 +100,7 @@ export const CategorySelect = <T extends FieldValues>({
 	}
 
 	const renderSelectedValue = () => {
-		const selectedOption = options.find((option) => option.id === selectedValue);
+		const selectedOption = options.find((option) => option.id === selectedValue && option.name === selectedName);
 		return selectedOption ? (
 			<span className={cn(styles.selectContainer__selectedValue)}>
 				<span className={styles.selectContainer__selectedText}>{selectedOption.name} </span>

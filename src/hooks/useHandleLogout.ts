@@ -4,6 +4,7 @@ import axios from "axios";
 import { AuthTypes } from "../types/pages/Authorization";
 import { baseLogoutUser } from "../services/api/auth/baseLogoutUser";
 import { MainPath } from "../services/router/routes";
+import { mockLocalhostStr, mockLocalhostUrl } from "../services/api/auth/apiConstants";
 
 /**
  * @category Authentication Hooks
@@ -57,16 +58,20 @@ export function useHandleLogout(url: string | undefined) {
 		try {
 			if (url) {
 				const authType: AuthTypes = await ((localStorage.getItem("authType") as AuthTypes) || AuthTypes.baseAuth);
+				const isLocalhost =
+					window.location.hostname.includes(mockLocalhostStr) || window.location.hostname.includes(mockLocalhostUrl);
 
-				if (authType === AuthTypes.baseAuth) {
-					const response = await baseLogoutUser(url);
-					if (response.status === axios.HttpStatusCode.Ok) {
-						await localStorage.removeItem("authType");
+				if (!isLocalhost) {
+					if (authType === AuthTypes.baseAuth) {
+						const response = await baseLogoutUser(url);
+						if (response.status === axios.HttpStatusCode.Ok) {
+							await localStorage.removeItem("authType");
 
-						router.push(MainPath.Main);
+							router.push(MainPath.Main);
+						}
+					} else {
+						// vk auth logout
 					}
-				} else {
-					// vk auth logout
 				}
 			}
 		} catch (error) {

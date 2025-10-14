@@ -5,10 +5,10 @@ import { format } from "date-fns";
 import cn from "classnames";
 import axios from "axios";
 import { useRouter } from "next/navigation";
+import { env } from "next-runtime-env";
 
 import { MainPath } from "../../../../services/router/routes";
 import { getCurrencyRates } from "../../../../services/api/userProfile/getCurrencyRates";
-import { getCorrectBaseUrl } from "../../../../utils/baseUrlConverter";
 
 import styles from "./privateProfileHeader.module.scss";
 
@@ -21,6 +21,8 @@ const PrivateProfileHeader = () => {
 
 	const [isCurrencyLoading, startCurrencyTransition] = useTransition();
 
+	const baseUrl = String(env("NEXT_PUBLIC_BASE_URL") ?? "");
+
 	useEffect(() => {
 		setCurrentDate(format(new Date(), "dd.MM.yyyy"));
 
@@ -30,7 +32,6 @@ const PrivateProfileHeader = () => {
 
 	const loadCurrencyData = async () => {
 		try {
-			const baseUrl = getCorrectBaseUrl();
 			const response = await getCurrencyRates(baseUrl);
 
 			if (response.status === axios.HttpStatusCode.Ok) {

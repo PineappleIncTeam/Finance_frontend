@@ -551,17 +551,18 @@ function Savings() {
 			<div className={styles.savingsPageContainer}>
 				<form className={styles.savingsFormContentWrapper}>
 					<h1 className={styles.headerTitle}>Накопления</h1>
+
 					<div className={styles.savingsFormContentWrapperChoice}>
-						<div className={styles.savingsByDateContainer}>
+						<div className={styles.savingsGridWrapper}>
 							<div className={styles.totalAmountWrapper}>
 								<p className={styles.totalAmountWrapper__savings}>Общая сумма накоплений </p>
 								<p className={styles.totalAmountWrapper__sum}>4 112 500 ₽</p>
 							</div>
+
 							<div className={styles.dateSelectionWrapper}>
 								<InputDate control={control} name={"date"} />
 							</div>
-						</div>
-						<div className={styles.savingsDetailsContainer}>
+
 							<div className={styles.savingsDetailsContainer__category}>
 								<CategorySelect
 									name={"name"}
@@ -573,6 +574,7 @@ function Savings() {
 									onRemoveCategory={(id, name) => [setIsDeleteTargetModalOpen(true), handleIdName(id, name)]}
 								/>
 							</div>
+
 							<div className={styles.savingsDetailsContainer__sum}>
 								<AppInput
 									control={control}
@@ -581,11 +583,11 @@ function Savings() {
 									name={"current_sum"}
 									placeholder={"0.00 ₽"}
 								/>
+								<AddButton onClick={handleSubmit(onSubmit)} type={InputTypeList.Submit} />
 							</div>
-
-							<AddButton onClick={handleSubmit(onSubmit)} type={InputTypeList.Submit} />
 						</div>
 					</div>
+
 					<div className={styles.savingsFormContentWrapperList}>
 						<div className={styles.wrapperList__header}>
 							<ul className={styles.wrapperListHeaderBlock}>
@@ -609,6 +611,7 @@ function Savings() {
 								<li className={styles.wrapperListHeaderBlock__status}>Статус</li>
 							</ul>
 						</div>
+
 						<div className={styles.wrapperList__content}>
 							<ul className={styles.wrapperListContentBlock}>{renderSavingsItemList()}</ul>
 						</div>
@@ -656,5 +659,4 @@ function Savings() {
 		</div>
 	);
 }
-
 export default Savings;

@@ -14,7 +14,11 @@ spec:
     - name: storybook-app
       protocol: TCP
       port: 3005
-      targetPort: 8080
+      targetPort: 8085
+    - name: typedoc-app
+      protocol: TCP
+      port: 3006
+      targetPort: 8086
   type: ClusterIP
 ---
 apiVersion: apps/v1
@@ -49,4 +53,25 @@ spec:
                 name: finance-dev-front-secret
           ports:
             - containerPort: 3000
-            - containerPort: 8080
+        - name: storybook
+          image: freenance/storybook-typedoc:{{IMAGE_TAG}}
+          resources:
+            requests:
+              memory: "256Mi"
+              cpu: "100m"
+            limits:
+              memory: "512Mi"
+              cpu: "150m"
+          ports:
+            - containerPort: 8085
+        - name: typedoc
+          image: freenance/storybook-typedoc:{{IMAGE_TAG}}
+          resources:
+            requests:
+              memory: "256Mi"
+              cpu: "100m"
+            limits:
+              memory: "512Mi"
+              cpu: "150m"
+          ports:
+            - containerPort: 8086

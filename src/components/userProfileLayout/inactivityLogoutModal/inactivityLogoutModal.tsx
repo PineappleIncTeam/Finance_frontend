@@ -6,7 +6,7 @@ import Button from "../../../ui/Button/Button";
 
 import styles from "./inactivityLogoutModal.module.scss";
 
-export default function InactivityLogoutModal({ open }: IInactivityLogoutModal) {
+export default function InactivityLogoutModal({ open, onStayClick, onLogoutClick }: IInactivityLogoutModal) {
 	const initialValue: number = 120;
 	const [time, setTime] = useState<number>(initialValue);
 	const interval: number = 1000;
@@ -39,10 +39,10 @@ export default function InactivityLogoutModal({ open }: IInactivityLogoutModal) 
 				</p>
 				<p className={styles.modalContainer__timer}>{formatTime(time)}</p>
 				<div className={styles.buttonsContainer}>
-					<Button variant={ButtonType.Contained} onClick={() => undefined}>
+					<Button variant={ButtonType.Contained} onClick={() => onLogoutClick()}>
 						Выйти
 					</Button>
-					<Button variant={ButtonType.Outlined} onClick={() => undefined}>
+					<Button variant={ButtonType.Outlined} onClick={() => onStayClick()}>
 						Остаться
 					</Button>
 				</div>

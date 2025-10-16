@@ -4,7 +4,7 @@
 	"private": true,
 	"scripts": {
 		"dev": "next dev --turbopack",
-		"build": "next build && npm run buildEcosystem",
+		"build": "next build",
 		"start": "next start",
 		"preCommitLint": "eslint --quiet --ext .js,.jsx,.ts,.tsx,.json ./src ./scripts",
 		"prePushBuild": "next build . --no-lint",

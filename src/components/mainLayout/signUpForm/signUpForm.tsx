@@ -93,7 +93,7 @@ export default function SignUpForm() {
 			if (baseUrl) {
 				const response: AxiosResponse<IVKServiceDataResponse> = await authApiVkService(baseUrl, authData);
 				if (response.status === axios.HttpStatusCode.Ok) {
-					const userInfo = response.data.user_info;
+					const userInfo = response.data.user_info.user;
 					const userData: IUserDataState = {
 						email: userInfo.email ?? "",
 						nickname: userInfo.first_name + (userInfo.last_name ? `${" "}${userInfo.last_name}` : ""),

@@ -27,5 +27,7 @@ export interface IVkUserData {
 }
 
 export interface IVKServiceDataResponse {
-	user_info: IVkUserData;
+	user_info: {
+		user: IVkUserData;
+	};
 }

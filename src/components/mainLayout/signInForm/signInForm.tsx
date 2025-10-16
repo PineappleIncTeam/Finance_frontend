@@ -26,6 +26,7 @@ import { setAutoLoginStatus } from "../../../services/redux/features/autoLogin/a
 import { authApiVkService } from "../../../services/api/auth/authVkService";
 import { ButtonType } from "../../../helpers/buttonFieldValues";
 import { generatePkceChallenge, generateState } from "../../../utils/generateAuthTokens";
+import { setUser } from "../../../services/redux/features/userData/UserDataSlice";
 
 import styles from "./signInForm.module.scss";
 
@@ -85,8 +86,8 @@ export default function SignInForm() {
 			if (baseUrl) {
 				const response = await authApiVkService(baseUrl, authData);
 				if (response.status === axios.HttpStatusCode.Ok) {
+					dispatch(setUser(response.data));
 					localStorage.setItem("authType", AuthTypes.vkServiceAuth);
-
 					await router.push(UserProfilePath.ProfitMoney);
 				}
 			}

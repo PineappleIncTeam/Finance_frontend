@@ -9,7 +9,7 @@ import { env } from "next-runtime-env";
 import * as VKID from "@vkid/sdk";
 
 import { ISignUpForm } from "../../../types/components/ComponentsTypes";
-import { IPkceCodeSet, IVKLoginSuccessPayload, IVkAuthRequest } from "../../../types/pages/Authorization";
+import { IPkceCodeSet, IVKLoginSuccessPayload, IVkAuthRequest, AuthTypes } from "../../../types/pages/Authorization";
 import AuthInput from "../../../ui/authInput/AuthInput";
 import Title from "../../../ui/title/Title";
 import Button from "../../../ui/Button/Button";
@@ -27,11 +27,15 @@ import { authApiVkService } from "../../../services/api/auth/authVkService";
 import CustomCheckbox from "../../../ui/checkBox/checkBox";
 import { ButtonType } from "../../../helpers/buttonFieldValues";
 import { generatePkceChallenge, generateState } from "../../../utils/generateAuthTokens";
+import { setUser } from "../../../services/redux/features/userData/UserDataSlice";
+import { useAppDispatch } from "../../../services/redux/hooks/useAppDispatch";
 
 import styles from "./signUpForm.module.scss";
 
 export default function SignUpForm() {
 	const [pkceCodeSet, setPkceCodeSet] = useState<IPkceCodeSet>();
+
+	const dispatch = useAppDispatch();
 
 	const {
 		formState: { isValid, errors },
@@ -86,6 +90,8 @@ export default function SignUpForm() {
 			if (baseUrl) {
 				const response = await authApiVkService(baseUrl, authData);
 				if (response.status === axios.HttpStatusCode.Ok) {
+					dispatch(setUser(response.data));
+					localStorage.setItem("authType", AuthTypes.vkServiceAuth);
 					router.push(UserProfilePath.ProfitMoney);
 				}
 			}

@@ -90,6 +90,10 @@ export default function SignInForm() {
 				const response: AxiosResponse<IVKServiceDataResponse> = await authApiVkService(baseUrl, authData);
 				if (response.status === axios.HttpStatusCode.Ok) {
 					const userInfo = response.data.user_info.user;
+					const userAvatar = userInfo.avatar.includes("?")
+						? userInfo.avatar.substring(0, userInfo.avatar.indexOf("?"))
+						: userInfo.avatar;
+
 					const userData: IUserDataState = {
 						email: userInfo.email ?? "",
 						nickname: userInfo.first_name + (userInfo.last_name ? `${" "}${userInfo.last_name}` : ""),
@@ -97,7 +101,7 @@ export default function SignInForm() {
 						// eslint-disable-next-line camelcase
 						country_name: userInfo.country || "",
 						gender: userInfo.sex === 2 ? "M" : "F",
-						avatar: userInfo.avatar,
+						avatar: userAvatar,
 						defaultAvatar: 0,
 					};
 

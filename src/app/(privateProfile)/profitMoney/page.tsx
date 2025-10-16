@@ -20,6 +20,7 @@ import { CategorySelect } from "../../../components/userProfileLayout/categorySe
 
 import InputDate from "../../../ui/inputDate/inputDate";
 import AddButton from "../../../components/userProfileLayout/addButton/addButton";
+import InactivityLogoutModal from "../../../components/userProfileLayout/inactivityLogoutModal/inactivityLogoutModal";
 
 import styles from "./profitMoney.module.scss";
 
@@ -35,7 +36,7 @@ function ProfitMoney() {
 	const baseUrl = String(env("NEXT_PUBLIC_BASE_URL") ?? "");
 
 	const { request } = useHandleLogout(baseUrl);
-	const { resetTimer } = useLogoutTimer(request);
+	const { resetTimer, isOpenInactivityLogoutModal } = useLogoutTimer(request);
 
 	const incomeMoney = 200000;
 
@@ -117,6 +118,11 @@ function ProfitMoney() {
 							))}
 					</div>
 				</div>
+				<InactivityLogoutModal
+					open={isOpenInactivityLogoutModal}
+					onStayClick={() => undefined}
+					onLogoutClick={() => undefined}
+				/>
 			</div>
 		</div>
 	);

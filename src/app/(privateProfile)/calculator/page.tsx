@@ -14,6 +14,7 @@ import { InputTypeList } from "../../../helpers/Input";
 import { useHandleLogout } from "../../../hooks/useHandleLogout";
 import Button from "../../../ui/Button/Button";
 import { ButtonType } from "../../../helpers/buttonFieldValues";
+import InactivityLogoutModal from "../../../components/userProfileLayout/inactivityLogoutModal/inactivityLogoutModal";
 
 import styles from "./calculator.module.scss";
 
@@ -31,7 +32,7 @@ export default function Calculator() {
 	const baseUrl = String(env("NEXT_PUBLIC_BASE_URL") ?? "");
 
 	const { request } = useHandleLogout(baseUrl);
-	const { resetTimer } = useLogoutTimer(request);
+	const { resetTimer, isOpenInactivityLogoutModal } = useLogoutTimer(request);
 
 	useEffect(() => {
 		resetTimer();
@@ -465,6 +466,11 @@ export default function Calculator() {
 						</div>
 					</div>
 				</div>
+				<InactivityLogoutModal
+					open={isOpenInactivityLogoutModal}
+					onStayClick={() => undefined}
+					onLogoutClick={() => undefined}
+				/>
 			</div>
 		</div>
 	);

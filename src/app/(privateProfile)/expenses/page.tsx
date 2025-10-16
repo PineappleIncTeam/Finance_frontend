@@ -36,6 +36,7 @@ import { useHandleLogout } from "../../../hooks/useHandleLogout";
 
 import { InputTypeList } from "../../../helpers/Input";
 import { getAllExpensesCategories } from "../../../services/api/userProfile/getAllExpensesCategories";
+import InactivityLogoutModal from "../../../components/userProfileLayout/inactivityLogoutModal/inactivityLogoutModal";
 
 import styles from "./expenses.module.scss";
 
@@ -78,7 +79,7 @@ export default function Expenses() {
 	const baseUrl = String(env("NEXT_PUBLIC_BASE_URL") ?? "");
 
 	const { request } = useHandleLogout(baseUrl);
-	const { resetTimer } = useLogoutTimer(request);
+	const { resetTimer, isOpenInactivityLogoutModal } = useLogoutTimer(request);
 
 	const endDate = 10;
 	const interval = 2000;
@@ -505,6 +506,11 @@ export default function Expenses() {
 					/>
 				)}
 				<ResponseApiRequestModal open={responseApiRequestModal.open} title={responseApiRequestModal.title} />
+				<InactivityLogoutModal
+					open={isOpenInactivityLogoutModal}
+					onStayClick={() => undefined}
+					onLogoutClick={() => undefined}
+				/>
 			</div>
 		</div>
 	);

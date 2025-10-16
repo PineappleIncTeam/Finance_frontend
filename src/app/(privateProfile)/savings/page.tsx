@@ -51,6 +51,7 @@ import { ResponseApiRequestModal } from "../../../components/userProfileLayout/r
 import { removeTransaction } from "../../../services/api/userProfile/removeTransaction";
 import { RecordDeleteModal } from "../../../components/userProfileLayout/recordDelete/recordDelete";
 import { returnMoneyAccount } from "../../../services/api/userProfile/returnMoneyAccount";
+import InactivityLogoutModal from "../../../components/userProfileLayout/inactivityLogoutModal/inactivityLogoutModal";
 
 import styles from "./savings.module.scss";
 
@@ -85,7 +86,7 @@ function Savings() {
 	const baseUrl = String(env("NEXT_PUBLIC_BASE_URL") ?? "");
 
 	const { request } = useHandleLogout(baseUrl);
-	const { resetTimer } = useLogoutTimer(request);
+	const { resetTimer, isOpenInactivityLogoutModal } = useLogoutTimer(request);
 	const [allTargets, setAllTargets] = useState<ITarget[]>([]);
 	const [fiveOperations, setFiveOperations] = useState<IOperation[]>([]);
 	const [isAddCategoryModalOpen, setIsCategoryModalOpen] = useState<boolean>(false);
@@ -652,6 +653,11 @@ function Savings() {
 						cancelRemove={() => setIsApprovedRemoveOperation(false)}
 					/>
 				)}
+				<InactivityLogoutModal
+					open={isOpenInactivityLogoutModal}
+					onStayClick={() => undefined}
+					onLogoutClick={() => undefined}
+				/>
 			</div>
 		</div>
 	);

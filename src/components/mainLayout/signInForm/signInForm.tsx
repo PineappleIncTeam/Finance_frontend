@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
-import axios, { isAxiosError } from "axios";
+import axios, { AxiosResponse, isAxiosError } from "axios";
 import Link from "next/link";
 import { env } from "next-runtime-env";
 import * as VKID from "@vkid/sdk";
@@ -12,6 +12,8 @@ import { useAppDispatch } from "../../../services/redux/hooks/useAppDispatch";
 
 import { AuthTypes, IPkceCodeSet, IVKLoginSuccessPayload, IVkAuthRequest } from "../../../types/pages/Authorization";
 import { ICorrectSignInForm, ISignInForm } from "../../../types/components/ComponentsTypes";
+import { IVKServiceDataResponse } from "../../../types/api/Auth";
+import { IUserDataState } from "../../../types/redux/StateTypes";
 import AuthInput from "../../../ui/authInput/AuthInput";
 import Title from "../../../ui/title/Title";
 import CustomCheckbox from "../../../ui/checkBox/checkBox";
@@ -27,6 +29,7 @@ import { authApiVkService } from "../../../services/api/auth/authVkService";
 import { ButtonType } from "../../../helpers/buttonFieldValues";
 import { generatePkceChallenge, generateState } from "../../../utils/generateAuthTokens";
 import { setUser } from "../../../services/redux/features/userData/UserDataSlice";
+import { ruCountryNumber } from "../../../helpers/userDataConstants";
 
 import styles from "./signInForm.module.scss";
 
@@ -84,9 +87,21 @@ export default function SignInForm() {
 	async function authVkIdService(authData: IVkAuthRequest) {
 		try {
 			if (baseUrl) {
-				const response = await authApiVkService(baseUrl, authData);
+				const response: AxiosResponse<IVKServiceDataResponse> = await authApiVkService(baseUrl, authData);
 				if (response.status === axios.HttpStatusCode.Ok) {
-					dispatch(setUser(response.data));
+					const userInfo = response.data.user_info;
+					const userData: IUserDataState = {
+						email: userInfo.email ?? "",
+						nickname: userInfo.first_name + (userInfo.last_name ? `${" "}${userInfo.last_name}` : ""),
+						country: Number(userInfo.country) || ruCountryNumber,
+						// eslint-disable-next-line camelcase
+						country_name: userInfo.country || "",
+						gender: userInfo.sex === 2 ? "M" : "F",
+						avatar: userInfo.avatar,
+						defaultAvatar: 0,
+					};
+
+					dispatch(setUser(userData));
 					localStorage.setItem("authType", AuthTypes.vkServiceAuth);
 					await router.push(UserProfilePath.ProfitMoney);
 				}

@@ -3,15 +3,17 @@
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
-import axios, { isAxiosError } from "axios";
+import axios, { AxiosResponse, isAxiosError } from "axios";
 import Link from "next/link";
 import { env } from "next-runtime-env";
 import * as VKID from "@vkid/sdk";
 
-import { useAppDispatch } from "../../../services/redux/hooks/useAppDispatch";
+import { useActions } from "../../../services/redux/hooks";
 
 import { AuthTypes, IPkceCodeSet, IVKLoginSuccessPayload, IVkAuthRequest } from "../../../types/pages/Authorization";
 import { ICorrectSignInForm, ISignInForm } from "../../../types/components/ComponentsTypes";
+import { IVKServiceDataResponse } from "../../../types/api/Auth";
+import { IUserDataState } from "../../../types/redux/StateTypes";
 import AuthInput from "../../../ui/authInput/AuthInput";
 import Title from "../../../ui/title/Title";
 import CustomCheckbox from "../../../ui/checkBox/checkBox";
@@ -22,10 +24,10 @@ import { formHelpers } from "../../../utils/formHelpers";
 import { InputTypeList } from "../../../helpers/Input";
 import { MainPath, UserProfilePath } from "../../../services/router/routes";
 import { loginUser } from "../../../services/api/auth/loginUser";
-import { setAutoLoginStatus } from "../../../services/redux/features/autoLogin/autoLoginSlice";
 import { authApiVkService } from "../../../services/api/auth/authVkService";
 import { ButtonType } from "../../../helpers/buttonFieldValues";
 import { generatePkceChallenge, generateState } from "../../../utils/generateAuthTokens";
+import { ruCountryNumber } from "../../../helpers/userDataConstants";
 
 import styles from "./signInForm.module.scss";
 
@@ -33,7 +35,7 @@ export default function SignInForm() {
 	const [isInviteModalOpen, setIsInviteModalOpen] = useState<boolean>(false);
 	const [pkceCodeSet, setPkceCodeSet] = useState<IPkceCodeSet>();
 
-	const dispatch = useAppDispatch();
+	const { setUserData, setAutoLoginStatus } = useActions();
 
 	const {
 		formState: { errors },
@@ -83,10 +85,26 @@ export default function SignInForm() {
 	async function authVkIdService(authData: IVkAuthRequest) {
 		try {
 			if (baseUrl) {
-				const response = await authApiVkService(baseUrl, authData);
+				const response: AxiosResponse<IVKServiceDataResponse> = await authApiVkService(baseUrl, authData);
 				if (response.status === axios.HttpStatusCode.Ok) {
-					localStorage.setItem("authType", AuthTypes.vkServiceAuth);
+					const userInfo = response.data.user_info.user;
+					const userAvatar = userInfo.avatar.includes("?")
+						? userInfo.avatar.substring(0, userInfo.avatar.indexOf("?"))
+						: userInfo.avatar;
 
+					const userData: IUserDataState = {
+						email: userInfo.email ?? "",
+						nickname: userInfo.first_name + (userInfo.last_name ? `${" "}${userInfo.last_name}` : ""),
+						country: Number(userInfo.country) || ruCountryNumber,
+						// eslint-disable-next-line camelcase
+						country_name: userInfo.country || "",
+						gender: userInfo.sex === 2 ? "M" : "F",
+						avatar: userAvatar,
+						defaultAvatar: 0,
+					};
+
+					setUserData(userData);
+					localStorage.setItem("authType", AuthTypes.vkServiceAuth);
 					await router.push(UserProfilePath.ProfitMoney);
 				}
 			}
@@ -135,7 +153,7 @@ export default function SignInForm() {
 				localStorage.setItem("authType", AuthTypes.baseAuth);
 
 				if (data.isAutoAuth) {
-					dispatch(setAutoLoginStatus(data.isAutoAuth));
+					setAutoLoginStatus(data.isAutoAuth);
 				}
 			}
 		} catch (error) {

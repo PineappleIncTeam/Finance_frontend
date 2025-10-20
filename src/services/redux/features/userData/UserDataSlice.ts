@@ -23,11 +23,11 @@ const initialState: IUserState = {
 	error: null,
 };
 
-const userDataSlice = createSlice({
+export const userDataSlice = createSlice({
 	name: "userData",
 	initialState,
 	reducers: {
-		setUser(state: IUserState, action: PayloadAction<Partial<IUserDataState>>) {
+		setUserData(state: IUserState, action: PayloadAction<Partial<IUserDataState>>) {
 			const payload: any = action.payload || {};
 			state.userData = {
 				...(state.userData || {}),
@@ -49,6 +49,3 @@ const userDataSlice = createSlice({
 		});
 	},
 });
-
-export const { setUser } = userDataSlice.actions;
-export default userDataSlice.reducer;

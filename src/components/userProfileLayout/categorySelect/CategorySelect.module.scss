@@ -16,9 +16,6 @@
 			font-size: 1.6rem;
 			line-height: 2.2rem;
 		}
-		@media (max-width: 490px) {
-			display: none;
-		}
 	}
 
 	&__field {
@@ -44,10 +41,12 @@
 				border-color: var(--color-dark-spring-green);
 			}
 		}
+
 		@media (max-width: 550px) {
 			font-size: 1.6rem;
 			line-height: 2.2rem;
 		}
+
 		@media (max-width: 490px) {
 			height: 38px;
 			padding: 0 12px;
@@ -91,6 +90,7 @@
 		white-space: nowrap;
 		text-overflow: ellipsis;
 	}
+
 	&__selectIcon {
 		width: 20px;
 		height: 20px;
@@ -101,6 +101,7 @@
 			width: 16px;
 			height: 16px;
 		}
+
 		@media (max-width: 490px) {
 			width: 10px;
 			height: 10px;
@@ -154,7 +155,6 @@
 		font-size: 2rem;
 		line-height: 2.8rem;
 		color: var(--color-dark-cyan-blue);
-
 		transition: background-color 0.2s ease-in-out;
 
 		@media (max-width: 550px) {
@@ -188,6 +188,7 @@
 		}
 	}
 }
+
 .closeIcon {
 	display: flex;
 	align-items: center;

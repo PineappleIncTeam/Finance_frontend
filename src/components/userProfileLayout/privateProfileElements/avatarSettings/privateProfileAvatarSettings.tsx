@@ -9,8 +9,7 @@ import { env } from "next-runtime-env";
 import { IProfileAvatarForm } from "../../../../types/components/ComponentsTypes";
 import { TChangeUserProfileDataRequest } from "../../../../types/api/PersonalAccount";
 import Button from "../../../../ui/Button/Button";
-import { useAppDispatch, useAppSelector } from "../../../../services/redux/hooks";
-import { setUser } from "../../../../services/redux/features/userData/UserDataSlice";
+import { useActions, useAppSelector } from "../../../../services/redux/hooks";
 import { userDataSelector } from "../../../../services/redux/features/userData/UserDataSelector";
 import { updateUserProfileData } from "../../../../services/api/userProfile/updateUserData";
 import { ButtonType } from "../../../../helpers/buttonFieldValues";
@@ -25,13 +24,13 @@ import styles from "./privateProfileAvatarSettings.module.scss";
 export const PrivateProfileAvatarSettings = () => {
 	const [selectedDefaultAvatar, setSelectedDefaultAvatar] = useState<string>();
 
-	const dispatch = useAppDispatch();
 	const { register, handleSubmit, setValue, watch } = useForm<IProfileAvatarForm>({
 		mode: "all",
 		delayError: 200,
 	});
 
 	const userData = useAppSelector(userDataSelector);
+	const { setUserData } = useActions();
 	const userProfileData = userData.userData;
 
 	const baseUrl = String(env("NEXT_PUBLIC_BASE_URL") ?? "");
@@ -110,7 +109,7 @@ export const PrivateProfileAvatarSettings = () => {
 		const updatingUserDataResponse = await updateUserProfileData(userData, baseUrl);
 		const updatedData = updatingUserDataResponse?.data ?? updatingUserDataResponse;
 
-		dispatch(setUser(updatedData));
+		setUserData(updatedData);
 	};
 
 	function getSelectedAvatarSource() {

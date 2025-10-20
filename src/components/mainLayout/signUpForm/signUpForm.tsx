@@ -4,12 +4,16 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import axios, { AxiosError } from "axios";
+import axios, { AxiosError, AxiosResponse } from "axios";
 import { env } from "next-runtime-env";
 import * as VKID from "@vkid/sdk";
 
+import { useActions } from "../../../services/redux/hooks";
+
 import { ISignUpForm } from "../../../types/components/ComponentsTypes";
-import { IPkceCodeSet, IVKLoginSuccessPayload, IVkAuthRequest } from "../../../types/pages/Authorization";
+import { IPkceCodeSet, IVKLoginSuccessPayload, IVkAuthRequest, AuthTypes } from "../../../types/pages/Authorization";
+import { IUserDataState } from "../../../types/redux/StateTypes";
+import { IVKServiceDataResponse } from "../../../types/api/Auth";
 import AuthInput from "../../../ui/authInput/AuthInput";
 import Title from "../../../ui/title/Title";
 import Button from "../../../ui/Button/Button";
@@ -27,11 +31,14 @@ import { authApiVkService } from "../../../services/api/auth/authVkService";
 import CustomCheckbox from "../../../ui/checkBox/checkBox";
 import { ButtonType } from "../../../helpers/buttonFieldValues";
 import { generatePkceChallenge, generateState } from "../../../utils/generateAuthTokens";
+import { ruCountryNumber } from "../../../helpers/userDataConstants";
 
 import styles from "./signUpForm.module.scss";
 
 export default function SignUpForm() {
 	const [pkceCodeSet, setPkceCodeSet] = useState<IPkceCodeSet>();
+
+	const { setUserData } = useActions();
 
 	const {
 		formState: { isValid, errors },
@@ -84,8 +91,25 @@ export default function SignUpForm() {
 	async function authVkIdService(authData: IVkAuthRequest) {
 		try {
 			if (baseUrl) {
-				const response = await authApiVkService(baseUrl, authData);
+				const response: AxiosResponse<IVKServiceDataResponse> = await authApiVkService(baseUrl, authData);
 				if (response.status === axios.HttpStatusCode.Ok) {
+					const userInfo = response.data.user_info.user;
+					const userAvatar = userInfo.avatar.includes("?")
+						? userInfo.avatar.substring(0, userInfo.avatar.indexOf("?"))
+						: userInfo.avatar;
+
+					const userData: IUserDataState = {
+						email: userInfo.email ?? "",
+						nickname: userInfo.first_name + (userInfo.last_name ? `${" "}${userInfo.last_name}` : ""),
+						country: Number(userInfo.country) || ruCountryNumber,
+						// eslint-disable-next-line camelcase
+						country_name: userInfo.country || "",
+						gender: userInfo.sex === 2 ? "M" : "F",
+						avatar: userAvatar,
+						defaultAvatar: 0,
+					};
+					setUserData(userData);
+					localStorage.setItem("authType", AuthTypes.vkServiceAuth);
 					router.push(UserProfilePath.ProfitMoney);
 				}
 			}

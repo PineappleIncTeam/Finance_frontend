@@ -8,7 +8,7 @@ const initialState: IUserSettingsState = {
 	assistant: false,
 };
 
-const userSettingsSlice = createSlice({
+export const userSettingsSlice = createSlice({
 	name: "userSettings",
 	initialState,
 	reducers: {
@@ -19,6 +19,3 @@ const userSettingsSlice = createSlice({
 		},
 	},
 });
-
-export const { setUserSettings } = userSettingsSlice.actions;
-export default userSettingsSlice.reducer;

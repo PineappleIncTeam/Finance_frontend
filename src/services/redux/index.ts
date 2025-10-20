@@ -2,12 +2,12 @@ import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { persistStore, persistReducer, FLUSH, PAUSE, PERSIST, PURGE, REGISTER, REHYDRATE } from "redux-persist";
 import createSagaMiddleware from "redux-saga";
 
-import dataReducer from "./features/infoPart/InfoPartSlice";
-import cookieStatusSlice from "./features/cookieStatus/cookieStatusSlice";
-import autoLoginSlice from "./features/autoLogin/autoLoginSlice";
-import userReducer from "./features/userData/UserDataSlice";
-import userSettingsReducer from "./features/userSettings/userSettingsSlice";
-import countriesDataReducer from "./features/countriesData/countriesDataSlice";
+import { dataSlice } from "./features/infoPart/InfoPartSlice";
+import { cookieStatusSlice } from "./features/cookieStatus/cookieStatusSlice";
+import { autoLoginSlice } from "./features/autoLogin/autoLoginSlice";
+import { userDataSlice } from "./features/userData/UserDataSlice";
+import { userSettingsSlice } from "./features/userSettings/userSettingsSlice";
+import { countriesDataSlice } from "./features/countriesData/countriesDataSlice";
 
 // Saga watchers
 import { watchFetchUserData } from "./features/userData/UserDataSaga";
@@ -17,13 +17,21 @@ import persistConfig from "./persist/persistConfig";
 
 const sagaMiddleware = createSagaMiddleware();
 
+const RootActions = {
+	...dataSlice.actions,
+	...cookieStatusSlice.actions,
+	...autoLoginSlice.actions,
+	...userDataSlice.actions,
+	...userSettingsSlice.actions,
+};
+
 const RootReducer = combineReducers({
-	data: dataReducer,
-	cookieStatus: cookieStatusSlice,
-	autoLogin: autoLoginSlice,
-	userData: userReducer,
-	userSettings: userSettingsReducer,
-	countriesData: countriesDataReducer,
+	data: dataSlice.reducer,
+	cookieStatus: cookieStatusSlice.reducer,
+	autoLogin: autoLoginSlice.reducer,
+	userData: userDataSlice.reducer,
+	userSettings: userSettingsSlice.reducer,
+	countriesData: countriesDataSlice.reducer,
 });
 
 const persistedRootReducer = persistReducer(persistConfig, RootReducer);
@@ -42,5 +50,6 @@ sagaMiddleware.run(watchFetchCountriesData);
 export const persistor = persistStore(store);
 export type RootState = ReturnType<typeof store.getState>;
 export type DispatchTyped = typeof store.dispatch;
+export { RootActions };
 
 export default store;

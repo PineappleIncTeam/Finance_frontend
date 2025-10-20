@@ -8,6 +8,8 @@ import axios, { AxiosError, AxiosResponse } from "axios";
 import { env } from "next-runtime-env";
 import * as VKID from "@vkid/sdk";
 
+import { useActions } from "../../../services/redux/hooks";
+
 import { ISignUpForm } from "../../../types/components/ComponentsTypes";
 import { IPkceCodeSet, IVKLoginSuccessPayload, IVkAuthRequest, AuthTypes } from "../../../types/pages/Authorization";
 import { IUserDataState } from "../../../types/redux/StateTypes";
@@ -29,8 +31,6 @@ import { authApiVkService } from "../../../services/api/auth/authVkService";
 import CustomCheckbox from "../../../ui/checkBox/checkBox";
 import { ButtonType } from "../../../helpers/buttonFieldValues";
 import { generatePkceChallenge, generateState } from "../../../utils/generateAuthTokens";
-import { setUser } from "../../../services/redux/features/userData/UserDataSlice";
-import { useAppDispatch } from "../../../services/redux/hooks/useAppDispatch";
 import { ruCountryNumber } from "../../../helpers/userDataConstants";
 
 import styles from "./signUpForm.module.scss";
@@ -38,7 +38,7 @@ import styles from "./signUpForm.module.scss";
 export default function SignUpForm() {
 	const [pkceCodeSet, setPkceCodeSet] = useState<IPkceCodeSet>();
 
-	const dispatch = useAppDispatch();
+	const { setUserData } = useActions();
 
 	const {
 		formState: { isValid, errors },
@@ -108,7 +108,7 @@ export default function SignUpForm() {
 						avatar: userAvatar,
 						defaultAvatar: 0,
 					};
-					dispatch(setUser(userData));
+					setUserData(userData);
 					localStorage.setItem("authType", AuthTypes.vkServiceAuth);
 					router.push(UserProfilePath.ProfitMoney);
 				}

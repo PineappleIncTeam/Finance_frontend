@@ -174,6 +174,7 @@ export default eslintTs.config(
                         "useRef",
                         "useAppDispatch",
                         "useAppSelector",
+                        "useActions",
                         "useLocation",
                         "useNavigate",
                         "usePreviousExchangeRates",

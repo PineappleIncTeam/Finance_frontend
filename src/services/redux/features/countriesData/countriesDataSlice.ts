@@ -10,7 +10,7 @@ const initialState: ICountriesDataState = {
 	error: null,
 };
 
-const countriesDataSlice = createSlice({
+export const countriesDataSlice = createSlice({
 	name: "countriesData",
 	initialState,
 	reducers: {},
@@ -31,5 +31,3 @@ const countriesDataSlice = createSlice({
 		});
 	},
 });
-
-export default countriesDataSlice.reducer;

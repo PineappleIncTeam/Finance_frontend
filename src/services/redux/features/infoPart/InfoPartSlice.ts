@@ -5,7 +5,7 @@ const initialState = {
 	dataRange: "",
 };
 
-const dataReducer = createSlice({
+export const dataSlice = createSlice({
 	name: "data",
 	initialState,
 	reducers: {
@@ -17,7 +17,3 @@ const dataReducer = createSlice({
 		},
 	},
 });
-
-export const { setDateCalendar, setDateCalendarRange } = dataReducer.actions;
-
-export default dataReducer.reducer;

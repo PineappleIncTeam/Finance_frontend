@@ -8,7 +8,7 @@ import Link from "next/link";
 import { env } from "next-runtime-env";
 import * as VKID from "@vkid/sdk";
 
-import { useAppDispatch } from "../../../services/redux/hooks/useAppDispatch";
+import { useActions } from "../../../services/redux/hooks";
 
 import { AuthTypes, IPkceCodeSet, IVKLoginSuccessPayload, IVkAuthRequest } from "../../../types/pages/Authorization";
 import { ICorrectSignInForm, ISignInForm } from "../../../types/components/ComponentsTypes";
@@ -24,11 +24,9 @@ import { formHelpers } from "../../../utils/formHelpers";
 import { InputTypeList } from "../../../helpers/Input";
 import { MainPath, UserProfilePath } from "../../../services/router/routes";
 import { loginUser } from "../../../services/api/auth/loginUser";
-import { setAutoLoginStatus } from "../../../services/redux/features/autoLogin/autoLoginSlice";
 import { authApiVkService } from "../../../services/api/auth/authVkService";
 import { ButtonType } from "../../../helpers/buttonFieldValues";
 import { generatePkceChallenge, generateState } from "../../../utils/generateAuthTokens";
-import { setUser } from "../../../services/redux/features/userData/UserDataSlice";
 import { ruCountryNumber } from "../../../helpers/userDataConstants";
 
 import styles from "./signInForm.module.scss";
@@ -37,7 +35,7 @@ export default function SignInForm() {
 	const [isInviteModalOpen, setIsInviteModalOpen] = useState<boolean>(false);
 	const [pkceCodeSet, setPkceCodeSet] = useState<IPkceCodeSet>();
 
-	const dispatch = useAppDispatch();
+	const { setUserData, setAutoLoginStatus } = useActions();
 
 	const {
 		formState: { errors },
@@ -105,7 +103,7 @@ export default function SignInForm() {
 						defaultAvatar: 0,
 					};
 
-					dispatch(setUser(userData));
+					setUserData(userData);
 					localStorage.setItem("authType", AuthTypes.vkServiceAuth);
 					await router.push(UserProfilePath.ProfitMoney);
 				}
@@ -155,7 +153,7 @@ export default function SignInForm() {
 				localStorage.setItem("authType", AuthTypes.baseAuth);
 
 				if (data.isAutoAuth) {
-					dispatch(setAutoLoginStatus(data.isAutoAuth));
+					setAutoLoginStatus(data.isAutoAuth);
 				}
 			}
 		} catch (error) {

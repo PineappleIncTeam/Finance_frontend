@@ -6,7 +6,7 @@ const initialState: IAutoLoginState = {
 	isAutoLogin: false,
 };
 
-const autoLoginSlice = createSlice({
+export const autoLoginSlice = createSlice({
 	name: "userStorageSettings",
 	initialState,
 	reducers: {
@@ -15,6 +15,3 @@ const autoLoginSlice = createSlice({
 		},
 	},
 });
-
-export const { setAutoLoginStatus } = autoLoginSlice.actions;
-export default autoLoginSlice.reducer;

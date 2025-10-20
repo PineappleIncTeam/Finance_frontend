@@ -2,8 +2,7 @@
 
 import { useForm } from "react-hook-form";
 
-import { useAppSelector } from "../../../../services/redux/hooks/useAppSelector";
-import { useAppDispatch } from "../../../../services/redux/hooks/useAppDispatch";
+import { useActions, useAppSelector } from "../../../../services/redux/hooks";
 
 import { IPrivateAppSettingsForm } from "../../../../types/components/ComponentsTypes";
 import { IUserSettingsState } from "../../../../types/redux/StateTypes";
@@ -11,7 +10,6 @@ import Switcher from "../../../../ui/switcher/switcher";
 import { Selector } from "../../../../ui/selector/Selector";
 import Button from "../../../../ui/Button/Button";
 import { userSettingsSelector } from "../../../../services/redux/features/userSettings/userSettingsSelector";
-import { setUserSettings } from "../../../../services/redux/features/userSettings/userSettingsSlice";
 import { InputTypeList } from "../../../../helpers/Input";
 import { ButtonType } from "../../../../helpers/buttonFieldValues";
 
@@ -20,8 +18,8 @@ import { DeleteIcon } from "../../../../assets/script/expenses/DeleteIcon";
 import styles from "./privateProfilePrivateAppSettings.module.scss";
 
 export const PrivateProfilePrivateAppSettings = () => {
-	const dispatch = useAppDispatch();
 	const userData = useAppSelector(userSettingsSelector);
+	const { setUserSettings } = useActions();
 
 	const { control, handleSubmit } = useForm<IPrivateAppSettingsForm>({
 		defaultValues: {
@@ -32,13 +30,11 @@ export const PrivateProfilePrivateAppSettings = () => {
 	});
 
 	const onSubmit = async (data: IPrivateAppSettingsForm) => {
-		dispatch(
-			setUserSettings({
-				assistant: data.finAssistant,
-				theme: userData.theme === "dark" ? "dark" : "light",
-				currency: data.currency,
-			} as IUserSettingsState),
-		);
+		setUserSettings({
+			assistant: data.finAssistant,
+			theme: userData.theme === "dark" ? "dark" : "light",
+			currency: data.currency,
+		} as IUserSettingsState);
 	};
 
 	return (

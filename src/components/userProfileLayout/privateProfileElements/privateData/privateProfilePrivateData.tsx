@@ -4,8 +4,7 @@ import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { env } from "next-runtime-env";
 
-import { useAppDispatch } from "../../../../services/redux/hooks/useAppDispatch";
-import { useAppSelector } from "../../../../services/redux/hooks/useAppSelector";
+import { useActions, useAppSelector } from "../../../../services/redux/hooks";
 
 import { IPrivateDataForm } from "../../../../types/components/ComponentsTypes";
 import { ICountryData, TChangeUserProfileDataRequest } from "../../../../types/api/PersonalAccount";
@@ -17,15 +16,14 @@ import { userDataSelector } from "../../../../services/redux/features/userData/U
 import { countriesDataSelector } from "../../../../services/redux/features/countriesData/countriesDataSelector";
 import { ButtonType } from "../../../../helpers/buttonFieldValues";
 import { InputTypeList } from "../../../../helpers/Input";
-import { setUser } from "../../../../services/redux/features/userData/UserDataSlice";
 import { ruCountryNumber } from "../../../../helpers/userDataConstants";
 
 import styles from "./privateProfilePrivateData.module.scss";
 
 export const PrivateProfilePrivateData = () => {
-	const dispatch = useAppDispatch();
 	const userData = useAppSelector(userDataSelector);
 	const countriesData = useAppSelector(countriesDataSelector);
+	const { setUserData } = useActions();
 
 	const {
 		handleSubmit,
@@ -81,7 +79,7 @@ export const PrivateProfilePrivateData = () => {
 
 		const updateUserDataResponse = await updateUserProfileData(updatingUserDataRequest, baseUrl);
 		const updatedData = updateUserDataResponse?.data ?? updateUserDataResponse;
-		dispatch(setUser(updatedData));
+		setUserData(updatedData);
 		resetFieldsData();
 	};
 

@@ -4,11 +4,9 @@ import { useState } from "react";
 import cn from "classnames";
 import Link from "next/link";
 
-import { useAppSelector } from "../../../services/redux/hooks/useAppSelector";
-import { useAppDispatch } from "../../../services/redux/hooks/useAppDispatch";
+import { useActions, useAppSelector } from "../../../services/redux/hooks";
 
 import { MainPath } from "../../../services/router/routes";
-import { setCookieStatus } from "../../../services/redux/features/cookieStatus/cookieStatusSlice";
 import cookieStatusSelector from "../../../services/redux/features/cookieStatus/cookieStatusSelector";
 import Button from "../../../ui/Button/Button";
 import { ButtonType } from "../../../helpers/buttonFieldValues";
@@ -19,12 +17,12 @@ import styles from "./cookiePopupWindowPage.module.scss";
 const CookiePopupWindowPage = () => {
 	const [isCookiePopupWindowOpen, setIsCookiePopupWindowOpen] = useState<boolean>(true);
 
-	const dispatch = useAppDispatch();
 	const { cookieStatus } = useAppSelector(cookieStatusSelector);
+	const { setCookieStatus } = useActions();
 
 	const handleClick = () => {
 		setIsCookiePopupWindowOpen(false);
-		dispatch(setCookieStatus("rejected"));
+		setCookieStatus("rejected");
 	};
 
 	return (
@@ -47,7 +45,7 @@ const CookiePopupWindowPage = () => {
 				</div>
 				<Button
 					variant={ButtonType.Outlined}
-					onClick={() => dispatch(setCookieStatus("confirmed"))}
+					onClick={() => setCookieStatus("confirmed")}
 					className={styles.textContentBlock__button}
 					type={InputTypeList.Button}
 					data-testid="cookiePopupWindow__actionElement"

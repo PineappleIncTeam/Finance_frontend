@@ -36,7 +36,7 @@ function ProfitMoney() {
 	const baseUrl = String(env("NEXT_PUBLIC_BASE_URL") ?? "");
 
 	const { request } = useHandleLogout(baseUrl);
-	const { resetTimer, isOpenInactivityLogoutModal } = useLogoutTimer(request);
+	const { resetTimer, setIsOpenInactivityLogoutModal, isOpenInactivityLogoutModal } = useLogoutTimer(request);
 
 	const incomeMoney = 200000;
 
@@ -120,8 +120,8 @@ function ProfitMoney() {
 				</div>
 				<InactivityLogoutModal
 					open={isOpenInactivityLogoutModal}
-					onStayClick={() => undefined}
-					onLogoutClick={() => undefined}
+					onStayClick={() => [resetTimer(), setIsOpenInactivityLogoutModal(false)]}
+					onLogoutClick={() => request()}
 				/>
 			</div>
 		</div>

@@ -79,7 +79,7 @@ export default function Expenses() {
 	const baseUrl = String(env("NEXT_PUBLIC_BASE_URL") ?? "");
 
 	const { request } = useHandleLogout(baseUrl);
-	const { resetTimer, isOpenInactivityLogoutModal } = useLogoutTimer(request);
+	const { resetTimer, setIsOpenInactivityLogoutModal, isOpenInactivityLogoutModal } = useLogoutTimer(request);
 
 	const endDate = 10;
 	const interval = 2000;
@@ -508,8 +508,8 @@ export default function Expenses() {
 				<ResponseApiRequestModal open={responseApiRequestModal.open} title={responseApiRequestModal.title} />
 				<InactivityLogoutModal
 					open={isOpenInactivityLogoutModal}
-					onStayClick={() => undefined}
-					onLogoutClick={() => undefined}
+					onStayClick={() => [resetTimer(), setIsOpenInactivityLogoutModal(false)]}
+					onLogoutClick={() => request()}
 				/>
 			</div>
 		</div>

@@ -28,11 +28,12 @@ export default function Calculator() {
 	const [isVisibleInfo, setIsVisibleInfo] = useState(false);
 	const [isMobile, setIsMobile] = useState(window.innerWidth <= mobileSCreenWidthValue);
 	const [activeButton, setActiveButton] = useState<string | null>("realEstate");
+	// const [closeModal, setIsCloseModal] = useState<boolean>""
 
 	const baseUrl = String(env("NEXT_PUBLIC_BASE_URL") ?? "");
 
 	const { request } = useHandleLogout(baseUrl);
-	const { resetTimer, isOpenInactivityLogoutModal } = useLogoutTimer(request);
+	const { resetTimer, setIsOpenInactivityLogoutModal, isOpenInactivityLogoutModal } = useLogoutTimer(request);
 
 	useEffect(() => {
 		resetTimer();
@@ -468,8 +469,8 @@ export default function Calculator() {
 				</div>
 				<InactivityLogoutModal
 					open={isOpenInactivityLogoutModal}
-					onStayClick={() => undefined}
-					onLogoutClick={() => undefined}
+					onStayClick={() => [resetTimer(), setIsOpenInactivityLogoutModal(false)]}
+					onLogoutClick={() => request()}
 				/>
 			</div>
 		</div>

@@ -87,5 +87,5 @@ export const useLogoutTimer = (callback: TCommonFunction) => {
 		startTimer();
 	};
 
-	return { resetTimer, isOpenInactivityLogoutModal };
+	return { resetTimer, setIsOpenInactivityLogoutModal, isOpenInactivityLogoutModal };
 };

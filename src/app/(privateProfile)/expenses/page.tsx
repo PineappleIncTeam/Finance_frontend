@@ -509,7 +509,7 @@ export default function Expenses() {
 				<InactivityLogoutModal
 					open={isOpenInactivityLogoutModal}
 					onStayClick={() => [resetTimer(), setIsOpenInactivityLogoutModal(false)]}
-					onLogoutClick={() => request()}
+					onLogoutClick={() => [request(), setIsOpenInactivityLogoutModal(false)]}
 				/>
 			</div>
 		</div>

@@ -9,7 +9,7 @@ export const TimerInactivityLogoutModal = ({
 	durationInMinutes,
 }: ITimerInactivityLogout) => {
 	const [isInactivityLogoutModalOpen, setIsActivityModalOpen] = useState<boolean>(false);
-	const timerRef = useRef(null);
+	const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 	const secondsInMinute: number = 60;
 	const mSeconds: number = 1000;
 	const durationInMs: number = durationInMinutes * secondsInMinute * mSeconds;

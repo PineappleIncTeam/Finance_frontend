@@ -27,7 +27,9 @@ export const TimerInactivityLogoutModal = ({
 	}, [setIsActivityModalOpen, durationInMs]);
 
 	const stay = () => {
-		clearTimeout(timerRef.current);
+		if (timerRef.current !== null) {
+			clearTimeout(timerRef.current);
+		}
 		setIsActivityModalOpen(false);
 		resetTimer();
 	};

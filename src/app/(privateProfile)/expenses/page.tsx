@@ -36,7 +36,7 @@ import { useHandleLogout } from "../../../hooks/useHandleLogout";
 
 import { InputTypeList } from "../../../helpers/Input";
 import { getAllExpensesCategories } from "../../../services/api/userProfile/getAllExpensesCategories";
-import InactivityLogoutModal from "../../../components/userProfileLayout/inactivityLogoutModal/inactivityLogoutModal";
+import { TimerInactivityLogoutModal } from "../../../components/userProfileLayout/timerLogout/timerInactivityLogout";
 
 import styles from "./expenses.module.scss";
 
@@ -79,7 +79,7 @@ export default function Expenses() {
 	const baseUrl = String(env("NEXT_PUBLIC_BASE_URL") ?? "");
 
 	const { request } = useHandleLogout(baseUrl);
-	const { resetTimer, setIsOpenInactivityLogoutModal, isOpenInactivityLogoutModal } = useLogoutTimer(request);
+	const { resetTimer } = useLogoutTimer(request);
 
 	const endDate = 10;
 	const interval = 2000;
@@ -506,11 +506,7 @@ export default function Expenses() {
 					/>
 				)}
 				<ResponseApiRequestModal open={responseApiRequestModal.open} title={responseApiRequestModal.title} />
-				<InactivityLogoutModal
-					open={isOpenInactivityLogoutModal}
-					onStayClick={() => [resetTimer(), setIsOpenInactivityLogoutModal(false)]}
-					onLogoutClick={() => [request(), setIsOpenInactivityLogoutModal(false)]}
-				/>
+				<TimerInactivityLogoutModal requestLogout={request} resetTimer={resetTimer} durationInMinutes={14} />
 			</div>
 		</div>
 	);

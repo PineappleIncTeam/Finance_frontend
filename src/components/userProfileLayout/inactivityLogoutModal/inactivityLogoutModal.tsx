@@ -34,7 +34,7 @@ export default function InactivityLogoutModal({ open, onStayClick, onLogoutClick
 			<div onClick={(e) => e.stopPropagation()} role="textbox" className={styles.modalContainer}>
 				<p className={styles.modalContainer__title}>Вы всё ещё здесь?</p>
 				<p className={styles.modalContainer__subtitle}>
-					Поскольку не было никаких действий в приложении, выход будет произведён менее чем через 2 минуты. Вы хотите
+					Поскольку не было никаких действий в приложении, выход будет произведён менее чем через 1 минуту. Вы хотите
 					остаться?
 				</p>
 				<p className={styles.modalContainer__timer}>{formatTime(time)}</p>

@@ -51,7 +51,7 @@ import { ResponseApiRequestModal } from "../../../components/userProfileLayout/r
 import { removeTransaction } from "../../../services/api/userProfile/removeTransaction";
 import { RecordDeleteModal } from "../../../components/userProfileLayout/recordDelete/recordDelete";
 import { returnMoneyAccount } from "../../../services/api/userProfile/returnMoneyAccount";
-import InactivityLogoutModal from "../../../components/userProfileLayout/inactivityLogoutModal/inactivityLogoutModal";
+import { TimerInactivityLogoutModal } from "../../../components/userProfileLayout/timerLogout/timerInactivityLogout";
 
 import styles from "./savings.module.scss";
 
@@ -86,7 +86,7 @@ function Savings() {
 	const baseUrl = String(env("NEXT_PUBLIC_BASE_URL") ?? "");
 
 	const { request } = useHandleLogout(baseUrl);
-	const { resetTimer, setIsOpenInactivityLogoutModal, isOpenInactivityLogoutModal } = useLogoutTimer(request);
+	const { resetTimer } = useLogoutTimer(request);
 	const [allTargets, setAllTargets] = useState<ITarget[]>([]);
 	const [fiveOperations, setFiveOperations] = useState<IOperation[]>([]);
 	const [isAddCategoryModalOpen, setIsCategoryModalOpen] = useState<boolean>(false);
@@ -653,11 +653,7 @@ function Savings() {
 						cancelRemove={() => setIsApprovedRemoveOperation(false)}
 					/>
 				)}
-				<InactivityLogoutModal
-					open={isOpenInactivityLogoutModal}
-					onStayClick={() => [resetTimer(), setIsOpenInactivityLogoutModal(false)]}
-					onLogoutClick={() => [request(), setIsOpenInactivityLogoutModal(false)]}
-				/>
+				<TimerInactivityLogoutModal requestLogout={request} resetTimer={resetTimer} durationInMinutes={14} />
 			</div>
 		</div>
 	);

@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef } from "react";
 
 import { TCommonFunction, TTimerRefState } from "../types/components/ComponentsTypes";
 
@@ -47,13 +47,11 @@ import { TCommonFunction, TTimerRefState } from "../types/components/ComponentsT
  */
 
 export const useLogoutTimer = (callback: TCommonFunction) => {
-	const [isOpenInactivityLogoutModal, setIsOpenInactivityLogoutModal] = useState<boolean>(false);
 	const timerRef = useRef<TTimerRefState>(null);
 
 	const minutes = 15;
 	const seconds = 60;
 	const mSeconds = 1000;
-	const timeBeforeLogout = 780;
 
 	const minutesCount = minutes * seconds * mSeconds;
 
@@ -69,10 +67,6 @@ export const useLogoutTimer = (callback: TCommonFunction) => {
 	useEffect(() => {
 		startTimer();
 
-		if (timerRef.current === timeBeforeLogout) {
-			setIsOpenInactivityLogoutModal(true);
-		}
-
 		return () => {
 			if (timerRef.current !== null) {
 				clearTimeout(+timerRef.current);
@@ -87,5 +81,5 @@ export const useLogoutTimer = (callback: TCommonFunction) => {
 		startTimer();
 	};
 
-	return { resetTimer, setIsOpenInactivityLogoutModal, isOpenInactivityLogoutModal };
+	return { resetTimer };
 };

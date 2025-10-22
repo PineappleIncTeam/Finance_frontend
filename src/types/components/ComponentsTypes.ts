@@ -162,3 +162,9 @@ export type IInactivityLogoutModal = {
 	onStayClick: () => void;
 	onLogoutClick: () => void;
 };
+
+export type ITimerInactivityLogout = {
+	durationInMinutes: number;
+	requestLogout: () => Promise<void>;
+	resetTimer: () => void;
+};

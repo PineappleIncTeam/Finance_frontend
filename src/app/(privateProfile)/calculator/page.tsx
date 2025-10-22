@@ -14,7 +14,7 @@ import { InputTypeList } from "../../../helpers/Input";
 import { useHandleLogout } from "../../../hooks/useHandleLogout";
 import Button from "../../../ui/Button/Button";
 import { ButtonType } from "../../../helpers/buttonFieldValues";
-import InactivityLogoutModal from "../../../components/userProfileLayout/inactivityLogoutModal/inactivityLogoutModal";
+import { TimerInactivityLogoutModal } from "../../../components/userProfileLayout/timerLogout/timerInactivityLogout";
 
 import styles from "./calculator.module.scss";
 
@@ -28,12 +28,11 @@ export default function Calculator() {
 	const [isVisibleInfo, setIsVisibleInfo] = useState(false);
 	const [isMobile, setIsMobile] = useState(window.innerWidth <= mobileSCreenWidthValue);
 	const [activeButton, setActiveButton] = useState<string | null>("realEstate");
-	// const [closeModal, setIsCloseModal] = useState<boolean>""
 
 	const baseUrl = String(env("NEXT_PUBLIC_BASE_URL") ?? "");
 
 	const { request } = useHandleLogout(baseUrl);
-	const { resetTimer, setIsOpenInactivityLogoutModal, isOpenInactivityLogoutModal } = useLogoutTimer(request);
+	const { resetTimer } = useLogoutTimer(request);
 
 	useEffect(() => {
 		resetTimer();
@@ -467,11 +466,7 @@ export default function Calculator() {
 						</div>
 					</div>
 				</div>
-				<InactivityLogoutModal
-					open={isOpenInactivityLogoutModal}
-					onStayClick={() => [resetTimer(), setIsOpenInactivityLogoutModal(false)]}
-					onLogoutClick={() => [request(), setIsOpenInactivityLogoutModal(false)]}
-				/>
+				<TimerInactivityLogoutModal requestLogout={request} resetTimer={resetTimer} durationInMinutes={14} />
 			</div>
 		</div>
 	);

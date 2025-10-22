@@ -1,10 +1,15 @@
-FROM node:20-alpine
+FROM node:20-alpine AS builder
 WORKDIR /app
-RUN npm install --global pm2
 COPY package.json package-lock.json ./
 RUN npm install --legacy-peer-deps
 COPY . .
-RUN npm run build
-EXPOSE 3000
-USER node
-CMD [ "pm2-runtime", "npm", "--", "start" ]  
+RUN npm run build-sb
+RUN npm run build-typedoc
+RUN npm run buildDocsEcosystem
+RUN npm install --global pm2 http-server
+
+FROM node:20-alpine AS runtime
+WORKDIR /app
+COPY --from=builder . .
+EXPOSE 8085 8086
+CMD ["pm2-runtime", "ecosystemDocs.config.js"]

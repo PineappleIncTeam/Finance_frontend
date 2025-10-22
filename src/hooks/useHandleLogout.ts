@@ -5,6 +5,7 @@ import { AuthTypes } from "../types/pages/Authorization";
 import { baseLogoutUser } from "../services/api/auth/baseLogoutUser";
 import { MainPath } from "../services/router/routes";
 import { mockLocalhostStr, mockLocalhostUrl } from "../services/api/auth/apiConstants";
+import { vkLogoutUser } from "../services/api/auth/vkServiceLogout";
 
 /**
  * @category Authentication Hooks
@@ -69,8 +70,12 @@ export function useHandleLogout(url: string | undefined) {
 
 							router.push(MainPath.Main);
 						}
-					} else {
-						// vk auth logout
+					} else if (authType === AuthTypes.vkServiceAuth) {
+						const response = await vkLogoutUser(url);
+						if (response.status === axios.HttpStatusCode.Ok) {
+							await localStorage.removeItem("authType");
+							router.push(MainPath.Main);
+						}
 					}
 				}
 			}

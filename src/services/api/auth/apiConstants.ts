@@ -24,3 +24,4 @@ export const operationsEndPoint = "api/v1/operations";
 export const currencyEndpoint = "api/v1/currency/";
 
 export const vkAuthorisationEndPoint = "api/v1/vkauth/";
+export const vkLogoutEndpoint = "api/v1/vklogout/";

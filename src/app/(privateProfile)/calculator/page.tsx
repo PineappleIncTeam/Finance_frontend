@@ -466,7 +466,7 @@ export default function Calculator() {
 						</div>
 					</div>
 				</div>
-				<TimerInactivityLogoutModal requestLogout={request} resetTimer={resetTimer} durationInMinutes={14} />
+				<TimerInactivityLogoutModal requestLogout={request} resetTimer={resetTimer} durationInMinutes={15} />
 			</div>
 		</div>
 	);

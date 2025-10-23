@@ -7,7 +7,7 @@ import Button from "../../../ui/Button/Button";
 import styles from "./inactivityLogoutModal.module.scss";
 
 export default function InactivityLogoutModal({ open, onStayClick, onLogoutClick }: IInactivityLogoutModal) {
-	const initialValue: number = 120;
+	const initialValue: number = 60;
 	const [time, setTime] = useState<number>(initialValue);
 	const interval: number = 1000;
 	const inMinuteSeconds: number = 60;

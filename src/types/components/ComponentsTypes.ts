@@ -159,12 +159,7 @@ export type IProfileAvatarForm = IUserAvatar;
 
 export type IInactivityLogoutModal = {
 	open: boolean;
+	onModalTimerExpiring: () => void;
 	onStayClick: () => void;
 	onLogoutClick: () => void;
-};
-
-export type ITimerInactivityLogout = {
-	durationInMinutes: number;
-	requestLogout: () => Promise<void>;
-	resetTimer: () => void;
 };

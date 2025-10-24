@@ -6,21 +6,31 @@ import Button from "../../../ui/Button/Button";
 
 import styles from "./inactivityLogoutModal.module.scss";
 
-export default function InactivityLogoutModal({ open, onStayClick, onLogoutClick }: IInactivityLogoutModal) {
+export default function InactivityLogoutModal({
+	open,
+	onStayClick,
+	onLogoutClick,
+	onModalTimerExpiring,
+}: IInactivityLogoutModal) {
 	const initialValue: number = 60;
 	const [time, setTime] = useState<number>(initialValue);
 	const interval: number = 1000;
 	const inMinuteSeconds: number = 60;
 
 	useEffect(() => {
-		if (time <= 0 || open === false) {
+		if (open === false) {
 			return;
+		}
+
+		if (time <= 0) {
+			onModalTimerExpiring();
 		}
 		const intervalId: NodeJS.Timeout = setInterval(() => {
 			setTime(time - 1);
 		}, interval);
 
 		return () => clearInterval(intervalId);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [open, time]);
 
 	const formatTime = (seconds: number) => {

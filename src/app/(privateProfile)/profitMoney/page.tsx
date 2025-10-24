@@ -121,6 +121,7 @@ function ProfitMoney() {
 					open={isOpenInactivityLogoutModal}
 					onStayClick={() => [resetTimer(), setIsOpenInactivityLogoutModal(false)]}
 					onLogoutClick={() => [request(), setIsOpenInactivityLogoutModal(false)]}
+					onModalTimerExpiring={() => [request(), setIsOpenInactivityLogoutModal(false)]}
 				/>
 			</div>
 		</div>

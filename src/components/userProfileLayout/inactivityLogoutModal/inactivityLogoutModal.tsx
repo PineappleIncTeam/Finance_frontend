@@ -13,7 +13,7 @@ export default function InactivityLogoutModal({ open, onStayClick, onLogoutClick
 	const inMinuteSeconds: number = 60;
 
 	useEffect(() => {
-		if (time <= 0) {
+		if (time <= 0 || open === false) {
 			return;
 		}
 		const intervalId: NodeJS.Timeout = setInterval(() => {
@@ -21,7 +21,7 @@ export default function InactivityLogoutModal({ open, onStayClick, onLogoutClick
 		}, interval);
 
 		return () => clearInterval(intervalId);
-	}, [time]);
+	}, [open, time]);
 
 	const formatTime = (seconds: number) => {
 		const minutes: number = Math.floor(seconds / inMinuteSeconds);

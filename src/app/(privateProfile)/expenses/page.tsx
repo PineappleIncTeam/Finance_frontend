@@ -6,7 +6,9 @@ import { useForm } from "react-hook-form";
 import axios, { AxiosResponse } from "axios";
 import { env } from "next-runtime-env";
 
+import { useHandleLogout } from "../../../hooks/useHandleLogout";
 import { useLogoutTimer } from "../../../hooks/useLogoutTimer";
+
 import { IAddCategoryTransactionForm, IExpensesCategoryForm } from "../../../types/pages/Expenses";
 import { IAddCategoryExpensesForm, IEditTransactionForm } from "../../../types/components/ComponentsTypes";
 import { ICategoryOption } from "../../../types/common/ComponentsProps";
@@ -20,6 +22,7 @@ import { ResponseApiRequestModal } from "../../../components/userProfileLayout/r
 import { CategoryDeleteModal } from "../../../components/userProfileLayout/categoryDelete/categoryDelete";
 import { CategorySelect } from "../../../components/userProfileLayout/categorySelect/CategorySelect";
 import AddButton from "../../../components/userProfileLayout/addButton/addButton";
+import InactivityLogoutModal from "../../../components/userProfileLayout/inactivityLogoutModal/inactivityLogoutModal";
 import { CategoryAddModal } from "../../../components/userProfileLayout/categoryAdd/categoryAddModal";
 import { getFiveExpensesTransactions } from "../../../services/api/userProfile/getFiveExpensesTransactions";
 import { addExpensesCategory } from "../../../services/api/userProfile/addExpensesCategory";
@@ -32,11 +35,8 @@ import { archiveCategory } from "../../../services/api/userProfile/archiveCatego
 import { getAllExpensesOperations } from "../../../services/api/userProfile/getAllExpensesOperations";
 import { CategoryType } from "../../../helpers/categoryTypes";
 import { getCurrentDate } from "../../../utils/getCurrentDate";
-import { useHandleLogout } from "../../../hooks/useHandleLogout";
-
 import { InputTypeList } from "../../../helpers/Input";
 import { getAllExpensesCategories } from "../../../services/api/userProfile/getAllExpensesCategories";
-import { TimerInactivityLogoutModal } from "../../../components/userProfileLayout/timerLogout/timerInactivityLogout";
 
 import styles from "./expenses.module.scss";
 
@@ -79,7 +79,7 @@ export default function Expenses() {
 	const baseUrl = String(env("NEXT_PUBLIC_BASE_URL") ?? "");
 
 	const { request } = useHandleLogout(baseUrl);
-	const { resetTimer } = useLogoutTimer(request);
+	const { resetTimer, setIsOpenInactivityLogoutModal, isOpenInactivityLogoutModal } = useLogoutTimer(request);
 
 	const endDate = 10;
 	const interval = 2000;
@@ -506,7 +506,11 @@ export default function Expenses() {
 					/>
 				)}
 				<ResponseApiRequestModal open={responseApiRequestModal.open} title={responseApiRequestModal.title} />
-				<TimerInactivityLogoutModal requestLogout={request} resetTimer={resetTimer} durationInMinutes={15} />
+				<InactivityLogoutModal
+					open={isOpenInactivityLogoutModal}
+					onStayClick={() => [resetTimer(), setIsOpenInactivityLogoutModal(false)]}
+					onLogoutClick={() => [request(), setIsOpenInactivityLogoutModal(false)]}
+				/>
 			</div>
 		</div>
 	);

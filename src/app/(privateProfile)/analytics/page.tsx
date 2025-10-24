@@ -4,6 +4,10 @@ import { useState, useEffect, ChangeEvent } from "react";
 import { useForm } from "react-hook-form";
 import { Pie, Bar, Doughnut } from "react-chartjs-2";
 import { Chart as ChartJS, ArcElement, Tooltip, CategoryScale, LinearScale, BarElement } from "chart.js";
+import { env } from "next-runtime-env";
+
+import { useHandleLogout } from "../../../hooks/useHandleLogout";
+import { useLogoutTimer } from "../../../hooks/useLogoutTimer";
 
 import { MoneyIcon } from "../../../assets/script/analytics/MoneyIcon";
 
@@ -19,6 +23,7 @@ import { IAnalyticsTransactions } from "../../../types/components/ComponentsType
 import AnalystIncomeTransactions from "../../../components/userProfileLayout/analystIncomeTransactions/analystIncomeTransactions";
 import AnalystExpensesTransactions from "../../../components/userProfileLayout/analystExpensesTransactions/analystExpensesTransactions";
 import AnalystSavingsTransactions from "../../../components/userProfileLayout/analystSavingsTransactions/analystSavingsTransactions";
+import InactivityLogoutModal from "../../../components/userProfileLayout/inactivityLogoutModal/inactivityLogoutModal";
 
 import styles from "./analytics.module.scss";
 
@@ -72,6 +77,11 @@ function Analytics() {
 		1300.01, 3900.02, 3250.02, 1638.83, 2652.06, 15271.09, 390.0, 975.56, 1340.79, 9110.05, 16192.09, 2600.01, 6437.57,
 		1690.01, 26000.15, 520.0, 520.0, 520.0, 520.0, 9586.33,
 	];
+
+	const baseUrl = String(env("NEXT_PUBLIC_BASE_URL") ?? "");
+
+	const { request } = useHandleLogout(baseUrl);
+	const { resetTimer, setIsOpenInactivityLogoutModal, isOpenInactivityLogoutModal } = useLogoutTimer(request);
 
 	const handleResizeIsLabel = () => {
 		setIsLabel(window.innerWidth > windowResizeLabel);
@@ -759,6 +769,11 @@ function Analytics() {
 						? renderEmptyAnaliticsPage()
 						: renderContentAnaliticsPage()}
 			</div>
+			<InactivityLogoutModal
+				open={isOpenInactivityLogoutModal}
+				onStayClick={() => [resetTimer(), setIsOpenInactivityLogoutModal(false)]}
+				onLogoutClick={() => [request(), setIsOpenInactivityLogoutModal(false)]}
+			/>
 		</div>
 	);
 }

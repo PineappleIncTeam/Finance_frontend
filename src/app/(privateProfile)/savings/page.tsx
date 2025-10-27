@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 import { env } from "next-runtime-env";
 
 import { useLogoutTimer } from "../../../hooks/useLogoutTimer";
+import { useHandleLogout } from "../../../hooks/useHandleLogout";
 
 import {
 	IEditActionProps,
@@ -17,14 +18,13 @@ import {
 	TSavingsFieldState,
 } from "../../../types/components/ComponentsTypes";
 import { ISavingsSelectForm, ISavingsTargetAddForm } from "../../../types/pages/Savings";
+import { ISavingsTargetAddTransactionForm, ITarget } from "../../../types/api/Savings";
 import SavingsTransaction from "../../../components/userProfileLayout/savingsTransaction/savingsTransaction";
 import InputDate from "../../../ui/inputDate/inputDate";
 import AppInput from "../../../ui/appInput/AppInput";
 import { CategorySelect } from "../../../components/userProfileLayout/categorySelect/CategorySelect";
 import AddButton from "../../../components/userProfileLayout/addButton/addButton";
 import { InputTypeList } from "../../../helpers/Input";
-
-import { useHandleLogout } from "../../../hooks/useHandleLogout";
 
 import { EditIcon } from "../../../assets/script/expenses/EditIcon";
 import { CheckIcon } from "../../../assets/script/savings/CheckIcon";
@@ -33,9 +33,9 @@ import { SortIcon } from "../../../assets/script/savings/SortIcon";
 
 import { MainPath } from "../../../services/router/routes";
 
-import { ISavingsTargetAddTransactionForm, ITarget } from "../../../types/api/Savings";
 import { getTargetsAll } from "../../../services/api/userProfile/getAllTargets";
 import { IOperation } from "../../../types/api/Expenses";
+import { IResponseApiModal } from "../../../types/common/ComponentsProps";
 import { SavingsAddTargetModal } from "../../../components/userProfileLayout/savingsCategory/savingsCategory";
 import { SavingsTargetStatus, SavingsTargetStatusName } from "../../../helpers/targetStatus";
 import { getFiveExpensesTransactions } from "../../../services/api/userProfile/getFiveExpensesTransactions";
@@ -46,10 +46,10 @@ import { editSavingsCurrentSum } from "../../../services/api/userProfile/editSav
 import { getCurrentDate } from "../../../utils/getCurrentDate";
 import { EditTransactionModal } from "../../../components/userProfileLayout/editTransaction/editTransaction";
 import { editSavingsCategoryTransaction } from "../../../services/api/userProfile/editSavingsTransaction";
-import { IResponseApiModal } from "../../../types/common/ComponentsProps";
 import { ResponseApiRequestModal } from "../../../components/userProfileLayout/responseActionExpenses/responseApiRequestModal";
 import { removeTransaction } from "../../../services/api/userProfile/removeTransaction";
 import { RecordDeleteModal } from "../../../components/userProfileLayout/recordDelete/recordDelete";
+import InactivityLogoutModal from "../../../components/userProfileLayout/inactivityLogoutModal/inactivityLogoutModal";
 import { returnMoneyAccount } from "../../../services/api/userProfile/returnMoneyAccount";
 
 import styles from "./savings.module.scss";
@@ -85,7 +85,8 @@ function Savings() {
 	const baseUrl = String(env("NEXT_PUBLIC_BASE_URL") ?? "");
 
 	const { request } = useHandleLogout(baseUrl);
-	const { resetTimer } = useLogoutTimer(request);
+	const { resetTimer, setIsOpenInactivityLogoutModal, isOpenInactivityLogoutModal } = useLogoutTimer(request);
+
 	const [allTargets, setAllTargets] = useState<ITarget[]>([]);
 	const [fiveOperations, setFiveOperations] = useState<IOperation[]>([]);
 	const [isAddCategoryModalOpen, setIsCategoryModalOpen] = useState<boolean>(false);
@@ -655,6 +656,12 @@ function Savings() {
 						cancelRemove={() => setIsApprovedRemoveOperation(false)}
 					/>
 				)}
+				<InactivityLogoutModal
+					open={isOpenInactivityLogoutModal}
+					onStayClick={() => [resetTimer(), setIsOpenInactivityLogoutModal(false)]}
+					onLogoutClick={() => [request(), setIsOpenInactivityLogoutModal(false)]}
+					onModalTimerExpiring={() => [request(), setIsOpenInactivityLogoutModal(false)]}
+				/>
 			</div>
 		</div>
 	);

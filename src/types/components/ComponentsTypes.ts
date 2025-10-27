@@ -156,3 +156,10 @@ export type IPrivateAppSettingsForm = {
 };
 
 export type IProfileAvatarForm = IUserAvatar;
+
+export type IInactivityLogoutModal = {
+	open: boolean;
+	onModalTimerExpiring: () => void;
+	onStayClick: () => void;
+	onLogoutClick: () => void;
+};

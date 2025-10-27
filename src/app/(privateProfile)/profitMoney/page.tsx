@@ -6,20 +6,20 @@ import { useForm } from "react-hook-form";
 import { env } from "next-runtime-env";
 
 import { useLogoutTimer } from "../../../hooks/useLogoutTimer";
+import { useHandleLogout } from "../../../hooks/useHandleLogout";
 
 import { IExpensesInputForm, IExpensesSelectForm } from "../../../types/pages/Expenses";
 import { Select } from "../../../ui/select/Select";
 import AppInput from "../../../ui/appInput/AppInput";
+import InputDate from "../../../ui/inputDate/inputDate";
 import IncomeTransaction from "../../../components/userProfileLayout/incomeTransaction/incomeTransaction";
+import AddButton from "../../../components/userProfileLayout/addButton/addButton";
+import { CategorySelect } from "../../../components/userProfileLayout/categorySelect/CategorySelect";
+import InactivityLogoutModal from "../../../components/userProfileLayout/inactivityLogoutModal/inactivityLogoutModal";
 import { InputTypeList } from "../../../helpers/Input";
-import { useHandleLogout } from "../../../hooks/useHandleLogout";
 import { formatMoney } from "../../../utils/formatData";
 
 import { incomeTransactions } from "../../../mocks/IncomeTransaction";
-import { CategorySelect } from "../../../components/userProfileLayout/categorySelect/CategorySelect";
-
-import InputDate from "../../../ui/inputDate/inputDate";
-import AddButton from "../../../components/userProfileLayout/addButton/addButton";
 
 import styles from "./profitMoney.module.scss";
 
@@ -35,7 +35,7 @@ function ProfitMoney() {
 	const baseUrl = String(env("NEXT_PUBLIC_BASE_URL") ?? "");
 
 	const { request } = useHandleLogout(baseUrl);
-	const { resetTimer } = useLogoutTimer(request);
+	const { resetTimer, setIsOpenInactivityLogoutModal, isOpenInactivityLogoutModal } = useLogoutTimer(request);
 
 	const incomeMoney = 200000;
 
@@ -117,6 +117,12 @@ function ProfitMoney() {
 							))}
 					</div>
 				</div>
+				<InactivityLogoutModal
+					open={isOpenInactivityLogoutModal}
+					onStayClick={() => [resetTimer(), setIsOpenInactivityLogoutModal(false)]}
+					onLogoutClick={() => [request(), setIsOpenInactivityLogoutModal(false)]}
+					onModalTimerExpiring={() => [request(), setIsOpenInactivityLogoutModal(false)]}
+				/>
 			</div>
 		</div>
 	);

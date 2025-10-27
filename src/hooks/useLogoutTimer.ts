@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 import { TCommonFunction, TTimerRefState } from "../types/components/ComponentsTypes";
 
@@ -47,39 +47,57 @@ import { TCommonFunction, TTimerRefState } from "../types/components/ComponentsT
  */
 
 export const useLogoutTimer = (callback: TCommonFunction) => {
-	const timerRef = useRef<TTimerRefState>(null);
+	const [isOpenInactivityLogoutModal, setIsOpenInactivityLogoutModal] = useState<boolean>(false);
+	const logoutTimerRef = useRef<TTimerRefState>(null);
+	const modalTimerRef = useRef<TTimerRefState>(null);
 
 	const minutes = 15;
 	const seconds = 60;
 	const mSeconds = 1000;
 
 	const minutesCount = minutes * seconds * mSeconds;
+	const timeBeforeLogout = minutesCount - 1 * seconds * mSeconds;
 
-	const startTimer = useCallback(() => {
-		timerRef.current = setTimeout(() => {
+	const startLogoutTimer = useCallback(() => {
+		logoutTimerRef.current = setTimeout(() => {
 			callback();
-			if (timerRef.current !== null) {
-				clearInterval(+timerRef.current);
+			if (logoutTimerRef.current !== null) {
+				clearInterval(+logoutTimerRef.current);
 			}
 		}, minutesCount);
 	}, [callback, minutesCount]);
 
+	const startModalTimer = useCallback(() => {
+		modalTimerRef.current = setTimeout(() => {
+			setIsOpenInactivityLogoutModal(true);
+			if (modalTimerRef.current !== null) {
+				clearInterval(+modalTimerRef.current);
+			}
+		}, timeBeforeLogout);
+	}, [timeBeforeLogout]);
+
 	useEffect(() => {
-		startTimer();
+		startLogoutTimer();
+		startModalTimer();
 
 		return () => {
-			if (timerRef.current !== null) {
-				clearTimeout(+timerRef.current);
+			if (logoutTimerRef.current !== null) {
+				clearTimeout(+logoutTimerRef.current);
 			}
 		};
-	}, [timerRef, startTimer]);
+	}, [logoutTimerRef, startLogoutTimer, startModalTimer]);
 
 	const resetTimer = () => {
-		if (timerRef.current !== null) {
-			clearTimeout(+timerRef.current);
+		if (logoutTimerRef.current !== null) {
+			clearTimeout(+logoutTimerRef.current);
 		}
-		startTimer();
+		if (modalTimerRef.current !== null) {
+			clearTimeout(+modalTimerRef.current);
+		}
+
+		startLogoutTimer();
+		startModalTimer();
 	};
 
-	return { resetTimer };
+	return { resetTimer, setIsOpenInactivityLogoutModal, isOpenInactivityLogoutModal };
 };

@@ -5,6 +5,7 @@ import { PublicEnvScript } from "next-runtime-env";
 import cn from "classnames";
 
 import ProviderList from "../services/redux/provider";
+import { ErrorHandler } from "../ui/errorHandler/errorHandler";
 
 import { rubik, manrope } from "./fonts";
 
@@ -38,7 +39,9 @@ export default function RootLayout({
 				<PublicEnvScript />
 			</head>
 			<body className={cn(rubik.className, manrope.className)}>
-				<ProviderList>{children}</ProviderList>
+				<ErrorHandler>
+					<ProviderList>{children}</ProviderList>
+				</ErrorHandler>
 			</body>
 		</html>
 	);

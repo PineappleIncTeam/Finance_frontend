@@ -2,25 +2,28 @@
 	display: flex;
 	justify-content: space-between;
 	background-color: var(--color-silver-gray);
-	gap: 30px;
+	gap: 20px;
 	min-height: 100vh;
 
 	@media (max-width: 1100px) {
 		& {
 			padding: 50px 30px;
 			flex-direction: column-reverse;
+			gap: 30px;
 		}
 	}
 
 	@media (max-width: 768px) {
 		& {
 			padding: 36px;
+			gap: 16px;
 		}
 	}
 
 	@media (max-width: 490px) {
 		& {
 			background-color: var(--color-pure-light);
+			gap: 20px;
 		}
 	}
 

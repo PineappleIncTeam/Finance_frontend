@@ -9,18 +9,21 @@
 		& {
 			padding: 50px 30px;
 			flex-direction: column-reverse;
+			gap: 30px;
 		}
 	}
 
 	@media (max-width: 768px) {
 		& {
 			padding: 36px;
+			gap: 16px;
 		}
 	}
 
 	@media (max-width: 490px) {
 		& {
 			background-color: var(--color-pure-light);
+			gap: 20px;
 		}
 	}
 

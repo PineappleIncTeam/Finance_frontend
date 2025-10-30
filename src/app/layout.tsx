@@ -4,7 +4,7 @@ import "./globals.css";
 import { PublicEnvScript } from "next-runtime-env";
 import cn from "classnames";
 
-import ProviderList from "../services/redux/provider";
+import ProviderList from "../services/provider/provider";
 import { ErrorHandler } from "../ui/errorHandler/errorHandler";
 
 import { rubik, manrope } from "./fonts";

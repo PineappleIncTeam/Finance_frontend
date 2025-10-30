@@ -3,7 +3,7 @@ import { Control, FieldValues, Path } from "react-hook-form";
 
 import { MouseEvent, ReactNode } from "react";
 
-import { IAddCategoryExpensesForm, IEditTransactionForm } from "../components/ComponentsTypes";
+import { IAddCategoryExpensesForm, IApiErrorState, IEditTransactionForm } from "../components/ComponentsTypes";
 import { IArchiveCategory } from "../pages/Expenses";
 import { IOperation } from "../api/Expenses";
 import { CategoryType } from "../../helpers/categoryTypes";
@@ -184,4 +184,9 @@ export interface ISavingsTargetName {
 export interface IResponseApiModal {
 	text: string;
 	open: boolean;
+}
+
+export interface IApiErrorModal {
+	modalState: IApiErrorState;
+	onClose: () => void;
 }

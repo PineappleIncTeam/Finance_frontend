@@ -163,3 +163,22 @@ export type IInactivityLogoutModal = {
 	onStayClick: () => void;
 	onLogoutClick: () => void;
 };
+
+export type TApiErrorType = "403" | "408" | "429" | "500" | "502" | "503" | "504" | "cors" | "timeout";
+
+export interface IApiErrorState {
+	isOpen: boolean;
+	title: string;
+	message: string;
+	errorType: TApiErrorType | null;
+}
+
+export interface IApiErrorContext {
+	showError: (errorType: TApiErrorType, customMessage?: string) => void;
+	hideError: () => void;
+	modalState: IApiErrorState;
+}
+
+export interface IApiErrorProvider {
+	children: ReactNode;
+}

@@ -38,7 +38,6 @@
 .privateProfile__navBar {
 	flex: 1 1 auto;
 	max-width: 400px;
-
 	width: 100%;
 
 	@media (max-width: 1440px) {
@@ -94,6 +93,7 @@
 .privateProfileContent {
 	margin-bottom: 14px;
 	height: 100%;
+
 	@media (max-width: 1100px) {
 		& {
 			margin-bottom: 0;
@@ -102,7 +102,7 @@
 }
 
 .privateProfile__sideBar {
-	flex: 1 1 auto;
+	flex: auto 1 auto;
 	max-width: 400px;
 	width: 100%;
 

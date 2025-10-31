@@ -7,7 +7,7 @@
 		"build": "next build && npm run build-sb && npm run build-typedoc && npm run buildEcosystem",
 		"start": "next start",
 		"preCommitLint": "eslint --quiet --ext .js,.jsx,.ts,.tsx,.json ./src ./scripts",
-		"prePushBuild": "next build . --no-lint",
+		"prePushBuild": "next build",
 		"sb:dev": "storybook dev -p 6006",
 		"sb:prod": "npx http-server ./storybook-static -p 8080",
 		"typedoc:dev": "start ./docs/index.html",

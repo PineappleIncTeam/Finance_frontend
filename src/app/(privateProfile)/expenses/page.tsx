@@ -416,7 +416,6 @@ export default function Expenses() {
 							<p className={styles.totalMonthlyWrapper__sum}>283 000 ₽</p>
 						</div>
 						<div className={styles.dateSelectionWrapper}>
-							<p className={styles.dateSelectionWrapper__description}>Выбор даты</p>
 							<InputDate control={control} name={"date"} />
 						</div>
 					</div>

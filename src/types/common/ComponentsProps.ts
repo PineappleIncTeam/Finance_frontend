@@ -190,3 +190,8 @@ export interface IApiErrorModal {
 	modalState: IApiErrorState;
 	onClose: () => void;
 }
+
+export interface IPrivateRouteErrorModal {
+	isOpen: boolean;
+	closeModal: () => void;
+}

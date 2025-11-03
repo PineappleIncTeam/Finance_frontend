@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import axios, { AxiosResponse, isAxiosError } from "axios";
 import Link from "next/link";
 import { env } from "next-runtime-env";
@@ -19,6 +19,7 @@ import Title from "../../../ui/title/Title";
 import CustomCheckbox from "../../../ui/checkBox/checkBox";
 import Button from "../../../ui/Button/Button";
 import InviteModal from "../inviteModal/inviteModal";
+import { PrivateRouteErrorModal } from "../errorHandlerElements/privateRouteErrorModal/privateRouteErrorModal";
 import { emailPattern, errorDataLogOn, errorProfileActivation, passwordPattern } from "../../../helpers/authConstants";
 import { formHelpers } from "../../../utils/formHelpers";
 import { InputTypeList } from "../../../helpers/Input";
@@ -33,9 +34,13 @@ import styles from "./signInForm.module.scss";
 
 export default function SignInForm() {
 	const [isInviteModalOpen, setIsInviteModalOpen] = useState<boolean>(false);
+	const [isPrivateRouteErrorModalOpen, setIsPrivateRouteErrorModalOpen] = useState<boolean>(true);
 	const [pkceCodeSet, setPkceCodeSet] = useState<IPkceCodeSet>();
 
 	const { setUserData, setAutoLoginStatus } = useActions();
+	const searchParams = useSearchParams();
+
+	const isPrivateRoute = Boolean(searchParams.get("isPrivateRoute"));
 
 	const {
 		formState: { errors },
@@ -184,6 +189,11 @@ export default function SignInForm() {
 		router.push(UserProfilePath.ProfitMoney);
 	};
 
+	const handlePrivateRouteModalClose = () => {
+		setIsPrivateRouteErrorModalOpen(false);
+		router.push(MainPath.Login);
+	};
+
 	return (
 		<form className={styles.signInFormWrap} onSubmit={handleSubmit(onSubmit)}>
 			<div className={styles.signInFormContainer}>
@@ -234,6 +244,9 @@ export default function SignInForm() {
 				</p>
 			</div>
 			{isInviteModalOpen && <InviteModal isOpen={isInviteModalOpen} onClose={handleModalClose} />}
+			{isPrivateRoute && (
+				<PrivateRouteErrorModal isOpen={isPrivateRouteErrorModalOpen} closeModal={handlePrivateRouteModalClose} />
+			)}
 		</form>
 	);
 }

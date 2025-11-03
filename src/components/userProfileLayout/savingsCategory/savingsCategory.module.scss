@@ -24,7 +24,6 @@
 	@media (max-width: 490px) {
 		& {
 			width: 340px;
-			height: 398px;
 		}
 	}
 }
@@ -61,7 +60,7 @@
 	@media (max-width: 490px) {
 		& {
 			flex-direction: column-reverse;
-			padding: 14px 0;
+			padding: 14px 0 8px;
 			gap: 8px;
 		}
 	}

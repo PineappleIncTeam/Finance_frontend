@@ -1,6 +1,6 @@
 "use client";
 
-import { useGlobalErrorHandler } from "../../hooks/useGlobalErrorHandler";
+import { useGlobalErrorHandler } from "../../../../hooks/useGlobalErrorHandler";
 
 import styles from "./errorHandler.module.scss";
 

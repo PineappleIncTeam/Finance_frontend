@@ -182,3 +182,16 @@ export interface IApiErrorContext {
 export interface IApiErrorProvider {
 	children: ReactNode;
 }
+
+export interface IAsyncErrorModalContext {
+	isOpen: boolean;
+	error: Error | null;
+	openModal: (error: Error) => void;
+	closeModal: () => void;
+}
+
+export interface IAsyncErrorModalProvider {
+	children: ReactNode;
+}
+
+export type TAsyncFunctionErrorHandling<T extends any[], R> = (...args: T) => Promise<R>;

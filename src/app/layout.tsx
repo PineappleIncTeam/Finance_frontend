@@ -4,8 +4,7 @@ import "./globals.css";
 import { PublicEnvScript } from "next-runtime-env";
 import cn from "classnames";
 
-import ProviderList from "../services/provider/provider";
-import { ErrorHandler } from "../ui/errorHandler/errorHandler";
+import ProviderList from "../pageElements/provider/provider";
 
 import { rubik, manrope } from "./fonts";
 
@@ -39,9 +38,7 @@ export default function RootLayout({
 				<PublicEnvScript />
 			</head>
 			<body className={cn(rubik.className, manrope.className)}>
-				<ErrorHandler>
-					<ProviderList>{children}</ProviderList>
-				</ErrorHandler>
+				<ProviderList>{children}</ProviderList>
 			</body>
 		</html>
 	);

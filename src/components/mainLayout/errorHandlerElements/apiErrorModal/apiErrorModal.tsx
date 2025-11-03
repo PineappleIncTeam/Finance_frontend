@@ -3,11 +3,11 @@
 import { MouseEvent } from "react";
 import Image from "next/image";
 
-import { useLockScroll } from "../../hooks/useLockScroll";
+import { useLockScroll } from "../../../../hooks/useLockScroll";
 
-import { IApiErrorModal } from "../../types/common/ComponentsProps";
+import { IApiErrorModal } from "../../../../types/common/ComponentsProps";
 
-import warningElement from "../../assets/pages/activate/warning.svg";
+import warningElement from "../../../../assets/pages/activate/warning.svg";
 
 import styles from "./apiErrorModal.module.scss";
 

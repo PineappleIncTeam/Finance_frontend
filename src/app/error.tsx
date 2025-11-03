@@ -50,38 +50,34 @@ export default function GlobalError({ error, reset }: IGlobalError) {
 	}
 
 	return (
-		<html>
-			<body>
-				<div className="globalErrorContainer">
-					<div className="globalErrorCard">
-						<div className="globalErrorHeader">
-							<div className="errorIconWrap">{renderErrorIcon()}</div>
+		<div className="globalErrorContainer">
+			<div className="globalErrorCard">
+				<div className="globalErrorHeader">
+					<div className="errorIconWrap">{renderErrorIcon()}</div>
 
-							<h1 className="globalErrorHeader__title">Произошла ошибка</h1>
+					<h1 className="globalErrorHeader__title">Произошла ошибка</h1>
 
-							<p className="globalErrorHeader__description">
-								{error.message || "Что-то пошло не так. Пожалуйста, попробуйте снова."}
-							</p>
-						</div>
-
-						<div className="errorActionsWrap">
-							<button onClick={reset} className="errorButton primary">
-								Попробовать снова
-							</button>
-
-							<button onClick={handleReload} className="errorButton secondary">
-								На главную
-							</button>
-
-							<button onClick={handleReport} className="errorButton outline">
-								Сообщить об ошибке
-							</button>
-						</div>
-
-						{renderErrorDetails()}
-					</div>
+					<p className="globalErrorHeader__description">
+						{error.message || "Что-то пошло не так. Пожалуйста, попробуйте снова."}
+					</p>
 				</div>
-			</body>
-		</html>
+
+				<div className="errorActionsWrap">
+					<button onClick={reset} className="errorButton primary">
+						Попробовать снова
+					</button>
+
+					<button onClick={handleReload} className="errorButton secondary">
+						На главную
+					</button>
+
+					<button onClick={handleReport} className="errorButton outline">
+						Сообщить об ошибке
+					</button>
+				</div>
+
+				{renderErrorDetails()}
+			</div>
+		</div>
 	);
 }

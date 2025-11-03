@@ -1,9 +1,9 @@
 "use client";
 
-import { useApiErrorModal } from "../../hooks/useApiErrorModal";
-import { ApiErrorModalContext } from "../../hooks/useApiErrorContext";
+import { useApiErrorModal } from "../../../../hooks/useApiErrorModal";
+import { ApiErrorModalContext } from "../../../../hooks/useApiErrorContext";
 
-import { IApiErrorProvider } from "../../types/components/ComponentsTypes";
+import { IApiErrorProvider } from "../../../../types/components/ComponentsTypes";
 
 import ApiErrorModal from "./apiErrorModal";
 

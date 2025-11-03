@@ -194,4 +194,11 @@ export interface IAsyncErrorModalProvider {
 	children: ReactNode;
 }
 
-export type TAsyncFunctionErrorHandling<T extends any[], R> = (...args: T) => Promise<R>;
+export type TAsyncFunctionErrorHandling<T extends unknown[], R> = (...args: T) => Promise<R>;
+
+export interface IEnvValidationResult {
+	isValid: boolean;
+	missingVars: string[];
+	errors: string[];
+	envVars: Record<string, string | undefined>;
+}

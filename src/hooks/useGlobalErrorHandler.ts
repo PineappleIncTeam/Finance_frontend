@@ -26,6 +26,6 @@ export function useGlobalErrorHandler() {
 
 function sendErrorToMonitoring(error) {
 	if (process.env.NODE_ENV === "production") {
-		// console.log("Sending error to monitoring service:", error);
+		// monitoringService.logError(error, context);
 	}
 }

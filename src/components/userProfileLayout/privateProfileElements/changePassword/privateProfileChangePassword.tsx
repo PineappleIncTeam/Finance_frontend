@@ -1,7 +1,8 @@
 "use client";
 
 import { useForm } from "react-hook-form";
-import { env } from "next-runtime-env";
+
+import { useRuntimeEnv } from "../../../../hooks/useRuntimeEnv";
 
 import { IChangePasswordForm } from "../../../../types/pages/userProfileSettings";
 import { IChangingUserProfilePasswordRequest } from "../../../../types/api/PersonalAccount";
@@ -12,6 +13,7 @@ import { errorPasswordRepeat } from "../../../../helpers/authConstants";
 import { InputTypeList } from "../../../../helpers/Input";
 import { ButtonType } from "../../../../helpers/buttonFieldValues";
 import { passwordValidate } from "../../../../utils/passwordValidate";
+import { mockBaseUrl } from "../../../../mocks/envConsts";
 
 import styles from "./privateProfileChangePassword.module.scss";
 
@@ -30,8 +32,9 @@ export const PrivateProfileChangePassword = () => {
 		},
 	});
 
-	const baseUrl = String(env("NEXT_PUBLIC_BASE_URL") ?? "");
+	const { getSafeEnvVar } = useRuntimeEnv(["NEXT_PUBLIC_BASE_URL"]);
 
+	const baseUrl = getSafeEnvVar("NEXT_PUBLIC_BASE_URL", mockBaseUrl);
 	const onSubmit = async (data: IChangePasswordForm) => {
 		const changePasswordData: IChangingUserProfilePasswordRequest = {
 			data: {

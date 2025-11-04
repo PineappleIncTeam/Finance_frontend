@@ -2,9 +2,9 @@
 
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { env } from "next-runtime-env";
 
 import { useActions, useAppSelector } from "../../../../services/redux/hooks";
+import { useRuntimeEnv } from "../../../../hooks/useRuntimeEnv";
 
 import { IPrivateDataForm } from "../../../../types/components/ComponentsTypes";
 import { ICountryData, TChangeUserProfileDataRequest } from "../../../../types/api/PersonalAccount";
@@ -17,6 +17,7 @@ import { countriesDataSelector } from "../../../../services/redux/features/count
 import { ButtonType } from "../../../../helpers/buttonFieldValues";
 import { InputTypeList } from "../../../../helpers/Input";
 import { ruCountryNumber } from "../../../../helpers/userDataConstants";
+import { mockBaseUrl } from "../../../../mocks/envConsts";
 
 import styles from "./privateProfilePrivateData.module.scss";
 
@@ -39,10 +40,11 @@ export const PrivateProfilePrivateData = () => {
 		},
 	});
 
+	const { getSafeEnvVar } = useRuntimeEnv(["NEXT_PUBLIC_BASE_URL"]);
+
 	const userProfileData = userData.userData;
 
-	const baseUrl = String(env("NEXT_PUBLIC_BASE_URL") ?? "");
-
+	const baseUrl = getSafeEnvVar("NEXT_PUBLIC_BASE_URL", mockBaseUrl);
 	useEffect(() => {
 		resetFieldsData();
 

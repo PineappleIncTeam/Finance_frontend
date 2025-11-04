@@ -4,7 +4,8 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useSearchParams, useRouter } from "next/navigation";
 import axios, { isAxiosError } from "axios";
-import { env } from "next-runtime-env";
+
+import { useRuntimeEnv } from "../../../hooks/useRuntimeEnv";
 
 import { IChangePassword, IChangePasswordForm } from "../../../types/pages/Password";
 import Title from "../../../ui/title/Title";
@@ -15,6 +16,7 @@ import { MainPath } from "../../../services/router/routes";
 import { mockLocalhostStr, mockLocalhostUrl } from "../../../services/api/auth/apiConstants";
 import { InputTypeList } from "../../../helpers/Input";
 import { errorPasswordRepeat, errorUidOrToken, passwordPattern } from "../../../helpers/authConstants";
+import { mockBaseUrl } from "../../../mocks/envConsts";
 
 import { formHelpers } from "../../../utils/formHelpers";
 import Button from "../../../ui/Button/Button";
@@ -27,12 +29,14 @@ export default function ChangePassword() {
 	const searchParams = useSearchParams();
 	const router = useRouter();
 
+	const { getSafeEnvVar } = useRuntimeEnv(["NEXT_PUBLIC_BASE_URL"]);
+
 	const uid = searchParams.get("uid");
 	const token = searchParams.get("token");
 
-	const baseUrl = String(env("NEXT_PUBLIC_BASE_URL") ?? "");
+	const baseUrl = getSafeEnvVar("NEXT_PUBLIC_BASE_URL", mockBaseUrl);
 
-	const secondsCount = 4000;
+	const interval = 7000;
 
 	const {
 		control,
@@ -57,10 +61,10 @@ export default function ChangePassword() {
 
 	const handleChangePasswordModal = () => {
 		setIsChangePasswordModalOpen(true);
-		setTimeout(async () => {
-			await setIsChangePasswordModalOpen(false);
+		setTimeout(() => {
+			setIsChangePasswordModalOpen(false);
 			router.push(MainPath.Login);
-		}, secondsCount);
+		}, interval);
 	};
 
 	const onSubmit = async (data: IChangePasswordForm) => {

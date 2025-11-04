@@ -4,21 +4,23 @@ import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import axios, { AxiosResponse } from "axios";
-import { env } from "next-runtime-env";
+
+import { useRuntimeEnv } from "../../../hooks/useRuntimeEnv";
 
 import { TMessageModal } from "../../../types/components/ComponentsTypes";
 import { IUserValidationResponse } from "../../../types/api/Auth";
 import Spinner from "../../../ui/spinner/spinner";
+import Button from "../../../ui/Button/Button";
+import { ButtonType } from "../../../helpers/buttonFieldValues";
 import { mockLocalhostStr, mockLocalhostUrl } from "../../../services/api/auth/apiConstants";
 import { setUserActivation } from "../../../services/api/auth/setUserActivation";
 import { MainPath } from "../../../services/router/routes";
+import { mockBaseUrl } from "../../../mocks/envConsts";
 
 import logo from "../../../assets/pages/activate/logo.webp";
 import warning from "../../../assets/pages/activate/warning.svg";
 import activationBgImg from "../../../assets/pages/activate/activation-bg-img.svg";
 import warningBgImg from "../../../assets/pages/activate/warning-bg-img.svg";
-import Button from "../../../ui/Button/Button";
-import { ButtonType } from "../../../helpers/buttonFieldValues";
 
 import styles from "./activate.module.scss";
 
@@ -43,7 +45,9 @@ const Activate = () => {
 	const [messageLogo, setMessageLogo] = useState(logo);
 	const [backgroundImage, setBackgroundImage] = useState(activationBgImg.src);
 
-	const baseUrl = String(env("NEXT_PUBLIC_BASE_URL") ?? "");
+	const { getSafeEnvVar } = useRuntimeEnv(["NEXT_PUBLIC_BASE_URL"]);
+
+	const baseUrl = getSafeEnvVar("NEXT_PUBLIC_BASE_URL", mockBaseUrl);
 
 	enum ModalMessageTypes {
 		success = "success",

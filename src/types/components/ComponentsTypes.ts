@@ -2,6 +2,7 @@ import { Dispatch, ReactNode, SetStateAction } from "react";
 
 import { TGender } from "../api/PersonalAccount";
 import { IUserAvatar } from "../pages/userProfileSettings";
+import { TApiClientErrorList, TApiServerErrorList } from "../../helpers/errorList";
 
 export interface IUser {
 	age: number;
@@ -156,3 +157,53 @@ export type IPrivateAppSettingsForm = {
 };
 
 export type IProfileAvatarForm = IUserAvatar;
+
+export type IInactivityLogoutModal = {
+	open: boolean;
+	onModalTimerExpiring: () => void;
+	onStayClick: () => void;
+	onLogoutClick: () => void;
+};
+
+export type TApiErrorType = TApiClientErrorList | TApiServerErrorList;
+
+export interface IApiErrorState {
+	isOpen: boolean;
+	title: string;
+	message: string;
+	errorType: TApiErrorType | null;
+}
+
+export interface IApiErrorContext {
+	showError: (errorType: TApiErrorType, customMessage?: string) => void;
+	hideError: () => void;
+	modalState: IApiErrorState;
+}
+
+export interface IApiErrorProvider {
+	children: ReactNode;
+}
+
+export interface IAsyncErrorModalContext {
+	isOpen: boolean;
+	error: Error | null;
+	openModal: (error: Error) => void;
+	closeModal: () => void;
+}
+
+export interface IAsyncErrorModalProvider {
+	children: ReactNode;
+}
+
+export type TAsyncFunctionErrorHandling<T extends unknown[], R> = (...args: T) => Promise<R>;
+
+export interface IEnvValidationResult {
+	isValid: boolean;
+	missingVars: string[];
+	errors: string[];
+	envVars: Record<string, string | undefined>;
+}
+
+export interface IErrorHandler {
+	children: ReactNode;
+}

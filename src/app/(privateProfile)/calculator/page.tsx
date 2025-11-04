@@ -2,18 +2,21 @@
 
 import React, { useState, useEffect, ChangeEvent } from "react";
 import { env } from "next-runtime-env";
+import Image from "next/image";
 
-import { AiFillInfoCircle } from "react-icons/ai";
-import { CgClose } from "react-icons/cg";
-
+import { useRuntimeEnv } from "../../../hooks/useRuntimeEnv";
 import { useLogoutTimer } from "../../../hooks/useLogoutTimer";
-
-import { formatCalculateNumber } from "../../../utils/formatCalculateNumber";
-
-import { InputTypeList } from "../../../helpers/Input";
 import { useHandleLogout } from "../../../hooks/useHandleLogout";
+
 import Button from "../../../ui/Button/Button";
+import InactivityLogoutModal from "../../../components/userProfileLayout/inactivityLogoutModal/inactivityLogoutModal";
+import { InputTypeList } from "../../../helpers/Input";
 import { ButtonType } from "../../../helpers/buttonFieldValues";
+import { formatCalculateNumber } from "../../../utils/formatCalculateNumber";
+import { mockBaseUrl } from "../../../mocks/envConsts";
+
+import { InfoIcon } from "../../../assets/script/calculator/InfoIcon";
+import crossIcon from "../../../assets/components/userProfile/crossIcon.svg";
 
 import styles from "./calculator.module.scss";
 
@@ -28,10 +31,11 @@ export default function Calculator() {
 	const [isMobile, setIsMobile] = useState(window.innerWidth <= mobileSCreenWidthValue);
 	const [activeButton, setActiveButton] = useState<string | null>("realEstate");
 
-	const baseUrl = String(env("NEXT_PUBLIC_BASE_URL") ?? "");
+	const { getSafeEnvVar } = useRuntimeEnv(["NEXT_PUBLIC_BASE_URL"]);
 
+	const baseUrl = getSafeEnvVar("NEXT_PUBLIC_BASE_URL", mockBaseUrl);
 	const { request } = useHandleLogout(baseUrl);
-	const { resetTimer } = useLogoutTimer(request);
+	const { resetTimer, setIsOpenInactivityLogoutModal, isOpenInactivityLogoutModal } = useLogoutTimer(request);
 
 	useEffect(() => {
 		resetTimer();
@@ -446,8 +450,13 @@ export default function Calculator() {
 
 					<div className={styles.calculationInfoWrapper} style={infoStyle}>
 						<div className={styles.calculationInfoButtonWrapper}>
-							<AiFillInfoCircle className={styles.calculationInfoButtonWrapper__infoIcon} />
-							<CgClose onClick={handleCloseInfo} className={styles.calculationInfoButtonWrapper__closeIcon} />
+							<InfoIcon classNames={styles.calculationInfoButtonWrapper__infoIcon} />
+							<Image
+								src={crossIcon}
+								alt="close element"
+								onClick={handleCloseInfo}
+								className={styles.calculationInfoButtonWrapper__closeIcon}
+							/>
 						</div>
 						<p className={styles.calculationInfoWrapper__title}>Ежемесячный платеж</p>
 						<p className={styles.calculationInfoWrapper__price}>26 125 ₽</p>
@@ -465,6 +474,12 @@ export default function Calculator() {
 						</div>
 					</div>
 				</div>
+				<InactivityLogoutModal
+					open={isOpenInactivityLogoutModal}
+					onStayClick={() => [resetTimer(), setIsOpenInactivityLogoutModal(false)]}
+					onLogoutClick={() => [request(), setIsOpenInactivityLogoutModal(false)]}
+					onModalTimerExpiring={() => [request(), setIsOpenInactivityLogoutModal(false)]}
+				/>
 			</div>
 		</div>
 	);

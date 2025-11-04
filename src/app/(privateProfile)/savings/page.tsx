@@ -4,9 +4,10 @@ import { useCallback, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import axios, { AxiosResponse } from "axios";
 import { useRouter } from "next/navigation";
-import { env } from "next-runtime-env";
 
 import { useLogoutTimer } from "../../../hooks/useLogoutTimer";
+import { useHandleLogout } from "../../../hooks/useHandleLogout";
+import { useRuntimeEnv } from "../../../hooks/useRuntimeEnv";
 
 import {
 	IEditActionProps,
@@ -17,14 +18,13 @@ import {
 	TSavingsFieldState,
 } from "../../../types/components/ComponentsTypes";
 import { ISavingsSelectForm, ISavingsTargetAddForm } from "../../../types/pages/Savings";
+import { ISavingsTargetAddTransactionForm, ITarget } from "../../../types/api/Savings";
 import SavingsTransaction from "../../../components/userProfileLayout/savingsTransaction/savingsTransaction";
 import InputDate from "../../../ui/inputDate/inputDate";
 import AppInput from "../../../ui/appInput/AppInput";
 import { CategorySelect } from "../../../components/userProfileLayout/categorySelect/CategorySelect";
 import AddButton from "../../../components/userProfileLayout/addButton/addButton";
 import { InputTypeList } from "../../../helpers/Input";
-
-import { useHandleLogout } from "../../../hooks/useHandleLogout";
 
 import { EditIcon } from "../../../assets/script/expenses/EditIcon";
 import { CheckIcon } from "../../../assets/script/savings/CheckIcon";
@@ -33,9 +33,9 @@ import { SortIcon } from "../../../assets/script/savings/SortIcon";
 
 import { MainPath } from "../../../services/router/routes";
 
-import { ISavingsTargetAddTransactionForm, ITarget } from "../../../types/api/Savings";
 import { getTargetsAll } from "../../../services/api/userProfile/getAllTargets";
 import { IOperation } from "../../../types/api/Expenses";
+import { IResponseApiModal } from "../../../types/common/ComponentsProps";
 import { SavingsAddTargetModal } from "../../../components/userProfileLayout/savingsCategory/savingsCategory";
 import { SavingsTargetStatus, SavingsTargetStatusName } from "../../../helpers/targetStatus";
 import { getFiveExpensesTransactions } from "../../../services/api/userProfile/getFiveExpensesTransactions";
@@ -46,11 +46,12 @@ import { editSavingsCurrentSum } from "../../../services/api/userProfile/editSav
 import { getCurrentDate } from "../../../utils/getCurrentDate";
 import { EditTransactionModal } from "../../../components/userProfileLayout/editTransaction/editTransaction";
 import { editSavingsCategoryTransaction } from "../../../services/api/userProfile/editSavingsTransaction";
-import { IResponseApiModal } from "../../../types/common/ComponentsProps";
 import { ResponseApiRequestModal } from "../../../components/userProfileLayout/responseActionExpenses/responseApiRequestModal";
 import { removeTransaction } from "../../../services/api/userProfile/removeTransaction";
 import { RecordDeleteModal } from "../../../components/userProfileLayout/recordDelete/recordDelete";
+import InactivityLogoutModal from "../../../components/userProfileLayout/inactivityLogoutModal/inactivityLogoutModal";
 import { returnMoneyAccount } from "../../../services/api/userProfile/returnMoneyAccount";
+import { mockBaseUrl } from "../../../mocks/envConsts";
 
 import styles from "./savings.module.scss";
 
@@ -82,13 +83,9 @@ function Savings() {
 	const [sortOrder, setSortOrder] = useState<SortOrderStateValue>(SortOrderStateValue.asc);
 	const [sortTargetOrder, setSortTargetOrder] = useState<SortOrderStateValue>(SortOrderStateValue.asc);
 
-	const baseUrl = String(env("NEXT_PUBLIC_BASE_URL") ?? "");
-
-	const { request } = useHandleLogout(baseUrl);
-	const { resetTimer } = useLogoutTimer(request);
 	const [allTargets, setAllTargets] = useState<ITarget[]>([]);
 	const [fiveOperations, setFiveOperations] = useState<IOperation[]>([]);
-	const [isAddCategoryModalOpen, setIsCategoryModalOpen] = useState<boolean>(false);
+	const [isAddCategoryModalOpen, setIsAddCategoryModalOpen] = useState<boolean>(false);
 	const [isAddCategorySuccess, setIsAddCategorySuccess] = useState<boolean>(false);
 	const [isDeleteTargetModalOpen, setIsDeleteTargetModalOpen] = useState<boolean>(false);
 	const [isDeleteTargetSuccess, setIsDeleteTargetSuccess] = useState<boolean>(false);
@@ -106,6 +103,12 @@ function Savings() {
 
 	const interval = 2000;
 	const endDate = 10;
+
+	const { getSafeEnvVar } = useRuntimeEnv(["NEXT_PUBLIC_BASE_URL"]);
+
+	const baseUrl = getSafeEnvVar("NEXT_PUBLIC_BASE_URL", mockBaseUrl);
+	const { request } = useHandleLogout(baseUrl);
+	const { resetTimer, setIsOpenInactivityLogoutModal, isOpenInactivityLogoutModal } = useLogoutTimer(request);
 
 	const router = useRouter();
 	const handleEditClick = ({ index, field, value }: IEditActionProps) => {
@@ -245,7 +248,7 @@ function Savings() {
 				const response = await addSavingsTarget(baseUrl, data);
 				if (response.status === axios.HttpStatusCode.Created) {
 					setIsAddCategorySuccess(true);
-					setIsCategoryModalOpen(false);
+					setIsAddCategoryModalOpen(false);
 					setTimeout(() => {
 						setIsAddCategorySuccess(false);
 					}, interval);
@@ -570,7 +573,7 @@ function Savings() {
 									options={allTargets}
 									placeholder="Выберите категорию"
 									control={control}
-									onAddCategory={() => setIsCategoryModalOpen(true)}
+									onAddCategory={() => setIsAddCategoryModalOpen(true)}
 									onRemoveCategory={(id, name) => [setIsDeleteTargetModalOpen(true), handleIdName(id, name)]}
 								/>
 							</div>
@@ -620,7 +623,7 @@ function Savings() {
 				{isAddCategoryModalOpen && (
 					<SavingsAddTargetModal
 						open={isAddCategoryModalOpen}
-						onCancelClick={() => setIsCategoryModalOpen(false)}
+						onCancelClick={() => setIsAddCategoryModalOpen(false)}
 						request={addSavingsCategory}
 					/>
 				)}
@@ -655,6 +658,12 @@ function Savings() {
 						cancelRemove={() => setIsApprovedRemoveOperation(false)}
 					/>
 				)}
+				<InactivityLogoutModal
+					open={isOpenInactivityLogoutModal}
+					onStayClick={() => [resetTimer(), setIsOpenInactivityLogoutModal(false)]}
+					onLogoutClick={() => [request(), setIsOpenInactivityLogoutModal(false)]}
+					onModalTimerExpiring={() => [request(), setIsOpenInactivityLogoutModal(false)]}
+				/>
 			</div>
 		</div>
 	);

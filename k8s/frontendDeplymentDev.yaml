@@ -75,28 +75,6 @@ spec:
                 name: finance-dev-front-secret
           ports:
             - containerPort: 3000
-        - name: storybook
-          image: freenance/storybook-typedoc:{{IMAGE_TAG}}
-          resources:
-            requests:
-              memory: "256Mi"
-              cpu: "100m"
-            limits:
-              memory: "512Mi"
-              cpu: "150m"
-          ports:
-            - containerPort: 8085
-        - name: typedoc
-          image: freenance/storybook-typedoc:{{IMAGE_TAG}}
-          resources:
-            requests:
-              memory: "256Mi"
-              cpu: "100m"
-            limits:
-              memory: "512Mi"
-              cpu: "150m"
-          ports:
-            - containerPort: 8086
 ---
 apiVersion: apps/v1
 kind: Deployment

@@ -2,6 +2,7 @@ import { Dispatch, ReactNode, SetStateAction } from "react";
 
 import { TGender } from "../api/PersonalAccount";
 import { IUserAvatar } from "../pages/userProfileSettings";
+import { TApiClientErrorList, TApiServerErrorList } from "../../helpers/errorList";
 
 export interface IUser {
 	age: number;
@@ -164,7 +165,7 @@ export type IInactivityLogoutModal = {
 	onLogoutClick: () => void;
 };
 
-export type TApiErrorType = "403" | "408" | "429" | "500" | "502" | "503" | "504" | "cors" | "timeout";
+export type TApiErrorType = TApiClientErrorList | TApiServerErrorList;
 
 export interface IApiErrorState {
 	isOpen: boolean;

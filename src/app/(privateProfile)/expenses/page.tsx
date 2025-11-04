@@ -4,10 +4,10 @@ import { useRouter } from "next/navigation";
 import { Key, useCallback, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import axios, { AxiosResponse } from "axios";
-import { env } from "next-runtime-env";
 
 import { useHandleLogout } from "../../../hooks/useHandleLogout";
 import { useLogoutTimer } from "../../../hooks/useLogoutTimer";
+import { useRuntimeEnv } from "../../../hooks/useRuntimeEnv";
 
 import { IAddCategoryTransactionForm, IExpensesCategoryForm } from "../../../types/pages/Expenses";
 import { IAddCategoryExpensesForm, IEditTransactionForm } from "../../../types/components/ComponentsTypes";
@@ -37,6 +37,7 @@ import { CategoryType } from "../../../helpers/categoryTypes";
 import { getCurrentDate } from "../../../utils/getCurrentDate";
 import { InputTypeList } from "../../../helpers/Input";
 import { getAllExpensesCategories } from "../../../services/api/userProfile/getAllExpensesCategories";
+import { mockBaseUrl } from "../../../mocks/envConsts";
 
 import styles from "./expenses.module.scss";
 
@@ -75,9 +76,9 @@ export default function Expenses() {
 	});
 
 	const router = useRouter();
+	const { getSafeEnvVar } = useRuntimeEnv(["NEXT_PUBLIC_BASE_URL"]);
 
-	const baseUrl = String(env("NEXT_PUBLIC_BASE_URL") ?? "");
-
+	const baseUrl = getSafeEnvVar("NEXT_PUBLIC_BASE_URL", mockBaseUrl);
 	const { request } = useHandleLogout(baseUrl);
 	const { resetTimer, setIsOpenInactivityLogoutModal, isOpenInactivityLogoutModal } = useLogoutTimer(request);
 

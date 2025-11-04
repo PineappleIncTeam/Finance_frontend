@@ -4,6 +4,7 @@ import React, { useState, useEffect, ChangeEvent } from "react";
 import { env } from "next-runtime-env";
 import Image from "next/image";
 
+import { useRuntimeEnv } from "../../../hooks/useRuntimeEnv";
 import { useLogoutTimer } from "../../../hooks/useLogoutTimer";
 import { useHandleLogout } from "../../../hooks/useHandleLogout";
 
@@ -12,6 +13,7 @@ import InactivityLogoutModal from "../../../components/userProfileLayout/inactiv
 import { InputTypeList } from "../../../helpers/Input";
 import { ButtonType } from "../../../helpers/buttonFieldValues";
 import { formatCalculateNumber } from "../../../utils/formatCalculateNumber";
+import { mockBaseUrl } from "../../../mocks/envConsts";
 
 import { InfoIcon } from "../../../assets/script/calculator/InfoIcon";
 import crossIcon from "../../../assets/components/userProfile/crossIcon.svg";
@@ -29,8 +31,9 @@ export default function Calculator() {
 	const [isMobile, setIsMobile] = useState(window.innerWidth <= mobileSCreenWidthValue);
 	const [activeButton, setActiveButton] = useState<string | null>("realEstate");
 
-	const baseUrl = String(env("NEXT_PUBLIC_BASE_URL") ?? "");
+	const { getSafeEnvVar } = useRuntimeEnv(["NEXT_PUBLIC_BASE_URL"]);
 
+	const baseUrl = getSafeEnvVar("NEXT_PUBLIC_BASE_URL", mockBaseUrl);
 	const { request } = useHandleLogout(baseUrl);
 	const { resetTimer, setIsOpenInactivityLogoutModal, isOpenInactivityLogoutModal } = useLogoutTimer(request);
 

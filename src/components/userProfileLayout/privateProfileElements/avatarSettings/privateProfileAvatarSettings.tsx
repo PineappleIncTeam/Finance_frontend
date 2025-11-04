@@ -4,7 +4,8 @@ import { ChangeEvent, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import NextImage from "next/image";
 import cn from "classnames/dedupe";
-import { env } from "next-runtime-env";
+
+import { useRuntimeEnv } from "../../../../hooks/useRuntimeEnv";
 
 import { IProfileAvatarForm } from "../../../../types/components/ComponentsTypes";
 import { TChangeUserProfileDataRequest } from "../../../../types/api/PersonalAccount";
@@ -15,6 +16,7 @@ import { updateUserProfileData } from "../../../../services/api/userProfile/upda
 import { ButtonType } from "../../../../helpers/buttonFieldValues";
 import { InputTypeList } from "../../../../helpers/Input";
 import { avatarTemplates } from "../../../../mocks/AvatarTemplates";
+import { mockBaseUrl } from "../../../../mocks/envConsts";
 
 import editProfileIcon from "../../../../assets/components/userProfile/editProfile.svg";
 import mockAvatar from "../../../../assets/components/userProfile/userPhoto.svg";
@@ -29,12 +31,13 @@ export const PrivateProfileAvatarSettings = () => {
 		delayError: 200,
 	});
 
+	const { getSafeEnvVar } = useRuntimeEnv(["NEXT_PUBLIC_BASE_URL"]);
+
 	const userData = useAppSelector(userDataSelector);
 	const { setUserData } = useActions();
 	const userProfileData = userData.userData;
 
-	const baseUrl = String(env("NEXT_PUBLIC_BASE_URL") ?? "");
-
+	const baseUrl = getSafeEnvVar("NEXT_PUBLIC_BASE_URL", mockBaseUrl);
 	const maxFileSize: number = 5120;
 	const minImageWidth: number = 808;
 	const maxImageWidth: number = 1920;

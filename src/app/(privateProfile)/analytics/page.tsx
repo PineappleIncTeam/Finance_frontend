@@ -4,10 +4,10 @@ import { useState, useEffect, ChangeEvent } from "react";
 import { useForm } from "react-hook-form";
 import { Pie, Bar, Doughnut } from "react-chartjs-2";
 import { Chart as ChartJS, ArcElement, Tooltip, CategoryScale, LinearScale, BarElement } from "chart.js";
-import { env } from "next-runtime-env";
 
 import { useHandleLogout } from "../../../hooks/useHandleLogout";
 import { useLogoutTimer } from "../../../hooks/useLogoutTimer";
+import { useRuntimeEnv } from "../../../hooks/useRuntimeEnv";
 
 import { MoneyIcon } from "../../../assets/script/analytics/MoneyIcon";
 
@@ -24,6 +24,7 @@ import AnalystIncomeTransactions from "../../../components/userProfileLayout/ana
 import AnalystExpensesTransactions from "../../../components/userProfileLayout/analystExpensesTransactions/analystExpensesTransactions";
 import AnalystSavingsTransactions from "../../../components/userProfileLayout/analystSavingsTransactions/analystSavingsTransactions";
 import InactivityLogoutModal from "../../../components/userProfileLayout/inactivityLogoutModal/inactivityLogoutModal";
+import { mockBaseUrl } from "../../../mocks/envConsts";
 
 import styles from "./analytics.module.scss";
 
@@ -78,8 +79,9 @@ function Analytics() {
 		1690.01, 26000.15, 520.0, 520.0, 520.0, 520.0, 9586.33,
 	];
 
-	const baseUrl = String(env("NEXT_PUBLIC_BASE_URL") ?? "");
+	const { getSafeEnvVar } = useRuntimeEnv(["NEXT_PUBLIC_BASE_URL"]);
 
+	const baseUrl = getSafeEnvVar("NEXT_PUBLIC_BASE_URL", mockBaseUrl);
 	const { request } = useHandleLogout(baseUrl);
 	const { resetTimer, setIsOpenInactivityLogoutModal, isOpenInactivityLogoutModal } = useLogoutTimer(request);
 

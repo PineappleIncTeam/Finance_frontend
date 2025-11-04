@@ -1,0 +1,178 @@
+.apiErrorModalOverlay {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: rgba(0, 0, 0, 0.6);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	z-index: 1000;
+	padding: 20px;
+	animation: overlayFadeIn 0.2s ease-out;
+
+	@media (max-width: 480px) {
+		padding: 16px;
+	}
+
+	.apiErrorModalWrap {
+		background: var(--color-pure-light);
+		border-radius: 12px;
+		box-shadow:
+			0 20px 25px -5px rgba(0, 0, 0, 0.1),
+			0 10px 10px -5px rgba(0, 0, 0, 0.04);
+		max-width: 440px;
+		width: 100%;
+		max-height: 90vh;
+		overflow: hidden;
+		animation: modalSlideIn 0.3s ease-out;
+		text-align: center;
+
+		@media (max-width: 480px) {
+			max-width: 100%;
+		}
+
+		.apiErrorHeader {
+			padding: 24px 0;
+			position: relative;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+			gap: 10px;
+
+			@media (max-width: 480px) {
+				padding: 20px 0;
+			}
+
+			&__iconContainer {
+				width: 48px;
+				height: 48px;
+
+				.icon {
+					width: 48px;
+					height: 48px;
+				}
+			}
+
+			&__title {
+				text-align: center;
+				font-size: 2.6rem;
+				font-weight: 600;
+				color: var(--color-eerie-black);
+
+				@media (max-width: 480px) {
+					font-size: 2rem;
+				}
+			}
+
+			&__closeButton {
+				position: absolute;
+				right: 5px;
+				top: 5px;
+				padding: 8px;
+				background: none;
+				border: none;
+				cursor: pointer;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				transition: all 0.2s ease;
+
+				&:hover {
+					color: var(--color-dark-cyan-blue);
+				}
+			}
+		}
+
+		.apiErrorContent {
+			padding-top: 20px;
+
+			@media (max-width: 480px) {
+				padding-top: 16px;
+			}
+
+			&__message {
+				font-size: 1.6rem;
+				line-height: 2rem;
+				color: var(--color-eerie-black);
+			}
+		}
+
+		.apiErrorFooter {
+			margin-top: 20px;
+			padding: 24px;
+			display: flex;
+			justify-content: flex-end;
+			gap: 12px;
+
+			@media (max-width: 480px) {
+				padding: 20px;
+				flex-direction: column-reverse;
+			}
+
+			&__actionButton {
+				padding: 10px 16px;
+				min-width: 100px;
+				background-color: var(--color-dark-spring-green);
+				border: none;
+				border-radius: 8px;
+				font-size: 1.4rem;
+				font-weight: 500;
+				color: var(--color-pure-light);
+				cursor: pointer;
+				transition: all 0.2s ease;
+
+				&:hover {
+					background-color: var(--color-cal-poly-pomona-green);
+				}
+			}
+
+			&__secondaryButton {
+				padding: 10px 16px;
+				min-width: 80px;
+				background-color: transparent;
+				border: 1px solid var(--color-gainsboro);
+				border-radius: 8px;
+				font-size: 1.4rem;
+				font-weight: 500;
+				color: var(--color-dark-cyan-blue);
+				cursor: pointer;
+				transition: all 0.2s ease;
+
+				&:hover {
+					background-color: var(--color-light-grayish-blue);
+				}
+			}
+
+			@media (max-width: 480px) {
+				&__actionButton,
+				&__secondaryButton {
+					width: 100%;
+					min-width: auto;
+				}
+			}
+		}
+	}
+}
+
+@keyframes modalSlideIn {
+	from {
+		opacity: 0;
+		transform: translateY(-20px) scale(0.95);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0) scale(1);
+	}
+}
+
+@keyframes overlayFadeIn {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
+}

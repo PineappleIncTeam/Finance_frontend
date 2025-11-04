@@ -6,15 +6,16 @@ import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useRef, useState, Dispatch, SetStateAction, RefObject } from "react";
 import cn from "classnames";
 import axios from "axios";
-import { env } from "next-runtime-env";
 
 import { useLogoutTimer } from "../../../hooks/useLogoutTimer";
+import { useRuntimeEnv } from "../../../hooks/useRuntimeEnv";
 
 import { AuthTypes } from "../../../types/pages/Authorization";
 import { INavBar } from "../../../types/common/ComponentsProps";
 import { baseLogoutUser } from "../../../services/api/auth/baseLogoutUser";
 import { MainPath, UserProfilePath } from "../../../services/router/routes";
 import { COLORS } from "../../../helpers/colorSet";
+import { mockBaseUrl } from "../../../mocks/envConsts";
 
 import logo from "../../../assets/components/logo.png";
 import IncomeIcon from "../../../assets/script/privateProfileNavBar/IncomeIcon";
@@ -33,8 +34,9 @@ const NavBar = ({ onClick }: INavBar) => {
 	const modalRef = useRef<HTMLDivElement | null>(null);
 	const router = useRouter();
 
-	const baseUrl = String(env("NEXT_PUBLIC_BASE_URL") ?? "");
+	const { getSafeEnvVar } = useRuntimeEnv(["NEXT_PUBLIC_BASE_URL"]);
 
+	const baseUrl = getSafeEnvVar("NEXT_PUBLIC_BASE_URL", mockBaseUrl);
 	const handleLogout = async () => {
 		try {
 			if (baseUrl) {

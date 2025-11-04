@@ -11,13 +11,35 @@ spec:
       protocol: TCP
       port: 3000
       targetPort: 3000
-    - name: storybook-app
+  type: ClusterIP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: {{NAMESPACE}}
+  name: finance-frontend-dev-sb
+spec:
+  selector:
+    app: finance-frontend-dev-sb
+  ports:
+    - name: application
       protocol: TCP
-      port: 3005
+      port: 8085
       targetPort: 8085
-    - name: typedoc-app
+  type: ClusterIP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: {{NAMESPACE}}
+  name: finance-frontend-dev-td
+spec:
+  selector:
+    app: finance-frontend-dev-td
+  ports:
+    - name: application
       protocol: TCP
-      port: 3006
+      port: 8086
       targetPort: 8086
   type: ClusterIP
 ---
@@ -73,5 +95,65 @@ spec:
             limits:
               memory: "512Mi"
               cpu: "150m"
+          ports:
+            - containerPort: 8086
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: {{NAMESPACE}}
+  name: finance-frontend-dev-sb
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: finance-frontend-develop-sb
+  template:
+    metadata:
+      labels:
+        app: finance-frontend-develop-sb
+      annotations:
+        fluentd.active: 'true'
+    spec:
+      containers:
+        - name: frontend-sb
+          image: freenance/frontend-sb:{{IMAGE_TAG}}
+          resources:
+            requests:
+              memory: "64Mi"
+              cpu: "50m"
+            limits:
+              memory: "128Mi"
+              cpu: "100m"
+          ports:
+            - containerPort: 8085
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: {{NAMESPACE}}
+  name: finance-frontend-dev-td
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: finance-frontend-develop-td
+  template:
+    metadata:
+      labels:
+        app: finance-frontend-develop-td
+      annotations:
+        fluentd.active: 'true'
+    spec:
+      containers:
+        - name: frontend-td
+          image: freenance/frontend-td:{{IMAGE_TAG}}
+          resources:
+            requests:
+              memory: "64Mi"
+              cpu: "50m"
+            limits:
+              memory: "128Mi"
+              cpu: "100m"
           ports:
             - containerPort: 8086

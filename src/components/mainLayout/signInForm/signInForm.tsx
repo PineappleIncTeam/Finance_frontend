@@ -131,7 +131,6 @@ export default function SignInForm() {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [initAttempts, isVKIDInitialized]);
 
-
 	const floatingOneTap = new VKID.FloatingOneTap();
 
 	async function authVkIdService(authData: IVkAuthRequest) {

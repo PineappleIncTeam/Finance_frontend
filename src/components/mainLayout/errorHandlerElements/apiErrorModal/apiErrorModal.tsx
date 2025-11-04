@@ -8,6 +8,7 @@ import { useLockScroll } from "../../../../hooks/useLockScroll";
 import { IApiErrorModal } from "../../../../types/common/ComponentsProps";
 
 import warningElement from "../../../../assets/pages/activate/warning.svg";
+import ErrorCloseIcon from "../../../../assets/script/errorPage/CloseIcon";
 
 import styles from "./apiErrorModal.module.scss";
 
@@ -106,29 +107,6 @@ export default function ApiErrorModal({ modalState, onClose }: IApiErrorModal) {
 						Перезагрузить страницу
 					</button>
 				);
-			case "cors":
-				return (
-					<button
-						className={styles.apiErrorFooter__actionButton}
-						onClick={() => {
-							onClose();
-							window.location.href = "/";
-						}}>
-						На главную
-					</button>
-				);
-
-			case "timeout":
-				return (
-					<button
-						className={styles.apiErrorFooter__actionButton}
-						onClick={() => {
-							onClose();
-							window.dispatchEvent(new CustomEvent("connection-issues"));
-						}}>
-						Проверить соединение
-					</button>
-				);
 			default:
 				return (
 					<button className={styles.apiErrorFooter__actionButton} onClick={onClose}>
@@ -138,20 +116,12 @@ export default function ApiErrorModal({ modalState, onClose }: IApiErrorModal) {
 		}
 	};
 
-	function renderCloseIcon() {
-		return (
-			<svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor">
-				<path d="M14 1.41L12.59 0L7 5.59L1.41 0L0 1.41L5.59 7L0 12.59L1.41 14L7 8.41L12.59 14L14 12.59L8.41 7L14 1.41Z" />
-			</svg>
-		);
-	}
-
 	return (
 		<div className={styles.apiErrorModalOverlay} onClick={handleOverlayClick} role="textbox">
 			<div className={styles.apiErrorModalWrap} role="dialog" aria-labelledby="error-modal-title">
 				<div className={styles.apiErrorHeader}>
 					<button className={styles.apiErrorHeader__closeButton} onClick={onClose} aria-label="Close error modal">
-						{renderCloseIcon()}
+						<ErrorCloseIcon />
 					</button>
 					<div className={styles.apiErrorHeader__iconContainer}>
 						<Image src={warningElement} alt={"warning"} className={styles.icon} />

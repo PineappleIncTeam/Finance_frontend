@@ -8,8 +8,8 @@
 	z-index: 120;
 }
 .addCategoryModalWrap {
+	margin-top: 16px;
 	width: 548px;
-	height: 498px;
 	margin-inline: auto;
 	border-radius: 12px;
 	background: var(--color-pure-light);
@@ -23,7 +23,7 @@
 
 	@media (max-width: 490px) {
 		& {
-			height: 366px;
+			width: 340px;
 		}
 	}
 }
@@ -31,7 +31,7 @@
 	width: 76%;
 	height: 100%;
 	margin-inline: auto;
-	padding: 50px 0;
+	padding: 50px 0 40px;
 
 	@media (max-width: 570px) {
 		& {
@@ -60,7 +60,7 @@
 	@media (max-width: 490px) {
 		& {
 			flex-direction: column-reverse;
-			padding: 14px 0;
+			padding: 14px 0 8px;
 			gap: 8px;
 		}
 	}

@@ -89,7 +89,7 @@ function Savings() {
 
 	const [allTargets, setAllTargets] = useState<ITarget[]>([]);
 	const [fiveOperations, setFiveOperations] = useState<IOperation[]>([]);
-	const [isAddCategoryModalOpen, setIsCategoryModalOpen] = useState<boolean>(false);
+	const [isAddCategoryModalOpen, setIsAddCategoryModalOpen] = useState<boolean>(false);
 	const [isAddCategorySuccess, setIsAddCategorySuccess] = useState<boolean>(false);
 	const [isDeleteTargetModalOpen, setIsDeleteTargetModalOpen] = useState<boolean>(false);
 	const [isDeleteTargetSuccess, setIsDeleteTargetSuccess] = useState<boolean>(false);
@@ -246,7 +246,7 @@ function Savings() {
 				const response = await addSavingsTarget(baseUrl, data);
 				if (response.status === axios.HttpStatusCode.Created) {
 					setIsAddCategorySuccess(true);
-					setIsCategoryModalOpen(false);
+					setIsAddCategoryModalOpen(false);
 					setTimeout(() => {
 						setIsAddCategorySuccess(false);
 					}, interval);
@@ -571,7 +571,7 @@ function Savings() {
 									options={allTargets}
 									placeholder="Выберите категорию"
 									control={control}
-									onAddCategory={() => setIsCategoryModalOpen(true)}
+									onAddCategory={() => setIsAddCategoryModalOpen(true)}
 									onRemoveCategory={(id, name) => [setIsDeleteTargetModalOpen(true), handleIdName(id, name)]}
 								/>
 							</div>
@@ -621,7 +621,7 @@ function Savings() {
 				{isAddCategoryModalOpen && (
 					<SavingsAddTargetModal
 						open={isAddCategoryModalOpen}
-						onCancelClick={() => setIsCategoryModalOpen(false)}
+						onCancelClick={() => setIsAddCategoryModalOpen(false)}
 						request={addSavingsCategory}
 					/>
 				)}

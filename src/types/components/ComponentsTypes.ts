@@ -203,3 +203,7 @@ export interface IEnvValidationResult {
 	errors: string[];
 	envVars: Record<string, string | undefined>;
 }
+
+export interface IErrorHandler {
+	children: ReactNode;
+}

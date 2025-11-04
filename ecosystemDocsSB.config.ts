@@ -15,18 +15,6 @@ const config: EcosystemConfig = {
 				NODE_ENV: "production",
 			},
 		},
-		{
-			name: "typedoc",
-			script: "http-server",
-			args: ["./docs", "-p", "8086"],
-			instances: 1,
-			exec_mode: "fork",
-			autorestart: true,
-			watch: false,
-			env: {
-				NODE_ENV: "production",
-			},
-		},
 	],
 };
 

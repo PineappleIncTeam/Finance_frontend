@@ -36,7 +36,7 @@ export default function ChangePassword() {
 
 	const baseUrl = getSafeEnvVar("NEXT_PUBLIC_BASE_URL", mockBaseUrl);
 
-	const secondsCount = 4000;
+	const interval = 7000;
 
 	const {
 		control,
@@ -61,10 +61,10 @@ export default function ChangePassword() {
 
 	const handleChangePasswordModal = () => {
 		setIsChangePasswordModalOpen(true);
-		setTimeout(async () => {
-			await setIsChangePasswordModalOpen(false);
+		setTimeout(() => {
+			setIsChangePasswordModalOpen(false);
 			router.push(MainPath.Login);
-		}, secondsCount);
+		}, interval);
 	};
 
 	const onSubmit = async (data: IChangePasswordForm) => {

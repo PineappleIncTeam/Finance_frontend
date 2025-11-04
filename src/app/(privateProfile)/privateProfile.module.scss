@@ -9,18 +9,21 @@
 		& {
 			padding: 50px 30px;
 			flex-direction: column-reverse;
+			gap: 30px;
 		}
 	}
 
 	@media (max-width: 768px) {
 		& {
 			padding: 36px;
+			gap: 16px;
 		}
 	}
 
 	@media (max-width: 490px) {
 		& {
 			background-color: var(--color-pure-light);
+			gap: 20px;
 		}
 	}
 
@@ -35,7 +38,6 @@
 .privateProfile__navBar {
 	flex: 1 1 auto;
 	max-width: 400px;
-
 	width: 100%;
 
 	@media (max-width: 1440px) {
@@ -91,6 +93,7 @@
 .privateProfileContent {
 	margin-bottom: 14px;
 	height: 100%;
+
 	@media (max-width: 1100px) {
 		& {
 			margin-bottom: 0;
@@ -99,7 +102,7 @@
 }
 
 .privateProfile__sideBar {
-	flex: 1 1 auto;
+	flex: auto 1 auto;
 	max-width: 400px;
 	width: 100%;
 

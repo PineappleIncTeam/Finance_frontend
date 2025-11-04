@@ -5,7 +5,7 @@ const config: StorybookConfig = {
 		// "../src/services/storybook/**/*.mdx",
 		"../src/ui/**/*.stories.@(js|jsx|mjs|ts|tsx)",
 	],
-	addons: ["@storybook/addon-onboarding"],
+	addons: ["@storybook/addon-onboarding", "@storybook/addon-docs"],
 	framework: {
 		name: "@storybook/nextjs",
 		options: {},

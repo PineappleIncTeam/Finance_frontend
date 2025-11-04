@@ -4,10 +4,10 @@ import { useCallback, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import axios, { AxiosResponse } from "axios";
 import { useRouter } from "next/navigation";
-import { env } from "next-runtime-env";
 
 import { useLogoutTimer } from "../../../hooks/useLogoutTimer";
 import { useHandleLogout } from "../../../hooks/useHandleLogout";
+import { useRuntimeEnv } from "../../../hooks/useRuntimeEnv";
 
 import {
 	IEditActionProps,
@@ -51,6 +51,7 @@ import { removeTransaction } from "../../../services/api/userProfile/removeTrans
 import { RecordDeleteModal } from "../../../components/userProfileLayout/recordDelete/recordDelete";
 import InactivityLogoutModal from "../../../components/userProfileLayout/inactivityLogoutModal/inactivityLogoutModal";
 import { returnMoneyAccount } from "../../../services/api/userProfile/returnMoneyAccount";
+import { mockBaseUrl } from "../../../mocks/envConsts";
 
 import styles from "./savings.module.scss";
 
@@ -82,11 +83,6 @@ function Savings() {
 	const [sortOrder, setSortOrder] = useState<SortOrderStateValue>(SortOrderStateValue.asc);
 	const [sortTargetOrder, setSortTargetOrder] = useState<SortOrderStateValue>(SortOrderStateValue.asc);
 
-	const baseUrl = String(env("NEXT_PUBLIC_BASE_URL") ?? "");
-
-	const { request } = useHandleLogout(baseUrl);
-	const { resetTimer, setIsOpenInactivityLogoutModal, isOpenInactivityLogoutModal } = useLogoutTimer(request);
-
 	const [allTargets, setAllTargets] = useState<ITarget[]>([]);
 	const [fiveOperations, setFiveOperations] = useState<IOperation[]>([]);
 	const [isAddCategoryModalOpen, setIsCategoryModalOpen] = useState<boolean>(false);
@@ -107,6 +103,12 @@ function Savings() {
 
 	const interval = 2000;
 	const endDate = 10;
+
+	const { getSafeEnvVar } = useRuntimeEnv(["NEXT_PUBLIC_BASE_URL"]);
+
+	const baseUrl = getSafeEnvVar("NEXT_PUBLIC_BASE_URL", mockBaseUrl);
+	const { request } = useHandleLogout(baseUrl);
+	const { resetTimer, setIsOpenInactivityLogoutModal, isOpenInactivityLogoutModal } = useLogoutTimer(request);
 
 	const router = useRouter();
 	const handleEditClick = ({ index, field, value }: IEditActionProps) => {

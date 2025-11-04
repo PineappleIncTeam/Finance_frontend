@@ -4,7 +4,8 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import axios, { AxiosError } from "axios";
-import { env } from "next-runtime-env";
+
+import { useRuntimeEnv } from "../../../hooks/useRuntimeEnv";
 
 import { INewPassword } from "../../../types/pages/Password";
 import AuthInput from "../../../ui/authInput/AuthInput";
@@ -13,6 +14,7 @@ import NewPasswordModal from "../../../components/mainLayout/newPasswordModal/ne
 import { formHelpers } from "../../../utils/formHelpers";
 import { emailPattern, errorEmailIsNotRegister } from "../../../helpers/authConstants";
 import { InputTypeList } from "../../../helpers/Input";
+import { mockBaseUrl } from "../../../mocks/envConsts";
 
 import { resetPasswordWithEmail } from "../../../services/api/auth/resetPasswordWithEmail";
 import { MainPath } from "../../../services/router/routes";
@@ -27,8 +29,9 @@ export default function NewPassword() {
 
 	const router = useRouter();
 
-	const baseUrl = String(env("NEXT_PUBLIC_BASE_URL") ?? "");
+	const { getSafeEnvVar } = useRuntimeEnv(["NEXT_PUBLIC_BASE_URL"]);
 
+	const baseUrl = getSafeEnvVar("NEXT_PUBLIC_BASE_URL", mockBaseUrl);
 	const secondCount = 7000;
 
 	const {

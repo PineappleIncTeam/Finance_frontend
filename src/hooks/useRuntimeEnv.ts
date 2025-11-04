@@ -83,5 +83,6 @@ export function useRuntimeEnv(requiredVars: string[] = []) {
 		validateEnvVars,
 		getEnvVar,
 		getSafeEnvVar,
+		env,
 	};
 }

@@ -12,7 +12,7 @@
 		"sb:prod": "storybook build && npx http-server ./storybook-static -p 8085",
 		"typedoc:dev": "start ./docs/index.html",
 		"typedoc:prod": "npx typedoc --plugin typedoc-github-theme && npx http-server ./docs -p 8086",
-		"buildDocsEcosystem": "tsc ecosystemDocs.config.ts --skipLibCheck && node scripts/postBuildDocsEcosystem.js",
+		"buildDocsEcosystem": "tsc ecosystemDocsSB.config.ts --skipLibCheck && node scripts/postBuildDocsEcosystem.js",
 		"build-sb": "storybook build",
 		"build-typedoc": "npx typedoc --plugin typedoc-github-theme",
 		"lint": "eslint --ext .js,.jsx,.ts,.tsx ./src ./scripts",

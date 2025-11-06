@@ -101,7 +101,7 @@ export default function SignInForm() {
 			try {
 				VKID.Config.init({
 					app: vkAppId ?? 0,
-					redirectUrl: `${baseUrl}${UserProfilePath.ProfitMoney}`,
+					redirectUrl: `${baseUrl}/`,
 					state: generateState(),
 					codeChallenge: String(pkceCodeSet?.code_challenge ?? ""),
 					scope: "email phone",

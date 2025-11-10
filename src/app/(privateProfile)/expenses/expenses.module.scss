@@ -16,6 +16,7 @@
 	flex-direction: column;
 	background-color: var(--color-silver-gray);
 	min-height: 100vh;
+
 	@media (max-width: 490px) {
 		& {
 			background-color: var(--color-pure-light);
@@ -41,7 +42,7 @@
 
 .expensesByDateContainer {
 	display: flex;
-	gap: 30px;
+	gap: 20px;
 
 	@media (max-width: 1440px) {
 		& {
@@ -59,8 +60,7 @@
 .totalMonthlyWrapper {
 	max-width: 420px;
 	background-color: var(--color-dark-sea-green);
-	width: 37%;
-	margin-left: 34px;
+	width: 38%;
 	padding-top: 16px;
 	padding-left: 20px;
 	border-radius: 12px;
@@ -80,43 +80,25 @@
 	}
 
 	@media (max-width: 1440px) {
-		& {
-			width: 42%;
-			margin-left: 14px;
-		}
+		width: 42%;
 	}
 
 	@media (max-width: 1100px) {
-		& {
-			width: 38%;
-		}
+		width: 39%;
 	}
 
 	@media (max-width: 800px) {
-		& {
-			width: 45%;
-		}
-	}
-
-	@media (max-width: 550px) {
-		& {
-			margin-left: 8px;
-		}
+		width: 46%;
 	}
 
 	@media (max-width: 490px) {
-		& {
-			width: 49%;
-			margin-left: 0;
-			padding-top: 10px;
-		}
-
+		width: 50%;
+		padding-top: 10px;
 		&__month {
 			width: 78%;
 			font-size: 1.3rem;
 			line-height: 1.8rem;
 		}
-
 		&__sum {
 			font-size: 1.6rem;
 			line-height: 2.2rem;
@@ -129,7 +111,7 @@
 .dateSelectionWrapper {
 	max-width: 400px;
 	background-color: var(--color-light-grayish-green);
-	width: 37%;
+	width: 38%;
 	padding: 16px;
 	border-radius: 12px;
 
@@ -148,7 +130,7 @@
 
 	@media (max-width: 1100px) {
 		& {
-			width: 38%;
+			width: 39%;
 		}
 	}
 
@@ -161,7 +143,7 @@
 
 	@media (max-width: 490px) {
 		& {
-			width: 49%;
+			width: 50%;
 			padding-top: 10px;
 		}
 
@@ -173,60 +155,50 @@
 }
 
 .expensesDetailsContainer {
-	display: flex;
-	flex-direction: row;
-	align-items: flex-end;
-	gap: 20px;
+	display: grid;
+	grid-template-columns: 37% 25% 38%;
+	grid-template-rows: 72px;
+	column-gap: 20px;
+	align-items: stretch;
 	margin-top: 30px;
+	width: 100%;
+	box-sizing: border-box;
 
-	&__category {
-		display: flex;
-		flex-direction: column;
-		width: 37%;
-		margin-left: 34px;
-	}
-
+	&__category,
 	&__sum {
 		display: flex;
 		flex-direction: column;
-		width: 37%;
+		justify-content: flex-end;
+		height: 100%;
+		min-width: 0;
+	}
+
+	.addButtonWrapper {
+		height: 100%;
+		display: flex;
+	}
+
+	.addButtonWrapper button {
+		height: 100%;
+		width: 100%;
+		max-width: 100%;
+		justify-content: flex-end;
+		align-items: flex-end;
 	}
 
 	@media (max-width: 1440px) {
-		&__category {
-			width: 42%;
-			margin-left: 14px;
-		}
-
-		&__sum {
-			width: 31%;
-		}
+		grid-template-columns: 42% 30% 28%;
 	}
-
 	@media (max-width: 1100px) {
-		&__category {
-			width: 38%;
-		}
-
-		&__sum {
-			width: 38%;
-		}
+		grid-template-columns: 38% 34% 28%;
 	}
-
 	@media (max-width: 800px) {
-		&__category {
-			width: 45%;
-		}
+		grid-template-columns: 45% 42% 13%;
+		column-gap: 12px;
 	}
-
 	@media (max-width: 490px) {
-		& {
-			margin-top: 20px;
-		}
-
-		&__category {
-			margin-left: 2px;
-		}
+		grid-template-columns: 48% 44% 8%;
+		column-gap: 8px;
 	}
 }
 

@@ -410,7 +410,7 @@ export default function Expenses() {
 			<div className={styles.expensesPageContainer}>
 				<form className={styles.expensesFormContentWrapper}>
 					<h1 className={styles.headerTitle}>Расходы</h1>
-					<div className={styles.expensesByDateContainer}>
+					<div className={styles.expensesGridWrapper}>
 						<div className={styles.totalMonthlyWrapper}>
 							<p className={styles.totalMonthlyWrapper__month}>Общий расход за Январь</p>
 							<p className={styles.totalMonthlyWrapper__sum}>283 000 ₽</p>
@@ -418,8 +418,6 @@ export default function Expenses() {
 						<div className={styles.dateSelectionWrapper}>
 							<InputDate control={control} name={"date"} />
 						</div>
-					</div>
-					<div className={styles.expensesDetailsContainer}>
 						<div className={styles.expensesDetailsContainer__category}>
 							<CategorySelect
 								name={"categories"}
@@ -442,8 +440,8 @@ export default function Expenses() {
 								name={"amount"}
 								placeholder={"0.00"}
 							/>
+							<AddButton onClick={handleSubmit(onSubmit)} type={InputTypeList.Button} />
 						</div>
-						<AddButton onClick={handleSubmit(onSubmit)} type={InputTypeList.Button} />
 					</div>
 				</form>
 				{isCategoryDeleteModalOpen && (

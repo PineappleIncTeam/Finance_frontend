@@ -5,10 +5,12 @@ import { format } from "date-fns";
 import cn from "classnames";
 import axios from "axios";
 import { useRouter } from "next/navigation";
-import { env } from "next-runtime-env";
+
+import { useRuntimeEnv } from "../../../../hooks/useRuntimeEnv";
 
 import { MainPath } from "../../../../services/router/routes";
 import { getCurrencyRates } from "../../../../services/api/userProfile/getCurrencyRates";
+import { mockBaseUrl } from "../../../../mocks/envConsts";
 
 import styles from "./privateProfileHeader.module.scss";
 
@@ -21,8 +23,9 @@ const PrivateProfileHeader = () => {
 
 	const [isCurrencyLoading, startCurrencyTransition] = useTransition();
 
-	const baseUrl = String(env("NEXT_PUBLIC_BASE_URL") ?? "");
+	const { getSafeEnvVar } = useRuntimeEnv(["NEXT_PUBLIC_BASE_URL"]);
 
+	const baseUrl = getSafeEnvVar("NEXT_PUBLIC_BASE_URL", mockBaseUrl);
 	useEffect(() => {
 		setCurrentDate(format(new Date(), "dd.MM.yyyy"));
 

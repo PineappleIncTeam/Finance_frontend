@@ -6,16 +6,16 @@ import { usePathname, useRouter } from "next/navigation";
 import { Dispatch, RefObject, SetStateAction, useEffect, useRef, useState } from "react";
 import cn from "classnames";
 import axios, { AxiosResponse } from "axios";
-import { env } from "next-runtime-env";
 
+import { useRuntimeEnv } from "../../../hooks/useRuntimeEnv";
 import { useAppSelector } from "../../../services/redux/hooks/useAppSelector";
 
 import { IValidateTokenResponse } from "../../../types/api/Auth";
-
 import autoLoginSelector from "../../../services/redux/features/autoLogin/autoLoginSelector";
 import { validateToken } from "../../../services/api/auth/validateToken";
 import { MainPath, UserProfilePath } from "../../../services/router/routes";
 import { mockLocalhostStr, mockLocalhostUrl } from "../../../services/api/auth/apiConstants";
+import { mockBaseUrl } from "../../../mocks/envConsts";
 
 import logo from "../../../assets/layouts/main/logo.webp";
 import burger from "../../../assets/layouts/main/burger.svg";
@@ -43,8 +43,9 @@ const MainHeader = () => {
 		}
 	};
 
-	const baseUrl = String(env("NEXT_PUBLIC_BASE_URL") ?? "");
+	const { getSafeEnvVar } = useRuntimeEnv(["NEXT_PUBLIC_BASE_URL"]);
 
+	const baseUrl = getSafeEnvVar("NEXT_PUBLIC_BASE_URL", mockBaseUrl);
 	useEffect(() => {
 		try {
 			const isLocalhost =

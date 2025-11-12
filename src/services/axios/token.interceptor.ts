@@ -84,7 +84,7 @@ axios.interceptors.response.use(
 						error.response.status < axios.HttpStatusCode.InternalServerError &&
 						!isLocalhost
 					) {
-						window.location.href = MainPath.Login;
+						window.location.href = `${MainPath.Login}/?isPrivateRoute=true`;
 					}
 					if (
 						axios.isAxiosError(error) &&

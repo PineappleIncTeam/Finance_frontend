@@ -1,14 +1,15 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import axios, { AxiosResponse, isAxiosError } from "axios";
 import Link from "next/link";
 import { env } from "next-runtime-env";
 import * as VKID from "@vkid/sdk";
 
 import { useActions } from "../../../services/redux/hooks";
+import { useRuntimeEnv } from "../../../hooks/useRuntimeEnv";
 
 import { AuthTypes, IPkceCodeSet, IVKLoginSuccessPayload, IVkAuthRequest } from "../../../types/pages/Authorization";
 import { ICorrectSignInForm, ISignInForm } from "../../../types/components/ComponentsTypes";
@@ -19,6 +20,7 @@ import Title from "../../../ui/title/Title";
 import CustomCheckbox from "../../../ui/checkBox/checkBox";
 import Button from "../../../ui/Button/Button";
 import InviteModal from "../inviteModal/inviteModal";
+
 import {
 	emailPattern,
 	errorDataLogOn,
@@ -26,6 +28,7 @@ import {
 	errorTooManyRequests,
 	passwordPattern,
 } from "../../../helpers/authConstants";
+import { PrivateRouteErrorModal } from "../errorHandlerElements/privateRouteErrorModal/privateRouteErrorModal";
 import { formHelpers } from "../../../utils/formHelpers";
 import { InputTypeList } from "../../../helpers/Input";
 import { MainPath, UserProfilePath } from "../../../services/router/routes";
@@ -34,15 +37,26 @@ import { authApiVkService } from "../../../services/api/auth/authVkService";
 import { ButtonType } from "../../../helpers/buttonFieldValues";
 import { generatePkceChallenge, generateState } from "../../../utils/generateAuthTokens";
 import { ruCountryNumber } from "../../../helpers/userDataConstants";
+import { mockBaseUrl } from "../../../mocks/envConsts";
 
 import styles from "./signInForm.module.scss";
 
 export default function SignInForm() {
 	const [isInviteModalOpen, setIsInviteModalOpen] = useState<boolean>(false);
+	const [isPrivateRouteErrorModalOpen, setIsPrivateRouteErrorModalOpen] = useState<boolean>(true);
 	const [pkceCodeSet, setPkceCodeSet] = useState<IPkceCodeSet>();
 	const [isTooManyRequestsError, setIsTooManyRequestsError] = useState<boolean>(false);
 
+	const [initAttempts, setInitAttempts] = useState<number>(0);
+	const [isVKIDInitialized, setIsVKIDInitialized] = useState<boolean>(false);
+	const timeoutInitRef = useRef<NodeJS.Timeout | null>(null);
+
 	const { setUserData, setAutoLoginStatus } = useActions();
+	const searchParams = useSearchParams();
+
+	const { getSafeEnvVar, env } = useRuntimeEnv(["NEXT_PUBLIC_BASE_URL", "NEXT_PUBLIC_VK_APP_ID"]);
+
+	const isPrivateRoute = Boolean(searchParams.get("isPrivateRoute"));
 
 	const {
 		formState: { errors },
@@ -61,8 +75,11 @@ export default function SignInForm() {
 
 	const router = useRouter();
 
-	const vkAppId = Number(env("NEXT_PUBLIC_VK_APP_ID") ?? 0);
-	const baseUrl = String(env("NEXT_PUBLIC_BASE_URL") ?? "");
+	const maxInitRetries = 5;
+	const retryDelay = 200;
+
+	const vkAppId = Number(getSafeEnvVar("NEXT_PUBLIC_VK_APP_ID", "12354678"));
+	const baseUrl = getSafeEnvVar("NEXT_PUBLIC_BASE_URL", mockBaseUrl);
 
 	const authCurtainRenderObj = {
 		appName: "freenance-app",
@@ -79,15 +96,50 @@ export default function SignInForm() {
 		})();
 	}, []);
 
-	VKID.Config.init({
-		app: vkAppId ?? 0,
-		redirectUrl: `${baseUrl}`,
-		state: generateState(),
-		codeChallenge: String(pkceCodeSet?.code_challenge ?? ""),
-		scope: "email phone",
-		responseMode: VKID.ConfigResponseMode.Callback,
-		mode: VKID.ConfigAuthMode.InNewWindow,
-	});
+	useEffect(() => {
+		if (isVKIDInitialized) {
+			return;
+		}
+
+		const attemptInitialization = () => {
+			if (process.env.NODE_ENV === "production" && initAttempts >= maxInitRetries) {
+				// monitoringService.logError(error, context);
+
+				return;
+			}
+
+			try {
+				VKID.Config.init({
+					app: vkAppId ?? 0,
+					redirectUrl: `${baseUrl}${UserProfilePath.ProfitMoney}`,
+					state: generateState(),
+					codeChallenge: String(pkceCodeSet?.code_challenge ?? ""),
+					scope: "email phone",
+					responseMode: VKID.ConfigResponseMode.Callback,
+					mode: VKID.ConfigAuthMode.InNewWindow,
+				});
+
+				setIsVKIDInitialized(true);
+				if (timeoutInitRef.current) {
+					clearTimeout(timeoutInitRef.current);
+				}
+				// eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
+			} catch (error: unknown) {
+				timeoutInitRef.current = setTimeout(() => {
+					setInitAttempts((prevAttempts) => prevAttempts + 1);
+				}, retryDelay);
+			}
+		};
+
+		attemptInitialization();
+
+		return () => {
+			if (timeoutInitRef.current) {
+				clearTimeout(timeoutInitRef.current);
+			}
+		};
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [initAttempts, isVKIDInitialized]);
 
 	const floatingOneTap = new VKID.FloatingOneTap();
 
@@ -202,6 +254,11 @@ export default function SignInForm() {
 		router.push(UserProfilePath.ProfitMoney);
 	};
 
+	const handlePrivateRouteModalClose = () => {
+		setIsPrivateRouteErrorModalOpen(false);
+		router.push(MainPath.Login);
+	};
+
 	return (
 		<form className={styles.signInFormWrap} onSubmit={handleSubmit(onSubmit)}>
 			<div className={styles.signInFormContainer}>
@@ -256,6 +313,9 @@ export default function SignInForm() {
 				</p>
 			</div>
 			{isInviteModalOpen && <InviteModal isOpen={isInviteModalOpen} onClose={handleModalClose} />}
+			{isPrivateRoute && (
+				<PrivateRouteErrorModal isOpen={isPrivateRouteErrorModalOpen} closeModal={handlePrivateRouteModalClose} />
+			)}
 		</form>
 	);
 }

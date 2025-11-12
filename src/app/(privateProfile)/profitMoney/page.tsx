@@ -3,10 +3,10 @@
 
 import { Key, useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { env } from "next-runtime-env";
 
 import { useLogoutTimer } from "../../../hooks/useLogoutTimer";
 import { useHandleLogout } from "../../../hooks/useHandleLogout";
+import { useRuntimeEnv } from "../../../hooks/useRuntimeEnv";
 
 import { IExpensesInputForm, IExpensesSelectForm } from "../../../types/pages/Expenses";
 import { Select } from "../../../ui/select/Select";
@@ -18,6 +18,7 @@ import { CategorySelect } from "../../../components/userProfileLayout/categorySe
 import InactivityLogoutModal from "../../../components/userProfileLayout/inactivityLogoutModal/inactivityLogoutModal";
 import { InputTypeList } from "../../../helpers/Input";
 import { formatMoney } from "../../../utils/formatData";
+import { mockBaseUrl } from "../../../mocks/envConsts";
 
 import { incomeTransactions } from "../../../mocks/IncomeTransaction";
 
@@ -32,8 +33,9 @@ function ProfitMoney() {
 		delayError: 200,
 	});
 
-	const baseUrl = String(env("NEXT_PUBLIC_BASE_URL") ?? "");
+	const { getSafeEnvVar } = useRuntimeEnv(["NEXT_PUBLIC_BASE_URL"]);
 
+	const baseUrl = getSafeEnvVar("NEXT_PUBLIC_BASE_URL", mockBaseUrl);
 	const { request } = useHandleLogout(baseUrl);
 	const { resetTimer, setIsOpenInactivityLogoutModal, isOpenInactivityLogoutModal } = useLogoutTimer(request);
 

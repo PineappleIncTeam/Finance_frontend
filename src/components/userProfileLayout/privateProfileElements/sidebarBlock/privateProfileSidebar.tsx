@@ -6,9 +6,9 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 import { format } from "date-fns";
-import { env } from "next-runtime-env";
 
 import { useAppDispatch, useAppSelector } from "../../../../services/redux/hooks";
+import { useRuntimeEnv } from "../../../../hooks/useRuntimeEnv";
 
 import { AuthTypes } from "../../../../types/pages/Authorization";
 import { countriesDataActions, userDataActions } from "../../../../types/redux/sagaActions/storeSaga.actions";
@@ -20,6 +20,7 @@ import { baseLogoutUser } from "../../../../services/api/auth/baseLogoutUser";
 import { sidebarNavMenu } from "../../../../helpers/sidebarNavMenu";
 import { userDataSelector } from "../../../../services/redux/features/userData/UserDataSelector";
 import { avatarTemplates } from "../../../../mocks/AvatarTemplates";
+import { mockBaseUrl } from "../../../../mocks/envConsts";
 
 import mockAvatar from "../../../../assets/components/userProfile/userPhoto.svg";
 import burgerIcon from "../../../../assets/components/userProfile/burger.svg";
@@ -36,12 +37,13 @@ const PrivateProfileSidebarBlock = () => {
 	const router = useRouter();
 	const dispatch = useAppDispatch();
 
+	const { getSafeEnvVar } = useRuntimeEnv(["NEXT_PUBLIC_BASE_URL"]);
+
 	const userData = useAppSelector(userDataSelector);
 
 	const userProfileData = userData.userData;
 
-	const baseUrl = String(env("NEXT_PUBLIC_BASE_URL") ?? "");
-
+	const baseUrl = getSafeEnvVar("NEXT_PUBLIC_BASE_URL", mockBaseUrl);
 	const laptopWindowSize = 1100;
 	const defaultAvatarMaxIndex = 8;
 

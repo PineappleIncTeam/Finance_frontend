@@ -20,6 +20,7 @@ import Button from "../../../ui/Button/Button";
 import {
 	emailPattern,
 	errorPasswordRepeat,
+	errorTooManyRequests,
 	errorUserWithExistEmailRegistration,
 	passwordPattern,
 } from "../../../helpers/authConstants";
@@ -37,6 +38,7 @@ import styles from "./signUpForm.module.scss";
 
 export default function SignUpForm() {
 	const [pkceCodeSet, setPkceCodeSet] = useState<IPkceCodeSet>();
+	const [isTooManyRequestsError, setIsTooManyRequestsError] = useState<boolean>(false);
 
 	const { setUserData } = useActions();
 
@@ -69,6 +71,8 @@ export default function SignUpForm() {
 		lang: VKID.Languages.RUS,
 		indent: { top: 30, right: 50 },
 	};
+
+	const interval: number = 120000;
 
 	useEffect(() => {
 		(async () => {
@@ -157,7 +161,7 @@ export default function SignUpForm() {
 
 	const onSubmit = async (data: ISignUpForm) => {
 		try {
-			if (baseUrl) {
+			if (!isTooManyRequestsError && baseUrl) {
 				await registration(baseUrl, data);
 				router.push(MainPath.Login);
 			} else {
@@ -169,6 +173,15 @@ export default function SignUpForm() {
 					type: "server",
 					message: errorUserWithExistEmailRegistration,
 				});
+			} else if (isAxiosError(error) && error?.response?.status === axios.HttpStatusCode.TooManyRequests) {
+				setError("email", {
+					type: "server",
+					message: errorTooManyRequests,
+				});
+				setIsTooManyRequestsError(true);
+				setTimeout(() => {
+					setIsTooManyRequestsError(false);
+				}, interval);
 			} else if (
 				isAxiosError(error) &&
 				error.response &&
@@ -234,7 +247,7 @@ export default function SignUpForm() {
 				<Button
 					variant={ButtonType.Notification}
 					className={styles.button}
-					disabled={!isValid}
+					disabled={!isValid && isTooManyRequestsError}
 					type={InputTypeList.Submit}>
 					Зарегистрироваться
 				</Button>

@@ -20,8 +20,15 @@ import Title from "../../../ui/title/Title";
 import CustomCheckbox from "../../../ui/checkBox/checkBox";
 import Button from "../../../ui/Button/Button";
 import InviteModal from "../inviteModal/inviteModal";
+
+import {
+	emailPattern,
+	errorDataLogOn,
+	errorProfileActivation,
+	errorTooManyRequests,
+	passwordPattern,
+} from "../../../helpers/authConstants";
 import { PrivateRouteErrorModal } from "../errorHandlerElements/privateRouteErrorModal/privateRouteErrorModal";
-import { emailPattern, errorDataLogOn, errorProfileActivation, passwordPattern } from "../../../helpers/authConstants";
 import { formHelpers } from "../../../utils/formHelpers";
 import { InputTypeList } from "../../../helpers/Input";
 import { MainPath, UserProfilePath } from "../../../services/router/routes";
@@ -38,6 +45,7 @@ export default function SignInForm() {
 	const [isInviteModalOpen, setIsInviteModalOpen] = useState<boolean>(false);
 	const [isPrivateRouteErrorModalOpen, setIsPrivateRouteErrorModalOpen] = useState<boolean>(true);
 	const [pkceCodeSet, setPkceCodeSet] = useState<IPkceCodeSet>();
+	const [isTooManyRequestsError, setIsTooManyRequestsError] = useState<boolean>(false);
 
 	const [initAttempts, setInitAttempts] = useState<number>(0);
 	const [isVKIDInitialized, setIsVKIDInitialized] = useState<boolean>(false);
@@ -79,6 +87,8 @@ export default function SignInForm() {
 		lang: VKID.Languages.RUS,
 		indent: { top: 30, right: 50 },
 	};
+
+	const interval: number = 120000;
 
 	useEffect(() => {
 		(async () => {
@@ -194,7 +204,7 @@ export default function SignInForm() {
 
 	const onSubmit = async (data: ISignInForm) => {
 		try {
-			if (baseUrl && data.password) {
+			if (!isTooManyRequestsError && baseUrl && data.password) {
 				const correctUserData: ICorrectSignInForm = {
 					email: data.email ?? "",
 					password: data.password,
@@ -218,6 +228,15 @@ export default function SignInForm() {
 					type: "server",
 					message: errorProfileActivation,
 				});
+			} else if (isAxiosError(error) && error?.response?.status === axios.HttpStatusCode.TooManyRequests) {
+				setError("email", {
+					type: "server",
+					message: errorTooManyRequests,
+				});
+				setIsTooManyRequestsError(true);
+				setTimeout(() => {
+					setIsTooManyRequestsError(false);
+				}, interval);
 			} else if (
 				axios.isAxiosError(error) &&
 				error.response &&
@@ -271,7 +290,11 @@ export default function SignInForm() {
 						Забыли пароль?
 					</Link>
 				</div>
-				<Button variant={ButtonType.Notification} type={InputTypeList.Submit} className={styles.button}>
+				<Button
+					variant={ButtonType.Notification}
+					disabled={isTooManyRequestsError}
+					type={InputTypeList.Submit}
+					className={styles.button}>
 					Вход
 				</Button>
 				<div className={styles.dividerWrap}>

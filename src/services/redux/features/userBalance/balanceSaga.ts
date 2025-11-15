@@ -1,5 +1,7 @@
 import { call, put, takeLatest } from "redux-saga/effects";
 
+import { AxiosResponse } from "axios";
+
 import { balanceActions } from "../../../../types/redux/sagaActions/storeSaga.actions";
 
 import { getUserBalance } from "../../../api/userProfile/getUserBalance";
@@ -8,13 +10,21 @@ import { mockBaseUrl } from "../../../../mocks/envConsts";
 
 import { balanceSlice } from "./BalanceSlice";
 
-export function* fetchBalanceSaga(): Generator<any, void, any> {
+interface IGetBalanceResponse {
+	current_balance: number;
+	error_message?: string;
+	error_code?: number;
+}
+
+export function* fetchBalanceSaga(
+	action: ReturnType<typeof balanceActions.pending>,
+): Generator<any, void, any> {
 	try {
-		const response = yield call(getUserBalance, mockBaseUrl);
+		const response: AxiosResponse<IGetBalanceResponse> = yield call(getUserBalance, mockBaseUrl);
 
 		yield put(
 			balanceSlice.actions.setBalance({
-				currentBalance: response.data.currentBalance,
+				currentBalance: response.data.current_balance,
 			}),
 		);
 
@@ -25,5 +35,5 @@ export function* fetchBalanceSaga(): Generator<any, void, any> {
 }
 
 export function* watchBalanceSaga() {
-	yield takeLatest(balanceActions.pending.type, fetchBalanceSaga);
+	yield takeLatest(balanceActions.pending, fetchBalanceSaga);
 }

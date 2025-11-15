@@ -34,6 +34,6 @@
 // 	}
 // }
 
-// export function* watchBalanceSaga() {
-// 	yield takeLatest(balanceActions.pending, fetchBalanceSaga);
-// }
+export function* watchBalanceSaga() {
+	// yield takeLatest(balanceActions.pending, fetchBalanceSaga);
+}

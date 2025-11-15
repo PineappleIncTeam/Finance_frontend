@@ -6,12 +6,19 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 import { format } from "date-fns";
+import { useSelector } from "react-redux";
+
+import { RootState } from "../../../../services/redux";
 
 import { useAppDispatch, useAppSelector } from "../../../../services/redux/hooks";
 import { useRuntimeEnv } from "../../../../hooks/useRuntimeEnv";
 
 import { AuthTypes } from "../../../../types/pages/Authorization";
-import { countriesDataActions, userDataActions } from "../../../../types/redux/sagaActions/storeSaga.actions";
+import {
+	countriesDataActions,
+	userDataActions,
+	balanceActions,
+} from "../../../../types/redux/sagaActions/storeSaga.actions";
 import NavBar from "../../navBar/navBar";
 import { BurgerMenu } from "../../burgerMenu/burgerMenu";
 import { PrivateProfileSidebarMenu } from "../sidebarMenu/privateProfileSidebarMenu";
@@ -33,9 +40,11 @@ const PrivateProfileSidebarBlock = () => {
 	const [isNavBarOpen, setIsNavBarOpen] = useState<boolean>(false);
 	const [showMenu, setShowMenu] = useState<boolean>(false);
 	const [selectedMenuItem, setSelectedMenuItem] = useState<string>("Личные данные");
+	const selectBalance = (state: RootState) => state.balance;
 
 	const router = useRouter();
 	const dispatch = useAppDispatch();
+	const { currentBalance, loading } = useSelector(selectBalance);
 
 	const { getSafeEnvVar } = useRuntimeEnv(["NEXT_PUBLIC_BASE_URL"]);
 
@@ -54,6 +63,7 @@ const PrivateProfileSidebarBlock = () => {
 	useEffect(() => {
 		dispatch(userDataActions.pending({ baseURL: baseUrl }));
 		dispatch(countriesDataActions.pending({ baseURL: baseUrl }));
+		dispatch(balanceActions.pending({ baseURL: baseUrl }));
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [dispatch]);
 
@@ -160,7 +170,9 @@ const PrivateProfileSidebarBlock = () => {
 									<p>Ваш баланс на</p>
 									<p>{currentDate}</p>
 								</div>
-								<p className={styles.userInformationAdaptiveContainer__balance}>{0} ₽</p>
+								<p className={styles.userInformationAdaptiveContainer__balance}>
+									{loading ? "..." : `${currentBalance} ₽`}
+								</p>
 							</div>
 						</div>
 						<div className={styles.sidebarMenuWrapper}>

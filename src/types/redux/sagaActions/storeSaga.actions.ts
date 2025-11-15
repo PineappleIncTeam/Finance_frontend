@@ -16,3 +16,10 @@ export const countriesDataActions = {
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	rejected: createAction<any | unknown | Error>("countriesData/fetchRejected"),
 };
+
+export const balanceActions = {
+	pending: createAction<IBaseURLDataRequest>("balance/pending"),
+	fulfilled: createAction<number>("balance/fulfilled"),
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	rejected: createAction<any | unknown | Error>("balance/rejected"),
+};

@@ -25,5 +25,5 @@ export function* fetchBalanceSaga(): Generator<any, void, any> {
 }
 
 export function* watchBalanceSaga() {
-	yield takeLatest(balanceActions.pending, fetchBalanceSaga);
+	yield takeLatest(balanceActions.pending.type, fetchBalanceSaga);
 }

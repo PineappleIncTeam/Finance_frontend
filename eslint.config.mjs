@@ -137,6 +137,7 @@ export default eslintTs.config(
             "@typescript-eslint/no-unused-expressions": "warn",
             "@typescript-eslint/no-empty-interface": "warn",
             "@typescript-eslint/ban-ts-comment": "warn",
+            "@typescript-eslint/no-unused-vars": "warn",
             "@typescript-eslint/naming-convention": [
                 "error",
                 {

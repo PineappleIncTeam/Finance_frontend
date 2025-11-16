@@ -5,7 +5,7 @@ import { dirname, join } from "path";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-const ECOSYSTEM_PATH = join(__dirname, "../ecosystem.config.js");
+const ECOSYSTEM_PATH = join(__dirname, "../ecosystemDocs.config.js");
 
 function processEcosystemFile() {
     try {

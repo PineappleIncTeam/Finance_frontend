@@ -19,14 +19,14 @@ export const balanceSlice = createSlice({
 		},
 	},
 	extraReducers(builder) {
-		builder.addCase(balanceActions.pending, (state) => {
+		builder.addCase(balanceActions.pending, (state: IBalanceState) => {
 			state.loading = true;
-			state.error = null;
 		});
-		builder.addCase(balanceActions.fulfilled, (state) => {
+		builder.addCase(balanceActions.fulfilled, (state: IBalanceState, action: PayloadAction<number>) => {
 			state.loading = false;
+			state.currentBalance = action.payload;
 		});
-		builder.addCase(balanceActions.rejected, (state, action: PayloadAction<string>) => {
+		builder.addCase(balanceActions.rejected, (state: IBalanceState, action: PayloadAction<string>) => {
 			state.loading = false;
 			state.error = action.payload;
 		});

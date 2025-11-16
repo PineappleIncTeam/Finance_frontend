@@ -6,9 +6,6 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 import { format } from "date-fns";
-import { useSelector } from "react-redux";
-
-import { RootState } from "../../../../services/redux";
 
 import { useAppDispatch, useAppSelector } from "../../../../services/redux/hooks";
 import { useRuntimeEnv } from "../../../../hooks/useRuntimeEnv";
@@ -26,6 +23,7 @@ import { MainPath } from "../../../../services/router/routes";
 import { baseLogoutUser } from "../../../../services/api/auth/baseLogoutUser";
 import { sidebarNavMenu } from "../../../../helpers/sidebarNavMenu";
 import { userDataSelector } from "../../../../services/redux/features/userData/UserDataSelector";
+import { balanceSelector } from "../../../../services/redux/features/userBalance/balanceSelector";
 import { avatarTemplates } from "../../../../mocks/AvatarTemplates";
 import { mockBaseUrl } from "../../../../mocks/envConsts";
 
@@ -40,11 +38,10 @@ const PrivateProfileSidebarBlock = () => {
 	const [isNavBarOpen, setIsNavBarOpen] = useState<boolean>(false);
 	const [showMenu, setShowMenu] = useState<boolean>(false);
 	const [selectedMenuItem, setSelectedMenuItem] = useState<string>("Личные данные");
-	const selectBalance = (state: RootState) => state.balance;
 
 	const router = useRouter();
 	const dispatch = useAppDispatch();
-	const { currentBalance, loading } = useSelector(selectBalance);
+	const { currentBalance, loading } = useAppSelector(balanceSelector);
 
 	const { getSafeEnvVar } = useRuntimeEnv(["NEXT_PUBLIC_BASE_URL"]);
 

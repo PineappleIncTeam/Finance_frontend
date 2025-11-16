@@ -3,7 +3,7 @@ import { persistStore, persistReducer, FLUSH, PAUSE, PERSIST, PURGE, REGISTER, R
 import createSagaMiddleware from "redux-saga";
 
 import { dataSlice } from "./features/infoPart/InfoPartSlice";
-import { balanceSlice } from "./features/userBalance/BalanceSlice";
+import { balanceSlice } from "./features/userBalance/balanceSlice";
 import { cookieStatusSlice } from "./features/cookieStatus/cookieStatusSlice";
 import { autoLoginSlice } from "./features/autoLogin/autoLoginSlice";
 import { userDataSlice } from "./features/userData/UserDataSlice";

@@ -3,6 +3,7 @@ import { persistStore, persistReducer, FLUSH, PAUSE, PERSIST, PURGE, REGISTER, R
 import createSagaMiddleware from "redux-saga";
 
 import { dataSlice } from "./features/infoPart/InfoPartSlice";
+import { balanceSlice } from "./features/userBalance/balanceSlice";
 import { cookieStatusSlice } from "./features/cookieStatus/cookieStatusSlice";
 import { autoLoginSlice } from "./features/autoLogin/autoLoginSlice";
 import { userDataSlice } from "./features/userData/UserDataSlice";
@@ -12,6 +13,7 @@ import { countriesDataSlice } from "./features/countriesData/countriesDataSlice"
 // Saga watchers
 import { watchFetchUserData } from "./features/userData/UserDataSaga";
 import { watchFetchCountriesData } from "./features/countriesData/countriesDataSaga";
+import { watchBalanceSaga } from "./features/userBalance/balanceSaga";
 
 import persistConfig from "./persist/persistConfig";
 
@@ -32,6 +34,7 @@ const RootReducer = combineReducers({
 	userData: userDataSlice.reducer,
 	userSettings: userSettingsSlice.reducer,
 	countriesData: countriesDataSlice.reducer,
+	balance: balanceSlice.reducer,
 });
 
 const persistedRootReducer = persistReducer(persistConfig, RootReducer);
@@ -46,6 +49,7 @@ const store = configureStore({
 
 sagaMiddleware.run(watchFetchUserData);
 sagaMiddleware.run(watchFetchCountriesData);
+sagaMiddleware.run(watchBalanceSaga);
 
 export const persistor = persistStore(store);
 export type RootState = ReturnType<typeof store.getState>;

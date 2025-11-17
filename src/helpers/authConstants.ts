@@ -34,3 +34,4 @@ export const errorDataLogOn = "Невозможно войти с предост
 export const errorProfileActivation = "Ваш профиль не активирован";
 export const errorEmailIsNotRegister = "Такой адрес не зарегистрирован в приложении.";
 export const errorUidOrToken = "Неверный код восстановления. Попробуйте восстановить пароль еще раз.";
+export const errorTooManyRequests = "Слишком много запросов. Пожалуйста повторите попытку позже.";

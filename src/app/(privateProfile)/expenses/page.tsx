@@ -154,24 +154,36 @@ export default function Expenses() {
 	}, [request, resetTimer]);
 
 	useEffect(() => {
-		getAllCategoriesOptions();
-		if (isAddSuccess || isDeleteSuccessCategory || isCategoryArchive) {
+		(() => {
+			getFiveOperationsNames();
+			getFiveOperations();
 			getAllCategoriesOptions();
-		}
+		})();
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
+
+	useEffect(() => {
+		(() => {
+			if (isAddSuccess || isDeleteSuccessCategory || isCategoryArchive) {
+				getAllCategoriesOptions();
+			}
+		})();
 	}, [getAllCategoriesOptions, isAddSuccess, isDeleteSuccessCategory, isCategoryArchive]);
 
 	useEffect(() => {
-		getFiveOperations();
-		if (isDeleteOperationSuccess || isEditSuccess || isAddSuccess) {
-			getFiveOperations();
-		}
+		(() => {
+			if (isDeleteOperationSuccess || isEditSuccess || isAddSuccess) {
+				getFiveOperations();
+			}
+		})();
 	}, [isDeleteOperationSuccess, isEditSuccess, isAddSuccess, getFiveOperations]);
 
 	useEffect(() => {
-		setFiveOperationsNames(getFiveOperationsNames);
-		if (isDeleteOperationSuccess || isEditSuccess || isAddSuccess) {
-			setFiveOperationsNames(getFiveOperationsNames);
-		}
+		(() => {
+			if (isDeleteOperationSuccess || isEditSuccess || isAddSuccess) {
+				setFiveOperationsNames(getFiveOperationsNames);
+			}
+		})();
 	}, [isDeleteOperationSuccess, isEditSuccess, isAddSuccess, getFiveOperationsNames]);
 
 	const addCategory = async (data: IAddCategoryExpensesForm) => {
@@ -412,17 +424,14 @@ export default function Expenses() {
 			<div className={styles.expensesPageContainer}>
 				<form className={styles.expensesFormContentWrapper}>
 					<h1 className={styles.headerTitle}>Расходы</h1>
-					<div className={styles.expensesByDateContainer}>
+					<div className={styles.expensesGridWrapper}>
 						<div className={styles.totalMonthlyWrapper}>
 							<p className={styles.totalMonthlyWrapper__month}>Общий расход за Январь</p>
 							<p className={styles.totalMonthlyWrapper__sum}>283 000 ₽</p>
 						</div>
 						<div className={styles.dateSelectionWrapper}>
-							<p className={styles.dateSelectionWrapper__description}>Выбор даты</p>
 							<InputDate control={control} name={"date"} />
 						</div>
-					</div>
-					<div className={styles.expensesDetailsContainer}>
 						<div className={styles.expensesDetailsContainer__category}>
 							<CategorySelect
 								name={"categories"}
@@ -445,8 +454,8 @@ export default function Expenses() {
 								name={"amount"}
 								placeholder={"0.00"}
 							/>
+							<AddButton onClick={handleSubmit(onSubmit)} type={InputTypeList.Button} />
 						</div>
-						<AddButton onClick={handleSubmit(onSubmit)} type={InputTypeList.Button} />
 					</div>
 				</form>
 				{isCategoryDeleteModalOpen && (

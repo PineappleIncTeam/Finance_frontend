@@ -51,6 +51,7 @@ export const PrivateProfileChangePassword = () => {
 	};
 
 	const validateRepeatPassword = (value: string | boolean | undefined) => {
+		// eslint-disable-next-line react-hooks/incompatible-library
 		const password = watch("newPassword");
 		return value === password || errorPasswordRepeat;
 	};

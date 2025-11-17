@@ -44,3 +44,7 @@ export interface ICountryData {
 	name: string;
 	code: string;
 }
+
+export interface IGetBalanceResponse {
+	current_balance: number;
+}

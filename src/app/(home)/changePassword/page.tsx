@@ -55,6 +55,7 @@ export default function ChangePassword() {
 	});
 
 	const validateRepeatPassword = (value: string) => {
+		// eslint-disable-next-line react-hooks/incompatible-library
 		const password = watch("password");
 		return value === password || errorPasswordRepeat;
 	};

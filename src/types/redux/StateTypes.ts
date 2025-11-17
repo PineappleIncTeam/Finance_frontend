@@ -32,3 +32,9 @@ export interface ICountriesDataState {
 	loading: boolean;
 	error: string | null;
 }
+
+export interface IBalanceState {
+	currentBalance: number;
+	loading: boolean;
+	error: string | null;
+}

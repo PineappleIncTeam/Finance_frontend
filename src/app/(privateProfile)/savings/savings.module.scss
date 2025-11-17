@@ -31,7 +31,7 @@
 	}
 
 	@media (max-width: 426px) {
-		padding: 0px;
+		padding: 0;
 	}
 }
 
@@ -72,8 +72,8 @@
 	}
 
 	@media (max-width: 430px) {
-		// grid-template-columns: repeat(2, 190px);
 		gap: 8px;
+		// grid-template-columns: repeat(2, 190px);
 		// overflow: hidden;
 	}
 
@@ -291,14 +291,13 @@
 		}
 	}
 }
+
 .addButtonIcon {
 	display: none;
 
 	@media (max-width: 800px) {
 		& {
 			display: inline;
-			align-items: center;
-			justify-content: center;
 			margin-top: 6px;
 
 			width: 18px;

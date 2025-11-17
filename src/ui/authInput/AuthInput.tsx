@@ -29,7 +29,7 @@ const AuthInput = ({ label, type, placeholder, autoComplete, subtitle, error, ..
 				const isRepeatPassword = inputName === "re_password";
 				setIsMediumPassword(result.value === "Medium" && !isRepeatPassword);
 				setIsStrongPassword(result.value === "Strong");
-				// eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
+				// eslint-disable-next-line @typescript-eslint/no-unused-vars
 			} catch (error: unknown) {
 				setIsMediumPassword(false);
 				setIsStrongPassword(false);

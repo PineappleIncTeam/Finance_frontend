@@ -20,6 +20,7 @@ import Button from "../../../ui/Button/Button";
 import {
 	emailPattern,
 	errorPasswordRepeat,
+	errorTooManyRequests,
 	errorUserWithExistEmailRegistration,
 	passwordPattern,
 } from "../../../helpers/authConstants";
@@ -38,6 +39,7 @@ import styles from "./signUpForm.module.scss";
 
 export default function SignUpForm() {
 	const [pkceCodeSet, setPkceCodeSet] = useState<IPkceCodeSet>();
+	const [isTooManyRequestsError, setIsTooManyRequestsError] = useState<boolean>(false);
 
 	const [initAttempts, setInitAttempts] = useState<number>(0);
 	const [isVKIDInitialized, setIsVKIDInitialized] = useState<boolean>(false);
@@ -80,6 +82,8 @@ export default function SignUpForm() {
 		indent: { top: 30, right: 50 },
 	};
 
+	const interval: number = 120000;
+
 	useEffect(() => {
 		(async () => {
 			await setPkceCodeSet(await generatePkceChallenge());
@@ -113,7 +117,7 @@ export default function SignUpForm() {
 				if (timeoutInitRef.current) {
 					clearTimeout(timeoutInitRef.current);
 				}
-				// eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
+				// eslint-disable-next-line @typescript-eslint/no-unused-vars
 			} catch (error: unknown) {
 				timeoutInitRef.current = setTimeout(() => {
 					setInitAttempts((prevAttempts) => prevAttempts + 1);
@@ -202,7 +206,7 @@ export default function SignUpForm() {
 
 	const onSubmit = async (data: ISignUpForm) => {
 		try {
-			if (baseUrl) {
+			if (!isTooManyRequestsError && baseUrl) {
 				await registration(baseUrl, data);
 				router.push(MainPath.Login);
 			} else {
@@ -214,6 +218,15 @@ export default function SignUpForm() {
 					type: "server",
 					message: errorUserWithExistEmailRegistration,
 				});
+			} else if (isAxiosError(error) && error?.response?.status === axios.HttpStatusCode.TooManyRequests) {
+				setError("email", {
+					type: "server",
+					message: errorTooManyRequests,
+				});
+				setIsTooManyRequestsError(true);
+				setTimeout(() => {
+					setIsTooManyRequestsError(false);
+				}, interval);
 			} else if (
 				isAxiosError(error) &&
 				error.response &&
@@ -279,7 +292,7 @@ export default function SignUpForm() {
 				<Button
 					variant={ButtonType.Notification}
 					className={styles.button}
-					disabled={!isValid}
+					disabled={!isValid && isTooManyRequestsError}
 					type={InputTypeList.Submit}>
 					Зарегистрироваться
 				</Button>

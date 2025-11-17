@@ -117,7 +117,7 @@ export default function SignUpForm() {
 				if (timeoutInitRef.current) {
 					clearTimeout(timeoutInitRef.current);
 				}
-				// eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
+				// eslint-disable-next-line @typescript-eslint/no-unused-vars
 			} catch (error: unknown) {
 				timeoutInitRef.current = setTimeout(() => {
 					setInitAttempts((prevAttempts) => prevAttempts + 1);

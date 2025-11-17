@@ -93,7 +93,7 @@ const eslintConfig = defineConfig([
 			"no-console": "warn",
 			"prefer-const": "warn",
 			"max-len": ["error", { code: 12000 }],
-			"no-unused-vars": "warn",
+			"no-unused-vars": "off",
 			"prefer-arrow-callback": "error",
 			"constructor-super": "error",
 			"no-this-before-super": "error",

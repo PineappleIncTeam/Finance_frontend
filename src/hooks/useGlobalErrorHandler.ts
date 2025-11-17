@@ -24,7 +24,8 @@ export function useGlobalErrorHandler() {
 	}, []);
 }
 
-function sendErrorToMonitoring(error: any, context?: any) {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+function sendErrorToMonitoring(error: unknown, context?: string | object) {
 	if (process.env.NODE_ENV === "production") {
 		// monitoringService.logError(error, context);
 	}

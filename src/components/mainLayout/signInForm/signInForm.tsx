@@ -5,7 +5,6 @@ import { useForm } from "react-hook-form";
 import { useRouter, useSearchParams } from "next/navigation";
 import axios, { AxiosResponse, isAxiosError } from "axios";
 import Link from "next/link";
-import { env } from "next-runtime-env";
 import * as VKID from "@vkid/sdk";
 
 import { useActions } from "../../../services/redux/hooks";
@@ -54,7 +53,7 @@ export default function SignInForm() {
 	const { setUserData, setAutoLoginStatus } = useActions();
 	const searchParams = useSearchParams();
 
-	const { getSafeEnvVar, env } = useRuntimeEnv(["NEXT_PUBLIC_BASE_URL", "NEXT_PUBLIC_VK_APP_ID"]);
+	const { getSafeEnvVar } = useRuntimeEnv(["NEXT_PUBLIC_BASE_URL", "NEXT_PUBLIC_VK_APP_ID"]);
 
 	const isPrivateRoute = Boolean(searchParams.get("isPrivateRoute"));
 
@@ -123,7 +122,7 @@ export default function SignInForm() {
 				if (timeoutInitRef.current) {
 					clearTimeout(timeoutInitRef.current);
 				}
-				// eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
+				// eslint-disable-next-line @typescript-eslint/no-unused-vars
 			} catch (error: unknown) {
 				timeoutInitRef.current = setTimeout(() => {
 					setInitAttempts((prevAttempts) => prevAttempts + 1);

@@ -9,7 +9,8 @@ export function useHandleAsyncError() {
 
 	const isDev = process.env.NODE_ENV === "development";
 
-	const handleAsyncError = (error: Error, context?: Record<string, unknown>) => {
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars
+	const handleAsyncError = (error: Error, _context?: Record<string, unknown>) => {
 		if (isDev) {
 			openModal(error);
 		} else {
@@ -17,7 +18,7 @@ export function useHandleAsyncError() {
 		}
 	};
 
-	const withErrorHandling = <T extends any[], R>(asyncFunction: TAsyncFunctionErrorHandling<T, R>) => {
+	const withErrorHandling = <T extends unknown[], R>(asyncFunction: TAsyncFunctionErrorHandling<T, R>) => {
 		return async (...args: T): Promise<R> => {
 			try {
 				return await asyncFunction(...args);

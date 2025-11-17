@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
+import * as Sentry from "@sentry/nextjs";
 
 export function useGlobalErrorHandler() {
 	useEffect(() => {
@@ -11,7 +12,9 @@ export function useGlobalErrorHandler() {
 		const handleUnhandledRejection = (event: Event) => {
 			event.preventDefault();
 
-			sendErrorToMonitoring((event as ErrorEvent)?.error ?? event.toString(), (event as ErrorEvent)?.filename ?? null);
+			sendErrorToMonitoring((event as ErrorEvent)?.error ?? event.toString(), {
+				filename: (event as ErrorEvent)?.filename,
+			});
 		};
 
 		window.addEventListener("error", handleError);
@@ -24,9 +27,8 @@ export function useGlobalErrorHandler() {
 	}, []);
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-function sendErrorToMonitoring(error: unknown, context?: string | object) {
+export function sendErrorToMonitoring(error: unknown, context?: Sentry.Context) {
 	if (process.env.NODE_ENV === "production") {
-		// monitoringService.logError(error, context);
+		Sentry.captureException(error as Error, context);
 	}
 }

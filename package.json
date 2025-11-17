@@ -3,7 +3,7 @@
 	"version": "2.27.0",
 	"private": true,
 	"scripts": {
-		"dev": "next dev --turbopack",
+		"dev": "next dev",
 		"build": "next build && npm run build-sb && npm run build-typedoc && npm run buildEcosystem",
 		"start": "next start",
 		"preCommitLint": "eslint --quiet --ext .js,.jsx,.ts,.tsx,.json ./src ./scripts",
@@ -22,6 +22,7 @@
 	},
 	"dependencies": {
 		"@reduxjs/toolkit": "^2.10.1",
+		"@sentry/nextjs": "^10.25.0",
 		"@vkid/sdk": "^2.6.2",
 		"air-datepicker": "^3.6.0",
 		"axios": "^1.13.2",

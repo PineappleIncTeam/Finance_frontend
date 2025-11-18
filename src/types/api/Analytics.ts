@@ -15,3 +15,7 @@ export interface IReportsStatistics {
 	total_income: number;
 	total_savings: number;
 }
+
+export interface IReportsBalance {
+	current_balance: number;
+}

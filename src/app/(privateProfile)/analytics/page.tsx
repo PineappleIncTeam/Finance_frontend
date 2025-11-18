@@ -29,8 +29,9 @@ import InactivityLogoutModal from "../../../components/userProfileLayout/inactiv
 import { mockBaseUrl } from "../../../mocks/envConsts";
 import { MainPath } from "../../../services/router/routes";
 import { getReportsCategories } from "../../../services/api/userProfile/getReportsCategories";
-import { IReportsCategories, IReportsStatistics } from "../../../types/api/Analytics";
+import { IReportsBalance, IReportsCategories, IReportsStatistics } from "../../../types/api/Analytics";
 import { getReportsStatistics } from "../../../services/api/userProfile/getReportsStatistics";
+import { getReportsBalance } from "../../../services/api/userProfile/getReportsBalance";
 
 import styles from "./analytics.module.scss";
 
@@ -81,6 +82,7 @@ function Analytics() {
 	const [isLabel, setIsLabel] = useState(true);
 	const [listOfOperations, setListOfOperations] = useState<IReportsCategories[]>([]);
 	const [categoriesStatistics, setCategoriesStatistics] = useState<IReportsStatistics[]>([]);
+	const [reportsBalance, setReportsBalance] = useState<IReportsBalance[]>([]);
 	const isEmptyPage = false;
 	const rawExpensesData = [
 		1300.01, 3900.02, 3250.02, 1638.83, 2652.06, 15271.09, 390.0, 975.56, 1340.79, 9110.05, 16192.09, 2600.01, 6437.57,
@@ -328,6 +330,28 @@ function Analytics() {
 		}
 	}, [baseUrl, router]);
 
+	const getBalance = useCallback(async () => {
+		try {
+			if (baseUrl) {
+				const response: AxiosResponse<IReportsBalance[]> = await getReportsBalance(baseUrl);
+				if (response !== null && response.status === axios.HttpStatusCode.Ok) {
+					setReportsBalance(response.data);
+					console.log(response.data);
+				}
+			}
+		} catch (error) {
+			if (
+				axios.isAxiosError(error) &&
+				error.response &&
+				error.response.status &&
+				error.response.status >= axios.HttpStatusCode.InternalServerError &&
+				error.response.status <= axios.HttpStatusCode.NetworkAuthenticationRequired
+			) {
+				router.push(MainPath.ServerError);
+			}
+		}
+	}, [baseUrl, router]);
+
 	useEffect(() => {
 		const handleResize = () => {
 			if (window.innerWidth <= windowSizeS) {
@@ -377,6 +401,10 @@ function Analytics() {
 	useEffect(() => {
 		getCategoriesStatistics();
 	}, [getCategoriesStatistics]);
+
+	useEffect(() => {
+		getBalance();
+	}, [getBalance]);
 
 	const handleDisplayChange = (event: ChangeEvent<HTMLInputElement>) => {
 		const value = event.target.value as DisplayMode;

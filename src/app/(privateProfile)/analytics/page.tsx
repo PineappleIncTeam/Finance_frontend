@@ -81,10 +81,10 @@ function Analytics() {
 	const [rotation, setRotation] = useState({ maxRotation: 0, minRotation: 0 });
 	const [isLabel, setIsLabel] = useState(true);
 	const [listOfOperations, setListOfOperations] = useState<IReportsCategories[]>([]);
-	const [expensesStatistics, setExpensesStatistics] = useState<number>(null);
-	const [incomeStatistics, setIncomeStatistics] = useState<number>(null);
-	const [savingsStatistics, setSavingsStatistics] = useState<number>(null);
-	const [reportsBalance, setReportsBalance] = useState<number>(null);
+	const [expensesStatistics, setExpensesStatistics] = useState<number | null>(null);
+	const [incomeStatistics, setIncomeStatistics] = useState<number | null>(null);
+	const [savingsStatistics, setSavingsStatistics] = useState<number | null>(null);
+	const [reportsBalance, setReportsBalance] = useState<number | null>(null);
 	const isEmptyPage = false;
 	const rawExpensesData = [
 		1300.01, 3900.02, 3250.02, 1638.83, 2652.06, 15271.09, 390.0, 975.56, 1340.79, 9110.05, 16192.09, 2600.01, 6437.57,

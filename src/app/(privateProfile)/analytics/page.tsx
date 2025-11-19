@@ -81,8 +81,10 @@ function Analytics() {
 	const [rotation, setRotation] = useState({ maxRotation: 0, minRotation: 0 });
 	const [isLabel, setIsLabel] = useState(true);
 	const [listOfOperations, setListOfOperations] = useState<IReportsCategories[]>([]);
-	const [categoriesStatistics, setCategoriesStatistics] = useState<IReportsStatistics[]>([]);
-	const [reportsBalance, setReportsBalance] = useState<IReportsBalance[]>([]);
+	const [expensesStatistics, setExpensesStatistics] = useState<number>(null);
+	const [incomeStatistics, setIncomeStatistics] = useState<number>(null);
+	const [savingsStatistics, setSavingsStatistics] = useState<number>(null);
+	const [reportsBalance, setReportsBalance] = useState<number>(null);
 	const isEmptyPage = false;
 	const rawExpensesData = [
 		1300.01, 3900.02, 3250.02, 1638.83, 2652.06, 15271.09, 390.0, 975.56, 1340.79, 9110.05, 16192.09, 2600.01, 6437.57,
@@ -311,9 +313,11 @@ function Analytics() {
 	const getCategoriesStatistics = useCallback(async () => {
 		try {
 			if (baseUrl) {
-				const response: AxiosResponse<IReportsStatistics[]> = await getReportsStatistics(baseUrl);
+				const response: AxiosResponse<IReportsStatistics> = await getReportsStatistics(baseUrl);
 				if (response !== null && response.status === axios.HttpStatusCode.Ok) {
-					setCategoriesStatistics(response.data);
+					setExpensesStatistics(response.data?.total_expenses);
+					setIncomeStatistics(response.data?.total_income);
+					setSavingsStatistics(response.data?.total_savings);
 					console.log(response.data);
 				}
 			}
@@ -333,9 +337,9 @@ function Analytics() {
 	const getBalance = useCallback(async () => {
 		try {
 			if (baseUrl) {
-				const response: AxiosResponse<IReportsBalance[]> = await getReportsBalance(baseUrl);
+				const response: AxiosResponse<IReportsBalance> = await getReportsBalance(baseUrl);
 				if (response !== null && response.status === axios.HttpStatusCode.Ok) {
-					setReportsBalance(response.data);
+					setReportsBalance(response.data?.current_balance);
 					console.log(response.data);
 				}
 			}
@@ -544,7 +548,7 @@ function Analytics() {
 		<div className={styles.analyticsDiagramExpensesWrapper}>
 			<div className={styles.analyticsDiagramExpensesInfo}>
 				<p className={styles.analyticsDiagramExpensesInfo__title}>Общий расход</p>
-				<p className={styles.analyticsDiagramExpensesInfo__value}>130 000.75 ₽</p>
+				<p className={styles.analyticsDiagramExpensesInfo__value}>{expensesStatistics}</p>
 				<p className={styles.analyticsDiagramExpensesInfo__date}>14.09.23 - 20.09.23</p>
 			</div>
 
@@ -599,7 +603,7 @@ function Analytics() {
 			<div className={styles.analyticsDiagramIncomeInfoWrapper}>
 				<div className={styles.analyticsDiagramIncomeInfo}>
 					<p className={styles.analyticsDiagramIncomeInfo__title}>Общий доход</p>
-					<p className={styles.analyticsDiagramIncomeInfo__value}>130 000.75 ₽</p>
+					<p className={styles.analyticsDiagramIncomeInfo__value}>{incomeStatistics}</p>
 					<p className={styles.analyticsDiagramIncomeInfo__date}>14.09.23 - 20.09.23</p>
 				</div>
 
@@ -675,7 +679,7 @@ function Analytics() {
 			<div className={styles.analyticsDiagramAnalysisInfoWrapper}>
 				<div className={styles.analyticsDiagramAnalysisInfo}>
 					<p className={styles.analyticsDiagramAnalysisInfo__title}>Ваш баланс</p>
-					<p className={styles.analyticsDiagramAnalysisInfo__value}>0.00 ₽</p>
+					{reportsBalance && <p className={styles.analyticsDiagramAnalysisInfo__value}>{reportsBalance}</p>}
 					<p className={styles.analyticsDiagramAnalysisInfo__date}>14.09.23 - 20.09.23</p>
 				</div>
 

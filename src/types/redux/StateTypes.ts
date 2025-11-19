@@ -8,6 +8,7 @@ export interface IUserDataState {
 	gender: TGender;
 	avatar: string;
 	defaultAvatar: number;
+	auth_type: "vkServiceAuth" | "email" | string;
 }
 
 export interface IUserState {

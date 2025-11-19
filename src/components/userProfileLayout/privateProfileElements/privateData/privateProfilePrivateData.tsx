@@ -23,6 +23,7 @@ import styles from "./privateProfilePrivateData.module.scss";
 
 export const PrivateProfilePrivateData = () => {
 	const userData = useAppSelector(userDataSelector);
+	const isVkAuth = userData.userData?.auth_type === "vkServiceAuth";
 	const countriesData = useAppSelector(countriesDataSelector);
 	const { setUserData } = useActions();
 
@@ -102,6 +103,7 @@ export const PrivateProfilePrivateData = () => {
 						},
 					}}
 					error={errors.nickname?.message}
+					disabled={isVkAuth}
 				/>
 				<div className={styles.privateDataRadioButtons}>
 					<RadioButton control={control} name="gender" value="M" label="Муж." />
@@ -113,6 +115,7 @@ export const PrivateProfilePrivateData = () => {
 					name={"countryName"}
 					control={control}
 					placeholder="Введите страну"
+					disabled={isVkAuth}
 				/>
 				<AppInput label={"Email"} type={"text"} name={"email"} control={control} placeholder="my@email.ru" disabled />
 			</div>
@@ -120,6 +123,7 @@ export const PrivateProfilePrivateData = () => {
 			<Button variant={ButtonType.Outlined} type={InputTypeList.Submit}>
 				Сохранить
 			</Button>
+			{isVkAuth && <p className={styles.privateDataFormError}>Нельзя отредактировать данные профиля</p>}
 		</form>
 	);
 };

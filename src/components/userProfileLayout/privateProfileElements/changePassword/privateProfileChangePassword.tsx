@@ -15,6 +15,9 @@ import { ButtonType } from "../../../../helpers/buttonFieldValues";
 import { passwordValidate } from "../../../../utils/passwordValidate";
 import { mockBaseUrl } from "../../../../mocks/envConsts";
 
+import { userDataSelector } from "../../../../services/redux/features/userData/UserDataSelector";
+import { useAppSelector } from "../../../../services/redux/hooks";
+
 import styles from "./privateProfileChangePassword.module.scss";
 
 export const PrivateProfileChangePassword = () => {
@@ -56,6 +59,9 @@ export const PrivateProfileChangePassword = () => {
 		return value === password || errorPasswordRepeat;
 	};
 
+	const userData = useAppSelector(userDataSelector);
+	const isVkAuth = userData.userData?.auth_type === "vkServiceAuth";
+
 	return (
 		<form className={styles.changePasswordFormWrap} onSubmit={handleSubmit(onSubmit)}>
 			<p className={styles.changePasswordFormWrap__title}>Смена пароля</p>
@@ -68,6 +74,7 @@ export const PrivateProfileChangePassword = () => {
 					placeholder="Текущий пароль"
 					rules={{ required: true }}
 					error={errors.oldPassword}
+					disabled={isVkAuth}
 				/>
 				<AppInput
 					label={"Новый пароль"}
@@ -80,6 +87,7 @@ export const PrivateProfileChangePassword = () => {
 						validate: passwordValidate,
 					}}
 					error={errors.newPassword}
+					disabled={isVkAuth}
 				/>
 				<AppInput
 					label={"Подтвердить пароль"}
@@ -89,11 +97,13 @@ export const PrivateProfileChangePassword = () => {
 					placeholder="Подтвердите пароль"
 					rules={{ required: true, validate: validateRepeatPassword }}
 					error={errors.repeatPassword}
+					disabled={isVkAuth}
 				/>
 			</div>
 			<Button variant={ButtonType.Outlined} type={InputTypeList.Submit}>
 				Сохранить
 			</Button>
+			{isVkAuth && <p className={styles.changePasswordErrorWrap}>Нельзя отредактировать данные профиля</p>}
 		</form>
 	);
 };

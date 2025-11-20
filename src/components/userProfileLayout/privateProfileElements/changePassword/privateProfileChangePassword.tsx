@@ -59,8 +59,7 @@ export const PrivateProfileChangePassword = () => {
 		return value === password || errorPasswordRepeat;
 	};
 
-	const userData = useAppSelector(userDataSelector);
-	const isVkAuth = userData.userData?.auth_type === "vkServiceAuth";
+	const isVkAuth = localStorage.getItem("authType") === "vkServiceAuth";
 
 	return (
 		<form className={styles.changePasswordFormWrap} onSubmit={handleSubmit(onSubmit)}>

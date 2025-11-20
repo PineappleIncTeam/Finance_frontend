@@ -23,7 +23,7 @@ import styles from "./privateProfilePrivateData.module.scss";
 
 export const PrivateProfilePrivateData = () => {
 	const userData = useAppSelector(userDataSelector);
-	const isVkAuth = userData.userData?.auth_type === "vkServiceAuth";
+	const isVkAuth = localStorage.getItem("authType") === "vkServiceAuth";
 	const countriesData = useAppSelector(countriesDataSelector);
 	const { setUserData } = useActions();
 

@@ -101,7 +101,11 @@ function Analytics() {
 		setIsLabel(window.innerWidth > windowResizeLabel);
 	};
 
-	const rawAnalysisData = [incomeStatistics, expensesStatistics];
+	function getRawAnalysisData(incomeStatistics: number, expensesStatistics: number) {
+		if (Array.isArray(incomeStatistics) && Array.isArray(expensesStatistics)) {
+			return [incomeStatistics, expensesStatistics];
+		}
+	}
 
 	const expensesLabels: string[] = listOfOperations.map((item) => item.category_name);
 	const expensesLabelsLengthValue = expensesLabels.length;
@@ -494,7 +498,7 @@ function Analytics() {
 		labels: analysisLabels,
 		datasets: [
 			{
-				data: rawAnalysisData.map((value) =>
+				data: getRawAnalysisData(incomeStatistics, expensesStatistics).map((value) =>
 					displayMode === DisplayMode.RUB ? value : ((value / 130000) * 100).toFixed(2),
 				),
 				backgroundColor: randomColorSet,

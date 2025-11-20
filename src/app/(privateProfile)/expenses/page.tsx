@@ -367,7 +367,7 @@ export default function Expenses() {
 		const transactionData: IAddCategoryTransactionForm = {
 			date: getCurrentDate(endDate),
 			amount: Number(data.amount),
-			categories: getCategoryId(data.name),
+			categories: getCategoryId(String(data.categories)),
 			type: "outcome",
 		};
 		try {

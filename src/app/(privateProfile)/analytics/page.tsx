@@ -101,30 +101,9 @@ function Analytics() {
 		setIsLabel(window.innerWidth > windowResizeLabel);
 	};
 
-	const rawAnalysisData = [50000, 50000];
+	const rawAnalysisData = [incomeStatistics, expensesStatistics];
 
-	const expensesLabels: string[] = [
-		"Внезапная покупка",
-		"Стрижка",
-		"Бассейн",
-		"Школа",
-		"Еда",
-		"Плата жилья",
-		"Ногти",
-		"Бензин",
-		"Дорога работа",
-		"Юрист",
-		"Детский сад",
-		"Учебники",
-		"Отпуск",
-		"Театр",
-		"Кредит",
-		"Страховка",
-		"Киберспорт",
-		"Путешествия",
-		"Кино",
-		"Ипотека",
-	];
+	const expensesLabels: string[] = listOfOperations.map((item) => item.category_name);
 	const expensesLabelsLengthValue = expensesLabels.length;
 
 	const analysisLabels: string[] = ["Общий расход", "Общий доход"];

@@ -102,9 +102,7 @@ function Analytics() {
 	};
 
 	function getRawAnalysisData(incomeStatistics: number, expensesStatistics: number) {
-		if (Array.isArray(incomeStatistics) && Array.isArray(expensesStatistics)) {
-			return [incomeStatistics, expensesStatistics];
-		}
+		return incomeStatistics && expensesStatistics ? [incomeStatistics, expensesStatistics] : [];
 	}
 
 	const expensesLabels: string[] = listOfOperations.map((item) => item.category_name);

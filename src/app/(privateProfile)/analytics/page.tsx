@@ -101,7 +101,7 @@ function Analytics() {
 		setIsLabel(window.innerWidth > windowResizeLabel);
 	};
 
-	function getRawAnalysisData(incomeStatistics: number, expensesStatistics: number) {
+	function getRawAnalysisData(incomeStatistics: number | null, expensesStatistics: number | null) {
 		return incomeStatistics && expensesStatistics ? [incomeStatistics, expensesStatistics] : [];
 	}
 

@@ -163,7 +163,7 @@ function Savings() {
 					type: "targets",
 					amount: Number(data.current_sum),
 					date: data.date,
-					categories: getTargetId(data.name),
+					target: getTargetId(data.name),
 				};
 				const response = await editSavingsCurrentSum(baseUrl, targetFormData);
 				if (response.status === axios.HttpStatusCode.Created) {

@@ -13,6 +13,6 @@ export interface ISavingsTargetAddTransactionForm {
 	type: "targets";
 	amount: number | string;
 	date: string;
-	target?: number;
-	categories: number;
+	target: number;
+	categories?: number;
 }

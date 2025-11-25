@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useState, useEffect, ChangeEvent, useCallback } from "react";
+import { useState, useEffect, ChangeEvent, useCallback, Key } from "react";
 import { useForm } from "react-hook-form";
 import axios, { AxiosResponse } from "axios";
 import { Pie, Bar, Doughnut } from "react-chartjs-2";
@@ -29,7 +29,7 @@ import InactivityLogoutModal from "../../../components/userProfileLayout/inactiv
 import { mockBaseUrl } from "../../../mocks/envConsts";
 import { MainPath } from "../../../services/router/routes";
 import { getReportsCategories } from "../../../services/api/userProfile/getReportsCategories";
-import { IReportsBalance, IReportsCategories, IReportsStatistics } from "../../../types/api/Analytics";
+import { IMonthSum, IReportCategory, IReportsBalance, IReportsStatistics } from "../../../types/api/Analytics";
 import { getReportsStatistics } from "../../../services/api/userProfile/getReportsStatistics";
 import { getReportsBalance } from "../../../services/api/userProfile/getReportsBalance";
 
@@ -80,7 +80,7 @@ function Analytics() {
 	const [chartHeight, setChartHeight] = useState(298);
 	const [rotation, setRotation] = useState({ maxRotation: 0, minRotation: 0 });
 	const [isLabel, setIsLabel] = useState(true);
-	const [listOfOperations, setListOfOperations] = useState<IReportsCategories[]>([]);
+	const [listOfOperations, setListOfOperations] = useState<IReportCategory[] & IMonthSum[]>([]);
 	const [expensesStatistics, setExpensesStatistics] = useState<number | null>(null);
 	const [incomeStatistics, setIncomeStatistics] = useState<number | null>(null);
 	const [savingsStatistics, setSavingsStatistics] = useState<number | null>(null);
@@ -105,8 +105,12 @@ function Analytics() {
 		return incomeStatistics && expensesStatistics ? [incomeStatistics, expensesStatistics] : [];
 	}
 
-	const expensesLabels: string[] = listOfOperations.map((item) => item.category_name);
-	const expensesLabelsLengthValue = expensesLabels.length;
+	const expensesLabels = () => {
+		if (listOfOperations !== null) {
+			return listOfOperations.map((item) => item?.category_name) ?? [];
+		}
+	};
+	const expensesLabelsLengthValue = expensesLabels()?.length || 0;
 
 	const analysisLabels: string[] = ["Общий расход", "Общий доход"];
 
@@ -272,7 +276,7 @@ function Analytics() {
 	const getListOfOperations = useCallback(async () => {
 		try {
 			if (baseUrl) {
-				const response: AxiosResponse<IReportsCategories[]> = await getReportsCategories(baseUrl);
+				const response: AxiosResponse<IReportCategory[] & IMonthSum[]> = await getReportsCategories(baseUrl);
 				if (response !== null && response.status === axios.HttpStatusCode.Ok) {
 					setListOfOperations(response.data);
 					console.log(response.data);
@@ -402,7 +406,7 @@ function Analytics() {
 	const randomColorSet: string[] = generateRandomColors(expensesLabelsLengthValue);
 
 	const data = {
-		labels: expensesLabels,
+		labels: expensesLabels() ?? [],
 		datasets: [
 			{
 				label: "Расходы",
@@ -758,14 +762,14 @@ function Analytics() {
 		));
 	};
 
-	const renderAnalyticsExpensesTransactions = (transactions: IAnalyticsTransactions[]) => {
-		return transactions.map((savingsData, index) => (
+	const renderAnalyticsExpensesTransactions = (transactions: IReportCategory[] & IMonthSum[]) => {
+		return transactions.map((data: IReportCategory & IMonthSum, index: Key) => (
 			<li key={index}>
 				<AnalystExpensesTransactions
-					firstDate={savingsData.firstDate}
-					secondDate={savingsData.secondDate}
-					purpose={savingsData.purpose}
-					sum={savingsData.sum}
+					month={data.month}
+					category_name={data.category_name}
+					amount={data.amount}
+					items={[]}
 				/>
 			</li>
 		));
@@ -820,7 +824,7 @@ function Analytics() {
 				<div className={styles.analyticsTransactionsWrapper}>
 					<h3 className={styles.analyticsTransactionsWrapper__title}>Операции с расходами</h3>
 					<ul className={styles.analyticsTransactionsWrapper__item}>
-						{analyticsExpensesTransactions && renderAnalyticsExpensesTransactions(analyticsExpensesTransactions)}
+						{analyticsExpensesTransactions && renderAnalyticsExpensesTransactions(listOfOperations)}
 					</ul>
 				</div>
 

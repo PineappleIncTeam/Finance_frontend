@@ -1,13 +1,13 @@
-export interface IReportsCategories {
-	category_id: number;
-	category_name: string;
-	amount: number;
-	items: IReportsCategoriesItems[];
-}
-
-export interface IReportsCategoriesItems {
+export interface IMonthSum {
 	month: string;
 	amount: number;
+}
+
+export interface IReportCategory {
+	category_id?: number;
+	category_name?: string;
+	amount: number;
+	items?: IMonthSum[];
 }
 
 export interface IReportsStatistics {

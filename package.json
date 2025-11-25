@@ -22,7 +22,7 @@
 	},
 	"dependencies": {
 		"@reduxjs/toolkit": "^2.10.1",
-		"@sentry/nextjs": "^10.25.0",
+		"@sentry/nextjs": "^10.27.0",
 		"@vkid/sdk": "^2.6.2",
 		"air-datepicker": "^3.6.0",
 		"axios": "^1.13.2",

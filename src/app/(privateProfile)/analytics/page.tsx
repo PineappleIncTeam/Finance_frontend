@@ -512,7 +512,7 @@ function Analytics() {
 		cutout: "60%",
 	};
 
-	const displayDataAnalysis = dataAnalysis.labels.map((label, index) => ({
+	const displayDataAnalysis = dataAnalysis?.labels?.map((label, index) => ({
 		title: label,
 		value: dataAnalysis.datasets[0].data[index],
 		background: dataAnalysis.datasets[0].backgroundColor[index],

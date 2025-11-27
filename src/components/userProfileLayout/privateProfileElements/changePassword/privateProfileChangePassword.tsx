@@ -2,6 +2,8 @@
 
 import { useForm } from "react-hook-form";
 
+import { AuthTypes } from "@/types/pages/Authorization";
+
 import { useRuntimeEnv } from "../../../../hooks/useRuntimeEnv";
 
 import { IChangePasswordForm } from "../../../../types/pages/userProfileSettings";
@@ -59,7 +61,7 @@ export const PrivateProfileChangePassword = () => {
 		return value === password || errorPasswordRepeat;
 	};
 
-	const isVkAuth = localStorage.getItem("authType") === "vkServiceAuth";
+	const isVkAuth = localStorage.getItem("authType") === AuthTypes.vkServiceAuth;
 
 	return (
 		<form className={styles.changePasswordFormWrap} onSubmit={handleSubmit(onSubmit)}>
@@ -99,7 +101,7 @@ export const PrivateProfileChangePassword = () => {
 					disabled={isVkAuth}
 				/>
 			</div>
-			<Button variant={ButtonType.Outlined} type={InputTypeList.Submit}>
+			<Button variant={ButtonType.Outlined} type={InputTypeList.Submit} disabled={isVkAuth}>
 				Сохранить
 			</Button>
 			{isVkAuth && <p className={styles.changePasswordErrorWrap}>Нельзя отредактировать данные профиля</p>}

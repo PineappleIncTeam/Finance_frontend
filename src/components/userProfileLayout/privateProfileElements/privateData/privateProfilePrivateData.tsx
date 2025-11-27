@@ -3,6 +3,8 @@
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 
+import { AuthTypes } from "@/types/pages/Authorization";
+
 import { useActions, useAppSelector } from "../../../../services/redux/hooks";
 import { useRuntimeEnv } from "../../../../hooks/useRuntimeEnv";
 
@@ -23,7 +25,7 @@ import styles from "./privateProfilePrivateData.module.scss";
 
 export const PrivateProfilePrivateData = () => {
 	const userData = useAppSelector(userDataSelector);
-	const isVkAuth = localStorage.getItem("authType") === "vkServiceAuth";
+	const isVkAuth = localStorage.getItem("authType") === AuthTypes.vkServiceAuth;
 	const countriesData = useAppSelector(countriesDataSelector);
 	const { setUserData } = useActions();
 
@@ -120,7 +122,7 @@ export const PrivateProfilePrivateData = () => {
 				<AppInput label={"Email"} type={"text"} name={"email"} control={control} placeholder="my@email.ru" disabled />
 			</div>
 			{userData.error && <p className={styles.error}>{userData.error}</p>}
-			<Button variant={ButtonType.Outlined} type={InputTypeList.Submit}>
+			<Button variant={ButtonType.Outlined} type={InputTypeList.Submit} disabled={isVkAuth}>
 				Сохранить
 			</Button>
 			{isVkAuth && <p className={styles.privateDataFormError}>Нельзя отредактировать данные профиля</p>}

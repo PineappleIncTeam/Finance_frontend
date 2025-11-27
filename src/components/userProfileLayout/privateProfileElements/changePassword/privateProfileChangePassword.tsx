@@ -17,9 +17,6 @@ import { ButtonType } from "../../../../helpers/buttonFieldValues";
 import { passwordValidate } from "../../../../utils/passwordValidate";
 import { mockBaseUrl } from "../../../../mocks/envConsts";
 
-import { userDataSelector } from "../../../../services/redux/features/userData/UserDataSelector";
-import { useAppSelector } from "../../../../services/redux/hooks";
-
 import styles from "./privateProfileChangePassword.module.scss";
 
 export const PrivateProfileChangePassword = () => {
@@ -40,6 +37,9 @@ export const PrivateProfileChangePassword = () => {
 	const { getSafeEnvVar } = useRuntimeEnv(["NEXT_PUBLIC_BASE_URL"]);
 
 	const baseUrl = getSafeEnvVar("NEXT_PUBLIC_BASE_URL", mockBaseUrl);
+
+	const isVkAuth = localStorage.getItem("authType") === AuthTypes.vkServiceAuth;
+
 	const onSubmit = async (data: IChangePasswordForm) => {
 		const changePasswordData: IChangingUserProfilePasswordRequest = {
 			data: {
@@ -60,8 +60,6 @@ export const PrivateProfileChangePassword = () => {
 		const password = watch("newPassword");
 		return value === password || errorPasswordRepeat;
 	};
-
-	const isVkAuth = localStorage.getItem("authType") === AuthTypes.vkServiceAuth;
 
 	return (
 		<form className={styles.changePasswordFormWrap} onSubmit={handleSubmit(onSubmit)}>

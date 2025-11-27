@@ -6,11 +6,12 @@ import NextImage from "next/image";
 import cn from "classnames/dedupe";
 
 import { useRuntimeEnv } from "../../../../hooks/useRuntimeEnv";
+import { useActions, useAppSelector } from "../../../../services/redux/hooks";
 
+import { AuthTypes } from "../../../../types/pages/Authorization";
 import { IProfileAvatarForm } from "../../../../types/components/ComponentsTypes";
 import { TChangeUserProfileDataRequest } from "../../../../types/api/PersonalAccount";
 import Button from "../../../../ui/Button/Button";
-import { useActions, useAppSelector } from "../../../../services/redux/hooks";
 import { userDataSelector } from "../../../../services/redux/features/userData/UserDataSelector";
 import { updateUserProfileData } from "../../../../services/api/userProfile/updateUserData";
 import { ButtonType } from "../../../../helpers/buttonFieldValues";
@@ -47,6 +48,8 @@ export const PrivateProfileAvatarSettings = () => {
 
 	const templateAvatar = watch("templateAvatar");
 	const personalAvatar = watch("personalAvatar");
+
+	const isVkAuth = localStorage.getItem("authType") === AuthTypes.vkServiceAuth;
 
 	function setCurrentAvatar() {
 		if (userProfileData.avatar && userProfileData.avatar.length > mockMinimalBase64Length) {
@@ -172,6 +175,7 @@ export const PrivateProfileAvatarSettings = () => {
 									className={styles.avatar__input}
 									{...register("personalAvatar")}
 									onChange={handlePersonalAvatarChange}
+									disabled={isVkAuth}
 								/>
 								<NextImage src={editProfileIcon} alt="editProfile" className={styles.avatar__editIcon} />
 							</label>
@@ -188,6 +192,7 @@ export const PrivateProfileAvatarSettings = () => {
 								value={`templateAvatar${index + 1}`}
 								{...register("templateAvatar")}
 								className={styles.templateAvatar__input}
+								disabled={isVkAuth}
 							/>
 							<label
 								htmlFor={`template-avatar-${index}`}
@@ -202,9 +207,10 @@ export const PrivateProfileAvatarSettings = () => {
 				</div>
 			</div>
 
-			<Button variant={ButtonType.Outlined} type={InputTypeList.Submit}>
+			<Button variant={ButtonType.Outlined} type={InputTypeList.Submit} disabled={isVkAuth}>
 				Сохранить
 			</Button>
+			{isVkAuth && <p className={styles.privateDataFormError}>Нельзя отредактировать данные профиля</p>}
 		</form>
 	);
 };

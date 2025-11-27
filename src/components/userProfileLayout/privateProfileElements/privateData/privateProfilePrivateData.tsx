@@ -3,11 +3,10 @@
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 
-import { AuthTypes } from "@/types/pages/Authorization";
-
 import { useActions, useAppSelector } from "../../../../services/redux/hooks";
 import { useRuntimeEnv } from "../../../../hooks/useRuntimeEnv";
 
+import { AuthTypes } from "../../../../types/pages/Authorization";
 import { IPrivateDataForm } from "../../../../types/components/ComponentsTypes";
 import { ICountryData, TChangeUserProfileDataRequest } from "../../../../types/api/PersonalAccount";
 import AppInput from "../../../../ui/appInput/AppInput";
@@ -25,7 +24,6 @@ import styles from "./privateProfilePrivateData.module.scss";
 
 export const PrivateProfilePrivateData = () => {
 	const userData = useAppSelector(userDataSelector);
-	const isVkAuth = localStorage.getItem("authType") === AuthTypes.vkServiceAuth;
 	const countriesData = useAppSelector(countriesDataSelector);
 	const { setUserData } = useActions();
 
@@ -48,6 +46,9 @@ export const PrivateProfilePrivateData = () => {
 	const userProfileData = userData.userData;
 
 	const baseUrl = getSafeEnvVar("NEXT_PUBLIC_BASE_URL", mockBaseUrl);
+
+	const isVkAuth = localStorage.getItem("authType") === AuthTypes.vkServiceAuth;
+
 	useEffect(() => {
 		resetFieldsData();
 

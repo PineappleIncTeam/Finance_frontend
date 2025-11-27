@@ -210,7 +210,7 @@ export const PrivateProfileAvatarSettings = () => {
 			<Button variant={ButtonType.Outlined} type={InputTypeList.Submit} disabled={isVkAuth}>
 				Сохранить
 			</Button>
-			{isVkAuth && <p className={styles.privateDataFormError}>Нельзя отредактировать данные профиля</p>}
+			{isVkAuth && <p className={styles.avatarSettingsErrorWrap}>Нельзя отредактировать данные профиля</p>}
 		</form>
 	);
 };

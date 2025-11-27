@@ -101,7 +101,7 @@ function Analytics() {
 		setIsLabel(window.innerWidth > windowResizeLabel);
 	};
 
-	function getRawAnalysisData(incomeStatistics: number | null, expensesStatistics: number | null) {
+	function getRawAnalysisData(incomeStatistics: number, expensesStatistics: number) {
 		return incomeStatistics && expensesStatistics ? [incomeStatistics, expensesStatistics] : [];
 	}
 
@@ -500,7 +500,7 @@ function Analytics() {
 		labels: analysisLabels,
 		datasets: [
 			{
-				data: getRawAnalysisData(incomeStatistics, expensesStatistics).map((value) =>
+				data: getRawAnalysisData(incomeStatistics ?? 0, expensesStatistics ?? 0).map((value) =>
 					displayMode === DisplayMode.RUB ? value : ((value / 130000) * 100).toFixed(2),
 				),
 				backgroundColor: randomColorSet,

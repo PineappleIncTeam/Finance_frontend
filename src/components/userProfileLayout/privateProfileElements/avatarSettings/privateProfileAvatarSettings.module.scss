@@ -145,8 +145,17 @@
 .avatarTemplates__img {
 	width: 80px;
 	height: 80px;
+
 	@media (max-width: 600px) {
 		width: 60px;
 		height: 60px;
 	}
+}
+
+.avatarSettingsErrorWrap {
+	font-size: 1.6rem;
+	color: var(--color-bright-maroon);
+	margin-top: 4px;
+	font-weight: 400;
+	line-height: 2.2rem;
 }

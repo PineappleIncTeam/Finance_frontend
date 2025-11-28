@@ -6,6 +6,7 @@ import { useForm } from "react-hook-form";
 import { useActions, useAppSelector } from "../../../../services/redux/hooks";
 import { useRuntimeEnv } from "../../../../hooks/useRuntimeEnv";
 
+import { AuthTypes } from "../../../../types/pages/Authorization";
 import { IPrivateDataForm } from "../../../../types/components/ComponentsTypes";
 import { ICountryData, TChangeUserProfileDataRequest } from "../../../../types/api/PersonalAccount";
 import AppInput from "../../../../ui/appInput/AppInput";
@@ -45,6 +46,9 @@ export const PrivateProfilePrivateData = () => {
 	const userProfileData = userData.userData;
 
 	const baseUrl = getSafeEnvVar("NEXT_PUBLIC_BASE_URL", mockBaseUrl);
+
+	const isVkAuth = localStorage.getItem("authType") === AuthTypes.vkServiceAuth;
+
 	useEffect(() => {
 		resetFieldsData();
 
@@ -102,6 +106,7 @@ export const PrivateProfilePrivateData = () => {
 						},
 					}}
 					error={errors.nickname?.message}
+					disabled={isVkAuth}
 				/>
 				<div className={styles.privateDataRadioButtons}>
 					<RadioButton control={control} name="gender" value="M" label="Муж." />
@@ -113,13 +118,15 @@ export const PrivateProfilePrivateData = () => {
 					name={"countryName"}
 					control={control}
 					placeholder="Введите страну"
+					disabled={isVkAuth}
 				/>
 				<AppInput label={"Email"} type={"text"} name={"email"} control={control} placeholder="my@email.ru" disabled />
 			</div>
 			{userData.error && <p className={styles.error}>{userData.error}</p>}
-			<Button variant={ButtonType.Outlined} type={InputTypeList.Submit}>
+			<Button variant={ButtonType.Outlined} type={InputTypeList.Submit} disabled={isVkAuth}>
 				Сохранить
 			</Button>
+			{isVkAuth && <p className={styles.privateDataFormError}>Нельзя отредактировать данные профиля</p>}
 		</form>
 	);
 };

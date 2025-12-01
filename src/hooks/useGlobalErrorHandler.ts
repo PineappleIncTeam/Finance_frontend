@@ -29,6 +29,6 @@ export function useGlobalErrorHandler() {
 
 export function sendErrorToMonitoring(error: unknown, context?: Sentry.Context) {
 	if (process.env.NODE_ENV === "production") {
-		Sentry.captureException(error as Error, context);
+		Sentry.captureException(error as Error | Sentry.Exception, context);
 	}
 }

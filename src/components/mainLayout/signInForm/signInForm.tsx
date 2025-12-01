@@ -6,6 +6,9 @@ import { useRouter, useSearchParams } from "next/navigation";
 import axios, { AxiosResponse, isAxiosError } from "axios";
 import Link from "next/link";
 import * as VKID from "@vkid/sdk";
+import * as Sentry from "@sentry/nextjs";
+
+import { sendErrorToMonitoring } from "../../../hooks/useGlobalErrorHandler";
 
 import { useActions } from "../../../services/redux/hooks";
 import { useRuntimeEnv } from "../../../hooks/useRuntimeEnv";
@@ -102,7 +105,12 @@ export default function SignInForm() {
 
 		const attemptInitialization = () => {
 			if (process.env.NODE_ENV === "production" && initAttempts >= maxInitRetries) {
-				// monitoringService.logError(error, context);
+				const signinAttemptsError: Sentry.Exception = {
+					type: "Signin attempts",
+					value: "Running out signin attempts",
+					module: "SigninForm",
+				};
+				sendErrorToMonitoring(signinAttemptsError);
 
 				return;
 			}

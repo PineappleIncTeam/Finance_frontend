@@ -1,10 +1,10 @@
 {
 	"name": "freenance-app",
-	"version": "2.27.0",
+	"version": "2.28.0",
 	"private": true,
 	"scripts": {
 		"dev": "next dev",
-		"build": "next build && npm run build-sb && npm run build-typedoc && npm run buildEcosystem",
+		"build": "next build && npm run build-sb && npm run buildEcosystem",
 		"start": "next start",
 		"preCommitLint": "eslint --quiet --ext .js,.jsx,.ts,.tsx,.json ./src ./scripts",
 		"prePushBuild": "next build",
@@ -48,6 +48,9 @@
 		"typedoc": "^0.28.14",
 		"typedoc-github-theme": "^0.3.1"
 	},
+	"overrides": {
+		"require-in-the-middle": "8.0.1"
+	},
 	"devDependencies": {
 		"@eslint/compat": "^1.4.1",
 		"@eslint/eslintrc": "^3.3.1",
@@ -61,6 +64,7 @@
 		"@typescript-eslint/eslint-plugin": "^8.46.1",
 		"@typescript-eslint/parser": "^8.46.1",
 		"babel-plugin-react-compiler": "^1.0.0",
+		"baseline-browser-mapping": "^2.8.32",
 		"eslint": "^9.39.1",
 		"eslint-config-next": "^16.0.1",
 		"eslint-config-prettier": "^9.1.2",

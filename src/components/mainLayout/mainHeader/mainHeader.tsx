@@ -46,6 +46,7 @@ const MainHeader = () => {
 	const { getSafeEnvVar } = useRuntimeEnv(["NEXT_PUBLIC_BASE_URL"]);
 
 	const baseUrl = getSafeEnvVar("NEXT_PUBLIC_BASE_URL", mockBaseUrl);
+
 	useEffect(() => {
 		try {
 			const isLocalhost =

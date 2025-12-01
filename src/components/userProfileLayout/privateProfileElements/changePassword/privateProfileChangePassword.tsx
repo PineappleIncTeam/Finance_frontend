@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 
 import { useRuntimeEnv } from "../../../../hooks/useRuntimeEnv";
 
+import { AuthTypes } from "../../../../types/pages/Authorization";
 import { IChangePasswordForm } from "../../../../types/pages/userProfileSettings";
 import { IChangingUserProfilePasswordRequest } from "../../../../types/api/PersonalAccount";
 import AppInput from "../../../../ui/appInput/AppInput";
@@ -35,6 +36,9 @@ export const PrivateProfileChangePassword = () => {
 	const { getSafeEnvVar } = useRuntimeEnv(["NEXT_PUBLIC_BASE_URL"]);
 
 	const baseUrl = getSafeEnvVar("NEXT_PUBLIC_BASE_URL", mockBaseUrl);
+
+	const isVkAuth = localStorage.getItem("authType") === AuthTypes.vkServiceAuth;
+
 	const onSubmit = async (data: IChangePasswordForm) => {
 		const changePasswordData: IChangingUserProfilePasswordRequest = {
 			data: {
@@ -68,6 +72,7 @@ export const PrivateProfileChangePassword = () => {
 					placeholder="Текущий пароль"
 					rules={{ required: true }}
 					error={errors.oldPassword}
+					disabled={isVkAuth}
 				/>
 				<AppInput
 					label={"Новый пароль"}
@@ -80,6 +85,7 @@ export const PrivateProfileChangePassword = () => {
 						validate: passwordValidate,
 					}}
 					error={errors.newPassword}
+					disabled={isVkAuth}
 				/>
 				<AppInput
 					label={"Подтвердить пароль"}
@@ -89,11 +95,13 @@ export const PrivateProfileChangePassword = () => {
 					placeholder="Подтвердите пароль"
 					rules={{ required: true, validate: validateRepeatPassword }}
 					error={errors.repeatPassword}
+					disabled={isVkAuth}
 				/>
 			</div>
-			<Button variant={ButtonType.Outlined} type={InputTypeList.Submit}>
+			<Button variant={ButtonType.Outlined} type={InputTypeList.Submit} disabled={isVkAuth}>
 				Сохранить
 			</Button>
+			{isVkAuth && <p className={styles.changePasswordErrorWrap}>Нельзя отредактировать данные профиля</p>}
 		</form>
 	);
 };

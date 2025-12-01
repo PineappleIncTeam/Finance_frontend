@@ -9,6 +9,8 @@ import store, { persistor } from "../../services/redux";
 import { ErrorHandler } from "../../components/mainLayout/errorHandlerElements/errorHandler/errorHandler";
 import { AsyncErrorModalProvider } from "../../components/mainLayout/errorHandlerElements/asyncErrorModal/asyncErrorProvider";
 import { AsyncErrorModal } from "../../components/mainLayout/errorHandlerElements/asyncErrorModal/asyncErrorModal";
+import { ClientNetworkErrorModal } from "../../components/mainLayout/errorHandlerElements/clientNetworkErrorModal/clientNetworkErrorModal";
+import { ClientNetworkErrorModalProvider } from "../../components/mainLayout/errorHandlerElements/clientNetworkErrorModal/clientNetworkErrorModalProvider";
 
 const ProviderList = ({ children }: IProviderList) => {
 	return (
@@ -16,10 +18,13 @@ const ProviderList = ({ children }: IProviderList) => {
 			<Provider store={store}>
 				<PersistGate persistor={persistor}>
 					<AsyncErrorModalProvider>
-						<ApiErrorProvider>
-							{children}
-							<AsyncErrorModal />
-						</ApiErrorProvider>
+						<ClientNetworkErrorModalProvider>
+							<ApiErrorProvider>
+								{children}
+								<AsyncErrorModal />
+								<ClientNetworkErrorModal />
+							</ApiErrorProvider>
+						</ClientNetworkErrorModalProvider>
 					</AsyncErrorModalProvider>
 				</PersistGate>
 			</Provider>

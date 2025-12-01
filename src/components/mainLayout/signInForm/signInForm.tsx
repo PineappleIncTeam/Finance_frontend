@@ -10,6 +10,7 @@ import * as Sentry from "@sentry/nextjs";
 
 import { sendErrorToMonitoring } from "../../../hooks/useGlobalErrorHandler";
 
+import { useClientNetworkErrorModal } from "../../../hooks/useClientNetworkErrorModal";
 import { useActions } from "../../../services/redux/hooks";
 import { useRuntimeEnv } from "../../../hooks/useRuntimeEnv";
 
@@ -55,6 +56,7 @@ export default function SignInForm() {
 
 	const { setUserData, setAutoLoginStatus } = useActions();
 	const searchParams = useSearchParams();
+	const { openModal: openClientNetworkErrorModal } = useClientNetworkErrorModal();
 
 	const { getSafeEnvVar } = useRuntimeEnv(["NEXT_PUBLIC_BASE_URL", "NEXT_PUBLIC_VK_APP_ID"]);
 
@@ -225,6 +227,9 @@ export default function SignInForm() {
 				}
 			}
 		} catch (error) {
+			if (isAxiosError(error) && error?.code === "ERR_NETWORK") {
+				openClientNetworkErrorModal(error);
+			}
 			if (isAxiosError(error) && error?.response?.status === axios.HttpStatusCode.BadRequest) {
 				setError("email", {
 					type: "server",

@@ -49,7 +49,7 @@ export default function GlobalError({ error, reset }: IGlobalErrorPage) {
 
 	function renderErrorDetails() {
 		return (
-			process.env.NODE_ENV === "development" && (
+			String(process.env.NODE_ENV) !== "production" && (
 				<div className="errorDetailsWrap">
 					<details>
 						<summary className="errorDetailsWrap__summary">Детали ошибки (только для разработки)</summary>

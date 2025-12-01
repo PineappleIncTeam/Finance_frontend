@@ -4,7 +4,7 @@
 	"private": true,
 	"scripts": {
 		"dev": "next dev",
-		"build": "next build && npm run build-sb && npm run build-typedoc && npm run buildEcosystem",
+		"build": "next build && npm run build-sb && npm run buildEcosystem",
 		"start": "next start",
 		"preCommitLint": "eslint --quiet --ext .js,.jsx,.ts,.tsx,.json ./src ./scripts",
 		"prePushBuild": "next build",

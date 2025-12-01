@@ -2,10 +2,9 @@
 
 import { useForm } from "react-hook-form";
 
-import { AuthTypes } from "@/types/pages/Authorization";
-
 import { useRuntimeEnv } from "../../../../hooks/useRuntimeEnv";
 
+import { AuthTypes } from "../../../../types/pages/Authorization";
 import { IChangePasswordForm } from "../../../../types/pages/userProfileSettings";
 import { IChangingUserProfilePasswordRequest } from "../../../../types/api/PersonalAccount";
 import AppInput from "../../../../ui/appInput/AppInput";

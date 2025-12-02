@@ -1,13 +1,15 @@
-export interface IMonthSum {
-	month: string;
-	amount: number;
-}
-
-export interface IReportCategory {
-	category_id?: number;
+export interface IFinancialTransaction {
+	category_id: number;
 	category_name?: string;
 	amount: number;
-	items?: IMonthSum[];
+	month: string;
+}
+
+export interface ICategoryBudget {
+	is_income?: boolean;
+	is_outcome?: boolean;
+	is_target?: boolean;
+	results?: IFinancialTransaction[];
 }
 
 export interface IReportsStatistics {

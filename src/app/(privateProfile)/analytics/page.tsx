@@ -29,7 +29,12 @@ import InactivityLogoutModal from "../../../components/userProfileLayout/inactiv
 import { mockBaseUrl } from "../../../mocks/envConsts";
 import { MainPath } from "../../../services/router/routes";
 import { getReportsCategories } from "../../../services/api/userProfile/getReportsCategories";
-import { IMonthSum, IReportCategory, IReportsBalance, IReportsStatistics } from "../../../types/api/Analytics";
+import {
+	ICategoryBudget,
+	IFinancialTransaction,
+	IReportsBalance,
+	IReportsStatistics,
+} from "../../../types/api/Analytics";
 import { getReportsStatistics } from "../../../services/api/userProfile/getReportsStatistics";
 import { getReportsBalance } from "../../../services/api/userProfile/getReportsBalance";
 
@@ -80,7 +85,7 @@ function Analytics() {
 	const [chartHeight, setChartHeight] = useState(298);
 	const [rotation, setRotation] = useState({ maxRotation: 0, minRotation: 0 });
 	const [isLabel, setIsLabel] = useState(true);
-	const [listOfOperations, setListOfOperations] = useState<IReportCategory[] & IMonthSum[]>([]);
+	const [listOfOperations, setListOfOperations] = useState<IFinancialTransaction[] & ICategoryBudget>([]);
 	const [expensesStatistics, setExpensesStatistics] = useState<number | null>(null);
 	const [incomeStatistics, setIncomeStatistics] = useState<number | null>(null);
 	const [savingsStatistics, setSavingsStatistics] = useState<number | null>(null);
@@ -276,7 +281,8 @@ function Analytics() {
 	const getListOfOperations = useCallback(async () => {
 		try {
 			if (baseUrl) {
-				const response: AxiosResponse<IReportCategory[] & IMonthSum[]> = await getReportsCategories(baseUrl);
+				const response: AxiosResponse<ICategoryBudget[] & IFinancialTransaction[]> =
+					await getReportsCategories(baseUrl);
 				if (response !== null && response.status === axios.HttpStatusCode.Ok) {
 					setListOfOperations(response.data);
 					console.log(response.data);
@@ -762,14 +768,14 @@ function Analytics() {
 		));
 	};
 
-	const renderAnalyticsExpensesTransactions = (transactions: IReportCategory[] & IMonthSum[]) => {
-		return transactions.map((data: IReportCategory & IMonthSum, index: Key) => (
+	const renderAnalyticsExpensesTransactions = (transactions: IFinancialTransaction[] & ICategoryBudget[]) => {
+		return transactions.map((data: IFinancialTransaction & ICategoryBudget, index: Key) => (
 			<li key={index}>
 				<AnalystExpensesTransactions
 					month={data.month}
 					category_name={data.category_name}
 					amount={data.amount}
-					items={[]}
+					category_id={0}
 				/>
 			</li>
 		));

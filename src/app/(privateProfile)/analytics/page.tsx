@@ -519,8 +519,8 @@ function Analytics() {
 	};
 
 	const displayDataAnalysis = dataAnalysis?.labels?.map((label, index) => ({
-		title: label,
-		value: dataAnalysis.datasets[0].data[index],
+		title: label ?? "",
+		value: dataAnalysis.datasets[0].data[index] ?? null,
 		background: dataAnalysis.datasets[0].backgroundColor[index],
 	}));
 
@@ -681,19 +681,20 @@ function Analytics() {
 
 					<div className={styles.diagramAnalysisBlock}>
 						<ul className={styles.diagramAnalysisBlockItems}>
-							{displayDataAnalysis.map((item, index) => (
-								<li key={index} className={styles.diagramAnalysisBlockItem}>
-									<div className={styles.diagramAnalysisBlockIconWrapper}>
-										<div
-											className={styles.diagramAnalysisBlockIconWrapper__circle}
-											style={{ background: `${item.background}` }}></div>
-										<p className={styles.diagramAnalysisBlockIconWrapper__text}>{item.title}:</p>
-									</div>
-									<p className={styles.diagramAnalysisBlockItem__value}>
-										{displayMode === DisplayMode.RUB ? `${item.value} ₽` : `${item.value}%`}
-									</p>
-								</li>
-							))}
+							{displayDataAnalysis &&
+								displayDataAnalysis.map((item, index) => (
+									<li key={index} className={styles.diagramAnalysisBlockItem}>
+										<div className={styles.diagramAnalysisBlockIconWrapper}>
+											<div
+												className={styles.diagramAnalysisBlockIconWrapper__circle}
+												style={{ background: `${item.background}` }}></div>
+											<p className={styles.diagramAnalysisBlockIconWrapper__text}>{item.title}:</p>
+										</div>
+										<p className={styles.diagramAnalysisBlockItem__value}>
+											{displayMode === DisplayMode.RUB ? `${item.value} ₽` : `${item.value}%`}
+										</p>
+									</li>
+								))}
 						</ul>
 					</div>
 				</div>
@@ -832,7 +833,7 @@ function Analytics() {
 				<div className={styles.analyticsTransactionsWrapper}>
 					<h3 className={styles.analyticsTransactionsWrapper__title}>Операции с расходами</h3>
 					<ul className={styles.analyticsTransactionsWrapper__item}>
-						{analyticsExpensesTransactions && listOfOperations && renderAnalyticsExpensesTransactions(listOfOperations)}
+						{listOfOperations && renderAnalyticsExpensesTransactions(listOfOperations)}
 					</ul>
 				</div>
 

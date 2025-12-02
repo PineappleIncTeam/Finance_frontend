@@ -1,9 +1,9 @@
 /* eslint-disable camelcase */
-import { IMonthSum, IReportCategory } from "../../../types/api/Analytics";
+import { ICategoryBudget, IFinancialTransaction } from "../../../types/api/Analytics";
 
 import styles from "./analystExpensesTransactions.module.scss";
 
-const AnalystExpensesTransactions = ({ month, category_name, amount }: IReportCategory & IMonthSum) => {
+const AnalystExpensesTransactions = ({ month, category_name, amount }: IFinancialTransaction & ICategoryBudget) => {
 	return (
 		<div className={styles.transactionContainer}>
 			<p className={styles.transactionData}>{month}</p>

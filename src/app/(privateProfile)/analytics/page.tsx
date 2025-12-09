@@ -670,7 +670,7 @@ function Analytics() {
 			<div className={styles.analyticsDiagramAnalysisInfoWrapper}>
 				<div className={styles.analyticsDiagramAnalysisInfo}>
 					<p className={styles.analyticsDiagramAnalysisInfo__title}>Ваш баланс</p>
-					{reportsBalance && <p className={styles.analyticsDiagramAnalysisInfo__value}>{reportsBalance}</p>}
+					{/* {reportsBalance && <p className={styles.analyticsDiagramAnalysisInfo__value}>{reportsBalance}</p>} */}
 					<p className={styles.analyticsDiagramAnalysisInfo__date}>14.09.23 - 20.09.23</p>
 				</div>
 

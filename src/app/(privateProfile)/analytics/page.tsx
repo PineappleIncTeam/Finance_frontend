@@ -539,7 +539,7 @@ function Analytics() {
 		<div className={styles.analyticsDiagramExpensesWrapper}>
 			<div className={styles.analyticsDiagramExpensesInfo}>
 				<p className={styles.analyticsDiagramExpensesInfo__title}>Общий расход</p>
-				<p className={styles.analyticsDiagramExpensesInfo__value}>{expensesStatistics}</p>
+				{/* <p className={styles.analyticsDiagramExpensesInfo__value}>{expensesStatistics}</p> */}
 				<p className={styles.analyticsDiagramExpensesInfo__date}>14.09.23 - 20.09.23</p>
 			</div>
 
@@ -594,7 +594,7 @@ function Analytics() {
 			<div className={styles.analyticsDiagramIncomeInfoWrapper}>
 				<div className={styles.analyticsDiagramIncomeInfo}>
 					<p className={styles.analyticsDiagramIncomeInfo__title}>Общий доход</p>
-					<p className={styles.analyticsDiagramIncomeInfo__value}>{incomeStatistics}</p>
+					{/* <p className={styles.analyticsDiagramIncomeInfo__value}>{incomeStatistics}</p> */}
 					<p className={styles.analyticsDiagramIncomeInfo__date}>14.09.23 - 20.09.23</p>
 				</div>
 

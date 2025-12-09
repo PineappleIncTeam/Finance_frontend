@@ -507,7 +507,7 @@ function Analytics() {
 		datasets: [
 			{
 				data: getRawAnalysisData(incomeStatistics ?? 0, expensesStatistics ?? 0).map((value) =>
-					displayMode === DisplayMode.RUB ? value : ((value / 130000) * 100).toFixed(2),
+					displayMode === DisplayMode.RUB ? value ?? 0 : ((value / 130000) * 100).toFixed(2),
 				),
 				backgroundColor: randomColorSet,
 				borderWidth: 0,

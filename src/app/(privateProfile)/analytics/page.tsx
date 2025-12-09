@@ -833,7 +833,7 @@ function Analytics() {
 				<div className={styles.analyticsTransactionsWrapper}>
 					<h3 className={styles.analyticsTransactionsWrapper__title}>Операции с расходами</h3>
 					<ul className={styles.analyticsTransactionsWrapper__item}>
-						{listOfOperations && renderAnalyticsExpensesTransactions(listOfOperations)}
+						{/* {listOfOperations && renderAnalyticsExpensesTransactions(listOfOperations)} */}
 					</ul>
 				</div>
 

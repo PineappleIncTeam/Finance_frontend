@@ -520,7 +520,7 @@ function Analytics() {
 
 	const displayDataAnalysis = dataAnalysis?.labels?.map((label, index) => ({
 		title: label ?? "",
-		value: dataAnalysis.datasets[0].data[index] ?? null,
+		value: dataAnalysis.datasets[0].data[index] ?? 0,
 		background: dataAnalysis.datasets[0].backgroundColor[index],
 	}));
 

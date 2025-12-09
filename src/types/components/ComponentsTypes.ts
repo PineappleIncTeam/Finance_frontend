@@ -111,6 +111,19 @@ export interface IAddCategoryExpensesForm {
 	is_income: boolean;
 	is_outcome: boolean;
 }
+export interface IAddCategoryIncomeForm {
+	id: number;
+	name: string;
+	is_income: boolean;
+	is_outcome: boolean;
+	is_visibility: boolean;
+}
+
+export interface IAddCategoryIncomeForm {
+	id: number;
+	name: string;
+	is_visibility: boolean;
+}
 
 export interface IRemoveCategory {
 	categoryName: string;

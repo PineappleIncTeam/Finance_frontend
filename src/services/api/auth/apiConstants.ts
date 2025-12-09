@@ -23,6 +23,7 @@ export const operationsEndPoint = "api/v1/operations";
 export const reportsCategoriesEndPoint = "api/v1/reports/categories";
 export const reportsStatisticsEndPoint = "api/v1/reports/statistics";
 export const reportsBalanceEndPoint = "api/v1/reports/balance";
+export const getUserBalanceEndPoint = "api/v1/reports/balance/";
 
 export const currencyEndpoint = "api/v1/currency/";
 

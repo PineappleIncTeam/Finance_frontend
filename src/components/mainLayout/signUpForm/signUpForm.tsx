@@ -6,6 +6,9 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import axios, { AxiosError, AxiosResponse } from "axios";
 import * as VKID from "@vkid/sdk";
+import * as Sentry from "@sentry/nextjs";
+
+import { sendErrorToMonitoring } from "../../../hooks/useGlobalErrorHandler";
 
 import { useActions } from "../../../services/redux/hooks";
 import { useRuntimeEnv } from "../../../hooks/useRuntimeEnv";
@@ -97,7 +100,12 @@ export default function SignUpForm() {
 
 		const attemptInitialization = () => {
 			if (process.env.NODE_ENV === "production" && initAttempts >= maxInitRetries) {
-				// monitoringService.logError(error, context);
+				const signupAttemptsError: Sentry.Exception = {
+					type: "Signup attempts",
+					value: "Running out signin attempts",
+					module: "SigninForm",
+				};
+				sendErrorToMonitoring(signupAttemptsError);
 
 				return;
 			}
@@ -117,7 +125,7 @@ export default function SignUpForm() {
 				if (timeoutInitRef.current) {
 					clearTimeout(timeoutInitRef.current);
 				}
-				// eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
+				// eslint-disable-next-line @typescript-eslint/no-unused-vars
 			} catch (error: unknown) {
 				timeoutInitRef.current = setTimeout(() => {
 					setInitAttempts((prevAttempts) => prevAttempts + 1);

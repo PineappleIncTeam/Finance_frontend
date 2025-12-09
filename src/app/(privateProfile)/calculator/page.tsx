@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState, useEffect, ChangeEvent } from "react";
-import { env } from "next-runtime-env";
 import Image from "next/image";
 
 import { useRuntimeEnv } from "../../../hooks/useRuntimeEnv";

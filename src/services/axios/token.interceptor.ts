@@ -108,6 +108,6 @@ axios.interceptors.response.use(
 );
 
 export const initAxiosInterceptor = () => {
-	// eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	const v1 = "v1";
 };

@@ -105,7 +105,12 @@ const NavBar = ({ onClick }: INavBar) => {
 	}, [isPathOpen]);
 
 	useEffect(() => {
-		setIsPathOpen(false);
+		(() => {
+			if (isPathOpen) {
+				setIsPathOpen(false);
+			}
+		})();
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [pathname]);
 
 	const renderNavigationElements = () => {

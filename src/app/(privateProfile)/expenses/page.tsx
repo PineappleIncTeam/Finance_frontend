@@ -154,24 +154,36 @@ export default function Expenses() {
 	}, [request, resetTimer]);
 
 	useEffect(() => {
-		getAllCategoriesOptions();
-		if (isAddSuccess || isDeleteSuccessCategory || isCategoryArchive) {
+		(() => {
+			getFiveOperationsNames();
+			getFiveOperations();
 			getAllCategoriesOptions();
-		}
+		})();
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
+
+	useEffect(() => {
+		(() => {
+			if (isAddSuccess || isDeleteSuccessCategory || isCategoryArchive) {
+				getAllCategoriesOptions();
+			}
+		})();
 	}, [getAllCategoriesOptions, isAddSuccess, isDeleteSuccessCategory, isCategoryArchive]);
 
 	useEffect(() => {
-		getFiveOperations();
-		if (isDeleteOperationSuccess || isEditSuccess || isAddSuccess) {
-			getFiveOperations();
-		}
+		(() => {
+			if (isDeleteOperationSuccess || isEditSuccess || isAddSuccess) {
+				getFiveOperations();
+			}
+		})();
 	}, [isDeleteOperationSuccess, isEditSuccess, isAddSuccess, getFiveOperations]);
 
 	useEffect(() => {
-		setFiveOperationsNames(getFiveOperationsNames);
-		if (isDeleteOperationSuccess || isEditSuccess || isAddSuccess) {
-			setFiveOperationsNames(getFiveOperationsNames);
-		}
+		(() => {
+			if (isDeleteOperationSuccess || isEditSuccess || isAddSuccess) {
+				setFiveOperationsNames(getFiveOperationsNames);
+			}
+		})();
 	}, [isDeleteOperationSuccess, isEditSuccess, isAddSuccess, getFiveOperationsNames]);
 
 	const addCategory = async (data: IAddCategoryExpensesForm) => {

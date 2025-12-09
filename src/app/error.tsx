@@ -1,16 +1,27 @@
 "use client";
 
+import NextError from "next/error";
+import * as Sentry from "@sentry/nextjs";
+import { useEffect } from "react";
+
 import "./error.css";
 
-interface IGlobalError {
-	error: {
-		message: string;
-		stack: string;
-	};
+interface IGlobalError extends Error {
+	message: string;
+	stack: string;
+	digest?: string;
+}
+
+interface IGlobalErrorPage {
+	error: IGlobalError;
 	reset: () => void;
 }
 
-export default function GlobalError({ error, reset }: IGlobalError) {
+export default function GlobalError({ error, reset }: IGlobalErrorPage) {
+	useEffect(() => {
+		Sentry.captureException(error);
+	}, [error]);
+
 	const handleReload = () => {
 		window.location.href = "/";
 	};
@@ -38,7 +49,7 @@ export default function GlobalError({ error, reset }: IGlobalError) {
 
 	function renderErrorDetails() {
 		return (
-			process.env.NODE_ENV === "development" && (
+			String(process.env.NODE_ENV) !== "production" && (
 				<div className="errorDetailsWrap">
 					<details>
 						<summary className="errorDetailsWrap__summary">Детали ошибки (только для разработки)</summary>
@@ -77,6 +88,8 @@ export default function GlobalError({ error, reset }: IGlobalError) {
 				</div>
 
 				{renderErrorDetails()}
+
+				<NextError statusCode={0} />
 			</div>
 		</div>
 	);

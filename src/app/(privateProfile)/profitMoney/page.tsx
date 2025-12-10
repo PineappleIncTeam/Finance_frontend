@@ -122,9 +122,8 @@ function ProfitMoney() {
 
 	const getAllCategoriesOptions = useCallback(async () => {
 		const data = {
-			// eslint-disable-next-line camelcase
 			is_income: true,
-			// eslint-disable-next-line camelcase
+
 			is_outcome: false,
 		};
 		try {
@@ -280,7 +279,6 @@ function ProfitMoney() {
 
 	const handleArchiveCategory = async (id: string) => {
 		const data = {
-			// eslint-disable-next-line camelcase
 			is_deleted: true,
 		};
 		try {

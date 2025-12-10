@@ -8,9 +8,11 @@ export const getFiveIncomeTransactions = async (
 	baseUrl: string,
 	data: { type?: string } = { type: "income" },
 ): Promise<AxiosResponse<IFiveOperations[]>> => {
-	return await axios(`${baseUrl}/${operationsEndPoint}`, {
+	return await axios(`${baseUrl}/${operationsEndPoint}/`, {
 		method: "GET",
-		params: data,
+		params: {
+			type: data.type,
+		},
 		headers: {
 			"Content-Type": "application/json",
 		},

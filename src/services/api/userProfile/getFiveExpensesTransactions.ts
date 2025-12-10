@@ -6,7 +6,9 @@ import { IFiveOperations } from "../../../types/pages/Expenses";
 export const getFiveExpensesTransactions = async (baseUrl: string, data: IFiveOperations) => {
 	return await axios(`${baseUrl}/${operationsEndPoint}/`, {
 		method: "GET",
-		data: data,
+		params: {
+			type: data.type,
+		},
 		headers: {
 			"Content-Type": "application/json",
 		},

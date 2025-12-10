@@ -27,11 +27,6 @@ export interface ICategoriesTypes {
 }
 
 export interface IFiveOperations {
-	id: number;
-	amount: number;
-	date: string;
-	categories: number;
-	name?: string;
 	type: string;
 }
 

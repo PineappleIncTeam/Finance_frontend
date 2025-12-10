@@ -110,12 +110,14 @@ function Analytics() {
 	// 	return incomeStatistics && expensesStatistics ? [incomeStatistics, expensesStatistics] : [];
 	// }
 
-	const expensesLabels = () => {
-		if (listOfOperations !== null) {
-			return listOfOperations.map((item) => item?.category_name) ?? [];
-		}
-	};
-	const expensesLabelsLengthValue = expensesLabels()?.length || 0;
+	// const expensesLabels = () => {
+	// 	if (listOfOperations !== null) {
+	// 		return listOfOperations.map((item) => item?.category_name) ?? [];
+	// 	}
+	// };
+	const expensesLabelsLengthValue = 
+	// expensesLabels()?.length || 
+	0;
 
 	const analysisLabels: string[] = ["Общий расход", "Общий доход"];
 
@@ -412,7 +414,9 @@ function Analytics() {
 	const randomColorSet: string[] = generateRandomColors(expensesLabelsLengthValue);
 
 	const data = {
-		labels: expensesLabels() ?? [],
+		labels: 
+		// expensesLabels() ??
+		 [],
 		datasets: [
 			{
 				label: "Расходы",
@@ -539,7 +543,7 @@ function Analytics() {
 		<div className={styles.analyticsDiagramExpensesWrapper}>
 			<div className={styles.analyticsDiagramExpensesInfo}>
 				<p className={styles.analyticsDiagramExpensesInfo__title}>Общий расход</p>
-				{/* <p className={styles.analyticsDiagramExpensesInfo__value}>{expensesStatistics}</p> */}
+				<p className={styles.analyticsDiagramExpensesInfo__value}>{expensesStatistics}</p>
 				<p className={styles.analyticsDiagramExpensesInfo__date}>14.09.23 - 20.09.23</p>
 			</div>
 
@@ -594,7 +598,7 @@ function Analytics() {
 			<div className={styles.analyticsDiagramIncomeInfoWrapper}>
 				<div className={styles.analyticsDiagramIncomeInfo}>
 					<p className={styles.analyticsDiagramIncomeInfo__title}>Общий доход</p>
-					{/* <p className={styles.analyticsDiagramIncomeInfo__value}>{incomeStatistics}</p> */}
+					<p className={styles.analyticsDiagramIncomeInfo__value}>{incomeStatistics}</p>
 					<p className={styles.analyticsDiagramIncomeInfo__date}>14.09.23 - 20.09.23</p>
 				</div>
 
@@ -670,7 +674,7 @@ function Analytics() {
 			<div className={styles.analyticsDiagramAnalysisInfoWrapper}>
 				<div className={styles.analyticsDiagramAnalysisInfo}>
 					<p className={styles.analyticsDiagramAnalysisInfo__title}>Ваш баланс</p>
-					{/* {reportsBalance && <p className={styles.analyticsDiagramAnalysisInfo__value}>{reportsBalance}</p>} */}
+					{reportsBalance && <p className={styles.analyticsDiagramAnalysisInfo__value}>{reportsBalance}</p>}
 					<p className={styles.analyticsDiagramAnalysisInfo__date}>14.09.23 - 20.09.23</p>
 				</div>
 

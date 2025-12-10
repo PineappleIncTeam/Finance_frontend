@@ -1,12 +1,16 @@
+/* eslint-disable camelcase */
 import axios from "axios";
 
-import { expensesCategoriesAllEndPoint } from "../auth/apiConstants";
+import { categoriesAllEndPoint } from "../auth/apiConstants";
 import { ICategoriesTypes } from "../../../types/pages/Expenses";
 
 export const getAllExpensesCategories = async (baseUrl: string, data: ICategoriesTypes) => {
-	return await axios(`${baseUrl}/${expensesCategoriesAllEndPoint}`, {
+	return await axios(`${baseUrl}/${categoriesAllEndPoint}`, {
 		method: "GET",
-		data: data,
+		params: {
+			is_income: data.is_income,
+			is_outcome: data.is_outcome,
+		},
 		headers: {
 			"Content-Type": "application/json",
 		},

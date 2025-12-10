@@ -1,4 +1,3 @@
-/* eslint-disable camelcase */
 "use client";
 
 import { useRouter } from "next/navigation";
@@ -11,19 +10,24 @@ import { useLogoutTimer } from "../../../hooks/useLogoutTimer";
 import { useRuntimeEnv } from "../../../hooks/useRuntimeEnv";
 
 import { IAddCategoryTransactionForm, IExpensesCategoryForm, IFiveOperations } from "../../../types/pages/Expenses";
-import { IAddCategoryIncomeForm, IAddCategoryExpensesForm } from "../../../types/components/ComponentsTypes";
+import {
+	IAddCategoryIncomeForm,
+	IAddCategoryExpensesForm,
+	IEditTransactionForm,
+} from "../../../types/components/ComponentsTypes";
 import { ICategoryOption } from "../../../types/common/ComponentsProps";
 import { IOperation } from "../../../types/api/Expenses";
 import InputDate from "../../../ui/inputDate/inputDate";
 import AppInput from "../../../ui/appInput/AppInput";
 import IncomeTransaction from "../../../components/userProfileLayout/incomeTransaction/incomeTransaction";
 import { RecordDeleteModal } from "../../../components/userProfileLayout/recordDelete/recordDelete";
-import { ResponseApiRequestModal } from "../../../components/userProfileLayout/responseActionExpenses/responseApiRequestModal";
+import { ResponseApiRequestModal } from "../../../ui/responseActionModal/responseApiRequestModal";
 import { CategoryDeleteModal } from "../../../components/userProfileLayout/categoryDelete/categoryDelete";
 import { CategorySelect } from "../../../components/userProfileLayout/categorySelect/CategorySelect";
 import AddButton from "../../../components/userProfileLayout/addButton/addButton";
 import InactivityLogoutModal from "../../../components/userProfileLayout/inactivityLogoutModal/inactivityLogoutModal";
 import { CategoryAddModal } from "../../../components/userProfileLayout/categoryAdd/categoryAddModal";
+import { EditTransactionModal } from "../../../components/userProfileLayout/editTransaction/editTransaction";
 import { getFiveIncomeTransactions } from "../../../services/api/userProfile/getFiveIncomeTransactions";
 import { addIncomeCategory } from "../../../services/api/userProfile/addIncomeCategory";
 import { MainPath } from "../../../services/router/routes";
@@ -35,13 +39,14 @@ import { getAllIncomeOperations } from "../../../services/api/userProfile/getAll
 import { CategoryType } from "../../../helpers/categoryTypes";
 import { getCurrentDate } from "../../../utils/getCurrentDate";
 import { InputTypeList } from "../../../helpers/Input";
+import { editCategoryTransaction } from "../../../services/api/userProfile/editCategoryTransaction";
 import { getAllIncomeCategories } from "../../../services/api/userProfile/getAllIncomeCategories";
 import { mockBaseUrl } from "../../../mocks/envConsts";
 
 import styles from "./profitMoney.module.scss";
 
 function ProfitMoney() {
-	const ResponseApiRequestModalInitialState = {
+	const responseApiRequestModalInitialState = {
 		open: false,
 		title: "",
 	};
@@ -59,9 +64,10 @@ function ProfitMoney() {
 	const [isIdForDeleteCategory, setIsIdForDeleteCategory] = useState<string>("");
 	const [isCategoryArchive, setIsCategoryArchive] = useState<boolean>(false);
 	const [allOperations, setAllOperations] = useState<IOperation[]>([]);
-	const [responseApiRequestModal, setResponseApiRequestModal] = useState(ResponseApiRequestModalInitialState);
+	const [responseApiRequestModal, setResponseApiRequestModal] = useState(responseApiRequestModalInitialState);
 	const [isCategoryAddModalOpen, setIsCategoryAddModalOpen] = useState<boolean>(false);
 	const [isCategoryDeleteModalOpen, setIsCategoryDeleteModalOpen] = useState<boolean>(false);
+	const [isEditTransactionModalOpen, setIsEditTransactionModalOpen] = useState<boolean>(false);
 
 	const { control, handleSubmit } = useForm<IAddCategoryTransactionForm & IExpensesCategoryForm>({
 		defaultValues: {
@@ -122,10 +128,12 @@ function ProfitMoney() {
 
 	const getAllCategoriesOptions = useCallback(async () => {
 		const data = {
+			// eslint-disable-next-line camelcase
 			is_income: true,
-
+			// eslint-disable-next-line camelcase
 			is_outcome: false,
 		};
+
 		try {
 			if (baseUrl) {
 				const response: AxiosResponse<ICategoryOption[]> = await getAllIncomeCategories(baseUrl, data);
@@ -195,7 +203,7 @@ function ProfitMoney() {
 						title: "Категория успешно добавлена",
 					});
 					setTimeout(() => {
-						setResponseApiRequestModal(ResponseApiRequestModalInitialState);
+						setResponseApiRequestModal(responseApiRequestModalInitialState);
 						setIsAddSuccess(false);
 					}, interval);
 				}
@@ -218,7 +226,7 @@ function ProfitMoney() {
 		setIsIdForDeleteCategory(String(id));
 	};
 
-	const removeApiRequest = async (id: string) => {
+	const removeCategoryApiRequest = async (id: string) => {
 		try {
 			if (baseUrl && id !== null) {
 				const response = await removeIncomeCategory(baseUrl, String(id));
@@ -230,7 +238,39 @@ function ProfitMoney() {
 						title: "Категория успешно удалена",
 					});
 					setTimeout(() => {
-						setResponseApiRequestModal(ResponseApiRequestModalInitialState);
+						setResponseApiRequestModal(responseApiRequestModalInitialState);
+					}, interval);
+				}
+			}
+		} catch (error) {
+			if (
+				axios.isAxiosError(error) &&
+				error.response &&
+				error.response.status &&
+				error.response.status >= axios.HttpStatusCode.InternalServerError &&
+				error.response.status <= axios.HttpStatusCode.NetworkAuthenticationRequired
+			) {
+				router.push(MainPath.ServerError);
+			}
+		}
+	};
+
+	const editTransaction = async (id: string, data: IEditTransactionForm) => {
+		data.date = getCurrentDate(endDate);
+
+		try {
+			if (baseUrl && data !== null) {
+				const response = await editCategoryTransaction(baseUrl, id, data);
+				if (response.status === axios.HttpStatusCode.Ok) {
+					setIsEditTransactionModalOpen(false);
+					setIsEditSuccess(true);
+					setResponseApiRequestModal({
+						open: true,
+						title: "Сумма успешно изменена",
+					});
+					setTimeout(() => {
+						setResponseApiRequestModal(responseApiRequestModalInitialState);
+						setIsEditSuccess(false);
 					}, interval);
 				}
 			}
@@ -259,7 +299,7 @@ function ProfitMoney() {
 						title: "Запись успешно удалена",
 					});
 					setTimeout(() => {
-						setResponseApiRequestModal(ResponseApiRequestModalInitialState);
+						setResponseApiRequestModal(responseApiRequestModalInitialState);
 						setIsDeleteOperationSuccess(false);
 					}, interval);
 				}
@@ -279,6 +319,7 @@ function ProfitMoney() {
 
 	const handleArchiveCategory = async (id: string) => {
 		const data = {
+			// eslint-disable-next-line camelcase
 			is_deleted: true,
 		};
 		try {
@@ -292,7 +333,7 @@ function ProfitMoney() {
 						title: "Категория успешно перенесена в «Архив»",
 					});
 					setTimeout(() => {
-						setResponseApiRequestModal(ResponseApiRequestModalInitialState);
+						setResponseApiRequestModal(responseApiRequestModalInitialState);
 						setIsDeleteSuccessCategory(false);
 						setIsCategoryArchive(false);
 					}, interval);
@@ -347,6 +388,7 @@ function ProfitMoney() {
 			categories: getCategoryId(String(data.categories)),
 			type: "outcome",
 		};
+
 		try {
 			if (baseUrl && data !== null) {
 				const response = await addIncomeCategoryTransaction(baseUrl, transactionData);
@@ -358,7 +400,7 @@ function ProfitMoney() {
 						title: "Запись успешно добавлена",
 					});
 					setTimeout(() => {
-						setResponseApiRequestModal(ResponseApiRequestModalInitialState);
+						setResponseApiRequestModal(responseApiRequestModalInitialState);
 						setIsAddSuccess(false);
 					}, interval);
 				}
@@ -378,7 +420,7 @@ function ProfitMoney() {
 					title: "Запись не была добавлена",
 				});
 				setTimeout(() => {
-					setResponseApiRequestModal(ResponseApiRequestModalInitialState);
+					setResponseApiRequestModal(responseApiRequestModalInitialState);
 				}, interval);
 			}
 		}
@@ -431,7 +473,7 @@ function ProfitMoney() {
 						open={isCategoryDeleteModalOpen}
 						category={isCategory}
 						id={isIdForDeleteCategory}
-						requestDeleteApi={removeApiRequest}
+						requestDeleteApi={removeCategoryApiRequest}
 						requestArchiveApi={handleArchiveCategory}
 						onCancelClick={() => setIsCategoryDeleteModalOpen(false)}
 						operations={allOperations}
@@ -454,17 +496,29 @@ function ProfitMoney() {
 					{fiveOperationsNames &&
 						fiveOperationsNames.map((incomeData: IOperation, index: Key) => (
 							<li key={index}>
-								{/* <IncomeTransaction
+								<IncomeTransaction
 									date={incomeData.date}
-									purpose={incomeData.name ?? ""}
-									sum={incomeData.amount}
+									name={incomeData.name}
+									amount={incomeData.amount}
+									type={""}
+									categories={0}
 									id={incomeData.id}
+									target={""}
 									onDeleteClick={() => [setIsDeleteOperationApprove(true), setIsId(String(incomeData.id))]}
 									editClick={() => [setIsEditTransactionModalOpen(true), setIsId(String(incomeData.id))]}
-								/> */}
+								/>
 							</li>
 						))}
 				</div>
+
+				{isEditTransactionModalOpen && (
+					<EditTransactionModal
+						open={isEditTransactionModalOpen}
+						id={isId}
+						request={editTransaction}
+						cancelEdit={() => setIsEditTransactionModalOpen(false)}
+					/>
+				)}
 
 				{isDeleteOperationApprove && (
 					<RecordDeleteModal

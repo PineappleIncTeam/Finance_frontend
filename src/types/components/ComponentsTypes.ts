@@ -59,9 +59,16 @@ export interface IExpenseTransaction {
 
 export interface IIncomeTransaction {
 	date: string;
-	purpose: string;
-	sum: number;
+	amount: string;
+	name?: string;
+	target: string;
+	type: string;
+	categories: number;
+	id: number;
+	onDeleteClick: () => void;
+	editClick: () => void;
 }
+
 export interface IBurgerMenu {
 	children: ReactNode;
 	showMenu: boolean;

@@ -8,7 +8,7 @@ export interface IAddCategoryTransactionForm {
 	date: string;
 	amount: number | string;
 	categories: number | null;
-	type: "outcome";
+	type: "outcome" | "";
 }
 
 export interface IExpensesCategoryForm {

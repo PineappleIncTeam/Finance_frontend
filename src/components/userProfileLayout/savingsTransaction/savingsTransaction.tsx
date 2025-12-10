@@ -2,7 +2,7 @@ import { useState } from "react";
 
 import { DeleteIcon } from "../../../assets/script/expenses/DeleteIcon";
 import { EditIcon } from "../../../assets/script/expenses/EditIcon";
-import { ExpensesTooltip } from "../expensesTooltip/expensesTooltip";
+import { MoneyValueTooltip } from "../moneyValueTooltip/moneyValueTooltip";
 import { ISavingsTransaction } from "../../../types/components/ComponentsTypes";
 
 import styles from "./savingsTransaction.module.scss";
@@ -27,7 +27,7 @@ const SavingsTransaction = ({ date, amount, name, onDeleteClick, editClick }: IS
 					<EditIcon classNames={styles.editIcon} />
 				</div>
 			</div>
-			<ExpensesTooltip open={isTooltipOpen} />
+			<MoneyValueTooltip open={isTooltipOpen} />
 		</div>
 	);
 };

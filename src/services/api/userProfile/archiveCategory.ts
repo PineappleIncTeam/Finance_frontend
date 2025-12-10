@@ -1,10 +1,10 @@
 import axios from "axios";
 
-import { expensesCategoryEndPoint } from "../auth/apiConstants";
+import { categoryEndPoint } from "../auth/apiConstants";
 import { IArchiveCategory } from "../../../types/pages/Expenses";
 
 export const archiveCategory = async (baseUrl: string, id: string, data: IArchiveCategory) => {
-	return await axios(`${baseUrl}/${expensesCategoryEndPoint}/${id}/`, {
+	return await axios(`${baseUrl}/${categoryEndPoint}/${id}/`, {
 		method: "PUT",
 		data: data,
 		headers: {

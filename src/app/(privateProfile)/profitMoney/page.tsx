@@ -389,16 +389,16 @@ function ProfitMoney() {
 			<div className={styles.profitMoneyPageContainer}>
 				<form className={styles.formContentWrapper}>
 					<h1 className={styles.headerTitle}>Доходы</h1>
-					<div className={styles.byDateContainer}>
+					<div className={styles.profitMoneyGridWrapper}>
 						<div className={styles.totalMonthlyWrapper}>
 							<p className={styles.totalMonthlyWrapper__month}>Общий доход за Январь</p>
-							<p className={styles.totalMonthlyWrapper__sum}>— ₽</p>
+							<p className={styles.totalMonthlyWrapper__sum}>283 000 ₽</p>
 						</div>
 						<div className={styles.dateSelectionWrapper}>
 							<InputDate control={control} name={"date"} />
 						</div>
 
-						<div className={styles.expensesDetailsContainer__category}>
+						<div className={styles.profitMoneyDetailsContainer__category}>
 							<CategorySelect
 								name={"categories"}
 								label={"Категория"}
@@ -413,7 +413,7 @@ function ProfitMoney() {
 							/>
 						</div>
 
-						<div className={styles.expensesDetailsContainer__sum}>
+						<div className={styles.profitMoneyDetailsContainer__sum}>
 							<AppInput
 								control={control}
 								label={"Сумма"}

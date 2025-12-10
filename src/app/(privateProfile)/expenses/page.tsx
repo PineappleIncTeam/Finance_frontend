@@ -480,6 +480,7 @@ export default function Expenses() {
 				)}
 				<ResponseApiRequestModal open={responseApiRequestModal.open} title={responseApiRequestModal.title} />
 				<ResponseApiRequestModal open={responseApiRequestModal.open} title={responseApiRequestModal.title} />
+
 				<div className={styles.expensesTransactionsWrapper}>
 					<h1 className={styles.expensesTransactionHeader}>Последние операции по расходам</h1>
 					{fiveOperationsNames &&
@@ -499,6 +500,7 @@ export default function Expenses() {
 							</li>
 						))}
 				</div>
+
 				{isDeleteOperationApprove && (
 					<RecordDeleteModal
 						open={isDeleteOperationApprove}

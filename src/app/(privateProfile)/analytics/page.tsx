@@ -106,9 +106,9 @@ function Analytics() {
 		setIsLabel(window.innerWidth > windowResizeLabel);
 	};
 
-	function getRawAnalysisData(incomeStatistics: number, expensesStatistics: number) {
-		return incomeStatistics && expensesStatistics ? [incomeStatistics, expensesStatistics] : [];
-	}
+	// function getRawAnalysisData(incomeStatistics: number, expensesStatistics: number) {
+	// 	return incomeStatistics && expensesStatistics ? [incomeStatistics, expensesStatistics] : [];
+	// }
 
 	const expensesLabels = () => {
 		if (listOfOperations !== null) {
@@ -506,8 +506,8 @@ function Analytics() {
 		labels: analysisLabels,
 		datasets: [
 			{
-				data: getRawAnalysisData(incomeStatistics ?? 0, expensesStatistics ?? 0).map((value) =>
-					displayMode === DisplayMode.RUB ? value ?? 0 : ((value / 130000) * 100).toFixed(2),
+				data: [incomeStatistics, expensesStatistics].map((value) =>
+					displayMode === DisplayMode.RUB ? value : ((value ?? 0 / 130000) * 100).toFixed(2),
 				),
 				backgroundColor: randomColorSet,
 				borderWidth: 0,

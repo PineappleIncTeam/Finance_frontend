@@ -220,3 +220,30 @@ export interface IEnvValidationResult {
 export interface IErrorHandler {
 	children: ReactNode;
 }
+
+export type TNetworkErrorType =
+	| "NETWORK_ERROR"
+	| "ERR_NAME_NOT_RESOLVED"
+	| "ERR_CONNECTION_REFUSED"
+	| "ERR_TUNNEL_CONNECTION_FAILED"
+	| "ERR_EMPTY_RESPONSE";
+
+export interface IClientNetworkError extends Error {
+	code?: string | TNetworkErrorType;
+	errno?: string;
+	syscall?: string;
+	address?: string;
+	port?: number;
+	hostname?: string;
+}
+
+export interface IClientNetworkErrorModalProvider {
+	children: ReactNode;
+}
+
+export interface IClientNetworkErrorModalContext {
+	isOpen: boolean;
+	error: IClientNetworkError | Error | null;
+	openModal: (error: Error | IClientNetworkError) => void;
+	closeModal: () => void;
+}

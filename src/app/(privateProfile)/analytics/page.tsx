@@ -769,20 +769,20 @@ function Analytics() {
 		));
 	};
 
-	const renderAnalyticsExpensesTransactions = (transactions: IFinancialTransaction[] & ICategoryBudget[]) => {
-		if (transactions !== null) {
-			return transactions.map((data: IFinancialTransaction & ICategoryBudget, index: Key) => (
-				<li key={index}>
-					<AnalystExpensesTransactions
-						month={data.month}
-						category_name={data.category_name}
-						amount={data.amount}
-						category_id={0}
-					/>
-				</li>
-			));
-		}
-	};
+	// const renderAnalyticsExpensesTransactions = (transactions: IFinancialTransaction[] & ICategoryBudget[]) => {
+	// 	if (transactions !== null) {
+	// 		return transactions.map((data: IFinancialTransaction & ICategoryBudget, index: Key) => (
+	// 			<li key={index}>
+	// 				<AnalystExpensesTransactions
+	// 					month={data.month}
+	// 					category_name={data.category_name}
+	// 					amount={data.amount}
+	// 					category_id={0}
+	// 				/>
+	// 			</li>
+	// 		));
+	// 	}
+	// };
 
 	const renderAnalyticsSavingsTransactions = (transactions: IAnalyticsTransactions[]) => {
 		return transactions.map((savingsData, index) => (

@@ -31,7 +31,7 @@
 		"classnames": "^2.5.1",
 		"date-fns": "^4.1.0",
 		"moment": "^2.30.1",
-		"next": "16.0.7",
+		"next": "16.0.9",
 		"next-runtime-env": "^3.3.0",
 		"pkce-challenge": "^5.0.0",
 		"pm2": "^6.0.14",

@@ -90,7 +90,58 @@ function ProfitMoney() {
 	const endDate = 10;
 	const interval = 2000;
 
-	const getFiveOperations = useCallback(async () => {
+	const getFiveOperationsNames = useCallback(() => {
+		const fiveOperationsNames: IOperation[] = [];
+		fiveOperations.forEach((element: IOperation) => {
+			options.forEach((option: ICategoryOption) => {
+				if (element.categories === option.id) {
+					element.name = option.name;
+					fiveOperationsNames.push(element);
+				}
+			});
+		});
+		return fiveOperationsNames;
+	}, [fiveOperations, options]);
+
+	useEffect(() => {
+		getFiveOperationsNames();
+		getFiveOperations();
+		getAllCategoriesOptions();
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
+
+	useEffect(() => {
+		resetTimer();
+	}, [request, resetTimer]);
+
+	useEffect(() => {
+		(() => {
+			if (isAddSuccess || isDeleteSuccessCategory || isCategoryArchive) {
+				getAllCategoriesOptions();
+			}
+		})();
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [isAddSuccess, isDeleteSuccessCategory, isCategoryArchive]);
+
+	useEffect(() => {
+		(() => {
+			if (isDeleteOperationSuccess || isEditSuccess || isAddSuccess) {
+				getFiveOperations();
+			}
+		})();
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [isDeleteOperationSuccess, isEditSuccess, isAddSuccess]);
+
+	useEffect(() => {
+		(() => {
+			if (isDeleteOperationSuccess || isEditSuccess || isAddSuccess) {
+				setFiveOperationsNames(getFiveOperationsNames);
+			}
+		})();
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [isDeleteOperationSuccess, isEditSuccess, isAddSuccess]);
+
+	const getFiveOperations = async () => {
 		const data = {
 			type: "income",
 		};
@@ -112,22 +163,9 @@ function ProfitMoney() {
 				router.push(MainPath.ServerError);
 			}
 		}
-	}, [baseUrl, router]);
+	};
 
-	const getFiveOperationsNames = useCallback(() => {
-		const fiveOperationsNames: IOperation[] = [];
-		fiveOperations.forEach((element: IOperation) => {
-			options.forEach((option: ICategoryOption) => {
-				if (element.categories === option.id) {
-					element.name = option.name;
-					fiveOperationsNames.push(element);
-				}
-			});
-		});
-		return fiveOperationsNames;
-	}, [fiveOperations, options]);
-
-	const getAllCategoriesOptions = useCallback(async () => {
+	const getAllCategoriesOptions = async () => {
 		const data = {
 			// eslint-disable-next-line camelcase
 			is_income: true,
@@ -153,44 +191,7 @@ function ProfitMoney() {
 				router.push(MainPath.ServerError);
 			}
 		}
-	}, [baseUrl, router]);
-
-	useEffect(() => {
-		resetTimer();
-	}, [request, resetTimer]);
-
-	useEffect(() => {
-		(() => {
-			getFiveOperationsNames();
-			getFiveOperations();
-			getAllCategoriesOptions();
-		})();
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
-
-	useEffect(() => {
-		(() => {
-			if (isAddSuccess || isDeleteSuccessCategory || isCategoryArchive) {
-				getAllCategoriesOptions();
-			}
-		})();
-	}, [getAllCategoriesOptions, isAddSuccess, isDeleteSuccessCategory, isCategoryArchive]);
-
-	useEffect(() => {
-		(() => {
-			if (isDeleteOperationSuccess || isEditSuccess || isAddSuccess) {
-				getFiveOperations();
-			}
-		})();
-	}, [isDeleteOperationSuccess, isEditSuccess, isAddSuccess, getFiveOperations]);
-
-	useEffect(() => {
-		(() => {
-			if (isDeleteOperationSuccess || isEditSuccess || isAddSuccess) {
-				setFiveOperationsNames(getFiveOperationsNames);
-			}
-		})();
-	}, [isDeleteOperationSuccess, isEditSuccess, isAddSuccess, getFiveOperationsNames]);
+	};
 
 	const addCategory = async (data: IAddCategoryIncomeForm) => {
 		try {

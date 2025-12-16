@@ -6,7 +6,12 @@ import { ICategoriesTypes } from "../../../types/pages/Expenses";
 export const getAllIncomeCategories = async (baseUrl: string, data: ICategoriesTypes) => {
 	return await axios(`${baseUrl}/${categoriesAllEndPoint}`, {
 		method: "GET",
-		data: data,
+		params: {
+		// eslint-disable-next-line camelcase
+		is_income: data.is_income,
+		// eslint-disable-next-line camelcase
+		is_outcome: data.is_outcome,
+	},
 		headers: {
 			"Content-Type": "application/json",
 		},

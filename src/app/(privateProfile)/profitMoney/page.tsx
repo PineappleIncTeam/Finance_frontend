@@ -73,7 +73,7 @@ function ProfitMoney() {
 		defaultValues: {
 			amount: "",
 			categories: null,
-			type: "outcome",
+			type: "income",
 		},
 		mode: "all",
 		delayError: 200,
@@ -386,7 +386,7 @@ function ProfitMoney() {
 			date: getCurrentDate(endDate),
 			amount: Number(data.amount),
 			categories: getCategoryId(String(data.categories)),
-			type: "outcome",
+			type: "income",
 		};
 
 		try {

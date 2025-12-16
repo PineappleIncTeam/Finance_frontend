@@ -92,6 +92,7 @@ function ProfitMoney() {
 
 	const getFiveOperationsNames = useCallback(() => {
 		const fiveOperationsNames: IOperation[] = [];
+
 		fiveOperations.forEach((element: IOperation) => {
 			options.forEach((option: ICategoryOption) => {
 				if (element.categories === option.id) {
@@ -104,9 +105,12 @@ function ProfitMoney() {
 	}, [fiveOperations, options]);
 
 	useEffect(() => {
-		getFiveOperationsNames();
-		getFiveOperations();
-		getAllCategoriesOptions();
+		(async () => {
+			await getFiveOperations();
+			setFiveOperationsNames(getFiveOperationsNames);
+			getAllCategoriesOptions();
+		}
+		)();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 

@@ -7,11 +7,11 @@ export const getAllIncomeCategories = async (baseUrl: string, data: ICategoriesT
 	return await axios(`${baseUrl}/${categoriesAllEndPoint}`, {
 		method: "GET",
 		params: {
-		// eslint-disable-next-line camelcase
-		is_income: data.is_income,
-		// eslint-disable-next-line camelcase
-		is_outcome: data.is_outcome,
-	},
+			// eslint-disable-next-line camelcase
+			is_income: data.is_income,
+			// eslint-disable-next-line camelcase
+			is_outcome: data.is_outcome,
+		},
 		headers: {
 			"Content-Type": "application/json",
 		},

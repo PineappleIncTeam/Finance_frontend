@@ -16,6 +16,7 @@ import {
 	IEditTransactionForm,
 } from "../../../types/components/ComponentsTypes";
 import { ICategoryOption } from "../../../types/common/ComponentsProps";
+import { IAddingCategoryIncomeForm } from "../../../types/pages/ProfitMoney";
 import { IOperation } from "../../../types/api/Expenses";
 import InputDate from "../../../ui/inputDate/inputDate";
 import AppInput from "../../../ui/appInput/AppInput";
@@ -194,7 +195,17 @@ function ProfitMoney() {
 	const addCategory = async (data: IAddCategoryIncomeForm) => {
 		try {
 			if (baseUrl && data !== null) {
-				const response = await addIncomeCategory(baseUrl, data);
+				const payloadData: IAddingCategoryIncomeForm = {
+					name: data.name,
+					// eslint-disable-next-line camelcase
+					is_income: true,
+					// eslint-disable-next-line camelcase
+					is_outcome: false,
+					// eslint-disable-next-line camelcase
+					is_visibility: true,
+				};
+
+				const response = await addIncomeCategory(baseUrl, payloadData);
 				if (response.status === axios.HttpStatusCode.Created) {
 					setIsCategoryAddModalOpen(false);
 					setIsAddSuccess(true);

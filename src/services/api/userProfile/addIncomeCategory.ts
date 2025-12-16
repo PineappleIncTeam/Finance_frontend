@@ -2,9 +2,9 @@ import axios from "axios";
 
 import { categoryEndPoint } from "../auth/apiConstants";
 
-import { IAddCategoryIncomeForm } from "../../../types/components/ComponentsTypes";
+import { IAddingCategoryIncomeForm } from "../../../types/pages/ProfitMoney";
 
-export const addIncomeCategory = async (baseUrl: string, data: IAddCategoryIncomeForm) => {
+export const addIncomeCategory = async (baseUrl: string, data: IAddingCategoryIncomeForm) => {
 	return await axios(`${baseUrl}/${categoryEndPoint}/`, {
 		method: "POST",
 		data: data,

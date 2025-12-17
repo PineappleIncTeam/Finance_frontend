@@ -143,14 +143,6 @@ export interface IEditTransactionSuccess {
 	open: boolean;
 }
 
-export interface IResponseApiRequestModal {
-	open: boolean;
-	title?: string;
-	className?: string;
-	width?: number | string;
-	color?: string;
-}
-
 export interface ICategoryDeleteModal {
 	open: boolean;
 	category: string;

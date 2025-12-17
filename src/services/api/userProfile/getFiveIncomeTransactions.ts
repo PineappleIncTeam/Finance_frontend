@@ -1,9 +1,9 @@
 import axios from "axios";
 
+import { ITransactionTypePayload } from "../../../types/pages/ProfitMoney";
 import { operationsEndPoint } from "../auth/apiConstants";
-import { IFiveOperations } from "../../../types/pages/Expenses";
 
-export const getFiveExpensesTransactions = async (baseUrl: string, data: IFiveOperations) => {
+export const getFiveIncomeTransactions = async (baseUrl: string, data: ITransactionTypePayload) => {
 	return await axios(`${baseUrl}/${operationsEndPoint}/`, {
 		method: "GET",
 		params: {

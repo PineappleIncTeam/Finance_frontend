@@ -1,7 +1,9 @@
 "use client";
 
-import { useState, useEffect, ChangeEvent } from "react";
+import { useRouter } from "next/navigation";
+import { useState, useEffect, ChangeEvent, useCallback, Key } from "react";
 import { useForm } from "react-hook-form";
+import axios, { AxiosResponse } from "axios";
 import { Pie, Bar, Doughnut } from "react-chartjs-2";
 import { Chart as ChartJS, ArcElement, Tooltip, CategoryScale, LinearScale, BarElement } from "chart.js";
 
@@ -25,6 +27,16 @@ import AnalystExpensesTransactions from "../../../components/userProfileLayout/a
 import AnalystSavingsTransactions from "../../../components/userProfileLayout/analystSavingsTransactions/analystSavingsTransactions";
 import InactivityLogoutModal from "../../../components/userProfileLayout/inactivityLogoutModal/inactivityLogoutModal";
 import { mockBaseUrl } from "../../../mocks/envConsts";
+import { MainPath } from "../../../services/router/routes";
+import { getReportsCategories } from "../../../services/api/userProfile/getReportsCategories";
+import {
+	ICategoryBudget,
+	IFinancialTransaction,
+	IReportsBalance,
+	IReportsStatistics,
+} from "../../../types/api/Analytics";
+import { getReportsStatistics } from "../../../services/api/userProfile/getReportsStatistics";
+import { getReportsBalance } from "../../../services/api/userProfile/getReportsBalance";
 
 import styles from "./analytics.module.scss";
 
@@ -73,6 +85,11 @@ function Analytics() {
 	const [chartHeight, setChartHeight] = useState(298);
 	const [rotation, setRotation] = useState({ maxRotation: 0, minRotation: 0 });
 	const [isLabel, setIsLabel] = useState(true);
+	const [listOfOperations, setListOfOperations] = useState<IFinancialTransaction[] & ICategoryBudget>([]);
+	const [expensesStatistics, setExpensesStatistics] = useState<number | null>(null);
+	const [incomeStatistics, setIncomeStatistics] = useState<number | null>(null);
+	const [savingsStatistics, setSavingsStatistics] = useState<number | null>(null);
+	const [reportsBalance, setReportsBalance] = useState<number | null>(null);
 	const isEmptyPage = false;
 	const rawExpensesData = [
 		1300.01, 3900.02, 3250.02, 1638.83, 2652.06, 15271.09, 390.0, 975.56, 1340.79, 9110.05, 16192.09, 2600.01, 6437.57,
@@ -84,36 +101,23 @@ function Analytics() {
 	const baseUrl = getSafeEnvVar("NEXT_PUBLIC_BASE_URL", mockBaseUrl);
 	const { request } = useHandleLogout(baseUrl);
 	const { resetTimer, setIsOpenInactivityLogoutModal, isOpenInactivityLogoutModal } = useLogoutTimer(request);
-
+	const router = useRouter();
 	const handleResizeIsLabel = () => {
 		setIsLabel(window.innerWidth > windowResizeLabel);
 	};
 
-	const rawAnalysisData = [50000, 50000];
+	// function getRawAnalysisData(incomeStatistics: number, expensesStatistics: number) {
+	// 	return incomeStatistics && expensesStatistics ? [incomeStatistics, expensesStatistics] : [];
+	// }
 
-	const expensesLabels: string[] = [
-		"Внезапная покупка",
-		"Стрижка",
-		"Бассейн",
-		"Школа",
-		"Еда",
-		"Плата жилья",
-		"Ногти",
-		"Бензин",
-		"Дорога работа",
-		"Юрист",
-		"Детский сад",
-		"Учебники",
-		"Отпуск",
-		"Театр",
-		"Кредит",
-		"Страховка",
-		"Киберспорт",
-		"Путешествия",
-		"Кино",
-		"Ипотека",
-	];
-	const expensesLabelsLengthValue = expensesLabels.length;
+	// const expensesLabels = () => {
+	// 	if (listOfOperations !== null) {
+	// 		return listOfOperations.map((item) => item?.category_name) ?? [];
+	// 	}
+	// };
+	const expensesLabelsLengthValue = 
+	// expensesLabels()?.length || 
+	0;
 
 	const analysisLabels: string[] = ["Общий расход", "Общий доход"];
 
@@ -276,6 +280,75 @@ function Analytics() {
 		}
 	};
 
+	const getListOfOperations = useCallback(async () => {
+		try {
+			if (baseUrl) {
+				const response: AxiosResponse<ICategoryBudget[] & IFinancialTransaction[]> =
+					await getReportsCategories(baseUrl);
+				if (response !== null && response.status === axios.HttpStatusCode.Ok) {
+					setListOfOperations(response.data);
+					console.log(response.data);
+				}
+			}
+		} catch (error) {
+			if (
+				axios.isAxiosError(error) &&
+				error.response &&
+				error.response.status &&
+				error.response.status >= axios.HttpStatusCode.InternalServerError &&
+				error.response.status <= axios.HttpStatusCode.NetworkAuthenticationRequired
+			) {
+				router.push(MainPath.ServerError);
+			}
+		}
+	}, [baseUrl, router]);
+
+	const getCategoriesStatistics = useCallback(async () => {
+		try {
+			if (baseUrl) {
+				const response: AxiosResponse<IReportsStatistics> = await getReportsStatistics(baseUrl);
+				if (response !== null && response.status === axios.HttpStatusCode.Ok) {
+					setExpensesStatistics(response.data?.total_expenses);
+					setIncomeStatistics(response.data?.total_income);
+					setSavingsStatistics(response.data?.total_savings);
+					console.log(response.data);
+				}
+			}
+		} catch (error) {
+			if (
+				axios.isAxiosError(error) &&
+				error.response &&
+				error.response.status &&
+				error.response.status >= axios.HttpStatusCode.InternalServerError &&
+				error.response.status <= axios.HttpStatusCode.NetworkAuthenticationRequired
+			) {
+				router.push(MainPath.ServerError);
+			}
+		}
+	}, [baseUrl, router]);
+
+	const getBalance = useCallback(async () => {
+		try {
+			if (baseUrl) {
+				const response: AxiosResponse<IReportsBalance> = await getReportsBalance(baseUrl);
+				if (response !== null && response.status === axios.HttpStatusCode.Ok) {
+					setReportsBalance(response.data?.current_balance);
+					console.log(response.data);
+				}
+			}
+		} catch (error) {
+			if (
+				axios.isAxiosError(error) &&
+				error.response &&
+				error.response.status &&
+				error.response.status >= axios.HttpStatusCode.InternalServerError &&
+				error.response.status <= axios.HttpStatusCode.NetworkAuthenticationRequired
+			) {
+				router.push(MainPath.ServerError);
+			}
+		}
+	}, [baseUrl, router]);
+
 	useEffect(() => {
 		const handleResize = () => {
 			if (window.innerWidth <= windowSizeS) {
@@ -318,6 +391,18 @@ function Analytics() {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
+	useEffect(() => {
+		getListOfOperations();
+	}, [getListOfOperations]);
+
+	useEffect(() => {
+		getCategoriesStatistics();
+	}, [getCategoriesStatistics]);
+
+	useEffect(() => {
+		getBalance();
+	}, [getBalance]);
+
 	const handleDisplayChange = (event: ChangeEvent<HTMLInputElement>) => {
 		const value = event.target.value as DisplayMode;
 		setDisplayMode(value);
@@ -329,7 +414,9 @@ function Analytics() {
 	const randomColorSet: string[] = generateRandomColors(expensesLabelsLengthValue);
 
 	const data = {
-		labels: expensesLabels,
+		labels: 
+		// expensesLabels() ??
+		 [],
 		datasets: [
 			{
 				label: "Расходы",
@@ -423,8 +510,8 @@ function Analytics() {
 		labels: analysisLabels,
 		datasets: [
 			{
-				data: rawAnalysisData.map((value) =>
-					displayMode === DisplayMode.RUB ? value : ((value / 130000) * 100).toFixed(2),
+				data: [incomeStatistics, expensesStatistics].map((value) =>
+					displayMode === DisplayMode.RUB ? value : ((value ?? 0 / 130000) * 100).toFixed(2),
 				),
 				backgroundColor: randomColorSet,
 				borderWidth: 0,
@@ -435,13 +522,13 @@ function Analytics() {
 		cutout: "60%",
 	};
 
-	const displayDataAnalysis = dataAnalysis.labels.map((label, index) => ({
-		title: label,
-		value: dataAnalysis.datasets[0].data[index],
+	const displayDataAnalysis = dataAnalysis?.labels?.map((label, index) => ({
+		title: label ?? "",
+		value: dataAnalysis.datasets[0].data[index] ?? 0,
 		background: dataAnalysis.datasets[0].backgroundColor[index],
 	}));
 
-	const renderEmptyAnaliticsPage = () => (
+	const renderEmptyAnalyticsPage = () => (
 		<div className={styles.analyticsBlankPage}>
 			<p className={styles.analyticsBlankPage__text}>
 				К сожалению, этот раздел пока пуст. Начните вести учет финансов в приложении и сможет воспользоваться этим
@@ -456,7 +543,7 @@ function Analytics() {
 		<div className={styles.analyticsDiagramExpensesWrapper}>
 			<div className={styles.analyticsDiagramExpensesInfo}>
 				<p className={styles.analyticsDiagramExpensesInfo__title}>Общий расход</p>
-				<p className={styles.analyticsDiagramExpensesInfo__value}>130 000.75 ₽</p>
+				<p className={styles.analyticsDiagramExpensesInfo__value}>{expensesStatistics}</p>
 				<p className={styles.analyticsDiagramExpensesInfo__date}>14.09.23 - 20.09.23</p>
 			</div>
 
@@ -511,7 +598,7 @@ function Analytics() {
 			<div className={styles.analyticsDiagramIncomeInfoWrapper}>
 				<div className={styles.analyticsDiagramIncomeInfo}>
 					<p className={styles.analyticsDiagramIncomeInfo__title}>Общий доход</p>
-					<p className={styles.analyticsDiagramIncomeInfo__value}>130 000.75 ₽</p>
+					<p className={styles.analyticsDiagramIncomeInfo__value}>{incomeStatistics}</p>
 					<p className={styles.analyticsDiagramIncomeInfo__date}>14.09.23 - 20.09.23</p>
 				</div>
 
@@ -587,7 +674,7 @@ function Analytics() {
 			<div className={styles.analyticsDiagramAnalysisInfoWrapper}>
 				<div className={styles.analyticsDiagramAnalysisInfo}>
 					<p className={styles.analyticsDiagramAnalysisInfo__title}>Ваш баланс</p>
-					<p className={styles.analyticsDiagramAnalysisInfo__value}>0.00 ₽</p>
+					{reportsBalance && <p className={styles.analyticsDiagramAnalysisInfo__value}>{reportsBalance}</p>}
 					<p className={styles.analyticsDiagramAnalysisInfo__date}>14.09.23 - 20.09.23</p>
 				</div>
 
@@ -598,19 +685,20 @@ function Analytics() {
 
 					<div className={styles.diagramAnalysisBlock}>
 						<ul className={styles.diagramAnalysisBlockItems}>
-							{displayDataAnalysis.map((item, index) => (
-								<li key={index} className={styles.diagramAnalysisBlockItem}>
-									<div className={styles.diagramAnalysisBlockIconWrapper}>
-										<div
-											className={styles.diagramAnalysisBlockIconWrapper__circle}
-											style={{ background: `${item.background}` }}></div>
-										<p className={styles.diagramAnalysisBlockIconWrapper__text}>{item.title}:</p>
-									</div>
-									<p className={styles.diagramAnalysisBlockItem__value}>
-										{displayMode === DisplayMode.RUB ? `${item.value} ₽` : `${item.value}%`}
-									</p>
-								</li>
-							))}
+							{displayDataAnalysis &&
+								displayDataAnalysis.map((item, index) => (
+									<li key={index} className={styles.diagramAnalysisBlockItem}>
+										<div className={styles.diagramAnalysisBlockIconWrapper}>
+											<div
+												className={styles.diagramAnalysisBlockIconWrapper__circle}
+												style={{ background: `${item.background}` }}></div>
+											<p className={styles.diagramAnalysisBlockIconWrapper__text}>{item.title}:</p>
+										</div>
+										<p className={styles.diagramAnalysisBlockItem__value}>
+											{displayMode === DisplayMode.RUB ? `${item.value} ₽` : `${item.value}%`}
+										</p>
+									</li>
+								))}
 						</ul>
 					</div>
 				</div>
@@ -618,7 +706,7 @@ function Analytics() {
 		</div>
 	);
 
-	const renderContentAnaliticsPage = () => (
+	const renderContentAnalyticsPage = () => (
 		<div className={styles.analyticsPagesContent}>
 			<div className={styles.analyticsSelectContainer}>
 				<div className={styles.analyticsSelectOperation}>
@@ -685,18 +773,20 @@ function Analytics() {
 		));
 	};
 
-	const renderAnalyticsExpensesTransactions = (transactions: IAnalyticsTransactions[]) => {
-		return transactions.map((savingsData, index) => (
-			<li key={index}>
-				<AnalystExpensesTransactions
-					firstDate={savingsData.firstDate}
-					secondDate={savingsData.secondDate}
-					purpose={savingsData.purpose}
-					sum={savingsData.sum}
-				/>
-			</li>
-		));
-	};
+	// const renderAnalyticsExpensesTransactions = (transactions: IFinancialTransaction[] & ICategoryBudget[]) => {
+	// 	if (transactions !== null) {
+	// 		return transactions.map((data: IFinancialTransaction & ICategoryBudget, index: Key) => (
+	// 			<li key={index}>
+	// 				<AnalystExpensesTransactions
+	// 					month={data.month}
+	// 					category_name={data.category_name}
+	// 					amount={data.amount}
+	// 					category_id={0}
+	// 				/>
+	// 			</li>
+	// 		));
+	// 	}
+	// };
 
 	const renderAnalyticsSavingsTransactions = (transactions: IAnalyticsTransactions[]) => {
 		return transactions.map((savingsData, index) => (
@@ -747,7 +837,7 @@ function Analytics() {
 				<div className={styles.analyticsTransactionsWrapper}>
 					<h3 className={styles.analyticsTransactionsWrapper__title}>Операции с расходами</h3>
 					<ul className={styles.analyticsTransactionsWrapper__item}>
-						{analyticsExpensesTransactions && renderAnalyticsExpensesTransactions(analyticsExpensesTransactions)}
+						{/* {listOfOperations && renderAnalyticsExpensesTransactions(listOfOperations)} */}
 					</ul>
 				</div>
 
@@ -768,8 +858,8 @@ function Analytics() {
 				{operation === Operation.ListOfOperations
 					? renderListOfOperations()
 					: isEmptyPage
-						? renderEmptyAnaliticsPage()
-						: renderContentAnaliticsPage()}
+						? renderEmptyAnalyticsPage()
+						: renderContentAnalyticsPage()}
 			</div>
 			<InactivityLogoutModal
 				open={isOpenInactivityLogoutModal}

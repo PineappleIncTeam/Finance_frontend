@@ -1,18 +1,32 @@
 "use client";
 
-import React, { useState, useEffect, ChangeEvent } from "react";
+import { useState, useEffect, MouseEvent, useTransition, useRef } from "react";
 import Image from "next/image";
+import cn from "classnames/dedupe";
+import { useForm } from "react-hook-form";
 
 import { useRuntimeEnv } from "../../../hooks/useRuntimeEnv";
 import { useLogoutTimer } from "../../../hooks/useLogoutTimer";
 import { useHandleLogout } from "../../../hooks/useHandleLogout";
 
+import { ICalculatorForm, TCalcTypes } from "../../../types/pages/Calculator";
 import Button from "../../../ui/Button/Button";
 import InactivityLogoutModal from "../../../components/userProfileLayout/inactivityLogoutModal/inactivityLogoutModal";
+import CalcRageInput from "../../../components/userProfileLayout/calcRageInput/calcRageInput";
+import Spinner from "../../../ui/spinner/spinner";
 import { InputTypeList } from "../../../helpers/Input";
 import { ButtonType } from "../../../helpers/buttonFieldValues";
-import { formatCalculateNumber } from "../../../utils/formatCalculateNumber";
 import { mockBaseUrl } from "../../../mocks/envConsts";
+import {
+	businessLoanTermsAdditionalValues,
+	consumerLoanTermsAdditionalValues,
+	downPaymentAdditionalValues,
+	factorValue,
+	interestRateAdditionalValues,
+	mobileScreenWidthValue,
+	yearMonthCount,
+} from "../../../helpers/calculatorConsts";
+import { formatCalculateNumber } from "../../../utils/formatCalculateNumber";
 
 import { InfoIcon } from "../../../assets/script/calculator/InfoIcon";
 import crossIcon from "../../../assets/components/userProfile/crossIcon.svg";
@@ -20,15 +34,23 @@ import crossIcon from "../../../assets/components/userProfile/crossIcon.svg";
 import styles from "./calculator.module.scss";
 
 export default function Calculator() {
-	const maximalStateValue = 10000000;
-	const defaultStateValue = 0;
-	const mobileSCreenWidthValue = 460;
-	const factorValue = 100;
+	const [monthlyPayment, setMonthlyPayment] = useState<number>(0);
+	const [resultLoanInterest, setResultLoanInterest] = useState<number>(0);
+	const [isVisibleInfo, setIsVisibleInfo] = useState<boolean>(false);
+	const [isMobile, setIsMobile] = useState<boolean>(window.innerWidth <= mobileScreenWidthValue);
+	const [activeCalc, setActiveCalc] = useState<TCalcTypes>(TCalcTypes.realEstate);
+	const [isLoaderShow, setIsLoaderShow] = useState<boolean>(false);
+	const [isChangingCalcType, startChangingCalcType] = useTransition();
+	const loaderTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
-	const [value, setValue] = useState<number>(defaultStateValue);
-	const [isVisibleInfo, setIsVisibleInfo] = useState(false);
-	const [isMobile, setIsMobile] = useState(window.innerWidth <= mobileSCreenWidthValue);
-	const [activeButton, setActiveButton] = useState<string | null>("realEstate");
+	const { handleSubmit, control, setValue, watch, reset } = useForm<ICalculatorForm>({
+		defaultValues: {
+			loanAmount: "0",
+			downPayment: "0",
+			loanTerms: "1",
+			interestRate: "1.0",
+		},
+	});
 
 	const { getSafeEnvVar } = useRuntimeEnv(["NEXT_PUBLIC_BASE_URL"]);
 
@@ -36,13 +58,24 @@ export default function Calculator() {
 	const { request } = useHandleLogout(baseUrl);
 	const { resetTimer, setIsOpenInactivityLogoutModal, isOpenInactivityLogoutModal } = useLogoutTimer(request);
 
+	// eslint-disable-next-line react-hooks/incompatible-library
+	const loanAmount = watch("loanAmount");
+
+	const maxConsumerLoanAmount = 5_000_000;
+	const maxConsumerDownPayment = 2_000_000;
+	const maxBusinessLoanAmount = 50_000_000;
+	const maxBusinessDownPayment = 20_000_000;
+	const maxLoanTerms = 30;
+	const maxInterestRate = 30.0;
+	const loadingDelay = 500;
+
 	useEffect(() => {
 		resetTimer();
 	}, [request, resetTimer]);
 
 	useEffect(() => {
 		const handleResize = () => {
-			setIsMobile(window.innerWidth <= mobileSCreenWidthValue);
+			setIsMobile(window.innerWidth <= mobileScreenWidthValue);
 		};
 
 		window.addEventListener("resize", handleResize);
@@ -50,46 +83,67 @@ export default function Calculator() {
 		return () => window.removeEventListener("resize", handleResize);
 	}, []);
 
+	useEffect(() => {
+		if (isChangingCalcType) {
+			setIsLoaderShow(true);
+			if (loaderTimeoutRef.current) {
+				clearTimeout(loaderTimeoutRef.current);
+			}
+		} else {
+			loaderTimeoutRef.current = setTimeout(() => {
+				setIsLoaderShow(false);
+			}, loadingDelay);
+		}
+
+		return () => {
+			if (loaderTimeoutRef.current) {
+				clearTimeout(loaderTimeoutRef.current);
+			}
+		};
+	}, [isChangingCalcType]);
+
 	const handleVisibleInfo = () => {
 		setIsVisibleInfo(true);
 	};
+
 	const handleCloseInfo = () => {
 		setIsVisibleInfo(false);
 	};
-	const handleSubmit = () => {
+
+	const handleCalcAction = (data: ICalculatorForm) => {
 		resetTimer();
 
 		if (isMobile) {
 			handleVisibleInfo();
 		}
+
+		const resultLoanAmount = Number(data.loanAmount.replace(/\D/g, "")) - Number(data.downPayment.replace(/\D/g, ""));
+		const resultInterestRate = Number(data.interestRate) / factorValue / yearMonthCount;
+
+		const resultMonthlyPayment = Math.ceil(
+			resultLoanAmount *
+				(resultInterestRate +
+					resultInterestRate / (Math.pow(1 + resultInterestRate, Number(data.loanTerms) * yearMonthCount) - 1)),
+		);
+
+		setMonthlyPayment(resultMonthlyPayment);
+		setResultLoanInterest(Math.ceil(resultMonthlyPayment * Number(data.loanTerms) * yearMonthCount) - resultLoanAmount);
+
 		return {
 			success: true,
 			message: "Completed successfully",
 		};
 	};
 
-	const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
-		const rawValue = event.target.value.replace(/\s+/g, "");
-		const newValue = rawValue.replace(/[^\d]/g, "");
-		setValue(newValue ? Number(newValue) : 0);
-	};
-
-	const handleRangeChange = (event: ChangeEvent<HTMLInputElement>) => {
-		const target = event.target as HTMLInputElement;
-		const newValue = Number(target.value);
-		setValue(newValue);
-
-		const min = target.min ? Number(target.min) : defaultStateValue;
-		const max = target.max ? Number(target.max) : maximalStateValue;
-		const percentage = ((newValue - min) / (max - min)) * factorValue;
-
-		target.style.setProperty("--percentage", `${percentage}%`);
-	};
-
-	const handleButtonClick = (buttonName: "realEstate" | "credit", event: React.MouseEvent<HTMLButtonElement>) => {
+	function handleChangeCalcType(buttonName: TCalcTypes, event: MouseEvent<HTMLButtonElement>) {
 		event.preventDefault();
-		setActiveButton(buttonName);
-	};
+		startChangingCalcType(() => {
+			setActiveCalc(buttonName);
+			reset();
+			setResultLoanInterest(0);
+			setMonthlyPayment(0);
+		});
+	}
 
 	const infoStyle = {
 		transform: isMobile ? `scale(${isVisibleInfo ? 1 : 0})` : "none",
@@ -109,8 +163,12 @@ export default function Calculator() {
 							type={InputTypeList.Radio}
 							id="currencySelectionRadioGroup__usd"
 							className={styles.currencySelectionRadioGroup__input}
+							disabled={true}
 						/>
-						<label htmlFor="currencySelectionRadioGroup__usd" className={styles.currencySelectionRadioGroup__label}>
+						<label
+							htmlFor="currencySelectionRadioGroup__usd"
+							className={styles.currencySelectionRadioGroup__label}
+							style={{ cursor: "not-allowed" }}>
 							<p className={styles.currencySelectionRadioGroup__text}>$</p>
 						</label>
 						<input
@@ -128,318 +186,85 @@ export default function Calculator() {
 							type={InputTypeList.Radio}
 							id="currencySelectionRadioGroup__eur"
 							className={styles.currencySelectionRadioGroup__input}
+							disabled={true}
 						/>
-						<label htmlFor="currencySelectionRadioGroup__eur" className={styles.currencySelectionRadioGroup__label}>
+						<label
+							htmlFor="currencySelectionRadioGroup__eur"
+							className={styles.currencySelectionRadioGroup__label}
+							style={{ cursor: "not-allowed" }}>
 							<p className={styles.currencySelectionRadioGroup__text}>€</p>
 						</label>
 					</div>
 				</div>
 
 				<div className={styles.calculationWrapper}>
-					<form className={styles.calculatorFormContentWrapper}>
+					<form className={styles.calculatorFormContentWrapper} onSubmit={handleSubmit(handleCalcAction)}>
 						<div className={styles.selectionOfCalculationContainer}>
 							<button
-								className={`${styles.selectionOfCalculationContainer__button} ${activeButton === "realEstate" ? styles.active : ""}`}
-								onClick={(event) => handleButtonClick("realEstate", event)}>
+								className={cn(styles.selectionOfCalculationContainer__button, {
+									[styles.active]: activeCalc === TCalcTypes.realEstate,
+								})}
+								onClick={(event) => handleChangeCalcType(TCalcTypes.realEstate, event)}>
 								Недвижимость
 							</button>
 
 							<button
-								className={`${styles.selectionOfCalculationContainer__button} ${activeButton === "credit" ? styles.active : ""}`}
-								onClick={(event) => handleButtonClick("credit", event)}>
+								className={cn(styles.selectionOfCalculationContainer__button, {
+									[styles.active]: activeCalc === TCalcTypes.credit,
+								})}
+								onClick={(event) => handleChangeCalcType(TCalcTypes.credit, event)}
+								disabled={isChangingCalcType}>
 								Кредит
 							</button>
 						</div>
 
-						<div className={styles.propertyValueContainer}>
-							<label className={styles.propertyValueContainer__label} htmlFor="propertyValue">
-								Стоимость недвижимости, ₽
-							</label>
-							<div className={styles.inputRangeFieldContainer}>
-								<input
-									type={InputTypeList.Text}
-									inputMode="numeric"
-									value={formatCalculateNumber(value)}
-									onChange={handleInputChange}
-									className={styles.inputRangeFieldContainer__input}
-									min={defaultStateValue}
-									max={maximalStateValue}
-									id="propertyValue"
-								/>
-								<input
-									type={InputTypeList.Range}
-									value={value}
-									onChange={handleRangeChange}
-									className={styles.inputRangeFieldContainer__range}
-									min={defaultStateValue}
-									max={maximalStateValue}
-								/>
-							</div>
-						</div>
+						<CalcRageInput
+							control={control}
+							name="loanAmount"
+							label={`${activeCalc === TCalcTypes.realEstate ? "Стоимость недвижимости" : "Сумма кредита"}, ₽`}
+							maxValue={activeCalc === TCalcTypes.realEstate ? maxBusinessLoanAmount : maxConsumerLoanAmount}
+							changeFieldValue={(value) => setValue("loanAmount", value)}
+						/>
 
-						<div className={styles.propertyValueContainer}>
-							<label className={styles.propertyValueContainer__label} htmlFor="initialContribution">
-								Первоначальный взнос, ₽
-							</label>
-							<div className={styles.inputRangeFieldContainer}>
-								<input
-									type={InputTypeList.Text}
-									inputMode="numeric"
-									value={formatCalculateNumber(value)}
-									onChange={handleInputChange}
-									className={styles.inputRangeFieldContainer__input}
-									min={defaultStateValue}
-									max={maximalStateValue}
-									id="initialContribution"
-								/>
-								<input
-									type={InputTypeList.Range}
-									value={value}
-									onChange={handleRangeChange}
-									className={styles.inputRangeFieldContainer__range}
-									min={defaultStateValue}
-									max={maximalStateValue}
-								/>
-							</div>
+						<CalcRageInput
+							control={control}
+							name="downPayment"
+							label="Первоначальный взнос, ₽"
+							maxValue={activeCalc === TCalcTypes.realEstate ? maxBusinessDownPayment : maxConsumerDownPayment}
+							changeFieldValue={(value) => setValue("downPayment", value)}
+							isAdditionalControl={true}
+							isAdditionalControlPercents={true}
+							loanAmountValue={loanAmount}
+							additionalControlValues={downPaymentAdditionalValues}
+						/>
 
-							<div className={styles.propertyButtonRadioContainer}>
-								<input
-									name="percent"
-									type={InputTypeList.Radio}
-									id="propertyButtonRadioContainer__5"
-									className={styles.propertyButtonRadioContainer__input}
-								/>
-								<label htmlFor="propertyButtonRadioContainer__5" className={styles.propertyButtonRadioContainer__label}>
-									<p className={styles.propertyButtonRadioContainer__text}>5%</p>
-								</label>
-								<input
-									name="percent"
-									type={InputTypeList.Radio}
-									id="propertyButtonRadioContainer__10"
-									className={styles.propertyButtonRadioContainer__input}
-								/>
-								<label
-									htmlFor="propertyButtonRadioContainer__10"
-									className={styles.propertyButtonRadioContainer__label}>
-									<p className={styles.propertyButtonRadioContainer__text}>10%</p>
-								</label>
-								<input
-									name="percent"
-									type={InputTypeList.Radio}
-									id="propertyButtonRadioContainer__15"
-									className={styles.propertyButtonRadioContainer__input}
-								/>
-								<label
-									htmlFor="propertyButtonRadioContainer__15"
-									className={styles.propertyButtonRadioContainer__label}>
-									<p className={styles.propertyButtonRadioContainer__text}>15%</p>
-								</label>
-								<input
-									name="percent"
-									type={InputTypeList.Radio}
-									id="propertyButtonRadioContainer__20"
-									className={styles.propertyButtonRadioContainer__input}
-								/>
-								<label
-									htmlFor="propertyButtonRadioContainer__20"
-									className={styles.propertyButtonRadioContainer__label}>
-									<p className={styles.propertyButtonRadioContainer__text}>20%</p>
-								</label>
-								<input
-									name="percent"
-									type={InputTypeList.Radio}
-									id="propertyButtonRadioContainer__25"
-									className={styles.propertyButtonRadioContainer__input}
-								/>
-								<label
-									htmlFor="propertyButtonRadioContainer__25"
-									className={styles.propertyButtonRadioContainer__label}>
-									<p className={styles.propertyButtonRadioContainer__text}>25%</p>
-								</label>
-								<input
-									name="percent"
-									type={InputTypeList.Radio}
-									id="propertyButtonRadioContainer__30"
-									className={styles.propertyButtonRadioContainer__input}
-								/>
-								<label
-									htmlFor="propertyButtonRadioContainer__30"
-									className={styles.propertyButtonRadioContainer__label}>
-									<p className={styles.propertyButtonRadioContainer__text}>30%</p>
-								</label>
-							</div>
-						</div>
+						<CalcRageInput
+							control={control}
+							name="loanTerms"
+							label="Сроки кредита, лет"
+							maxValue={maxLoanTerms}
+							changeFieldValue={(value) => setValue("loanTerms", value)}
+							isAdditionalControl={true}
+							additionalControlValues={
+								activeCalc === TCalcTypes.realEstate
+									? businessLoanTermsAdditionalValues
+									: consumerLoanTermsAdditionalValues
+							}
+						/>
 
-						<div className={styles.propertyValueContainer}>
-							<label className={styles.propertyValueContainer__label} htmlFor="initialContribution">
-								Сроки кредита, лет
-							</label>
-							<div className={styles.inputRangeFieldContainer}>
-								<input
-									type={InputTypeList.Text}
-									inputMode="numeric"
-									value={formatCalculateNumber(value)}
-									onChange={handleInputChange}
-									className={styles.inputRangeFieldContainer__input}
-									min={defaultStateValue}
-									max={maximalStateValue}
-									id="initialContribution"
-								/>
-								<input
-									type={InputTypeList.Range}
-									value={value}
-									onChange={handleRangeChange}
-									className={styles.inputRangeFieldContainer__range}
-									min={defaultStateValue}
-									max={maximalStateValue}
-								/>
-							</div>
+						<CalcRageInput
+							control={control}
+							name="interestRate"
+							label="Процентная ставка, %"
+							maxValue={maxInterestRate}
+							changeFieldValue={(value) => setValue("interestRate", value)}
+							isPercentValue={true}
+							isAdditionalControl={true}
+							additionalControlValues={interestRateAdditionalValues}
+						/>
 
-							<div className={styles.propertyButtonRadioContainer}>
-								<input
-									name="percent"
-									type={InputTypeList.Radio}
-									id="propertyButtonRadioContainer__5year"
-									className={styles.propertyButtonRadioContainer__input}
-								/>
-								<label
-									htmlFor="propertyButtonRadioContainer__5year"
-									className={styles.propertyButtonRadioContainer__label}>
-									<p className={styles.propertyButtonRadioContainer__text}>5 лет</p>
-								</label>
-								<input
-									name="percent"
-									type={InputTypeList.Radio}
-									id="propertyButtonRadioContainer__10year"
-									className={styles.propertyButtonRadioContainer__input}
-								/>
-								<label
-									htmlFor="propertyButtonRadioContainer__10year"
-									className={styles.propertyButtonRadioContainer__label}>
-									<p className={styles.propertyButtonRadioContainer__text}>10 лет</p>
-								</label>
-								<input
-									name="percent"
-									type={InputTypeList.Radio}
-									id="propertyButtonRadioContainer__15year"
-									className={styles.propertyButtonRadioContainer__input}
-								/>
-								<label
-									htmlFor="propertyButtonRadioContainer__15year"
-									className={styles.propertyButtonRadioContainer__label}>
-									<p className={styles.propertyButtonRadioContainer__text}>15 лет</p>
-								</label>
-								<input
-									name="percent"
-									type={InputTypeList.Radio}
-									id="propertyButtonRadioContainer__20year"
-									className={styles.propertyButtonRadioContainer__input}
-								/>
-								<label
-									htmlFor="propertyButtonRadioContainer__20year"
-									className={styles.propertyButtonRadioContainer__label}>
-									<p className={styles.propertyButtonRadioContainer__text}>20 лет</p>
-								</label>
-								<input
-									name="percent"
-									type={InputTypeList.Radio}
-									id="propertyButtonRadioContainer__25year"
-									className={styles.propertyButtonRadioContainer__input}
-								/>
-								<label
-									htmlFor="propertyButtonRadioContainer__25year"
-									className={styles.propertyButtonRadioContainer__label}>
-									<p className={styles.propertyButtonRadioContainer__text}>25 лет</p>
-								</label>
-							</div>
-						</div>
-
-						<div className={styles.propertyValueContainer}>
-							<label className={styles.propertyValueContainer__label} htmlFor="initialContribution">
-								Процентная ставка, %
-							</label>
-							<div className={styles.inputRangeFieldContainer}>
-								<input
-									type={InputTypeList.Text}
-									inputMode="numeric"
-									value={formatCalculateNumber(value)}
-									onChange={handleInputChange}
-									className={styles.inputRangeFieldContainer__input}
-									min={defaultStateValue}
-									max={maximalStateValue}
-									id="initialContribution"
-								/>
-								<input
-									type={InputTypeList.Range}
-									value={value}
-									onChange={handleRangeChange}
-									className={styles.inputRangeFieldContainer__range}
-									min={defaultStateValue}
-									max={maximalStateValue}
-								/>
-							</div>
-
-							<div className={styles.propertyButtonRadioContainer}>
-								<input
-									name="percent"
-									type={InputTypeList.Radio}
-									id="propertyButtonRadioContainer__5-5"
-									className={styles.propertyButtonRadioContainer__input}
-								/>
-								<label
-									htmlFor="propertyButtonRadioContainer__5-5"
-									className={styles.propertyButtonRadioContainer__label}>
-									<p className={styles.propertyButtonRadioContainer__text}>5.5%</p>
-								</label>
-								<input
-									name="percent"
-									type={InputTypeList.Radio}
-									id="propertyButtonRadioContainer__7-5"
-									className={styles.propertyButtonRadioContainer__input}
-								/>
-								<label
-									htmlFor="propertyButtonRadioContainer__7-5"
-									className={styles.propertyButtonRadioContainer__label}>
-									<p className={styles.propertyButtonRadioContainer__text}>7.5%</p>
-								</label>
-								<input
-									name="percent"
-									type={InputTypeList.Radio}
-									id="propertyButtonRadioContainer__7-9"
-									className={styles.propertyButtonRadioContainer__input}
-								/>
-								<label
-									htmlFor="propertyButtonRadioContainer__7-9"
-									className={styles.propertyButtonRadioContainer__label}>
-									<p className={styles.propertyButtonRadioContainer__text}>7.9%</p>
-								</label>
-								<input
-									name="percent"
-									type={InputTypeList.Radio}
-									id="propertyButtonRadioContainer__11-4"
-									className={styles.propertyButtonRadioContainer__input}
-								/>
-								<label
-									htmlFor="propertyButtonRadioContainer__11-4"
-									className={styles.propertyButtonRadioContainer__label}>
-									<p className={styles.propertyButtonRadioContainer__text}>11.4%</p>
-								</label>
-								<input
-									name="percent"
-									type={InputTypeList.Radio}
-									id="propertyButtonRadioContainer__13-5"
-									className={styles.propertyButtonRadioContainer__input}
-								/>
-								<label
-									htmlFor="propertyButtonRadioContainer__13-5"
-									className={styles.propertyButtonRadioContainer__label}>
-									<p className={styles.propertyButtonRadioContainer__text}>13.5%</p>
-								</label>
-							</div>
-						</div>
 						<Button
 							variant={ButtonType.Contained}
-							onClick={handleSubmit}
 							type={InputTypeList.Submit}
 							isLarge
 							className={styles.calculatorFormContentWrapper__submitBtn}>
@@ -458,18 +283,20 @@ export default function Calculator() {
 							/>
 						</div>
 						<p className={styles.calculationInfoWrapper__title}>Ежемесячный платеж</p>
-						<p className={styles.calculationInfoWrapper__price}>26 125 ₽</p>
+						<p className={styles.calculationInfoWrapper__price}>{formatCalculateNumber(String(monthlyPayment))} ₽</p>
 						<div className={styles.creditInfoWrapper}>
 							<p className={styles.creditInfoWrapper__name}>Кредит</p>
-							<p className={styles.creditInfoWrapper__value}>5 000 000 ₽</p>
+							<p className={styles.creditInfoWrapper__value}>{formatCalculateNumber(String(loanAmount))} ₽</p>
 						</div>
 						<div className={styles.percentInfoWrapper}>
 							<p className={styles.percentInfoWrapper__name}>Проценты</p>
-							<p className={styles.percentInfoWrapper__value}>4 500 000 ₽</p>
+							<p className={styles.percentInfoWrapper__value}>{formatCalculateNumber(String(resultLoanInterest))} ₽</p>
 						</div>
 						<div className={styles.creditAndPercentInfoWrapper}>
 							<p className={styles.creditAndPercentInfoWrapper__name}>Кредит + проценты</p>
-							<p className={styles.creditAndPercentInfoWrapper__value}>9 500 000 ₽</p>
+							<p className={styles.creditAndPercentInfoWrapper__value}>
+								{formatCalculateNumber(String(Number(loanAmount) + resultLoanInterest))} ₽
+							</p>
 						</div>
 					</div>
 				</div>
@@ -480,6 +307,7 @@ export default function Calculator() {
 					onModalTimerExpiring={() => [request(), setIsOpenInactivityLogoutModal(false)]}
 				/>
 			</div>
+			<div className={styles.spinnerWrapper}>{isLoaderShow && <Spinner />}</div>
 		</div>
 	);
 }

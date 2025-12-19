@@ -82,7 +82,7 @@
 		"pre-commit": "^1.2.2",
 		"pre-push": "^0.1.4",
 		"prettier": "^3.7.4",
-		"storybook": "^10.1.9",
+		"storybook": "^10.1.10",
 		"typescript": "^5.9.3"
 	},
 	"license": "ISC",

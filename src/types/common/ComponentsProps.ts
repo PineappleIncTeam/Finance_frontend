@@ -1,6 +1,5 @@
 import { StaticImageData } from "next/image";
-import { Control, FieldValues, Path } from "react-hook-form";
-
+import { Control, FieldValues, Path, UseControllerProps } from "react-hook-form";
 import { MouseEvent, ReactNode } from "react";
 
 import { IAddCategoryExpensesForm, IApiErrorState, IEditTransactionForm } from "../components/ComponentsTypes";
@@ -9,6 +8,7 @@ import { IOperation } from "../api/Expenses";
 import { CategoryType } from "../../helpers/categoryTypes";
 import { ISavingsTargetAddForm } from "../pages/Savings";
 import { ITarget } from "../api/Savings";
+import { ICalculatorForm } from "../pages/Calculator";
 
 export type CustomLayout = () => Element;
 
@@ -186,4 +186,21 @@ export interface IApiErrorModal {
 export interface IPrivateRouteErrorModal {
 	isOpen: boolean;
 	closeModal: () => void;
+}
+
+export interface IAdditionalControlValues {
+	id: string;
+	title: string;
+	value: string;
+}
+
+export interface ICalcRageInput extends UseControllerProps<ICalculatorForm> {
+	label: string;
+	maxValue: number;
+	changeFieldValue: (value: string) => void;
+	isPercentValue?: boolean;
+	isAdditionalControl?: boolean;
+	isAdditionalControlPercents?: boolean;
+	loanAmountValue?: string;
+	additionalControlValues?: IAdditionalControlValues[];
 }

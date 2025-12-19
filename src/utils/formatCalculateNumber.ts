@@ -42,6 +42,6 @@
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/toLocaleString | Number.toLocaleString()}
  */
 
-export const formatCalculateNumber = (num: number): string => {
-	return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+export const formatCalculateNumber = (str: string): string => {
+	return str.replace(/\B(?=(\d{3})+(?!\d))/g, " ");
 };

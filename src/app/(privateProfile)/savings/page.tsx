@@ -417,6 +417,10 @@ function Savings() {
 		}
 	}, [getAllTargets, isAddCategorySuccess, isDeleteTargetSuccess, isSumSavingsAdded]);
 
+	const totalSavings = allTargets.reduce((sum, target) => {
+		return sum + Number(target.current_sum);
+	}, 0);
+
 	useEffect(() => {
 		getFiveOperations();
 		if (isSumEditedSuccess || isRemovedSuccess || isSumSavingsAdded) {
@@ -559,7 +563,7 @@ function Savings() {
 						<div className={styles.savingsGridWrapper}>
 							<div className={styles.totalAmountWrapper}>
 								<p className={styles.totalAmountWrapper__savings}>Общая сумма накоплений </p>
-								<p className={styles.totalAmountWrapper__sum}>4 112 500 ₽</p>
+								<p className={styles.totalAmountWrapper__sum}>{totalSavings.toLocaleString("ru-RU")} ₽</p>
 							</div>
 
 							<div className={styles.dateSelectionWrapper}>

@@ -158,6 +158,7 @@ export default function Expenses() {
 			getFiveOperationsNames();
 			getFiveOperations();
 			getAllCategoriesOptions();
+			getAllOperations();
 		})();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
@@ -419,6 +420,10 @@ export default function Expenses() {
 		}
 	};
 
+	const totalExpenses = allOperations.reduce((sum, operation) => {
+		return sum + Number(operation.amount);
+	}, 0);
+
 	return (
 		<div className={styles.expensesPageWrap}>
 			<div className={styles.expensesPageContainer}>
@@ -427,7 +432,7 @@ export default function Expenses() {
 					<div className={styles.expensesGridWrapper}>
 						<div className={styles.totalMonthlyWrapper}>
 							<p className={styles.totalMonthlyWrapper__month}>Общий расход за Январь</p>
-							<p className={styles.totalMonthlyWrapper__sum}>283 000 ₽</p>
+							<p className={styles.totalMonthlyWrapper__sum}>{totalExpenses.toLocaleString("ru-RU")} ₽</p>
 						</div>
 						<div className={styles.dateSelectionWrapper}>
 							<InputDate control={control} name={"date"} />

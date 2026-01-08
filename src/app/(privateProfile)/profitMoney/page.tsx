@@ -109,8 +109,8 @@ function ProfitMoney() {
 			await getFiveOperations();
 			setFiveOperationsNames(getFiveOperationsNames);
 			getAllCategoriesOptions();
-		}
-		)();
+			getAllOperations();
+		})();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
@@ -442,6 +442,10 @@ function ProfitMoney() {
 		}
 	};
 
+	const totalIncome = allOperations.reduce((sum, operation) => {
+		return sum + Number(operation.amount);
+	}, 0);
+
 	return (
 		<div className={styles.profitMoneyPageWrap}>
 			<div className={styles.profitMoneyPageContainer}>
@@ -450,7 +454,7 @@ function ProfitMoney() {
 					<div className={styles.profitMoneyGridWrapper}>
 						<div className={styles.totalMonthlyWrapper}>
 							<p className={styles.totalMonthlyWrapper__month}>Общий доход за Январь</p>
-							<p className={styles.totalMonthlyWrapper__sum}>283 000 ₽</p>
+							<p className={styles.totalMonthlyWrapper__sum}>{totalIncome.toLocaleString("ru")} ₽</p>
 						</div>
 						<div className={styles.dateSelectionWrapper}>
 							<InputDate control={control} name={"date"} />

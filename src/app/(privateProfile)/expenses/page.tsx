@@ -18,7 +18,7 @@ import AppInput from "../../../ui/appInput/AppInput";
 import ExpensesTransaction from "../../../components/userProfileLayout/expensesTransaction/expensesTransaction";
 import { RecordDeleteModal } from "../../../components/userProfileLayout/recordDelete/recordDelete";
 import { EditTransactionModal } from "../../../components/userProfileLayout/editTransaction/editTransaction";
-import { ResponseApiRequestModal } from "../../../components/userProfileLayout/responseActionExpenses/responseApiRequestModal";
+import { ResponseApiRequestModal } from "../../../ui/responseActionModal/responseApiRequestModal";
 import { CategoryDeleteModal } from "../../../components/userProfileLayout/categoryDelete/categoryDelete";
 import { CategorySelect } from "../../../components/userProfileLayout/categorySelect/CategorySelect";
 import AddButton from "../../../components/userProfileLayout/addButton/addButton";
@@ -30,7 +30,7 @@ import { MainPath } from "../../../services/router/routes";
 import { addExpensesCategoryTransaction } from "../../../services/api/userProfile/addExpensesCategoryTransaction";
 import { removeExpensesCategory } from "../../../services/api/userProfile/removeExpensesCategory";
 import { removeTransaction } from "../../../services/api/userProfile/removeTransaction";
-import { editExpensesCategoryTransaction } from "../../../services/api/userProfile/editExpensesTransaction";
+import { editCategoryTransaction } from "../../../services/api/userProfile/editCategoryTransaction";
 import { archiveCategory } from "../../../services/api/userProfile/archiveCategory";
 import { getAllExpensesOperations } from "../../../services/api/userProfile/getAllExpensesOperations";
 import { CategoryType } from "../../../helpers/categoryTypes";
@@ -42,7 +42,7 @@ import { mockBaseUrl } from "../../../mocks/envConsts";
 import styles from "./expenses.module.scss";
 
 export default function Expenses() {
-	const ResponseApiRequestModalInitialState = {
+	const responseApiRequestModalInitialState = {
 		open: false,
 		title: "",
 	};
@@ -60,7 +60,7 @@ export default function Expenses() {
 	const [isIdForDeleteCategory, setIsIdForDeleteCategory] = useState<string>("");
 	const [isCategoryArchive, setIsCategoryArchive] = useState<boolean>(false);
 	const [allOperations, setAllOperations] = useState<IOperation[]>([]);
-	const [responseApiRequestModal, setResponseApiRequestModal] = useState(ResponseApiRequestModalInitialState);
+	const [responseApiRequestModal, setResponseApiRequestModal] = useState(responseApiRequestModalInitialState);
 	const [isEditTransactionModalOpen, setIsEditTransactionModalOpen] = useState<boolean>(false);
 	const [isCategoryAddModalOpen, setIsCategoryAddModalOpen] = useState<boolean>(false);
 	const [isCategoryDeleteModalOpen, setIsCategoryDeleteModalOpen] = useState<boolean>(false);
@@ -198,7 +198,7 @@ export default function Expenses() {
 						title: "Категория успешно добавлена",
 					});
 					setTimeout(() => {
-						setResponseApiRequestModal(ResponseApiRequestModalInitialState);
+						setResponseApiRequestModal(responseApiRequestModalInitialState);
 						setIsAddSuccess(false);
 					}, interval);
 				}
@@ -221,7 +221,7 @@ export default function Expenses() {
 		setIsIdForDeleteCategory(String(id));
 	};
 
-	const removeApiRequest = async (id: string) => {
+	const removeCategoryApiRequest = async (id: string) => {
 		try {
 			if (baseUrl && id !== null) {
 				const response = await removeExpensesCategory(baseUrl, String(id));
@@ -233,7 +233,7 @@ export default function Expenses() {
 						title: "Категория успешно удалена",
 					});
 					setTimeout(() => {
-						setResponseApiRequestModal(ResponseApiRequestModalInitialState);
+						setResponseApiRequestModal(responseApiRequestModalInitialState);
 					}, interval);
 				}
 			}
@@ -262,7 +262,7 @@ export default function Expenses() {
 						title: "Запись успешно удалена",
 					});
 					setTimeout(() => {
-						setResponseApiRequestModal(ResponseApiRequestModalInitialState);
+						setResponseApiRequestModal(responseApiRequestModalInitialState);
 						setIsDeleteOperationSuccess(false);
 					}, interval);
 				}
@@ -284,7 +284,7 @@ export default function Expenses() {
 		data.date = getCurrentDate(endDate);
 		try {
 			if (baseUrl && data !== null) {
-				const response = await editExpensesCategoryTransaction(baseUrl, id, data);
+				const response = await editCategoryTransaction(baseUrl, id, data);
 				if (response.status === axios.HttpStatusCode.Ok) {
 					setIsEditTransactionModalOpen(false);
 					setIsEditSuccess(true);
@@ -293,7 +293,7 @@ export default function Expenses() {
 						title: "Сумма успешно изменена",
 					});
 					setTimeout(() => {
-						setResponseApiRequestModal(ResponseApiRequestModalInitialState);
+						setResponseApiRequestModal(responseApiRequestModalInitialState);
 						setIsEditSuccess(false);
 					}, interval);
 				}
@@ -327,7 +327,7 @@ export default function Expenses() {
 						title: "Категория успешно перенесена в «Архив»",
 					});
 					setTimeout(() => {
-						setResponseApiRequestModal(ResponseApiRequestModalInitialState);
+						setResponseApiRequestModal(responseApiRequestModalInitialState);
 						setIsDeleteSuccessCategory(false);
 						setIsCategoryArchive(false);
 					}, interval);
@@ -393,7 +393,7 @@ export default function Expenses() {
 						title: "Запись успешно добавлена",
 					});
 					setTimeout(() => {
-						setResponseApiRequestModal(ResponseApiRequestModalInitialState);
+						setResponseApiRequestModal(responseApiRequestModalInitialState);
 						setIsAddSuccess(false);
 					}, interval);
 				}
@@ -413,7 +413,7 @@ export default function Expenses() {
 					title: "Запись не была добавлена",
 				});
 				setTimeout(() => {
-					setResponseApiRequestModal(ResponseApiRequestModalInitialState);
+					setResponseApiRequestModal(responseApiRequestModalInitialState);
 				}, interval);
 			}
 		}
@@ -463,7 +463,7 @@ export default function Expenses() {
 						open={isCategoryDeleteModalOpen}
 						category={isCategory}
 						id={isIdForDeleteCategory}
-						requestDeleteApi={removeApiRequest}
+						requestDeleteApi={removeCategoryApiRequest}
 						requestArchiveApi={handleArchiveCategory}
 						onCancelClick={() => setIsCategoryDeleteModalOpen(false)}
 						operations={allOperations}
@@ -478,8 +478,7 @@ export default function Expenses() {
 						request={addCategory}
 					/>
 				)}
-				<ResponseApiRequestModal open={responseApiRequestModal.open} title={responseApiRequestModal.title} />
-				<ResponseApiRequestModal open={responseApiRequestModal.open} title={responseApiRequestModal.title} />
+
 				<div className={styles.expensesTransactionsWrapper}>
 					<h1 className={styles.expensesTransactionHeader}>Последние операции по расходам</h1>
 					{fiveOperationsNames &&
@@ -499,6 +498,7 @@ export default function Expenses() {
 							</li>
 						))}
 				</div>
+
 				{isDeleteOperationApprove && (
 					<RecordDeleteModal
 						open={isDeleteOperationApprove}
@@ -506,7 +506,6 @@ export default function Expenses() {
 						cancelRemove={() => setIsDeleteOperationApprove(false)}
 					/>
 				)}
-				<ResponseApiRequestModal open={responseApiRequestModal.open} title={responseApiRequestModal.title} />
 				{isEditTransactionModalOpen && (
 					<EditTransactionModal
 						open={isEditTransactionModalOpen}
@@ -515,7 +514,6 @@ export default function Expenses() {
 						cancelEdit={() => setIsEditTransactionModalOpen(false)}
 					/>
 				)}
-				<ResponseApiRequestModal open={responseApiRequestModal.open} title={responseApiRequestModal.title} />
 				<InactivityLogoutModal
 					open={isOpenInactivityLogoutModal}
 					onStayClick={() => [resetTimer(), setIsOpenInactivityLogoutModal(false)]}

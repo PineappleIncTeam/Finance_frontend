@@ -46,7 +46,7 @@ import { editSavingsCurrentSum } from "../../../services/api/userProfile/editSav
 import { getCurrentDate } from "../../../utils/getCurrentDate";
 import { EditTransactionModal } from "../../../components/userProfileLayout/editTransaction/editTransaction";
 import { editSavingsCategoryTransaction } from "../../../services/api/userProfile/editSavingsTransaction";
-import { ResponseApiRequestModal } from "../../../components/userProfileLayout/responseActionExpenses/responseApiRequestModal";
+import { ResponseApiRequestModal } from "../../../ui/responseActionModal/responseApiRequestModal";
 import { removeTransaction } from "../../../services/api/userProfile/removeTransaction";
 import { RecordDeleteModal } from "../../../components/userProfileLayout/recordDelete/recordDelete";
 import InactivityLogoutModal from "../../../components/userProfileLayout/inactivityLogoutModal/inactivityLogoutModal";

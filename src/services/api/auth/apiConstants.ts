@@ -15,9 +15,9 @@ export const resetPasswordWithEmailEndPoint = "api/v1/auth/users/reset_password/
 export const setNewPasswordEndPoint = "api/v1/password/reset/confirm/";
 export const setNewProfilePasswordEndPoint = "api/v1/auth/users/set_password/";
 
-export const expensesCategoryEndPoint = "api/v1/categories";
-export const expensesCategoriesAllEndPoint = "api/v1/categories/all/";
-export const expensesCategoryTransactionsAllEndPoint = "api/v1/operations/all/";
+export const categoryEndPoint = "api/v1/categories";
+export const categoriesAllEndPoint = "api/v1/categories/all/";
+export const categoryTransactionsAllEndPoint = "api/v1/operations/all/";
 export const targetsEndPoint = "api/v1/targets";
 export const operationsEndPoint = "api/v1/operations";
 export const getUserBalanceEndPoint = "api/v1/reports/balance/";

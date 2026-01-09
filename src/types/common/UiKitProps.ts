@@ -156,3 +156,11 @@ export interface ICustomInputDate<T extends TAppInputForm> {
 	control?: Control<T>;
 	name: Path<T>;
 }
+
+export interface IResponseApiRequestModal {
+	open: boolean;
+	title?: string;
+	className?: string;
+	width?: number | string;
+	color?: string;
+}

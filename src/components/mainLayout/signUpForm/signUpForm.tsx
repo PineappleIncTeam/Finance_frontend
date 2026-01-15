@@ -6,9 +6,6 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import axios, { AxiosError, AxiosResponse } from "axios";
 import * as VKID from "@vkid/sdk";
-import * as Sentry from "@sentry/nextjs";
-
-import { sendErrorToMonitoring } from "../../../hooks/useGlobalErrorHandler";
 
 import { useActions } from "../../../services/redux/hooks";
 import { useRuntimeEnv } from "../../../hooks/useRuntimeEnv";
@@ -75,7 +72,6 @@ export default function SignUpForm() {
 	const vkAppId = Number(getSafeEnvVar("NEXT_PUBLIC_VK_APP_ID", "12354678"));
 	const baseUrl = getSafeEnvVar("NEXT_PUBLIC_BASE_URL", mockBaseUrl);
 
-	const maxInitRetries = 5;
 	const retryDelay = 200;
 
 	const authCurtainRenderObj: VKID.FloatingOneTapParams = {
@@ -99,17 +95,6 @@ export default function SignUpForm() {
 		}
 
 		const attemptInitialization = () => {
-			if (process.env.NODE_ENV === "production" && initAttempts >= maxInitRetries) {
-				const signupAttemptsError: Sentry.Exception = {
-					type: "Signup attempts",
-					value: "Running out signin attempts",
-					module: "SigninForm",
-				};
-				sendErrorToMonitoring(signupAttemptsError);
-
-				return;
-			}
-
 			try {
 				VKID.Config.init({
 					app: vkAppId ?? 0,

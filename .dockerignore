@@ -1,0 +1,12 @@
+.git
+node_modules
+.vscode
+README.md
+*.md
+documents/
+.env.example
+.gitignore
+.prettierrc
+Dockerfile
+k8s/
+scripts/

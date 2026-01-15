@@ -11,10 +11,6 @@ spec:
       protocol: TCP
       port: 3000
       targetPort: 3000
-    - name: storybook-app
-      protocol: TCP
-      port: 3005
-      targetPort: 8080
   type: ClusterIP
 ---
 apiVersion: apps/v1
@@ -49,4 +45,3 @@ spec:
                 name: finance-dev-front-secret
           ports:
             - containerPort: 3000
-            - containerPort: 8080

@@ -2,11 +2,8 @@
 
 import { useState, useEffect, useCallback } from "react";
 import { env } from "next-runtime-env";
-import * as Sentry from "@sentry/nextjs";
 
 import { IEnvValidationResult } from "../types/components/ComponentsTypes";
-
-import { sendErrorToMonitoring } from "./useGlobalErrorHandler";
 
 export function useRuntimeEnv(requiredVars: string[] = []) {
 	const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -73,19 +70,6 @@ export function useRuntimeEnv(requiredVars: string[] = []) {
 
 		return () => clearTimeout(timer);
 	}, [validateEnvVars]);
-
-	useEffect(() => {
-		if (process.env.NODE_ENV === "production" && !validation.isValid) {
-			const envValidationError: Sentry.Exception = {
-				type: "Env validating",
-				value: validation.errors.join(", "),
-				module: validation.missingVars.join(", "),
-			};
-
-			sendErrorToMonitoring(envValidationError);
-		}
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [validation.isValid, validation.missingVars]);
 
 	return {
 		...validation,

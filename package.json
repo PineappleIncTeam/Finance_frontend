@@ -38,9 +38,6 @@
 		"sass": "^1.97.2",
 		"sharp": "^0.34.5"
 	},
-	"overrides": {
-		"require-in-the-middle": "8.0.1"
-	},
 	"devDependencies": {
 		"@eslint/eslintrc": "^3.3.3",
 		"@eslint/js": "^9.39.2",

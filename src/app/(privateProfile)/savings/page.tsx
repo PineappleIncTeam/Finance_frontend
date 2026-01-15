@@ -36,6 +36,7 @@ import { MainPath } from "../../../services/router/routes";
 import { getTargetsAll } from "../../../services/api/userProfile/getAllTargets";
 import { IOperation } from "../../../types/api/Expenses";
 import { IResponseApiModal } from "../../../types/common/ComponentsProps";
+import { IStatistics } from "../../../types/api/Reports";
 import { SavingsAddTargetModal } from "../../../components/userProfileLayout/savingsCategory/savingsCategory";
 import { SavingsTargetStatus, SavingsTargetStatusName } from "../../../helpers/targetStatus";
 import { getFiveExpensesTransactions } from "../../../services/api/userProfile/getFiveExpensesTransactions";
@@ -44,6 +45,7 @@ import { removeSavingsTarget } from "../../../services/api/userProfile/removeSav
 import { CategoryDeleteModal } from "../../../components/userProfileLayout/categoryDelete/categoryDelete";
 import { editSavingsCurrentSum } from "../../../services/api/userProfile/editSavingsCurrentSum";
 import { getCurrentDate } from "../../../utils/getCurrentDate";
+import { getStatistics } from "../../../services/api/userProfile/getStatistics";
 import { EditTransactionModal } from "../../../components/userProfileLayout/editTransaction/editTransaction";
 import { editSavingsCategoryTransaction } from "../../../services/api/userProfile/editSavingsTransaction";
 import { ResponseApiRequestModal } from "../../../ui/responseActionModal/responseApiRequestModal";
@@ -100,6 +102,7 @@ function Savings() {
 	const [isApprovedRemoveOperation, setIsApprovedRemoveOperation] = useState<boolean>(false);
 	const [isRemovedSuccess, setIsRemovedSuccess] = useState<boolean>(false);
 	const [isImpossibleDelete, setIsImpossibleDelete] = useState<boolean>(false);
+	const [statistics, setStatistics] = useState<IStatistics | null>(null);
 
 	const interval = 2000;
 	const endDate = 10;
@@ -312,6 +315,26 @@ function Savings() {
 		}
 	};
 
+	const getStatisticsData = async () => {
+		try {
+			if (baseUrl) {
+				const response = await getStatistics(baseUrl);
+				if (response.status === axios.HttpStatusCode.Ok) {
+					setStatistics(response.data);
+				}
+			}
+		} catch (error) {
+			if (
+				axios.isAxiosError(error) &&
+				error.response &&
+				error.response.status &&
+				error.response.status >= axios.HttpStatusCode.InternalServerError &&
+				error.response.status < axios.HttpStatusCode.NetworkAuthenticationRequired
+			) {
+				router.push(MainPath.ServerError);
+			}
+		}
+	};
 	const editTransaction = async (id: string, data: IEditTransactionForm) => {
 		data.date = getCurrentDate(endDate);
 		try {
@@ -416,6 +439,11 @@ function Savings() {
 			getAllTargets();
 		}
 	}, [getAllTargets, isAddCategorySuccess, isDeleteTargetSuccess, isSumSavingsAdded]);
+
+	useEffect(() => {
+		getStatisticsData();
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
 
 	useEffect(() => {
 		getFiveOperations();
@@ -559,7 +587,7 @@ function Savings() {
 						<div className={styles.savingsGridWrapper}>
 							<div className={styles.totalAmountWrapper}>
 								<p className={styles.totalAmountWrapper__savings}>Общая сумма накоплений </p>
-								<p className={styles.totalAmountWrapper__sum}>4 112 500 ₽</p>
+								<p className={styles.totalAmountWrapper__sum}>{statistics?.total_savings?.toLocaleString("ru-RU")} ₽</p>
 							</div>
 
 							<div className={styles.dateSelectionWrapper}>

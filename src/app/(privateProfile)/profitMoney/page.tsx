@@ -18,6 +18,7 @@ import {
 import { ICategoryOption } from "../../../types/common/ComponentsProps";
 import { IAddingCategoryIncomeForm } from "../../../types/pages/ProfitMoney";
 import { IOperation } from "../../../types/api/Expenses";
+import { IStatistics } from "../../../types/api/Reports";
 import InputDate from "../../../ui/inputDate/inputDate";
 import AppInput from "../../../ui/appInput/AppInput";
 import IncomeTransaction from "../../../components/userProfileLayout/incomeTransaction/incomeTransaction";
@@ -32,6 +33,7 @@ import { EditTransactionModal } from "../../../components/userProfileLayout/edit
 import { getFiveIncomeTransactions } from "../../../services/api/userProfile/getFiveIncomeTransactions";
 import { addIncomeCategory } from "../../../services/api/userProfile/addIncomeCategory";
 import { MainPath } from "../../../services/router/routes";
+import { getStatistics } from "../../../services/api/userProfile/getStatistics";
 import { addIncomeCategoryTransaction } from "../../../services/api/userProfile/addIncomeCategoryTransaction";
 import { removeIncomeCategory } from "../../../services/api/userProfile/removeIncomeCategory";
 import { removeTransaction } from "../../../services/api/userProfile/removeTransaction";
@@ -69,6 +71,7 @@ function ProfitMoney() {
 	const [isCategoryAddModalOpen, setIsCategoryAddModalOpen] = useState<boolean>(false);
 	const [isCategoryDeleteModalOpen, setIsCategoryDeleteModalOpen] = useState<boolean>(false);
 	const [isEditTransactionModalOpen, setIsEditTransactionModalOpen] = useState<boolean>(false);
+	const [statistics, setStatistics] = useState<IStatistics | null>(null);
 
 	const { control, handleSubmit } = useForm<IAddCategoryTransactionForm & IExpensesCategoryForm>({
 		defaultValues: {
@@ -109,8 +112,9 @@ function ProfitMoney() {
 			await getFiveOperations();
 			setFiveOperationsNames(getFiveOperationsNames);
 			getAllCategoriesOptions();
-		}
-		)();
+			getAllOperations();
+			getStatisticsData();
+		})();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
@@ -154,6 +158,27 @@ function ProfitMoney() {
 				const response: AxiosResponse<IFiveOperations[]> = await getFiveIncomeTransactions(baseUrl, data);
 				if (response !== null && response.status === axios.HttpStatusCode.Ok) {
 					setFiveOperations(response.data as unknown as IOperation[]);
+				}
+			}
+		} catch (error) {
+			if (
+				axios.isAxiosError(error) &&
+				error.response &&
+				error.response.status &&
+				error.response.status >= axios.HttpStatusCode.InternalServerError &&
+				error.response.status <= axios.HttpStatusCode.NetworkAuthenticationRequired
+			) {
+				router.push(MainPath.ServerError);
+			}
+		}
+	};
+
+	const getStatisticsData = async () => {
+		try {
+			if (baseUrl) {
+				const response = await getStatistics(baseUrl);
+				if (response.status === axios.HttpStatusCode.Ok) {
+					setStatistics(response.data);
 				}
 			}
 		} catch (error) {
@@ -450,7 +475,7 @@ function ProfitMoney() {
 					<div className={styles.profitMoneyGridWrapper}>
 						<div className={styles.totalMonthlyWrapper}>
 							<p className={styles.totalMonthlyWrapper__month}>Общий доход за Январь</p>
-							<p className={styles.totalMonthlyWrapper__sum}>283 000 ₽</p>
+							<p className={styles.totalMonthlyWrapper__sum}>{statistics?.total_income?.toLocaleString("ru-RU")} ₽</p>
 						</div>
 						<div className={styles.dateSelectionWrapper}>
 							<InputDate control={control} name={"date"} />

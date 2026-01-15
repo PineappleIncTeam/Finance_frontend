@@ -21,6 +21,7 @@ export const categoryTransactionsAllEndPoint = "api/v1/operations/all/";
 export const targetsEndPoint = "api/v1/targets";
 export const operationsEndPoint = "api/v1/operations";
 export const getUserBalanceEndPoint = "api/v1/reports/balance/";
+export const statisticsEndpoint = "api/v1/reports/statistics/";
 
 export const currencyEndpoint = "api/v1/currency/";
 

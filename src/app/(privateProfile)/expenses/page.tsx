@@ -13,6 +13,7 @@ import { IAddCategoryTransactionForm, IExpensesCategoryForm } from "../../../typ
 import { IAddCategoryExpensesForm, IEditTransactionForm } from "../../../types/components/ComponentsTypes";
 import { ICategoryOption } from "../../../types/common/ComponentsProps";
 import { IOperation } from "../../../types/api/Expenses";
+import { IStatistics } from "../../../types/api/Reports";
 import InputDate from "../../../ui/inputDate/inputDate";
 import AppInput from "../../../ui/appInput/AppInput";
 import ExpensesTransaction from "../../../components/userProfileLayout/expensesTransaction/expensesTransaction";
@@ -24,6 +25,7 @@ import { CategorySelect } from "../../../components/userProfileLayout/categorySe
 import AddButton from "../../../components/userProfileLayout/addButton/addButton";
 import InactivityLogoutModal from "../../../components/userProfileLayout/inactivityLogoutModal/inactivityLogoutModal";
 import { CategoryAddModal } from "../../../components/userProfileLayout/categoryAdd/categoryAddModal";
+import { getStatistics } from "../../../services/api/userProfile/getStatistics";
 import { getFiveExpensesTransactions } from "../../../services/api/userProfile/getFiveExpensesTransactions";
 import { addExpensesCategory } from "../../../services/api/userProfile/addExpensesCategory";
 import { MainPath } from "../../../services/router/routes";
@@ -64,6 +66,7 @@ export default function Expenses() {
 	const [isEditTransactionModalOpen, setIsEditTransactionModalOpen] = useState<boolean>(false);
 	const [isCategoryAddModalOpen, setIsCategoryAddModalOpen] = useState<boolean>(false);
 	const [isCategoryDeleteModalOpen, setIsCategoryDeleteModalOpen] = useState<boolean>(false);
+	const [statistics, setStatistics] = useState<IStatistics | null>(null);
 
 	const { control, handleSubmit } = useForm<IAddCategoryTransactionForm & IExpensesCategoryForm>({
 		defaultValues: {
@@ -159,6 +162,7 @@ export default function Expenses() {
 			getFiveOperations();
 			getAllCategoriesOptions();
 			getAllOperations();
+			getStatisticsData();
 		})();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
@@ -312,6 +316,27 @@ export default function Expenses() {
 		}
 	};
 
+	const getStatisticsData = async () => {
+		try {
+			if (baseUrl) {
+				const response = await getStatistics(baseUrl);
+				if (response.status === axios.HttpStatusCode.Ok) {
+					setStatistics(response.data);
+				}
+			}
+		} catch (error) {
+			if (
+				axios.isAxiosError(error) &&
+				error.response &&
+				error.response.status &&
+				error.response.status >= axios.HttpStatusCode.InternalServerError &&
+				error.response.status <= axios.HttpStatusCode.NetworkAuthenticationRequired
+			) {
+				router.push(MainPath.ServerError);
+			}
+		}
+	};
+
 	const handleArchiveCategory = async (id: string) => {
 		const data = {
 			// eslint-disable-next-line camelcase
@@ -420,10 +445,6 @@ export default function Expenses() {
 		}
 	};
 
-	const totalExpenses = allOperations.reduce((sum, operation) => {
-		return sum + Number(operation.amount);
-	}, 0);
-
 	return (
 		<div className={styles.expensesPageWrap}>
 			<div className={styles.expensesPageContainer}>
@@ -432,7 +453,7 @@ export default function Expenses() {
 					<div className={styles.expensesGridWrapper}>
 						<div className={styles.totalMonthlyWrapper}>
 							<p className={styles.totalMonthlyWrapper__month}>Общий расход за Январь</p>
-							<p className={styles.totalMonthlyWrapper__sum}>{totalExpenses.toLocaleString("ru-RU")} ₽</p>
+							<p className={styles.totalMonthlyWrapper__sum}>{statistics?.total_outcome?.toLocaleString("ru-RU")} ₽</p>
 						</div>
 						<div className={styles.dateSelectionWrapper}>
 							<InputDate control={control} name={"date"} />

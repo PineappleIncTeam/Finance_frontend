@@ -90,6 +90,7 @@
 	}
 }
 
+// Draft styles from v1.0
 .savingsByDateContainer {
 	display: flex;
 	gap: 40px;
@@ -186,6 +187,7 @@
 }
 
 .savingsDetailsContainer {
+	// Draft styles from v1.0
 	display: flex;
 	align-items: flex-end;
 	gap: 40px;
@@ -202,6 +204,7 @@
 	@media (max-width: 426px) {
 		gap: 8px;
 	}
+	// End of draft styles
 
 	&__category {
 		width: 100%;

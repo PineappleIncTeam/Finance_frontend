@@ -59,9 +59,16 @@ export interface IExpenseTransaction {
 
 export interface IIncomeTransaction {
 	date: string;
-	purpose: string;
-	sum: number;
+	amount: string;
+	name?: string;
+	target: string;
+	type: string;
+	categories: number;
+	id: number;
+	onDeleteClick: () => void;
+	editClick: () => void;
 }
+
 export interface IBurgerMenu {
 	children: ReactNode;
 	showMenu: boolean;
@@ -110,6 +117,19 @@ export interface IAddCategoryExpensesForm {
 	name: string;
 	is_income: boolean;
 	is_outcome: boolean;
+}
+export interface IAddCategoryIncomeForm {
+	id: number;
+	name: string;
+	is_income: boolean;
+	is_outcome: boolean;
+	is_visibility: boolean;
+}
+
+export interface IAddCategoryIncomeForm {
+	id: number;
+	name: string;
+	is_visibility: boolean;
 }
 
 export interface IRemoveCategory {

@@ -117,146 +117,16 @@
 			border 0.3s ease;
 	}
 
-	@media (min-width: 1025px) {
-		&__button:hover {
-			border-color: var(--color-dark-sea-green);
-			background-color: var(--color-dark-sea-green);
-			color: var(--color-pure-light);
-		}
-
-		&__button.active {
-			border-color: var(--color-dark-sea-green);
-			background-color: var(--color-dark-sea-green);
-			color: var(--color-pure-light);
-		}
-	}
-}
-
-.propertyValueContainer {
-	margin-top: 20px;
-
-	&__label {
-		font-size: 2rem;
-		font-weight: 400;
-		line-height: 28px;
-		color: var(--color-very-dark-grayish-blue);
-	}
-}
-
-.inputRangeFieldContainer {
-	position: relative;
-	border-bottom-right-radius: 16px;
-	border-bottom-left-radius: 16px;
-	overflow: hidden;
-	height: 50px;
-	margin-top: 4px;
-
-	&__input {
-		width: 100%;
-		height: 44px;
-		box-sizing: border-box;
-		font-size: 2rem;
-		font-weight: 400;
-		line-height: 28px;
-		border: 1px solid var(--color-gainsboro);
-		border-radius: 8px;
-		padding-left: 12px;
-
-		&::-webkit-inner-spin-button,
-		&::-webkit-outer-spin-button {
-			-webkit-appearance: none;
-		}
-	}
-
-	&__range {
-		position: absolute;
-		left: 0;
-		right: 0;
-		bottom: 6px;
-		cursor: pointer;
-		width: 100%;
-		height: 4px;
-		-webkit-appearance: none;
-		appearance: none;
-		outline: none;
-		background: linear-gradient(
-			to right,
-			var(--color-dark-sea-green) var(--percentage),
-			rgba(255, 0, 0, 0) var(--percentage)
-		);
-		border: none;
-
-		&::-webkit-slider-thumb {
-			-webkit-appearance: none;
-			appearance: none;
-			width: 16px;
-			height: 16px;
-			background: var(--color-dark-sea-green);
-			border-radius: 50%;
-			cursor: pointer;
-			position: relative;
-			z-index: 1;
-		}
-
-		&::-moz-range-thumb {
-			width: 16px;
-			height: 16px;
-			background: var(--color-dark-sea-green);
-			border-radius: 50%;
-			cursor: pointer;
-			position: relative;
-			z-index: 1;
-		}
-	}
-}
-
-.propertyButtonRadioContainer {
-	margin-top: 4px;
-	display: flex;
-	gap: 8px;
-
-	&__input {
-		display: none;
-	}
-
-	&__label {
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		border: 1px solid var(--color-star-dust);
-		border-radius: 16px;
-		cursor: pointer;
-		transition:
-			background-color 0.3s ease,
-			border 0.3s ease;
-	}
-
-	.propertyButtonRadioContainer__input:checked + .propertyButtonRadioContainer__label {
+	&__button.active {
 		border-color: var(--color-dark-sea-green);
 		background-color: var(--color-dark-sea-green);
-	}
-
-	&__text {
-		color: var(--color-star-dust);
-		font-size: 1.6rem;
-		font-weight: 400;
-		padding: 4px 12px;
-		transition: color 0.3s ease;
-	}
-
-	.propertyButtonRadioContainer__input:checked
-		+ .propertyButtonRadioContainer__label
-		.propertyButtonRadioContainer__text {
 		color: var(--color-pure-light);
 	}
 
 	@media (min-width: 1025px) {
-		&__label:hover {
+		&__button:hover {
 			border-color: var(--color-dark-sea-green);
 			background-color: var(--color-dark-sea-green);
-		}
-
-		&__text:hover {
 			color: var(--color-pure-light);
 		}
 	}
@@ -319,6 +189,13 @@
 		color: var(--color-star-dust);
 		display: none;
 	}
+}
+
+.spinnerWrapper {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
 }
 
 @media (max-width: 1440px) {

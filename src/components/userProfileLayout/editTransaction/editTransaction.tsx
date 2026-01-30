@@ -1,18 +1,14 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 
-import { InputTypeList } from "../../../helpers/Input";
-
-import AppInput from "../../../ui/appInput/AppInput";
-
 import { IEditTransactionForm } from "../../../types/components/ComponentsTypes";
 import { IEditTransaction } from "../../../types/common/ComponentsProps";
-
-import { ButtonType } from "../../../helpers/buttonFieldValues";
-
+import AppInput from "../../../ui/appInput/AppInput";
 import Button from "../../../ui/Button/Button";
 import Title from "../../../ui/title/Title";
-import { ResponseApiRequestModal } from "../responseActionExpenses/responseApiRequestModal";
+import { ResponseApiRequestModal } from "../../../ui/responseActionModal/responseApiRequestModal";
+import { InputTypeList } from "../../../helpers/Input";
+import { ButtonType } from "../../../helpers/buttonFieldValues";
 
 import styles from "./editTransaction.module.scss";
 

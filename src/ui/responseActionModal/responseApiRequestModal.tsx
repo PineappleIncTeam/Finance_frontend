@@ -1,6 +1,6 @@
 import cn from "classnames";
 
-import { IResponseApiRequestModal } from "../../../types/common/ComponentsProps";
+import { IResponseApiRequestModal } from "../../types/common/UiKitProps";
 
 import styles from "./responseApiRequestModal.module.scss";
 

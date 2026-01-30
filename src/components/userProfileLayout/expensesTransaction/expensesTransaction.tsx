@@ -1,9 +1,10 @@
 import { useState } from "react";
 
+import { IExpenseTransaction } from "../../../types/components/ComponentsTypes";
+import { MoneyValueTooltip } from "../moneyValueTooltip/moneyValueTooltip";
+
 import { DeleteIcon } from "../../../assets/script/expenses/DeleteIcon";
 import { EditIcon } from "../../../assets/script/expenses/EditIcon";
-import { IExpenseTransaction } from "../../../types/components/ComponentsTypes";
-import { ExpensesTooltip } from "../expensesTooltip/expensesTooltip";
 
 import styles from "./expensesTransaction.module.scss";
 
@@ -27,7 +28,7 @@ export default function ExpensesTransaction({ date, amount, name, onDeleteClick,
 					onMouseOut={() => setIsTooltipOpen(false)}>
 					<EditIcon classNames={styles.editIcon} />
 				</div>
-				<ExpensesTooltip open={isTooltipOpen} />
+				<MoneyValueTooltip open={isTooltipOpen} />
 			</div>
 		</div>
 	);

@@ -1,12 +1,8 @@
 "use client";
 
-import * as Sentry from "@sentry/nextjs";
-
 import { TAsyncFunctionErrorHandling } from "../types/components/ComponentsTypes";
 
 import { useAsyncErrorModal } from "./useAsyncErrorModal";
-
-import { sendErrorToMonitoring } from "./useGlobalErrorHandler";
 
 export function useHandleAsyncError() {
 	const { openModal } = useAsyncErrorModal();
@@ -18,13 +14,7 @@ export function useHandleAsyncError() {
 		if (isDev) {
 			openModal(error);
 		} else {
-			const asyncErrorContext: Sentry.Context = {
-				name: error.name,
-				message: error.message,
-				cause: error?.cause ?? "",
-			};
-
-			sendErrorToMonitoring(error, asyncErrorContext);
+			// sendErrorToMonitoring(error, asyncErrorContext);
 		}
 	};
 

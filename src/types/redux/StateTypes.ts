@@ -1,4 +1,5 @@
 import { ICountryData, TGender } from "../api/PersonalAccount";
+import { BeforeInstallPromptEvent } from "../common/GlobalTypes";
 
 export interface IUserDataState {
 	email: string;
@@ -37,4 +38,9 @@ export interface IBalanceState {
 	currentBalance: number;
 	loading: boolean;
 	error: string | null;
+}
+
+export interface IPWADetailsState {
+	canInstall: boolean;
+	isInstalled: boolean;
 }

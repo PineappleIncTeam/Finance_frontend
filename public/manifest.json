@@ -1,0 +1,13 @@
+{
+    "name": "Freenance",
+    "short_name": "Freenance",
+    "icons": [
+        {
+        "src": "/icon-192.png",
+        "sizes": "192x192",
+        "type": "image/png"
+        }
+    ],
+    "start_url": "/",
+    "display": "standalone"
+}

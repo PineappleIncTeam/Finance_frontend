@@ -119,3 +119,7 @@ export function formatMoney(num: number, digits: number = 2) {
 		currency: "RUB",
 	});
 }
+
+export function removeStringSpaces(str: string): string {
+	return str.replace(/\s+/g, "");
+}

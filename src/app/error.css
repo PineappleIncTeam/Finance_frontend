@@ -76,27 +76,15 @@
 	color: #fff;
 }
 
-.errorButton.primary:hover {
-	background-color: #1a572e;
-}
-
 .errorButton.secondary {
 	background-color: #e5e7eb;
 	color: #374151;
-}
-
-.errorButton.secondary:hover {
-	background-color: #d1d5db;
 }
 
 .errorButton.outline {
 	background-color: transparent;
 	color: #374151;
 	border: 1px solid #d1d5db;
-}
-
-.errorButton.outline:hover {
-	background-color: #f9fafb;
 }
 
 .errorDetailsContainer {
@@ -124,6 +112,20 @@
 	white-space: pre-wrap;
 	word-wrap: break-word;
 	overflow-y: auto;
+}
+
+@media (min-width: 1024px) {
+	.errorButton.primary:hover {
+		background-color: #1a572e;
+	}
+
+	.errorButton.secondary:hover {
+		background-color: #d1d5db;
+	}
+
+	.errorButton.outline:hover {
+		background-color: #f9fafb;
+	}
 }
 
 @media (max-width: 768px) {

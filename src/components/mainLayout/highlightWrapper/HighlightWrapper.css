@@ -3,6 +3,8 @@
 	transition: box-shadow 0.2s ease;
 }
 
-.highlight-wrapper:hover {
-	box-shadow: 0 0 12px rgba(0, 0, 0, 0.15) !important;
+@media (min-width: 1024px) {
+	.highlight-wrapper:hover {
+		box-shadow: 0 0 12px rgba(0, 0, 0, 0.15) !important;
+	}
 }

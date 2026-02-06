@@ -1,5 +1,4 @@
 import { ICountryData, TGender } from "../api/PersonalAccount";
-import { BeforeInstallPromptEvent } from "../common/GlobalTypes";
 
 export interface IUserDataState {
 	email: string;

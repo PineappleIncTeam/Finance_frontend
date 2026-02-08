@@ -23,3 +23,10 @@ export const balanceActions = {
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	rejected: createAction<any | unknown | Error | ICommonErrorResponse>("balance/rejected"),
 };
+
+export const reportsStatisticsActions = {
+	pending: createAction<{ baseURL: string }>("reportsStatistics/pending"),
+	fulfilled: createAction<any>("reportsStatistics/fulfilled"),
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	rejected: createAction<string>("reportsStatistics/rejected"),
+};

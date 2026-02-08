@@ -5,6 +5,10 @@ import { useForm } from "react-hook-form";
 import axios, { AxiosResponse } from "axios";
 import { useRouter } from "next/navigation";
 
+import { RootState } from "../../../services/redux";
+
+import { useAppDispatch, useAppSelector } from "../../../services/redux/hooks";
+
 import { useLogoutTimer } from "../../../hooks/useLogoutTimer";
 import { useHandleLogout } from "../../../hooks/useHandleLogout";
 import { useRuntimeEnv } from "../../../hooks/useRuntimeEnv";
@@ -48,6 +52,7 @@ import { getCurrentDate } from "../../../utils/getCurrentDate";
 import { getStatistics } from "../../../services/api/userProfile/getStatistics";
 import { EditTransactionModal } from "../../../components/userProfileLayout/editTransaction/editTransaction";
 import { editSavingsCategoryTransaction } from "../../../services/api/userProfile/editSavingsTransaction";
+import { reportsStatisticsActions } from "../../../types/redux/sagaActions/storeSaga.actions";
 import { ResponseApiRequestModal } from "../../../ui/responseActionModal/responseApiRequestModal";
 import { removeTransaction } from "../../../services/api/userProfile/removeTransaction";
 import { RecordDeleteModal } from "../../../components/userProfileLayout/recordDelete/recordDelete";
@@ -112,6 +117,10 @@ function Savings() {
 	const baseUrl = getSafeEnvVar("NEXT_PUBLIC_BASE_URL", mockBaseUrl);
 	const { request } = useHandleLogout(baseUrl);
 	const { resetTimer, setIsOpenInactivityLogoutModal, isOpenInactivityLogoutModal } = useLogoutTimer(request);
+
+	const dispatch = useAppDispatch();
+	const reportsStatisticsSelector = (state: RootState) => state.reportsStatistics;
+	const { data, loading, error } = useAppSelector(reportsStatisticsSelector);
 
 	const router = useRouter();
 	const handleEditClick = ({ index, field, value }: IEditActionProps) => {
@@ -424,6 +433,15 @@ function Savings() {
 			}
 		}
 	};
+
+	useEffect(() => {
+		dispatch(
+			reportsStatisticsActions.pending({
+				baseURL: baseUrl,
+			}),
+		);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
 
 	useEffect(() => {
 		setFiveOperationsWithNames(getFiveOperationsWithNames());

@@ -6,6 +6,7 @@ import { ICalcRageInput } from "../../../types/common/ComponentsProps";
 import { InputTypeList } from "../../../helpers/Input";
 import { constPercentValue, factorValue } from "../../../helpers/calculatorConsts";
 import { formatCalculateNumber } from "../../../utils/formatCalculateNumber";
+import { removeStringSpaces } from "../../../utils/formatData";
 
 import styles from "./calcRageInput.module.scss";
 
@@ -32,7 +33,13 @@ function CalcRageInput({
 
 	function handleAdditionalControlClick(value: string) {
 		if (isAdditionalControlPercents) {
-			changeFieldValue(String(Math.ceil(Number(loanAmountValue) * (Number(value) / factorValue))));
+			changeFieldValue(
+				String(
+					Math.ceil(
+						Number(removeStringSpaces(loanAmountValue ?? "")) * (Number(removeStringSpaces(value)) / factorValue),
+					),
+				),
+			);
 		} else {
 			changeFieldValue(value);
 		}

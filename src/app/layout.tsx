@@ -36,6 +36,7 @@ export default function RootLayout({
 		<html lang="en">
 			<head>
 				<PublicEnvScript />
+				<link rel="manifest" href="/manifest.json"></link>
 			</head>
 			<body className={cn(rubik.className, manrope.className)}>
 				<ProviderList>{children}</ProviderList>

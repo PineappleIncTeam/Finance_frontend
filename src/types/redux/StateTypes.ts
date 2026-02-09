@@ -38,3 +38,8 @@ export interface IBalanceState {
 	loading: boolean;
 	error: string | null;
 }
+
+export interface IPWADetailsState {
+	canInstall: boolean;
+	isInstalled: boolean;
+}

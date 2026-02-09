@@ -1,5 +1,5 @@
-import { dirname } from "path";
-import { fileURLToPath } from "url";
+import { dirname } from "node:path";
+import { fileURLToPath } from "node:url";
 
 import { FlatCompat } from "@eslint/eslintrc";
 import eslintJs from "@eslint/js";
@@ -8,14 +8,12 @@ import { defineConfig, globalIgnores } from "eslint/config";
 import nextVitals from "eslint-config-next/core-web-vitals";
 import nextTs from "eslint-config-next/typescript";
 
-import storybook from "eslint-plugin-storybook";
 import eslintReact from "eslint-plugin-react";
 import eslintSolid from "eslint-plugin-solid";
 import eslintJsxA11y from "eslint-plugin-jsx-a11y";
 import eslintSonarjs from "eslint-plugin-sonarjs";
 import eslintPrettier from "eslint-plugin-prettier";
 import eslintRedux from "eslint-plugin-react-redux";
-import eslintHooks from "eslint-plugin-hooks";
 import eslintTypescript from "@typescript-eslint/eslint-plugin";
 import eslintImport from "eslint-plugin-import";
 
@@ -37,15 +35,12 @@ const eslintConfig = defineConfig([
 		},
 	}),
 	...compat.extends("plugin:import/typescript"),
-	...storybook.configs["flat/recommended"],
 	globalIgnores([
 		"node_modules/**",
 		".next/**",
 		"out/**",
 		"build/**",
 		"docs/**",
-		"storybook-static/**",
-		"ecosystem.config.js",
 		"next-env.d.ts",
 	]),
 	{
@@ -69,7 +64,6 @@ const eslintConfig = defineConfig([
 			"@typescript-eslint": eslintTypescript,
 			sonarjs: eslintSonarjs,
 			eslintPluginJsxA11y: eslintJsxA11y,
-			hooks: eslintHooks,
 			"react-redux": eslintRedux,
 			prettier: eslintPrettier,
 		},
@@ -80,9 +74,7 @@ const eslintConfig = defineConfig([
 			"build/**",
 			"docs/**",
 			"docs/**",
-			"storybook-static/**",
 			"next-env.d.ts",
-			"ecosystem.config.js",
 		],
 		rules: {
 			camelcase: "error",
@@ -166,25 +158,6 @@ const eslintConfig = defineConfig([
 				{
 					groups: ["builtin", "external", "internal", "parent", "sibling", "index", "object", "type"],
 					"newlines-between": "always-and-inside-groups",
-				},
-			],
-			"hooks/sort": [
-				2,
-				{
-					groups: [
-						"useState",
-						"useReducer",
-						"useContext",
-						"useRef",
-						"useAppDispatch",
-						"useAppSelector",
-						"useActions",
-						"useLocation",
-						"useNavigate",
-						"usePreviousExchangeRates",
-						"useCallback",
-						"useEffect",
-					],
 				},
 			],
 		},

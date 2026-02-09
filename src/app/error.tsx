@@ -1,8 +1,6 @@
 "use client";
 
 import NextError from "next/error";
-import * as Sentry from "@sentry/nextjs";
-import { useEffect } from "react";
 
 import "./error.css";
 
@@ -17,19 +15,15 @@ interface IGlobalErrorPage {
 	reset: () => void;
 }
 
-export default function GlobalError({ error, reset }: IGlobalErrorPage) {
-	useEffect(() => {
-		Sentry.captureException(error);
-	}, [error]);
-
+export default function GlobalError({ error, reset }: Readonly<IGlobalErrorPage>) {
 	const handleReload = () => {
-		window.location.href = "/";
+		globalThis.location.href = "/";
 	};
 
 	const handleReport = () => {
 		const email = "support@example.com";
 		const subject = `Error Report: ${error.message}`;
-		const body = `Error: ${error.stack}\n\nUser Agent: ${navigator.userAgent}\nURL: ${window.location.href}`;
+		const body = `Error: ${error.stack}\n\nUser Agent: ${navigator.userAgent}\nURL: ${globalThis.location.href}`;
 
 		window.open(`mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`);
 	};

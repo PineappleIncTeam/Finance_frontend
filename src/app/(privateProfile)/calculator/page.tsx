@@ -27,6 +27,7 @@ import {
 	yearMonthCount,
 } from "../../../helpers/calculatorConsts";
 import { formatCalculateNumber } from "../../../utils/formatCalculateNumber";
+import { removeStringSpaces } from "../../../utils/formatData";
 
 import { InfoIcon } from "../../../assets/script/calculator/InfoIcon";
 import crossIcon from "../../../assets/components/userProfile/crossIcon.svg";
@@ -226,17 +227,19 @@ export default function Calculator() {
 							changeFieldValue={(value) => setValue("loanAmount", value)}
 						/>
 
-						<CalcRageInput
-							control={control}
-							name="downPayment"
-							label="Первоначальный взнос, ₽"
-							maxValue={activeCalc === TCalcTypes.realEstate ? maxBusinessDownPayment : maxConsumerDownPayment}
-							changeFieldValue={(value) => setValue("downPayment", value)}
-							isAdditionalControl={true}
-							isAdditionalControlPercents={true}
-							loanAmountValue={loanAmount}
-							additionalControlValues={downPaymentAdditionalValues}
-						/>
+						{activeCalc === TCalcTypes.realEstate && (
+							<CalcRageInput
+								control={control}
+								name="downPayment"
+								label="Первоначальный взнос, ₽"
+								maxValue={activeCalc === TCalcTypes.realEstate ? maxBusinessDownPayment : maxConsumerDownPayment}
+								changeFieldValue={(value) => setValue("downPayment", value)}
+								isAdditionalControl={true}
+								isAdditionalControlPercents={true}
+								loanAmountValue={loanAmount}
+								additionalControlValues={downPaymentAdditionalValues}
+							/>
+						)}
 
 						<CalcRageInput
 							control={control}
@@ -295,7 +298,7 @@ export default function Calculator() {
 						<div className={styles.creditAndPercentInfoWrapper}>
 							<p className={styles.creditAndPercentInfoWrapper__name}>Кредит + проценты</p>
 							<p className={styles.creditAndPercentInfoWrapper__value}>
-								{formatCalculateNumber(String(Number(loanAmount) + resultLoanInterest))} ₽
+								{formatCalculateNumber(String(Number(removeStringSpaces(loanAmount)) + resultLoanInterest))} ₽
 							</p>
 						</div>
 					</div>

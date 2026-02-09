@@ -25,7 +25,7 @@ export const balanceActions = {
 };
 
 export const reportsStatisticsActions = {
-	pending: createAction<{ baseURL: string }>("reportsStatistics/pending"),
+	pending: createAction<IBaseURLDataRequest>("reportsStatistics/pending"),
 	fulfilled: createAction<any>("reportsStatistics/fulfilled"),
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	rejected: createAction<string>("reportsStatistics/rejected"),

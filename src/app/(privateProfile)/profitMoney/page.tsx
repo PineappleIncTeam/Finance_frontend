@@ -109,8 +109,7 @@ function ProfitMoney() {
 			await getFiveOperations();
 			setFiveOperationsNames(getFiveOperationsNames);
 			getAllCategoriesOptions();
-		}
-		)();
+		})();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 

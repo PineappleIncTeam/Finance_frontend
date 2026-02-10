@@ -84,8 +84,10 @@
 	background: radial-gradient(circle, var(--color-dark-spring-green) 35%, rgba(0, 255, 0, 0) 35%);
 }
 
-.radio:hover ~ .label::before {
-	border: 2px solid var(--color-dark-spring-green);
+@media (min-width: 1024px) {
+	.radio:hover ~ .label::before {
+		border: 2px solid var(--color-dark-spring-green);
+	}
 }
 
 .radio:disabled:checked ~ .label::before {

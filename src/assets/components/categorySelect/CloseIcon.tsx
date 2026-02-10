@@ -9,8 +9,8 @@ export const CloseIcon = ({ classNames }: IIconsProps) => {
 			viewBox="0 0 17 16"
 			fill="none"
 			xmlns="http://www.w3.org/2000/svg">
-			<path d="M1.35352 1L15.3535 15" stroke="#BBBBBB" stroke-width="2" stroke-linecap="round" />
-			<path d="M1.35352 15L15.3535 1" stroke="#BBBBBB" stroke-width="2" stroke-linecap="round" />
+			<path d="M1.35352 1L15.3535 15" stroke="#BBBBBB" strokeWidth="2" strokeLinecap="round" />
+			<path d="M1.35352 15L15.3535 1" stroke="#BBBBBB" strokeWidth="2" strokeLinecap="round" />
 		</svg>
 	);
 };

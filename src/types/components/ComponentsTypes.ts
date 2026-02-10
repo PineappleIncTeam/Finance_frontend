@@ -254,3 +254,11 @@ export interface IClientNetworkErrorModalContext {
 	openModal: (error: Error | IClientNetworkError) => void;
 	closeModal: () => void;
 }
+
+export type TPwaErrorModalTitleType = "1" | "2";
+
+export interface IPwaErrorModal {
+	open: boolean;
+	toggle: (isOpen: boolean) => void;
+	titleType: TPwaErrorModalTitleType;
+}

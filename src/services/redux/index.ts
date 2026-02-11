@@ -9,6 +9,7 @@ import { autoLoginSlice } from "./features/autoLogin/autoLoginSlice";
 import { userDataSlice } from "./features/userData/UserDataSlice";
 import { userSettingsSlice } from "./features/userSettings/userSettingsSlice";
 import { countriesDataSlice } from "./features/countriesData/countriesDataSlice";
+import { pwaDetailsSlice } from "./features/pwaDetails/pwaDetailsSlice";
 
 // Saga watchers
 import { watchFetchUserData } from "./features/userData/UserDataSaga";
@@ -25,6 +26,7 @@ const RootActions = {
 	...autoLoginSlice.actions,
 	...userDataSlice.actions,
 	...userSettingsSlice.actions,
+	...pwaDetailsSlice.actions,
 };
 
 const RootReducer = combineReducers({
@@ -35,6 +37,7 @@ const RootReducer = combineReducers({
 	userSettings: userSettingsSlice.reducer,
 	countriesData: countriesDataSlice.reducer,
 	balance: balanceSlice.reducer,
+	pwaDetails: pwaDetailsSlice.reducer,
 });
 
 const persistedRootReducer = persistReducer(persistConfig, RootReducer);

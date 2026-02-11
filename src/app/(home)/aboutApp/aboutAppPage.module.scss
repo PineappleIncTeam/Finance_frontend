@@ -136,6 +136,17 @@
 	}
 }
 
+.actionContainer {
+	display: flex;
+	justify-content: flex-start;
+	align-items: flex-end;
+	gap: 20px;
+
+	@media (max-width: 1500px) {
+		gap: 15px;
+	}
+}
+
 .aboutAppPageInstructionWrapper {
 	position: relative;
 }
@@ -154,7 +165,6 @@
 	@media (max-width: 1440px) {
 		& {
 			margin-top: 86%;
-			margin-bottom: 8%;
 		}
 	}
 

@@ -5,7 +5,7 @@ export const InfoIcon = ({ classNames }: IIconsProps) => {
 		<svg
 			stroke="currentColor"
 			fill="currentColor"
-			stroke-width="0"
+			strokeWidth="0"
 			viewBox="0 0 1024 1024"
 			className={classNames}
 			height="1em"

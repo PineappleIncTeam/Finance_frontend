@@ -1,11 +1,15 @@
 "use client";
 
 import { useState } from "react";
-
 import Image from "next/image";
 
-import Footer from "../../../components/mainLayout/footer/footer";
+import { useAppSelector } from "../../../services/redux/hooks";
 
+import { TPwaErrorModalTitleType } from "../../../types/components/ComponentsTypes";
+import Footer from "../../../components/mainLayout/footer/footer";
+import PwaErrorModal from "../../../components/mainLayout/pwaErrorModal/pwaErrorModal";
+import PWAInstallButton from "../../../components/mainLayout/pwaInstallButton/pwaInstallButton";
+import { pwaDetailsSelector } from "../../../services/redux/features/pwaDetails/pwaDetailsSelector";
 import { transitionGoogleStore } from "../../../mocks/linkSetup";
 
 import registration from "../../../assets/pages/aboutApp/registration.webp";
@@ -27,20 +31,52 @@ import styles from "./aboutAppPage.module.scss";
 
 function AboutApp() {
 	const [isVideoElementStart, setIsVideoElementStart] = useState<boolean>(false);
+	const [isPwaErrorModalOpen, setIsPwaErrorModalOpen] = useState<boolean>(false);
+	const [pwaErrorModalTitleType, setPwaErrorModalTitleType] = useState<TPwaErrorModalTitleType>("1");
+
+	const { isInstalled: isInstalledFromRedux } = useAppSelector(pwaDetailsSelector);
 
 	const buttonAction = (prop: boolean) => {
 		setIsVideoElementStart(prop);
 	};
+
+	function togglePwaErrorModal(isOpen: boolean) {
+		setIsPwaErrorModalOpen(isOpen);
+	}
+
+	function handlePwaClick() {
+		if (isInstalledFromRedux) {
+			setPwaErrorModalTitleType("1");
+			togglePwaErrorModal(true);
+			return;
+		}
+
+		const deferredPrompt = window.deferredPWAEvent;
+
+		if (!deferredPrompt) {
+			setPwaErrorModalTitleType("2");
+			togglePwaErrorModal(true);
+		}
+	}
 
 	return (
 		<div className={styles.aboutAppWrap}>
 			<div className={styles.aboutAppContainer}>
 				<div className={styles.aboutAppHeaderWrapper}>
 					<h1 className={styles.aboutAppHeader}>Используйте Freenance с лёгкостью</h1>
-					<a className={styles.googlePlayButton} href={transitionGoogleStore} target="_blank" rel="noopener noreferrer">
-						<GooglePlayIcon classNames={styles.googlePlayIcon} />
-						<p className={styles.googlePlayButton__text}>доступно в Google Play</p>
-					</a>
+					<div className={styles.actionContainer}>
+						<a
+							className={styles.googlePlayButton}
+							href={transitionGoogleStore}
+							target="_blank"
+							rel="noopener noreferrer">
+							<GooglePlayIcon classNames={styles.googlePlayIcon} />
+							<p className={styles.googlePlayButton__text}>доступно в Google Play</p>
+						</a>
+						<div onClick={handlePwaClick} role="button">
+							<PWAInstallButton />
+						</div>
+					</div>
 				</div>
 				<div className={styles.aboutAppPageInstructionWrapper}>
 					<div className={styles.aboutAppPageInstructionContainer}>
@@ -117,6 +153,7 @@ function AboutApp() {
 						</div>
 					)}
 				</div>
+				<PwaErrorModal titleType={pwaErrorModalTitleType} toggle={togglePwaErrorModal} open={isPwaErrorModalOpen} />
 			</div>
 			<Footer />
 		</div>

@@ -1,6 +1,10 @@
 {
 	"name": "freenance-app",
+<<<<<<< HEAD
 	"version": "2.29.0",
+=======
+	"version": "2.32.0",
+>>>>>>> 3cbfbb64 (Update package.json)
 	"private": true,
 	"scripts": {
 		"dev": "next dev",

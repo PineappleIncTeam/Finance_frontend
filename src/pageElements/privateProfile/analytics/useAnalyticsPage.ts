@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import { useRuntimeEnv } from "../../../hooks/useRuntimeEnv";
 import { useHandleLogout } from "../../../hooks/useHandleLogout";
 import { useLogoutTimer } from "../../../hooks/useLogoutTimer";
+import { useDebouncedCallback } from "../../../hooks/useDebounce";
 
 import { ExpenseLabel, IAnalyticsInputForm } from "../../../types/pages/Analytics";
 import { DisplayMode, Operation } from "../../../helpers/analytics";
@@ -44,11 +45,8 @@ function useAnalyticsPage() {
 		maximalRowValue = 5;
 	}
 
-	const [itemsToShow, setItemsToShow] = useState(maximalRowValue);
+	const [windowWidth, setWindowWidth] = useState<number>(1440);
 	const [displayMode, setDisplayMode] = useState(DisplayMode.RUB);
-	const [chartHeight, setChartHeight] = useState(298);
-	const [rotation, setRotation] = useState({ maxRotation: 0, minRotation: 0 });
-	const [isLabel, setIsLabel] = useState(true);
 	const isEmptyPage = false;
 
 	const { getSafeEnvVar } = useRuntimeEnv(["NEXT_PUBLIC_BASE_URL"]);
@@ -57,9 +55,36 @@ function useAnalyticsPage() {
 	const { request } = useHandleLogout(baseUrl);
 	const { resetTimer, setIsOpenInactivityLogoutModal, isOpenInactivityLogoutModal } = useLogoutTimer(request);
 
-	const handleResizeIsLabel = () => {
-		setIsLabel(window.innerWidth > windowResizeLabel);
-	};
+	const gettingIsLabel = useMemo(() => windowWidth > windowResizeLabel, [windowWidth]);
+
+	const gettingChartHeight = useMemo(() => {
+		return windowWidth < windowSizeS ? 238 : 298;
+	}, [windowWidth]);
+
+	const gettingRotation = useMemo(() => {
+		if (windowWidth <= windowSizeS) {
+			return { maxRotation: 90, minRotation: 90 };
+		} else {
+			return { maxRotation: 0, minRotation: 0 };
+		}
+	}, [windowWidth]);
+
+	const gettingItemsToShow = useMemo(() => {
+		if (operation === Operation.Income) {
+			if (windowWidth > windowSize) {
+				return maximalRowValue;
+			} else if (windowWidth <= windowSize && windowWidth > windowSizeM) {
+				return minimalRowValue;
+			} else if (windowWidth <= windowSizeM && windowWidth > windowSizeS) {
+				return maximalRowValue;
+			} else if (windowWidth <= windowSizeS) {
+				return minimalRowValue;
+			}
+			return maximalRowValue;
+		} else {
+			return windowWidth <= windowSize ? minimalRowValue : maximalRowValue;
+		}
+	}, [windowWidth, operation, maximalRowValue, minimalRowValue]);
 
 	const rawAnalysisData = [50000, 50000];
 
@@ -67,66 +92,27 @@ function useAnalyticsPage() {
 
 	const analysisLabels: string[] = ["Общий расход", "Общий доход"];
 
-	const [monthNames, setMonthNames] = useState(Object.keys(monthlyExpenses));
-
-	const updateMonthNames = () => {
-		if (window.innerWidth <= windowSizeS) {
-			setMonthNames(["Янв.", "Февр.", "Март", "Апр.", "Май", "Июн.", "Июль", "Авг.", "Сент.", "Окт.", "Нояб.", "Дек."]);
+	const gettingMonthNames = useMemo(() => {
+		if (windowWidth <= windowSizeS) {
+			return ["Янв.", "Февр.", "Март", "Апр.", "Май", "Июн.", "Июль", "Авг.", "Сент.", "Окт.", "Нояб.", "Дек."];
 		} else {
-			setMonthNames(Object.keys(monthlyExpenses));
+			return Object.keys(monthlyExpenses);
 		}
-	};
+	}, [windowWidth]);
 
-	const updateChartHeight = () => {
-		const width = window.innerWidth;
-		if (width < windowSizeS) {
-			setChartHeight(238);
-		} else {
-			setChartHeight(298);
-		}
-	};
+	const handleResize = useDebouncedCallback(() => {
+		setWindowWidth(window.innerWidth);
+	}, 200);
 
 	useEffect(() => {
-		const handleResize = () => {
-			if (window.innerWidth <= windowSizeS) {
-				setRotation({ maxRotation: 90, minRotation: 90 });
-			} else {
-				setRotation({ maxRotation: 0, minRotation: 0 });
-			}
-
-			if (operation === Operation.Income) {
-				if (window.innerWidth > windowSize) {
-					setItemsToShow(maximalRowValue);
-				} else if (window.innerWidth <= windowSize && window.innerWidth > windowSizeM) {
-					setItemsToShow(minimalRowValue);
-				} else if (window.innerWidth <= windowSizeM && window.innerWidth > windowSizeS) {
-					setItemsToShow(maximalRowValue);
-				} else if (window.innerWidth <= windowSizeS) {
-					setItemsToShow(minimalRowValue);
-				}
-			} else {
-				setItemsToShow(window.innerWidth <= windowSize ? minimalRowValue : maximalRowValue);
-			}
-		};
-
-		updateChartHeight();
-		updateMonthNames();
-		handleResize();
-		handleResizeIsLabel();
-
+		setWindowWidth(window.innerWidth);
 		window.addEventListener("resize", handleResize);
-		window.addEventListener("resize", updateChartHeight);
-		window.addEventListener("resize", updateMonthNames);
-		window.addEventListener("resize", handleResizeIsLabel);
 
 		return () => {
 			window.removeEventListener("resize", handleResize);
-			window.removeEventListener("resize", updateChartHeight);
-			window.removeEventListener("resize", updateMonthNames);
-			window.removeEventListener("resize", handleResizeIsLabel);
 		};
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
+	}, [handleResize]);
 
 	const handleDisplayChange = (event: ChangeEvent<HTMLInputElement>) => {
 		const value = event.target.value as DisplayMode;
@@ -187,10 +173,10 @@ function useAnalyticsPage() {
 		});
 
 		return {
-			labels: monthNames,
+			labels: gettingMonthNames,
 			datasets: dataSetsIncome,
 		};
-	}, [monthNames, randomColorSet]);
+	}, [gettingMonthNames, randomColorSet]);
 
 	const gettingDisplayExpensesData = useMemo(
 		() =>
@@ -210,8 +196,8 @@ function useAnalyticsPage() {
 				x: {
 					ticks: {
 						autoSkip: false,
-						maxRotation: rotation.maxRotation,
-						minRotation: rotation.minRotation,
+						maxRotation: gettingRotation.maxRotation,
+						minRotation: gettingRotation.minRotation,
 					},
 					grid: {
 						display: false,
@@ -237,7 +223,7 @@ function useAnalyticsPage() {
 				},
 			},
 		}),
-		[rotation],
+		[gettingRotation, windowWidth],
 	);
 
 	const gettingDataAnalysis = useMemo(
@@ -278,7 +264,7 @@ function useAnalyticsPage() {
 		isOpenInactivityLogoutModal,
 		isEmptyPage,
 		operation,
-		isLabel,
+		gettingIsLabel,
 		displayMode,
 		gettingDataAnalysis,
 		gettingOptionsAnalysis,
@@ -287,10 +273,10 @@ function useAnalyticsPage() {
 		minimalRowValue,
 		maximalRowValue,
 		windowSizeXS,
-		itemsToShow,
+		gettingItemsToShow,
 		gettingDataIncome,
 		gettingRotationOptions,
-		chartHeight,
+		gettingChartHeight,
 		gettingExpensesData,
 		setIsOpenInactivityLogoutModal,
 		resetTimer,

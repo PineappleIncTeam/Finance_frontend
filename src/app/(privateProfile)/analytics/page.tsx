@@ -30,7 +30,7 @@ function Analytics() {
 		isOpenInactivityLogoutModal,
 		isEmptyPage,
 		operation,
-		isLabel,
+		gettingIsLabel,
 		displayMode,
 		gettingDataAnalysis,
 		gettingOptionsAnalysis,
@@ -39,10 +39,10 @@ function Analytics() {
 		minimalRowValue,
 		maximalRowValue,
 		windowSizeXS,
-		itemsToShow,
+		gettingItemsToShow,
 		gettingDataIncome,
 		gettingRotationOptions,
-		chartHeight,
+		gettingChartHeight,
 		gettingExpensesData,
 		setIsOpenInactivityLogoutModal,
 		resetTimer,
@@ -95,7 +95,7 @@ function Analytics() {
 
 					<div className={styles.diagramExpensesBlockRight}>
 						<ul className={styles.diagramExpensesBlockRightItems}>
-							{gettingDisplayExpensesData.slice(itemsToShow).map((item, index) => (
+							{gettingDisplayExpensesData.slice(gettingItemsToShow).map((item, index) => (
 								<li key={index} className={styles.diagramExpensesBlockRightItem}>
 									<div className={styles.diagramExpensesBlockRightIconWrapper}>
 										<div
@@ -146,7 +146,7 @@ function Analytics() {
 					{window.innerWidth > windowSizeXS && (
 						<div className={styles.diagramIncomeBlockRight}>
 							<ul className={styles.diagramIncomeBlockRightItems}>
-								{gettingDisplayExpensesData.slice(itemsToShow).map((item, index) => (
+								{gettingDisplayExpensesData.slice(gettingItemsToShow).map((item, index) => (
 									<li key={index} className={styles.diagramIncomeBlockRightItem}>
 										<div className={styles.diagramIncomeBlockRightIconWrapper}>
 											<div
@@ -165,14 +165,14 @@ function Analytics() {
 				</div>
 			</div>
 
-			<div className={styles.diagramIncome} style={{ height: chartHeight }}>
+			<div className={styles.diagramIncome} style={{ height: gettingChartHeight }}>
 				<Bar data={gettingDataIncome} options={gettingRotationOptions} />
 			</div>
 
 			{window.innerWidth <= windowSizeXS && (
 				<div className={styles.diagramIncomeBlockRight}>
 					<ul className={styles.diagramIncomeBlockRightItems}>
-						{gettingDisplayExpensesData.slice(itemsToShow).map((item, index) => (
+						{gettingDisplayExpensesData.slice(gettingItemsToShow).map((item, index) => (
 							<li key={index} className={styles.diagramIncomeBlockRightItem}>
 								<div className={styles.diagramIncomeBlockRightIconWrapper}>
 									<div
@@ -256,7 +256,7 @@ function Analytics() {
 					/>
 				</div>
 				<div className={styles.analyticsSelectDateAndPeriod}>
-					<InputDate control={control} name={"date"} isPeriod={true} isLabel={isLabel} />
+					<InputDate control={control} name={"date"} isPeriod={true} isLabel={gettingIsLabel} />
 				</div>
 			</div>
 
@@ -352,7 +352,7 @@ function Analytics() {
 						/>
 					</div>
 					<div className={styles.analyticsSelectDateAndPeriod}>
-						<InputDate control={control} name={"date"} isPeriod={true} isLabel={isLabel} />
+						<InputDate control={control} name={"date"} isPeriod={true} isLabel={gettingIsLabel} />
 					</div>
 				</div>
 				<div className={styles.analyticsListOfOperationsDownloadWrapper}>

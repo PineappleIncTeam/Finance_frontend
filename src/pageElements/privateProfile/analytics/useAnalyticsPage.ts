@@ -1,11 +1,11 @@
-import { ChangeEvent, useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useMemo, useState } from "react";
 import { useForm } from "react-hook-form";
 
 import { useRuntimeEnv } from "../../../hooks/useRuntimeEnv";
 import { useHandleLogout } from "../../../hooks/useHandleLogout";
 import { useLogoutTimer } from "../../../hooks/useLogoutTimer";
 
-import { ExpenseLabel, IAnalyticsInputForm, MonthlyExpenses } from "../../../types/pages/Analytics";
+import { ExpenseLabel, IAnalyticsInputForm } from "../../../types/pages/Analytics";
 import { DisplayMode, Operation } from "../../../helpers/analytics";
 import {
 	expensesLabels,
@@ -133,120 +133,145 @@ function useAnalyticsPage() {
 		setDisplayMode(value);
 	};
 
-	const randomColorSet: string[] = generateRandomColors(expensesLabelsLengthValue);
+	const randomColorSet = useMemo(() => {
+		return generateRandomColors(expensesLabelsLengthValue);
+	}, [expensesLabelsLengthValue]);
 
-	const data = {
-		labels: expensesLabels,
-		datasets: [
-			{
-				label: "Расходы",
-				data: rawExpensesData.map((value) =>
-					displayMode === DisplayMode.RUB ? value : ((value / 130000) * 100).toFixed(2),
-				),
-				backgroundColor: randomColorSet,
-				borderWidth: 0,
-			},
-		],
-	};
-
-	const uniqueLabels = Array.from(
-		new Set(
-			Object.values(monthlyExpenses)
-				.flat()
-				.map((expense) => Object.keys(expense)[0]),
-		),
+	const gettingExpensesData = useMemo(
+		() => ({
+			labels: expensesLabels,
+			datasets: [
+				{
+					label: "Расходы",
+					data: rawExpensesData.map((value) =>
+						displayMode === DisplayMode.RUB ? value : ((value / 130000) * 100).toFixed(2),
+					),
+					backgroundColor: randomColorSet,
+					borderWidth: 0,
+				},
+			],
+		}),
+		[displayMode, randomColorSet],
 	);
 
-	const dataSetsIncome = uniqueLabels.map((label, index) => {
-		const typedLabel = label as ExpenseLabel;
+	const gettingDataIncome = useMemo(() => {
+		const uniqueLabels = Array.from(
+			new Set(
+				Object.values(monthlyExpenses)
+					.flat()
+					.map((expense) => Object.keys(expense)[0]),
+			),
+		);
 
-		if (typedLabel in expensesMapping) {
-			return {
-				label: expensesMapping[typedLabel].label,
-				data: Object.keys(monthlyExpenses).map((month) => {
-					const expenseData = monthlyExpenses[month].find((exp) => Object.keys(exp)[0] === typedLabel);
-					return expenseData ? expenseData[typedLabel] : 0;
-				}),
-				backgroundColor: randomColorSet[index % randomColorSet.length],
-				barThickness: 10,
-			};
-		} else {
-			return {
-				label: label,
-				data: Array(Object.keys(monthlyExpenses).length).fill(0),
-				backgroundColor: randomColorSet[index % randomColorSet.length],
-				barThickness: 10,
-			};
-		}
-	});
+		const dataSetsIncome = uniqueLabels.map((label, index) => {
+			const typedLabel = label as ExpenseLabel;
 
-	const dataIncome = {
-		labels: monthNames.map((label) => label),
-		datasets: dataSetsIncome,
-	};
+			if (typedLabel in expensesMapping) {
+				return {
+					label: expensesMapping[typedLabel].label,
+					data: Object.keys(monthlyExpenses).map((month) => {
+						const expenseData = monthlyExpenses[month].find((exp) => Object.keys(exp)[0] === typedLabel);
+						return expenseData ? expenseData[typedLabel] : 0;
+					}),
+					backgroundColor: randomColorSet[index % randomColorSet.length],
+					barThickness: 10,
+				};
+			} else {
+				return {
+					label: label,
+					data: Array(Object.keys(monthlyExpenses).length).fill(0),
+					backgroundColor: randomColorSet[index % randomColorSet.length],
+					barThickness: 10,
+				};
+			}
+		});
 
-	const displayData = data.labels.map((label, index) => ({
-		title: label,
-		value: data.datasets[0].data[index],
-		background: data.datasets[0].backgroundColor[index],
-	}));
+		return {
+			labels: monthNames,
+			datasets: dataSetsIncome,
+		};
+	}, [monthNames, randomColorSet]);
 
-	const options = {
-		responsive: true,
-		maintainAspectRatio: false,
-		scales: {
-			x: {
-				ticks: {
-					autoSkip: false,
-					maxRotation: rotation.maxRotation,
-					minRotation: rotation.minRotation,
-				},
-				grid: {
-					display: false,
-				},
-				stacked: true,
-			},
-			y: {
-				border: {
-					display: false,
-				},
-				beginAtZero: true,
-				ticks: {
-					stepSize: 5000,
-					callback: (tickValue: string | number) => {
-						const value = typeof tickValue === "string" ? parseFloat(tickValue) : tickValue;
-						if (window.innerWidth <= windowSizeXS && value >= 1000) {
-							return value / 1000 + "K";
-						}
-						return value;
+	const gettingDisplayExpensesData = useMemo(
+		() =>
+			gettingExpensesData.labels.map((label, index) => ({
+				title: label,
+				value: gettingExpensesData.datasets[0].data[index],
+				background: gettingExpensesData.datasets[0].backgroundColor[index],
+			})),
+		[gettingExpensesData],
+	);
+
+	const gettingRotationOptions = useMemo(
+		() => ({
+			responsive: true,
+			maintainAspectRatio: false,
+			scales: {
+				x: {
+					ticks: {
+						autoSkip: false,
+						maxRotation: rotation.maxRotation,
+						minRotation: rotation.minRotation,
 					},
+					grid: {
+						display: false,
+					},
+					stacked: true,
 				},
-				stacked: true,
+				y: {
+					border: {
+						display: false,
+					},
+					beginAtZero: true,
+					ticks: {
+						stepSize: 5000,
+						callback: (tickValue: string | number) => {
+							const value = typeof tickValue === "string" ? parseFloat(tickValue) : tickValue;
+							if (window.innerWidth <= windowSizeXS && value >= 1000) {
+								return value / 1000 + "K";
+							}
+							return value;
+						},
+					},
+					stacked: true,
+				},
 			},
-		},
-	};
+		}),
+		[rotation],
+	);
 
-	const dataAnalysis = {
-		labels: analysisLabels,
-		datasets: [
-			{
-				data: rawAnalysisData.map((value) =>
-					displayMode === DisplayMode.RUB ? value : ((value / 130000) * 100).toFixed(2),
-				),
-				backgroundColor: randomColorSet,
-				borderWidth: 0,
-			},
-		],
-	};
-	const optionsAnalysis = {
-		cutout: "60%",
-	};
+	const gettingDataAnalysis = useMemo(
+		() => ({
+			labels: analysisLabels,
+			datasets: [
+				{
+					data: rawAnalysisData.map((value) =>
+						displayMode === DisplayMode.RUB ? value : ((value / 130000) * 100).toFixed(2),
+					),
+					backgroundColor: randomColorSet,
+					borderWidth: 0,
+				},
+			],
+		}),
+		[displayMode, randomColorSet],
+	);
 
-	const displayDataAnalysis = dataAnalysis.labels.map((label, index) => ({
-		title: label,
-		value: dataAnalysis.datasets[0].data[index],
-		background: dataAnalysis.datasets[0].backgroundColor[index],
-	}));
+	const gettingOptionsAnalysis = useMemo(
+		() => ({
+			cutout: "60%",
+		}),
+		[],
+	);
+
+	const gettingDisplayDataAnalysis = useMemo(
+		() =>
+			gettingDataAnalysis.labels.map((label, index) => ({
+				title: label,
+				value: gettingDataAnalysis.datasets[0].data[index],
+				background: gettingDataAnalysis.datasets[0].backgroundColor[index],
+			})),
+		[gettingDataAnalysis],
+	);
 
 	return {
 		control,
@@ -255,18 +280,18 @@ function useAnalyticsPage() {
 		operation,
 		isLabel,
 		displayMode,
-		dataAnalysis,
-		optionsAnalysis,
-		displayDataAnalysis,
-		displayData,
+		gettingDataAnalysis,
+		gettingOptionsAnalysis,
+		gettingDisplayDataAnalysis,
+		gettingDisplayExpensesData,
 		minimalRowValue,
 		maximalRowValue,
 		windowSizeXS,
 		itemsToShow,
-		dataIncome,
-		options,
+		gettingDataIncome,
+		gettingRotationOptions,
 		chartHeight,
-		data,
+		gettingExpensesData,
 		setIsOpenInactivityLogoutModal,
 		resetTimer,
 		request,

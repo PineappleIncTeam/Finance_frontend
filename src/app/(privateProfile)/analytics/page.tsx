@@ -32,18 +32,18 @@ function Analytics() {
 		operation,
 		isLabel,
 		displayMode,
-		dataAnalysis,
-		optionsAnalysis,
-		displayDataAnalysis,
-		displayData,
+		gettingDataAnalysis,
+		gettingOptionsAnalysis,
+		gettingDisplayDataAnalysis,
+		gettingDisplayExpensesData,
 		minimalRowValue,
 		maximalRowValue,
 		windowSizeXS,
 		itemsToShow,
-		dataIncome,
-		options,
+		gettingDataIncome,
+		gettingRotationOptions,
 		chartHeight,
-		data,
+		gettingExpensesData,
 		setIsOpenInactivityLogoutModal,
 		resetTimer,
 		request,
@@ -71,13 +71,13 @@ function Analytics() {
 
 			<div className={styles.analyticsDiagramExpenses}>
 				<div className={styles.diagramExpenses}>
-					<Pie data={data} options={{ responsive: true }} />
+					<Pie data={gettingExpensesData} options={{ responsive: true }} />
 				</div>
 
 				<div className={styles.diagramExpensesBlock}>
 					<div className={styles.diagramExpensesBlockLeft}>
 						<ul className={styles.diagramExpensesBlockLeftItems}>
-							{displayData.slice(minimalRowValue, maximalRowValue).map((item, index) => (
+							{gettingDisplayExpensesData.slice(minimalRowValue, maximalRowValue).map((item, index) => (
 								<li key={index} className={styles.diagramExpensesBlockLeftItem}>
 									<div className={styles.diagramExpensesBlockLeftIconWrapper}>
 										<div
@@ -95,7 +95,7 @@ function Analytics() {
 
 					<div className={styles.diagramExpensesBlockRight}>
 						<ul className={styles.diagramExpensesBlockRightItems}>
-							{displayData.slice(itemsToShow).map((item, index) => (
+							{gettingDisplayExpensesData.slice(itemsToShow).map((item, index) => (
 								<li key={index} className={styles.diagramExpensesBlockRightItem}>
 									<div className={styles.diagramExpensesBlockRightIconWrapper}>
 										<div
@@ -127,7 +127,7 @@ function Analytics() {
 				<div className={styles.analyticsDiagramIncome}>
 					<div className={styles.diagramIncomeBlockLeft}>
 						<ul className={styles.diagramIncomeBlockLeftItems}>
-							{displayData.slice(minimalRowValue, maximalRowValue).map((item, index) => (
+							{gettingDisplayExpensesData.slice(minimalRowValue, maximalRowValue).map((item, index) => (
 								<li key={index} className={styles.diagramIncomeBlockLeftItem}>
 									<div className={styles.diagramIncomeBlockLeftIconWrapper}>
 										<div
@@ -146,7 +146,7 @@ function Analytics() {
 					{window.innerWidth > windowSizeXS && (
 						<div className={styles.diagramIncomeBlockRight}>
 							<ul className={styles.diagramIncomeBlockRightItems}>
-								{displayData.slice(itemsToShow).map((item, index) => (
+								{gettingDisplayExpensesData.slice(itemsToShow).map((item, index) => (
 									<li key={index} className={styles.diagramIncomeBlockRightItem}>
 										<div className={styles.diagramIncomeBlockRightIconWrapper}>
 											<div
@@ -166,13 +166,13 @@ function Analytics() {
 			</div>
 
 			<div className={styles.diagramIncome} style={{ height: chartHeight }}>
-				<Bar data={dataIncome} options={options} />
+				<Bar data={gettingDataIncome} options={gettingRotationOptions} />
 			</div>
 
 			{window.innerWidth <= windowSizeXS && (
 				<div className={styles.diagramIncomeBlockRight}>
 					<ul className={styles.diagramIncomeBlockRightItems}>
-						{displayData.slice(itemsToShow).map((item, index) => (
+						{gettingDisplayExpensesData.slice(itemsToShow).map((item, index) => (
 							<li key={index} className={styles.diagramIncomeBlockRightItem}>
 								<div className={styles.diagramIncomeBlockRightIconWrapper}>
 									<div
@@ -202,11 +202,12 @@ function Analytics() {
 
 				<div className={styles.analyticsDiagramAnalysis}>
 					<div className={styles.diagramAnalysis}>
-						<Doughnut data={dataAnalysis} options={optionsAnalysis} />
+						<Doughnut data={gettingDataAnalysis} options={gettingOptionsAnalysis} />
 					</div>
 
 					<div className={styles.diagramAnalysisBlock}>
 						<ul className={styles.diagramAnalysisBlockItems}>
+<<<<<<< HEAD
 							{displayDataAnalysis &&
 								displayDataAnalysis.map((item, index) => (
 									<li key={index} className={styles.diagramAnalysisBlockItem}>
@@ -221,6 +222,21 @@ function Analytics() {
 										</p>
 									</li>
 								))}
+=======
+							{gettingDisplayDataAnalysis.map((item, index) => (
+								<li key={index} className={styles.diagramAnalysisBlockItem}>
+									<div className={styles.diagramAnalysisBlockIconWrapper}>
+										<div
+											className={styles.diagramAnalysisBlockIconWrapper__circle}
+											style={{ background: `${item.background}` }}></div>
+										<p className={styles.diagramAnalysisBlockIconWrapper__text}>{item.title}:</p>
+									</div>
+									<p className={styles.diagramAnalysisBlockItem__value}>
+										{displayMode === DisplayMode.RUB ? `${item.value} ₽` : `${item.value}%`}
+									</p>
+								</li>
+							))}
+>>>>>>> 557f9dd6 (feat: add useMemo optimization for chart objects)
 						</ul>
 					</div>
 				</div>

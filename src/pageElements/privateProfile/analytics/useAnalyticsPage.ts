@@ -1,4 +1,4 @@
-import { ChangeEvent, useEffect, useMemo, useState } from "react";
+import { ChangeEvent, useCallback, useEffect, useMemo, useState } from "react";
 import { useForm } from "react-hook-form";
 
 import { useRuntimeEnv } from "../../../hooks/useRuntimeEnv";
@@ -114,10 +114,10 @@ function useAnalyticsPage() {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [handleResize]);
 
-	const handleDisplayChange = (event: ChangeEvent<HTMLInputElement>) => {
+	const handleDisplayChange = useCallback((event: ChangeEvent<HTMLInputElement>) => {
 		const value = event.target.value as DisplayMode;
 		setDisplayMode(value);
-	};
+	}, []);
 
 	const randomColorSet = useMemo(() => {
 		return generateRandomColors(expensesLabelsLengthValue);

@@ -1,3 +1,4 @@
+import { IReportCategory } from "../api/Analytics";
 import { ICountryData, TGender } from "../api/PersonalAccount";
 
 export interface IUserDataState {
@@ -42,4 +43,28 @@ export interface IBalanceState {
 export interface IPWADetailsState {
 	canInstall: boolean;
 	isInstalled: boolean;
+}
+
+export interface IReportsStatisticsDataState {
+	total_expenses: number;
+	total_income: number;
+	total_savings: number;
+}
+
+export interface IReportsStatisticsState {
+	data: IReportsStatisticsDataState;
+	loading: boolean;
+	error: string | null;
+}
+
+export interface IReportsCategoriesDataState {
+	incomes: IReportCategory[];
+	outcomes: IReportCategory[];
+	targets: IReportCategory[];
+}
+
+export interface IReportsCategoriesState {
+	categoriesData: IReportsCategoriesDataState;
+	loading: boolean;
+	error: string | null;
 }

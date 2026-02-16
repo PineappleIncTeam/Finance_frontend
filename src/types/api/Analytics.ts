@@ -21,3 +21,22 @@ export interface IReportsStatistics {
 export interface IReportsBalance {
 	current_balance: number;
 }
+
+export interface IReportCategory {
+	category_id: number;
+	category_name: string;
+	amount: number;
+	items: any[];
+}
+
+export interface IReportsCategoriesResponse {
+	incomes: IReportCategory[];
+	outcomes: IReportCategory[];
+	targets: IReportCategory[];
+	summary: {
+		total_incomes: number;
+		total_outcomes: number;
+		total_targets: number;
+		balance: number;
+	};
+}

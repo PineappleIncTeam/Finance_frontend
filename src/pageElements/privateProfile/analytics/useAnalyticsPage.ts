@@ -1,4 +1,5 @@
 import { ChangeEvent, useCallback, useEffect, useMemo, useState } from "react";
+import { useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
 
 import { useRuntimeEnv } from "../../../hooks/useRuntimeEnv";
@@ -16,6 +17,11 @@ import {
 } from "../../../mocks/analytics/analyticsMocks";
 import { generateRandomColors } from "../../../utils/generateRandomColor";
 import { mockBaseUrl } from "../../../mocks/envConsts";
+import {
+	balanceActions,
+	reportCategoriesActions,
+	reportsStatisticsActions,
+} from "../../../types/redux/sagaActions/storeSaga.actions";
 
 function useAnalyticsPage() {
 	const { control, watch } = useForm<IAnalyticsInputForm>({
@@ -54,6 +60,8 @@ function useAnalyticsPage() {
 	const baseUrl = getSafeEnvVar("NEXT_PUBLIC_BASE_URL", mockBaseUrl);
 	const { request } = useHandleLogout(baseUrl);
 	const { resetTimer, setIsOpenInactivityLogoutModal, isOpenInactivityLogoutModal } = useLogoutTimer(request);
+
+	const dispatch = useDispatch();
 
 	const gettingIsLabel = useMemo(() => windowWidth > windowResizeLabel, [windowWidth]);
 
@@ -103,6 +111,13 @@ function useAnalyticsPage() {
 	const handleResize = useDebouncedCallback(() => {
 		setWindowWidth(window.innerWidth);
 	}, 200);
+
+	useEffect(() => {
+		dispatch(reportCategoriesActions.pending({ baseURL: baseUrl }));
+		dispatch(reportsStatisticsActions.pending({ baseURL: baseUrl }));
+		dispatch(balanceActions.pending({ baseURL: baseUrl }));
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [dispatch]);
 
 	useEffect(() => {
 		setWindowWidth(window.innerWidth);

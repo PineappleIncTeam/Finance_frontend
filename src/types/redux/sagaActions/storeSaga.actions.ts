@@ -2,6 +2,7 @@ import { createAction } from "@reduxjs/toolkit";
 
 import { ICountryData, IFetchUserDataResponse } from "../../api/PersonalAccount";
 import { IBaseURLDataRequest, ICommonErrorResponse } from "../../common/ApiTypes";
+import { IReportsCategoriesDataState } from "../StateTypes";
 
 export const userDataActions = {
 	pending: createAction<IBaseURLDataRequest>("userData/fetchPending"),
@@ -29,4 +30,11 @@ export const reportsStatisticsActions = {
 	fulfilled: createAction<any>("reportsStatistics/fulfilled"),
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	rejected: createAction<string>("reportsStatistics/rejected"),
+};
+
+export const reportCategoriesActions = {
+	pending: createAction<IBaseURLDataRequest>("reportCategories/pending"),
+	fulfilled: createAction<IReportsCategoriesDataState>("reportCategories/fulfilled"),
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	rejected: createAction<any | unknown | Error | ICommonErrorResponse>("reportCategories/rejected"),
 };

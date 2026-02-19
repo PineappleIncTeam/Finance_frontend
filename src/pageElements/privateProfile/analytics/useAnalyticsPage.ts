@@ -362,7 +362,7 @@ function useAnalyticsPage() {
 
 			responses.forEach((response, index) => {
 				if (response.data) {
-					const fileName = `report_${fileLoadTypeList[index]}_${new Date().toISOString().split("T")[0]}.pdf`;
+					const fileName = `report_${fileLoadTypeList[index]}_${new Date().toISOString().substring(0, 19)}.pdf`;
 					downloadFile(response.data, fileName);
 				}
 			});
@@ -394,7 +394,7 @@ function useAnalyticsPage() {
 
 			responses.forEach((response, index) => {
 				if (response.data) {
-					const fileName = `report_${fileLoadTypeList[index]}_${new Date().toISOString().split("T")[0]}.xlsx`;
+					const fileName = `report_${fileLoadTypeList[index]}_${new Date().toISOString().substring(0, 19)}.xlsx`;
 					downloadFile(response.data, fileName);
 				}
 			});

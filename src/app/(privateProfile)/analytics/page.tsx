@@ -1,17 +1,18 @@
 "use client";
 
-import { Pie, Bar, Doughnut } from "react-chartjs-2";
+import {
+	Pie,
+	Doughnut,
+	// Bar
+} from "react-chartjs-2";
 import { Chart as ChartJS, ArcElement, Tooltip, CategoryScale, LinearScale, BarElement } from "chart.js";
 
 import useAnalyticsPage from "../../../pageElements/privateProfile/analytics/useAnalyticsPage";
 
-import { IAnalyticsTransactions } from "../../../types/components/ComponentsTypes";
+import { IReportCategory } from "../../../types/api/Analytics";
 import InputDate from "../../../ui/inputDate/inputDate";
 import { Selector } from "../../../ui/selector/Selector";
 import { InputTypeList } from "../../../helpers/Input";
-import { analyticsIncomeTransactions } from "../../../mocks/AnalyticsIncomeTransaction";
-import { analyticsExpensesTransactions } from "../../../mocks/AnalyticsExpensesTransaction";
-import { analyticsSavingsTransactions } from "../../../mocks/AnalyticsSavingsTransaction";
 import AnalystIncomeTransactions from "../../../components/userProfileLayout/analystIncomeTransactions/analystIncomeTransactions";
 import AnalystExpensesTransactions from "../../../components/userProfileLayout/analystExpensesTransactions/analystExpensesTransactions";
 import AnalystSavingsTransactions from "../../../components/userProfileLayout/analystSavingsTransactions/analystSavingsTransactions";
@@ -39,15 +40,22 @@ function Analytics() {
 		minimalRowValue,
 		maximalRowValue,
 		windowSizeXS,
+		analyticsIncomeTransactions,
+		analyticsExpensesTransactions,
+		analyticsSavingsTransactions,
 		gettingItemsToShow,
-		gettingDataIncome,
-		gettingRotationOptions,
+		gettingIncomeData,
+		gettingDisplayIncomesData,
 		gettingChartHeight,
 		gettingExpensesData,
+		balanceData,
+		reportStatisticData,
 		setIsOpenInactivityLogoutModal,
 		resetTimer,
 		request,
 		handleDisplayChange,
+		handlePdfButtonClick,
+		handleXslButtonClick,
 	} = useAnalyticsPage();
 
 	const renderEmptyAnaliticsPage = () => (
@@ -65,8 +73,8 @@ function Analytics() {
 		<div className={styles.analyticsDiagramExpensesWrapper}>
 			<div className={styles.analyticsDiagramExpensesInfo}>
 				<p className={styles.analyticsDiagramExpensesInfo__title}>Общий расход</p>
-				<p className={styles.analyticsDiagramExpensesInfo__value}>130 000.75 ₽</p>
-				<p className={styles.analyticsDiagramExpensesInfo__date}>14.09.23 - 20.09.23</p>
+				<p className={styles.analyticsDiagramExpensesInfo__value}>{reportStatisticData.total_expenses} ₽</p>
+				{/* <p className={styles.analyticsDiagramExpensesInfo__date}>14.09.23 - 20.09.23</p> */}
 			</div>
 
 			<div className={styles.analyticsDiagramExpenses}>
@@ -120,14 +128,14 @@ function Analytics() {
 			<div className={styles.analyticsDiagramIncomeInfoWrapper}>
 				<div className={styles.analyticsDiagramIncomeInfo}>
 					<p className={styles.analyticsDiagramIncomeInfo__title}>Общий доход</p>
-					<p className={styles.analyticsDiagramIncomeInfo__value}>130 000.75 ₽</p>
-					<p className={styles.analyticsDiagramIncomeInfo__date}>14.09.23 - 20.09.23</p>
+					<p className={styles.analyticsDiagramIncomeInfo__value}>{reportStatisticData.total_income} ₽</p>
+					{/* <p className={styles.analyticsDiagramIncomeInfo__date}>14.09.23 - 20.09.23</p> */}
 				</div>
 
 				<div className={styles.analyticsDiagramIncome}>
 					<div className={styles.diagramIncomeBlockLeft}>
 						<ul className={styles.diagramIncomeBlockLeftItems}>
-							{gettingDisplayExpensesData.slice(minimalRowValue, maximalRowValue).map((item, index) => (
+							{gettingDisplayIncomesData.slice(minimalRowValue, maximalRowValue).map((item, index) => (
 								<li key={index} className={styles.diagramIncomeBlockLeftItem}>
 									<div className={styles.diagramIncomeBlockLeftIconWrapper}>
 										<div
@@ -146,7 +154,7 @@ function Analytics() {
 					{window.innerWidth > windowSizeXS && (
 						<div className={styles.diagramIncomeBlockRight}>
 							<ul className={styles.diagramIncomeBlockRightItems}>
-								{gettingDisplayExpensesData.slice(gettingItemsToShow).map((item, index) => (
+								{gettingDisplayIncomesData.slice(gettingItemsToShow).map((item, index) => (
 									<li key={index} className={styles.diagramIncomeBlockRightItem}>
 										<div className={styles.diagramIncomeBlockRightIconWrapper}>
 											<div
@@ -166,7 +174,8 @@ function Analytics() {
 			</div>
 
 			<div className={styles.diagramIncome} style={{ height: gettingChartHeight }}>
-				<Bar data={gettingDataIncome} options={gettingRotationOptions} />
+				{/* <Bar data={gettingDataIncome} options={gettingRotationOptions} /> */}
+				<Pie data={gettingIncomeData} options={{ responsive: true }} />
 			</div>
 
 			{window.innerWidth <= windowSizeXS && (
@@ -196,8 +205,8 @@ function Analytics() {
 			<div className={styles.analyticsDiagramAnalysisInfoWrapper}>
 				<div className={styles.analyticsDiagramAnalysisInfo}>
 					<p className={styles.analyticsDiagramAnalysisInfo__title}>Ваш баланс</p>
-					<p className={styles.analyticsDiagramAnalysisInfo__value}>0.00 ₽</p>
-					<p className={styles.analyticsDiagramAnalysisInfo__date}>14.09.23 - 20.09.23</p>
+					<p className={styles.analyticsDiagramAnalysisInfo__value}>{balanceData.currentBalance} ₽</p>
+					{/* <p className={styles.analyticsDiagramAnalysisInfo__date}>14.09.23 - 20.09.23</p> */}
 				</div>
 
 				<div className={styles.analyticsDiagramAnalysis}>
@@ -281,43 +290,37 @@ function Analytics() {
 		</div>
 	);
 
-	const renderAnalyticsIncomeTransactions = (transactions: IAnalyticsTransactions[]) => {
-		return transactions.map((savingsData, index) => (
+	const renderAnalyticsIncomeTransactions = (transactions: IReportCategory[]) => {
+		return transactions.map((reportsData, index) => (
 			<li key={index}>
 				<AnalystIncomeTransactions
-					firstDate={savingsData.firstDate}
-					secondDate={savingsData.secondDate}
-					purpose={savingsData.purpose}
-					sum={savingsData.sum}
+					category_id={reportsData.category_id}
+					category_name={reportsData.category_name}
+					amount={reportsData.amount}
 				/>
 			</li>
 		));
 	};
 
-	const renderAnalyticsExpensesTransactions = (transactions: IAnalyticsTransactions[]) => {
-		return transactions.map((savingsData, index) => (
+	const renderAnalyticsExpensesTransactions = (transactions: IReportCategory[]) => {
+		return transactions.map((reportsData, index) => (
 			<li key={index}>
-				{/* <AnalystExpensesTransactions
-				amount={}
-				month=""
-				category_id={}
-					// firstDate={savingsData.firstDate}
-					// secondDate={savingsData.secondDate}
-					// purpose={savingsData.purpose}
-					// sum={savingsData.sum}
-				/> */}
+				<AnalystExpensesTransactions
+					category_id={reportsData.category_id}
+					category_name={reportsData.category_name}
+					amount={reportsData.amount}
+				/>
 			</li>
 		));
 	};
 
-	const renderAnalyticsSavingsTransactions = (transactions: IAnalyticsTransactions[]) => {
-		return transactions.map((savingsData, index) => (
+	const renderAnalyticsSavingsTransactions = (transactions: IReportCategory[]) => {
+		return transactions.map((reportsData, index) => (
 			<li key={index}>
 				<AnalystSavingsTransactions
-					firstDate={savingsData.firstDate}
-					secondDate={savingsData.secondDate}
-					purpose={savingsData.purpose}
-					sum={savingsData.sum}
+					category_id={reportsData.category_id}
+					category_name={reportsData.category_name}
+					amount={reportsData.amount}
 				/>
 			</li>
 		));
@@ -342,8 +345,12 @@ function Analytics() {
 				<div className={styles.analyticsListOfOperationsDownloadWrapper}>
 					<p className={styles.analyticsListOfOperationsDownloadWrapper__title}>Скачать</p>
 					<div className={styles.analyticsListOfOperationsButtonContent}>
-						<button className={styles.analyticsListOfOperationsButtonContent__PdfButton}>PDF</button>
-						<button className={styles.analyticsListOfOperationsButtonContent__XslButton}>XSL</button>
+						<button className={styles.analyticsListOfOperationsButtonContent__PdfButton} onClick={handlePdfButtonClick}>
+							PDF
+						</button>
+						<button className={styles.analyticsListOfOperationsButtonContent__XslButton} onClick={handleXslButtonClick}>
+							XSL
+						</button>
 					</div>
 				</div>
 			</div>

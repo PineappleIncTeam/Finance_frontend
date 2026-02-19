@@ -27,5 +27,8 @@ export const getUserBalanceEndPoint = "api/v1/reports/balance/";
 
 export const currencyEndpoint = "api/v1/currency/";
 
+export const getStatisticPdfFileEndpoint = "api/v1/import/pdf/";
+export const getStatisticXlsFileEndpoint = "api/v1/import/xls/";
+
 export const vkAuthorisationEndPoint = "api/v1/vkauth/";
 export const vkLogoutEndpoint = "api/v1/vklogout/";

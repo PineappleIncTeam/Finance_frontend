@@ -360,20 +360,10 @@ function useAnalyticsPage() {
 				),
 			);
 
-			console.log("PDF Responses received:", responses);
-
 			responses.forEach((response, index) => {
-				console.log(`Processing PDF response ${index}:`, response);
-				console.log(`Data type: ${typeof response.data}`);
 				if (response.data) {
-					// Log first 50 chars to check format
-					const preview = typeof response.data === "string" ? response.data.substring(0, 50) : "Not a string";
-					console.log(`Data preview: ${preview}`);
-
 					const fileName = `report_${fileLoadTypeList[index]}_${new Date().toISOString().substring(0, 19)}.pdf`;
 					downloadFile(response.data, fileName);
-				} else {
-					console.warn(`No data in response for ${fileLoadTypeList[index]}`);
 				}
 			});
 		} catch (error) {

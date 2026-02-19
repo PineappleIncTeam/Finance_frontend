@@ -10,7 +10,7 @@ export const getStatisticXslFile = async (baseUrl: string, data: IStatisticFileP
 			type: data.type,
 			days: data.days,
 		},
-		responseType: "text",
+		responseType: "blob",
 		withCredentials: true,
 		withTokenRefresh: true,
 	});

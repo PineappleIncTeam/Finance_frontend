@@ -1,4 +1,4 @@
-import { ExpenseLabel, MonthlyExpenses } from "../../types/pages/Analytics";
+import { MonthlyExpenses } from "../../types/pages/Analytics";
 
 // export const expensesLabels: string[] = [
 // 	"Внезапная покупка",
@@ -113,7 +113,7 @@ export const monthlyExpenses: MonthlyExpenses = {
 // 	1690.01, 26000.15, 520.0, 520.0, 520.0, 520.0, 9586.33,
 // ];
 
-export const expensesMapping: Record<ExpenseLabel, { label: string; value: number }> = {
+export const expensesMapping: Record<string, { label: string; value: number }> = {
 	"Внезапная покупка": { label: "Внезапная покупка", value: 1300.01 },
 	Стрижка: { label: "Стрижка", value: 3900.02 },
 	Бассейн: { label: "Бассейн", value: 3250.02 },

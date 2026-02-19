@@ -11,8 +11,8 @@ import { useLogoutTimer } from "../../../hooks/useLogoutTimer";
 import { useDebouncedCallback } from "../../../hooks/useDebounce";
 import { useAppSelector } from "../../../services/redux/hooks";
 
-import { IAnalyticsInputForm, TImportStatisticFileTypes } from "../../../types/pages/Analytics";
-import { DisplayMode, Operation } from "../../../helpers/analytics";
+import { IAnalyticsInputForm } from "../../../types/pages/Analytics";
+import { DisplayMode, fileLoadTypeList, Operation } from "../../../helpers/analytics";
 import { generateRandomColors } from "../../../utils/generateRandomColor";
 import { mockBaseUrl } from "../../../mocks/envConsts";
 import {
@@ -27,11 +27,11 @@ import {
 } from "../../../services/redux/features/reportsCategories/reportsCategorySelector";
 import { reportStatisticsSelector } from "../../../services/redux/features/reportStatistics/reportStatisticsSelector";
 import { balanceSelector } from "../../../services/redux/features/userBalance/balanceSelector";
-
 import { getStatisticPdfFile } from "../../../services/api/userProfile/getStatisticPdfFile";
 import { MainPath } from "../../../services/router/routes";
 import { calculateDaysBetween } from "../../../utils/calculateDaysBetween";
 import { getStatisticXslFile } from "../../../services/api/userProfile/getStatisticXslFile";
+import { downloadFile } from "../../../utils/downloadFile";
 
 function useAnalyticsPage() {
 	const { control, watch } = useForm<IAnalyticsInputForm>({
@@ -351,20 +351,21 @@ function useAnalyticsPage() {
 		try {
 			const days = calculateDaysBetween(selectedDate);
 
-			await Promise.all([
-				getStatisticPdfFile(baseUrl, {
-					type: TImportStatisticFileTypes.outcome,
-					days,
-				}),
-				getStatisticPdfFile(baseUrl, {
-					type: TImportStatisticFileTypes.income,
-					days,
-				}),
-				getStatisticPdfFile(baseUrl, {
-					type: TImportStatisticFileTypes.targets,
-					days,
-				}),
-			]);
+			const responses = await Promise.all(
+				fileLoadTypeList.map((type) =>
+					getStatisticPdfFile(baseUrl, {
+						type,
+						days,
+					}),
+				),
+			);
+
+			responses.forEach((response, index) => {
+				if (response.data) {
+					const fileName = `report_${fileLoadTypeList[index]}_${new Date().toISOString().split("T")[0]}.pdf`;
+					downloadFile(response.data, fileName);
+				}
+			});
 		} catch (error) {
 			if (
 				axios.isAxiosError(error) &&
@@ -382,20 +383,21 @@ function useAnalyticsPage() {
 		try {
 			const days = calculateDaysBetween(selectedDate);
 
-			await Promise.all([
-				getStatisticXslFile(baseUrl, {
-					type: TImportStatisticFileTypes.outcome,
-					days,
-				}),
-				getStatisticXslFile(baseUrl, {
-					type: TImportStatisticFileTypes.income,
-					days,
-				}),
-				getStatisticXslFile(baseUrl, {
-					type: TImportStatisticFileTypes.targets,
-					days,
-				}),
-			]);
+			const responses = await Promise.all(
+				fileLoadTypeList.map((type) =>
+					getStatisticXslFile(baseUrl, {
+						type,
+						days,
+					}),
+				),
+			);
+
+			responses.forEach((response, index) => {
+				if (response.data) {
+					const fileName = `report_${fileLoadTypeList[index]}_${new Date().toISOString().split("T")[0]}.xlsx`;
+					downloadFile(response.data, fileName);
+				}
+			});
 		} catch (error) {
 			if (
 				axios.isAxiosError(error) &&

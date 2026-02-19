@@ -1,3 +1,5 @@
+import { ImportStatisticFileTypes } from "../types/pages/Analytics";
+
 export enum Operation {
 	Expenses = "Расходы",
 	Income = "Доходы",
@@ -11,3 +13,9 @@ export enum DisplayMode {
 	EUR = "eur",
 	PERCENT = "percent",
 }
+
+export const fileLoadTypeList = [
+	ImportStatisticFileTypes.outcome,
+	ImportStatisticFileTypes.income,
+	ImportStatisticFileTypes.targets,
+];

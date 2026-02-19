@@ -2,7 +2,7 @@ export interface IFinancialTransaction {
 	category_id: number;
 	category_name?: string;
 	amount: number;
-	month: string;
+	month?: string;
 }
 
 export interface ICategoryBudget {

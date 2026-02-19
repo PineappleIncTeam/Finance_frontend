@@ -1,6 +1,4 @@
-import { IAnalyticsTransactions } from "../types/components/ComponentsTypes";
-
-export const analyticsSavingsTransactions: IAnalyticsTransactions[] = [
+export const analyticsSavingsTransactions = [
 	{
 		firstDate: "25 января 2024, Пт",
 		secondDate: "25.01.24, Пт",

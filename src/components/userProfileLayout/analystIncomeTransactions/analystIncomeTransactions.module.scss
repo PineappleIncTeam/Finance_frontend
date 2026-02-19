@@ -15,8 +15,9 @@
 	border-bottom: 1px solid var(--color-ghost-white);
 
 	&:nth-child(2) {
-		display: none;
+		display: block;
 	}
+
 	&:nth-child(4) {
 		width: 80%;
 		text-align: end;
@@ -38,11 +39,13 @@
 		&:nth-child(1) {
 			display: none;
 		}
+
 		&:nth-child(2) {
 			display: block;
 			width: 80%;
 			margin-right: 6px;
 		}
+
 		&:nth-child(4) {
 			width: 100%;
 		}

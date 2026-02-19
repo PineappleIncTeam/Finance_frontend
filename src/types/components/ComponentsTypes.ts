@@ -75,12 +75,13 @@ export interface IBurgerMenu {
 	setShowMenu: Dispatch<SetStateAction<boolean>>;
 }
 
-export interface IAnalyticsTransactions {
-	firstDate: string;
-	secondDate: string;
-	purpose: string;
-	sum: string;
-}
+// TODO: Replace with date response
+// export interface IAnalyticsTransactions {
+// 	firstDate: string;
+// 	secondDate: string;
+// 	purpose: string;
+// 	sum: string;
+// }
 
 export interface ISavingsItem {
 	category: string;

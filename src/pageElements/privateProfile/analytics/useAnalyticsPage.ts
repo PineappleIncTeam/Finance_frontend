@@ -1,20 +1,18 @@
+/* eslint-disable camelcase */
 import { ChangeEvent, useCallback, useEffect, useMemo, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
+import axios from "axios";
+import { useRouter } from "next/navigation";
 
 import { useRuntimeEnv } from "../../../hooks/useRuntimeEnv";
 import { useHandleLogout } from "../../../hooks/useHandleLogout";
 import { useLogoutTimer } from "../../../hooks/useLogoutTimer";
 import { useDebouncedCallback } from "../../../hooks/useDebounce";
+import { useAppSelector } from "../../../services/redux/hooks";
 
-import { ExpenseLabel, IAnalyticsInputForm } from "../../../types/pages/Analytics";
+import { IAnalyticsInputForm, TImportStatisticFileTypes } from "../../../types/pages/Analytics";
 import { DisplayMode, Operation } from "../../../helpers/analytics";
-import {
-	expensesLabels,
-	expensesMapping,
-	monthlyExpenses,
-	rawExpensesData,
-} from "../../../mocks/analytics/analyticsMocks";
 import { generateRandomColors } from "../../../utils/generateRandomColor";
 import { mockBaseUrl } from "../../../mocks/envConsts";
 import {
@@ -22,18 +20,32 @@ import {
 	reportCategoriesActions,
 	reportsStatisticsActions,
 } from "../../../types/redux/sagaActions/storeSaga.actions";
+import {
+	reportsExpensesCategoriesSelector,
+	reportsProfitCategoriesSelector,
+	reportsTargetsCategoriesSelector,
+} from "../../../services/redux/features/reportsCategories/reportsCategorySelector";
+import { reportStatisticsSelector } from "../../../services/redux/features/reportStatistics/reportStatisticsSelector";
+import { balanceSelector } from "../../../services/redux/features/userBalance/balanceSelector";
+
+import { getStatisticPdfFile } from "../../../services/api/userProfile/getStatisticPdfFile";
+import { MainPath } from "../../../services/router/routes";
+import { calculateDaysBetween } from "../../../utils/calculateDaysBetween";
+import { getStatisticXslFile } from "../../../services/api/userProfile/getStatisticXslFile";
 
 function useAnalyticsPage() {
 	const { control, watch } = useForm<IAnalyticsInputForm>({
 		defaultValues: {
 			sum: "",
 			number: "Расходы",
+			date: [],
 		},
 		mode: "all",
 		delayError: 200,
 	});
 
 	const selectedOperation = watch("number");
+	const selectedDate = watch("date");
 	const operation: string = selectedOperation || Operation.Expenses;
 
 	const windowSize = 1440;
@@ -62,19 +74,20 @@ function useAnalyticsPage() {
 	const { resetTimer, setIsOpenInactivityLogoutModal, isOpenInactivityLogoutModal } = useLogoutTimer(request);
 
 	const dispatch = useDispatch();
+	const router = useRouter();
+
+	const profitMoneyData = useAppSelector(reportsProfitCategoriesSelector);
+	const expensesData = useAppSelector(reportsExpensesCategoriesSelector);
+	const savingsData = useAppSelector(reportsTargetsCategoriesSelector);
+
+	const reportStatisticData = useAppSelector(reportStatisticsSelector).data;
+
+	const balanceData = useAppSelector(balanceSelector);
 
 	const gettingIsLabel = useMemo(() => windowWidth > windowResizeLabel, [windowWidth]);
 
 	const gettingChartHeight = useMemo(() => {
 		return windowWidth < windowSizeS ? 238 : 298;
-	}, [windowWidth]);
-
-	const gettingRotation = useMemo(() => {
-		if (windowWidth <= windowSizeS) {
-			return { maxRotation: 90, minRotation: 90 };
-		} else {
-			return { maxRotation: 0, minRotation: 0 };
-		}
 	}, [windowWidth]);
 
 	const gettingItemsToShow = useMemo(() => {
@@ -94,19 +107,12 @@ function useAnalyticsPage() {
 		}
 	}, [windowWidth, operation, maximalRowValue, minimalRowValue]);
 
-	const rawAnalysisData = [50000, 50000];
+	const rawAnalysisData = [reportStatisticData.total_income, reportStatisticData.total_expenses];
 
-	const expensesLabelsLengthValue = expensesLabels.length;
+	const expensesLabelsLengthValue = expensesData.length;
+	const profitMoneyLengthValue = profitMoneyData.length;
 
 	const analysisLabels: string[] = ["Общий расход", "Общий доход"];
-
-	const gettingMonthNames = useMemo(() => {
-		if (windowWidth <= windowSizeS) {
-			return ["Янв.", "Февр.", "Март", "Апр.", "Май", "Июн.", "Июль", "Авг.", "Сент.", "Окт.", "Нояб.", "Дек."];
-		} else {
-			return Object.keys(monthlyExpenses);
-		}
-	}, [windowWidth]);
 
 	const handleResize = useDebouncedCallback(() => {
 		setWindowWidth(window.innerWidth);
@@ -134,64 +140,64 @@ function useAnalyticsPage() {
 		setDisplayMode(value);
 	}, []);
 
-	const randomColorSet = useMemo(() => {
+	const randomExpensesColorSet = useMemo(() => {
 		return generateRandomColors(expensesLabelsLengthValue);
 	}, [expensesLabelsLengthValue]);
 
+	const randomIncomeColorSet = useMemo(() => {
+		return generateRandomColors(profitMoneyLengthValue);
+	}, [profitMoneyLengthValue]);
+
+	function getExpensesDetailsData(mode: "labels" | "rawData") {
+		if (mode === "labels") {
+			return expensesData.map((expenseData) => expenseData.category_name);
+		}
+
+		return expensesData.map((expenseData) => expenseData.amount);
+	}
+
 	const gettingExpensesData = useMemo(
 		() => ({
-			labels: expensesLabels,
+			labels: getExpensesDetailsData("labels") as string[],
 			datasets: [
 				{
 					label: "Расходы",
-					data: rawExpensesData.map((value) =>
-						displayMode === DisplayMode.RUB ? value : ((value / 130000) * 100).toFixed(2),
+					data: getExpensesDetailsData("rawData").map((value) =>
+						displayMode === DisplayMode.RUB ? value : ((Number(value) / 130000) * 100).toFixed(2),
 					),
-					backgroundColor: randomColorSet,
+					backgroundColor: randomExpensesColorSet,
 					borderWidth: 0,
 				},
 			],
 		}),
-		[displayMode, randomColorSet],
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+		[displayMode, randomExpensesColorSet],
 	);
 
-	const gettingDataIncome = useMemo(() => {
-		const uniqueLabels = Array.from(
-			new Set(
-				Object.values(monthlyExpenses)
-					.flat()
-					.map((expense) => Object.keys(expense)[0]),
-			),
-		);
+	function getIncomeDetailsData(mode: "labels" | "rawData") {
+		if (mode === "labels") {
+			return profitMoneyData.map((expenseData) => expenseData.category_name);
+		}
 
-		const dataSetsIncome = uniqueLabels.map((label, index) => {
-			const typedLabel = label as ExpenseLabel;
+		return profitMoneyData.map((expenseData) => expenseData.amount);
+	}
 
-			if (typedLabel in expensesMapping) {
-				return {
-					label: expensesMapping[typedLabel].label,
-					data: Object.keys(monthlyExpenses).map((month) => {
-						const expenseData = monthlyExpenses[month].find((exp) => Object.keys(exp)[0] === typedLabel);
-						return expenseData ? expenseData[typedLabel] : 0;
-					}),
-					backgroundColor: randomColorSet[index % randomColorSet.length],
-					barThickness: 10,
-				};
-			} else {
-				return {
-					label: label,
-					data: Array(Object.keys(monthlyExpenses).length).fill(0),
-					backgroundColor: randomColorSet[index % randomColorSet.length],
-					barThickness: 10,
-				};
-			}
-		});
-
-		return {
-			labels: gettingMonthNames,
-			datasets: dataSetsIncome,
-		};
-	}, [gettingMonthNames, randomColorSet]);
+	const gettingIncomeData = useMemo(
+		() => ({
+			labels: getIncomeDetailsData("labels") as string[],
+			datasets: [
+				{
+					label: "Доходы",
+					data: getIncomeDetailsData("rawData").map((value) =>
+						displayMode === DisplayMode.RUB ? value : ((Number(value) / 130000) * 100).toFixed(2),
+					),
+					backgroundColor: randomIncomeColorSet,
+					borderWidth: 0,
+				},
+			],
+		}),
+		[displayMode, randomIncomeColorSet],
+	);
 
 	const gettingDisplayExpensesData = useMemo(
 		() =>
@@ -203,43 +209,109 @@ function useAnalyticsPage() {
 		[gettingExpensesData],
 	);
 
-	const gettingRotationOptions = useMemo(
-		() => ({
-			responsive: true,
-			maintainAspectRatio: false,
-			scales: {
-				x: {
-					ticks: {
-						autoSkip: false,
-						maxRotation: gettingRotation.maxRotation,
-						minRotation: gettingRotation.minRotation,
-					},
-					grid: {
-						display: false,
-					},
-					stacked: true,
-				},
-				y: {
-					border: {
-						display: false,
-					},
-					beginAtZero: true,
-					ticks: {
-						stepSize: 5000,
-						callback: (tickValue: string | number) => {
-							const value = typeof tickValue === "string" ? parseFloat(tickValue) : tickValue;
-							if (window.innerWidth <= windowSizeXS && value >= 1000) {
-								return value / 1000 + "K";
-							}
-							return value;
-						},
-					},
-					stacked: true,
-				},
-			},
-		}),
-		[gettingRotation, windowWidth],
+	const gettingDisplayIncomesData = useMemo(
+		() =>
+			gettingIncomeData.labels.map((label, index) => ({
+				title: label,
+				value: gettingIncomeData.datasets[0].data[index],
+				background: gettingIncomeData.datasets[0].backgroundColor[index],
+			})),
+		[gettingIncomeData],
 	);
+
+	// TODO: Replace with date response
+
+	// const gettingMonthNames = useMemo(() => {
+	// 	if (windowWidth <= windowSizeS) {
+	// 		return ["Янв.", "Февр.", "Март", "Апр.", "Май", "Июн.", "Июль", "Авг.", "Сент.", "Окт.", "Нояб.", "Дек."];
+	// 	} else {
+	// 		return Object.keys(monthlyExpenses);
+	// 	}
+	// }, [windowWidth]);
+
+	// const gettingRotation = useMemo(() => {
+	// 	if (windowWidth <= windowSizeS) {
+	// 		return { maxRotation: 90, minRotation: 90 };
+	// 	} else {
+	// 		return { maxRotation: 0, minRotation: 0 };
+	// 	}
+	// }, [windowWidth]);
+
+	// const gettingRotationOptions = useMemo(
+	// 	() => ({
+	// 		responsive: true,
+	// 		maintainAspectRatio: false,
+	// 		scales: {
+	// 			x: {
+	// 				ticks: {
+	// 					autoSkip: false,
+	// 					maxRotation: gettingRotation.maxRotation,
+	// 					minRotation: gettingRotation.minRotation,
+	// 				},
+	// 				grid: {
+	// 					display: false,
+	// 				},
+	// 				stacked: true,
+	// 			},
+	// 			y: {
+	// 				border: {
+	// 					display: false,
+	// 				},
+	// 				beginAtZero: true,
+	// 				ticks: {
+	// 					stepSize: 5000,
+	// 					callback: (tickValue: string | number) => {
+	// 						const value = typeof tickValue === "string" ? parseFloat(tickValue) : tickValue;
+	// 						if (window.innerWidth <= windowSizeXS && value >= 1000) {
+	// 							return value / 1000 + "K";
+	// 						}
+	// 						return value;
+	// 					},
+	// 				},
+	// 				stacked: true,
+	// 			},
+	// 		},
+	// 	}),
+	// 	[gettingRotation, windowWidth],
+	// );
+
+	// const gettingDataIncome = useMemo(() => {
+	// 	const uniqueLabels = Array.from(
+	// 		new Set(
+	// 			Object.values(monthlyExpenses)
+	// 				.flat()
+	// 				.map((expense) => Object.keys(expense)[0]),
+	// 		),
+	// 	);
+
+	// 	const dataSetsIncome = uniqueLabels.map((label, index) => {
+	// 		const typedLabel = label as ExpenseLabel;
+
+	// 		if (typedLabel in expensesMapping) {
+	// 			return {
+	// 				label: expensesMapping[typedLabel].label,
+	// 				data: Object.keys(monthlyExpenses).map((month) => {
+	// 					const expenseData = monthlyExpenses[month].find((exp) => Object.keys(exp)[0] === typedLabel);
+	// 					return expenseData ? expenseData[typedLabel] : 0;
+	// 				}),
+	// 				backgroundColor: randomColorSet[index % randomColorSet.length],
+	// 				barThickness: 10,
+	// 			};
+	// 		} else {
+	// 			return {
+	// 				label: label,
+	// 				data: Array(Object.keys(monthlyExpenses).length).fill(0),
+	// 				backgroundColor: randomColorSet[index % randomColorSet.length],
+	// 				barThickness: 10,
+	// 			};
+	// 		}
+	// 	});
+
+	// 	return {
+	// 		labels: gettingMonthNames,
+	// 		datasets: dataSetsIncome,
+	// 	};
+	// }, [gettingMonthNames, randomColorSet]);
 
 	const gettingDataAnalysis = useMemo(
 		() => ({
@@ -249,12 +321,13 @@ function useAnalyticsPage() {
 					data: rawAnalysisData.map((value) =>
 						displayMode === DisplayMode.RUB ? value : ((value / 130000) * 100).toFixed(2),
 					),
-					backgroundColor: randomColorSet,
+					backgroundColor: randomExpensesColorSet,
 					borderWidth: 0,
 				},
 			],
 		}),
-		[displayMode, randomColorSet],
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+		[displayMode, randomExpensesColorSet],
 	);
 
 	const gettingOptionsAnalysis = useMemo(
@@ -274,6 +347,68 @@ function useAnalyticsPage() {
 		[gettingDataAnalysis],
 	);
 
+	async function handlePdfButtonClick() {
+		try {
+			const days = calculateDaysBetween(selectedDate);
+
+			await Promise.all([
+				getStatisticPdfFile(baseUrl, {
+					type: TImportStatisticFileTypes.outcome,
+					days,
+				}),
+				getStatisticPdfFile(baseUrl, {
+					type: TImportStatisticFileTypes.income,
+					days,
+				}),
+				getStatisticPdfFile(baseUrl, {
+					type: TImportStatisticFileTypes.targets,
+					days,
+				}),
+			]);
+		} catch (error) {
+			if (
+				axios.isAxiosError(error) &&
+				error.response &&
+				error.response.status &&
+				error.response.status >= axios.HttpStatusCode.InternalServerError &&
+				error.response.status <= axios.HttpStatusCode.NetworkAuthenticationRequired
+			) {
+				router.push(MainPath.ServerError);
+			}
+		}
+	}
+
+	async function handleXslButtonClick() {
+		try {
+			const days = calculateDaysBetween(selectedDate);
+
+			await Promise.all([
+				getStatisticXslFile(baseUrl, {
+					type: TImportStatisticFileTypes.outcome,
+					days,
+				}),
+				getStatisticXslFile(baseUrl, {
+					type: TImportStatisticFileTypes.income,
+					days,
+				}),
+				getStatisticXslFile(baseUrl, {
+					type: TImportStatisticFileTypes.targets,
+					days,
+				}),
+			]);
+		} catch (error) {
+			if (
+				axios.isAxiosError(error) &&
+				error.response &&
+				error.response.status &&
+				error.response.status >= axios.HttpStatusCode.InternalServerError &&
+				error.response.status <= axios.HttpStatusCode.NetworkAuthenticationRequired
+			) {
+				router.push(MainPath.ServerError);
+			}
+		}
+	}
+
 	return {
 		control,
 		isOpenInactivityLogoutModal,
@@ -285,18 +420,25 @@ function useAnalyticsPage() {
 		gettingOptionsAnalysis,
 		gettingDisplayDataAnalysis,
 		gettingDisplayExpensesData,
+		gettingDisplayIncomesData,
 		minimalRowValue,
 		maximalRowValue,
 		windowSizeXS,
 		gettingItemsToShow,
-		gettingDataIncome,
-		gettingRotationOptions,
+		gettingIncomeData,
 		gettingChartHeight,
 		gettingExpensesData,
+		analyticsIncomeTransactions: profitMoneyData,
+		analyticsExpensesTransactions: expensesData,
+		analyticsSavingsTransactions: savingsData,
+		balanceData,
+		reportStatisticData,
 		setIsOpenInactivityLogoutModal,
 		resetTimer,
 		request,
 		handleDisplayChange,
+		handlePdfButtonClick,
+		handleXslButtonClick,
 	};
 }
 

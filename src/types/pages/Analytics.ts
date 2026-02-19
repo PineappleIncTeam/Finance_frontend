@@ -8,13 +8,13 @@ export type MonthlyExpenses = {
 	[month: string]: Array<{ [key: string]: number }>;
 };
 
-export enum TImportStatisticFileTypes {
+export enum ImportStatisticFileTypes {
 	targets = "targets",
 	outcome = "outcome",
 	income = "income",
 }
 
 export interface IStatisticFilePayload {
-	type: TImportStatisticFileTypes;
+	type: ImportStatisticFileTypes;
 	days: number;
 }

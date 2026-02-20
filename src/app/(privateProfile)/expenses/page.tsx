@@ -157,8 +157,11 @@ export default function Expenses() {
 	}, [request, resetTimer]);
 
 	useEffect(() => {
+		setFiveOperationsNames(getFiveOperationsNames());
+	}, [fiveOperations, options, getFiveOperationsNames]);
+
+	useEffect(() => {
 		(() => {
-			getFiveOperationsNames();
 			getFiveOperations();
 			getAllCategoriesOptions();
 			getAllOperations();

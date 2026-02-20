@@ -108,9 +108,12 @@ function ProfitMoney() {
 	}, [fiveOperations, options]);
 
 	useEffect(() => {
+		setFiveOperationsNames(getFiveOperationsNames());
+	}, [fiveOperations, options, getFiveOperationsNames]);
+
+	useEffect(() => {
 		(async () => {
 			await getFiveOperations();
-			setFiveOperationsNames(getFiveOperationsNames);
 			getAllCategoriesOptions();
 			getAllOperations();
 			getStatisticsData();

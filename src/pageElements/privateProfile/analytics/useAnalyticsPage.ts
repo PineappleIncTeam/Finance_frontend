@@ -1,4 +1,3 @@
-/* eslint-disable camelcase */
 import { ChangeEvent, useCallback, useEffect, useMemo, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
@@ -48,24 +47,36 @@ function useAnalyticsPage() {
 	const selectedDate = watch("date");
 	const operation: string = selectedOperation || Operation.Expenses;
 
-	const windowSize = 1440;
+	const hundredPercents = 100;
+	const debounceDelay = 200;
+	const fileNameLastLetterIndex = 19;
+	const windowSizeDefault = 1440;
 	const windowSizeM = 1024;
 	const windowSizeS = 768;
 	const windowSizeXS = 460;
 	const windowResizeLabel = 600;
-	const minimalRowValue = 0;
+
+	const operationRowValues = {
+		minimalRowValue: 0,
+		expensesRowValue: 8,
+		incomeRowValue: 5,
+	};
+
+	const chartHeightValues = {
+		mobileDisplayValue: 238,
+		desktopDisplayValue: 298,
+	};
 
 	let maximalRowValue: number = 0;
 
 	if (operation === Operation.Expenses) {
-		maximalRowValue = 8;
+		maximalRowValue = operationRowValues.expensesRowValue;
 	} else if (operation === Operation.Income) {
-		maximalRowValue = 5;
+		maximalRowValue = operationRowValues.incomeRowValue;
 	}
 
-	const [windowWidth, setWindowWidth] = useState<number>(1440);
+	const [windowWidth, setWindowWidth] = useState<number>(windowSizeDefault);
 	const [displayMode, setDisplayMode] = useState(DisplayMode.RUB);
-	const isEmptyPage = false;
 
 	const { getSafeEnvVar } = useRuntimeEnv(["NEXT_PUBLIC_BASE_URL"]);
 
@@ -84,28 +95,34 @@ function useAnalyticsPage() {
 
 	const balanceData = useAppSelector(balanceSelector);
 
+	const isEmptyPage =
+		reportStatisticData.total_expenses === 0 &&
+		reportStatisticData.total_income === 0 &&
+		reportStatisticData.total_savings === 0;
+
 	const gettingIsLabel = useMemo(() => windowWidth > windowResizeLabel, [windowWidth]);
 
 	const gettingChartHeight = useMemo(() => {
-		return windowWidth < windowSizeS ? 238 : 298;
+		return windowWidth < windowSizeS ? chartHeightValues.mobileDisplayValue : chartHeightValues.desktopDisplayValue;
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [windowWidth]);
 
 	const gettingItemsToShow = useMemo(() => {
 		if (operation === Operation.Income) {
-			if (windowWidth > windowSize) {
+			if (windowWidth > windowSizeDefault) {
 				return maximalRowValue;
-			} else if (windowWidth <= windowSize && windowWidth > windowSizeM) {
-				return minimalRowValue;
+			} else if (windowWidth <= windowSizeDefault && windowWidth > windowSizeM) {
+				return operationRowValues.minimalRowValue;
 			} else if (windowWidth <= windowSizeM && windowWidth > windowSizeS) {
 				return maximalRowValue;
 			} else if (windowWidth <= windowSizeS) {
-				return minimalRowValue;
+				return operationRowValues.minimalRowValue;
 			}
 			return maximalRowValue;
 		} else {
-			return windowWidth <= windowSize ? minimalRowValue : maximalRowValue;
+			return windowWidth <= windowSizeDefault ? operationRowValues.minimalRowValue : maximalRowValue;
 		}
-	}, [windowWidth, operation, maximalRowValue, minimalRowValue]);
+	}, [windowWidth, operation, maximalRowValue, operationRowValues.minimalRowValue]);
 
 	const rawAnalysisData = [reportStatisticData.total_income, reportStatisticData.total_expenses];
 
@@ -116,7 +133,7 @@ function useAnalyticsPage() {
 
 	const handleResize = useDebouncedCallback(() => {
 		setWindowWidth(window.innerWidth);
-	}, 200);
+	}, debounceDelay);
 
 	useEffect(() => {
 		dispatch(reportCategoriesActions.pending({ baseURL: baseUrl }));
@@ -132,7 +149,6 @@ function useAnalyticsPage() {
 		return () => {
 			window.removeEventListener("resize", handleResize);
 		};
-		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [handleResize]);
 
 	const handleDisplayChange = useCallback((event: ChangeEvent<HTMLInputElement>) => {
@@ -163,7 +179,9 @@ function useAnalyticsPage() {
 				{
 					label: "Расходы",
 					data: getExpensesDetailsData("rawData").map((value) =>
-						displayMode === DisplayMode.RUB ? value : ((Number(value) / 130000) * 100).toFixed(2),
+						displayMode === DisplayMode.RUB
+							? value
+							: ((Number(value) / reportStatisticData.total_expenses) * hundredPercents).toFixed(2),
 					),
 					backgroundColor: randomExpensesColorSet,
 					borderWidth: 0,
@@ -189,13 +207,16 @@ function useAnalyticsPage() {
 				{
 					label: "Доходы",
 					data: getIncomeDetailsData("rawData").map((value) =>
-						displayMode === DisplayMode.RUB ? value : ((Number(value) / 130000) * 100).toFixed(2),
+						displayMode === DisplayMode.RUB
+							? value
+							: ((Number(value) / reportStatisticData.total_income) * hundredPercents).toFixed(2),
 					),
 					backgroundColor: randomIncomeColorSet,
 					borderWidth: 0,
 				},
 			],
 		}),
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 		[displayMode, randomIncomeColorSet],
 	);
 
@@ -319,7 +340,9 @@ function useAnalyticsPage() {
 			datasets: [
 				{
 					data: rawAnalysisData.map((value) =>
-						displayMode === DisplayMode.RUB ? value : ((value / 130000) * 100).toFixed(2),
+						displayMode === DisplayMode.RUB
+							? value
+							: ((value / balanceData.currentBalance) * hundredPercents).toFixed(2),
 					),
 					backgroundColor: randomExpensesColorSet,
 					borderWidth: 0,
@@ -362,7 +385,7 @@ function useAnalyticsPage() {
 
 			responses.forEach((response, index) => {
 				if (response.data) {
-					const fileName = `report_${fileLoadTypeList[index]}_${new Date().toISOString().substring(0, 19)}.pdf`;
+					const fileName = `report_${fileLoadTypeList[index]}_${new Date().toISOString().substring(0, fileNameLastLetterIndex)}.pdf`;
 					downloadFile(response.data, fileName);
 				}
 			});
@@ -394,7 +417,7 @@ function useAnalyticsPage() {
 
 			responses.forEach((response, index) => {
 				if (response.data) {
-					const fileName = `report_${fileLoadTypeList[index]}_${new Date().toISOString().substring(0, 19)}.xlsx`;
+					const fileName = `report_${fileLoadTypeList[index]}_${new Date().toISOString().substring(0, fileNameLastLetterIndex)}.xlsx`;
 					downloadFile(response.data, fileName);
 				}
 			});
@@ -423,7 +446,7 @@ function useAnalyticsPage() {
 		gettingDisplayDataAnalysis,
 		gettingDisplayExpensesData,
 		gettingDisplayIncomesData,
-		minimalRowValue,
+		minimalRowValue: operationRowValues.minimalRowValue,
 		maximalRowValue,
 		windowSizeXS,
 		gettingItemsToShow,

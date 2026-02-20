@@ -1,3 +1,7 @@
+import { millisecondsInSecond, secondsInHour } from "date-fns/constants";
+
+import { timeConsts } from "../helpers/timeConsts";
+
 export function calculateDaysBetween(dateArray: string[] | undefined) {
 	if (!dateArray || dateArray.length < 2) {
 		return 0;
@@ -10,5 +14,5 @@ export function calculateDaysBetween(dateArray: string[] | undefined) {
 
 	const diffTime = Math.abs(cleanEndDate.getTime() - cleanStartDate.getTime());
 
-	return Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+	return Math.ceil(diffTime / (millisecondsInSecond * secondsInHour * timeConsts.hoursInDay));
 }

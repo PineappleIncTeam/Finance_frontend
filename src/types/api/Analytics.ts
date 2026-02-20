@@ -26,7 +26,7 @@ export interface IReportCategory {
 	category_id: number;
 	category_name: string;
 	amount: number;
-	items: any[];
+	items: unknown[];
 }
 
 export interface IReportsCategoriesResponse {

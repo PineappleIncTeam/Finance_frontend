@@ -58,7 +58,7 @@ function Analytics() {
 		handleXslButtonClick,
 	} = useAnalyticsPage();
 
-	const renderEmptyAnaliticsPage = () => (
+	const renderEmptyAnalyticsPage = () => (
 		<div className={styles.analyticsBlankPage}>
 			<p className={styles.analyticsBlankPage__text}>
 				К сожалению, этот раздел пока пуст. Начните вести учет финансов в приложении и сможет воспользоваться этим
@@ -236,7 +236,7 @@ function Analytics() {
 		</div>
 	);
 
-	const renderContentAnaliticsPage = () => (
+	const renderContentAnalyticsPage = () => (
 		<div className={styles.analyticsPagesContent}>
 			<div className={styles.analyticsSelectContainer}>
 				<div className={styles.analyticsSelectOperation}>
@@ -387,8 +387,8 @@ function Analytics() {
 				{operation === Operation.ListOfOperations
 					? renderListOfOperations()
 					: isEmptyPage
-						? renderEmptyAnaliticsPage()
-						: renderContentAnaliticsPage()}
+						? renderEmptyAnalyticsPage()
+						: renderContentAnalyticsPage()}
 			</div>
 			<InactivityLogoutModal
 				open={isOpenInactivityLogoutModal}

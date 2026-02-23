@@ -47,6 +47,8 @@ function Service() {
 					priority={true}
 					src={mainPagePicture}
 					alt="Главная картинка с денежным деревом, калькулятором и графиками"
+					quality={65}
+					sizes="(min-width: 1200px) 50vw, 100vw"
 				/>
 			</div>
 			<div className={styles.mobileMainPageContainer}>
@@ -55,12 +57,16 @@ function Service() {
 					priority={true}
 					alt="Главная картинка с денежным деревом, калькулятором и графиками"
 					className={styles.mobileMainPageContainer__mainPictureTablet}
+					quality={65}
+					sizes="(min-width: 768px) 80vw, 100vw"
 				/>
 				<Image
 					src={mainPagePictureMobile}
 					priority={true}
 					alt="Главная картинка с денежным деревом, калькулятором и графиками"
 					className={styles.mobileMainPageContainer__mainPictureMobile}
+					quality={65}
+					sizes="(max-width: 768px) 100vw, 50vw"
 				/>
 				<h1 className={styles.mobileMainPageContainer__title}>
 					Наслаждайся расходами, <br />

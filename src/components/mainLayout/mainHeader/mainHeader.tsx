@@ -189,10 +189,26 @@ const MainHeader = () => {
 		<header className={styles.headerWrap}>
 			<div className={styles.headerContainer}>
 				<Link href={MainPath.Main} className={styles.logoLink}>
-					<Image src={logo} alt="Логотип" width={284} height={56} className={styles.headerContainer__img} />
+					<Image
+						src={logo}
+						alt="Логотип"
+						width={284}
+						height={56}
+						className={styles.headerContainer__img}
+						priority={true}
+						quality={65}
+						sizes="(max-width: 768px) 150px, 284px"
+					/>
 				</Link>
 				<button onClick={() => setIsHeaderModalOpen(!isHeaderModalOpen)}>
-					<Image src={burger} alt="Бургер" width={74} height={30} className={styles.headerContainer__burger} />
+					<Image
+						src={burger}
+						alt="Бургер"
+						width={74}
+						height={30}
+						className={styles.headerContainer__burger}
+						quality={60}
+					/>
 				</button>
 				{renderModalWindow()}
 				<nav className={styles.navigationWrap}>{renderNavigationElements()}</nav>

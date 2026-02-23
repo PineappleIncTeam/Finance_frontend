@@ -95,10 +95,10 @@ function useAnalyticsPage() {
 
 	const balanceData = useAppSelector(balanceSelector);
 
-	const isEmptyPage =
-		reportStatisticData.total_expenses === 0 &&
-		reportStatisticData.total_income === 0 &&
-		reportStatisticData.total_savings === 0;
+	const isEmptyPage = false;
+	// reportStatisticData.total_expenses === 0 &&
+	// reportStatisticData.total_income === 0 &&
+	// reportStatisticData.total_savings === 0;
 
 	const gettingIsLabel = useMemo(() => windowWidth > windowResizeLabel, [windowWidth]);
 

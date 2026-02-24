@@ -1,8 +1,16 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+import { IStatistics } from "../../../../types/api/Reports";
+
 import { reportsStatisticsActions } from "../../../../types/redux/sagaActions/storeSaga.actions";
 
-const initialState = {
+interface IReportsStatisticsState {
+	data: IStatistics | null;
+	loading: boolean;
+	error: string | null;
+}
+
+const initialState: IReportsStatisticsState = {
 	data: null,
 	loading: false,
 	error: null,

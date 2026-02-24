@@ -1,15 +1,19 @@
 /* eslint-disable camelcase */
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
+import { IStatistics } from "../../../../types/api/Reports";
+
 import { reportsStatisticsActions } from "../../../../types/redux/sagaActions/storeSaga.actions";
 import { IReportsStatisticsDataState, IReportsStatisticsState } from "../../../../types/redux/StateTypes";
 
+interface IReportsStatisticsState {
+	data: IStatistics | null;
+	loading: boolean;
+	error: string | null;
+}
+
 const initialState: IReportsStatisticsState = {
-	data: {
-		total_expenses: 0,
-		total_income: 0,
-		total_savings: 0,
-	},
+	data: null,
 	loading: false,
 	error: null,
 };

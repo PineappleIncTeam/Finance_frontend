@@ -262,7 +262,7 @@ export default function Expenses() {
 		try {
 			if (baseUrl) {
 				const response = await removeTransaction(baseUrl, id);
-				if ((response.status = axios.HttpStatusCode.Ok)) {
+				if (response.status === axios.HttpStatusCode.Ok) {
 					setIsDeleteOperationApprove(false);
 					setIsDeleteOperationSuccess(true);
 					setResponseApiRequestModal({

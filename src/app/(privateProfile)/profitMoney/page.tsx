@@ -105,9 +105,12 @@ function ProfitMoney() {
 	}, [fiveOperations, options]);
 
 	useEffect(() => {
+		setFiveOperationsNames(getFiveOperationsNames());
+	}, [fiveOperations, options, getFiveOperationsNames]);
+
+	useEffect(() => {
 		(async () => {
 			await getFiveOperations();
-			setFiveOperationsNames(getFiveOperationsNames);
 			getAllCategoriesOptions();
 		})();
 		// eslint-disable-next-line react-hooks/exhaustive-deps

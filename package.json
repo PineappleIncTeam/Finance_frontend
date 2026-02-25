@@ -3,11 +3,11 @@
 	"version": "2.33.1",
 	"private": true,
 	"scripts": {
-		"dev": "next dev",
-		"build": "next build",
+		"dev": "next dev --webpack",
+		"build": "next build --webpack",
 		"start": "next start",
 		"preCommitLint": "eslint --quiet --ext .js,.jsx,.ts,.tsx,.json ./src",
-		"prePushBuild": "next build",
+		"prePushBuild": "next build --webpack",
 		"typedoc:dev": "start ./docs/index.html",
 		"build-typedoc": "npx typedoc",
 		"lint": "eslint --ext .js,.jsx,.ts,.tsx ./src",
@@ -17,6 +17,8 @@
 	},
 	"dependencies": {
 		"@reduxjs/toolkit": "^2.11.2",
+		"@serwist/next": "^9.5.6",
+		"@serwist/sw": "^9.5.6",
 		"@vkid/sdk": "^2.6.5",
 		"axios": "^1.13.5",
 		"chart.js": "^4.5.1",
@@ -36,6 +38,7 @@
 		"redux-persist": "^6.0.0",
 		"redux-saga": "^1.4.2",
 		"sass": "^1.97.3",
+		"serwist": "^9.5.6",
 		"sharp": "^0.34.5"
 	},
 	"devDependencies": {

@@ -1,6 +1,15 @@
+<<<<<<< HEAD
 import {withSentryConfig} from "@sentry/nextjs";
+=======
+import withSerwistInit from "@serwist/next";
+>>>>>>> 0ba0aeeb (feat: add and configure pwa service worker library)
 
 import type { NextConfig } from "next";
+
+const withSerwist = withSerwistInit({
+  swSrc: "src/sw.ts",
+  swDest: "public/sw.js",
+});
 
 const nextConfig: NextConfig = {
   reactCompiler: true,
@@ -9,6 +18,7 @@ const nextConfig: NextConfig = {
   },
 };
 
+<<<<<<< HEAD
 export default withSentryConfig(nextConfig, {
   org: "pineappleinc",
   project: "fintech-frnn-fe-proj",
@@ -18,3 +28,6 @@ export default withSentryConfig(nextConfig, {
   disableLogger: true,
   automaticVercelMonitors: false
 });
+=======
+export default withSerwist(nextConfig);
+>>>>>>> 0ba0aeeb (feat: add and configure pwa service worker library)

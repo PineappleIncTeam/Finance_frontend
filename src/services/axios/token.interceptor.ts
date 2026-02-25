@@ -32,6 +32,11 @@ const processQueue = (error?: Error) => {
 axios.interceptors.response.use(
 	(response) => response,
 	async (error) => {
+		if (axios.isAxiosError(error) && !error.response) {
+			window.location.href = MainPath.Offline;
+			return Promise.reject(error);
+		}
+
 		const originalRequest: IFailedOriginalRequest = error.config;
 
 		if (

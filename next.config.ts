@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-import {withSentryConfig} from "@sentry/nextjs";
-=======
 import withSerwistInit from "@serwist/next";
->>>>>>> 0ba0aeeb (feat: add and configure pwa service worker library)
 
 import type { NextConfig } from "next";
 
@@ -18,16 +14,4 @@ const nextConfig: NextConfig = {
   },
 };
 
-<<<<<<< HEAD
-export default withSentryConfig(nextConfig, {
-  org: "pineappleinc",
-  project: "fintech-frnn-fe-proj",
-  silent: !process.env.CI,
-  widenClientFileUpload: false,
-  // tunnelRoute: "/monitoring",
-  disableLogger: true,
-  automaticVercelMonitors: false
-});
-=======
 export default withSerwist(nextConfig);
->>>>>>> 0ba0aeeb (feat: add and configure pwa service worker library)

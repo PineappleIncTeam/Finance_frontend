@@ -20,7 +20,7 @@ const serwist = new Serwist({
 				plugins: [
 					new ExpirationPlugin({
 						maxEntries: 100,
-						maxAgeSeconds: 30 * 24 * 60 * 60, // 30 дней
+						maxAgeSeconds: 30 * 24 * 60 * 60, // 30 days
 					}),
 				],
 			}),
@@ -34,6 +34,18 @@ const serwist = new Serwist({
 					new ExpirationPlugin({
 						maxEntries: 50,
 						maxAgeSeconds: 24 * 60 * 60, // 24 hours
+					}),
+				],
+			}),
+		},
+		{
+			matcher: ({ url }) => url.pathname === "/offline",
+			handler: new CacheFirst({
+				cacheName: "offline-page-cache",
+				plugins: [
+					new ExpirationPlugin({
+						maxEntries: 1,
+						maxAgeSeconds: 7 * 24 * 60 * 60, // 1 week
 					}),
 				],
 			}),

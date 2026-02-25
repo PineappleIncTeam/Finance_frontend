@@ -38,18 +38,6 @@ const serwist = new Serwist({
 				],
 			}),
 		},
-		{
-			matcher: ({ url }) => url.pathname === "/offline",
-			handler: new CacheFirst({
-				cacheName: "offline-page-cache",
-				plugins: [
-					new ExpirationPlugin({
-						maxEntries: 1,
-						maxAgeSeconds: 7 * 24 * 60 * 60, // 1 week
-					}),
-				],
-			}),
-		},
 		// 3. Страницы аутентификации/восстановления: NetworkOnly
 		{
 			matcher: /\/(?:login|signUp|changePassword|newPassword|activate)(?:\/.*)?$/,
@@ -63,6 +51,16 @@ const serwist = new Serwist({
 		// Правила кэширования по умолчанию для других ресурсов Next.js
 		...defaultCache,
 	],
+	fallbacks: {
+		entries: [
+			{
+				url: "/offline",
+				matcher({ request }) {
+					return request.destination === "document";
+				},
+			},
+		],
+	},
 });
 
 serwist.addEventListeners();

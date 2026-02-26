@@ -19,6 +19,7 @@ import { ICategoryOption } from "../../../types/common/ComponentsProps";
 import { IAddingCategoryIncomeForm } from "../../../types/pages/ProfitMoney";
 import { IOperation } from "../../../types/api/Expenses";
 import { IStatistics } from "../../../types/api/Reports";
+import { RootState } from "../../../services/redux";
 import InputDate from "../../../ui/inputDate/inputDate";
 import AppInput from "../../../ui/appInput/AppInput";
 import IncomeTransaction from "../../../components/userProfileLayout/incomeTransaction/incomeTransaction";
@@ -29,11 +30,13 @@ import { CategorySelect } from "../../../components/userProfileLayout/categorySe
 import AddButton from "../../../components/userProfileLayout/addButton/addButton";
 import InactivityLogoutModal from "../../../components/userProfileLayout/inactivityLogoutModal/inactivityLogoutModal";
 import { CategoryAddModal } from "../../../components/userProfileLayout/categoryAdd/categoryAddModal";
+import { useAppDispatch, useAppSelector } from "../../../services/redux/hooks";
+import { reportsStatisticsActions } from "../../../types/redux/sagaActions/storeSaga.actions";
+import { selectReportsStatistics } from "../../../services/redux/features/reportStatistics/reportStatisticsSelector";
 import { EditTransactionModal } from "../../../components/userProfileLayout/editTransaction/editTransaction";
 import { getFiveIncomeTransactions } from "../../../services/api/userProfile/getFiveIncomeTransactions";
 import { addIncomeCategory } from "../../../services/api/userProfile/addIncomeCategory";
 import { MainPath } from "../../../services/router/routes";
-import { getStatistics } from "../../../services/api/userProfile/getStatistics";
 import { addIncomeCategoryTransaction } from "../../../services/api/userProfile/addIncomeCategoryTransaction";
 import { removeIncomeCategory } from "../../../services/api/userProfile/removeIncomeCategory";
 import { removeTransaction } from "../../../services/api/userProfile/removeTransaction";
@@ -47,7 +50,6 @@ import { getAllIncomeCategories } from "../../../services/api/userProfile/getAll
 import { mockBaseUrl } from "../../../mocks/envConsts";
 
 import styles from "./profitMoney.module.scss";
-
 function ProfitMoney() {
 	const responseApiRequestModalInitialState = {
 		open: false,
@@ -71,7 +73,6 @@ function ProfitMoney() {
 	const [isCategoryAddModalOpen, setIsCategoryAddModalOpen] = useState<boolean>(false);
 	const [isCategoryDeleteModalOpen, setIsCategoryDeleteModalOpen] = useState<boolean>(false);
 	const [isEditTransactionModalOpen, setIsEditTransactionModalOpen] = useState<boolean>(false);
-	const [statistics, setStatistics] = useState<IStatistics | null>(null);
 
 	const { control, handleSubmit } = useForm<IAddCategoryTransactionForm & IExpensesCategoryForm>({
 		defaultValues: {
@@ -89,6 +90,10 @@ function ProfitMoney() {
 	const baseUrl = getSafeEnvVar("NEXT_PUBLIC_BASE_URL", mockBaseUrl);
 	const { request } = useHandleLogout(baseUrl);
 	const { resetTimer, setIsOpenInactivityLogoutModal, isOpenInactivityLogoutModal } = useLogoutTimer(request);
+
+	const dispatch = useAppDispatch();
+
+	const { data, loading, error } = useAppSelector(selectReportsStatistics);
 
 	const endDate = 10;
 	const interval = 2000;
@@ -113,7 +118,6 @@ function ProfitMoney() {
 			setFiveOperationsNames(getFiveOperationsNames);
 			getAllCategoriesOptions();
 			getAllOperations();
-			getStatisticsData();
 		})();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
@@ -149,6 +153,14 @@ function ProfitMoney() {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [isDeleteOperationSuccess, isEditSuccess, isAddSuccess]);
 
+	useEffect(() => {
+		dispatch(
+			reportsStatisticsActions.pending({
+				baseURL: baseUrl,
+			}),
+		);
+	}, []);
+
 	const getFiveOperations = async () => {
 		const data = {
 			type: "income",
@@ -158,27 +170,6 @@ function ProfitMoney() {
 				const response: AxiosResponse<IFiveOperations[]> = await getFiveIncomeTransactions(baseUrl, data);
 				if (response !== null && response.status === axios.HttpStatusCode.Ok) {
 					setFiveOperations(response.data as unknown as IOperation[]);
-				}
-			}
-		} catch (error) {
-			if (
-				axios.isAxiosError(error) &&
-				error.response &&
-				error.response.status &&
-				error.response.status >= axios.HttpStatusCode.InternalServerError &&
-				error.response.status <= axios.HttpStatusCode.NetworkAuthenticationRequired
-			) {
-				router.push(MainPath.ServerError);
-			}
-		}
-	};
-
-	const getStatisticsData = async () => {
-		try {
-			if (baseUrl) {
-				const response = await getStatistics(baseUrl);
-				if (response.status === axios.HttpStatusCode.Ok) {
-					setStatistics(response.data);
 				}
 			}
 		} catch (error) {
@@ -237,6 +228,12 @@ function ProfitMoney() {
 
 				const response = await addIncomeCategory(baseUrl, payloadData);
 				if (response.status === axios.HttpStatusCode.Created) {
+					dispatch(
+						reportsStatisticsActions.pending({
+							baseURL: baseUrl,
+						}),
+					);
+
 					setIsCategoryAddModalOpen(false);
 					setIsAddSuccess(true);
 					setResponseApiRequestModal({
@@ -303,6 +300,12 @@ function ProfitMoney() {
 			if (baseUrl && data !== null) {
 				const response = await editCategoryTransaction(baseUrl, id, data);
 				if (response.status === axios.HttpStatusCode.Ok) {
+					dispatch(
+						reportsStatisticsActions.pending({
+							baseURL: baseUrl,
+						}),
+					);
+
 					setIsEditTransactionModalOpen(false);
 					setIsEditSuccess(true);
 					setResponseApiRequestModal({
@@ -333,6 +336,12 @@ function ProfitMoney() {
 			if (baseUrl) {
 				const response = await removeTransaction(baseUrl, id);
 				if (response.status === axios.HttpStatusCode.Ok) {
+					dispatch(
+						reportsStatisticsActions.pending({
+							baseURL: baseUrl,
+						}),
+					);
+
 					setIsDeleteOperationApprove(false);
 					setIsDeleteOperationSuccess(true);
 					setResponseApiRequestModal({
@@ -434,6 +443,11 @@ function ProfitMoney() {
 			if (baseUrl && data !== null) {
 				const response = await addIncomeCategoryTransaction(baseUrl, transactionData);
 				if (response.status === axios.HttpStatusCode.Created) {
+					dispatch(
+						reportsStatisticsActions.pending({
+							baseURL: baseUrl,
+						}),
+					);
 					setIsCategoryAddModalOpen(false);
 					setIsAddSuccess(true);
 					setResponseApiRequestModal({
@@ -475,7 +489,7 @@ function ProfitMoney() {
 					<div className={styles.profitMoneyGridWrapper}>
 						<div className={styles.totalMonthlyWrapper}>
 							<p className={styles.totalMonthlyWrapper__month}>Общий доход за Январь</p>
-							<p className={styles.totalMonthlyWrapper__sum}>{statistics?.total_income?.toLocaleString("ru-RU")} ₽</p>
+							<p className={styles.totalMonthlyWrapper__sum}>{data?.total_income?.toLocaleString("ru-RU")} ₽</p>
 						</div>
 						<div className={styles.dateSelectionWrapper}>
 							<InputDate control={control} name={"date"} />

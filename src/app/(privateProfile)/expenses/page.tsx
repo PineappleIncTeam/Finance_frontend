@@ -9,6 +9,9 @@ import { useHandleLogout } from "../../../hooks/useHandleLogout";
 import { useLogoutTimer } from "../../../hooks/useLogoutTimer";
 import { useRuntimeEnv } from "../../../hooks/useRuntimeEnv";
 
+import { RootState } from "../../../services/redux";
+import { useAppDispatch, useAppSelector } from "../../../services/redux/hooks";
+
 import { IAddCategoryTransactionForm, IExpensesCategoryForm } from "../../../types/pages/Expenses";
 import { IAddCategoryExpensesForm, IEditTransactionForm } from "../../../types/components/ComponentsTypes";
 import { ICategoryOption } from "../../../types/common/ComponentsProps";
@@ -25,11 +28,12 @@ import { CategorySelect } from "../../../components/userProfileLayout/categorySe
 import AddButton from "../../../components/userProfileLayout/addButton/addButton";
 import InactivityLogoutModal from "../../../components/userProfileLayout/inactivityLogoutModal/inactivityLogoutModal";
 import { CategoryAddModal } from "../../../components/userProfileLayout/categoryAdd/categoryAddModal";
-import { getStatistics } from "../../../services/api/userProfile/getStatistics";
 import { getFiveExpensesTransactions } from "../../../services/api/userProfile/getFiveExpensesTransactions";
 import { addExpensesCategory } from "../../../services/api/userProfile/addExpensesCategory";
 import { MainPath } from "../../../services/router/routes";
 import { addExpensesCategoryTransaction } from "../../../services/api/userProfile/addExpensesCategoryTransaction";
+import { reportsStatisticsActions } from "../../../types/redux/sagaActions/storeSaga.actions";
+import { selectReportsStatistics } from "../../../services/redux/features/reportStatistics/reportStatisticsSelector";
 import { removeExpensesCategory } from "../../../services/api/userProfile/removeExpensesCategory";
 import { removeTransaction } from "../../../services/api/userProfile/removeTransaction";
 import { editCategoryTransaction } from "../../../services/api/userProfile/editCategoryTransaction";
@@ -66,7 +70,6 @@ export default function Expenses() {
 	const [isEditTransactionModalOpen, setIsEditTransactionModalOpen] = useState<boolean>(false);
 	const [isCategoryAddModalOpen, setIsCategoryAddModalOpen] = useState<boolean>(false);
 	const [isCategoryDeleteModalOpen, setIsCategoryDeleteModalOpen] = useState<boolean>(false);
-	const [statistics, setStatistics] = useState<IStatistics | null>(null);
 
 	const { control, handleSubmit } = useForm<IAddCategoryTransactionForm & IExpensesCategoryForm>({
 		defaultValues: {
@@ -80,6 +83,9 @@ export default function Expenses() {
 
 	const router = useRouter();
 	const { getSafeEnvVar } = useRuntimeEnv(["NEXT_PUBLIC_BASE_URL"]);
+
+	const dispatch = useAppDispatch();
+	const { data, loading, error } = useAppSelector(selectReportsStatistics);
 
 	const baseUrl = getSafeEnvVar("NEXT_PUBLIC_BASE_URL", mockBaseUrl);
 	const { request } = useHandleLogout(baseUrl);
@@ -157,15 +163,18 @@ export default function Expenses() {
 	}, [request, resetTimer]);
 
 	useEffect(() => {
-		setFiveOperationsNames(getFiveOperationsNames());
-	}, [fiveOperations, options, getFiveOperationsNames]);
+		dispatch(
+			reportsStatisticsActions.pending({
+				baseURL: baseUrl,
+			}),
+		);
+	}, [dispatch, baseUrl]);
 
 	useEffect(() => {
 		(() => {
 			getFiveOperations();
 			getAllCategoriesOptions();
 			getAllOperations();
-			getStatisticsData();
 		})();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
@@ -199,6 +208,11 @@ export default function Expenses() {
 			if (baseUrl && data !== null) {
 				const response = await addExpensesCategory(baseUrl, data);
 				if (response.status === axios.HttpStatusCode.Created) {
+					dispatch(
+						reportsStatisticsActions.pending({
+							baseURL: baseUrl,
+						}),
+					);
 					setIsCategoryAddModalOpen(false);
 					setIsAddSuccess(true);
 					setResponseApiRequestModal({
@@ -234,6 +248,11 @@ export default function Expenses() {
 			if (baseUrl && id !== null) {
 				const response = await removeExpensesCategory(baseUrl, String(id));
 				if (response.status === axios.HttpStatusCode.Ok) {
+					dispatch(
+						reportsStatisticsActions.pending({
+							baseURL: baseUrl,
+						}),
+					);
 					setIsCategoryDeleteModalOpen(false);
 					setIsDeleteSuccessCategory(true);
 					setResponseApiRequestModal({
@@ -263,6 +282,11 @@ export default function Expenses() {
 			if (baseUrl) {
 				const response = await removeTransaction(baseUrl, id);
 				if (response.status === axios.HttpStatusCode.Ok) {
+					dispatch(
+						reportsStatisticsActions.pending({
+							baseURL: baseUrl,
+						}),
+					);
 					setIsDeleteOperationApprove(false);
 					setIsDeleteOperationSuccess(true);
 					setResponseApiRequestModal({
@@ -294,6 +318,11 @@ export default function Expenses() {
 			if (baseUrl && data !== null) {
 				const response = await editCategoryTransaction(baseUrl, id, data);
 				if (response.status === axios.HttpStatusCode.Ok) {
+					dispatch(
+						reportsStatisticsActions.pending({
+							baseURL: baseUrl,
+						}),
+					);
 					setIsEditTransactionModalOpen(false);
 					setIsEditSuccess(true);
 					setResponseApiRequestModal({
@@ -304,27 +333,6 @@ export default function Expenses() {
 						setResponseApiRequestModal(responseApiRequestModalInitialState);
 						setIsEditSuccess(false);
 					}, interval);
-				}
-			}
-		} catch (error) {
-			if (
-				axios.isAxiosError(error) &&
-				error.response &&
-				error.response.status &&
-				error.response.status >= axios.HttpStatusCode.InternalServerError &&
-				error.response.status <= axios.HttpStatusCode.NetworkAuthenticationRequired
-			) {
-				router.push(MainPath.ServerError);
-			}
-		}
-	};
-
-	const getStatisticsData = async () => {
-		try {
-			if (baseUrl) {
-				const response = await getStatistics(baseUrl);
-				if (response.status === axios.HttpStatusCode.Ok) {
-					setStatistics(response.data);
 				}
 			}
 		} catch (error) {
@@ -415,6 +423,11 @@ export default function Expenses() {
 			if (baseUrl && data !== null) {
 				const response = await addExpensesCategoryTransaction(baseUrl, transactionData);
 				if (response.status === axios.HttpStatusCode.Created) {
+					dispatch(
+						reportsStatisticsActions.pending({
+							baseURL: baseUrl,
+						}),
+					);
 					setIsCategoryAddModalOpen(false);
 					setIsAddSuccess(true);
 					setResponseApiRequestModal({
@@ -456,7 +469,7 @@ export default function Expenses() {
 					<div className={styles.expensesGridWrapper}>
 						<div className={styles.totalMonthlyWrapper}>
 							<p className={styles.totalMonthlyWrapper__month}>Общий расход за Январь</p>
-							<p className={styles.totalMonthlyWrapper__sum}>{statistics?.total_outcome?.toLocaleString("ru-RU")} ₽</p>
+							<p className={styles.totalMonthlyWrapper__sum}>{data?.total_outcome?.toLocaleString("ru-RU")} ₽</p>
 						</div>
 						<div className={styles.dateSelectionWrapper}>
 							<InputDate control={control} name={"date"} />

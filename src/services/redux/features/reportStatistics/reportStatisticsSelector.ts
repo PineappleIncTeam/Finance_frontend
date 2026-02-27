@@ -1,3 +1,3 @@
-import { RootState } from "../..";
+import { RootState } from "../../index";
 
-export const selectReportsStatistics = (state: RootState) => state.reportsStatistics;
+export const reportStatisticsSelector = (state: RootState) => state.reportsStatistics;

@@ -163,16 +163,11 @@ export default function Expenses() {
 	}, [request, resetTimer]);
 
 	useEffect(() => {
-		dispatch(
-			reportsStatisticsActions.pending({
-				baseURL: baseUrl,
-			}),
-		);
-	}, [dispatch, baseUrl]);
+		setFiveOperationsNames(getFiveOperationsNames());
+	}, [fiveOperations, options, getFiveOperationsNames]);
 
 	useEffect(() => {
 		(() => {
-			getFiveOperationsNames();
 			getFiveOperations();
 			getAllCategoriesOptions();
 			getAllOperations();

@@ -5,8 +5,6 @@ import { useForm } from "react-hook-form";
 import axios, { AxiosResponse } from "axios";
 import { useRouter } from "next/navigation";
 
-import { RootState } from "../../../services/redux";
-
 import { useAppDispatch, useAppSelector } from "../../../services/redux/hooks";
 
 import { useLogoutTimer } from "../../../hooks/useLogoutTimer";
@@ -40,7 +38,6 @@ import { MainPath } from "../../../services/router/routes";
 import { getTargetsAll } from "../../../services/api/userProfile/getAllTargets";
 import { IOperation } from "../../../types/api/Expenses";
 import { IResponseApiModal } from "../../../types/common/ComponentsProps";
-import { IStatistics } from "../../../types/api/Reports";
 import { SavingsAddTargetModal } from "../../../components/userProfileLayout/savingsCategory/savingsCategory";
 import { SavingsTargetStatus, SavingsTargetStatusName } from "../../../helpers/targetStatus";
 import { getFiveExpensesTransactions } from "../../../services/api/userProfile/getFiveExpensesTransactions";
@@ -49,7 +46,6 @@ import { removeSavingsTarget } from "../../../services/api/userProfile/removeSav
 import { CategoryDeleteModal } from "../../../components/userProfileLayout/categoryDelete/categoryDelete";
 import { editSavingsCurrentSum } from "../../../services/api/userProfile/editSavingsCurrentSum";
 import { getCurrentDate } from "../../../utils/getCurrentDate";
-import { getStatistics } from "../../../services/api/userProfile/getStatistics";
 import { EditTransactionModal } from "../../../components/userProfileLayout/editTransaction/editTransaction";
 import { editSavingsCategoryTransaction } from "../../../services/api/userProfile/editSavingsTransaction";
 import { reportsStatisticsActions } from "../../../types/redux/sagaActions/storeSaga.actions";

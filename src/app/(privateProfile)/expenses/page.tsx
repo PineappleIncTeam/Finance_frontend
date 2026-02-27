@@ -9,14 +9,12 @@ import { useHandleLogout } from "../../../hooks/useHandleLogout";
 import { useLogoutTimer } from "../../../hooks/useLogoutTimer";
 import { useRuntimeEnv } from "../../../hooks/useRuntimeEnv";
 
-import { RootState } from "../../../services/redux";
 import { useAppDispatch, useAppSelector } from "../../../services/redux/hooks";
 
 import { IAddCategoryTransactionForm, IExpensesCategoryForm } from "../../../types/pages/Expenses";
 import { IAddCategoryExpensesForm, IEditTransactionForm } from "../../../types/components/ComponentsTypes";
 import { ICategoryOption } from "../../../types/common/ComponentsProps";
 import { IOperation } from "../../../types/api/Expenses";
-import { IStatistics } from "../../../types/api/Reports";
 import InputDate from "../../../ui/inputDate/inputDate";
 import AppInput from "../../../ui/appInput/AppInput";
 import ExpensesTransaction from "../../../components/userProfileLayout/expensesTransaction/expensesTransaction";

@@ -4,6 +4,7 @@ import createSagaMiddleware from "redux-saga";
 
 import { dataSlice } from "./features/infoPart/InfoPartSlice";
 import { balanceSlice } from "./features/userBalance/balanceSlice";
+import { reportsStatisticsSlice } from "./features/reportStatistics/reportStatisticsSlice";
 import { cookieStatusSlice } from "./features/cookieStatus/cookieStatusSlice";
 import { autoLoginSlice } from "./features/autoLogin/autoLoginSlice";
 import { userDataSlice } from "./features/userData/UserDataSlice";
@@ -11,7 +12,6 @@ import { userSettingsSlice } from "./features/userSettings/userSettingsSlice";
 import { countriesDataSlice } from "./features/countriesData/countriesDataSlice";
 import { pwaDetailsSlice } from "./features/pwaDetails/pwaDetailsSlice";
 import { reportsCategorySlice } from "./features/reportsCategories/reportsCategorySlice";
-import { reportsStatisticsSlice } from "./features/reportStatistics/reportStatisticsSlice";
 
 // Saga watchers
 import { watchFetchUserData } from "./features/userData/UserDataSaga";
@@ -41,9 +41,9 @@ const RootReducer = combineReducers({
 	userSettings: userSettingsSlice.reducer,
 	countriesData: countriesDataSlice.reducer,
 	balance: balanceSlice.reducer,
+	reportsStatistics: reportsStatisticsSlice.reducer,
 	pwaDetails: pwaDetailsSlice.reducer,
 	reportsCategories: reportsCategorySlice.reducer,
-	reportsStatistics: reportsStatisticsSlice.reducer,
 });
 
 const persistedRootReducer = persistReducer(persistConfig, RootReducer);

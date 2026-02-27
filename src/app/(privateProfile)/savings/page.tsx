@@ -5,6 +5,8 @@ import { useForm } from "react-hook-form";
 import axios, { AxiosResponse } from "axios";
 import { useRouter } from "next/navigation";
 
+import { useAppDispatch, useAppSelector } from "../../../services/redux/hooks";
+
 import { useLogoutTimer } from "../../../hooks/useLogoutTimer";
 import { useHandleLogout } from "../../../hooks/useHandleLogout";
 import { useRuntimeEnv } from "../../../hooks/useRuntimeEnv";
@@ -46,12 +48,15 @@ import { editSavingsCurrentSum } from "../../../services/api/userProfile/editSav
 import { getCurrentDate } from "../../../utils/getCurrentDate";
 import { EditTransactionModal } from "../../../components/userProfileLayout/editTransaction/editTransaction";
 import { editSavingsCategoryTransaction } from "../../../services/api/userProfile/editSavingsTransaction";
+import { reportsStatisticsActions } from "../../../types/redux/sagaActions/storeSaga.actions";
 import { ResponseApiRequestModal } from "../../../ui/responseActionModal/responseApiRequestModal";
 import { removeTransaction } from "../../../services/api/userProfile/removeTransaction";
 import { RecordDeleteModal } from "../../../components/userProfileLayout/recordDelete/recordDelete";
 import InactivityLogoutModal from "../../../components/userProfileLayout/inactivityLogoutModal/inactivityLogoutModal";
 import { returnMoneyAccount } from "../../../services/api/userProfile/returnMoneyAccount";
 import { mockBaseUrl } from "../../../mocks/envConsts";
+
+import { reportStatisticsSelector } from "../../../services/redux/features/reportStatistics/reportStatisticsSelector";
 
 import styles from "./savings.module.scss";
 
@@ -109,6 +114,9 @@ function Savings() {
 	const baseUrl = getSafeEnvVar("NEXT_PUBLIC_BASE_URL", mockBaseUrl);
 	const { request } = useHandleLogout(baseUrl);
 	const { resetTimer, setIsOpenInactivityLogoutModal, isOpenInactivityLogoutModal } = useLogoutTimer(request);
+
+	const dispatch = useAppDispatch();
+	const statisticsData = useAppSelector(reportStatisticsSelector).data;
 
 	const router = useRouter();
 	const handleEditClick = ({ index, field, value }: IEditActionProps) => {
@@ -168,6 +176,12 @@ function Savings() {
 				const response = await editSavingsCurrentSum(baseUrl, targetFormData);
 				if (response.status === axios.HttpStatusCode.Created) {
 					setIsSumSavingsAdded(true);
+
+					dispatch(
+						reportsStatisticsActions.pending({
+							baseURL: baseUrl,
+						}),
+					);
 				}
 			}
 		} catch (error) {
@@ -324,6 +338,11 @@ function Savings() {
 						open: true,
 						text: "Сумма успешно изменена",
 					});
+					dispatch(
+						reportsStatisticsActions.pending({
+							baseURL: baseUrl,
+						}),
+					);
 					setTimeout(() => {
 						setResponseApiModal(responseApiModalInitialState);
 						setIsSumEditedSuccess(false);
@@ -347,13 +366,18 @@ function Savings() {
 		try {
 			if (baseUrl) {
 				const response = await removeTransaction(baseUrl, id);
-				if ((response.status = axios.HttpStatusCode.Ok)) {
+				if (response.status === axios.HttpStatusCode.Ok) {
 					setIsApprovedRemoveOperation(false);
 					setIsRemovedSuccess(true);
 					setResponseApiModal({
 						open: true,
 						text: "Запись успешно удалена",
 					});
+					dispatch(
+						reportsStatisticsActions.pending({
+							baseURL: baseUrl,
+						}),
+					);
 					setTimeout(() => {
 						setResponseApiModal(responseApiModalInitialState);
 						setIsRemovedSuccess(false);
@@ -377,7 +401,7 @@ function Savings() {
 		try {
 			if (baseUrl) {
 				const response = await returnMoneyAccount(baseUrl, id);
-				if ((response.status = axios.HttpStatusCode.Ok)) {
+				if (response.status === axios.HttpStatusCode.Ok) {
 					setIsDeleteTargetSuccess(true);
 					setResponseApiModal({
 						open: true,
@@ -401,6 +425,15 @@ function Savings() {
 			}
 		}
 	};
+
+	useEffect(() => {
+		dispatch(
+			reportsStatisticsActions.pending({
+				baseURL: baseUrl,
+			}),
+		);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
 
 	useEffect(() => {
 		setFiveOperationsWithNames(getFiveOperationsWithNames());
@@ -559,7 +592,9 @@ function Savings() {
 						<div className={styles.savingsGridWrapper}>
 							<div className={styles.totalAmountWrapper}>
 								<p className={styles.totalAmountWrapper__savings}>Общая сумма накоплений </p>
-								<p className={styles.totalAmountWrapper__sum}>4 112 500 ₽</p>
+								<p className={styles.totalAmountWrapper__sum}>
+									{statisticsData?.total_savings?.toLocaleString("ru-RU")} ₽
+								</p>
 							</div>
 
 							<div className={styles.dateSelectionWrapper}>

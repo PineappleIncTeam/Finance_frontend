@@ -28,6 +28,9 @@ import { CategorySelect } from "../../../components/userProfileLayout/categorySe
 import AddButton from "../../../components/userProfileLayout/addButton/addButton";
 import InactivityLogoutModal from "../../../components/userProfileLayout/inactivityLogoutModal/inactivityLogoutModal";
 import { CategoryAddModal } from "../../../components/userProfileLayout/categoryAdd/categoryAddModal";
+import { useAppDispatch, useAppSelector } from "../../../services/redux/hooks";
+import { reportsStatisticsActions } from "../../../types/redux/sagaActions/storeSaga.actions";
+import { reportStatisticsSelector } from "../../../services/redux/features/reportStatistics/reportStatisticsSelector";
 import { EditTransactionModal } from "../../../components/userProfileLayout/editTransaction/editTransaction";
 import { getFiveIncomeTransactions } from "../../../services/api/userProfile/getFiveIncomeTransactions";
 import { addIncomeCategory } from "../../../services/api/userProfile/addIncomeCategory";
@@ -45,7 +48,6 @@ import { getAllIncomeCategories } from "../../../services/api/userProfile/getAll
 import { mockBaseUrl } from "../../../mocks/envConsts";
 
 import styles from "./profitMoney.module.scss";
-
 function ProfitMoney() {
 	const responseApiRequestModalInitialState = {
 		open: false,
@@ -87,6 +89,10 @@ function ProfitMoney() {
 	const { request } = useHandleLogout(baseUrl);
 	const { resetTimer, setIsOpenInactivityLogoutModal, isOpenInactivityLogoutModal } = useLogoutTimer(request);
 
+	const dispatch = useAppDispatch();
+
+	const statisticsData = useAppSelector(reportStatisticsSelector).data;
+
 	const endDate = 10;
 	const interval = 2000;
 
@@ -112,6 +118,7 @@ function ProfitMoney() {
 		(async () => {
 			await getFiveOperations();
 			getAllCategoriesOptions();
+			getAllOperations();
 		})();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
@@ -146,6 +153,14 @@ function ProfitMoney() {
 		})();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [isDeleteOperationSuccess, isEditSuccess, isAddSuccess]);
+
+	useEffect(() => {
+		dispatch(
+			reportsStatisticsActions.pending({
+				baseURL: baseUrl,
+			}),
+		);
+	}, []);
 
 	const getFiveOperations = async () => {
 		const data = {
@@ -214,6 +229,12 @@ function ProfitMoney() {
 
 				const response = await addIncomeCategory(baseUrl, payloadData);
 				if (response.status === axios.HttpStatusCode.Created) {
+					dispatch(
+						reportsStatisticsActions.pending({
+							baseURL: baseUrl,
+						}),
+					);
+
 					setIsCategoryAddModalOpen(false);
 					setIsAddSuccess(true);
 					setResponseApiRequestModal({
@@ -280,6 +301,12 @@ function ProfitMoney() {
 			if (baseUrl && data !== null) {
 				const response = await editCategoryTransaction(baseUrl, id, data);
 				if (response.status === axios.HttpStatusCode.Ok) {
+					dispatch(
+						reportsStatisticsActions.pending({
+							baseURL: baseUrl,
+						}),
+					);
+
 					setIsEditTransactionModalOpen(false);
 					setIsEditSuccess(true);
 					setResponseApiRequestModal({
@@ -309,7 +336,13 @@ function ProfitMoney() {
 		try {
 			if (baseUrl) {
 				const response = await removeTransaction(baseUrl, id);
-				if ((response.status = axios.HttpStatusCode.Ok)) {
+				if (response.status === axios.HttpStatusCode.Ok) {
+					dispatch(
+						reportsStatisticsActions.pending({
+							baseURL: baseUrl,
+						}),
+					);
+
 					setIsDeleteOperationApprove(false);
 					setIsDeleteOperationSuccess(true);
 					setResponseApiRequestModal({
@@ -411,6 +444,11 @@ function ProfitMoney() {
 			if (baseUrl && data !== null) {
 				const response = await addIncomeCategoryTransaction(baseUrl, transactionData);
 				if (response.status === axios.HttpStatusCode.Created) {
+					dispatch(
+						reportsStatisticsActions.pending({
+							baseURL: baseUrl,
+						}),
+					);
 					setIsCategoryAddModalOpen(false);
 					setIsAddSuccess(true);
 					setResponseApiRequestModal({
@@ -451,8 +489,10 @@ function ProfitMoney() {
 					<h1 className={styles.headerTitle}>Доходы</h1>
 					<div className={styles.profitMoneyGridWrapper}>
 						<div className={styles.totalMonthlyWrapper}>
-							<p className={styles.totalMonthlyWrapper__month}>Общий доход за Январь</p>
-							<p className={styles.totalMonthlyWrapper__sum}>283 000 ₽</p>
+							<p className={styles.totalMonthlyWrapper__month}>Общий доход </p>
+							<p className={styles.totalMonthlyWrapper__sum}>
+								{statisticsData?.total_income?.toLocaleString("ru-RU")} ₽
+							</p>
 						</div>
 						<div className={styles.dateSelectionWrapper}>
 							<InputDate control={control} name={"date"} />

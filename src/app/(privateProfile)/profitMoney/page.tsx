@@ -18,8 +18,6 @@ import {
 import { ICategoryOption } from "../../../types/common/ComponentsProps";
 import { IAddingCategoryIncomeForm } from "../../../types/pages/ProfitMoney";
 import { IOperation } from "../../../types/api/Expenses";
-import { IStatistics } from "../../../types/api/Reports";
-import { RootState } from "../../../services/redux";
 import InputDate from "../../../ui/inputDate/inputDate";
 import AppInput from "../../../ui/appInput/AppInput";
 import IncomeTransaction from "../../../components/userProfileLayout/incomeTransaction/incomeTransaction";
@@ -32,7 +30,7 @@ import InactivityLogoutModal from "../../../components/userProfileLayout/inactiv
 import { CategoryAddModal } from "../../../components/userProfileLayout/categoryAdd/categoryAddModal";
 import { useAppDispatch, useAppSelector } from "../../../services/redux/hooks";
 import { reportsStatisticsActions } from "../../../types/redux/sagaActions/storeSaga.actions";
-import { selectReportsStatistics } from "../../../services/redux/features/reportStatistics/reportStatisticsSelector";
+import { reportStatisticsSelector } from "../../../services/redux/features/reportStatistics/reportStatisticsSelector";
 import { EditTransactionModal } from "../../../components/userProfileLayout/editTransaction/editTransaction";
 import { getFiveIncomeTransactions } from "../../../services/api/userProfile/getFiveIncomeTransactions";
 import { addIncomeCategory } from "../../../services/api/userProfile/addIncomeCategory";
@@ -93,7 +91,7 @@ function ProfitMoney() {
 
 	const dispatch = useAppDispatch();
 
-	const { data, loading, error } = useAppSelector(selectReportsStatistics);
+	const { data } = useAppSelector(reportStatisticsSelector);
 
 	const endDate = 10;
 	const interval = 2000;

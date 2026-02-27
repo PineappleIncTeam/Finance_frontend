@@ -33,7 +33,7 @@ import { addExpensesCategory } from "../../../services/api/userProfile/addExpens
 import { MainPath } from "../../../services/router/routes";
 import { addExpensesCategoryTransaction } from "../../../services/api/userProfile/addExpensesCategoryTransaction";
 import { reportsStatisticsActions } from "../../../types/redux/sagaActions/storeSaga.actions";
-import { selectReportsStatistics } from "../../../services/redux/features/reportStatistics/reportStatisticsSelector";
+import { reportStatisticsSelector } from "../../../services/redux/features/reportStatistics/reportStatisticsSelector";
 import { removeExpensesCategory } from "../../../services/api/userProfile/removeExpensesCategory";
 import { removeTransaction } from "../../../services/api/userProfile/removeTransaction";
 import { editCategoryTransaction } from "../../../services/api/userProfile/editCategoryTransaction";
@@ -85,7 +85,7 @@ export default function Expenses() {
 	const { getSafeEnvVar } = useRuntimeEnv(["NEXT_PUBLIC_BASE_URL"]);
 
 	const dispatch = useAppDispatch();
-	const { data, loading, error } = useAppSelector(selectReportsStatistics);
+	const { data } = useAppSelector(reportStatisticsSelector);
 
 	const baseUrl = getSafeEnvVar("NEXT_PUBLIC_BASE_URL", mockBaseUrl);
 	const { request } = useHandleLogout(baseUrl);
@@ -464,8 +464,8 @@ export default function Expenses() {
 					<h1 className={styles.headerTitle}>Расходы</h1>
 					<div className={styles.expensesGridWrapper}>
 						<div className={styles.totalMonthlyWrapper}>
-							<p className={styles.totalMonthlyWrapper__month}>Общий расход за Январь</p>
-							<p className={styles.totalMonthlyWrapper__sum}>{data?.total_outcome?.toLocaleString("ru-RU")} ₽</p>
+							<p className={styles.totalMonthlyWrapper__month}>Общий расход</p>
+							<p className={styles.totalMonthlyWrapper__sum}>{data?.total_expenses?.toLocaleString("ru-RU")} ₽</p>
 						</div>
 						<div className={styles.dateSelectionWrapper}>
 							<InputDate control={control} name={"date"} />

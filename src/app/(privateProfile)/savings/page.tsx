@@ -60,7 +60,7 @@ import InactivityLogoutModal from "../../../components/userProfileLayout/inactiv
 import { returnMoneyAccount } from "../../../services/api/userProfile/returnMoneyAccount";
 import { mockBaseUrl } from "../../../mocks/envConsts";
 
-import { selectReportsStatistics } from "../../../services/redux/features/reportStatistics/reportStatisticsSelector";
+import { reportStatisticsSelector } from "../../../services/redux/features/reportStatistics/reportStatisticsSelector";
 
 import styles from "./savings.module.scss";
 
@@ -120,7 +120,7 @@ function Savings() {
 	const { resetTimer, setIsOpenInactivityLogoutModal, isOpenInactivityLogoutModal } = useLogoutTimer(request);
 
 	const dispatch = useAppDispatch();
-	const { data, loading, error } = useAppSelector(selectReportsStatistics);
+	const { data } = useAppSelector(reportStatisticsSelector);
 
 	const router = useRouter();
 	const handleEditClick = ({ index, field, value }: IEditActionProps) => {

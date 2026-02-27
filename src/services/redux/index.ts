@@ -12,7 +12,6 @@ import { userSettingsSlice } from "./features/userSettings/userSettingsSlice";
 import { countriesDataSlice } from "./features/countriesData/countriesDataSlice";
 import { pwaDetailsSlice } from "./features/pwaDetails/pwaDetailsSlice";
 import { reportsCategorySlice } from "./features/reportsCategories/reportsCategorySlice";
-import { reportsStatisticsSlice } from "./features/reportStatistics/reportStatisticsSlice";
 
 // Saga watchers
 import { watchFetchUserData } from "./features/userData/UserDataSaga";
@@ -44,7 +43,6 @@ const RootReducer = combineReducers({
 	balance: balanceSlice.reducer,
 	pwaDetails: pwaDetailsSlice.reducer,
 	reportsCategories: reportsCategorySlice.reducer,
-	reportsStatistics: reportsStatisticsSlice.reducer,
 });
 
 const persistedRootReducer = persistReducer(persistConfig, RootReducer);

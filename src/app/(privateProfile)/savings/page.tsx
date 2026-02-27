@@ -116,7 +116,7 @@ function Savings() {
 	const { resetTimer, setIsOpenInactivityLogoutModal, isOpenInactivityLogoutModal } = useLogoutTimer(request);
 
 	const dispatch = useAppDispatch();
-	const { data } = useAppSelector(reportStatisticsSelector);
+	const statisticsData = useAppSelector(reportStatisticsSelector).data;
 
 	const router = useRouter();
 	const handleEditClick = ({ index, field, value }: IEditActionProps) => {
@@ -592,7 +592,9 @@ function Savings() {
 						<div className={styles.savingsGridWrapper}>
 							<div className={styles.totalAmountWrapper}>
 								<p className={styles.totalAmountWrapper__savings}>Общая сумма накоплений </p>
-								<p className={styles.totalAmountWrapper__sum}>{data?.total_savings?.toLocaleString("ru-RU")} ₽</p>
+								<p className={styles.totalAmountWrapper__sum}>
+									{statisticsData?.total_savings?.toLocaleString("ru-RU")} ₽
+								</p>
 							</div>
 
 							<div className={styles.dateSelectionWrapper}>

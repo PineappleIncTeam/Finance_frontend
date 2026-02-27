@@ -83,7 +83,7 @@ export default function Expenses() {
 	const { getSafeEnvVar } = useRuntimeEnv(["NEXT_PUBLIC_BASE_URL"]);
 
 	const dispatch = useAppDispatch();
-	const { data } = useAppSelector(reportStatisticsSelector);
+	const statisticsData = useAppSelector(reportStatisticsSelector).data;
 
 	const baseUrl = getSafeEnvVar("NEXT_PUBLIC_BASE_URL", mockBaseUrl);
 	const { request } = useHandleLogout(baseUrl);
@@ -463,7 +463,9 @@ export default function Expenses() {
 					<div className={styles.expensesGridWrapper}>
 						<div className={styles.totalMonthlyWrapper}>
 							<p className={styles.totalMonthlyWrapper__month}>Общий расход</p>
-							<p className={styles.totalMonthlyWrapper__sum}>{data?.total_expenses?.toLocaleString("ru-RU")} ₽</p>
+							<p className={styles.totalMonthlyWrapper__sum}>
+								{statisticsData?.total_expenses?.toLocaleString("ru-RU")} ₽
+							</p>
 						</div>
 						<div className={styles.dateSelectionWrapper}>
 							<InputDate control={control} name={"date"} />

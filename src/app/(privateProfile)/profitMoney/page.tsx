@@ -91,7 +91,7 @@ function ProfitMoney() {
 
 	const dispatch = useAppDispatch();
 
-	const { data } = useAppSelector(reportStatisticsSelector);
+	const statisticsData = useAppSelector(reportStatisticsSelector).data;
 
 	const endDate = 10;
 	const interval = 2000;
@@ -489,8 +489,10 @@ function ProfitMoney() {
 					<h1 className={styles.headerTitle}>Доходы</h1>
 					<div className={styles.profitMoneyGridWrapper}>
 						<div className={styles.totalMonthlyWrapper}>
-							<p className={styles.totalMonthlyWrapper__month}>Общий доход за Январь</p>
-							<p className={styles.totalMonthlyWrapper__sum}>{data?.total_income?.toLocaleString("ru-RU")} ₽</p>
+							<p className={styles.totalMonthlyWrapper__month}>Общий доход </p>
+							<p className={styles.totalMonthlyWrapper__sum}>
+								{statisticsData?.total_income?.toLocaleString("ru-RU")} ₽
+							</p>
 						</div>
 						<div className={styles.dateSelectionWrapper}>
 							<InputDate control={control} name={"date"} />

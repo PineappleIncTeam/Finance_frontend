@@ -1,9 +1,11 @@
 import withSerwistInit from "@serwist/next";
+import { env } from "next-runtime-env";
 
 import type { NextConfig } from "next";
 
 const isDev = process.env.NODE_ENV === "development";
-const apiUrl = process.env.NEXT_PUBLIC_BASE_URL;
+const apiUrl = env("NEXT_PUBLIC_BASE_URL");
+const oauthUrl = "https://id.vk.ru";
 
 const cspHeader = ` 
 	default-src 'self';
@@ -15,7 +17,7 @@ const cspHeader = `
 	base-uri 'self';
 	form-action 'self';
 	frame-ancestors 'none';
-	connect-src 'self' ${apiUrl};
+	connect-src 'self' ${apiUrl} ${oauthUrl};
 	upgrade-insecure-requests;
 `;
 

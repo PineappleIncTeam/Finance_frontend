@@ -1,6 +1,6 @@
 import "./reset.css";
 import "./globals.css";
-import { PublicEnvScript, env } from "next-runtime-env";
+import { PublicEnvScript } from "next-runtime-env";
 import cn from "classnames";
 
 import ProviderList from "../pageElements/provider/provider";
@@ -8,26 +8,6 @@ import ProviderList from "../pageElements/provider/provider";
 import { rubik, manrope } from "./fonts";
 
 import type { Metadata } from "next";
-
-const isDev = process.env.NODE_ENV === "development";
-const apiUrl = env("NEXT_PUBLIC_API_URL") || process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000";
-const oauthUrl = process.env.NEXT_PUBLIC_OAUTH_URL || "https://id.vk.ru";
-
-const cspContent = `
-	default-src 'self';
-	script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ""};
-	style-src 'self' 'unsafe-inline';
-	img-src 'self' blob: data:;
-	font-src 'self';
-	object-src 'none';
-	base-uri 'self';
-	form-action 'self';
-	frame-ancestors 'none';
-	connect-src 'self' ${apiUrl} ${oauthUrl};
-	upgrade-insecure-requests;
-`
-	.replace(/\n/g, "")
-	.trim();
 
 export const metadata: Metadata = {
 	title: "freenance",
@@ -55,7 +35,6 @@ export default function RootLayout({
 		<html lang="en" suppressHydrationWarning>
 			<head>
 				<PublicEnvScript />
-				<meta httpEquiv="Content-Security-Policy" content={cspContent} />
 				<link rel="manifest" href="/manifest.json"></link>
 			</head>
 			<body className={cn(rubik.className, manrope.className)} suppressHydrationWarning>

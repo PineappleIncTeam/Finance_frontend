@@ -1,6 +1,27 @@
 import withSerwistInit from "@serwist/next";
+import { loadEnvConfig } from "@next/env";
 
 import type { NextConfig } from "next";
+
+loadEnvConfig(process.cwd());
+
+const isDev = process.env.NODE_ENV === "development";
+const apiUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
+const oauthUrl = process.env.NEXT_PUBLIC_OAUTH_URL || "https://id.vk.ru";
+
+const cspHeader = ` 
+	default-src 'self';
+	script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ""};
+	style-src 'self' 'unsafe-inline';
+	img-src 'self' blob: data:;
+	font-src 'self';
+	object-src 'none';
+	base-uri 'self';
+	form-action 'self';
+	frame-ancestors 'none';
+	connect-src 'self' ${apiUrl} ${oauthUrl};
+	upgrade-insecure-requests;
+`;
 
 const withSerwist = withSerwistInit({
 	swSrc: "src/sw.ts",
@@ -20,6 +41,10 @@ const nextConfig: NextConfig = {
 					{
 						key: "Strict-Transport-Security",
 						value: "max-age=31536000; includeSubDomains; preload",
+					},
+					{
+						key: "Content-Security-Policy",
+						value: cspHeader.replace(/\n/g, ""),
 					},
 					{
 						key: "X-Content-Type-Options",

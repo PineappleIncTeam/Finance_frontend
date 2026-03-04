@@ -18,7 +18,7 @@ import {
 	CloseIcon,
 } from "../../../assets/script/security/SecurityIcons";
 
-import styles from "./securityDashboardModal.module.scss";
+import styles from "./securityDashboardModal1.module.scss";
 
 const SecurityDashboardModal = ({ isOpen, onClose }: ISecurityDashboardModal) => {
 	const { getSafeEnvVar } = useRuntimeEnv(["NEXT_PUBLIC_BASE_URL"]);

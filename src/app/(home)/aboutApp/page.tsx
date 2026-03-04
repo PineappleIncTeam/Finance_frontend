@@ -9,7 +9,7 @@ import { TPwaErrorModalTitleType } from "../../../types/components/ComponentsTyp
 import Footer from "../../../components/mainLayout/footer/footer";
 import PwaErrorModal from "../../../components/mainLayout/pwaErrorModal/pwaErrorModal";
 import PWAInstallButton from "../../../components/mainLayout/pwaInstallButton/pwaInstallButton";
-import SecurityDashboardModal from "../../../components/mainLayout/securityDashboardModal/securityDashboardModal";
+import SecurityDashboardModal from "../../../components/mainLayout/securityDashboardModal/securityDashboardModal1";
 import { pwaDetailsSelector } from "../../../services/redux/features/pwaDetails/pwaDetailsSelector";
 import { transitionGoogleStore } from "../../../mocks/linkSetup";
 

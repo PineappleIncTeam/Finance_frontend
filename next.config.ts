@@ -3,7 +3,7 @@ import withSerwistInit from "@serwist/next";
 import type { NextConfig } from "next";
 
 const isDev = process.env.NODE_ENV === "development";
-const apiUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
+const apiUrl = process.env.NEXT_PUBLIC_BASE_URL;
 const oauthUrl = process.env.NEXT_PUBLIC_OAUTH_URL || "https://id.vk.ru";
 
 const cspHeader = ` 

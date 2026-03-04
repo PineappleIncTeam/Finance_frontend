@@ -1,9 +1,6 @@
 import withSerwistInit from "@serwist/next";
-import { loadEnvConfig } from "@next/env";
 
 import type { NextConfig } from "next";
-
-loadEnvConfig(process.cwd());
 
 const isDev = process.env.NODE_ENV === "development";
 const apiUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";

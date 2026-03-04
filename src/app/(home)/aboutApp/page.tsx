@@ -9,6 +9,7 @@ import { TPwaErrorModalTitleType } from "../../../types/components/ComponentsTyp
 import Footer from "../../../components/mainLayout/footer/footer";
 import PwaErrorModal from "../../../components/mainLayout/pwaErrorModal/pwaErrorModal";
 import PWAInstallButton from "../../../components/mainLayout/pwaInstallButton/pwaInstallButton";
+import SecurityDashboardModal from "../../../components/mainLayout/securityDashboardModal/securityDashboardModal1";
 import { pwaDetailsSelector } from "../../../services/redux/features/pwaDetails/pwaDetailsSelector";
 import { transitionGoogleStore } from "../../../mocks/linkSetup";
 
@@ -32,6 +33,7 @@ import styles from "./aboutAppPage.module.scss";
 function AboutApp() {
 	const [isVideoElementStart, setIsVideoElementStart] = useState<boolean>(false);
 	const [isPwaErrorModalOpen, setIsPwaErrorModalOpen] = useState<boolean>(false);
+	const [isSecurityModalOpen, setIsSecurityModalOpen] = useState<boolean>(false);
 	const [pwaErrorModalTitleType, setPwaErrorModalTitleType] = useState<TPwaErrorModalTitleType>("1");
 
 	const { isInstalled: isInstalledFromRedux } = useAppSelector(pwaDetailsSelector);
@@ -73,8 +75,13 @@ function AboutApp() {
 							<GooglePlayIcon classNames={styles.googlePlayIcon} />
 							<p className={styles.googlePlayButton__text}>доступно в Google Play</p>
 						</a>
-						<div onClick={handlePwaClick} role="button">
-							<PWAInstallButton />
+						<div className={styles.pwaActionContainer}>
+							<div onClick={handlePwaClick} role="button">
+								<PWAInstallButton />
+							</div>
+							<button className={styles.securityModalLink} onClick={() => setIsSecurityModalOpen(true)}>
+								Как мы защищаем ваши данные?
+							</button>
 						</div>
 					</div>
 				</div>
@@ -154,6 +161,7 @@ function AboutApp() {
 					)}
 				</div>
 				<PwaErrorModal titleType={pwaErrorModalTitleType} toggle={togglePwaErrorModal} open={isPwaErrorModalOpen} />
+				<SecurityDashboardModal isOpen={isSecurityModalOpen} onClose={() => setIsSecurityModalOpen(false)} />
 			</div>
 			<Footer />
 		</div>

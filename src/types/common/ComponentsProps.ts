@@ -204,3 +204,8 @@ export interface ICalcRageInput extends UseControllerProps<ICalculatorForm> {
 	loanAmountValue?: string;
 	additionalControlValues?: IAdditionalControlValues[];
 }
+
+export interface ISecurityDashboardModal {
+	isOpen: boolean;
+	onClose: () => void;
+}

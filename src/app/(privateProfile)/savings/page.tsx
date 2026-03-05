@@ -48,7 +48,7 @@ import { editSavingsCurrentSum } from "../../../services/api/userProfile/editSav
 import { getCurrentDate } from "../../../utils/getCurrentDate";
 import { EditTransactionModal } from "../../../components/userProfileLayout/editTransaction/editTransaction";
 import { editSavingsCategoryTransaction } from "../../../services/api/userProfile/editSavingsTransaction";
-import { reportsStatisticsActions } from "../../../types/redux/sagaActions/storeSaga.actions";
+import { balanceActions, reportsStatisticsActions } from "../../../types/redux/sagaActions/storeSaga.actions";
 import { ResponseApiRequestModal } from "../../../ui/responseActionModal/responseApiRequestModal";
 import { removeTransaction } from "../../../services/api/userProfile/removeTransaction";
 import { RecordDeleteModal } from "../../../components/userProfileLayout/recordDelete/recordDelete";
@@ -432,6 +432,7 @@ function Savings() {
 				baseURL: baseUrl,
 			}),
 		);
+		dispatch(balanceActions.pending({ baseURL: baseUrl }));
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
@@ -455,6 +456,9 @@ function Savings() {
 		if (isSumEditedSuccess || isRemovedSuccess || isSumSavingsAdded) {
 			getFiveOperations();
 		}
+
+		dispatch(balanceActions.pending({ baseURL: baseUrl }));
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [getFiveOperations, isSumEditedSuccess, isRemovedSuccess, isSumSavingsAdded]);
 
 	const handleIdName = (id: number, name: string) => {

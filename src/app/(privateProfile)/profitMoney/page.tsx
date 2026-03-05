@@ -29,7 +29,7 @@ import AddButton from "../../../components/userProfileLayout/addButton/addButton
 import InactivityLogoutModal from "../../../components/userProfileLayout/inactivityLogoutModal/inactivityLogoutModal";
 import { CategoryAddModal } from "../../../components/userProfileLayout/categoryAdd/categoryAddModal";
 import { useAppDispatch, useAppSelector } from "../../../services/redux/hooks";
-import { reportsStatisticsActions } from "../../../types/redux/sagaActions/storeSaga.actions";
+import { balanceActions, reportsStatisticsActions } from "../../../types/redux/sagaActions/storeSaga.actions";
 import { reportStatisticsSelector } from "../../../services/redux/features/reportStatistics/reportStatisticsSelector";
 import { EditTransactionModal } from "../../../components/userProfileLayout/editTransaction/editTransaction";
 import { getFiveIncomeTransactions } from "../../../services/api/userProfile/getFiveIncomeTransactions";
@@ -150,6 +150,8 @@ function ProfitMoney() {
 			if (isDeleteOperationSuccess || isEditSuccess || isAddSuccess) {
 				setFiveOperationsNames(getFiveOperationsNames);
 			}
+
+			dispatch(balanceActions.pending({ baseURL: baseUrl }));
 		})();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [isDeleteOperationSuccess, isEditSuccess, isAddSuccess]);
@@ -160,6 +162,8 @@ function ProfitMoney() {
 				baseURL: baseUrl,
 			}),
 		);
+		dispatch(balanceActions.pending({ baseURL: baseUrl }));
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	const getFiveOperations = async () => {

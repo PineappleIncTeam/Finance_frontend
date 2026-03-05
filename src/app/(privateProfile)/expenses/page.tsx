@@ -30,7 +30,7 @@ import { getFiveExpensesTransactions } from "../../../services/api/userProfile/g
 import { addExpensesCategory } from "../../../services/api/userProfile/addExpensesCategory";
 import { MainPath } from "../../../services/router/routes";
 import { addExpensesCategoryTransaction } from "../../../services/api/userProfile/addExpensesCategoryTransaction";
-import { reportsStatisticsActions } from "../../../types/redux/sagaActions/storeSaga.actions";
+import { balanceActions, reportsStatisticsActions } from "../../../types/redux/sagaActions/storeSaga.actions";
 import { reportStatisticsSelector } from "../../../services/redux/features/reportStatistics/reportStatisticsSelector";
 import { removeExpensesCategory } from "../../../services/api/userProfile/removeExpensesCategory";
 import { removeTransaction } from "../../../services/api/userProfile/removeTransaction";
@@ -174,6 +174,8 @@ export default function Expenses() {
 			getAllCategoriesOptions();
 			getAllOperations();
 		})();
+
+		dispatch(balanceActions.pending({ baseURL: baseUrl }));
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
@@ -190,7 +192,10 @@ export default function Expenses() {
 			if (isDeleteOperationSuccess || isEditSuccess || isAddSuccess) {
 				getFiveOperations();
 			}
+
+			dispatch(balanceActions.pending({ baseURL: baseUrl }));
 		})();
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [isDeleteOperationSuccess, isEditSuccess, isAddSuccess, getFiveOperations]);
 
 	useEffect(() => {

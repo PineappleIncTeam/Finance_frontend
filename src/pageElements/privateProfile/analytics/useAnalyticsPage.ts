@@ -140,7 +140,7 @@ function useAnalyticsPage() {
 		dispatch(reportsStatisticsActions.pending({ baseURL: baseUrl }));
 		dispatch(balanceActions.pending({ baseURL: baseUrl }));
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [dispatch]);
+	}, []);
 
 	useEffect(() => {
 		setWindowWidth(window.innerWidth);

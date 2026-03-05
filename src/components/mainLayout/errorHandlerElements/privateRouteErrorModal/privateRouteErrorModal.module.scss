@@ -114,8 +114,10 @@
 				cursor: pointer;
 				transition: all 0.2s ease;
 
-				&:hover {
-					background-color: var(--color-cal-poly-pomona-green);
+				@media (min-width: 1024px) {
+					&:hover {
+						background-color: var(--color-cal-poly-pomona-green);
+					}
 				}
 			}
 		}

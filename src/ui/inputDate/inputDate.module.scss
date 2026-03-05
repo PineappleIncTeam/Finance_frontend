@@ -38,9 +38,12 @@
 		padding: 6px 10px;
 	}
 
-	&:hover {
-		border-color: var(--color-dark-spring-green);
+	@media (min-width: 1024px) {
+		&:hover {
+			border-color: var(--color-dark-spring-green);
+		}
 	}
+
 	&:active,
 	&:focus {
 		border-color: var(--color-dark-spring-green);

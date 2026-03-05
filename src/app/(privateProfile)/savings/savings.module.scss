@@ -462,7 +462,7 @@
 		line-height: 1.3rem;
 	}
 
-	@media (min-width: 426px) {
+	@media (min-width: 1024px) {
 		&:hover {
 			background-color: var(--color-light-grayish-green);
 		}
@@ -576,8 +576,10 @@
 	cursor: pointer;
 	opacity: 1;
 
-	&:hover {
-		opacity: 0.7;
+	@media (min-width: 1024px) {
+		&:hover {
+			opacity: 0.7;
+		}
 	}
 }
 

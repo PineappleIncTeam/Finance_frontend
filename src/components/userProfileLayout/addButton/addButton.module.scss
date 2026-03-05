@@ -15,7 +15,12 @@
 	transition: 0.4s;
 	flex: 0 0 auto;
 
-	&:hover,
+	@media (min-width: 1024px) {
+		&:hover {
+			background-color: var(--color-cal-poly-pomona-green);
+		}
+	}
+
 	&:active {
 		background-color: var(--color-cal-poly-pomona-green);
 	}

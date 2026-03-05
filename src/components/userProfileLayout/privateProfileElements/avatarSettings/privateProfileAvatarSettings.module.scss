@@ -124,8 +124,10 @@
 	border: 1px solid transparent;
 	cursor: pointer;
 
-	&:hover {
-		border: 1px solid var(--color-dark-sea-green);
+	@media (min-width: 1024px) {
+		&:hover {
+			border: 1px solid var(--color-dark-sea-green);
+		}
 	}
 
 	@media (max-width: 600px) {
@@ -137,8 +139,10 @@
 .templateAvatar__label_active {
 	border: 1px solid var(--color-dark-spring-green);
 
-	&:hover {
-		border: 1px solid var(--color-dark-spring-green);
+	@media (min-width: 1024px) {
+		&:hover {
+			border: 1px solid var(--color-dark-spring-green);
+		}
 	}
 }
 

@@ -8,12 +8,7 @@ import warning from "../../../assets/pages/activate/warning.svg";
 
 import styles from "./pwaErrorModal.module.scss";
 
-function PwaErrorModal({ open, titleType = "1", toggle }: IPwaErrorModal) {
-	const titleList = [
-		"Приложение уже установлено на вашем устройстве.",
-		"Приложение уже установлено на вашем устройстве или установка PWA пока недоступна. Попробуйте позже или проверьте настройки браузера.",
-	];
-
+function PwaErrorModal({ open, toggle }: IPwaErrorModal) {
 	return (
 		<dialog open={open} className={styles.backgroundModal}>
 			<div onClick={(e) => e.stopPropagation()} role="textbox" className={styles.modalContainer}>
@@ -21,7 +16,10 @@ function PwaErrorModal({ open, titleType = "1", toggle }: IPwaErrorModal) {
 					<Image src={warning} alt="иконка" className={styles.iconContainer__icon} />
 				</div>
 				<p className={styles.modalContainer__title}>Установка PWA приложения</p>
-				<p className={styles.modalContainer__subtitle}>{titleType === "1" ? titleList[0] : titleList[1]}</p>
+				<p className={styles.modalContainer__subtitle}>
+					Приложение уже установлено на вашем устройстве или установка PWA пока недоступна. Попробуйте позже или
+					проверьте настройки браузера.
+				</p>
 				<div className={styles.buttonsContainer}>
 					<Button variant={ButtonType.Outlined} onClick={() => toggle(false)}>
 						{"Хорошо"}

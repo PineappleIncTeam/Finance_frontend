@@ -5,7 +5,6 @@ import Image from "next/image";
 
 import { useAppSelector } from "../../../services/redux/hooks";
 
-import { TPwaErrorModalTitleType } from "../../../types/components/ComponentsTypes";
 import Footer from "../../../components/mainLayout/footer/footer";
 import PwaErrorModal from "../../../components/mainLayout/pwaErrorModal/pwaErrorModal";
 import PWAInstallButton from "../../../components/mainLayout/pwaInstallButton/pwaInstallButton";
@@ -34,7 +33,6 @@ function AboutApp() {
 	const [isVideoElementStart, setIsVideoElementStart] = useState<boolean>(false);
 	const [isPwaErrorModalOpen, setIsPwaErrorModalOpen] = useState<boolean>(false);
 	const [isSecurityModalOpen, setIsSecurityModalOpen] = useState<boolean>(false);
-	const [pwaErrorModalTitleType, setPwaErrorModalTitleType] = useState<TPwaErrorModalTitleType>("1");
 
 	const { isInstalled: isInstalledFromRedux } = useAppSelector(pwaDetailsSelector);
 
@@ -48,7 +46,6 @@ function AboutApp() {
 
 	function handlePwaClick() {
 		if (isInstalledFromRedux) {
-			setPwaErrorModalTitleType("1");
 			togglePwaErrorModal(true);
 			return;
 		}
@@ -56,7 +53,6 @@ function AboutApp() {
 		const deferredPrompt = window.deferredPWAEvent;
 
 		if (!deferredPrompt) {
-			setPwaErrorModalTitleType("2");
 			togglePwaErrorModal(true);
 		}
 	}
@@ -160,7 +156,7 @@ function AboutApp() {
 						</div>
 					)}
 				</div>
-				<PwaErrorModal titleType={pwaErrorModalTitleType} toggle={togglePwaErrorModal} open={isPwaErrorModalOpen} />
+				<PwaErrorModal toggle={togglePwaErrorModal} open={isPwaErrorModalOpen} />
 				<SecurityDashboardModal isOpen={isSecurityModalOpen} onClose={() => setIsSecurityModalOpen(false)} />
 			</div>
 			<Footer />

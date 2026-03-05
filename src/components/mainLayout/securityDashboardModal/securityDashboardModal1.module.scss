@@ -41,8 +41,10 @@
 	transition: opacity 0.2s;
 	z-index: 10;
 
-	&:hover {
-		opacity: 0.7;
+	@media (min-width: 1024px) {
+		&:hover {
+			opacity: 0.7;
+		}
 	}
 }
 
@@ -129,8 +131,10 @@
 	border-radius: 12px;
 	transition: transform 0.2s;
 
-	&:hover {
-		transform: translateY(-2px);
+	@media (min-width: 1024px) {
+		&:hover {
+			transform: translateY(-2px);
+		}
 	}
 }
 
@@ -183,8 +187,10 @@
 	text-decoration: none;
 	font-weight: 500;
 
-	&:hover {
-		text-decoration: underline;
+	@media (min-width: 1024px) {
+		&:hover {
+			text-decoration: underline;
+		}
 	}
 }
 
@@ -200,7 +206,9 @@
 	font-weight: 500;
 	transition: background 0.2s;
 
-	&:hover {
-		background: var(--color-cal-poly-pomona-green);
+	@media (min-width: 1024px) {
+		&:hover {
+			background: var(--color-cal-poly-pomona-green);
+		}
 	}
 }

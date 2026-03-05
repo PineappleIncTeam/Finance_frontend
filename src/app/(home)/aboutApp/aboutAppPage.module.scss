@@ -169,8 +169,10 @@
 	cursor: pointer;
 	transition: opacity 0.2s;
 
-	&:hover {
-		opacity: 0.8;
+	@media (min-width: 1024px) {
+		&:hover {
+			opacity: 0.8;
+		}
 	}
 
 	@media (max-width: 920px) {

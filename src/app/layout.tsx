@@ -35,7 +35,6 @@ export default function RootLayout({
 		<html lang="en" suppressHydrationWarning>
 			<head>
 				<PublicEnvScript />
-				<link rel="manifest" href="/manifest.json"></link>
 			</head>
 			<body className={cn(rubik.className, manrope.className)} suppressHydrationWarning>
 				<ProviderList>{children}</ProviderList>

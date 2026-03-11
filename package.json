@@ -23,7 +23,7 @@
 		"@serwist/next": "^9.5.6",
 		"@serwist/sw": "^9.5.6",
 		"@vkid/sdk": "^2.6.5",
-		"axios": "^1.13.5",
+		"axios": "^1.13.6",
 		"chart.js": "^4.5.1",
 		"check-password-strength": "^3.0.0",
 		"classnames": "^2.5.1",
@@ -41,9 +41,13 @@
 		"react-redux": "^9.2.0",
 		"redux-persist": "^6.0.0",
 		"redux-saga": "^1.4.2",
+<<<<<<< HEAD
 		"typedoc": "^0.28.15",
 		"typedoc-github-theme": "^0.3.1",
 		"sass": "^1.97.3",
+=======
+		"sass": "^1.98.0",
+>>>>>>> a0af8d1d (build: update npm package versions)
 		"serwist": "^9.5.6",
 		"sharp": "^0.34.5"
 	},
@@ -51,15 +55,15 @@
 		"require-in-the-middle": "8.0.1"
 	},
 	"devDependencies": {
-		"@eslint/eslintrc": "^3.3.4",
-		"@eslint/js": "^9.39.3",
-		"@types/node": "^20.19.33",
+		"@eslint/eslintrc": "^3.3.5",
+		"@eslint/js": "^9.39.4",
+		"@types/node": "^20.19.37",
 		"@types/react": "^19.2.14",
 		"@types/react-dom": "^19.2.3",
 		"@typescript-eslint/eslint-plugin": "^8.46.4",
 		"@typescript-eslint/parser": "^8.46.4",
 		"babel-plugin-react-compiler": "^1.0.0",
-		"eslint": "^9.39.3",
+		"eslint": "^9.39.4",
 		"eslint-config-next": "^16.1.6",
 		"eslint-config-prettier": "^9.1.2",
 		"eslint-plugin-hooks": "^0.4.3",

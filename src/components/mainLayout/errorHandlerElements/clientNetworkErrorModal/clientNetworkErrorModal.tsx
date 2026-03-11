@@ -12,6 +12,8 @@ export function ClientNetworkErrorModal() {
 
 	useLockScroll(isOpen);
 
+	const isDev = process.env.NODE_ENV === "development";
+
 	if (!isOpen) return <></>;
 
 	return (
@@ -26,9 +28,11 @@ export function ClientNetworkErrorModal() {
 				<div className={styles.errorContentWrap}>
 					<p className={styles.errorContentWrap__errorMessage}>
 						<strong>Сообщение: </strong>
-						{error?.message}
+						{error?.message === "Network Error"
+							? "Потеряно соединение с сервером. Пожалуйста, проверьте интернет-соединение."
+							: error?.message}
 					</p>
-					{error?.stack && (
+					{error?.stack && isDev && (
 						<div className={styles.stackTraceWrap}>
 							<strong className={styles.stackTraceWrap__title}>Стек вызовов:</strong>
 							<pre className={styles.stackTraceWrap__preSubtitle}>{error.stack}</pre>

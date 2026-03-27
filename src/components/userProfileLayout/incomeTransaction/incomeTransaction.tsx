@@ -15,7 +15,7 @@ export default function IncomeTransaction({ date, name, amount, onDeleteClick, e
 		<div className={styles.incomeTransactionContainer}>
 			<p className={styles.transactionData}>{date}</p>
 			<p className={styles.transactionData}>{name}</p>
-			<p className={styles.transactionData}>- {amount} ₽</p>
+			<p className={styles.transactionData}>+ {amount} ₽</p>
 			<div className={styles.incomeTransactionContainer__actionsWrapper}>
 				<div role="button" onClick={() => onDeleteClick()}>
 					<DeleteIcon classNames={styles.deleteIcon} />

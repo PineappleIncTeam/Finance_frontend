@@ -2,13 +2,13 @@ import withSerwistInit from "@serwist/next";
 
 import type { NextConfig } from "next";
 
-const isDev = process.env.NODE_ENV === "development";
+const isProd = process.env.NODE_ENV === "production";
 const apiUrl = process.env.NEXT_PUBLIC_BASE_URL;
 const oauthUrl = process.env.NEXT_PUBLIC_OAUTH_URL || "https://id.vk.ru";
 
-const cspHeader = ` 
+const cspHeader = isProd ? ` 
 	default-src 'self';
-	script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ""};
+	script-src 'self' 'unsafe-inline';
 	style-src 'self' 'unsafe-inline';
 	img-src 'self' blob: data:;
 	font-src 'self';
@@ -18,7 +18,7 @@ const cspHeader = `
 	frame-ancestors 'none';
 	connect-src 'self' ${apiUrl} ${oauthUrl};
 	upgrade-insecure-requests;
-`;
+`: "";
 
 const withSerwist = withSerwistInit({
 	swSrc: "src/sw.ts",
@@ -31,7 +31,7 @@ const nextConfig: NextConfig = {
 		formats: ["image/avif", "image/webp"],
 	},
 	async headers() {
-		return [
+		return isProd ? [
 			{
 				source: "/(.*)",
 				headers: [
@@ -58,8 +58,8 @@ const nextConfig: NextConfig = {
 					},
 				],
 			},
-		];
+		] : [];
 	},
 };
 
-export default withSerwist(nextConfig);
+export default isProd ? withSerwist(nextConfig) : nextConfig;

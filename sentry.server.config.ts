@@ -2,7 +2,7 @@ import * as Sentry from "@sentry/nextjs";
 
 if (process.env.NODE_ENV === "production") {
   Sentry.init({
-    dsn: "https://f03cfc88c0603e541df1f60fca1b4a60@o4510324817330176.ingest.de.sentry.io/4510324909408336",
+    dsn: "https://fb9a35fc1827441692fa96deb165f293bbe1c6ba94c4441dbd1fb546503464d7@k1.hawk.so/0",
     enableLogs: true,
     sendDefaultPii: true,
   });

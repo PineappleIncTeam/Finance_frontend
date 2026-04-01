@@ -41,13 +41,7 @@
 		"react-redux": "^9.2.0",
 		"redux-persist": "^6.0.0",
 		"redux-saga": "^1.4.2",
-<<<<<<< HEAD
-		"typedoc": "^0.28.15",
-		"typedoc-github-theme": "^0.3.1",
-		"sass": "^1.97.3",
-=======
 		"sass": "^1.98.0",
->>>>>>> a0af8d1d (build: update npm package versions)
 		"serwist": "^9.5.6",
 		"sharp": "^0.34.5"
 	},

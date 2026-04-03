@@ -18,7 +18,7 @@
 		"lint": "eslint --ext .js,.jsx,.ts,.tsx ./src ./scripts",
 		"lint:fix": "npm run lint -- --fix",
 		"format": "prettier --write src/**/*.{js,jsx,ts,tsx,css,scss,md,json} --config ./.prettierrc",
-		"index": "git add ."
+		"index": "git add ." 
 	},
 	"dependencies": {
 		"@eslint/compat": "^1.4.0",

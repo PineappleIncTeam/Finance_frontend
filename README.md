@@ -34,6 +34,6 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 ## Deploy
 
-This application is forked and available at this link:
+This application is forked and available at this link: 
 
 [https://freenance.store](https://freenance.store/)

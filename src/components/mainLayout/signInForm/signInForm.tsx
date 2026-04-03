@@ -6,7 +6,9 @@ import { useRouter, useSearchParams } from "next/navigation";
 import axios, { AxiosResponse, isAxiosError } from "axios";
 import Link from "next/link";
 import * as VKID from "@vkid/sdk";
+import * as Sentry from "@sentry/nextjs";
 
+import { sendErrorToMonitoring } from "../../../hooks/useGlobalErrorHandler";
 import { useClientNetworkErrorModal } from "../../../hooks/useClientNetworkErrorModal";
 import { useActions } from "../../../services/redux/hooks";
 import { useRuntimeEnv } from "../../../hooks/useRuntimeEnv";
@@ -76,6 +78,7 @@ export default function SignInForm() {
 
 	const router = useRouter();
 
+	const maxInitRetries = 5;
 	const retryDelay = 200;
 
 	const vkAppId = Number(getSafeEnvVar("NEXT_PUBLIC_VK_APP_ID", "12354678"));
@@ -102,6 +105,17 @@ export default function SignInForm() {
 		}
 
 		const attemptInitialization = () => {
+			if (process.env.NODE_ENV === "production" && initAttempts >= maxInitRetries) {
+				const signinAttemptsError: Sentry.Exception = {
+					type: "Signin attempts",
+					value: "Running out signin attempts",
+					module: "SigninForm",
+				};
+				sendErrorToMonitoring(signinAttemptsError);
+
+				return;
+			}
+
 			try {
 				VKID.Config.init({
 					app: vkAppId ?? 0,

@@ -1,5 +1,5 @@
 import withSerwistInit from "@serwist/next";
-
+import { withSentryConfig } from "@sentry/nextjs";
 import type { NextConfig } from "next";
 
 const isProd = process.env.NODE_ENV === "production";
@@ -62,4 +62,14 @@ const nextConfig: NextConfig = {
 	},
 };
 
-export default isProd ? withSerwist(nextConfig) : nextConfig;
+const getWithSentryConfig = (nextjsConfig: NextConfig) => withSentryConfig(nextjsConfig, {
+	org: "pineappleinc",
+	project: "fintech-frnn-fe-proj",
+	silent: !process.env.CI,
+	widenClientFileUpload: false,
+	// tunnelRoute: "/monitoring",
+	disableLogger: true,
+	automaticVercelMonitors: false
+});
+
+export default isProd ? getWithSentryConfig(withSerwist(nextConfig)) : getWithSentryConfig(nextConfig);

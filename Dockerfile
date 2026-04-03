@@ -5,6 +5,6 @@ COPY package.json package-lock.json ./
 RUN npm ci
 COPY . .
 RUN npm run build
-EXPOSE 3000
+EXPOSE 3000 8080
 USER node
-CMD [ "pm2-runtime", "npm", "--", "start" ]   
+CMD ["pm2-runtime", "ecosystem.config.js"] 

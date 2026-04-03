@@ -8,6 +8,7 @@ import { defineConfig, globalIgnores } from "eslint/config";
 import nextVitals from "eslint-config-next/core-web-vitals";
 import nextTs from "eslint-config-next/typescript";
 
+import storybookPlugin from "eslint-plugin-storybook";
 import eslintReact from "eslint-plugin-react";
 import eslintSolid from "eslint-plugin-solid";
 import eslintJsxA11y from "eslint-plugin-jsx-a11y";
@@ -35,6 +36,7 @@ const eslintConfig = defineConfig([
 		},
 	}),
 	...compat.extends("plugin:import/typescript"),
+	...storybookPlugin.configs["flat/recommended"],
 	globalIgnores([
 		"node_modules/**",
 		".next/**",
@@ -42,6 +44,8 @@ const eslintConfig = defineConfig([
 		"build/**",
 		"docs/**",
 		"next-env.d.ts",
+		"storybook-static/**",
+		"ecosystem.config.js",
 	]),
 	{
 		languageOptions: {
@@ -75,6 +79,8 @@ const eslintConfig = defineConfig([
 			"docs/**",
 			"docs/**",
 			"next-env.d.ts",
+			"storybook-static/**",
+			"ecosystem.config.js",
 		],
 		rules: {
 			camelcase: "error",

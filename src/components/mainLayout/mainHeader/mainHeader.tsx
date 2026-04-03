@@ -9,7 +9,9 @@ import axios, { AxiosResponse } from "axios";
 
 import { useRuntimeEnv } from "../../../hooks/useRuntimeEnv";
 import { useAppSelector } from "../../../services/redux/hooks/useAppSelector";
+import { useActions } from "../../../services/redux/hooks";
 
+import { BeforeInstallPromptEvent } from "../../../types/common/GlobalTypes";
 import { IValidateTokenResponse } from "../../../types/api/Auth";
 import autoLoginSelector from "../../../services/redux/features/autoLogin/autoLoginSelector";
 import { validateToken } from "../../../services/api/auth/validateToken";
@@ -31,6 +33,8 @@ const MainHeader = () => {
 	const modalRef = useRef<HTMLDivElement | null>(null);
 	const router = useRouter();
 
+	const { setCanInstall, setIsPWAInstalled } = useActions();
+
 	const { isAutoLogin } = useAppSelector(autoLoginSelector);
 
 	const handleClickOutside = (
@@ -46,6 +50,35 @@ const MainHeader = () => {
 	const { getSafeEnvVar } = useRuntimeEnv(["NEXT_PUBLIC_BASE_URL"]);
 
 	const baseUrl = getSafeEnvVar("NEXT_PUBLIC_BASE_URL", mockBaseUrl);
+
+	useEffect(() => {
+		if (typeof window !== "undefined") {
+			const isStandalone = window.matchMedia("(display-mode: standalone)").matches;
+			setIsPWAInstalled(isStandalone);
+		}
+
+		const handleBeforeInstallPrompt = (event: Event) => {
+			const installEvent = event as BeforeInstallPromptEvent;
+
+			installEvent.preventDefault();
+			window.deferredPWAEvent = installEvent;
+			setCanInstall(true);
+		};
+
+		const handleAppInstalled = () => {
+			setCanInstall(false);
+			setIsPWAInstalled(true);
+		};
+
+		window.addEventListener("beforeinstallprompt", handleBeforeInstallPrompt);
+		window.addEventListener("appinstalled", handleAppInstalled);
+
+		return () => {
+			window.removeEventListener("beforeinstallprompt", handleBeforeInstallPrompt);
+			window.removeEventListener("appinstalled", handleAppInstalled);
+		};
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
 
 	useEffect(() => {
 		try {
@@ -156,10 +189,26 @@ const MainHeader = () => {
 		<header className={styles.headerWrap}>
 			<div className={styles.headerContainer}>
 				<Link href={MainPath.Main} className={styles.logoLink}>
-					<Image src={logo} alt="Логотип" width={284} height={56} className={styles.headerContainer__img} />
+					<Image
+						src={logo}
+						alt="Логотип"
+						width={284}
+						height={56}
+						className={styles.headerContainer__img}
+						priority={true}
+						quality={65}
+						sizes="(max-width: 768px) 150px, 284px"
+					/>
 				</Link>
 				<button onClick={() => setIsHeaderModalOpen(!isHeaderModalOpen)}>
-					<Image src={burger} alt="Бургер" width={74} height={30} className={styles.headerContainer__burger} />
+					<Image
+						src={burger}
+						alt="Бургер"
+						width={74}
+						height={30}
+						className={styles.headerContainer__burger}
+						quality={60}
+					/>
 				</button>
 				{renderModalWindow()}
 				<nav className={styles.navigationWrap}>{renderNavigationElements()}</nav>

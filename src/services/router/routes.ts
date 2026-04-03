@@ -12,6 +12,7 @@ export enum MainPath {
 	NotFound = "/notfound",
 	BlogPage = "/blogPage",
 	ActivationPage = "/activate",
+	Offline = "/offline",
 }
 
 export enum UserProfilePath {

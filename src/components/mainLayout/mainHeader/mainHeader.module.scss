@@ -317,6 +317,8 @@
 	}
 }
 
-.navigationLink:hover::before {
-	width: 100%;
+@media (min-width: 1024px) {
+	.navigationLink:hover::before {
+		width: 100%;
+	}
 }

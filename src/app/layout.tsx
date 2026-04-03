@@ -1,6 +1,5 @@
 import "./reset.css";
 import "./globals.css";
-
 import { PublicEnvScript } from "next-runtime-env";
 import cn from "classnames";
 
@@ -33,11 +32,11 @@ export default function RootLayout({
 	children: React.ReactNode;
 }>) {
 	return (
-		<html lang="en">
+		<html lang="en" suppressHydrationWarning>
 			<head>
 				<PublicEnvScript />
 			</head>
-			<body className={cn(rubik.className, manrope.className)}>
+			<body className={cn(rubik.className, manrope.className)} suppressHydrationWarning>
 				<ProviderList>{children}</ProviderList>
 			</body>
 		</html>

@@ -17,7 +17,7 @@ interface IGlobalErrorPage {
 	reset: () => void;
 }
 
-export default function GlobalError({ error, reset }: IGlobalErrorPage) {
+export default function GlobalError({ error, reset }: Readonly<IGlobalErrorPage>) {
 	useEffect(() => {
 		Sentry.captureException(error);
 	}, [error]);

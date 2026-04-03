@@ -16,7 +16,12 @@
 	border-radius: 12px;
 	transition: 0.4s;
 
-	&:hover,
+	@media (min-width: 1024px) {
+		&:hover {
+			background-color: var(--color-cal-poly-pomona-green);
+		}
+	}
+
 	&:active {
 		background-color: var(--color-cal-poly-pomona-green);
 	}

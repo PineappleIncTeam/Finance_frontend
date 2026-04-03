@@ -9,7 +9,6 @@ import * as VKID from "@vkid/sdk";
 import * as Sentry from "@sentry/nextjs";
 
 import { sendErrorToMonitoring } from "../../../hooks/useGlobalErrorHandler";
-
 import { useActions } from "../../../services/redux/hooks";
 import { useRuntimeEnv } from "../../../hooks/useRuntimeEnv";
 
@@ -100,12 +99,12 @@ export default function SignUpForm() {
 
 		const attemptInitialization = () => {
 			if (process.env.NODE_ENV === "production" && initAttempts >= maxInitRetries) {
-				const signupAttemptsError: Sentry.Exception = {
-					type: "Signup attempts",
+				const signinAttemptsError: Sentry.Exception = {
+					type: "Signin attempts",
 					value: "Running out signin attempts",
 					module: "SigninForm",
 				};
-				sendErrorToMonitoring(signupAttemptsError);
+				sendErrorToMonitoring(signinAttemptsError);
 
 				return;
 			}

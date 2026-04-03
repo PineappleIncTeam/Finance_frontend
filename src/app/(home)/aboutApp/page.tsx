@@ -1,11 +1,15 @@
 "use client";
 
 import { useState } from "react";
-
 import Image from "next/image";
 
-import Footer from "../../../components/mainLayout/footer/footer";
+import { useAppSelector } from "../../../services/redux/hooks";
 
+import Footer from "../../../components/mainLayout/footer/footer";
+import PwaErrorModal from "../../../components/mainLayout/pwaErrorModal/pwaErrorModal";
+import PWAInstallButton from "../../../components/mainLayout/pwaInstallButton/pwaInstallButton";
+import SecurityDashboardModal from "../../../components/mainLayout/securityDashboardModal/securityDashboardModal1";
+import { pwaDetailsSelector } from "../../../services/redux/features/pwaDetails/pwaDetailsSelector";
 import { transitionGoogleStore } from "../../../mocks/linkSetup";
 
 import registration from "../../../assets/pages/aboutApp/registration.webp";
@@ -27,20 +31,55 @@ import styles from "./aboutAppPage.module.scss";
 
 function AboutApp() {
 	const [isVideoElementStart, setIsVideoElementStart] = useState<boolean>(false);
+	const [isPwaErrorModalOpen, setIsPwaErrorModalOpen] = useState<boolean>(false);
+	const [isSecurityModalOpen, setIsSecurityModalOpen] = useState<boolean>(false);
+
+	const { isInstalled: isInstalledFromRedux } = useAppSelector(pwaDetailsSelector);
 
 	const buttonAction = (prop: boolean) => {
 		setIsVideoElementStart(prop);
 	};
+
+	function togglePwaErrorModal(isOpen: boolean) {
+		setIsPwaErrorModalOpen(isOpen);
+	}
+
+	function handlePwaClick() {
+		if (isInstalledFromRedux) {
+			togglePwaErrorModal(true);
+			return;
+		}
+
+		const deferredPrompt = window.deferredPWAEvent;
+
+		if (!deferredPrompt) {
+			togglePwaErrorModal(true);
+		}
+	}
 
 	return (
 		<div className={styles.aboutAppWrap}>
 			<div className={styles.aboutAppContainer}>
 				<div className={styles.aboutAppHeaderWrapper}>
 					<h1 className={styles.aboutAppHeader}>Используйте Freenance с лёгкостью</h1>
-					<a className={styles.googlePlayButton} href={transitionGoogleStore} target="_blank" rel="noopener noreferrer">
-						<GooglePlayIcon classNames={styles.googlePlayIcon} />
-						<p className={styles.googlePlayButton__text}>доступно в Google Play</p>
-					</a>
+					<div className={styles.actionContainer}>
+						<a
+							className={styles.googlePlayButton}
+							href={transitionGoogleStore}
+							target="_blank"
+							rel="noopener noreferrer">
+							<GooglePlayIcon classNames={styles.googlePlayIcon} />
+							<p className={styles.googlePlayButton__text}>доступно в Google Play</p>
+						</a>
+						<div className={styles.pwaActionContainer}>
+							<div onClick={handlePwaClick} role="button">
+								<PWAInstallButton />
+							</div>
+							<button className={styles.securityModalLink} onClick={() => setIsSecurityModalOpen(true)}>
+								Как мы защищаем ваши данные?
+							</button>
+						</div>
+					</div>
 				</div>
 				<div className={styles.aboutAppPageInstructionWrapper}>
 					<div className={styles.aboutAppPageInstructionContainer}>
@@ -117,6 +156,8 @@ function AboutApp() {
 						</div>
 					)}
 				</div>
+				<PwaErrorModal toggle={togglePwaErrorModal} open={isPwaErrorModalOpen} />
+				<SecurityDashboardModal isOpen={isSecurityModalOpen} onClose={() => setIsSecurityModalOpen(false)} />
 			</div>
 			<Footer />
 		</div>

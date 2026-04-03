@@ -4,16 +4,21 @@ import createSagaMiddleware from "redux-saga";
 
 import { dataSlice } from "./features/infoPart/InfoPartSlice";
 import { balanceSlice } from "./features/userBalance/balanceSlice";
+import { reportsStatisticsSlice } from "./features/reportStatistics/reportStatisticsSlice";
 import { cookieStatusSlice } from "./features/cookieStatus/cookieStatusSlice";
 import { autoLoginSlice } from "./features/autoLogin/autoLoginSlice";
 import { userDataSlice } from "./features/userData/UserDataSlice";
 import { userSettingsSlice } from "./features/userSettings/userSettingsSlice";
 import { countriesDataSlice } from "./features/countriesData/countriesDataSlice";
+import { pwaDetailsSlice } from "./features/pwaDetails/pwaDetailsSlice";
+import { reportsCategorySlice } from "./features/reportsCategories/reportsCategorySlice";
 
 // Saga watchers
 import { watchFetchUserData } from "./features/userData/UserDataSaga";
 import { watchFetchCountriesData } from "./features/countriesData/countriesDataSaga";
 import { watchBalanceSaga } from "./features/userBalance/balanceSaga";
+import { watchReportCategoriesSaga } from "./features/reportsCategories/reportsCategorySaga";
+import { watchReportsStatisticsSaga } from "./features/reportStatistics/reportStatisticsSaga";
 
 import persistConfig from "./persist/persistConfig";
 
@@ -25,6 +30,7 @@ const RootActions = {
 	...autoLoginSlice.actions,
 	...userDataSlice.actions,
 	...userSettingsSlice.actions,
+	...pwaDetailsSlice.actions,
 };
 
 const RootReducer = combineReducers({
@@ -35,6 +41,9 @@ const RootReducer = combineReducers({
 	userSettings: userSettingsSlice.reducer,
 	countriesData: countriesDataSlice.reducer,
 	balance: balanceSlice.reducer,
+	reportsStatistics: reportsStatisticsSlice.reducer,
+	pwaDetails: pwaDetailsSlice.reducer,
+	reportsCategories: reportsCategorySlice.reducer,
 });
 
 const persistedRootReducer = persistReducer(persistConfig, RootReducer);
@@ -50,6 +59,8 @@ const store = configureStore({
 sagaMiddleware.run(watchFetchUserData);
 sagaMiddleware.run(watchFetchCountriesData);
 sagaMiddleware.run(watchBalanceSaga);
+sagaMiddleware.run(watchReportCategoriesSaga);
+sagaMiddleware.run(watchReportsStatisticsSaga);
 
 export const persistor = persistStore(store);
 export type RootState = ReturnType<typeof store.getState>;

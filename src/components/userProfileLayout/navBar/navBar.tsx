@@ -34,9 +34,12 @@ const NavBar = ({ onClick }: INavBar) => {
 	const modalRef = useRef<HTMLDivElement | null>(null);
 	const router = useRouter();
 
+	const initialPath = useRef<string>(pathname);
+
 	const { getSafeEnvVar } = useRuntimeEnv(["NEXT_PUBLIC_BASE_URL"]);
 
 	const baseUrl = getSafeEnvVar("NEXT_PUBLIC_BASE_URL", mockBaseUrl);
+
 	const handleLogout = async () => {
 		try {
 			if (baseUrl) {
@@ -50,7 +53,7 @@ const NavBar = ({ onClick }: INavBar) => {
 						router.push(MainPath.Main);
 					}
 				} else {
-					// vk auth logout
+					// TODO: vk auth logout
 				}
 			}
 		} catch (error) {
@@ -105,11 +108,9 @@ const NavBar = ({ onClick }: INavBar) => {
 	}, [isPathOpen]);
 
 	useEffect(() => {
-		(() => {
-			if (isPathOpen) {
-				setIsPathOpen(false);
-			}
-		})();
+		if (onClick && pathname !== initialPath.current) {
+			onClick();
+		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [pathname]);
 

@@ -14,6 +14,7 @@
 		font-size: 2rem;
 		line-height: 2.8rem;
 		color: var(--color-very-dark-grayish-blue);
+
 		@media (max-width: 600px) {
 			display: none;
 		}
@@ -34,14 +35,16 @@
 		text-overflow: ellipsis;
 		white-space: nowrap;
 
+		@media (min-width: 1024px) {
+			&:hover {
+				border-color: var(--color-dark-spring-green);
+			}
+		}
+
 		@media (max-width: 600px) {
 			font-size: 1.3rem;
 			line-height: 1.8rem;
 			min-height: 38px;
-		}
-
-		&:hover {
-			border-color: var(--color-dark-spring-green);
 		}
 	}
 
@@ -65,8 +68,11 @@
 
 	&__option {
 		padding: 10px 16px 12px;
-		&:hover {
-			background-color: var(--color-light-grayish-green);
+
+		@media (min-width: 1024px) {
+			&:hover {
+				background-color: var(--color-light-grayish-green);
+			}
 		}
 	}
 

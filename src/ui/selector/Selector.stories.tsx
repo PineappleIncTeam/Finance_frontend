@@ -1,6 +1,5 @@
 import { Meta, StoryObj } from "@storybook/nextjs";
 import { Control, FieldValues, useForm } from "react-hook-form";
-import React from "react";
 
 import { TSelectorStory } from "../../types/common/StorybookElementProps";
 import { TAuthInputForm } from "../../types/common/UiKitProps";

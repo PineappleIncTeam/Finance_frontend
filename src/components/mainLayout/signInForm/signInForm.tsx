@@ -9,7 +9,6 @@ import * as VKID from "@vkid/sdk";
 import * as Sentry from "@sentry/nextjs";
 
 import { sendErrorToMonitoring } from "../../../hooks/useGlobalErrorHandler";
-
 import { useClientNetworkErrorModal } from "../../../hooks/useClientNetworkErrorModal";
 import { useActions } from "../../../services/redux/hooks";
 import { useRuntimeEnv } from "../../../hooks/useRuntimeEnv";

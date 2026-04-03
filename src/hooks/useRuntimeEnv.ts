@@ -66,15 +66,6 @@ export function useRuntimeEnv(requiredVars: string[] = []) {
 	);
 
 	useEffect(() => {
-		const timer = setTimeout(() => {
-			validateEnvVars();
-			setIsLoading(false);
-		}, timerDelay);
-
-		return () => clearTimeout(timer);
-	}, [validateEnvVars]);
-
-	useEffect(() => {
 		if (process.env.NODE_ENV === "production" && !validation.isValid) {
 			const envValidationError: Sentry.Exception = {
 				type: "Env validating",
@@ -86,6 +77,15 @@ export function useRuntimeEnv(requiredVars: string[] = []) {
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [validation.isValid, validation.missingVars]);
+
+	useEffect(() => {
+		const timer = setTimeout(() => {
+			validateEnvVars();
+			setIsLoading(false);
+		}, timerDelay);
+
+		return () => clearTimeout(timer);
+	}, [validateEnvVars]);
 
 	return {
 		...validation,

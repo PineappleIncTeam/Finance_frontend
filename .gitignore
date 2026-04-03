@@ -52,5 +52,9 @@ next-env.d.ts
 *storybook.log
 storybook-static
 /docs
+
 # Sentry Config File
 .env.sentry-build-plugin
+
+# PWA Files
+/public/sw.js

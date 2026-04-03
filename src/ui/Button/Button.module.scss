@@ -15,12 +15,14 @@
 		color: var(--color-pure-light);
 		background-color: var(--color-dark-spring-green);
 
-		&:hover {
-			background-color: var(--color-cal-poly-pomona-green);
-		}
-
 		&:disabled {
 			background-color: var(--color-star-dust);
+		}
+
+		@media (min-width: 1024px) {
+			&:hover {
+				background-color: var(--color-cal-poly-pomona-green);
+			}
 		}
 	}
 
@@ -44,10 +46,6 @@
 			transition: opacity 0.4s;
 		}
 
-		&:hover::before {
-			opacity: 1;
-		}
-
 		&:active {
 			background: linear-gradient(179.76deg, var(--color-mustard) 0.21%, var(--color-carrot-orange) 172.57%);
 		}
@@ -57,8 +55,14 @@
 			background: linear-gradient(179.76deg, var(--color-jasmine) 0.21%, var(--color-sandy-drown) 172.57%);
 		}
 
-		&:disabled:hover::before {
-			opacity: 0;
+		@media (min-width: 1024px) {
+			&:hover::before {
+				opacity: 1;
+			}
+
+			&:disabled:hover::before {
+				opacity: 0;
+			}
 		}
 	}
 
@@ -67,7 +71,6 @@
 		background: var(--color-pure-light);
 		border: 3px solid var(--color-dark-spring-green);
 
-		&:hover,
 		&:active {
 			color: var(--color-cal-poly-pomona-green);
 			border-color: var(--color-cal-poly-pomona-green);
@@ -76,6 +79,13 @@
 		&:disabled {
 			color: var(--color-star-dust);
 			border-color: var(--color-star-dust);
+		}
+
+		@media (min-width: 1024px) {
+			&:hover {
+				color: var(--color-cal-poly-pomona-green);
+				border-color: var(--color-cal-poly-pomona-green);
+			}
 		}
 
 		@media (max-width: 768px) {
@@ -91,7 +101,6 @@
 		color: var(--color-pure-light);
 		background-color: var(--color-bright-maroon);
 
-		&:hover,
 		&:active {
 			background-color: var(--color-dark-maroon);
 		}
@@ -99,19 +108,30 @@
 		&:disabled {
 			background-color: var(--color-star-dust);
 		}
+
+		@media (min-width: 1024px) {
+			&:hover {
+				background-color: var(--color-dark-maroon);
+			}
+		}
 	}
 
 	&[data-style="faded"] {
 		color: var(--color-pure-light);
 		background-color: var(--color-dark-sea-green);
 
-		&:hover,
 		&:active {
 			background-color: var(--color-very-dark-sea-green);
 		}
 
 		&:disabled {
 			background-color: var(--color-star-dust);
+		}
+
+		@media (min-width: 1024px) {
+			&:hover {
+				background-color: var(--color-very-dark-sea-green);
+			}
 		}
 	}
 

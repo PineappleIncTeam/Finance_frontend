@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { ClientNetworkErrorModalContext } from "../../../../hooks/useClientNetworkErrorModal";
 
@@ -9,6 +9,11 @@ import { IClientNetworkErrorModalProvider } from "../../../../types/components/C
 export function ClientNetworkErrorModalProvider({ children }: IClientNetworkErrorModalProvider) {
 	const [isOpen, setIsOpen] = useState<boolean>(false);
 	const [error, setError] = useState<Error | null>(null);
+
+	const offlineError: Error = {
+		name: "Network Error",
+		message: "Потеряно соединение с сервером. Пожалуйста, проверьте интернет-соединение.",
+	};
 
 	const openModal = (error: Error) => {
 		setError(error);
@@ -19,6 +24,24 @@ export function ClientNetworkErrorModalProvider({ children }: IClientNetworkErro
 		setIsOpen(false);
 		setError(null);
 	};
+
+	useEffect(() => {
+		const handleOffline = () => {
+			openModal(offlineError);
+		};
+
+		const handleOnline = () => {
+			closeModal();
+		};
+
+		window.addEventListener("offline", handleOffline);
+		window.addEventListener("online", handleOnline);
+
+		return () => {
+			window.removeEventListener("offline", handleOffline);
+			window.removeEventListener("online", handleOnline);
+		};
+	}, []);
 
 	return (
 		<ClientNetworkErrorModalContext.Provider value={{ isOpen, error, openModal, closeModal }}>

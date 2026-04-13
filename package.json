@@ -20,7 +20,7 @@
 		"@serwist/next": "^9.5.6",
 		"@serwist/sw": "^9.5.6",
 		"@vkid/sdk": "^2.6.5",
-		"axios": "^1.13.6",
+		"axios": "^1.15.0",
 		"chart.js": "^4.5.1",
 		"check-password-strength": "^3.0.0",
 		"classnames": "^2.5.1",
